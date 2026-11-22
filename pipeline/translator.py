@@ -34,7 +34,9 @@ DEFAULT_LEDGER_PATH = ROOT / "data" / "i18n" / "translation_spend.json"
 
 CAP_ENV = "TRANSLATION_MONTHLY_USD_CAP"
 LEDGER_HISTORY_CAP = 200
-MAX_OUTPUT_TOKENS = 4096
+MIN_OUTPUT_TOKENS = 4096
+# Longest non-streaming request the SDK allows without raising.
+MAX_OUTPUT_TOKENS = 16000
 CHARS_PER_TOKEN = 3
 LATIN = re.compile(r"[A-Za-z]")
 
@@ -78,6 +80,18 @@ class TranslationError(RuntimeError):
 
 def _read_policy() -> dict:
     return json.loads(POLICY_PATH.read_text(encoding="utf-8"))
+
+
+def model_for(surface: str) -> str:
+    """The model id the policy assigns to a surface (``feed`` or ``static``)."""
+    return _read_policy()["surfaces"][surface]["model"]
+
+
+def make_client():
+    """An Anthropic client. Build one per run and pass it to every ``translate`` call."""
+    import anthropic
+
+    return anthropic.Anthropic()
 
 
 def _utc_now() -> datetime:
@@ -182,6 +196,11 @@ def _estimate(model: str, system: str, user: str, field_chars: int) -> float:
     return (in_tokens * p_in + out_tokens * p_out) / 1_000_000
 
 
+def _max_tokens(field_chars: int) -> int:
+    """Output budget for one job: the estimate's 2x expansion plus half again, within the SDK's limits."""
+    return min(MAX_OUTPUT_TOKENS, max(MIN_OUTPUT_TOKENS, int(3 * field_chars / CHARS_PER_TOKEN)))
+
+
 def _glossary_terms() -> list[str]:
     data = yaml.safe_load(GLOSSARY_PATH.read_text(encoding="utf-8")) or {}
     return list(data.get("terms") or [])
@@ -241,14 +260,12 @@ def translate(
     recorded.
     """
     policy = _read_policy()
-    model = policy["surfaces"][surface]["model"]
+    model = model_for(surface)
     max_context = int(policy["max_context_chars"])
     system_text = _system_prompt(locale)
     system = [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}]
     if client is None:
-        import anthropic
-
-        client = anthropic.Anthropic()
+        client = make_client()
 
     results = []
     for job in jobs:
@@ -263,7 +280,7 @@ def translate(
                     ledger.reserve(_estimate(model, system_text, user, field_chars))
                 response = client.messages.create(
                     model=model,
-                    max_tokens=MAX_OUTPUT_TOKENS,
+                    max_tokens=_max_tokens(field_chars),
                     system=system,
                     messages=[{"role": "user", "content": user}],
                 )

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Translate i18n candidates using Google Cloud Translation API v2.
+"""Translate i18n candidates with Claude (pipeline/translator.py).
 
 Usage:
     # Translate all missing/stale daily pages for Korean:
@@ -15,7 +15,11 @@ Usage:
     python scripts/translate.py --locale ko --surface daily --dry-run
 
 Prerequisites:
-    - GOOGLE_TRANSLATE_API_KEY set in the environment
+    - Anthropic credentials in the environment (workload identity in CI)
+
+Spend is metered in USD by the ledger shared with the live feed
+(data/i18n/translation_spend.json). Each page is saved as soon as it is
+translated, so a stop at the monthly cap keeps everything done so far.
 """
 
 from __future__ import annotations
@@ -36,10 +40,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline"))
 
-import build_localized_feed as ledger_lib  # noqa: E402
 import export_i18n_candidates as exporter  # noqa: E402
-import google_translate  # noqa: E402
-import translation_guard  # noqa: E402
+import locales  # noqa: E402
+import translator  # noqa: E402
 import persist_static_i18n as persistence  # noqa: E402
 
 # ---------------------------------------------------------------------------
@@ -49,23 +52,6 @@ DEFAULT_LOCALE = "ko"
 # Surfaces whose Korean version the agent routine writes in the same run as
 # the English one (.agents/skills/daily-summary, weekly-summary).
 AGENT_TRANSLATED_SURFACES = {"daily", "weekly"}
-MODEL_NAME = "google-translate-v2"
-
-# Static pages get their own monthly character allowance, separate from the live
-# feed ledger (data/i18n/<locale>/feed/budget.json). Google's free tier is
-# 500,000 chars/month per billing account; feed cap (400,000) + this (100,000)
-# add up to the whole allowance.
-DEFAULT_STATIC_MONTHLY_CAP = 100_000
-
-
-def _static_cap_from_env() -> int:
-    raw = os.environ.get("GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP")
-    if not raw:
-        return DEFAULT_STATIC_MONTHLY_CAP
-    try:
-        return max(0, int(raw))
-    except ValueError:
-        return DEFAULT_STATIC_MONTHLY_CAP
 
 
 # ---------------------------------------------------------------------------
@@ -199,55 +185,72 @@ def _rebuild_playbook_i18n_index(locale: str) -> None:
 # Main translation loop
 # ---------------------------------------------------------------------------
 
-# Google Cloud Console "characters per day" quota (v2 and v3 are set separately;
-# the project uses v2). The live feed shares it and has priority: static pages
-# only spend what is left after the feed's usage so far today plus a reserve for
-# the rest of the Pacific day (the quota resets at Pacific midnight).
-DEFAULT_DAILY_QUOTA = 16_000
-DEFAULT_FEED_RESERVE = 6_000
+def _parse_path(path: str) -> list[str]:
+    """Parse 'categories[].articles[].title' into ['categories', '[]', 'articles', '[]', 'title']."""
+    segments: list[str] = []
+    for part in path.split("."):
+        if part.endswith("[]"):
+            segments.append(part[:-2])
+            segments.append("[]")
+        else:
+            segments.append(part)
+    return segments
 
 
-def _int_env(name: str, default: int) -> int:
-    raw = os.environ.get(name)
-    if not raw:
-        return default
-    try:
-        return max(0, int(raw))
-    except ValueError:
-        return default
+def _collect_strings(
+    obj: Any,
+    path_segments: list[str],
+    address: list[Any],
+    out: list[tuple[list[Any], str]],
+) -> None:
+    """Recursively collect string values at the given path."""
+    if not path_segments:
+        if isinstance(obj, str) and obj.strip():
+            out.append((list(address), obj))
+        return
+
+    seg = path_segments[0]
+    rest = path_segments[1:]
+
+    if seg == "[]":
+        if not isinstance(obj, list):
+            return
+        for i, item in enumerate(obj):
+            _collect_strings(item, rest, address + [i], out)
+    else:
+        if not isinstance(obj, dict) or seg not in obj:
+            return
+        _collect_strings(obj[seg], rest, address + [seg], out)
 
 
-def _chars_today(ledger: dict[str, Any], now: datetime) -> int:
-    """Characters recorded in this ledger's history during the current Pacific day."""
-    pacific = ledger_lib.PACIFIC_TZ
-    today = now.astimezone(pacific).date()
-    total = 0
-    for entry in ledger.get("history") or []:
-        try:
-            at = datetime.fromisoformat(str(entry["at"]).replace("Z", "+00:00"))
-            if at.astimezone(pacific).date() == today:
-                total += int(entry.get("chars") or 0)
-        except (KeyError, ValueError, TypeError):
-            continue
-    return total
+def _set_at_address(root: dict[str, Any], address: list[Any], value: Any) -> None:
+    """Set a value in a nested dict/list structure, creating containers as needed."""
+    current: Any = root
+    for i, key in enumerate(address[:-1]):
+        next_key = address[i + 1]
+        if isinstance(key, int):
+            while len(current) <= key:
+                current.append({} if isinstance(next_key, str) else [])
+            current = current[key]
+        else:
+            if key not in current:
+                current[key] = [] if isinstance(next_key, int) else {}
+            current = current[key]
 
-
-def _daily_headroom(feed_ledger_path: Path, static_ledger: dict[str, Any], now: datetime) -> int:
-    """Characters static translation may still spend today without starving the feed."""
-    feed_ledger = ledger_lib._read_json(feed_ledger_path) or {}
-    quota = _int_env("GOOGLE_TRANSLATE_DAILY_CHAR_QUOTA", DEFAULT_DAILY_QUOTA)
-    reserve = _int_env("GOOGLE_TRANSLATE_STATIC_FEED_RESERVE", DEFAULT_FEED_RESERVE)
-    used = _chars_today(feed_ledger, now) + _chars_today(static_ledger, now)
-    return quota - reserve - used
+    last_key = address[-1]
+    if isinstance(last_key, int):
+        while len(current) <= last_key:
+            current.append(None)
+        current[last_key] = value
+    else:
+        current[last_key] = value
 
 
 def _candidate_entries(candidate: dict[str, Any]) -> list[tuple[list[Any], str]]:
     """The exact translated strings and addresses, excluding source metadata."""
     entries: list[tuple[list[Any], str]] = []
     for path in candidate["contract"]["translated_fields"]:
-        google_translate._collect_strings(
-            candidate.get("source", {}), google_translate._parse_path(path), [], entries
-        )
+        _collect_strings(candidate.get("source", {}), _parse_path(path), [], entries)
     return entries
 
 
@@ -259,21 +262,21 @@ def _candidate_payload_hash(candidate: dict[str, Any]) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def _estimate_candidate_chars(candidate: dict[str, Any]) -> int:
-    """Billed characters for one candidate (same fields translate_fields sends)."""
-    entries = _candidate_entries(candidate)
-    return google_translate.estimate_billed_chars([v for _, v in entries])
+def page_job(candidate: dict[str, Any], entries: list[tuple[list[Any], str]]) -> translator.Job:
+    """One job per page: its collected strings keyed by their index in ``entries``."""
+    return translator.Job(
+        key=f"{candidate['surface']}/{candidate['id']}",
+        fields={str(i): text for i, (_, text) in enumerate(entries)},
+        context=candidate.get("title", ""),
+    )
 
 
-def _record_spend(
-    ledger_path: Path, ledger: dict[str, Any], stats: dict[str, int], run_id: str
-) -> None:
-    chars = int(stats.get("chars_sent", 0))
-    if chars <= 0:
-        return
-    now = datetime.now(timezone.utc)
-    ledger_lib.record_usage(ledger, chars, run_id, now)
-    ledger_lib.save_ledger(ledger_path, ledger, now)
+def _translated_fields(entries: list[tuple[list[Any], str]], result: translator.Result) -> dict[str, Any]:
+    """The translated strings placed at their source addresses."""
+    translated: dict[str, Any] = {}
+    for i, (address, _) in enumerate(entries):
+        _set_at_address(translated, address, result.fields[str(i)])
+    return translated
 
 
 def translate_candidates(
@@ -285,11 +288,12 @@ def translate_candidates(
     dry_run: bool,
     include_fresh: bool,
     days: int | None = None,
+    client=None,
 ) -> int:
     """Translate candidates and write artifact files. Return exit code."""
     if surfaces is None:
         # Recap routines write their own Korean recaps; only an explicit
-        # --surface daily/weekly sends a recap to Google Translate.
+        # --surface daily/weekly sends a recap to the translator.
         surfaces = set(exporter.SURFACE_ORDER) - AGENT_TRANSLATED_SURFACES
     # Build the candidate list via the existing exporter
     payload = exporter.build_export(
@@ -324,33 +328,26 @@ def translate_candidates(
 
     successes = 0
     failures = 0
-    budget_skipped = 0
     unavailable_skipped = 0
 
-    # Character budget: every candidate is estimated before the API call and
-    # skipped when it would push the month past the cap. Spend is persisted after
-    # each candidate so a crash or cancelled run never loses metering.
-    now = datetime.now(timezone.utc)
-    ledger_path = ROOT / "data" / "i18n" / locale / "feed" / "static_budget.json"
-    ledger = ledger_lib.load_ledger(ledger_path, _static_cap_from_env(), now)
-    feed_ledger_path = ROOT / "data" / "i18n" / locale / "feed" / "budget.json"
-    run_id = now.strftime("%Y%m%d-%H%M%S") + "-static"
-    print(
-        f"translate_static_budget chars_used={ledger['chars_used']} "
-        f"cap={ledger['monthly_cap']} month={ledger['month']}"
-    )
+    # The ledger reserves before every call and records after it, so a crash or
+    # cancelled run never loses metering. Each page is written as soon as it is
+    # translated: a failure or the cap never discards finished pages.
+    ledger = translator.Ledger(ROOT / "data" / "i18n" / "translation_spend.json")
+    print(f"translate_static_budget usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
+    model = translator.model_for("static")
+    client = client or translator.make_client()
 
     for i, candidate in enumerate(items, 1):
         surface = candidate["surface"]
         ident = candidate["id"]
         status = candidate["status"]
-        contract = candidate["contract"]
         title = candidate.get("title", "")[:60]
 
         print(f"\n[{i}/{len(items)}] {surface}/{ident} ({status})")
         print(f"  Title: {title}")
 
-        # An acknowledged lost output was already billed. A later scheduled run
+        # An acknowledged lost output was already paid for. A later scheduled run
         # must not silently buy the identical text after metadata-only rebuilds.
         try:
             lost_run = persistence.lost_output_run(
@@ -370,58 +367,31 @@ def translate_candidates(
             failures += 1
             continue
 
-        # Budget pre-flight: estimate billed characters for this candidate.
-        estimate = _estimate_candidate_chars(candidate)
-        remaining = int(ledger["monthly_cap"]) - int(ledger["chars_used"])
-        if estimate > remaining:
-            print(
-                f"  SKIP: budget (needs ~{estimate} chars, {max(remaining, 0)} left "
-                f"of {ledger['monthly_cap']} this month)"
-            )
-            budget_skipped += 1
-            continue
-        headroom = _daily_headroom(feed_ledger_path, ledger, datetime.now(timezone.utc))
-        if estimate > headroom:
-            print(
-                f"  SKIP: daily quota (needs ~{estimate} chars, {max(headroom, 0)} "
-                "left after the feed's share today)"
-            )
-            budget_skipped += 1
-            continue
-
-        # Call Google Cloud Translation API
-        print(f"  Translating via {MODEL_NAME}...", end="", flush=True)
+        entries = _candidate_entries(candidate)
+        print(f"  Translating via {model}...", end="", flush=True)
         start = time.monotonic()
-        stats: dict[str, int] = {}
         try:
-            translated = google_translate.translate_fields(
-                candidate["source"],
-                contract["translated_fields"],
-                locale,
-                stats=stats,
+            [result] = translator.translate(
+                [page_job(candidate, entries)], locale, "static", client=client, ledger=ledger
             )
-            elapsed = time.monotonic() - start
-            print(f" done ({elapsed:.1f}s)")
+        except translator.BudgetExceeded as exc:
+            print(" STOPPED")
+            print(f"  STOP: {exc}; not trying remaining candidates", file=sys.stderr)
+            break
         except Exception as exc:
-            elapsed = time.monotonic() - start
-            print(f" FAILED ({elapsed:.1f}s)")
+            print(f" FAILED ({time.monotonic() - start:.1f}s)")
             print(f"  Error: {exc}", file=sys.stderr)
             failures += 1
-            # Batches that succeeded before the failure were still billed.
-            _record_spend(ledger_path, ledger, stats, run_id)
-            if isinstance(exc, google_translate.QuotaExceededError):
-                # Spend guard or provider quota: every later candidate would fail too.
-                print("  STOP: quota exhausted, not trying remaining candidates")
-                break
             continue
-        _record_spend(ledger_path, ledger, stats, run_id)
+        print(f" done ({time.monotonic() - start:.1f}s)")
 
-        warnings = _validate_translation(translated, contract, surface)
+        translated = _translated_fields(entries, result)
+        warnings = _validate_translation(translated, candidate["contract"], surface)
         for w in warnings:
             print(f"  WARNING: {w}")
 
         # Assemble and write artifact
-        artifact = _assemble_artifact(candidate, translated, MODEL_NAME)
+        artifact = _assemble_artifact(candidate, translated, model)
         artifact_path = ROOT / candidate["artifact_path"]
         artifact_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -432,20 +402,20 @@ def translate_candidates(
         print(f"  Written: {artifact_path.relative_to(ROOT)}")
         successes += 1
 
+    not_tried = len(items) - successes - failures - unavailable_skipped
     print(f"\n{'='*50}")
     print(
         f"Done: {successes} translated, {failures} failed, "
-        f"{budget_skipped} skipped (budget), {unavailable_skipped} skipped (paid output unavailable), "
-        f"{len(items)} total"
+        f"{unavailable_skipped} skipped (paid output unavailable), "
+        f"{not_tried} not tried (monthly cap), {len(items)} total"
     )
-    print(
-        f"translate_static_budget_done chars_used={ledger['chars_used']} "
-        f"cap={ledger['monthly_cap']} month={ledger['month']}"
-    )
+    print(f"translate_static_budget_done usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
 
     if successes > 0 and not dry_run:
         _rebuild_playbook_i18n_index(locale)
 
+    # Reaching the cap is a normal stop, not a failure: the finished pages are
+    # committed and the rest wait for the next month.
     return 0 if failures == 0 else 1
 
 
@@ -455,12 +425,12 @@ def translate_candidates(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Translate i18n candidates using Google Cloud Translation API.",
+        description="Translate i18n candidates with Claude.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
     parser.add_argument(
-        "--locale", default=DEFAULT_LOCALE,
+        "--locale", default=DEFAULT_LOCALE, choices=locales.others(locales.DEFAULT),
         help=f"Target locale (default: {DEFAULT_LOCALE})",
     )
     parser.add_argument(
@@ -492,19 +462,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    # Gate on API key before doing any work
-    if google_translate.get_api_key() is None:
-        print(
-            "ERROR: GOOGLE_TRANSLATE_API_KEY is not set.\n"
-            "Set the environment variable and retry.",
-            file=sys.stderr,
-        )
-        return 1
-
     args = parse_args()
-    if not args.dry_run:
-        # Hard, fail-closed spend ceiling in front of every API request.
-        translation_guard.install_default()
     return translate_candidates(
         locale=args.locale,
         surfaces=set(args.surface or []) or None,

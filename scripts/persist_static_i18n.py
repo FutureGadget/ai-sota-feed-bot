@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Checkpoint and publish paid static translations without translating again.
 
-Publication uses a disposable worktree on fresh main. Ledgers receive the
-checkpoint's delta, and a receipt in spend_guard.json makes replay idempotent.
-Only the offline renderer runs here; this module never calls a translation API.
+Publication uses a disposable worktree on fresh main. The spend ledger
+(translation_spend.json) receives the checkpoint's delta, and a receipt in
+static_runs.json makes replay idempotent. Only the offline renderer runs here;
+this module never calls a translation API.
 """
 
 from __future__ import annotations
@@ -27,7 +28,12 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parent.parent
-GUARD = "data/i18n/spend_guard.json"
+sys.path.insert(0, str(ROOT / "pipeline"))
+
+import translator  # noqa: E402
+
+LEDGER = "data/i18n/translation_spend.json"
+RECEIPTS = "data/i18n/static_runs.json"
 SURFACES = {"daily", "weekly", "story", "storyline", "topic", "foundations", "playbook"}
 ARTIFACT_PREFIX = "static-i18n-"
 CHECKPOINT_STEP = "Checkpoint paid outputs"
@@ -73,7 +79,7 @@ def _at_commit(root: Path, commit: str, path: str) -> str | None:
 
 
 def _allowed_path(path: str, locale: str) -> bool:
-    if path == GUARD or path == f"data/i18n/{locale}/feed/static_budget.json":
+    if path == LEDGER:
         return True
     parts = PurePosixPath(path).parts
     return (
@@ -114,7 +120,7 @@ def validate_bundle(bundle: dict[str, Any], *, complete: bool = True) -> None:
         if not isinstance(losses, dict):
             raise PersistenceError(f"{key} must be an object")
         for path, fingerprint in losses.items():
-            if not _allowed_path(path, bundle["locale"]) or path == GUARD or "/feed/" in path:
+            if not _allowed_path(path, bundle["locale"]) or path == LEDGER:
                 raise PersistenceError(f"unexpected lost output path: {path}")
             if not re.fullmatch(r"[0-9a-f]{64}", str(fingerprint)):
                 raise PersistenceError(f"invalid lost output fingerprint: {path}")
@@ -160,54 +166,51 @@ def checkpoint(root: Path, path: Path) -> dict[str, Any]:
     return bundle
 
 
-def _count(state: dict[str, Any], key: str) -> int:
+def _usd(state: dict[str, Any], key: str = "usd") -> float:
     value = state.get(key, 0)
-    if type(value) is not int or value < 0:
+    if type(value) not in (int, float) or value < 0:
         raise PersistenceError(f"invalid ledger counter: {key}")
-    return value
+    return float(value)
 
 
-def _period(state: dict[str, Any], key: str) -> str | None:
-    value = state.get(key)
+def _month(state: dict[str, Any]) -> str | None:
+    value = state.get("month")
     if value is None:
         return None
     try:
-        datetime.strptime(value, "%Y-%m-%d" if key == "day" else "%Y-%m")
+        datetime.strptime(value, "%Y-%m")
     except (ValueError, TypeError) as exc:
-        raise PersistenceError(f"invalid ledger period: {key}") from exc
-    pattern = r"\d{4}-\d{2}-\d{2}" if key == "day" else r"\d{4}-\d{2}"
-    if not re.fullmatch(pattern, value):
-        raise PersistenceError(f"invalid ledger period: {key}")
+        raise PersistenceError("invalid ledger period: month") from exc
+    if not re.fullmatch(r"\d{4}-\d{2}", value):
+        raise PersistenceError("invalid ledger period: month")
     return value
 
 
-def _merge_counter(
-    before: dict[str, Any], after: dict[str, Any], current: dict[str, Any],
-    period: str, counter: str,
-) -> tuple[int, str | None]:
-    new_period = _period(after, period)
-    if new_period is None:
+def _merge_spend(
+    before: dict[str, Any], after: dict[str, Any], current: dict[str, Any]
+) -> tuple[float, str | None]:
+    """Add the run's spend to the current ledger. Returns (delta, month of the run)."""
+    month = _month(after)
+    if month is None:
         if after or before:
-            raise PersistenceError(f"missing ledger period: {period}")
-        return 0, current.get(period)
-    if counter not in after:
-        raise PersistenceError(f"missing ledger counter: {counter}")
-    base_period = _period(before, period)
-    if base_period == new_period and counter not in before:
-        raise PersistenceError(f"missing base ledger counter: {counter}")
-    delta = _count(after, counter) - (_count(before, counter) if base_period == new_period else 0)
+            raise PersistenceError("missing ledger period: month")
+        return 0.0, current.get("month")
+    if "usd" not in after:
+        raise PersistenceError("missing ledger counter: usd")
+    base_month = _month(before)
+    if base_month == month and "usd" not in before:
+        raise PersistenceError("missing base ledger counter: usd")
+    delta = _usd(after) - (_usd(before) if base_month == month else 0.0)
     if delta < 0:
-        raise PersistenceError(f"negative usage delta: {counter}")
-    current_period = _period(current, period)
-    if current_period is None or current_period < new_period:
-        current[period], current[counter] = new_period, _count(after, counter)
-    elif current_period == new_period:
-        if counter not in current:
-            raise PersistenceError(f"missing current ledger counter: {counter}")
-        current[counter] = _count(current, counter) + delta
-    # A recovered old day/month belongs in its receipt/history, not today's
-    # counter. Never move the active accounting period backwards.
-    return delta, new_period
+        raise PersistenceError("negative usage delta: usd")
+    current_month = _month(current)
+    if current_month is None or current_month < month:
+        current["month"], current["usd"] = month, _usd(after)
+    elif current_month == month:
+        current["usd"] = round(_usd(current) + delta, 6)
+    # A recovered old month belongs in its receipt and history, not this
+    # month's counter. Never move the active month backwards.
+    return delta, month
 
 
 def _new_history(before: dict[str, Any], after: dict[str, Any]) -> list[dict[str, Any]]:
@@ -231,12 +234,12 @@ def bundle_digest(bundle: dict[str, Any]) -> str:
 def apply_bundle(root: Path, bundle: dict[str, Any]) -> bool:
     """Apply a saved delta to a clean, current checkout; return False on replay."""
     validate_bundle(bundle)
-    guard_path = root / GUARD
-    guard = _json(guard_path.read_text(encoding="utf-8") if guard_path.exists() else None)
+    receipts_path = root / RECEIPTS
+    receipts_file = _json(receipts_path.read_text(encoding="utf-8") if receipts_path.exists() else None)
     digest = bundle_digest(bundle)
-    receipts = guard.setdefault("static_runs", {})
+    receipts = receipts_file.setdefault("static_runs", {})
     if not isinstance(receipts, dict):
-        raise PersistenceError("invalid static run receipts in spend guard")
+        raise PersistenceError("invalid static run receipts")
     prior = receipts.get(bundle["run_id"])
     if prior is not None:
         if not isinstance(prior, dict) or prior.get("sha256") != digest:
@@ -248,24 +251,7 @@ def apply_bundle(root: Path, bundle: dict[str, Any]) -> bool:
     for path, change in bundle["files"].items():
         target = root / path
         raw = target.read_text(encoding="utf-8") if target.exists() else None
-        if path == GUARD:
-            before, after = _json(change["before"]), _json(change["after"])
-            for period, count in (("month", "month_chars"), ("day", "day_chars")):
-                if period == "day" and after.get("tripped_at") != before.get("tripped_at") and after.get("tripped_at"):
-                    # trip_day's floor is a stop signal, not additional billed
-                    # usage. Preserve the floor without adding it twice.
-                    day = after["day"]
-                    if guard.get("day", "") <= day:
-                        guard["day_chars"] = max(_count(guard, "day_chars") if guard.get("day") == day else 0,
-                                                 _count(after, "day_chars"))
-                        guard["day"] = day
-                    guard["tripped_at"] = max(str(guard.get("tripped_at", "")), after["tripped_at"])
-                    usage["day"] = {"period": day, "tripped": True}
-                else:
-                    delta, stamp = _merge_counter(before, after, guard, period, count)
-                    usage[period] = {"period": stamp, "chars": delta}
-            guard["updated_at"] = max(str(guard.get("updated_at", "")), str(after.get("updated_at", "")))
-        elif path.endswith("/feed/static_budget.json"):
+        if path == LEDGER:
             before, after = _json(change["before"]), _json(change["after"])
             ledger = _json(raw)
             added = _new_history(before, after)
@@ -274,13 +260,11 @@ def apply_bundle(root: Path, bundle: dict[str, Any]) -> bool:
             current_entries = {json.dumps(entry, sort_keys=True) for entry in ledger.get("history", [])}
             if any(json.dumps(entry, sort_keys=True) in current_entries for entry in added):
                 raise PersistenceError("static usage already present without a receipt; accounting is uncertain")
-            delta, month = _merge_counter(before, after, ledger, "month", "chars_used")
+            delta, month = _merge_spend(before, after, ledger)
             history = ledger.setdefault("history", [])
             history.extend(added)
-            # Preserve configured caps and seeds from the latest main.
-            ledger.setdefault("monthly_cap", after.get("monthly_cap", 100_000))
-            ledger["updated_at"] = max(str(ledger.get("updated_at", "")), str(after.get("updated_at", "")))
-            usage["static"] = {"period": month, "chars": delta}
+            del history[:-translator.LEDGER_HISTORY_CAP]
+            usage["spend"] = {"period": month, "usd": round(delta, 6)}
             writes[path] = json.dumps(ledger, ensure_ascii=False, indent=2) + "\n"
         else:
             if raw not in (change["before"], change["after"]):
@@ -293,7 +277,7 @@ def apply_bundle(root: Path, bundle: dict[str, Any]) -> bool:
         "lost_outputs": bundle.get("lost_outputs", {}),
         "lost_payloads": bundle.get("lost_payloads", {}),
     }
-    writes[GUARD] = json.dumps(guard, ensure_ascii=False, indent=2) + "\n"
+    writes[RECEIPTS] = json.dumps(receipts_file, ensure_ascii=False, indent=2) + "\n"
     # Validate every change before writing any of them.
     for path, content in writes.items():
         target = root / path
@@ -307,9 +291,9 @@ def apply_bundle(root: Path, bundle: dict[str, Any]) -> bool:
 def lost_output_run(
     root: Path, path: str, source_hash: str, payload_hash: str | None = None,
 ) -> str | None:
-    guard_path = Path(os.environ.get("GOOGLE_TRANSLATE_GUARD_PATH") or root / GUARD)
-    guard = _json(guard_path.read_text(encoding="utf-8") if guard_path.exists() else None)
-    receipts = guard.get("static_runs", {})
+    receipts_path = root / RECEIPTS
+    receipts_file = _json(receipts_path.read_text(encoding="utf-8") if receipts_path.exists() else None)
+    receipts = receipts_file.get("static_runs", {})
     if not isinstance(receipts, dict):
         raise PersistenceError("invalid static run receipts")
     for run, receipt in receipts.items():
@@ -401,8 +385,7 @@ def recover_pending(root: Path, repository: str, current_run: str) -> None:
     after entering the paid step blocks the next run, rather than paying again.
     """
     _git(root, "fetch", "origin", "main")
-    guard = _json(_at_commit(root, "origin/main", GUARD))
-    receipts = guard.get("static_runs", {})
+    receipts = _json(_at_commit(root, "origin/main", RECEIPTS)).get("static_runs", {})
     pending = []
     page = 1
     while True:

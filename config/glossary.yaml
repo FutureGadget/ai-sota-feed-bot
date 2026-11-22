@@ -1,7 +1,8 @@
-# Terms protected from machine translation.
-# Each entry is wrapped in a notranslate span before sending to
-# Google Cloud Translation API, then unwrapped in the response.
-# Case-sensitive exact-word match.
+# Do-not-translate list. pipeline/translator.py gives these terms to Claude in
+# the system prompt, with the instruction to keep them exactly as written, in
+# Latin letters. Add a term when Claude translates a name or acronym that
+# readers know in English; the Korean style guide (config/translation/ko.md)
+# covers terms that should be rendered in Korean, so do not list those here.
 
 terms:
   # Acronyms
@@ -108,14 +109,11 @@ terms:
   - Fine-tuning
   - Embedding
   - Embeddings
-  - Token
-  - Tokens
   - Tokenizer
   - Prompt
   - Prompts
   - Benchmark
   - Benchmarks
-  - Agentic
   - Inference
   - Diffusion
   - Multimodal

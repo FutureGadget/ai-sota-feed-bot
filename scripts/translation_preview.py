@@ -3,7 +3,7 @@
 
 Builds one job per card in data/i18n/ko/feed/latest.json (English source from
 data/processed/latest.json, matched by translation key), translates them with
-the `feed` surface, and prints a Markdown table of English, current Google, and
+the `feed` surface, and prints a Markdown table of English, committed, and
 Claude text. Writes no data file: spend goes to --ledger, a temp file by default.
 
     python3 scripts/translation_preview.py --limit 5
@@ -25,26 +25,19 @@ sys.path.insert(0, str(ROOT / "pipeline"))
 import build_localized_feed as feed  # noqa: E402
 import translator  # noqa: E402
 
-FIELDS = ("title", "summary_1line", "why_it_matters")
-
 
 def build_jobs(locale: str, limit: int) -> tuple[list[translator.Job], dict[str, dict], int]:
     """Jobs for the cards the /ko/ builder would translate now: the top `limit`
     Brief items from the same /api/feed selector build_localized_feed.py uses.
-    Current Korean text comes from the committed snapshot, when it has the card."""
+    Committed Korean text comes from the snapshot, when it has the card."""
     snapshot = json.loads((ROOT / "data" / "i18n" / locale / "feed" / "latest.json").read_text(encoding="utf-8"))
     by_key = {card["translation_key"]: card for card in snapshot["items"]}
     english = feed._fetch_english_feed("brief", max(100, limit * 2)).get("items", [])[:limit]
     jobs, current = [], {}
     for src in english:
-        key = feed._translation_key(src)
-        fields = {f: src[f] for f in FIELDS if (src.get(f) or "").strip()}
-        for i, entry in enumerate(src.get("also_covered") or []):
-            if (entry.get("title") or "").strip():
-                fields[f"also_covered_title_{i}"] = entry["title"]
-        context = src.get("content_excerpt") or src.get("summary") or ""
-        jobs.append(translator.Job(key, fields, context))
-        current[key] = by_key.get(key, {})
+        job = feed.item_job(src)
+        jobs.append(job)
+        current[job.key] = by_key.get(job.key, {})
     return jobs, current, len(english)
 
 
@@ -53,11 +46,11 @@ def cell(text: str) -> str:
 
 
 def table(jobs, current, results, field: str, header: str) -> str:
-    rows = [f"| English {header} | Current (Google) | Claude |", "| --- | --- | --- |"]
+    rows = [f"| English {header} | Committed | Claude |", "| --- | --- | --- |"]
     for job, res in zip(jobs, results):
         if field in job.fields:
-            google = current[job.key].get(field)
-            rows.append(f"| {cell(job.fields[field])} | {cell(google)} | {cell(res.fields[field])} |")
+            committed = current[job.key].get(field)
+            rows.append(f"| {cell(job.fields[field])} | {cell(committed)} | {cell(res.fields[field])} |")
     return "\n".join(rows)
 
 
