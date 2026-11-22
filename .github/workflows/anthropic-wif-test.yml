@@ -1,0 +1,33 @@
+# Checks that GitHub Actions on main can exchange its OIDC token for an
+# Anthropic access token through Workload Identity Federation. Run it by hand:
+#   gh workflow run anthropic-wif-test
+name: anthropic-wif-test
+on: workflow_dispatch
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  call-claude:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch GitHub OIDC token
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const token = await core.getIDToken('https://api.anthropic.com');
+            core.setSecret(token);
+            core.exportVariable('JWT', token);
+      - name: Exchange for an Anthropic access token
+        run: |
+          curl -sS https://api.anthropic.com/v1/oauth/token \
+            -H "content-type: application/json" \
+            --data @- <<JSON | jq 'with_entries(if (.key | test("token$")) then .value = "<redacted>" else . end)'
+          {
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            "assertion": "$JWT",
+            "federation_rule_id": "fdrl_01GN2AuwqLTq1XD8kxxuTbqr",
+            "organization_id": "c5b5d449-b5e3-4ee2-8710-0214f52e2d83",
+            "service_account_id": "svac_01Tf5xcLoVaBZiGUC7e5K38f",
+            "workspace_id": "wrkspc_016Khe3Wp6MbgC6YGEbWB7xi"
+          }
+          JSON
