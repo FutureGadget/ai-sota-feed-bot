@@ -1,0 +1,66 @@
+name: Translation Preview
+
+# Manual only. Translates the committed /ko/ feed cards with Claude and posts a
+# side-by-side table (English / Google / Claude) to the run summary. Writes no
+# data and commits nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max feed cards to translate"
+        default: "20"
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ANTHROPIC_FEDERATION_RULE_ID: fdrl_01GN2AuwqLTq1XD8kxxuTbqr
+      ANTHROPIC_ORGANIZATION_ID: c5b5d449-b5e3-4ee2-8710-0214f52e2d83
+      ANTHROPIC_SERVICE_ACCOUNT_ID: svac_01Tf5xcLoVaBZiGUC7e5K38f
+      ANTHROPIC_WORKSPACE_ID: wrkspc_016Khe3Wp6MbgC6YGEbWB7xi
+      ANTHROPIC_IDENTITY_TOKEN_FILE: /tmp/gha-jwt
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      # GitHub OIDC tokens expire after about 5 minutes and the Anthropic SDK
+      # rereads this file on each credential refresh, so keep rewriting it.
+      # The first fetch must succeed; a failed refresh keeps the previous token.
+      - name: Fetch GitHub OIDC token and keep it fresh
+        run: |
+          set -eo pipefail
+          umask 077
+          fetch_token() {
+            curl -sS -f -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.anthropic.com" \
+              | jq -er .value > "$ANTHROPIC_IDENTITY_TOKEN_FILE.tmp" || return 1
+            mv "$ANTHROPIC_IDENTITY_TOKEN_FILE.tmp" "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+          }
+          fetch_token
+          (
+            while sleep 240; do
+              fetch_token || echo "OIDC token refresh failed" >&2
+            done
+          ) > /dev/null 2>&1 &
+          disown
+
+      - name: Preview Claude translations
+        env:
+          INPUT_LIMIT: ${{ inputs.limit || '20' }}
+        run: .venv/bin/python scripts/translation_preview.py --limit "$INPUT_LIMIT"
