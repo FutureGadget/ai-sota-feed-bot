@@ -1,0 +1,110 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/shared-memory",
+  "source_hash": "1a932934bbe8c154cb3f495df7effc60c88d2c5b03c881059116d60c84d040d0",
+  "translated_at": "2026-11-22T03:26:26.416351+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "shared-memory",
+  "label": "Shared Memory",
+  "item_count": 3,
+  "day_count": 3,
+  "source_count": 2,
+  "first_seen": "2026-11-09T13:43:52+00:00",
+  "last_updated": "2026-11-21T18:14:29+00:00",
+  "generated_at": "2026-11-22T00:14:27.244418+00:00",
+  "sources": [
+    "arxiv_cs_cl",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+          "url": "http://arxiv.org/abs/2611.12412v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agent...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "29f0e99816524f78",
+          "published": "2026-11-09T13:43:52+00:00",
+          "editor_note": "공유 저장소가 에이전트들이 기억하는 내용뿐만 아니라 함께 행동하는 방식까지 변화시킨다는 연구 결과가 있습니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "Show HN: Project-M – Local shared memory for AI coding agents",
+          "url": "https://github.com/adityadebnath009/Project-M",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Show HN: Project-M – Local shared memory for AI coding agents",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "c16327a14472b017",
+          "published": "2026-11-18T14:31:10+00:00",
+          "editor_note": "로컬 우선 접근 방식: 호스팅 서비스 없이 코딩 에이전트를 위한 공유 메모리."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "items": [
+        {
+          "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+          "url": "https://github.com/ClickHouse/loom",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "e76fa817c2806f1f",
+          "published": "2026-11-21T18:14:29+00:00",
+          "editor_note": "공유 메모리를 문서 검색 및 코드 색인 기능을 갖춘 단일 계층으로 확장합니다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "In September MemHub, Motif and a kernel-managed-memory paper pitched shared memory so context one agent learns stays usable by its teammates. The thread restarted Nov 9 with a replication study showing LLM agents coordinate unprompted through shared memory, then Project-M posted a local shared memory for coding agents on Nov 18.",
+    "stale": false,
+    "whats_new": "Loom reached Hacker News on Nov 21 as shared memory, document search and code indexing for AI agents, the second shared-memory tool for coding agents posted there in four days.",
+    "why_it_matters": "Shared memory is now a research finding as well as a product category: agents that share a store can coordinate without being told to, so the store's write and visibility rules shape agent behavior, not just recall.",
+    "take_for_builders": "Before adopting Project-M, Loom or any shared store for a multi-agent team, test concurrent writes and stale reads, and log which agent read what so unprompted coordination is visible.",
+    "beats": [
+      {
+        "kicker": "RESEARCH",
+        "tone": "turn",
+        "headline": "Replication study: LLM agents coordinate unprompted through shared memory",
+        "summary": "A locked two-implementation replication and extension frames shared memory as a coordination channel with safety stakes.",
+        "sids": [
+          "29f0e99816524f78"
+        ]
+      },
+      {
+        "kicker": "LOCAL TOOL",
+        "tone": "rising",
+        "headline": "Project-M posts local shared memory for AI coding agents",
+        "sids": [
+          "c16327a14472b017"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Loom bundles shared memory with document search and code indexing",
+        "sids": [
+          "e76fa817c2806f1f"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Do Project-M or Loom define a conflict-resolution model for concurrent agent writes to shared memory?",
+      "Which shared-memory setups produced unprompted coordination in the replication study, and can access rules prevent it?",
+      "Does any shared-memory tool let operators scope which agents can read or write which entries?"
+    ],
+    "generated_at": "2026-11-22T00:12:43Z"
+  }
+}
