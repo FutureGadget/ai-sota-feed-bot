@@ -67,7 +67,7 @@ if [ "${STATIC_I18N_RECOVERY_BLOCKED:-0}" = "1" ]; then
 elif [ "${LOCALIZED_FEED_ENABLED:-1}" = "1" ]; then
   python pipeline/build_localized_feed.py --locale ko || echo "localized_feed_step_failed=1"
 else
-  LOCALIZED_FEED_ENABLED=0 python pipeline/build_localized_feed.py --locale ko || true
+  echo "localized_feed_step_skipped=true reason=disabled"
 fi
 
 # Capture this run's stories into the durable store and refresh static pages
