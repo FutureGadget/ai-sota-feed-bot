@@ -8,7 +8,10 @@ drifting apart.
 
 from __future__ import annotations
 
+import json
+import re
 import unittest
+from unittest import mock
 
 from pipeline import render_home
 
@@ -48,6 +51,31 @@ class GeneratedPagesTest(unittest.TestCase):
         template = render_home.TEMPLATE_PATH.read_text(encoding="utf-8")
         self.assertEqual(template.count(render_home.FEED_SEED_START), 1)
         self.assertEqual(template.count(render_home.FEED_SEED_END), 1)
+
+
+class TokenTest(unittest.TestCase):
+    def build(self, template: str, strings: dict[str, str]) -> str:
+        with mock.patch.object(render_home.locales, "ui", return_value=strings):
+            return render_home.substitute(template, DEFAULT)
+
+    def test_a_missing_key_fails_the_build_and_names_it(self) -> None:
+        with self.assertRaisesRegex(KeyError, "no.such.key"):
+            self.build("<p>{{t:no.such.key}}</p>", {})
+
+    def test_text_is_escaped_for_html_and_for_json(self) -> None:
+        strings = {"a.quote": 'Say <b>"hi"</b> & go'}
+        html = self.build('<p title="{{t:a.quote}}">{{t:a.quote}}</p>', strings)
+        self.assertNotIn("<b>", html)
+        self.assertIn("&quot;hi&quot;", html)
+        script = self.build("<script>var s = \"{{json:a.quote}}\";</script>", {"a.quote": 'a "q" </script>'})
+        self.assertEqual(json.loads('"' + re.search(r'var s = "(.*)";', script).group(1) + '"'), 'a "q" </script>')
+        self.assertNotIn("</script>\";", script)
+
+    def test_a_page_embeds_only_the_keys_its_scripts_name(self) -> None:
+        template = "<script>window.UI = {{var:ui_data}}; t('used.key');</script><p>{{t:static.key}}</p>"
+        html = self.build(template, {"used.key": "one", "static.key": "two", "other.key": "three"})
+        embedded = json.loads(re.search(r"window\.UI = (\{.*?\n    \});", html, re.S).group(1))
+        self.assertEqual(embedded["strings"], {"used.key": "one"})
 
 
 if __name__ == "__main__":
