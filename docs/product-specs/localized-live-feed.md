@@ -256,6 +256,11 @@ feedback, sharing, and impression events; translating the title must never
 change those keys. If a story sid is available, it may be stored as additional
 metadata, but the translation overlay should not depend on rank.
 
+Each card also records the `model` that translated it. A card is reused only
+when both its `source_hash` and its `model` match the current feed model in
+`config/translation.json`, so changing that model, or cards left over from
+Google Translate (no `model`), retranslates them on the next run.
+
 `source_hash` must cover only reader-facing English fields that feed the
 translated card:
 
