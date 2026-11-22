@@ -61,7 +61,9 @@ function cleanText(v) {
   return String(v || '').split(/\s+/).filter(Boolean).join(' ');
 }
 
-function sourceHash(it) {
+// Hash of a card's English text, the same payload as _source_hash in
+// pipeline/build_localized_feed.py (tests/test_source_hash_parity.py pins them).
+export function sourceHash(it) {
   const alsoCovered = Array.isArray(it?.also_covered) ? it.also_covered : [];
   const payload = {
     also_covered: alsoCovered
@@ -265,6 +267,54 @@ function overlayLocalizedFeed(body, locale) {
         summary_1line: translated.summary_1line || item.summary_1line,
         why_it_matters: translated.why_it_matters || item.why_it_matters,
       };
+    }),
+  };
+}
+
+// Per-card translations (data/i18n/<locale>/feed/cards.json, written by
+// pipeline/build_localized_feed.py): the normal English response for the same
+// params, each card replaced by its stored translation while the stored
+// source_hash still equals the card's current English hash. Untranslated cards
+// stay English. Runs after coverage decoration, because the pipeline hashed the
+// decorated English cards.
+function readCardTranslations(locale) {
+  const store = readDataJson(`i18n/${locale}/feed/cards.json`, null);
+  return store && typeof store.cards === 'object' && store.cards ? store.cards : {};
+}
+
+function overlayCard(item, entry, locale) {
+  if (!entry || entry.source_hash !== sourceHash(item)) {
+    return { ...item, i18n: { locale, translated: false } };
+  }
+  const stored = Array.isArray(entry.also_covered) ? entry.also_covered : [];
+  const overlaid = {
+    ...item,
+    title: entry.title || item.title,
+    summary_1line: entry.summary_1line || item.summary_1line,
+    why_it_matters: entry.why_it_matters || item.why_it_matters,
+    i18n: { locale, translated: true },
+  };
+  if (Array.isArray(item.also_covered)) {
+    overlaid.also_covered = item.also_covered.map((covered, i) => {
+      const match = stored[i];
+      return match?.title && normUrl(match.url) === normUrl(covered?.url)
+        ? { ...covered, title: match.title }
+        : covered;
+    });
+  }
+  return overlaid;
+}
+
+function withCardTranslations(body, searchParams) {
+  const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
+  const snapshot = String(searchParams.get('localized_snapshot') || '').trim().toLowerCase();
+  if (!isLocalized(locale) || snapshot === 'latest' || !Array.isArray(body?.items)) return body;
+  const cards = readCardTranslations(locale);
+  return {
+    ...body,
+    items: body.items.map((item) => {
+      const key = translationKey(item);
+      return overlayCard(item, key && Object.hasOwn(cards, key) ? cards[key] : null, locale);
     }),
   };
 }
@@ -983,15 +1033,16 @@ export async function GET(request) {
         },
       };
       body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
-      // The ledger branch is never the localized path (localized requests are
-      // forced to `published`), so decorate coverage and return the body
-      // directly. The global Vercel API cache header still applies.
+      // The ledger branch is never the snapshot path (snapshot requests are
+      // forced to `published`), so decorate coverage, then lay per-card
+      // translations over the English cards. The global Vercel API cache
+      // header still applies.
       const ledgerCoverage = clusterCoverage(assembled.editorialItems);
       for (const it of body.items) {
         const mergedCoverage = mergeAlsoCovered(it, ledgerCoverage.get(itemKey(it)));
         if (mergedCoverage.length) it.also_covered = mergedCoverage;
       }
-      return Response.json(body, { status: 200 });
+      return Response.json(withCardTranslations(body, url.searchParams), { status: 200 });
     }
 
     const { runs, baseItems, coverageByItem } = readRunsPool();
@@ -1027,7 +1078,7 @@ export async function GET(request) {
       }
       const headers = {};
       if (cacheControl) headers['Cache-Control'] = cacheControl;
-      return Response.json(localizedBody, { status: 200, headers });
+      return Response.json(withCardTranslations(localizedBody, url.searchParams), { status: 200, headers });
     }
 
     const filteredRuns = filterRunsByDate(runs, from, to);
@@ -1077,7 +1128,7 @@ export async function GET(request) {
     }
     const headers = {};
     if (cacheControl) headers['Cache-Control'] = cacheControl;
-    return Response.json(localizedBody, { status: 200, headers });
+    return Response.json(withCardTranslations(localizedBody, url.searchParams), { status: 200, headers });
   } catch (e) {
     return Response.json({ error: 'feed_read_failed', detail: String(e) }, { status: 500 });
   }
