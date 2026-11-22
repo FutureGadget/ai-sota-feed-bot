@@ -1,6 +1,7 @@
 # Implementation plan: translation budget governor for the localized live feed
 
 **Date:** 2026-07-12
+**Superseded 2026-11-22:** translation moved to Claude with a single USD monthly cap; see the decision log entry "Translation moves from Google Translate to Claude". The governor described below no longer exists.
 **Status:** Implemented on this branch (2026-07-12) — pending review, seeding, and console daily-cap setup
 **Branch:** `claude/translation-quota-ux-3166a1`
 **Product contract:** `docs/product-specs/localized-live-feed.md` (this plan amends it — see Phase 7)

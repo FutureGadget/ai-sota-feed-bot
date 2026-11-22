@@ -325,39 +325,33 @@ accumulated ranked pool (calendar ranges):
   is covered by `source_hash`.
 - `data/i18n/<locale>/feed/status.json` — durable localized-feed build status
   for missing, stale, incomplete, disabled, current, or `budget_paused`
-  snapshots. Includes `{locale, surface, status, reason, resumes_at, mode,
-  budget: {chars_used, monthly_cap, month}, source_run_at, translated_at,
-  expires_at, eligible_count, translated_count, missing_count}`. `mode`
-  (`normal`|`conserve`|`economy`|`paused`) and `budget` are written on every
-  run, not only `budget_paused`, so ops can watch the governor ladder.
+  snapshots. Includes `{locale, surface, status, reason, resumes_at,
+  budget: {usd_spent, monthly_usd_cap, month}, source_run_at, translated_at,
+  expires_at, eligible_count, translated_count, missing_count}`. `budget` is
+  written on every run, not only `budget_paused` (`reason: "monthly_cap"`,
+  `resumes_at` the first of next month, UTC). Status files written before the
+  Claude switch also carry `mode` and a character `budget`; the builder no
+  longer writes either.
   `pipeline/render_static_pages.py` ignores `data/i18n/<locale>/feed/**`;
   Vercel bundles only `latest.json` and `status.json` for `api/feed.js`.
-- `data/i18n/<locale>/feed/budget.json` — **pipeline-only** local character
-  ledger backing the translation budget governor; never added to
-  `vercel.json` `includeFiles` (everything `api/feed.js` and `/ko/` need
-  travels through `status.json` instead). Shape:
-  `{month: "YYYY-MM", chars_used, monthly_cap, updated_at, seeded_from,
-  history: [{at, chars, run}]}`. `chars_used` resets to 0 on UTC month
-  rollover; `monthly_cap` defaults from env `GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP`
-  and is recorded on the ledger so status can report the cap in effect;
-  `seeded_from` records the one-off `--seed-chars`/`--seed-note` provenance
-  (e.g. `"console 2026-07-12"`) when the owner seeds mid-month spend from
-  Cloud Console; `history[]` is a bounded (last 200 entries) audit trail, not
-  a source of truth. See `docs/product-specs/localized-live-feed.md`
-  ("Translation Budget Governor") and
+- `data/i18n/translation_spend.json` — **pipeline-only** USD ledger for every
+  Claude translation call, shared by the live feed and the static-page
+  translator (`pipeline/translator.py` `Ledger`); never added to `vercel.json`
+  `includeFiles`. Shape: `{month: "YYYY-MM", usd, history: [{at, key, surface,
+  usd}]}`. `usd` is the spend this UTC month and resets to 0 on rollover;
+  `history[]` is a bounded (last 200 entries) audit trail of calls, not a source
+  of truth. The monthly cap is not stored: it comes from env
+  `TRANSLATION_MONTHLY_USD_CAP`, else `monthly_usd_cap` in
+  `config/translation.json`. The file is re-read on every operation. See
+  `docs/product-specs/localized-live-feed.md` ("Translation Budget Cap") and
   `docs/how-to/translation-budget-and-quota.md`.
-- `data/i18n/<locale>/feed/static_budget.json` — pipeline-only character ledger
-  for static-page translation (`scripts/translate.py`); same shape as
-  `budget.json`, separate allowance (env
-  `GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP`, default 100,000). Kept under
-  `feed/` so the static renderer ignores it. Candidates whose estimated billed
-  characters exceed the remaining allowance are skipped.
-
-- `data/i18n/spend_guard.json` — pipeline-only, fail-closed hard spend ledger
-  shared by every Google Translate caller (locale-agnostic because the Console
-  quota is project-wide). Shape: `{month, month_chars, day, day_chars,
-  updated_at, tripped_at?}` on the Pacific clock. Written *before* each API
-  request by `pipeline/translation_guard.py`. Not served or bundled.
+- `data/i18n/static_runs.json` — pipeline-only receipts for paid static
+  translation runs (`scripts/persist_static_i18n.py`). Shape: `{static_runs:
+  {"actions-<run-id>-<attempt>": {sha256, locale, at, usage, lost_outputs,
+  lost_payloads}}}`. A receipt makes replaying a checkpoint a no-op, and
+  `lost_outputs`/`lost_payloads` stop `scripts/translate.py` from buying a
+  lost output again. `usage` is `{spend: {period, usd}}` for new receipts;
+  receipts from the Google era carry character counts. Not served or bundled.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).
