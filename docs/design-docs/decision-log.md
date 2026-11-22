@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-23 (The Korean feed snapshot is deleted; the per-card store is the only localized feed)
+
+- **Decision:** Delete the 7-day Korean snapshot (`data/i18n/ko/feed/latest.json`, `status.json`) and everything that served it: `/api/feed?locale=ko&localized_snapshot=latest`, the frozen/stale/incomplete/`budget_paused` states, the "newer in English" section, and the snapshot half of `pipeline/build_localized_feed.py`. `/api/feed?locale=<l>` only overlays `cards.json`. `LOCALIZED_FEED_ENABLED=0` now switches that overlay off and `run_full.sh` skips the builder when it is not `1`. `/ko/` joins `/` in `web/sitemap.xml`.
+- **Context / Problem:** `/ko/` became the English home template with Korean UI text and per-card Korean (PRs 1 and 2 of 3). No page read the snapshot, but the builder still translated and wrote it, the API still carried its states, and the cap logic existed to freeze it.
+- **Rationale:** One feed, one translation store, one failure mode. At the monthly cap the builder keeps what it translated and the page shows English for the rest, which is what a reader wants anyway.
+- **Impact:** Builder fetches only the English home's default request and loses `--label` and `--limit`. A failed card no longer exits 1. Worker preload and `r2_sync.py` ship only `cards.json`. Docs rewritten around the one-UI design.
+- **Rollback:** Revert the PR. The snapshot files come back from git history.
+
 ## 2026-11-22 (Translation moves from Google Translate to Claude)
 
 - **Decision:** The live `/ko/` feed (`pipeline/build_localized_feed.py`) and the static pages (`scripts/translate.py`) translate with Claude through `pipeline/translator.py`, and all Google Translate code is deleted. The feed sends one job per card (title, one-line summary, why-it-matters, also-covered titles, with the article excerpt as context). The static translator sends one job per page (the collected strings keyed by index, with the page title as context). Both spend from one USD ledger, `data/i18n/translation_spend.json`, capped by `TRANSLATION_MONTHLY_USD_CAP` or `config/translation.json` (60 USD). CI authenticates with GitHub OIDC workload identity (rule pinned to main); there is no API key.

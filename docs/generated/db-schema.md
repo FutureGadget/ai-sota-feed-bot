@@ -311,29 +311,17 @@ accumulated ranked pool (calendar ranges):
   fresh artifacts to `web/<locale>/...`. APIs remain English in v1. Operating
   guide: `docs/how-to/add-pretranslated-pages.md`; candidate exporter:
   `pipeline/export_i18n_candidates.py`.
-- `data/i18n/<locale>/feed/latest.json` — feed-specific localized live-feed
-  overlay, separate from static-page artifacts. For Korean v1 this is a
-  complete `/ko/` snapshot of the default Brief feed, up to 20 eligible cards,
-  with `{locale, surface, source_run_at, translated_at, expires_at, selector,
-  source_item_count, translated_item_count, is_complete, target_keys[],
-  items[]}`. `items[]` stores translated display fields keyed by normalized
-  source URL while `/api/feed` preserves English item IDs, URLs, dates,
-  scores, labels, and story metadata. `target_keys[]` (build-time ranked
-  top-N order) plus per-item `source_meta {url, source, published, type}`
-  let `/api/feed` serve the frozen snapshot as dated Korean cards
-  (`frozen_snapshot: true`) when the snapshot is paused/stale; neither field
-  is covered by `source_hash`.
-- `data/i18n/<locale>/feed/status.json` — durable localized-feed build status
-  for missing, stale, incomplete, disabled, current, or `budget_paused`
-  snapshots. Includes `{locale, surface, status, reason, resumes_at,
-  budget: {usd_spent, monthly_usd_cap, month}, source_run_at, translated_at,
-  expires_at, eligible_count, translated_count, missing_count}`. `budget` is
-  written on every run, not only `budget_paused` (`reason: "monthly_cap"`,
-  `resumes_at` the first of next month, UTC). Status files written before the
-  Claude switch also carry `mode` and a character `budget`; the builder no
-  longer writes either.
-  `pipeline/render_static_pages.py` ignores `data/i18n/<locale>/feed/**`;
-  Vercel bundles only `latest.json` and `status.json` for `api/feed.js`.
+- `data/i18n/<locale>/feed/cards.json` — per-card translations of the English
+  home feed, separate from static-page artifacts. Shape: `{locale, updated_at,
+  cards: {<translation_key>: {source_hash, model, translated_at, last_seen,
+  title, summary_1line, why_it_matters, also_covered[{url, title}]}}}`.
+  `translation_key` is the card URL without a trailing slash. `/api/feed?locale=`
+  overlays an entry onto a live card only while `source_hash` equals the card's
+  current English hash; entries unseen for 14 days are pruned. Written by
+  `pipeline/build_localized_feed.py` through `pipeline/card_store.py`.
+  `pipeline/render_static_pages.py` ignores `data/i18n/<locale>/feed/**`.
+  `scripts/r2_sync.py` publishes `cards.json` and the Worker preloads it for
+  `api/feed.js`.
 - `data/i18n/translation_spend.json` — **pipeline-only** USD ledger for every
   Claude translation call, shared by the live feed and the static-page
   translator (`pipeline/translator.py` `Ledger`); never added to `vercel.json`

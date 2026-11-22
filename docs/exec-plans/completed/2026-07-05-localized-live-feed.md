@@ -1,7 +1,7 @@
 # Implementation Plan: Korean localized live feed
 
 **Date:** 2026-07-05
-**Status:** In progress — Tasks 1-6 implemented; Tasks 7-9 partially pending
+**Status:** Superseded 2026-11-23: the snapshot design below was deleted; see the decision log entry "The Korean feed snapshot is deleted".
 **Product contract:** `docs/product-specs/localized-live-feed.md`
 **Decision record:** `docs/design-docs/decision-log.md`
 **Release shape:** One feature branch; ship reader-first `/ko/` before sitemap

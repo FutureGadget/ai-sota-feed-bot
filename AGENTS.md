@@ -540,8 +540,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `/ko/` is the English home page with Korean UI text (one template, one
   dictionary per language). It requests `/api/feed?locale=ko`, which returns the
   English home's feed with each card in Korean where
-  `data/i18n/<locale>/feed/cards.json` has a current translation. The older
-  `{latest,status}.json` snapshot is no longer read by the page. The static-page
+  `data/i18n/<locale>/feed/cards.json` has a current translation, English
+  otherwise. `LOCALIZED_FEED_ENABLED=0` turns the overlay off. The static-page
   i18n renderer intentionally ignores `feed/**`.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh

@@ -12,7 +12,7 @@ the Anthropic API:
 
 | Caller | Surface in `config/translation.json` | Job |
 |---|---|---|
-| Live `/ko/` feed (`pipeline/build_localized_feed.py`, every feed run) | `feed` | one per card |
+| Live `/ko/` feed cards (`pipeline/build_localized_feed.py`, every feed run) | `feed` | one per card |
 | Static pages (`scripts/translate.py`, daily workflow and local script) | `static` | one per page |
 
 The policy file also holds the model for each surface and `max_context_chars`.
@@ -53,19 +53,18 @@ The estimate is deliberately high, so a run can stop a few cents under the cap.
 
 ## 2. What happens at the cap
 
-- **Feed.** The builder stops translating, keeps the previous `latest.json`, and
-  writes `status.json` with `status: "budget_paused"`, `reason: "monthly_cap"`,
-  and `resumes_at` at 00:00 UTC on the first of next month. `/ko/` shows its
-  budget notice over the frozen snapshot. If only lookahead cards beyond the
-  visible top 20 were left, the run finishes as `current`. A card is translated
-  whole or not at all.
+- **Feed.** The builder stops translating, keeps the cards it already
+  translated, writes `data/i18n/ko/feed/cards.json`, logs
+  `localized_feed_budget_cap_reached`, and exits 0. `/ko/` keeps working: cards
+  without a translation show in English until the ledger month rolls over (00:00
+  UTC on the first). A card is translated whole or not at all.
 - **Static pages.** The run stops cleanly with exit code 0 at the first
   `BudgetExceeded`. Each page is written as soon as it is translated, so every
   finished page is checkpointed and committed (section 5). The remaining pages
   wait for the next month.
 
 Any other failure (an unparseable reply after the retry, an API error) fails that
-card or page only. The feed run exits 1 with `status: "incomplete"`, and the
+card or page only. The feed run logs it and moves on to the next card, and the
 static run exits 1 after the loop, in both cases without discarding finished work.
 
 ## 3. Credentials: workload identity, no API key
@@ -99,8 +98,8 @@ ledger file, so commit it with the translations.
 
 ## 4. Preview translations before changing anything
 
-`translation-preview.yml` is a manual workflow. It translates the current top
-Brief cards with Claude and writes a table of English, committed, and Claude
+`translation-preview.yml` is a manual workflow. It translates the English
+home's current cards with Claude and writes a table of English, committed, and Claude
 text to the run summary. It writes no data and commits nothing; its spend goes to
 a temporary ledger.
 
@@ -188,11 +187,16 @@ dollars.
 
 ## Troubleshooting
 
-- **`/ko/` shows `budget_paused`.** Read `data/i18n/ko/feed/status.json`. The
-  reason is always `monthly_cap`. Compare `budget.usd_spent` with
-  `budget.monthly_usd_cap`, and look at `history` in
-  `data/i18n/translation_spend.json` for which surface spent it. Raise the cap
-  (section 1) or wait for `resumes_at`.
+- **`/ko/` shows English cards.** Look for `localized_feed_budget_cap_reached` in
+  the feed run's log. If it is there, compare `usd` in
+  `data/i18n/translation_spend.json` with the cap, and read `history` for which
+  surface spent it. Raise the cap (section 1) or wait for the month to roll over.
+  If it is not there, the cards are new since the last run, or a card failed and
+  will be retried.
+- **Turn the Korean cards off.** Set `LOCALIZED_FEED_ENABLED=0` in
+  `worker/wrangler.jsonc` and deploy. `/api/feed?locale=ko` then returns plain
+  English. `run_full.sh` skips the builder when `LOCALIZED_FEED_ENABLED` is not `1` in the pipeline's
+  environment, which stops the spend.
 - **A run says it cannot authenticate.** Check that the job has `id-token: write`
   and runs on `main`, that the OIDC step succeeded, and that the ids in the
   workflow match the federation rule.
