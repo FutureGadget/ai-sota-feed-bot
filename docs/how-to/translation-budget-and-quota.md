@@ -58,6 +58,10 @@ The estimate is deliberately high, so a run can stop a few cents under the cap.
   `localized_feed_budget_cap_reached`, and exits 0. `/ko/` keeps working: cards
   without a translation show in English until the ledger month rolls over (00:00
   UTC on the first). A card is translated whole or not at all.
+- **Editor's Desk.** The same: `build_localized_updates.py` keeps the items it
+  has, logs `localized_updates_budget_cap_reached`, and exits 0. Items covered by
+  a current Korean artifact stay Korean, since they cost nothing. The rest show
+  in English until the month rolls over.
 - **Static pages.** The run stops cleanly with exit code 0 at the first
   `BudgetExceeded`. Each page is written as soon as it is translated, so every
   finished page is checkpointed and committed (section 5). The remaining pages

@@ -32,6 +32,12 @@ The external scripts also run on pages that have no dictionary. `tr()` shows the
 English text you pass when `t()` does not exist, so that text must equal the
 English value in `config/ui/en.json`. A test checks this.
 
+Text that comes from data is not UI text. Feed cards and Editor's Desk items
+(titles and summaries from `/api/updates`) are translated per item by the
+pipeline, not through the dictionary. See `docs/product-specs/localized-live-feed.md`.
+The desk's own labels ("Latest from the Editor's Desk", "Show", "Opened") are UI
+text and follow the rules here, through `tr()` in `web/nav-updates.js`.
+
 ## Add a string
 
 1. Choose a key shaped `area.name`, such as `card.englishTag`. Keys are flat.
