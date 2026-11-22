@@ -1,5 +1,70 @@
 # Spec: Localized Live Feed
 
+> **Status.** `/ko/` is now the English home page with Korean UI text and
+> per-card Korean. "One UI for every language" below is the contract. The
+> sections from "Product Contract" through "Rendering And Routing" describe the
+> earlier snapshot design. The page no longer reads it, and the migration's last
+> PR removes the snapshot builder and API path. Read those sections as history.
+
+## One UI for every language
+
+The home page has one source and one feature set in every language. `/ko/` is
+not a separate page. A reader gets the English home's sections, features, and
+analytics with the interface in Korean. Each feed card is Korean where a current
+translation exists and English otherwise.
+
+Build.
+
+- `ui/templates/index.html` is the only hand-edited source.
+  `pipeline/render_home.py` writes `web/index.html` and `web/ko/index.html` from
+  it. Both are committed, and a test fails when one is stale.
+- `render_static_pages.py` runs the build on every run and splices each
+  language's crawler-visible feed snapshot into its page. The snapshot is built
+  from the English feed. Its chrome is in the page's language, and its items
+  carry `lang="en"` on other languages' pages.
+- UI text lives in `config/ui/<code>.json`, one flat file per language. HTML text
+  is substituted at build time. Script text goes through `t(key, vars)` over a
+  dictionary the build embeds as `window.UI`. See
+  `docs/how-to/add-ui-text.md`.
+
+Behavior of a localized page.
+
+- It declares `<html lang="ko">`, a canonical URL for `/ko/`, and `hreflang`
+  alternates for `en`, `ko` and `x-default`. The English page declares the same
+  alternates.
+- It requests `/api/feed?locale=ko` and `/api/playbook?locale=ko`. The feed is
+  the English home's feed for the same parameters (see "Per-card translations").
+- A card with no current translation keeps its English text. Its title and
+  summary carry `lang="en"` and a muted "영문" tag, so readers and screen readers
+  know the language. A translated card carries neither.
+- An internal link goes to a `/ko/...` page only when that file exists and the
+  Worker routes it. Every other link keeps its English path. Today that is the
+  home page, `/daily`, `/weekly`, `/community`, `/playbook`, per-storyline pages,
+  per-story links in the feed snapshot, and the Korean signup (`/subscribe?lang=ko`). A missing page would be a 404 with
+  no fallback.
+- The language switch toggles `/` and `/ko/`. `site-chrome.js` shows it to
+  readers whose browser prefers the other language.
+- Typography comes from the existing `html[lang="ko"]` rules in
+  `web/site-chrome.css`.
+
+What stays English on a Korean page.
+
+- Product, model, and source names.
+- Text that comes from data and has no translation store: Editor's Desk item
+  titles from `/api/updates`, Skill Radar descriptions, watchlist chip labels.
+- The pages `/playbook/<date>`, `/playbook/lab/...`, and `/models`, which have no
+  Korean version.
+
+What the one-UI design drops from the snapshot design.
+
+- The Korean page has every lens, search, saved view, pinned topics, and the
+  Editor's Desk. Nothing is hidden for lack of Korean copy.
+- There is no stale, paused, or incomplete banner and no "Newer in English"
+  section. The page always shows the live feed, so there is no frozen snapshot to
+  explain.
+- The 24-hour snapshot freshness rule and the 20-card cap no longer apply to the
+  page.
+
 ## Objective
 
 Build a Korean live-feed surface at `/ko/` that feels complete in Korean while
@@ -418,10 +483,10 @@ Required machine-readable status:
 
 ## Per-card translations
 
-The snapshot above is slated for removal in the one-UI migration (PR 3): the
-Korean page will show the same feed as the English home, each card in Korean
-where translated and English otherwise. Per-card translations are the data and
-API that replace it. Both run side by side until then.
+The Korean page shows the same feed as the English home, each card in Korean
+where translated and English otherwise (see "One UI for every language").
+Per-card translations are the data and API behind that. The snapshot above
+still runs beside them until the migration's last PR removes it.
 
 Store: `data/i18n/<locale>/feed/cards.json`, one entry per English card, keyed
 by the translation key (the card's URL without a trailing slash):
@@ -437,7 +502,7 @@ by the translation key (the card's URL without a trailing slash):
 `build_localized_feed.py` translates the union of two sets, each card once: the
 cards the English home's default `/api/feed` request returns (Brief, rolling
 24-hour arrival window, limit 200; `home_params` mirrors `buildFeedUrl()` in
-`web/index.html`) and the 7-day snapshot set. It skips a card whose stored
+`ui/templates/index.html`) and the 7-day snapshot set. It skips a card whose stored
 `source_hash` and `model` still match, translates at most 60 cards per run, and
 prunes entries not seen in either set for 14 days (`last_seen`). The snapshot is
 built from the store, so a card is never translated twice. The monthly cap is

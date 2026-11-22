@@ -30,6 +30,7 @@ Reader-facing derivatives (built from the durable story store):
    pipeline/watch.py build           -> data/watch/, web/watch-data.json (watchlist entities)
    pipeline/build_storylines.py      -> data/storylines/ (/storylines cross-day threads)
    pipeline/render_static_pages.py   -> web/ static pages + sitemap
+   pipeline/render_home.py           -> web/index.html + web/<locale>/index.html
 
 Agent Skill Lab editorial pilot:
    pipeline/build_skill_lab.py       -> data/playbook/lab/ (validated protocol/results)

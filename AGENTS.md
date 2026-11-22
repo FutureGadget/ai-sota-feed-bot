@@ -24,6 +24,7 @@ pipeline/brief_ledger.py               -> data/brief/<date>.json (24h admission 
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/watch.py build                -> data/watch/index.json + web/watch-data.json (watchlist entities)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
+pipeline/render_home.py                -> web/index.html + web/<locale>/index.html (home page, every language, from ui/templates/index.html)
 pipeline/build_foundations.py          -> data/foundations/index.json (deterministic concept compiler)
 
 Claude Code storyline routine (every 5h, outside GitHub Actions):
@@ -184,7 +185,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     is separate (`judge.py` / `editorial_judge.py`)
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
-    `/weekly` and the crawler-visible feed seed in `web/index.html`)
+    `/weekly` and the crawler-visible feed seed in each home page)
+  - `render_home.py` builds the home page for every language from
+    `ui/templates/index.html` and `config/ui/<code>.json`
+    (`docs/how-to/add-ui-text.md`); `render_static_pages.py` calls it
   - `recap_i18n.py` — agent recap translation helper (`skeleton`, `write`,
     `check`) and `load_localized` for the Korean email
   - `community.py` — validates agent-written Community posts against their
@@ -310,9 +314,12 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `web/foundations.html`, `sitemap.xml` (from
   `render_static_pages.py`). The bare `/daily` and `/weekly` URLs serve the
   pre-rendered latest edition (`web/daily/index.html`, `web/weekly/index.html`),
-  not the client shells, so shares/crawlers see content; the `index.html` feed
-  shell contains a generated `<!-- feed-seed:start/end -->` region (crawler/
-  no-JS snapshot of the top ranked items — hand-edit outside the markers only).
+  not the client shells, so shares/crawlers see content. `web/index.html` and
+  `web/ko/index.html` are generated from `ui/templates/index.html` by
+  `pipeline/render_home.py`: edit the template and `config/ui/*.json`, never the
+  output (`tests/test_home_template.py` fails on a stale page). Each carries a
+  generated `<!-- feed-seed:start/end -->` region (crawler/no-JS snapshot of the
+  top ranked items) that `render_static_pages.py` owns.
   `web/og/` holds per-edition Open Graph share cards from `pipeline/og_cards.py`
   (Pillow-optional; degrades to the committed/default card where absent).
   `web/lab-artifacts/` holds reviewed public evidence referenced by Agent Skill
@@ -529,11 +536,13 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   slice covers `daily`, `weekly`, `story`, `storyline`, `topic`, and
   `foundations`; fresh artifacts render to `web/<locale>/...`, get `hreflang`
   alternates, and expose a browser-language-matched language action.
-  Feed-specific artifacts live separately under
-  `data/i18n/<locale>/feed/{latest,status}.json`: `/ko/` reads them through
-  `/api/feed?locale=ko&localized_snapshot=latest` as a complete top-20 Brief
-  snapshot, and the static-page i18n renderer intentionally ignores
-  `feed/**`.
+  Feed-specific artifacts live separately under `data/i18n/<locale>/feed/`.
+  `/ko/` is the English home page with Korean UI text (one template, one
+  dictionary per language). It requests `/api/feed?locale=ko`, which returns the
+  English home's feed with each card in Korean where
+  `data/i18n/<locale>/feed/cards.json` has a current translation. The older
+  `{latest,status}.json` snapshot is no longer read by the page. The static-page
+  i18n renderer intentionally ignores `feed/**`.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh
   translations only when the user explicitly asks for translated pages; do not
@@ -670,7 +679,8 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   `pipeline/ranking.py`, config is `config/ranking.yaml`. Any reference to
   `ranking_v2.yaml` or `pipeline/ranking_v2.py` is historical.
 - `web/story/`, `web/daily/`, `web/weekly/`, `web/sitemap.xml` are build
-  outputs of `render_static_pages.py` — regenerate, never hand-edit.
+  outputs of `render_static_pages.py` — regenerate, never hand-edit. So are
+  `web/index.html` and `web/<locale>/index.html` (`render_home.py`).
 - **An API only sees the data keys it preloads.** Add the key to
   `scripts/r2_sync.py` (`EXACT_FILES`/`TOP_LEVEL_DIRS`) AND to the route's
   `preload([...])` list in `worker/src/index.js`; the R2 source is synchronous,

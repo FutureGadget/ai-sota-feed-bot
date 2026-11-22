@@ -40,6 +40,9 @@ links.
   not create the only copy of a link or action.
 - Never add horizontal scrolling to global navigation or page actions.
 - Generated pages are changed only through `pipeline/render_static_pages.py`.
+  The home page in every language is changed only through
+  `ui/templates/index.html` and `config/ui/<code>.json`
+  (`pipeline/render_home.py`; see `docs/how-to/add-ui-text.md`).
 
 Product contract:
 `docs/product-specs/mobile-site-chrome.md`.
