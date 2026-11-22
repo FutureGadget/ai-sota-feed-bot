@@ -99,6 +99,23 @@ def localized_links(code: str) -> dict[str, str]:
     return links
 
 
+def localize(code: str, path: str) -> str:
+    """``path`` in ``code`` when that page exists there, else the English path.
+
+    Covers the pages in :func:`localized_links` and per-story pages, which are
+    too many to list in ``window.UI``.
+    """
+    if code == locales.DEFAULT:
+        return path
+    mapped = localized_links(code).get(path)
+    if mapped:
+        return mapped
+    prefix = locales.get(code).path_prefix
+    if path.startswith("/story/") and (WEB_DIR / prefix.lstrip("/") / "story" / f"{path[7:]}.html").is_file():
+        return f"{prefix}{path}"
+    return path
+
+
 def _alternate_links(code: str) -> str:
     rows = [
         f'  <link rel="alternate" hreflang="{c}" href="{page_url(c)}" />' for c in locales.LOCALES
