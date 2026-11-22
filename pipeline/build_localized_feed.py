@@ -100,7 +100,10 @@ def _classify_dirty(
     for i, it in enumerate(all_items):
         t_key = _translation_key(it)
         s_hash = _source_hash(it)
-        is_fresh = t_key in existing and existing[t_key].get("source_hash") == s_hash
+        card = existing.get(t_key) or {}
+        # A card is fresh only if the current feed model translated this exact
+        # source; cards from an older translator or model are redone.
+        is_fresh = card.get("source_hash") == s_hash and card.get("model") == translator.model_for("feed")
         if not is_fresh:
             if i < limit:
                 dirty_targets.append(it)
@@ -155,6 +158,7 @@ def _localized_card(it: dict[str, Any], result: translator.Result) -> dict[str, 
         "translation_key": _translation_key(it),
         "id": it.get("id"),
         "source_hash": _source_hash(it),
+        "model": translator.model_for("feed"),
     }
     for f in FIELDS:
         card[f] = result.fields.get(f) or it.get(f)
