@@ -3896,7 +3896,9 @@
         if (summaryRaw.length < 25) summaryRaw = '';
       }
       if (echoesTitle(it.title, summaryRaw0)) summaryRaw = '';
-      if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);
+      // The excerpt is the article's own English text: never put it under a
+      // translated headline.
+      if (!summaryRaw && frontPage === 'lead' && !(it.i18n && it.i18n.translated)) summaryRaw = leadExcerpt(it);
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const watchDuration = fmtWatchDuration(it.duration_s);

@@ -206,7 +206,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
         self.assertNotIn("text-transform:uppercase", css)  # Precision: sentence case
         self.assertIn("function leadExcerpt(it)", self.html)
-        self.assertIn("if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);", self.html)
+        # The English excerpt is the fallback standfirst, never under a translated headline.
+        self.assertIn("if (!summaryRaw && frontPage === 'lead' && !(it.i18n && it.i18n.translated)) summaryRaw = leadExcerpt(it);", self.html)
         self.assertIn("const FRONT_PAGE_CATEGORY_LABELS = {", self.html)
         clean = _extract_js_function(self.html, "cleanText")
         keywords = _extract_js_function(self.html, "looksLikeKeywordList")
