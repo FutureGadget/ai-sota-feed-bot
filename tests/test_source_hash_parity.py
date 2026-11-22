@@ -9,6 +9,7 @@ same fixtures here.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import unittest
@@ -82,7 +83,7 @@ class SourceHashParityTest(unittest.TestCase):
         res = subprocess.run(
             ["node", "--input-type=module", "-e", _NODE],
             cwd=ROOT,
-            env={"PATH": __import__("os").environ["PATH"], "CASES": json.dumps(CASES)},
+            env={"PATH": os.environ["PATH"], "CASES": json.dumps(CASES)},
             capture_output=True,
             text=True,
             check=True,
