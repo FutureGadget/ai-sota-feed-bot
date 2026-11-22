@@ -661,5 +661,24 @@ class BriefLedgerTest(unittest.TestCase):
         self.assertLessEqual(wait, retention * 24 - 24)
 
 
+class BriefLedgerEditTest(unittest.TestCase):
+    def test_edit_items_rewrites_only_when_the_edit_reports_a_change(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            path = d / "2026-11-20.json"
+            path.write_text(json.dumps({"date": "2026-11-20", "items": {"a": {"n": 1}, "b": {"n": 2}}}))
+            self.assertEqual(bl.edit_items("2026-11-20", lambda items: 0, brief_dir=d), 0)
+            self.assertEqual(json.loads(path.read_text())["items"]["a"], {"n": 1})
+
+            def bump(items):
+                for it in items:
+                    it["n"] += 10
+                return len(items)
+
+            self.assertEqual(bl.edit_items("2026-11-20", bump, brief_dir=d), 2)
+            self.assertEqual(json.loads(path.read_text())["items"], {"a": {"n": 11}, "b": {"n": 12}})
+            self.assertEqual(bl.edit_items("2026-11-19", bump, brief_dir=d), 0)  # no such day
+
+
 if __name__ == "__main__":
     unittest.main()

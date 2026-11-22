@@ -29,7 +29,7 @@ import tempfile
 from collections import Counter
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import yaml
 
@@ -718,6 +718,29 @@ def _admit(
     diag["admitted"] = len(new_items)
     diag["role_counts"] = dict(Counter(str(item.get("source_role") or "default") for item in new_items.values()))
     return new_items, diag
+
+
+def edit_items(
+    day: str,
+    edit: Callable[[list[dict[str, Any]]], int],
+    *,
+    brief_dir: Path | None = None,
+) -> int:
+    """Let ``edit`` change the day's admitted cards in place; rewrite the file when it reports changes.
+
+    Used for text that is written after admission (the Haiku summaries), which
+    ``_update_item`` would not overwrite. Returns ``edit``'s count, 0 when the
+    day has no ledger. Admission, ranks, and diagnostics are left as they are.
+    """
+    path = (brief_dir or BRIEF_DIR) / f"{day}.json"
+    payload = _read(path, {})
+    items = payload.get("items") if isinstance(payload, dict) else None
+    if not isinstance(items, dict) or not items:
+        return 0
+    changed = edit([item for item in items.values() if isinstance(item, dict)])
+    if changed:
+        _atomic_write(path, payload)
+    return changed
 
 
 def record_run(
