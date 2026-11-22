@@ -64,13 +64,10 @@ if [ "$local_stashed" = true ]; then
   }
 fi
 
-echo -e "\n=== [2/5] Translating Live Feed Snapshot ==="
-# Translates the top 10 ranked Brief snapshot items.
-# Outputs: data/i18n/ko/feed/latest.json & data/i18n/ko/feed/status.json
-python3 pipeline/build_localized_feed.py \
-  --locale ko \
-  --label brief \
-  --limit 10
+echo -e "\n=== [2/5] Translating Live Feed Cards ==="
+# Translates the cards of the English home feed that have no current translation.
+# Output: data/i18n/ko/feed/cards.json
+python3 pipeline/build_localized_feed.py --locale ko
 
 echo -e "\n=== [3/5] Translating Static Pages ==="
 # Scans the workspace and translates all missing/stale static pages
@@ -93,7 +90,7 @@ if [[ -z "$(git status --porcelain data/i18n/ web/ko/ web/og/ web/sitemap.xml we
 else
   echo "Translation updates detected. Staging and committing..."
   git add data/i18n/ web/ko/ web/og/ web/sitemap.xml web/story/ web/daily/ web/weekly/ web/storyline/ web/topic/ web/foundations/
-  git commit -m "chore(data): refresh Korean feed snapshots, static pages, and OG cards"
+  git commit -m "chore(data): refresh Korean feed cards, static pages, and OG cards"
   
   echo "Syncing with remote main (pull with rebase) and pushing..."
   push_success=false

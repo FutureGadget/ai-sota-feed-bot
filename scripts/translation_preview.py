@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Preview Claude translations of the committed /ko/ feed cards.
+"""Preview Claude translations of the English home's feed cards.
 
-Builds one job per card in data/i18n/ko/feed/latest.json (English source from
-data/processed/latest.json, matched by translation key), translates them with
-the `feed` surface, and prints a Markdown table of English, committed, and
-Claude text. Writes no data file: spend goes to --ledger, a temp file by default.
+Builds one job per card of the English home's default feed, translates them with
+the `feed` surface, and prints a Markdown table of English, committed (from
+data/i18n/<locale>/feed/cards.json, matched by translation key), and Claude
+text. Writes no data file: spend goes to --ledger, a temp file by default.
 
     python3 scripts/translation_preview.py --limit 5
     python3 scripts/translation_preview.py --limit 2 --dry-run   # no API call
@@ -13,7 +13,6 @@ Claude text. Writes no data file: spend goes to --ledger, a temp file by default
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import sys
 import tempfile
@@ -24,22 +23,21 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline"))
 
 import build_localized_feed as feed  # noqa: E402
+import card_store  # noqa: E402
 import translator  # noqa: E402
 
 
 def build_jobs(locale: str, limit: int) -> tuple[list[translator.Job], dict[str, dict], int]:
-    """Jobs for the cards the /ko/ builder would translate now: the top `limit`
-    Brief items from the same /api/feed selector build_localized_feed.py uses.
-    Committed Korean text comes from the snapshot, when it has the card."""
-    snapshot = json.loads((ROOT / "data" / "i18n" / locale / "feed" / "latest.json").read_text(encoding="utf-8"))
-    by_key = {card["translation_key"]: card for card in snapshot["items"]}
-    params = feed.snapshot_params("brief", max(100, limit * 2), datetime.now(timezone.utc))
-    english = feed._fetch_english_feed(params).get("items", [])[:limit]
+    """Jobs for the first `limit` cards of the English home feed, the set
+    build_localized_feed.py translates. Committed Korean text comes from the
+    per-card store, when it has the card."""
+    store = card_store.load(card_store.store_path(ROOT, locale), locale)
+    english = feed._fetch_english_feed(feed.home_params(datetime.now(timezone.utc))).get("items", [])[:limit]
     jobs, current = [], {}
     for src in english:
         job = feed.item_job(src)
         jobs.append(job)
-        current[job.key] = by_key.get(job.key, {})
+        current[job.key] = store["cards"].get(job.key, {})
     return jobs, current, len(english)
 
 
@@ -65,7 +63,7 @@ def main() -> None:
     args = p.parse_args()
 
     jobs, current, _ = build_jobs(args.locale, args.limit)
-    print(f"Previewing {len(jobs)} Brief cards (the set build_localized_feed.py translates).\n")
+    print(f"Previewing {len(jobs)} home cards (the set build_localized_feed.py translates).\n")
 
     if args.dry_run:
         for job in jobs:
