@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -75,6 +76,52 @@ class TranslationKeyAndHashTest(unittest.TestCase):
         self.assertNotEqual(localized._source_hash(item), localized._source_hash(changed_text))
 
 
+class FeedParamsTest(unittest.TestCase):
+    NOW = datetime(2026, 11, 22, 15, 9, 33, 376000, tzinfo=timezone.utc)  # 00:09 KST on the 23rd
+
+    def test_snapshot_window_is_the_last_seven_seoul_days(self) -> None:
+        self.assertEqual(
+            localized.snapshot_params("brief", 100, self.NOW),
+            {
+                "label": "brief",
+                "limit": "100",
+                "from": "2026-11-17T00:00:00.000+09:00",
+                "to": "2026-11-23T23:59:59.999+09:00",
+            },
+        )
+
+    def test_home_params_are_the_english_home_default_request(self) -> None:
+        self.assertEqual(
+            localized.home_params(self.NOW),
+            {
+                "label": "brief",
+                "limit": "200",
+                "window": "arrival",
+                "from": "2026-11-21T15:09:33.376Z",
+                "to": "2026-11-22T15:09:33.376Z",
+            },
+        )
+
+    def test_home_params_match_what_web_index_requests_by_default(self) -> None:
+        # web/index.html buildFeedUrl(): drift here means the Korean reader is
+        # translated a different set of cards than the English home shows.
+        page = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("let limitState = '200';", page)
+        self.assertIn("const DEFAULT_SECTION_LABELS = ['brief'];", page)
+        self.assertIn("u.searchParams.set('window', 'arrival');", page)
+        self.assertIn("now.getTime() - 24 * 60 * 60 * 1000", page)
+
+    def test_fetch_hands_the_params_to_the_feed_handler_and_parses_its_json(self) -> None:
+        completed = subprocess.CompletedProcess([], 0, stdout='{"items": []}', stderr="")
+        with patch.object(localized.subprocess, "run", return_value=completed) as run:
+            feed = localized._fetch_english_feed({"label": "brief", "limit": "5"})
+
+        self.assertEqual(feed, {"items": []})
+        env = run.call_args.kwargs["env"]
+        self.assertEqual(json.loads(env["FEED_PARAMS"]), {"label": "brief", "limit": "5"})
+        self.assertEqual(run.call_args.kwargs["cwd"], localized.ROOT)
+
+
 class ItemJobTest(unittest.TestCase):
     def test_job_carries_visible_fields_and_the_excerpt_as_context(self) -> None:
         item = _mk_item(
@@ -104,7 +151,7 @@ class ItemJobTest(unittest.TestCase):
         self.assertEqual(job.context, "Fallback summary")
         self.assertNotIn("why_it_matters", job.fields)
 
-    def test_card_keeps_identity_hash_and_also_covered_urls(self) -> None:
+    def test_entry_keeps_hash_model_and_also_covered_urls(self) -> None:
         item = _mk_item(1, also_covered=[{"url": "https://other.example/story", "title": "Other coverage"}])
         result = translator.Result(
             item["url"],
@@ -116,12 +163,58 @@ class ItemJobTest(unittest.TestCase):
             },
             0.0,
         )
-        card = localized._localized_card(item, result)
-        self.assertEqual(card["translation_key"], item["url"])
-        self.assertEqual(card["id"], item["id"])
-        self.assertEqual(card["source_hash"], localized._source_hash(item))
-        self.assertEqual(card["title"], "한국어 제목")
-        self.assertEqual(card["also_covered"], [{"url": "https://other.example/story", "title": "다른 보도"}])
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)
+        entry = localized._card_entry(item, result, "model-x", now)
+        self.assertEqual(
+            entry,
+            {
+                "source_hash": localized._source_hash(item),
+                "model": "model-x",
+                "translated_at": now.isoformat(),
+                "last_seen": now.isoformat(),
+                "title": "한국어 제목",
+                "summary_1line": "한국어 요약",
+                "why_it_matters": "한국어 이유",
+                "also_covered": [{"url": "https://other.example/story", "title": "다른 보도"}],
+            },
+        )
+
+    def test_entry_falls_back_to_english_for_fields_the_model_left_out(self) -> None:
+        item = _mk_item(1)
+        entry = localized._card_entry(
+            item, translator.Result(item["url"], {"title": "한국어 제목"}, 0.0), "m", datetime.now(timezone.utc)
+        )
+        self.assertEqual(entry["summary_1line"], "Summary 1.")
+
+    def test_snapshot_card_is_the_entry_plus_id_and_source_meta(self) -> None:
+        item = _mk_item(1, source="src", type="news", also_covered=[{"url": "https://o.example/a", "title": "O"}])
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)
+        entry = localized._card_entry(item, translator.Result(item["url"], {"title": "제목"}, 0.0), "m", now)
+        card = localized._snapshot_card(item, entry)
+        self.assertEqual(
+            card,
+            {
+                "translation_key": item["url"],
+                "id": "item-1",
+                "source_hash": entry["source_hash"],
+                "model": "m",
+                "title": "제목",
+                "summary_1line": "Summary 1.",
+                "why_it_matters": "Why it matters 1.",
+                "also_covered": [{"url": "https://o.example/a", "title": "O"}],
+                "source_meta": {
+                    "url": item["url"], "source": "src", "published": "2026-07-05T00:00:00Z", "type": "news",
+                },
+            },
+        )
+        bare = localized._snapshot_card(_mk_item(2), localized._card_entry(
+            _mk_item(2), translator.Result("k", {}, 0.0), "m", now))
+        self.assertNotIn("also_covered", bare)
+
+    def test_union_keeps_first_seen_order_and_each_key_once(self) -> None:
+        a, b, c = _mk_item(1), _mk_item(2), _mk_item(3)
+        dup_of_b = _mk_item(2, title="same url, other title")
+        self.assertEqual(localized._union([a, b], [dup_of_b, c], [a]), [a, b, c])
 
 
 class BuildLocalizedFeedTest(unittest.TestCase):
@@ -135,6 +228,7 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         self.feed_dir.mkdir(parents=True)
         self.latest_path = self.feed_dir / "latest.json"
         self.status_path = self.feed_dir / "status.json"
+        self.store_path = self.feed_dir / "cards.json"
         self.ledger_path = self.tmp_path / "data" / "i18n" / "translation_spend.json"
 
         self._root_patch = patch.object(localized, "ROOT", self.tmp_path)
@@ -154,12 +248,24 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         self._env_patch.stop()
         self._tmpdir.cleanup()
 
-    def _run_main(self, items: list[dict], *, limit: int = 20, client=None, runs=None) -> None:
+    def _run_main(self, items: list[dict], *, limit: int = 20, client=None, runs=None, home=()) -> None:
+        """Run the builder. `items` is the 7-day snapshot feed; `home` is what the English home's
+        default request returns (the two fetches are told apart by the arrival window)."""
         argv = ["build_localized_feed.py", "--locale", "ko", "--label", "brief", "--limit", str(limit)]
-        feed = {"items": items, "runs": runs or []}
+        snapshot_feed = {"items": items, "runs": runs or []}
+        home_feed = {"items": list(home), "runs": []}
+        self.fetched: list[dict] = []
+
+        def fetch(params):
+            self.fetched.append(params)
+            return home_feed if params.get("window") == "arrival" else snapshot_feed
+
         with patch.object(sys, "argv", argv), \
-             patch.object(localized, "_fetch_english_feed", return_value=feed):
+             patch.object(localized, "_fetch_english_feed", side_effect=fetch):
             localized.main(client=client or self.client)
+
+    def _store(self) -> dict:
+        return json.loads(self.store_path.read_text())
 
     def _snapshot(self) -> dict:
         return json.loads(self.latest_path.read_text())
@@ -239,19 +345,19 @@ class BuildLocalizedFeedTest(unittest.TestCase):
     def test_cards_from_another_model_are_retranslated(self) -> None:
         items = [_mk_item(i) for i in range(2)]
         self._run_main(items)
-        snapshot = self._snapshot()
-        for card in snapshot["items"]:
-            self.assertEqual(card["model"], translator.model_for("feed"))
+        for entry in self._store()["cards"].values():
+            self.assertEqual(entry["model"], translator.model_for("feed"))
 
-        # A card from an earlier translator (Google cards carry no model).
-        old = dict(snapshot["items"][0], title="구글 번역")
-        old.pop("model")
-        self._write_existing_snapshot([old, snapshot["items"][1]])
+        # Make one stored card look like it came from an earlier translator.
+        store = self._store()
+        store["cards"][items[0]["url"]]["model"] = "an-older-model"
+        self.store_path.write_text(json.dumps(store), encoding="utf-8")
         again = EchoClient()
         self._run_main(items, client=again)
 
         self.assertEqual([r["title"] for r in again.requested], ["Title 0"])
         self.assertEqual(self._snapshot()["items"][0]["title"], f"{PREFIX}Title 0")
+        self.assertEqual(self._store()["cards"][items[0]["url"]]["model"], translator.model_for("feed"))
 
     def test_nothing_dirty_makes_no_call(self) -> None:
         items = [_mk_item(i) for i in range(2)]
@@ -356,6 +462,154 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         self.assertEqual(self.latest_path.read_text(), before)
         self.assertEqual(self._status()["status"], "incomplete")
 
+    def test_store_has_one_entry_per_card_with_the_documented_shape(self) -> None:
+        item = _mk_item(0, also_covered=[{"url": "https://o.example/0", "title": "Other 0"}])
+        self._run_main([item])
+
+        store = self._store()
+        self.assertEqual(store["locale"], "ko")
+        self.assertEqual(store["updated_at"], self.now.isoformat())
+        self.assertEqual(list(store["cards"]), [item["url"]])
+        self.assertEqual(
+            store["cards"][item["url"]],
+            {
+                "source_hash": localized._source_hash(item),
+                "model": translator.model_for("feed"),
+                "translated_at": self.now.isoformat(),
+                "last_seen": self.now.isoformat(),
+                "title": f"{PREFIX}Title 0",
+                "summary_1line": f"{PREFIX}Summary 0.",
+                "why_it_matters": f"{PREFIX}Why it matters 0.",
+                "also_covered": [{"url": "https://o.example/0", "title": f"{PREFIX}Other 0"}],
+            },
+        )
+
+    def test_the_run_fetches_the_snapshot_window_and_the_home_default(self) -> None:
+        self._run_main([_mk_item(0)])
+        self.assertEqual(
+            self.fetched,
+            [
+                localized.snapshot_params("brief", 100, self.now),
+                localized.home_params(self.now),
+            ],
+        )
+
+    def test_snapshot_and_home_cards_are_translated_once_each_snapshot_targets_first(self) -> None:
+        snapshot_items = [_mk_item(i) for i in range(3)]
+        home_items = [_mk_item(3), _mk_item(1), _mk_item(2), _mk_item(4)]  # 1 and 2 overlap
+        self._run_main(snapshot_items, limit=2, home=home_items)
+
+        self.assertEqual(
+            [r["title"] for r in self.client.requested],
+            ["Title 0", "Title 1", "Title 3", "Title 2", "Title 4"],
+        )
+        self.assertEqual(len(self._store()["cards"]), 5)
+        # Home-only cards live in the store, not in the snapshot.
+        self.assertEqual(
+            sorted(c["translation_key"] for c in self._snapshot()["items"]),
+            sorted(it["url"] for it in snapshot_items),
+        )
+
+    def test_stored_cards_are_reused_and_only_changed_ones_are_retranslated(self) -> None:
+        items = [_mk_item(i) for i in range(3)]
+        home = [_mk_item(5)]
+        self._run_main(items, home=home)
+        self.assertEqual(len(self.client.calls), 4)
+
+        again = EchoClient()
+        self._run_main(items, client=again, home=home)
+        self.assertEqual(again.calls, [])
+
+        home = [_mk_item(5, why_it_matters="Rewritten.")]
+        third = EchoClient()
+        self._run_main(items, client=third, home=home)
+        self.assertEqual([r["title"] for r in third.requested], ["Title 5"])
+        self.assertEqual(self._store()["cards"][home[0]["url"]]["why_it_matters"], f"{PREFIX}Rewritten.")
+
+    def test_a_card_is_reused_across_runs_with_its_translated_at_kept_and_last_seen_bumped(self) -> None:
+        items = [_mk_item(0)]
+        self._run_main(items)
+        later = self.now + timedelta(hours=1)
+        with patch.object(localized, "datetime", _fixed_datetime(later)):
+            self._run_main(items, client=EchoClient())
+
+        entry = self._store()["cards"][items[0]["url"]]
+        self.assertEqual(entry["translated_at"], self.now.isoformat())
+        self.assertEqual(entry["last_seen"], later.isoformat())
+
+    def test_entries_unseen_for_fourteen_days_are_pruned(self) -> None:
+        def stored(last_seen: datetime) -> dict:
+            return {
+                "source_hash": "x", "model": "m", "translated_at": last_seen.isoformat(),
+                "last_seen": last_seen.isoformat(), "title": "t", "summary_1line": "s",
+                "why_it_matters": "w", "also_covered": [],
+            }
+
+        self.store_path.write_text(json.dumps({"locale": "ko", "updated_at": "", "cards": {
+            "https://example.com/old": stored(self.now - timedelta(days=15)),
+            "https://example.com/recent": stored(self.now - timedelta(days=13)),
+        }}), encoding="utf-8")
+        self._run_main([_mk_item(0)])
+
+        self.assertEqual(
+            sorted(self._store()["cards"]),
+            ["https://example.com/post-0", "https://example.com/recent"],
+        )
+
+    def test_snapshot_is_built_from_the_store_without_calling_the_model(self) -> None:
+        items = [_mk_item(i) for i in range(3)]
+        self._run_main(items)
+        store = self._store()
+        for entry in store["cards"].values():
+            entry["title"] = "저장소 번역"
+        self.store_path.write_text(json.dumps(store, ensure_ascii=False), encoding="utf-8")
+        self.latest_path.unlink()
+
+        again = EchoClient()
+        self._run_main(items, client=again)
+
+        self.assertEqual(again.calls, [])
+        self.assertEqual([c["title"] for c in self._snapshot()["items"]], ["저장소 번역"] * 3)
+        self.assertTrue(self._snapshot()["is_complete"])
+
+    def test_first_run_adopts_the_existing_snapshot_instead_of_translating_it_again(self) -> None:
+        items = [_mk_item(i) for i in range(2)]
+        self._run_main(items)
+        snapshot_text = self.latest_path.read_text()
+        self.store_path.unlink()
+
+        again = EchoClient()
+        self._run_main(items, client=again)
+
+        self.assertEqual(again.calls, [])
+        self.assertEqual(sorted(self._store()["cards"]), sorted(it["url"] for it in items))
+        self.assertEqual(self._snapshot()["items"], json.loads(snapshot_text)["items"])
+
+    def test_cap_reached_mid_run_keeps_the_cards_translated_so_far(self) -> None:
+        self._write_existing_snapshot([{"translation_key": "https://example.com/keep-me", "title": "유지"}])
+        with patch.dict(os.environ, {translator.CAP_ENV: "0.0045"}):
+            self._run_main([_mk_item(i) for i in range(3)], home=[_mk_item(9)])
+
+        self.assertEqual(len(self.client.calls), 1)
+        self.assertEqual(list(self._store()["cards"]), ["https://example.com/post-0"])
+        self.assertEqual(self._status()["status"], "budget_paused")
+
+    def test_cap_reached_after_the_snapshot_targets_still_publishes_the_snapshot(self) -> None:
+        # Snapshot targets come first, so a cap hit on a home-only card
+        # leaves the snapshot complete and current.
+        with patch.dict(os.environ, {translator.CAP_ENV: "0.0045"}):
+            self._run_main([_mk_item(0)], home=[_mk_item(9)])
+
+        self.assertEqual(list(self._store()["cards"]), ["https://example.com/post-0"])
+        self.assertEqual(self._status()["status"], "current")
+        self.assertTrue(self._snapshot()["is_complete"])
+
+    def test_one_run_translates_at_most_max_translations_cards(self) -> None:
+        with patch.object(localized, "MAX_TRANSLATIONS", 2):
+            self._run_main([_mk_item(0)], home=[_mk_item(i) for i in range(1, 6)])
+        self.assertEqual(len(self.client.calls), 2)
+        self.assertEqual(len(self._store()["cards"]), 2)
+
     def test_dry_run_calls_nothing_and_writes_nothing(self) -> None:
         argv = ["build_localized_feed.py", "--dry-run"]
         with patch.object(sys, "argv", argv), \
@@ -363,6 +617,7 @@ class BuildLocalizedFeedTest(unittest.TestCase):
             localized.main(client=self.client)
         self.assertEqual(self.client.calls, [])
         self.assertFalse(self.latest_path.exists())
+        self.assertFalse(self.store_path.exists())
         self.assertFalse(self.ledger_path.exists())
 
 

@@ -8,6 +8,7 @@
 // - GET API responses are cached at the edge (Vercel's s-maxage=300 parity).
 
 import { installR2Source, preload, loadJson } from './r2-source.js';
+import { isLocalized } from '../../lib/locales.js';
 
 import { GET as feedGET } from '../../api/feed.js';
 import { GET as rssGET } from '../../api/rss.js';
@@ -46,6 +47,11 @@ async function preloadForApi(pathname, searchParams) {
         && searchParams.get('localized_snapshot') === 'latest'
       ) {
         keys.push('i18n/ko/feed/latest.json', 'i18n/ko/feed/status.json');
+      }
+      // Per-card translations: any localized locale without the snapshot flag.
+      const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
+      if (isLocalized(locale) && searchParams.get('localized_snapshot') !== 'latest') {
+        keys.push(`i18n/${locale}/feed/cards.json`);
       }
       await preload(keys);
       return feedGET;

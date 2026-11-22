@@ -212,7 +212,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     style guide plus the `config/glossary.yaml` do-not-translate list), policy in
     `config/translation.json`, USD `Ledger` in `data/i18n/translation_spend.json`
     that raises `BudgetExceeded` at the monthly cap. `build_localized_feed.py`
-    (live `/ko/` feed, one job per card) and `scripts/translate.py` (static
+    (live `/ko/` feed, one job per card, stored per card in
+    `data/i18n/<locale>/feed/cards.json`) and `scripts/translate.py` (static
     pages, one job per page) share it; see
     `docs/how-to/translation-budget-and-quota.md`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning

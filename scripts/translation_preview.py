@@ -17,6 +17,7 @@ import json
 import os
 import sys
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,7 +33,8 @@ def build_jobs(locale: str, limit: int) -> tuple[list[translator.Job], dict[str,
     Committed Korean text comes from the snapshot, when it has the card."""
     snapshot = json.loads((ROOT / "data" / "i18n" / locale / "feed" / "latest.json").read_text(encoding="utf-8"))
     by_key = {card["translation_key"]: card for card in snapshot["items"]}
-    english = feed._fetch_english_feed("brief", max(100, limit * 2)).get("items", [])[:limit]
+    params = feed.snapshot_params("brief", max(100, limit * 2), datetime.now(timezone.utc))
+    english = feed._fetch_english_feed(params).get("items", [])[:limit]
     jobs, current = [], {}
     for src in english:
         job = feed.item_job(src)

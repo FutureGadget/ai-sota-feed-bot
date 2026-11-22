@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Build the localized live feed snapshot.
+"""Build the localized live feed: the per-card store and the /ko/ snapshot.
 
-One ``translator.Job`` per card. Spend is metered in USD by the shared
-``translator.Ledger``; when the monthly cap is reached the previous snapshot
-stays frozen and ``status.json`` says ``budget_paused``.
+One ``translator.Job`` per card, each card translated once into the store
+(``cards.json``, see ``card_store``). The store covers the cards the English
+home's default request returns plus the 7-day top-N set; the snapshot
+(``latest.json``, read by the old /ko/ page) is built from the store without
+translating again. Spend is metered in USD by the shared ``translator.Ledger``;
+when the monthly cap is reached the store keeps what was translated, the
+previous snapshot stays frozen, and ``status.json`` says ``budget_paused``.
 """
 
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
@@ -16,8 +21,9 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from . import locales, translator
+    from . import card_store, locales, translator
 except ImportError:
+    import card_store
     import locales
     import translator
 
@@ -32,7 +38,7 @@ FEED_UI = {
 
 ROOT = Path(__file__).resolve().parent.parent
 FIELDS = ("title", "summary_1line", "why_it_matters")
-MAX_TRANSLATIONS = 20
+MAX_TRANSLATIONS = 60
 
 def _norm_url(url: str | None) -> str:
     s = str(url or "").strip()
@@ -82,67 +88,64 @@ def _read_json(path: Path) -> dict[str, Any] | None:
     except Exception:
         return None
 
-def _translation_map(snapshot: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
-    if not snapshot:
-        return {}
-    out: dict[str, dict[str, Any]] = {}
-    for it in snapshot.get("items", []):
-        key = it.get("translation_key")
-        if key:
-            out[key] = it
-    return out
+KST = timezone(timedelta(hours=9))
+SNAPSHOT_DAYS = 7
+# The English home's default view (web/index.html buildFeedUrl): the Brief lens,
+# a rolling 24-hour window keyed by feed arrival, up to 200 cards.
+HOME_LABEL = "brief"
+HOME_LIMIT = 200
+HOME_HOURS = 24
 
-def _classify_dirty(
-    all_items: list[dict[str, Any]], existing: dict[str, dict[str, Any]], limit: int
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    dirty_targets = []
-    dirty_lookahead = []
-    for i, it in enumerate(all_items):
-        t_key = _translation_key(it)
-        s_hash = _source_hash(it)
-        # A card is fresh when its English source is unchanged and the current
-        # feed model translated it; a model change retranslates the snapshot.
-        is_fresh = (
-            t_key in existing
-            and existing[t_key].get("source_hash") == s_hash
-            and existing[t_key].get("model") == translator.model_for("feed")
-        )
-        if not is_fresh:
-            if i < limit:
-                dirty_targets.append(it)
-            else:
-                dirty_lookahead.append(it)
-    return dirty_targets, dirty_lookahead
-
-def _fetch_english_feed(label: str, limit: int) -> dict[str, Any]:
-    js_code = f"""
-import {{ GET }} from './api/feed.js';
-function kstWindow(days) {{
-  const now = new Date();
-  const kstNow = new Date(now.toLocaleString('en-US', {{ timeZone: 'Asia/Seoul' }}));
-  const end = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 999);
-  const start = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate() - (days - 1), 0, 0, 0, 0);
-  const offset = '+09:00';
-  const fmt = (d) => {{
-    const pad = (n, w = 2) => String(n).padStart(w, '0');
-    return `${{d.getFullYear()}}-${{pad(d.getMonth() + 1)}}-${{pad(d.getDate())}}T${{pad(d.getHours())}}:${{pad(d.getMinutes())}}:${{pad(d.getSeconds())}}.${{pad(d.getMilliseconds(), 3)}}${{offset}}`;
-  }};
-  return {{ from: fmt(start), to: fmt(end) }};
-}}
-const w = kstWindow(7);
+_FETCH_JS = """
+import { GET } from './api/feed.js';
 const url = new URL('http://localhost/api/feed');
-url.searchParams.set('label', '{label}');
-url.searchParams.set('limit', '{limit}');
-url.searchParams.set('from', w.from);
-url.searchParams.set('to', w.to);
-const req = {{ url: url.toString() }};
-GET(req)
-  .then(res => res.json())
-  .then(data => {{ console.log(JSON.stringify(data)); }})
-  .catch(console.error);
+for (const [key, value] of Object.entries(JSON.parse(process.env.FEED_PARAMS))) {
+  url.searchParams.set(key, value);
+}
+GET({ url: url.toString() })
+  .then((res) => res.json())
+  .then((data) => { console.log(JSON.stringify(data)); })
+  .catch((err) => { console.error(err); process.exit(1); });
 """
-    cmd = ["node", "-e", js_code]
-    res = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
+
+
+def _kst_window(days: int, now: datetime) -> dict[str, str]:
+    """The last ``days`` Seoul calendar days up to the end of today, as /api/feed from/to."""
+    today = now.astimezone(KST).replace(hour=0, minute=0, second=0, microsecond=0)
+
+    def fmt(d: datetime) -> str:
+        return d.isoformat(timespec="milliseconds")
+
+    start = today - timedelta(days=days - 1)
+    end = today.replace(hour=23, minute=59, second=59, microsecond=999000)
+    return {"from": fmt(start), "to": fmt(end)}
+
+
+def snapshot_params(label: str, limit: int, now: datetime) -> dict[str, str]:
+    """/api/feed params for the 7-day snapshot selector the /ko/ page requests."""
+    return {"label": label, "limit": str(limit), **_kst_window(SNAPSHOT_DAYS, now)}
+
+
+def home_params(now: datetime) -> dict[str, str]:
+    """/api/feed params of the English home's default request."""
+    def fmt(d: datetime) -> str:
+        return d.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+    return {
+        "label": HOME_LABEL,
+        "limit": str(HOME_LIMIT),
+        "window": "arrival",
+        "from": fmt(now - timedelta(hours=HOME_HOURS)),
+        "to": fmt(now),
+    }
+
+
+def _fetch_english_feed(params: dict[str, str]) -> dict[str, Any]:
+    """The English /api/feed response for ``params``, from the repo's own handler."""
+    env = {**os.environ, "FEED_PARAMS": json.dumps(params)}
+    res = subprocess.run(
+        ["node", "-e", _FETCH_JS], cwd=ROOT, env=env, capture_output=True, text=True, check=True
+    )
     return json.loads(res.stdout)
 
 
@@ -156,21 +159,73 @@ def item_job(it: dict[str, Any]) -> translator.Job:
     return translator.Job(_translation_key(it), fields, context)
 
 
-def _localized_card(it: dict[str, Any], result: translator.Result) -> dict[str, Any]:
+def _card_entry(
+    it: dict[str, Any], result: translator.Result, model: str, now: datetime
+) -> card_store.CardEntry:
+    """The store entry for one freshly translated English card."""
+    return {
+        "source_hash": _source_hash(it),
+        "model": model,
+        "translated_at": now.isoformat(),
+        "last_seen": now.isoformat(),
+        **{f: result.fields.get(f) or it.get(f) or "" for f in FIELDS},
+        "also_covered": [
+            {"url": entry.get("url"), "title": result.fields.get(f"also_covered_title_{i}", entry.get("title"))}
+            for i, entry in enumerate(it.get("also_covered") or [])
+        ],
+    }
+
+
+def _seed_store(store: card_store.CardStore, snapshot: dict[str, Any] | None, now: datetime) -> None:
+    """First run only: adopt the existing snapshot's cards so they are not paid for twice."""
+    for row in (snapshot or {}).get("items", []):
+        key = row.get("translation_key")
+        if not key or not row.get("source_hash"):
+            continue
+        store["cards"][key] = {
+            "source_hash": row["source_hash"],
+            "model": row.get("model") or "",
+            "translated_at": snapshot.get("translated_at") or now.isoformat(),
+            "last_seen": now.isoformat(),
+            **{f: row.get(f) or "" for f in FIELDS},
+            "also_covered": row.get("also_covered") or [],
+        }
+
+
+def _snapshot_card(it: dict[str, Any], entry: card_store.CardEntry) -> dict[str, Any]:
+    """One snapshot row: a store entry plus what the API needs to render it frozen."""
     card = {
         "translation_key": _translation_key(it),
         "id": it.get("id"),
-        "source_hash": _source_hash(it),
-        "model": translator.model_for("feed"),
+        "source_hash": entry["source_hash"],
+        "model": entry["model"],
+        **{f: entry[f] for f in FIELDS},
     }
-    for f in FIELDS:
-        card[f] = result.fields.get(f) or it.get(f)
-    if it.get("also_covered"):
-        card["also_covered"] = [
-            {"url": entry.get("url"), "title": result.fields.get(f"also_covered_title_{i}", entry.get("title"))}
-            for i, entry in enumerate(it["also_covered"])
-        ]
+    if entry["also_covered"]:
+        card["also_covered"] = entry["also_covered"]
+    # source_meta lets the API render a dated frozen card from the snapshot
+    # alone when the feed is paused/stale. Not covered by source_hash, so
+    # refreshing it never re-translates an item.
+    card["source_meta"] = {
+        "url": it.get("url"),
+        "source": it.get("source"),
+        "published": it.get("published"),
+        "type": it.get("type"),
+    }
     return card
+
+
+def _union(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Cards from every group in order, each translation key once."""
+    seen: set[str] = set()
+    out = []
+    for group in groups:
+        for it in group:
+            key = _translation_key(it)
+            if key not in seen:
+                seen.add(key)
+                out.append(it)
+    return out
 
 
 def _next_month_start(now: datetime) -> datetime:
@@ -192,8 +247,10 @@ def _write_status(path: Path, status: dict[str, Any]) -> None:
     print(f"Wrote status to {path.relative_to(ROOT)}")
 
 
+
+
 def main(client=None):
-    parser = argparse.ArgumentParser(description="Build the localized live feed snapshot.")
+    parser = argparse.ArgumentParser(description="Build the localized live feed: the per-card store and the snapshot.")
     parser.add_argument("--locale", default="ko", choices=locales.others(locales.DEFAULT))
     parser.add_argument("--label", default="brief")
     parser.add_argument("--limit", type=int, default=20)
@@ -204,43 +261,53 @@ def main(client=None):
     feed_dir.mkdir(parents=True, exist_ok=True)
     latest_path = feed_dir / "latest.json"
     status_path = feed_dir / "status.json"
+    store_path = card_store.store_path(ROOT, args.locale)
 
     now = datetime.now(timezone.utc)
+    model = translator.model_for("feed")
     ledger = translator.Ledger(ROOT / "data" / "i18n" / "translation_spend.json", now=lambda: now)
     print(f"localized_feed_budget usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f} month={now:%Y-%m}")
 
     existing_snapshot = _read_json(latest_path)
+    store = card_store.load(store_path, args.locale)
+    if not store["cards"]:
+        _seed_store(store, existing_snapshot, now)
 
     fetch_limit = max(100, args.limit * 2)
     print(f"Fetching English feed (label={args.label}, limit={fetch_limit})...")
-    feed = _fetch_english_feed(args.label, fetch_limit)
+    feed = _fetch_english_feed(snapshot_params(args.label, fetch_limit, now))
     all_items = feed.get("items", [])
     if not all_items:
         print("No items in feed!")
         return
 
-    target_items = all_items[: args.limit]
+    print(f"Fetching the English home's default feed (label={HOME_LABEL}, limit={HOME_LIMIT})...")
+    home_items = _fetch_english_feed(home_params(now)).get("items", [])
 
+    target_items = all_items[: args.limit]
     # The snapshot's freshness clock is the newest feed run it was built from
     # (/api/feed returns runs newest first), not when its top card was first seen.
     runs = feed.get("runs") or []
     run_at_str = (runs[0].get("run_at") if runs and isinstance(runs[0], dict) else None) or now.isoformat()
 
-    existing = _translation_map(existing_snapshot)
-
-    # Classify feed items into fresh or dirty
-    dirty_targets, dirty_lookahead = _classify_dirty(all_items, existing, args.limit)
-    to_translate = (dirty_targets + dirty_lookahead)[:MAX_TRANSLATIONS]
+    # Translate the snapshot's top N first (the /ko/ page needs them), then the
+    # home's cards, then the snapshot's lookahead.
+    wanted = _union(target_items, home_items, all_items[args.limit :])
+    dirty = [
+        it for it in wanted
+        if not card_store.is_fresh(store["cards"].get(_translation_key(it)), _source_hash(it), model)
+    ]
+    to_translate = dirty[:MAX_TRANSLATIONS]
 
     if args.dry_run:
-        print(f"\nDRY RUN: Found {len(all_items)} total items.")
-        print(f"  Dirty targets (top {args.limit}): {len(dirty_targets)}")
-        print(f"  Dirty lookahead: {len(dirty_lookahead)}")
-        print(f"  Would translate: {len(to_translate)}")
+        print(f"\nDRY RUN: {len(wanted)} cards to keep translated.")
+        print(f"  Snapshot set: {len(all_items)} (top {args.limit} + lookahead)")
+        print(f"  English home default feed: {len(home_items)}")
+        print(f"  Already translated: {len(wanted) - len(dirty)}")
+        print(f"  Would translate: {len(to_translate)} of {len(dirty)} untranslated (max {MAX_TRANSLATIONS} per run)")
         return
 
     # Translate one card per call, so a card that fails does not discard the others.
-    results_map = dict(existing)
     translated = 0
     budget_hit = False
 
@@ -266,18 +333,25 @@ def main(client=None):
             except Exception as exc:
                 print(f" Translation FAILED, stopping: {exc}", file=sys.stderr)
                 break
-            results_map[_translation_key(it)] = _localized_card(it, result)
+            store["cards"][_translation_key(it)] = _card_entry(it, result, model, now)
             translated += 1
         print(f" Translated {translated} items.")
     else:
-        print("All target and lookahead items are fresh in cache.")
+        print("All wanted cards are already translated.")
+
+    for it in wanted:
+        entry = store["cards"].get(_translation_key(it))
+        if entry:
+            entry["last_seen"] = now.isoformat()
+    pruned = card_store.prune(store, now)
+    card_store.save(store_path, store, now)
+    print(f"Wrote {len(store['cards'])} cards to {store_path.relative_to(ROOT)} (pruned {pruned})")
 
     # Verify if the visible target feed (top N) is complete
     missing_targets = []
     for it in target_items:
-        t_key = _translation_key(it)
-        s_hash = _source_hash(it)
-        if t_key not in results_map or results_map[t_key].get("source_hash") != s_hash:
+        entry = store["cards"].get(_translation_key(it))
+        if not entry or entry["source_hash"] != _source_hash(it):
             missing_targets.append(it.get("title"))
 
     if budget_hit and missing_targets:
@@ -302,24 +376,11 @@ def main(client=None):
         print(f"localized_feed_budget_paused reason=monthly_cap resumes_at={resumes_at}")
         return
 
-    # Prune translations that are no longer in the wider feed to prevent infinite cache growth
-    valid_keys = {_translation_key(it) for it in all_items}
-    # source_meta lets the API render a dated frozen card from the snapshot
-    # alone when the feed is paused/stale. Not covered by source_hash, so
-    # refreshing it never re-translates an item.
-    meta_by_key = {
-        _translation_key(it): {
-            "url": it.get("url"),
-            "source": it.get("source"),
-            "published": it.get("published"),
-            "type": it.get("type"),
-        }
-        for it in all_items
-    }
+    # The snapshot is built from the store: every card of the fetched feed it holds.
     final_items = [
-        {**v, "source_meta": meta_by_key[k]} if k in meta_by_key else dict(v)
-        for k, v in results_map.items()
-        if k in valid_keys
+        _snapshot_card(it, store["cards"][_translation_key(it)])
+        for it in _union(all_items)
+        if _translation_key(it) in store["cards"]
     ]
 
     is_complete = len(missing_targets) == 0
@@ -335,14 +396,14 @@ def main(client=None):
         "source_run_at": run_at_str,
         "translated_at": now.isoformat(),
         "expires_at": (datetime.fromisoformat(run_at_str.replace("Z", "+00:00")) + timedelta(hours=24)).isoformat(),
-        "model": translator.model_for("feed"),
+        "model": model,
         "review_status": "machine",
         "eligible_label": args.label,
         "selector": {
             "endpoint": "/api/feed",
             "label": args.label,
             "limit": args.limit,
-            "days": 7
+            "days": SNAPSHOT_DAYS
         },
         "max_items": args.limit,
         "source_item_count": len(target_items),
