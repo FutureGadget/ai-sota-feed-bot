@@ -416,6 +416,45 @@ Required machine-readable status:
   run). A `budget_paused` status also carries `resumes_at` — see Translation
   Budget Cap for the full shape.
 
+## Per-card translations
+
+The snapshot above is slated for removal in the one-UI migration (PR 3): the
+Korean page will show the same feed as the English home, each card in Korean
+where translated and English otherwise. Per-card translations are the data and
+API that replace it. Both run side by side until then.
+
+Store: `data/i18n/<locale>/feed/cards.json`, one entry per English card, keyed
+by the translation key (the card's URL without a trailing slash):
+
+```json
+{"locale": "ko", "updated_at": "<iso>", "cards": {"<translation_key>": {
+  "source_hash": "<sha256 of the English title, summary, why, also_covered>",
+  "model": "<translator model>", "translated_at": "<iso>", "last_seen": "<iso>",
+  "title": "", "summary_1line": "", "why_it_matters": "",
+  "also_covered": [{"url": "", "title": ""}]}}}
+```
+
+`build_localized_feed.py` translates the union of two sets, each card once: the
+cards the English home's default `/api/feed` request returns (Brief, rolling
+24-hour arrival window, limit 200; `home_params` mirrors `buildFeedUrl()` in
+`web/index.html`) and the 7-day snapshot set. It skips a card whose stored
+`source_hash` and `model` still match, translates at most 20 cards per run, and
+prunes entries not seen in either set for 14 days (`last_seen`). The snapshot is
+built from the store, so a card is never translated twice. The monthly cap is
+the same `translator.Ledger`: on `BudgetExceeded` the store keeps what was
+translated and the snapshot pauses as before. `scripts/r2_sync.py` publishes the
+file and the Worker preloads it.
+
+Overlay contract: `/api/feed?locale=ko` without `localized_snapshot=latest`
+returns the normal English response for the same params. Each item whose stored
+`source_hash` equals the hash of the item as served (after coverage
+decoration) gets `title`, `summary_1line`, `why_it_matters` and
+`also_covered[].title` from the store. Every item carries
+`i18n: {"locale": "ko", "translated": true|false}`; a stale or missing entry
+leaves the English text with `translated: false`. The two hash implementations
+(`_source_hash` in Python, `sourceHash` in `api/feed.js`) are pinned together by
+`tests/test_source_hash_parity.py`. `localized_snapshot=latest` is unchanged.
+
 ## Translation Budget Cap
 
 Each card is translated by Claude (`pipeline/translator.py`, model from
