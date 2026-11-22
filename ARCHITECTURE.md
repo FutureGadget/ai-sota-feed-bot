@@ -9,7 +9,9 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
    -> pipeline/source_health.py        (health score, circuit breaker)
    -> pipeline/build_digest.py         (single edition builder:
       editorial policy -> Jev gate/category -> ranking via pipeline/ranking.py,
-      incremental no-delta skip)
+      incremental no-delta skip; then pipeline/summaries.py writes a Haiku
+      one-sentence summary_1line for each edition and Brief ledger card,
+      cached in data/processed/summaries.json)
    -> data/processed/latest.json       (the feed)
    -> data/processed/classified.json   (judge verdicts/categories; joined into the editor-deck input bundles by pipeline/deck_quality.py)
    -> data/quality/pool/<date>.json    (whole post-judge Stage A pool per UTC day with edition membership;

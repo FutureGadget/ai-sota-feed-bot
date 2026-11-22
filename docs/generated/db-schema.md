@@ -59,6 +59,15 @@ available to each function.
   `judgment_store.ttl_days` (default 14) and `max_entries` (default 6000).
   Committed so CI reuses prior judgments and only calls Jev for missing,
   expired, or thin-evidence items.
+- `data/processed/summaries.json` — durable cache of the Haiku card summaries
+  (`pipeline/summaries.py`): `{version, updated_at, entries}` where `entries` is
+  keyed by normalized item URL, each `{summary, evidence_hash, evidence_chars,
+  model, summarized_at, last_seen, title}`. `summary` is `""` when the model's
+  answer was rejected or the item had no evidence; the entry stops a retry until
+  the evidence grows by 20%. Entries unseen for `summaries.prune_days` (30) are
+  dropped. Committed so CI reuses summaries. The summary replaces `summary_1line`
+  in `latest.json`, the run snapshots and `data/brief/<date>.json`; the replaced
+  teaser stays in `source_summary_1line`.
 - `data/processed/classified.json` — compact, committed judge artifact for
   editor-deck routines: model/rubric version, category and verdict counts, and
   up to 120 top-scored judged items (`story_key`, `url`, `title`, `source`,
@@ -334,8 +343,9 @@ accumulated ranked pool (calendar ranges):
   ignores `data/i18n/<locale>/updates/**`. `scripts/r2_sync.py` publishes it and
   the Worker preloads it for `api/updates.js`.
 - `data/i18n/translation_spend.json` — **pipeline-only** USD ledger for every
-  Claude translation call, shared by the live feed and the static-page
-  translator (`pipeline/translator.py` `Ledger`); never added to `vercel.json`
+  Claude call, shared by the live feed translation, the static-page translator
+  and the card summaries (`surface` is `feed`, `static` or `summary`;
+  `pipeline/translator.py` `Ledger`); never added to `vercel.json`
   `includeFiles`. Shape: `{month: "YYYY-MM", usd, history: [{at, key, surface,
   usd}]}`. `usd` is the spend this UTC month and resets to 0 on rollover;
   `history[]` is a bounded (last 200 entries) audit trail of calls, not a source

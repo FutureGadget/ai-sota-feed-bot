@@ -7,15 +7,20 @@ Budget Cap"); ledger schema: `docs/generated/db-schema.md`; decision:
 `docs/design-docs/decision-log.md` ("Translation moves from Google Translate to
 Claude").
 
-Both translation callers use `pipeline/translator.py`, the only module that calls
-the Anthropic API:
+Every Claude caller goes through `pipeline/translator.py`, the only module that
+calls the Anthropic API (`request_json` is its one call site):
 
 | Caller | Surface in `config/translation.json` | Job |
 |---|---|---|
 | Live `/ko/` feed cards (`pipeline/build_localized_feed.py`, every feed run) | `feed` | one per card |
 | Static pages (`scripts/translate.py`, daily workflow and local script) | `static` | one per page |
+| English card summaries (`pipeline/summaries.py`, run by `build_digest.py` on every feed run; Claude Haiku) | `summary` | one per new card |
 
-The policy file also holds the model for each surface and `max_context_chars`.
+The summaries use the same client, credentials, prompt caching, price table and
+ledger as translation. Spec: `docs/product-specs/live-feed.md` ("Card
+summaries"). The policy file also holds the model for each surface,
+`max_context_chars`, and a `summaries` block (`max_calls_per_run` 80,
+`max_evidence_chars` 3000, `prune_days` 30).
 The style guide is `config/translation/<locale>.md`; the do-not-translate list is
 `config/glossary.yaml`. Both go into the cached system prompt. Every model in the
 policy needs a price in `translator.PRICES`, or translation raises `ValueError`.
@@ -23,7 +28,8 @@ policy needs a price in `translator.PRICES`, or translation raises `ValueError`.
 ## 1. The ledger and the monthly cap
 
 All spend goes into one file, `data/i18n/translation_spend.json`, shared by the
-feed and the static run:
+feed translation, the static run and the card summaries. There is no separate
+summary budget, so the monthly cap bounds all three together:
 
 ```json
 {"month": "2026-11", "usd": 1.2345, "history": [{"at": "…", "key": "…", "surface": "feed", "usd": 0.003}]}
@@ -62,6 +68,15 @@ The estimate is deliberately high, so a run can stop a few cents under the cap.
   has, logs `localized_updates_budget_cap_reached`, and exits 0. Items covered by
   a current Korean artifact stay Korean, since they cost nothing. The rest show
   in English until the month rolls over.
+- **Card summaries.** The build stops buying summaries, logs
+  `summary_budget_cap_reached`, and publishes as usual. Cards keep the summary
+  already cached for them, or their original `summary_1line`. Summaries cost
+  about $0.0001 per card (Haiku) and run before the Korean builder, so they draw
+  on the shared cap first. Other limits: at most
+  80 calls per build (`summaries.max_calls_per_run`), and none at all when the
+  build cannot persist ledger spend (`STATIC_I18N_RECOVERY_BLOCKED=1`, which is
+  set for dry runs and after a failed static recovery) or when no credentials are
+  present (`summary_skipped reason=not_configured`).
 - **Static pages.** The run stops cleanly with exit code 0 at the first
   `BudgetExceeded`. Each page is written as soon as it is translated, so every
   finished page is checkpointed and committed (section 5). The remaining pages
@@ -92,7 +107,8 @@ exchanges its GitHub OIDC token for a short-lived Anthropic token:
   exchange, so it cannot spend. The static workflow also refuses to publish from
   a non-main ref.
 - In `feed-full-publish.yml` the token step is `continue-on-error`. If it fails,
-  the localized feed step fails on its own and English publishing continues.
+  the card summaries log `summary_skipped reason=not_configured`, the localized
+  feed step fails on its own, and English publishing continues.
 
 To rotate or change the rule, edit the four ids in all three workflows together.
 
@@ -190,6 +206,13 @@ receipt moved from the Google-era guard ledger to
 dollars.
 
 ## Troubleshooting
+
+- **Cards show a raw teaser or the title again.** Look in the feed run's log for
+  `summary_skipped` (no credentials, or a build that cannot persist spend),
+  `summary_budget_cap_reached`, or the `summary_stats` line (`skipped_cap`,
+  `skipped_no_evidence`, `rejected`). A card with no evidence beyond its title
+  keeps its text until evidence appears. To see what would be summarized and what
+  it costs, run `python3 pipeline/summaries.py` (no API call).
 
 - **`/ko/` shows English cards.** Look for `localized_feed_budget_cap_reached` in
   the feed run's log. If it is there, compare `usd` in

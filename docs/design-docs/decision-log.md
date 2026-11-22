@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-23 (Card summaries are written by Claude Haiku in the build)
+
+- **Decision:** `pipeline/summaries.py` writes one English sentence into `summary_1line` for every edition card and every admitted Brief ledger card, with Claude Haiku 5.5 (surface `summary` in `config/translation.json`). It runs inside `build_digest.py`: the edition before `latest.json` is written, the ledger cards after admission. The replaced teaser moves to `source_summary_1line`. Summaries are cached by item URL in `data/processed/summaries.json` and redone only when the evidence grows by 20%. At most 80 calls per build, spend in the shared `translation_spend.json` ledger, and no new call when credentials, budget, or a persistable ledger are missing.
+- **Context / Problem:** `summary_1line` was often not a summary. Collectors passed the title again or the article's raw opening lines ("Hi HN, Sanchit here from RunAnywhere..."), and the Korean page translated the same text, so both languages showed it. The UI hid some echoes (`echoesTitle`) and showed nothing in their place.
+- **Rationale:** The fix belongs at the source, before the text is stored, ranked on, or translated. The build already holds the evidence (the Jev gate's excerpt or transcript digest), so no new fetch is needed for almost every card. One call site (`translator.request_json`) and one ledger keep auth, pricing and the cap in one place. The cache grows only on longer evidence because one item arrives with a snippet in one build and a fetched excerpt in another, and re-summarizing on every swing would pay for the same card each run.
+- **Impact:** New `pipeline/summaries.py`, `brief_ledger.edit_items`, `translator.request_json` and `translator.is_configured`. A changed `summary_1line` changes the card's Korean `source_hash`, so each card retranslates once. Cost is about $0.006 per day at the current card volume (Haiku, 59 cards a day), and at most about $0.10 per day at the call cap.
+- **Rollback:** Revert the PR. Cards go back to the collector teasers on the next build. `data/processed/summaries.json` can stay or be deleted.
+
 ## 2026-11-23 (The Korean feed snapshot is deleted; the per-card store is the only localized feed)
 
 - **Decision:** Delete the 7-day Korean snapshot (`data/i18n/ko/feed/latest.json`, `status.json`) and everything that served it: `/api/feed?locale=ko&localized_snapshot=latest`, the frozen/stale/incomplete/`budget_paused` states, the "newer in English" section, and the snapshot half of `pipeline/build_localized_feed.py`. `/api/feed?locale=<l>` only overlays `cards.json`. `LOCALIZED_FEED_ENABLED=0` now switches that overlay off and `run_full.sh` skips the builder when it is not `1`. `/ko/` joins `/` in `web/sitemap.xml`.
