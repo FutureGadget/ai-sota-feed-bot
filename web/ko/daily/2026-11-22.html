@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다 | LLM Digest</title>
+  <meta name="description" content="Together AI가 저장된 서버리스 프롬프트 유출을 공개했고, 코딩 에이전트 출력은 사람이 읽는 대신 증명과 CI 지표로 검증하는 흐름이 뚜렷해졌다." />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/daily/2026-11-22" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/daily/2026-11-22" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/daily/2026-11-22" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/daily/2026-11-22" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다" />
+  <meta property="og:description" content="Together AI가 저장된 서버리스 프롬프트 유출을 공개했고, 코딩 에이전트 출력은 사람이 읽는 대신 증명과 CI 지표로 검증하는 흐름이 뚜렷해졌다." />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/daily/2026-11-22" />
+  <meta property="article:published_time" content="2026-11-22T22:10:00+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png?v=ef31c609" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png?v=ef31c609" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다" />
+  <meta name="twitter:description" content="Together AI가 저장된 서버리스 프롬프트 유출을 공개했고, 코딩 에이전트 출력은 사람이 읽는 대신 증명과 CI 지표로 검증하는 흐름이 뚜렷해졌다." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다", "description": "Together AI가 저장된 서버리스 프롬프트 유출을 공개했고, 코딩 에이전트 출력은 사람이 읽는 대신 증명과 CI 지표로 검증하는 흐름이 뚜렷해졌다.", "datePublished": "2026-11-22T22:10:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/ko/daily/2026-11-22", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-11-22", "item": "https://www.llm-digest.com/daily/2026-11-22"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-readable" />
+  <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
+  <script defer src="/site-chrome.js?v=20261119-readable"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-readable"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
+      align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .recap-video { scroll-margin-top:1rem; }
+    .video-label { margin:0 0 .4rem; text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight:700; color:var(--accent); font-family:var(--font-mono); }
+    .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
+    .video-meta { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+    .video-frame { position:relative; aspect-ratio:16/9; width:100%; border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; background:#000; }
+    .video-frame iframe, .video-play, .video-play img { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .video-play img { object-fit:cover; }
+    .video-play::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35)); }
+    .video-btn { position:absolute; z-index:1; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem;
+      border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:1.5rem;
+      padding-left:.2rem; box-sizing:border-box; transition:transform .15s ease; }
+    .video-play:hover .video-btn, .video-play:focus-visible .video-btn { transform:scale(1.08); }
+    @media (max-width:760px) { .recap-video { grid-template-columns:1fr; gap:1rem; } }
+    body { font-family:var(--font-sans); }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:var(--font-display);
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:var(--font-mono); font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius: var(--radius-control); background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:var(--font-mono); font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:var(--font-display); font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius: var(--radius-control); background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:var(--font-display); font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius: var(--radius-control); background:transparent; color:var(--muted);
+      font-family:var(--font-mono); font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:var(--font-mono); font-size: 0.78rem; color:var(--signal);
+      letter-spacing: 0; text-transform: none; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border: 1px solid var(--border); border-radius: 12px;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+    .toc a { font-family:var(--font-sans); font-size:.8rem; line-height:1.35; }
+    .badge { font-size:.7rem; }
+    .badge-source, .badge-link { font-family:var(--font-sans); font-size:.74rem; }
+    html[lang="ko"] :is(.daily-kicker, .weekly-kicker, .tldr-label, .video-label, .finish-line,
+      .weekly-close, .daily-route, .daily-date, .weekly-range, .toc a, .badge, .legend-name,
+      .legend-count, .view-btn, .art-toggle-btn) {
+      font-family:var(--font-sans); letter-spacing:0; }
+    html[lang="ko"] :is(.daily-hero, .weekly-hero) .recap-title { font-size:clamp(2rem,4.6vw,3.3rem);
+      line-height:1.2; letter-spacing:-.02em; max-width:24em; text-wrap:balance; }
+    html[lang="ko"] .cat h2 { line-height:1.3; letter-spacing:-.01em; }
+    html[lang="ko"] article h3 { line-height:1.42; }
+    html[lang="ko"] :is(.art-summary, .cat-summary) { line-height:1.72; }
+    html[lang="ko"] .intro > p { line-height:1.8; }
+    html[lang="ko"] .tldr li { line-height:1.65; }
+    @media (max-width:560px) {
+      html[lang="ko"] :is(.daily-hero, .weekly-hero) .recap-title { font-size:2.05rem; }
+    }
+    .community-teaser { margin:0 0 1.6rem; }
+    .community-teaser a { display:grid; gap:.3rem; padding:.85rem 1rem; border:1px solid var(--border);
+      border-left:4px solid var(--accent); border-radius:6px; background:var(--card); color:inherit; text-decoration:none; }
+    .community-teaser a:hover, .community-teaser a:focus-visible { border-color:var(--accent); }
+    .ct-label { font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent); }
+    .ct-title { font-size:1.02rem; font-weight:700; line-height:1.3; }
+    .ct-quote { font-size:.86rem; line-height:1.45; color:var(--muted); }
+    .ct-quote-author { font-weight:600; color:var(--fg); }
+    .ct-meta { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); }
+    html[lang="ko"] .community-teaser :is(.ct-label, .ct-meta) { font-family:var(--font-sans); letter-spacing:0; }
+    html[lang="ko"] .ct-title { line-height:1.42; }
+    html[lang="ko"] .ct-quote { line-height:1.65; }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/daily">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe?lang=ko" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI 데일리 리캡</h1>
+        <p id="meta" class="muted">기사 21개 · 카테고리 4개</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/community" data-site-destination="/community">Community</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe?lang=ko" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/daily?date=2026-11-22">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/daily/2026-11-22" data-share-title="11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다">Share this page</button>
+        <a class="site-language-action" href="/daily/2026-11-22" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+<div class="site-context" aria-label="Choose 날짜"><a href="/ko/daily/2026-11-21" aria-label="Previous 날짜: 2026-11-21 · 11월 21일 AI 데일리: 툴 결과가 공격면이 됐다">‹</a><label class="archive muted"><span>날짜</span><select id="archive" aria-label="Choose 날짜"><option value="/ko/daily/2026-11-22" selected>2026-11-22 · 11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다</option><option value="/ko/daily/2026-11-21">2026-11-21 · 11월 21일 AI 데일리: 툴 결과가 공격면이 됐다</option><option value="/ko/daily/2026-11-20">2026-11-20 · 11월 20일 AI 데일리: 보낸 프롬프트는 새어 나간다</option><option value="/ko/daily/2026-11-19">2026-11-19 · 11월 19일 AI 데일리: 툴 레이어, 프롬프트 밖으로</option><option value="/ko/daily/2026-11-18">2026-11-18 · 11월 18일 AI 데일리: 에이전트 보안, 세 곳에서 동시에 뚫렸다</option><option value="/daily/2026-11-17">2026-11-17 · What happened in AI — Nov 17, 2026</option><option value="/daily/2026-11-16">2026-11-16 · What happened in AI — Nov 16, 2026</option><option value="/ko/daily/2026-11-15">2026-11-15 · 2026년 11월 15일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-14">2026-11-14 · 2026년 11월 14일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-11-13">2026-11-13 · What happened in AI — Nov 13, 2026</option><option value="/ko/daily/2026-11-12">2026-11-12 · 2026년 11월 12일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-11-11">2026-11-11 · What happened in AI — Nov 11, 2026</option><option value="/daily/2026-11-10">2026-11-10 · What happened in AI — Nov 10, 2026</option><option value="/ko/daily/2026-11-09">2026-11-09 · 2026년 11월 9일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-08">2026-11-08 · 2026년 11월 8일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-07">2026-11-07 · 2026년 11월 7일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-06">2026-11-06 · 2026년 11월 6일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-05">2026-11-05 · 2026년 11월 5일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-04">2026-11-04 · 2026년 11월 4일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-11-03">2026-11-03 · 2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-11-02">2026-11-02 · What happened in AI — Nov 2, 2026</option><option value="/ko/daily/2026-11-01">2026-11-01 · 2026년 11월 1일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-10-31">2026-10-31 · 2026년 10월 31일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-10-30">2026-10-30 · What happened in AI — Oct 30, 2026</option><option value="/daily/2026-10-29">2026-10-29 · What happened in AI — Oct 29, 2026</option><option value="/daily/2026-10-28">2026-10-28 · What happened in AI — Oct 28, 2026</option><option value="/daily/2026-10-27">2026-10-27 · What happened in AI — Oct 27, 2026</option><option value="/daily/2026-10-26">2026-10-26 · What happened in AI — Oct 26, 2026</option><option value="/daily/2026-10-25">2026-10-25 · What happened in AI — Oct 25, 2026</option><option value="/daily/2026-10-24">2026-10-24 · What happened in AI — Oct 24, 2026</option><option value="/daily/2026-10-23">2026-10-23 · What happened in AI — Oct 23, 2026</option><option value="/daily/2026-10-22">2026-10-22 · What happened in AI — Oct 22, 2026</option><option value="/daily/2026-10-21">2026-10-21 · What happened in AI — Oct 21, 2026</option><option value="/daily/2026-10-20">2026-10-20 · What happened in AI — Oct 20, 2026</option><option value="/daily/2026-10-19">2026-10-19 · What happened in AI — Oct 19, 2026</option><option value="/daily/2026-10-18">2026-10-18 · What happened in AI — Oct 18, 2026</option><option value="/daily/2026-10-17">2026-10-17 · What happened in AI — Oct 17, 2026</option><option value="/ko/daily/2026-10-16">2026-10-16 · 2026년 10월 16일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-10-15">2026-10-15 · 2026년 10월 15일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-10-14">2026-10-14 · What happened in AI — Oct 14, 2026</option><option value="/daily/2026-10-13">2026-10-13 · What happened in AI — Oct 13, 2026</option><option value="/daily/2026-10-12">2026-10-12 · What happened in AI — Oct 12, 2026</option><option value="/ko/daily/2026-10-11">2026-10-11 · 2026년 10월 11일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-10-10">2026-10-10 · 2026년 10월 10일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-10-09">2026-10-09 · 2026년 10월 9일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-10-08">2026-10-08 · 2026년 10월 8일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/daily/2026-10-07">2026-10-07 · What happened in AI — Oct 7, 2026</option><option value="/daily/2026-10-06">2026-10-06 · What happened in AI — Oct 6, 2026</option><option value="/daily/2026-10-05">2026-10-05 · What happened in AI — Oct 5, 2026</option><option value="/daily/2026-10-04">2026-10-04 · What happened in AI — Oct 4, 2026</option><option value="/daily/2026-10-03">2026-10-03 · What happened in AI — Oct 3, 2026</option><option value="/daily/2026-10-02">2026-10-02 · What happened in AI — Oct 2, 2026</option><option value="/daily/2026-10-01">2026-10-01 · What happened in AI — Oct 1, 2026</option><option value="/daily/2026-09-30">2026-09-30 · What happened in AI — Sep 30, 2026</option><option value="/daily/2026-09-29">2026-09-29 · What happened in AI — Sep 29, 2026</option><option value="/daily/2026-09-28">2026-09-28 · What happened in AI — Sep 28, 2026</option><option value="/daily/2026-09-27">2026-09-27 · What happened in AI — Sep 27, 2026</option><option value="/daily/2026-09-26">2026-09-26 · What happened in AI — Sep 26, 2026</option><option value="/daily/2026-09-25">2026-09-25 · What happened in AI — Sep 25, 2026</option><option value="/daily/2026-09-24">2026-09-24 · What happened in AI — Sep 24, 2026</option><option value="/daily/2026-09-23">2026-09-23 · What happened in AI — Sep 23, 2026</option><option value="/daily/2026-09-22">2026-09-22 · What happened in AI — Sep 22, 2026</option><option value="/daily/2026-09-21">2026-09-21 · What happened in AI — Sep 21, 2026</option><option value="/daily/2026-09-20">2026-09-20 · What happened in AI — Sep 20, 2026</option><option value="/daily/2026-09-19">2026-09-19 · What happened in AI — Sep 19, 2026</option><option value="/daily/2026-09-18">2026-09-18 · What happened in AI — Sep 18, 2026</option><option value="/daily/2026-09-17">2026-09-17 · What happened in AI — Sep 17, 2026</option><option value="/daily/2026-09-16">2026-09-16 · What happened in AI — Sep 16, 2026</option><option value="/daily/2026-09-15">2026-09-15 · What happened in AI — Sep 15, 2026</option><option value="/daily/2026-09-14">2026-09-14 · What happened in AI — Sep 14, 2026</option><option value="/daily/2026-09-13">2026-09-13 · What happened in AI — Sep 13, 2026</option><option value="/daily/2026-09-12">2026-09-12 · What happened in AI — Sep 12, 2026</option><option value="/daily/2026-09-11">2026-09-11 · What happened in AI — Sep 11, 2026</option><option value="/daily/2026-09-10">2026-09-10 · What happened in AI — Sep 10, 2026</option><option value="/daily/2026-09-09">2026-09-09 · What happened in AI — Sep 9, 2026</option><option value="/daily/2026-09-08">2026-09-08 · What happened in AI — Sep 8, 2026</option><option value="/daily/2026-09-07">2026-09-07 · What happened in AI — Sep 7, 2026</option><option value="/daily/2026-09-06">2026-09-06 · What happened in AI — Sep 6, 2026</option><option value="/daily/2026-09-05">2026-09-05 · What happened in AI — Sep 5, 2026</option><option value="/daily/2026-09-04">2026-09-04 · What happened in AI — Sep 4, 2026</option><option value="/daily/2026-09-03">2026-09-03 · What happened in AI — Sep 3, 2026</option><option value="/daily/2026-09-02">2026-09-02 · What happened in AI — Sep 2, 2026</option><option value="/daily/2026-09-01">2026-09-01 · What happened in AI — Sep 1, 2026</option><option value="/daily/2026-08-31">2026-08-31 · What happened in AI — Aug 31, 2026</option><option value="/daily/2026-08-30">2026-08-30 · What happened in AI — Aug 30, 2026</option><option value="/daily/2026-08-29">2026-08-29 · What happened in AI — Aug 29, 2026</option><option value="/daily/2026-08-28">2026-08-28 · What happened in AI — Aug 28, 2026</option><option value="/daily/2026-08-27">2026-08-27 · What happened in AI — Aug 27, 2026</option><option value="/daily/2026-08-26">2026-08-26 · What happened in AI — Aug 26, 2026</option><option value="/daily/2026-08-25">2026-08-25 · What happened in AI — Aug 25, 2026</option><option value="/daily/2026-08-24">2026-08-24 · What happened in AI — Aug 24, 2026</option><option value="/daily/2026-08-23">2026-08-23 · What happened in AI — Aug 23, 2026</option><option value="/daily/2026-08-22">2026-08-22 · What happened in AI — Aug 22, 2026</option><option value="/daily/2026-08-21">2026-08-21 · What happened in AI — Aug 21, 2026</option><option value="/daily/2026-08-20">2026-08-20 · What happened in AI — Aug 20, 2026</option><option value="/daily/2026-08-19">2026-08-19 · What happened in AI — Aug 19, 2026</option><option value="/daily/2026-08-18">2026-08-18 · What happened in AI — Aug 18, 2026</option><option value="/daily/2026-08-17">2026-08-17 · What happened in AI — Aug 17, 2026</option><option value="/daily/2026-08-16">2026-08-16 · What happened in AI — Aug 16, 2026</option><option value="/daily/2026-08-15">2026-08-15 · What happened in AI — Aug 15, 2026</option><option value="/daily/2026-08-14">2026-08-14 · What happened in AI — Aug 14, 2026</option><option value="/daily/2026-08-13">2026-08-13 · What happened in AI — Aug 13, 2026</option><option value="/daily/2026-08-12">2026-08-12 · What happened in AI — Aug 12, 2026</option><option value="/daily/2026-08-11">2026-08-11 · What happened in AI — Aug 11, 2026</option><option value="/daily/2026-08-10">2026-08-10 · What happened in AI — Aug 10, 2026</option><option value="/daily/2026-08-09">2026-08-09 · What happened in AI — Aug 9, 2026</option><option value="/daily/2026-08-08">2026-08-08 · What happened in AI — Aug 8, 2026</option><option value="/daily/2026-08-07">2026-08-07 · What happened in AI — Aug 7, 2026</option><option value="/daily/2026-08-06">2026-08-06 · What happened in AI — Aug 6, 2026</option><option value="/daily/2026-08-05">2026-08-05 · What happened in AI — Aug 5, 2026</option><option value="/daily/2026-08-04">2026-08-04 · What happened in AI — Aug 4, 2026</option><option value="/daily/2026-08-03">2026-08-03 · What happened in AI — Aug 3, 2026</option><option value="/daily/2026-08-02">2026-08-02 · What happened in AI — Aug 2, 2026</option><option value="/daily/2026-08-01">2026-08-01 · What happened in AI — Aug 1, 2026</option><option value="/daily/2026-07-31">2026-07-31 · What happened in AI — Jul 31, 2026</option><option value="/daily/2026-07-30">2026-07-30 · What happened in AI — Jul 30, 2026</option><option value="/daily/2026-07-29">2026-07-29 · What happened in AI — Jul 29, 2026</option><option value="/daily/2026-07-28">2026-07-28 · What happened in AI — Jul 28, 2026</option><option value="/daily/2026-07-27">2026-07-27 · What happened in AI — Jul 27, 2026</option><option value="/daily/2026-07-26">2026-07-26 · What happened in AI — Jul 26, 2026</option><option value="/daily/2026-07-25">2026-07-25 · What happened in AI — Jul 25, 2026</option><option value="/daily/2026-07-24">2026-07-24 · What happened in AI — Jul 24, 2026</option><option value="/daily/2026-07-23">2026-07-23 · What happened in AI — Jul 23, 2026</option><option value="/daily/2026-07-22">2026-07-22 · What happened in AI — Jul 22, 2026</option><option value="/daily/2026-07-21">2026-07-21 · What happened in AI — Jul 21, 2026</option><option value="/daily/2026-07-20">2026-07-20 · What happened in AI — Jul 20, 2026</option><option value="/daily/2026-07-19">2026-07-19 · What happened in AI — Jul 19, 2026</option><option value="/daily/2026-07-18">2026-07-18 · What happened in AI — Jul 18, 2026</option><option value="/daily/2026-07-17">2026-07-17 · What happened in AI — Jul 17, 2026</option><option value="/daily/2026-07-16">2026-07-16 · What happened in AI — Jul 16, 2026</option><option value="/daily/2026-07-15">2026-07-15 · What happened in AI — Jul 15, 2026</option><option value="/daily/2026-07-14">2026-07-14 · What happened in AI — Jul 14, 2026</option><option value="/daily/2026-07-13">2026-07-13 · What happened in AI — Jul 13, 2026</option><option value="/daily/2026-07-12">2026-07-12 · What happened in AI — Jul 12, 2026</option><option value="/daily/2026-07-11">2026-07-11 · What happened in AI — Jul 11, 2026</option><option value="/daily/2026-07-10">2026-07-10 · What happened in AI — Jul 10, 2026</option><option value="/daily/2026-07-09">2026-07-09 · What happened in AI — Jul 9, 2026</option><option value="/daily/2026-07-08">2026-07-08 · What happened in AI — Jul 8, 2026</option><option value="/ko/daily/2026-07-07">2026-07-07 · AI 분야 동향 — 2026년 7월 7일</option><option value="/ko/daily/2026-07-06">2026-07-06 · AI 분야 소식 - 2026년 7월 6일</option><option value="/ko/daily/2026-07-05">2026-07-05 · AI 분야 소식 — 2026년 7월 5일</option><option value="/ko/daily/2026-07-04">2026-07-04 · AI에서 일어난 일 — 2026년 7월 4일</option><option value="/daily/2026-07-03">2026-07-03 · What happened in AI — Jul 3, 2026</option><option value="/daily/2026-07-02">2026-07-02 · What happened in AI — Jul 2, 2026</option><option value="/daily/2026-07-01">2026-07-01 · What happened in AI — Jul 1, 2026</option><option value="/daily/2026-06-30">2026-06-30 · What happened in AI — Jun 30, 2026</option><option value="/daily/2026-06-29">2026-06-29 · What happened in AI — Jun 29, 2026</option><option value="/daily/2026-06-28">2026-06-28 · What happened in AI — Jun 28, 2026</option><option value="/daily/2026-06-27">2026-06-27 · What happened in AI — Jun 27, 2026</option><option value="/daily/2026-06-26">2026-06-26 · What happened in AI — Jun 26, 2026</option><option value="/daily/2026-06-25">2026-06-25 · What happened in AI — Jun 25, 2026</option><option value="/daily/2026-06-24">2026-06-24 · What happened in AI — Jun 24, 2026</option><option value="/daily/2026-06-23">2026-06-23 · What happened in AI — Jun 23, 2026</option><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21">2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/ko/daily/2026-06-14">2026-06-14 · 2026년 6월 14일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-13">2026-06-13 · 2026년 6월 13일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-11">2026-06-11 · 2026년 6월 11일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-10">2026-06-10 · 2026년 6월 10일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-09">2026-06-09 · 2026년 6월 9일, AI 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-08">2026-06-08 · 2026년 6월 8일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-07">2026-06-07 · 2026년 6월 7일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-06">2026-06-06 · 2026년 6월 6일, 인공지능 분야에서 무슨 일이 일어났을까요?</option><option value="/ko/daily/2026-06-05">2026-06-05 · 2026년 6월 5일, 인공지능 분야에서 무슨 일이 일어났을까요?</option></select></label><span class="site-context-disabled" aria-hidden="true">›</span></div>
+    </header>
+
+    <section id="recap">
+      <section class="daily-hero"><div><p class="daily-kicker">끝이 있는 데일리 브리프</p><h2 class="recap-title">11월 22일 AI 데일리: 에이전트 코드, 읽는 대신 검증한다</h2></div><div><p class="daily-date">2026년 11월 22일 일요일<br>기사 21개 · 카테고리 4개</p><p class="daily-route">위에서 아래로 읽고 끝</p></div></section>
+      <!-- range is included in the custom hero -->
+      <div class="intro"><div class="tldr"><p class="tldr-label">30초 요약</p><ul><li>Together AI, 유출된 자격 증명으로 2026년 6–7월 서버리스 프롬프트가 다운로드됐다고 공개</li><li>샌드박스된 모델끼리 공유 추론 서버를 통해 신호를 주고받는 새 사이드 채널</li><li>에이전트 26개가 Pi Dash의 Django 백엔드를 약 10일, 약 $350에 Rust로 포팅했다. 사람 머지는 없었다</li><li>Microsoft NFV 같은 증명 도구는 고정된 속성을 검사하지만, 그 속성이 맞는지는 알려주지 않는다</li><li>Tether는 트레이스만으로 에이전트 실행을 오프라인에서 이벤트 단위로 똑같이 재현한다. 모델 비용 0</li><li>AWS Lambda가 GPU 추론 지원, GPU당 모델 하나를 동시 호출 48개가 공유</li></ul></div><p>코딩 에이전트가 쓰는 코드는 이제 사람이 다 리뷰할 수 있는 양을 넘어섰다. 그래서 오늘 빌더들은 출력을 읽는 대신 관문을 세웠다. 고정된 속성에 대한 증명, 구조적 드리프트를 잡는 CI 검사, 사람 머지 없이 끝난 에이전트 26개의 Django→Rust 포팅이 그 예다.</p><p>보안 소식은 에이전트 아래 계층에서 나왔다. Together AI는 저장된 프롬프트 유출을 공개했다. 연구자들은 샌드박스에 갇힌 모델끼리도 공유 추론 서버를 통해 신호를 주고받을 수 있음을 보였다.</p></div>
+      <aside class="community-teaser" aria-label="커뮤니티" lang="ko"><a href="/ko/community/daily/2026-11-22" data-track="community-teaser"><span class="ct-label">커뮤니티 · LLM 다이제스트 마이너 갤러리</span><span class="ct-title">Together 프롬프트 털림 + 샌드박스도 추론서버로 샘 ㄷㄷ</span><span class="ct-quote"><span class="ct-quote-author">ㅇㅇ</span> 6~7월에 Together 서버리스 호출한 로그부터 뽑아라
+개별 통지 기다리지 말고 프롬프트 템플릿에 박힌 키 다 교체하셈</span><span class="ct-meta">댓글 11개 · 스레드 보기 &rarr;</span></a></aside><nav class="toc"><a href="#coding-agents-verification">코딩 에이전트: 출력이 의도와 맞는지 증명 (3)</a><a href="#agent-harnesses">에이전트 하네스: 재현, 기기 제어, 프롬프트 오버라이드 (4)</a><a href="#inference-security">추론 제공자와 에이전트 신뢰 경계 (4)</a><a href="#inference-economics">추론 경제학: 서버리스 GPU부터 책상 위 2.8T까지 (4)</a></nav><section class="cat" id="coding-agents-verification"><h2>코딩 에이전트: 출력이 의도와 맞는지 증명 <span class="count">3건</span></h2><p class="cat-summary">빌더들이 에이전트 diff를 읽는 대신 관문으로 걸러내기 시작했다. Lean이나 Dafny로 검사하는 고정 속성과 구조적 드리프트를 재는 CI 지표가 그 수단이다.</p><div class="articles"><article><h3><a href="https://leangineer.com/blog/checking-agent-code/" target="_blank" rel="noopener" data-track="daily-link">에이전트 코드를 내 의도와 대조해 검사하기</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/cd7b95a68a3ad7e7" data-track="story-link">자세히</a></div><p class="art-summary">Microsoft NFV 같은 도구는 에이전트가 변경 사항을 고정된 속성에 대해 증명하게 하고 Lean이나 Dafny가 그 증명을 검사한다. 다만 증명은 속성 자체가 옳았는지는 알려주지 못한다.</p></article><article><h3><a href="https://github.com/avidianity/codeint" target="_blank" rel="noopener" data-track="daily-link">Show HN: Codeint – AI가 쓴 코드의 중복과 복잡도 드리프트 측정</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/8f05a927e1d416f3" data-track="story-link">자세히</a></div><p class="art-summary">에이전트가 쓴 코드의 중복, 장황함, 침식, import 순환을 측정하고 CI 관문으로 건다. 테스트와 린터를 통과하는 드리프트를 잡는다.</p></article><article><h3><a href="https://airepublic.com/blog/pi-dash-self-evolution-experiment/" target="_blank" rel="noopener" data-track="daily-link">AI 에이전트 26개가 사람 머지 없이 백엔드를 Django에서 Rust로 재작성</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/ea0942d08cef728f" data-track="story-link">자세히</a></div><p class="art-summary">Pi Dash는 에이전트 26개를 조율해 자사 Django 백엔드를 사람 머지 없이 Rust로 포팅했다. 주요 포팅은 약 10일, 모델 사용료 약 $350가 들었다.</p></article></div></section><section class="cat" id="agent-harnesses"><h2>에이전트 하네스: 재현, 기기 제어, 프롬프트 오버라이드 <span class="count">4건</span></h2><p class="cat-summary">하네스 작업은 모델과 바깥 세계 사이에 놓인 것에 집중했다. 결정적 트레이스, 빠른 기기 상태 읽기, 런타임에 고칠 수 있는 프롬프트다.</p><div class="articles"><article><h3><a href="https://github.com/chizy7/tether/blob/master/docs/REPLAY.md" target="_blank" rel="noopener" data-track="daily-link">에이전트 실행 재현하기, 그리고 그에 필요한 것</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/bd45098603528b17" data-track="story-link">자세히</a></div><p class="art-summary">Rust 하네스 Tether는 모든 모델·도구 호출을 정책 검사와 트레이스에 통과시킨다. 이 트레이스로 실행을 오프라인에서 이벤트 단위로 비용 없이 재현한다.</p></article><article><h3><a href="https://github.com/V0val0x/DroidPath/blob/main/docs/benchmarks.md" target="_blank" rel="noopener" data-track="daily-link">ADB 우회: AI 에이전트를 위한 0.32ms Android UI 트리와 A* 라우팅 (Rust/Kotlin</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/3663464563d427b0" data-track="story-link">자세히</a></div><p class="art-summary">DroidPath의 MCP 서버는 Android UI 트리를 0.32 ms에 읽고, 스크린샷이나 Appium XML 대신 공간 그래프 위 A*로 탭 경로를 찾는다.</p></article><article><h3><a href="https://github.com/podstawek/explorer-of-serial" target="_blank" rel="noopener" data-track="daily-link">로컬 AI 에이전트가 시리얼 포트에 연결된 정체불명 기기를 조사하다</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/997d89b2a624432b" data-track="story-link">자세히</a></div><p class="art-summary">로컬 LLM 두 개가 Raspberry Pi SSH 세션 하나만으로 시리얼 포트의 미지 기기를 탐색하고 프로그래밍했다. 문서도 인터넷도 없었다.</p></article><article><h3><a href="https://theagentdoctor.com/" target="_blank" rel="noopener" data-track="daily-link">Show HN: Agent Doctor – 코드 변경 없이 도메인 전문가가 에이전트를 튜닝</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/a6879774316bdcf1" data-track="story-link">자세히</a></div><p class="art-summary">SDK 코드 두 줄로 모든 LLM·벡터·도구 호출을 캡처한다. 도메인 전문가가 대시보드에서 프롬프트, 모델, temperature를 바꿔 다시 실행할 수 있다.</p></article></div></section><section class="cat" id="inference-security"><h2>추론 제공자와 에이전트 신뢰 경계 <span class="count">4건</span></h2><p class="cat-summary">오늘의 보안 신호는 추론 계층에 있었다. 저장된 프롬프트가 유출됐고, 공유 서버가 샌드박스 사이로 새어 나갔으며, 에이전트용 제로 트러스트 지침이 나왔다.</p><div class="articles"><article><h3><a href="https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026" target="_blank" rel="noopener" data-track="daily-link">Together.ai: 요청 프롬프트 유출</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/31dbae397b46d6b3" data-track="story-link">자세히</a></div><p class="art-summary">Together AI는 비공개 저장소 자격 증명이 공개 유출된 뒤 공격자가 2026년 6–7월 서버리스 추론의 저장된 프롬프트 샘플을 다운로드했다고 밝혔다.</p></article><article><h3><a href="https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being" target="_blank" rel="noopener" data-track="daily-link">샌드박스에 갇혀도 모델은 추론 서버를 통해 통신할 수 있다</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/a279a61d80e00f54" data-track="story-link">자세히</a></div><p class="art-summary">실험 결과 샌드박스된 모델도 공유 추론 서버를 통해 서로 신호를 보낼 수 있었다. 샌드박싱만으로는 막히지 않는 사이드 채널이다.</p></article><article><h3><a href="https://claude.com/resources/articles/zero-trust-for-ai-agents" target="_blank" rel="noopener" data-track="daily-link">AI 에이전트를 위한 제로 트러스트</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span><a class="badge badge-link" href="/story/caf15bef2b12d43b" data-track="story-link">자세히</a></div><p class="art-summary">Anthropic의 엔터프라이즈 에이전트 보안 프레임워크. 새 위협 지형, 계층형 제로 트러스트 아키텍처, 이제 몇 시간 만에 도착하는 익스플로잇에 대한 방어를 다룬다.</p></article><article><h3><a href="https://github.com/miloshke/ai-privacy-cloak" target="_blank" rel="noopener" data-track="daily-link">AI Privacy Cloak</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span></div><p class="art-summary">코딩 에이전트와 모델 API 사이의 초기 단계 로컬 프록시. 나가는 요청에서 시크릿과 PII를 가리고 응답에서 복원한다. 아직 프로덕션용은 아니다.</p></article></div></section><section class="cat" id="inference-economics"><h2>추론 경제학: 서버리스 GPU부터 책상 위 2.8T까지 <span class="count">4건</span></h2><p class="cat-summary">서빙과 학습 비용 소식은 Lambda의 관리형 GPU 공유부터 2.8T 파라미터 오픈 모델을 취미 장비로 오프로드한 사례까지 걸쳤다.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">AWS Lambda, GPU당 모델 하나를 동시 호출 48개가 공유하는 GPU 추론 지원</a></h3><div class="art-meta"><span class="badge badge-source">InfoQ AI/ML</span><a class="badge badge-link" href="/story/9e6bd2a43844cbfa" data-track="story-link">자세히</a></div><p class="art-summary">AWS Lambda가 이제 GPU 추론을 실행한다. GPU에 로드된 모델 하나를 최대 48개 동시 호출이 공유한다.</p></article><article><h3><a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQdXo3a3dKRVlneExCMzAwZ2JDSHlPUDVHelZrUTJfeXctcVI5ckRYRE8zWlRXR21ydldteWNIYVBRRzZ3YUc4dWplWWtqTFdpS3F6NnFLWTJ1ZlIzelVzNGtERHdsV2k3U2FMWGE5a0lnbms0S251MXZxTUNzX1c0eXlDWlJQZ3k3ZzB1UE5UMlo3Q0pKWC00NWZ0VnBjUmpnRTNid0FGVjlycWNFeHYwbmNHUUhKZEctOXpCX25GT0tYSWR2Q1dJUmlvNA?oc=5" target="_blank" rel="noopener" data-track="daily-link">RTX 3090 두 장과 RAM 드라이브로 2.8조 파라미터 Kimi K3를 Optane에서 초당 3.11토큰 구동</a></h3><div class="art-meta"><span class="badge badge-source">Hardware Busters</span><a class="badge badge-link" href="/story/0bee305677be4ce5" data-track="story-link">자세히</a></div><p class="art-summary">RTX 3090 두 장과 Optane RAM 드라이브로 2.8T 파라미터 Kimi K3를 초당 3.11토큰에 돌렸다. 돌아간다는 증명이지 서빙 구성은 아니다.</p></article><article><h3><a href="https://amund.blog/modded-nanogpt-sub-30s-record-attempt/" target="_blank" rel="noopener" data-track="daily-link">8×H100에서 30초 미만 LLM 사전학습? Modded-NanoGPT 세계 기록 도전 (29.90초)</a></h3><div class="art-meta"><span class="badge badge-source">Hacker News AI</span></div><p class="art-summary">작은 GPU 수정 6개(+175줄)로 modded-nanogpt Track 1 실행을 8×H100, 12회 실행 기준 29.90초로 줄였다. 기록은 아직 리뷰 중이다.</p></article><article><h3><a href="https://openai.com/index/perplexity-and-intelligence" target="_blank" rel="noopener" data-track="daily-link">퍼플렉서티와 지능</a></h3><div class="art-meta"><span class="badge badge-source">OpenAI Blog</span><a class="badge badge-link" href="/story/1a10f1676d46fc01" data-track="story-link">자세히</a></div><p class="art-summary">OpenAI 에세이는 모델이 데이터를 얼마나 잘 압축하는지(퍼플렉서티)를 추적하는 것이 AI 발전 속도를 보는 핵심 척도라고 주장한다.</p></article></div></section><p class="finish-line">이번 호는 여기까지입니다</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>내일 아침 메일로 받아보세요.</strong><br><span class="muted">끝이 있는 데일리 브리프와 위클리 리캡을 보내드립니다.</span></p><a href="/subscribe?lang=ko" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end" data-subscribe-inline>이메일로 받기 →</a></aside>
+    </section>
+
+    <footer>
+      AI SOTA 피드로 만들었습니다. 모든 항목은 원문으로 연결됩니다. ·
+      <a href="/subscribe?lang=ko" data-subscribe-channel="email" data-subscribe-placement="footer">이메일 다이제스트</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-22",
+  "title": "What happened in AI — Nov 22, 2026",
+  "generated_at": "2026-11-22T22:10:00Z",
+  "intro": [
+    "Coding agents now write more than anyone reviews, so today's builders gated the output instead: proofs against frozen properties, CI checks for structural drift, and a 26-agent Django-to-Rust port merged with no human.",
+    "The security news sat under the agent. Together AI disclosed leaked stored prompts, and researchers showed sandboxed models can still talk through a shared inference server."
+  ],
+  "highlights": [
+    "Together AI disclosed that stored serverless prompts from June–July 2026 were downloaded via a leaked credential.",
+    "Sandboxed models can signal each other through a shared inference server, a new side channel.",
+    "26 agents ported Pi Dash's Django backend to Rust in about ten days for about $350, with no human merges.",
+    "Proof tools like Microsoft's NFV check agent code against frozen properties, but not whether the properties are right.",
+    "Tether replays an agent run from its trace offline, event for event, at zero model cost.",
+    "AWS Lambda now serves GPU inference with 48 concurrent invocations sharing one model per GPU."
+  ],
+  "article_count": 21,
+  "categories": [
+    {
+      "name": "Coding agents: proving output matches intent",
+      "slug": "coding-agents-verification",
+      "summary": "Builders are moving from reading agent diffs to gating them: frozen properties checked by Lean or Dafny, and CI metrics for structural drift.",
+      "articles": [
+        {
+          "title": "Checking agent code against your intent",
+          "summary": "Tools like Microsoft's NFV have an agent prove a change against frozen properties checked by Lean or Dafny; the proof can't tell you the property was right.",
+          "source": "hackernews_ai",
+          "url": "https://leangineer.com/blog/checking-agent-code/",
+          "published": "Sun, 22 Nov 2026 16:04:33 +0000"
+        },
+        {
+          "title": "Show HN: Codeint – Measure duplication and complexity drift in AI-written code",
+          "summary": "Measures duplication, verbosity, erosion and import cycles in agent-written code and gates CI on them, catching drift that passes tests and linters.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/avidianity/codeint",
+          "published": "Sun, 22 Nov 2026 11:58:04 +0000"
+        },
+        {
+          "title": "26 AI agents rewrote a backend from Django to Rust with no human merges",
+          "summary": "Pi Dash coordinated 26 agents to port its own Django backend to Rust with no human merges; the main port took about ten days and about $350 in model usage.",
+          "source": "hackernews_ai",
+          "url": "https://airepublic.com/blog/pi-dash-self-evolution-experiment/",
+          "published": "Sun, 22 Nov 2026 18:09:02 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent harnesses: replay, device control, prompt overrides",
+      "slug": "agent-harnesses",
+      "summary": "Harness work focused on what sits between the model and the world: deterministic traces, fast device-state reads, and editable prompts at runtime.",
+      "articles": [
+        {
+          "title": "Replaying an agent run and what it takes",
+          "summary": "Tether, a Rust harness, routes every model and tool call through a policy check and a trace that replays the run offline, event for event, at zero cost.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/chizy7/tether/blob/master/docs/REPLAY.md",
+          "published": "Sun, 22 Nov 2026 05:11:17 +0000"
+        },
+        {
+          "title": "Bypassing ADB: 0.32ms Android UI trees and A* routing for AI agents (Rust/Kotlin",
+          "summary": "DroidPath's MCP server reads Android UI trees in 0.32 ms and routes taps with A* over a spatial graph, instead of screenshots or Appium XML.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/V0val0x/DroidPath/blob/main/docs/benchmarks.md",
+          "published": "Sun, 22 Nov 2026 15:19:19 +0000"
+        },
+        {
+          "title": "Local AI agents investigate an unknown machine attached to a serial port",
+          "summary": "Two local LLMs with only an SSH session to a Raspberry Pi explored and then programmed an unknown device on its serial port, with no docs or internet.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/podstawek/explorer-of-serial",
+          "published": "Sun, 22 Nov 2026 15:05:54 +0000"
+        },
+        {
+          "title": "Show HN: Agent Doctor – let domain experts tune your agent without code changes",
+          "summary": "Two SDK lines capture every LLM, vector and tool call so domain experts can override a prompt, model or temperature from a dashboard and re-run it.",
+          "source": "hackernews_ai",
+          "url": "https://theagentdoctor.com/",
+          "published": "Sun, 22 Nov 2026 10:17:08 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference providers and the agent trust boundary",
+      "slug": "inference-security",
+      "summary": "Today's security signal sits at the inference layer: stored prompts leaked, a shared server leaked between sandboxes, and guidance on zero trust for agents.",
+      "articles": [
+        {
+          "title": "Together.ai: Prompt Leakage for Requests",
+          "summary": "Together AI says an attacker downloaded stored prompt samples from its serverless inference in June–July 2026, after a private-repo credential leaked publicly.",
+          "source": "hackernews_ai",
+          "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+          "published": "Sun, 22 Nov 2026 03:07:27 +0000"
+        },
+        {
+          "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+          "summary": "Experiments show sandboxed models can still signal to each other through a shared inference server, a side channel sandboxing alone does not close.",
+          "source": "hackernews_ai",
+          "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+          "published": "Sun, 22 Nov 2026 18:43:50 +0000"
+        },
+        {
+          "title": "Zero Trust for AI Agents",
+          "summary": "Anthropic's framework for enterprise agents: the new threat landscape, a tiered Zero Trust architecture, and defense against exploits that now arrive in hours.",
+          "source": "hackernews_ai",
+          "url": "https://claude.com/resources/articles/zero-trust-for-ai-agents",
+          "published": "Sun, 22 Nov 2026 11:12:52 +0000"
+        },
+        {
+          "title": "AI Privacy Cloak",
+          "summary": "An early local proxy between coding agents and the model API that redacts secrets and PII on the way out and restores them in responses; not production-ready.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/miloshke/ai-privacy-cloak",
+          "published": "Sun, 22 Nov 2026 19:50:15 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference economics: serverless GPUs to 2.8T on a desk",
+      "slug": "inference-economics",
+      "summary": "Serving and training cost headlines stretched from managed GPU sharing on Lambda to hobbyist offload of a 2.8T-parameter open model.",
+      "articles": [
+        {
+          "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU",
+          "summary": "AWS Lambda now runs GPU inference, with up to 48 concurrent invocations sharing one loaded model per GPU.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Sun, 22 Nov 2026 06:27:00 GMT"
+        },
+        {
+          "title": "Two RTX 3090s and a RAM Drive Push a 2.8-Trillion-Parameter Kimi K3 to 3.11 Tokens per Second on Optane",
+          "summary": "Two RTX 3090s plus an Optane RAM drive ran the 2.8T-parameter Kimi K3 at 3.11 tokens per second: proof it runs, not a serving setup.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Hardware Busters",
+          "publisher_domain": "hwbusters.com",
+          "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQdXo3a3dKRVlneExCMzAwZ2JDSHlPUDVHelZrUTJfeXctcVI5ckRYRE8zWlRXR21ydldteWNIYVBRRzZ3YUc4dWplWWtqTFdpS3F6NnFLWTJ1ZlIzelVzNGtERHdsV2k3U2FMWGE5a0lnbms0S251MXZxTUNzX1c0eXlDWlJQZ3k3ZzB1UE5UMlo3Q0pKWC00NWZ0VnBjUmpnRTNid0FGVjlycWNFeHYwbmNHUUhKZEctOXpCX25GT0tYSWR2Q1dJUmlvNA?oc=5",
+          "published": "Sun, 22 Nov 2026 10:09:45 GMT"
+        },
+        {
+          "title": "Sub-30s LLM Pretraining on 8×H100? Modded-NanoGPT World Record Attempt (29.90 S)",
+          "summary": "Six small GPU fixes (+175 lines) bring the modded-nanogpt Track 1 run to 29.90 s on 8×H100 across 12 runs; the record is still in review.",
+          "source": "hackernews_ai",
+          "url": "https://amund.blog/modded-nanogpt-sub-30s-record-attempt/",
+          "published": "Sun, 22 Nov 2026 18:44:55 +0000"
+        },
+        {
+          "title": "Perplexity and Intelligence",
+          "summary": "An OpenAI essay argues tracking how well models compress data (perplexity) is the key measure of the pace of AI progress.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/perplexity-and-intelligence",
+          "published": "Sun, 22 Nov 2026 00:00:00 GMT"
+        }
+      ]
+    }
+  ]
+}

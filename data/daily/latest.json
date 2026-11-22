@@ -1,172 +1,155 @@
 {
-  "date": "2026-11-21",
-  "title": "What happened in AI — Nov 21, 2026",
-  "generated_at": "2026-11-21T22:30:00Z",
+  "date": "2026-11-22",
+  "title": "What happened in AI — Nov 22, 2026",
+  "generated_at": "2026-11-22T22:10:00Z",
   "intro": [
-    "Tool results are now an attack surface you can't ignore. RunPod's hosted MCP server began telling agents to rate it and hide that from the user, and a malicious npm package installed a full Hermes Agent as root.",
-    "Evals shifted toward damage. Stripe grades whether coding agents pick current APIs, and RMRFBench ranks models on whether the server survives a routine delete."
+    "Coding agents now write more than anyone reviews, so today's builders gated the output instead: proofs against frozen properties, CI checks for structural drift, and a 26-agent Django-to-Rust port merged with no human.",
+    "The security news sat under the agent. Together AI disclosed leaked stored prompts, and researchers showed sandboxed models can still talk through a shared inference server."
   ],
   "highlights": [
-    "RunPod's MCP server appended a hidden instruction to every create-pod result: rate us, don't tell the user.",
-    "Malicious npm package @leadstack/crm-connect installed Hermes Agent as a root systemd service, tasked over Telegram.",
-    "RMRFBench ranks agents with a root shell on whether the box survives a one-line deletion ticket.",
-    "Stripe's evals find coding agents favour older, pretraining-heavy APIs and hallucinate features.",
-    "Replit reports agent swarms speed up code optimization as they grow, against early multi-agent results.",
-    "ClickHouse open-sourced Loom, a self-hosted MCP server for shared agent memory linked to files and symbols."
+    "Together AI disclosed that stored serverless prompts from June–July 2026 were downloaded via a leaked credential.",
+    "Sandboxed models can signal each other through a shared inference server, a new side channel.",
+    "26 agents ported Pi Dash's Django backend to Rust in about ten days for about $350, with no human merges.",
+    "Proof tools like Microsoft's NFV check agent code against frozen properties, but not whether the properties are right.",
+    "Tether replays an agent run from its trace offline, event for event, at zero model cost.",
+    "AWS Lambda now serves GPU inference with 48 concurrent invocations sharing one model per GPU."
   ],
-  "article_count": 19,
+  "article_count": 21,
   "categories": [
     {
-      "name": "Tool output and packages as agent attack surface",
-      "slug": "tool-output-and-packages-as-agent-attack-surface",
-      "summary": "Two incidents show agents taking orders from text they didn't ask for, and two tools try to check skills and outputs before they act.",
+      "name": "Coding agents: proving output matches intent",
+      "slug": "coding-agents-verification",
+      "summary": "Builders are moving from reading agent diffs to gating them: frozen properties checked by Lean or Dafny, and CI metrics for structural drift.",
       "articles": [
         {
-          "title": "RunPod's MCP server tells AI agents to rate it and not mention it to the user",
-          "summary": "From Nov 20, every successful create-pod result asked the agent to call rate_nps_score and hide it from the user: the exact shape of a prompt injection, shipped by the vendor.",
+          "title": "Checking agent code against your intent",
+          "summary": "Tools like Microsoft's NFV have an agent prove a change against frozen properties checked by Lean or Dafny; the proof can't tell you the property was right.",
           "source": "hackernews_ai",
-          "url": "https://github.com/runpod/runpod-mcp/issues/202",
-          "published": "Sat, 21 Nov 2026 14:53:19 +0000"
+          "url": "https://leangineer.com/blog/checking-agent-code/",
+          "published": "Sun, 22 Nov 2026 16:04:33 +0000"
         },
         {
-          "title": "NPM package installed Hermes Agent as root and tasked it over Telegram",
-          "summary": "@leadstack/crm-connect posed as a CRM client, installed Nous Research's Hermes Agent as a disguised systemd service and wired it to the attacker's Telegram bot.",
+          "title": "Show HN: Codeint – Measure duplication and complexity drift in AI-written code",
+          "summary": "Measures duplication, verbosity, erosion and import cycles in agent-written code and gates CI on them, catching drift that passes tests and linters.",
           "source": "hackernews_ai",
-          "url": "https://safedep.io/blog/malicious-npm-leadstack-crm-connect-hermes-agent-backdoor",
-          "published": "Sat, 21 Nov 2026 04:33:56 +0000"
+          "url": "https://github.com/avidianity/codeint",
+          "published": "Sun, 22 Nov 2026 11:58:04 +0000"
         },
         {
-          "title": "Show HN: ClawVet – Offline AST scanner and rug-pull diff for AI agent skills",
-          "summary": "Static rules plus Tree-sitter taint tracking report which secrets, hosts and startup files a SKILL.md, AGENTS.md or helper script touches; the CLI gates installs on permission changes.",
+          "title": "26 AI agents rewrote a backend from Django to Rust with no human merges",
+          "summary": "Pi Dash coordinated 26 agents to port its own Django backend to Rust with no human merges; the main port took about ten days and about $350 in model usage.",
           "source": "hackernews_ai",
-          "url": "https://clawvet.vercel.app/",
-          "published": "Sat, 21 Nov 2026 09:40:06 +0000"
-        },
-        {
-          "title": "Aletheia Aegis: Deterministic sub-millisecond output guard for AI agents",
-          "summary": "A pattern-based output guard that fails closed on credential leaks and life-safety failures, with an optional semantic judge for cases patterns can't settle.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/vikasny30/aletheia-aegis",
-          "published": "Sat, 21 Nov 2026 06:21:38 +0000"
+          "url": "https://airepublic.com/blog/pi-dash-self-evolution-experiment/",
+          "published": "Sun, 22 Nov 2026 18:09:02 +0000"
         }
       ]
     },
     {
-      "name": "Evals that grade what agents break",
-      "slug": "evals-that-grade-what-agents-break",
-      "summary": "New evals score agents on harm and outdated choices, not just task completion, and mine real traces for failures.",
+      "name": "Agent harnesses: replay, device control, prompt overrides",
+      "slug": "agent-harnesses",
+      "summary": "Harness work focused on what sits between the model and the world: deterministic traces, fast device-state reads, and editable prompts at runtime.",
       "articles": [
         {
-          "title": "Show HN: RMRFBench – How often AI agents wreck a server when asked to rm a file",
-          "summary": "Each run gives an unattended agent a root shell and a one-line deletion ticket on a throwaway Linux box, then inspects whether the server survived.",
+          "title": "Replaying an agent run and what it takes",
+          "summary": "Tether, a Rust harness, routes every model and tool call through a policy check and a trace that replays the run offline, event for event, at zero cost.",
           "source": "hackernews_ai",
-          "url": "https://www.rmrfbench.com/",
-          "published": "Sat, 21 Nov 2026 08:28:37 +0000"
+          "url": "https://github.com/chizy7/tether/blob/master/docs/REPLAY.md",
+          "published": "Sun, 22 Nov 2026 05:11:17 +0000"
         },
         {
-          "title": "Stripe evals: Measuring real-world coding agent performance",
-          "summary": "Stripe's methodology checks whether coding agents use current integration patterns and handle failures and webhooks, which pass/fail coding benchmarks miss.",
+          "title": "Bypassing ADB: 0.32ms Android UI trees and A* routing for AI agents (Rust/Kotlin",
+          "summary": "DroidPath's MCP server reads Android UI trees in 0.32 ms and routes taps with A* over a spatial graph, instead of screenshots or Appium XML.",
           "source": "hackernews_ai",
-          "url": "https://stripe.dev/blog/stripe-integration-evals-methodology",
-          "published": "Sat, 21 Nov 2026 13:49:40 +0000"
+          "url": "https://github.com/V0val0x/DroidPath/blob/main/docs/benchmarks.md",
+          "published": "Sun, 22 Nov 2026 15:19:19 +0000"
         },
         {
-          "title": "EvalSift – 100 hand-labeled LLM agent traces",
-          "summary": "Dependency-free MIT tool that validates traces.jsonl, grades each trace with deterministic checks and reports failures; ships a 100-trace support-agent case study.",
+          "title": "Local AI agents investigate an unknown machine attached to a serial port",
+          "summary": "Two local LLMs with only an SSH session to a Raspberry Pi explored and then programmed an unknown device on its serial port, with no docs or internet.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Eddie-Town/evalsift-lite",
-          "published": "Sat, 21 Nov 2026 16:00:08 +0000"
+          "url": "https://github.com/podstawek/explorer-of-serial",
+          "published": "Sun, 22 Nov 2026 15:05:54 +0000"
         },
         {
-          "title": "Show HN: trace2rules – Mine and audit coding-agent logs into AGENTS.md rules",
-          "summary": "Local CLI that mines agent sessions for recurring friction and marks each AGENTS.md / CLAUDE.md rule as observed, violated, unobserved or already enforced by CI.",
+          "title": "Show HN: Agent Doctor – let domain experts tune your agent without code changes",
+          "summary": "Two SDK lines capture every LLM, vector and tool call so domain experts can override a prompt, model or temperature from a dashboard and re-run it.",
           "source": "hackernews_ai",
-          "url": "https://github.com/rkkautsar/trace2rules",
-          "published": "Sat, 21 Nov 2026 19:55:58 +0000"
+          "url": "https://theagentdoctor.com/",
+          "published": "Sun, 22 Nov 2026 10:17:08 +0000"
         }
       ]
     },
     {
-      "name": "Scaling coding agents: more agents, more branches",
-      "slug": "scaling-coding-agents-more-agents-more-branches",
-      "summary": "Builders are spending inference on parallel agents and search trees instead of a single trajectory.",
+      "name": "Inference providers and the agent trust boundary",
+      "slug": "inference-security",
+      "summary": "Today's security signal sits at the inference layer: stored prompts leaked, a shared server leaked between sandboxes, and guidance on zero trust for agents.",
       "articles": [
         {
-          "title": "Why agent swarms get better at optimizing code as they grow",
-          "summary": "Replit tested whether Brooks's law still holds for today's models on performance-engineering tasks and found swarms improve as they scale.",
+          "title": "Together.ai: Prompt Leakage for Requests",
+          "summary": "Together AI says an attacker downloaded stored prompt samples from its serverless inference in June–July 2026, after a private-repo credential leaked publicly.",
           "source": "hackernews_ai",
-          "url": "https://frontier.replit.com/throwing-headcount-at-the-problem/",
-          "published": "Sat, 21 Nov 2026 20:33:59 +0000"
+          "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+          "published": "Sun, 22 Nov 2026 03:07:27 +0000"
         },
         {
-          "title": "Show HN: agent-mcts – Monte Carlo tree search on top of Claude Code",
-          "summary": "MIT test-time search harness that runs MCTS over Claude Code, explores solution branches, backtracks from dead ends and applies the best path.",
+          "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+          "summary": "Experiments show sandboxed models can still signal to each other through a shared inference server, a side channel sandboxing alone does not close.",
           "source": "hackernews_ai",
-          "url": "https://github.com/natsu0529/agent-mcts",
-          "published": "Sat, 21 Nov 2026 13:53:08 +0000"
+          "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+          "published": "Sun, 22 Nov 2026 18:43:50 +0000"
         },
         {
-          "title": "Parallel Code: Claude Code, Codex and Copilot Agent CLIs in Parallel Worktrees",
-          "summary": "Runs each agent task in its own git branch and worktree, with diff review and comments before you choose what merges.",
+          "title": "Zero Trust for AI Agents",
+          "summary": "Anthropic's framework for enterprise agents: the new threat landscape, a tiered Zero Trust architecture, and defense against exploits that now arrive in hours.",
           "source": "hackernews_ai",
-          "url": "https://parallelcode.app/",
-          "published": "Sat, 21 Nov 2026 16:47:06 +0000"
+          "url": "https://claude.com/resources/articles/zero-trust-for-ai-agents",
+          "published": "Sun, 22 Nov 2026 11:12:52 +0000"
+        },
+        {
+          "title": "AI Privacy Cloak",
+          "summary": "An early local proxy between coding agents and the model API that redacts secrets and PII on the way out and restores them in responses; not production-ready.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/miloshke/ai-privacy-cloak",
+          "published": "Sun, 22 Nov 2026 19:50:15 +0000"
         }
       ]
     },
     {
-      "name": "Agent memory: shared, anchored and undoable",
-      "slug": "agent-memory-shared-anchored-and-undoable",
-      "summary": "Memory work moved from storing more to deciding what counts as a memory and where it belongs.",
+      "name": "Inference economics: serverless GPUs to 2.8T on a desk",
+      "slug": "inference-economics",
+      "summary": "Serving and training cost headlines stretched from managed GPU sharing on Lambda to hobbyist offload of a 2.8T-parameter open model.",
       "articles": [
         {
-          "title": "Loom: Shared memory, document search, and code indexing for AI agents",
-          "summary": "ClickHouse's self-hosted MCP server links memories to files and symbols so they surface when an agent edits that code; plugins for Claude Code and Codex.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/ClickHouse/loom",
-          "published": "Sat, 21 Nov 2026 18:14:29 +0000"
+          "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU",
+          "summary": "AWS Lambda now runs GPU inference, with up to 48 concurrent invocations sharing one loaded model per GPU.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Sun, 22 Nov 2026 06:27:00 GMT"
         },
         {
-          "title": "We let our AI save memories by itself. What it got wrong in the first two days",
-          "summary": "Auto-saved memory stored a one-off request as a rule and a test question as a business plan; the fix was plain rules plus an Undo under every save.",
-          "source": "hackernews_ai",
-          "url": "https://nexupira.com/news/memory-that-saves-itself",
-          "published": "Sat, 21 Nov 2026 09:32:07 +0000"
+          "title": "Two RTX 3090s and a RAM Drive Push a 2.8-Trillion-Parameter Kimi K3 to 3.11 Tokens per Second on Optane",
+          "summary": "Two RTX 3090s plus an Optane RAM drive ran the 2.8T-parameter Kimi K3 at 3.11 tokens per second: proof it runs, not a serving setup.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Hardware Busters",
+          "publisher_domain": "hwbusters.com",
+          "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQdXo3a3dKRVlneExCMzAwZ2JDSHlPUDVHelZrUTJfeXctcVI5ckRYRE8zWlRXR21ydldteWNIYVBRRzZ3YUc4dWplWWtqTFdpS3F6NnFLWTJ1ZlIzelVzNGtERHdsV2k3U2FMWGE5a0lnbms0S251MXZxTUNzX1c0eXlDWlJQZ3k3ZzB1UE5UMlo3Q0pKWC00NWZ0VnBjUmpnRTNid0FGVjlycWNFeHYwbmNHUUhKZEctOXpCX25GT0tYSWR2Q1dJUmlvNA?oc=5",
+          "published": "Sun, 22 Nov 2026 10:09:45 GMT"
         },
         {
-          "title": "How to build a knowledge factory for AI agents",
-          "summary": "LangChain argues company agents fail on missing tacit knowledge, not models, and sketches a process to capture standards and data locations for agents.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/knowledge-factory",
-          "published": "2026-11-21T16:45:00+00:00"
-        }
-      ]
-    },
-    {
-      "name": "Self-hosted inference: measure the config",
-      "slug": "self-hosted-inference-measure-the-config",
-      "summary": "Two releases target serving cost on your own GPUs: benchmark the flags, then share the KV cache.",
-      "articles": [
-        {
-          "title": "Show HN: Find and serve fast LLM config for your GPU",
-          "summary": "rigtune benchmarks vLLM, SGLang and llama.cpp across precisions, KV-cache types and speculative decoding on your card and prompts, then serves the winner.",
+          "title": "Sub-30s LLM Pretraining on 8×H100? Modded-NanoGPT World Record Attempt (29.90 S)",
+          "summary": "Six small GPU fixes (+175 lines) bring the modded-nanogpt Track 1 run to 29.90 s on 8×H100 across 12 runs; the record is still in review.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Aagam-Bothara/rigtune",
-          "published": "Sat, 21 Nov 2026 01:40:35 +0000"
+          "url": "https://amund.blog/modded-nanogpt-sub-30s-record-attempt/",
+          "published": "Sun, 22 Nov 2026 18:44:55 +0000"
         },
         {
-          "title": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill",
-          "summary": "AWS packages distributed KV caching for self-hosted LLMs as an agent skill, aimed at lower serving cost and latency.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill/",
-          "published": "Sat, 21 Nov 2026 00:14:26 +0000"
+          "title": "Perplexity and Intelligence",
+          "summary": "An OpenAI essay argues tracking how well models compress data (perplexity) is the key measure of the pace of AI progress.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/perplexity-and-intelligence",
+          "published": "Sun, 22 Nov 2026 00:00:00 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "eD7YHaTZN-w",
-    "title": "LLM Digest Daily Explainer: Nov 21, 2026",
-    "duration_s": 119.2
-  }
+  ]
 }
