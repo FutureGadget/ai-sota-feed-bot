@@ -221,8 +221,10 @@ def main(client=None):
 
     target_items = all_items[: args.limit]
 
-    # Anchor the snapshot to the newest ranked item's arrival time.
-    run_at_str = all_items[0].get("first_seen") or datetime.now(timezone.utc).isoformat()
+    # The snapshot's freshness clock is the newest feed run it was built from
+    # (/api/feed returns runs newest first), not when its top card was first seen.
+    runs = feed.get("runs") or []
+    run_at_str = (runs[0].get("run_at") if runs and isinstance(runs[0], dict) else None) or now.isoformat()
 
     existing = _translation_map(existing_snapshot)
 

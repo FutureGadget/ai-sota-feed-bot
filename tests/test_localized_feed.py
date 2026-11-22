@@ -154,10 +154,11 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         self._env_patch.stop()
         self._tmpdir.cleanup()
 
-    def _run_main(self, items: list[dict], *, limit: int = 20, client=None) -> None:
+    def _run_main(self, items: list[dict], *, limit: int = 20, client=None, runs=None) -> None:
         argv = ["build_localized_feed.py", "--locale", "ko", "--label", "brief", "--limit", str(limit)]
+        feed = {"items": items, "runs": runs or []}
         with patch.object(sys, "argv", argv), \
-             patch.object(localized, "_fetch_english_feed", return_value={"items": items}):
+             patch.object(localized, "_fetch_english_feed", return_value=feed):
             localized.main(client=client or self.client)
 
     def _snapshot(self) -> dict:
@@ -218,6 +219,22 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         cards = {c["translation_key"]: c for c in self._snapshot()["items"]}
         self.assertEqual(cards[items[1]["url"]]["summary_1line"], f"{PREFIX}A rewritten summary.")
         self.assertEqual(cards[items[0]["url"]]["summary_1line"], f"{PREFIX}Summary 0.")
+
+    def test_snapshot_is_stamped_with_the_newest_feed_run_not_the_top_card(self) -> None:
+        newest = (self.now - timedelta(minutes=30)).isoformat()
+        older = (self.now - timedelta(hours=2)).isoformat()
+        # The top card was first seen days ago; that must not age the snapshot.
+        items = [_mk_item(0, first_seen="2026-07-05T00:00:00Z")]
+        self._run_main(items, runs=[{"run_at": newest}, {"run_at": older}])
+
+        snapshot = self._snapshot()
+        self.assertEqual(snapshot["source_run_at"], newest)
+        self.assertEqual(snapshot["expires_at"], (self.now + timedelta(hours=23, minutes=30)).isoformat())
+        self.assertEqual(self._status()["source_run_at"], newest)
+
+    def test_snapshot_without_runs_is_stamped_now(self) -> None:
+        self._run_main([_mk_item(0)])
+        self.assertEqual(self._snapshot()["source_run_at"], self.now.isoformat())
 
     def test_cards_from_another_model_are_retranslated(self) -> None:
         items = [_mk_item(i) for i in range(2)]
