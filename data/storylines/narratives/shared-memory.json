@@ -1,43 +1,51 @@
 {
   "slug": "shared-memory",
-  "generated_at": "2026-09-21T20:08:16Z",
-  "covers_last_updated": "2026-09-21T13:13:09+00:00",
+  "generated_at": "2026-11-22T00:12:43Z",
+  "covers_last_updated": "2026-11-21T18:14:29+00:00",
   "covers_member_sids": [
-    "c95ec4fda28e63d4",
-    "63c719faf3c1678c",
-    "ecbc939e4d2da1ba"
+    "29f0e99816524f78",
+    "c16327a14472b017",
+    "e76fa817c2806f1f"
   ],
-  "tldr": "In early September a startup and an academic paper both proposed giving AI agents persistent, shared memory instead of siloed per-session context. The pitch: context one agent learns should stay usable by every other agent on the same team, not vanish when a session ends.",
-  "whats_new": "Motif open-sourced a shared, versioned memory store for teams of coding agents on Sept 21, following MemHub's commercial persistent-memory product and a kernel-managed-memory research paper earlier in the month.",
-  "why_it_matters": "If cross-agent shared memory catches on, plan for memory-consistency and access-control problems, not just context loss — evaluate write conflicts before adopting a shared store.",
+  "tldr": "In September MemHub, Motif and a kernel-managed-memory paper pitched shared memory so context one agent learns stays usable by its teammates. The thread restarted Nov 9 with a replication study showing LLM agents coordinate unprompted through shared memory, then Project-M posted a local shared memory for coding agents on Nov 18.",
+  "whats_new": "Loom reached Hacker News on Nov 21 as shared memory, document search and code indexing for AI agents, the second shared-memory tool for coding agents posted there in four days.",
+  "why_it_matters": "Shared memory is now a research finding as well as a product category: agents that share a store can coordinate without being told to, so the store's write and visibility rules shape agent behavior, not just recall.",
   "beats": [
     {
-      "kicker": "LAUNCH",
-      "tone": "launch",
-      "headline": "MemHub ships persistent shared memory for coding agents",
-      "sids": ["c95ec4fda28e63d4"]
+      "kicker": "RESEARCH",
+      "tone": "turn",
+      "headline": "Replication study: LLM agents coordinate unprompted through shared memory",
+      "summary": "A locked two-implementation replication and extension frames shared memory as a coordination channel with safety stakes.",
+      "sids": [
+        "29f0e99816524f78"
+      ]
     },
     {
-      "kicker": "RESEARCH",
+      "kicker": "LOCAL TOOL",
       "tone": "rising",
-      "headline": "arXiv paper proposes kernel-managed shared memory for multi-agent personalization",
-      "sids": ["63c719faf3c1678c"]
+      "headline": "Project-M posts local shared memory for AI coding agents",
+      "sids": [
+        "c16327a14472b017"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Motif open-sources shared memory for teams of coding agents",
-      "sids": ["ecbc939e4d2da1ba"]
+      "headline": "Loom bundles shared memory with document search and code indexing",
+      "sids": [
+        "e76fa817c2806f1f"
+      ]
     }
   ],
   "open_questions": [
-    "Does Motif or MemHub define a conflict-resolution model for concurrent agent writes to shared memory?",
-    "Does kernel-managed shared memory, the arXiv proposal, ship in any production agent framework, or does it remain research?"
+    "Do Project-M or Loom define a conflict-resolution model for concurrent agent writes to shared memory?",
+    "Which shared-memory setups produced unprompted coordination in the replication study, and can access rules prevent it?",
+    "Does any shared-memory tool let operators scope which agents can read or write which entries?"
   ],
-  "take_for_builders": "Before adopting a shared-memory layer for a multi-agent team, test how it handles concurrent writes and stale reads — none of September's three releases publish a consistency model.",
+  "take_for_builders": "Before adopting Project-M, Loom or any shared store for a multi-agent team, test concurrent writes and stale reads, and log which agent read what so unprompted coordination is visible.",
   "day_captions": {
-    "c95ec4fda28e63d4": "First mover: a commercial product for persistent cross-agent memory.",
-    "63c719faf3c1678c": "Independent research proposes a kernel-level mechanism for the same problem.",
-    "ecbc939e4d2da1ba": "First open-source implementation targeting team-shared agent memory."
+    "29f0e99816524f78": "Research evidence that a shared store changes how agents behave together, not only what they remember.",
+    "c16327a14472b017": "A local-first take: shared memory for coding agents without a hosted service.",
+    "e76fa817c2806f1f": "Widens shared memory into one layer with document search and a code index."
   }
 }

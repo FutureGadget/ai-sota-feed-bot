@@ -1,0 +1,103 @@
+{
+ "slug": "activation-steering",
+ "label": "Activation Steering",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-11-02T17:53:26+00:00",
+ "last_updated": "2026-11-19T18:59:53+00:00",
+ "generated_at": "2026-11-22T00:14:27.244418+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "VIAS: Value-Isolating Activation Steering for Multi-Value Alignment and Compliance for Organisations",
+     "url": "http://arxiv.org/abs/2611.03518v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Organisations increasingly deploy large language model agents that must follow organisational values. We check whether activation steering, which adds vectors to a model's internal activations during generation withou...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "ba560efbe9932076",
+     "published": "2026-11-02T17:53:26+00:00",
+     "editor_note": "Frames steering as a compliance tool for agents bound by multiple organisational values."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Right Token, Right Time: From Per-Token Gating to Trajectory-Aware Activation Steering",
+     "url": "http://arxiv.org/abs/2611.18274v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Activation steering via sparse autoencoders (SAEs) enables behavioral control of large language models without task-specific fine-tuning. Yet, standard methods apply the steering signal at every generated token, displacing representations from the distribution the model was train",
+     "sid": "c782cc86916eca79",
+     "published": "2026-11-13T15:06:43+00:00",
+     "editor_note": "Names the cost of always-on steering and proposes gating it per token."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+     "url": "http://arxiv.org/abs/2611.26627v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning (RL) post-training substantially improves the visual quality, text rendering, and compositional accuracy of diffusion transformers. Because capabilities such as rendering requested text or composing multiple objects are inherently prompt-dependent, a natura",
+     "sid": "63c5d50779da2bd3",
+     "published": "2026-11-19T18:59:53+00:00",
+     "editor_note": "Extends the idea from text models to diffusion transformers and to explaining RL post-training."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "On Nov 2 the VIAS paper tested activation steering, adding vectors to internal activations at generation time, to make LLM agents follow several organisational values at once. A Nov 13 paper argued that steering every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory.",
+  "stale": false,
+  "whats_new": "A Nov 19 paper argues that RL post-training of diffusion transformers amounts to activation steering, linking a costly training step to an inference-time intervention.",
+  "why_it_matters": "Activation steering is a behavior control that needs no fine-tuning run, so if it can isolate values, gate per token, or stand in for RL gains, teams get a cheaper lever for compliance and quality tuning on open-weight models.",
+  "take_for_builders": "If you steer an open-weight model for policy compliance, measure output quality with steering on versus off per token before shipping; always-on steering is the failure mode the Nov 13 paper targets.",
+  "beats": [
+   {
+    "kicker": "COMPLIANCE",
+    "tone": "launch",
+    "headline": "VIAS isolates per-value steering vectors for organisational compliance",
+    "sids": [
+     "ba560efbe9932076"
+    ]
+   },
+   {
+    "kicker": "REFINEMENT",
+    "tone": "rising",
+    "headline": "SAE steering moves from every token to trajectory-aware gating",
+    "summary": "Targets the off-distribution drift that always-on steering causes.",
+    "sids": [
+     "c782cc86916eca79"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "RL post-training in diffusion transformers recast as activation steering",
+    "sids": [
+     "63c5d50779da2bd3"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does VIAS keep several value vectors from interfering when they are applied together?",
+   "How much generation quality does trajectory-aware gating recover compared with steering every token?",
+   "Can a steering vector reproduce the RL post-training gains in diffusion transformers without running RL?",
+   "Does any result here carry over between text LLMs and diffusion transformers?"
+  ],
+  "generated_at": "2026-11-22T00:12:43Z"
+ }
+}

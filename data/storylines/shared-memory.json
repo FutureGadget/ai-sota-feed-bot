@@ -4,99 +4,101 @@
  "item_count": 3,
  "day_count": 3,
  "source_count": 2,
- "first_seen": "2026-09-03T01:43:31+00:00",
- "last_updated": "2026-09-21T13:13:09+00:00",
- "generated_at": "2026-09-24T00:16:01.516302+00:00",
+ "first_seen": "2026-11-09T13:43:52+00:00",
+ "last_updated": "2026-11-21T18:14:29+00:00",
+ "generated_at": "2026-11-22T00:14:27.244418+00:00",
  "sources": [
-  "arxiv_agent_systems_research",
+  "arxiv_cs_cl",
   "hackernews_ai"
  ],
  "days": [
   {
-   "date": "2026-09-03",
+   "date": "2026-11-09",
    "items": [
     {
-     "title": "MemHub – Persistent shared memory for AI coding agents",
-     "url": "https://memhub.simplex.lat",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "MemHub – Persistent shared memory for AI coding agents",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "c95ec4fda28e63d4",
-     "published": "2026-09-03T01:43:31+00:00",
-     "editor_note": "First mover: a commercial product for persistent cross-agent memory."
-    }
-   ]
-  },
-  {
-   "date": "2026-09-09",
-   "items": [
-    {
-     "title": "Kernel-Managed Shared Memory for System-Wide Personalization",
-     "url": "http://arxiv.org/abs/2609.10144v1",
-     "source": "arxiv_agent_systems_research",
+     "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+     "url": "http://arxiv.org/abs/2611.12412v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "AI systems become more useful when they can adapt to the people using them, but in multi-agent systems, useful context learned by one agent often remains unavailable to others. We present kernel-managed shared memory,...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "63c719faf3c1678c",
-     "published": "2026-09-09T13:20:47+00:00",
-     "editor_note": "Independent research proposes a kernel-level mechanism for the same problem."
+     "summary_1line": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agent...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "29f0e99816524f78",
+     "published": "2026-11-09T13:43:52+00:00",
+     "editor_note": "Research evidence that a shared store changes how agents behave together, not only what they remember."
     }
    ]
   },
   {
-   "date": "2026-09-21",
+   "date": "2026-11-18",
    "items": [
     {
-     "title": "Show HN: Open-source shared memory for teams of AI coding agents",
-     "url": "https://github.com/motif-Labs/motif",
+     "title": "Show HN: Project-M – Local shared memory for AI coding agents",
+     "url": "https://github.com/adityadebnath009/Project-M",
      "source": "hackernews_ai",
      "type": "news",
-     "summary_1line": "Show HN: Open-source shared memory for teams of AI coding agents",
+     "summary_1line": "Show HN: Project-M – Local shared memory for AI coding agents",
      "why_it_matters": "Matches feed focus: agent.",
-     "sid": "ecbc939e4d2da1ba",
-     "published": "2026-09-21T13:13:09+00:00",
-     "editor_note": "First open-source implementation targeting team-shared agent memory."
+     "sid": "c16327a14472b017",
+     "published": "2026-11-18T14:31:10+00:00",
+     "editor_note": "A local-first take: shared memory for coding agents without a hosted service."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "items": [
+    {
+     "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+     "url": "https://github.com/ClickHouse/loom",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "e76fa817c2806f1f",
+     "published": "2026-11-21T18:14:29+00:00",
+     "editor_note": "Widens shared memory into one layer with document search and a code index."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "In early September a startup and an academic paper both proposed giving AI agents persistent, shared memory instead of siloed per-session context. The pitch: context one agent learns should stay usable by every other agent on the same team, not vanish when a session ends.",
+  "tldr": "In September MemHub, Motif and a kernel-managed-memory paper pitched shared memory so context one agent learns stays usable by its teammates. The thread restarted Nov 9 with a replication study showing LLM agents coordinate unprompted through shared memory, then Project-M posted a local shared memory for coding agents on Nov 18.",
   "stale": false,
-  "whats_new": "Motif open-sourced a shared, versioned memory store for teams of coding agents on Sept 21, following MemHub's commercial persistent-memory product and a kernel-managed-memory research paper earlier in the month.",
-  "why_it_matters": "If cross-agent shared memory catches on, plan for memory-consistency and access-control problems, not just context loss — evaluate write conflicts before adopting a shared store.",
-  "take_for_builders": "Before adopting a shared-memory layer for a multi-agent team, test how it handles concurrent writes and stale reads — none of September's three releases publish a consistency model.",
+  "whats_new": "Loom reached Hacker News on Nov 21 as shared memory, document search and code indexing for AI agents, the second shared-memory tool for coding agents posted there in four days.",
+  "why_it_matters": "Shared memory is now a research finding as well as a product category: agents that share a store can coordinate without being told to, so the store's write and visibility rules shape agent behavior, not just recall.",
+  "take_for_builders": "Before adopting Project-M, Loom or any shared store for a multi-agent team, test concurrent writes and stale reads, and log which agent read what so unprompted coordination is visible.",
   "beats": [
    {
-    "kicker": "LAUNCH",
-    "tone": "launch",
-    "headline": "MemHub ships persistent shared memory for coding agents",
+    "kicker": "RESEARCH",
+    "tone": "turn",
+    "headline": "Replication study: LLM agents coordinate unprompted through shared memory",
+    "summary": "A locked two-implementation replication and extension frames shared memory as a coordination channel with safety stakes.",
     "sids": [
-     "c95ec4fda28e63d4"
+     "29f0e99816524f78"
     ]
    },
    {
-    "kicker": "RESEARCH",
+    "kicker": "LOCAL TOOL",
     "tone": "rising",
-    "headline": "arXiv paper proposes kernel-managed shared memory for multi-agent personalization",
+    "headline": "Project-M posts local shared memory for AI coding agents",
     "sids": [
-     "63c719faf3c1678c"
+     "c16327a14472b017"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Motif open-sources shared memory for teams of coding agents",
+    "headline": "Loom bundles shared memory with document search and code indexing",
     "sids": [
-     "ecbc939e4d2da1ba"
+     "e76fa817c2806f1f"
     ]
    }
   ],
   "open_questions": [
-   "Does Motif or MemHub define a conflict-resolution model for concurrent agent writes to shared memory?",
-   "Does kernel-managed shared memory, the arXiv proposal, ship in any production agent framework, or does it remain research?"
+   "Do Project-M or Loom define a conflict-resolution model for concurrent agent writes to shared memory?",
+   "Which shared-memory setups produced unprompted coordination in the replication study, and can access rules prevent it?",
+   "Does any shared-memory tool let operators scope which agents can read or write which entries?"
   ],
-  "generated_at": "2026-09-21T20:08:16Z"
+  "generated_at": "2026-11-22T00:12:43Z"
  }
 }

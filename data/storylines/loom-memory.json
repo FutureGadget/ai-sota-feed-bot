@@ -1,0 +1,105 @@
+{
+ "slug": "loom-memory",
+ "label": "LooM Memory",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-11-04T17:52:11+00:00",
+ "last_updated": "2026-11-21T18:14:29+00:00",
+ "generated_at": "2026-11-22T00:14:27.244418+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "LooM: Loop-Invariant Memory for Causal Encoder-Decoder Language Models",
+     "url": "http://arxiv.org/abs/2611.06835v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Looped Transformers increase effective depth by re-executing shared layers, but three limitations hinder their adoption: memory grows with the loop count, compute can only be adjusted in whole-block steps, and the loop count is hard to change after training. We propose LooM (Loop",
+     "sid": "9883de882015971a",
+     "published": "2026-11-04T17:52:11+00:00",
+     "editor_note": "Name collision: a looped-transformer memory paper, not the agent tool."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Loom: agent memory that keeps up with your code",
+     "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Loom: agent memory that keeps up with your code",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "63559c70c4da4388",
+     "published": "2026-11-17T10:20:15+00:00",
+     "editor_note": "First appearance of Loom as an agent-memory tool tied to a codebase."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "items": [
+    {
+     "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+     "url": "https://github.com/ClickHouse/loom",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "e76fa817c2806f1f",
+     "published": "2026-11-21T18:14:29+00:00",
+     "editor_note": "Widens the pitch to shared memory, document search and code indexing."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "The thread opened Nov 4 with LooM, an arXiv method that stops memory growing with loop count in looped transformers; it shares only a name with the agent tool. On Nov 17 a Loom agent-memory project reached Hacker News, pitched as memory that keeps up with your code.",
+  "stale": false,
+  "whats_new": "A Nov 21 Hacker News post pitches Loom as one layer for shared agent memory, document search and code indexing, four days after a Loom post on agent memory that tracks code changes.",
+  "why_it_matters": "Loom bundles three things agent stacks usually run separately (memory store, doc retrieval, code index), so adopting it means trusting one tool to keep all three in sync with a changing repo.",
+  "take_for_builders": "Before wiring Loom into an agent stack, test it on a repo mid-refactor: check that the code index and stored memories drop references to deleted or moved code.",
+  "beats": [
+   {
+    "kicker": "NAME CLASH",
+    "tone": "neutral",
+    "headline": "LooM paper: loop-invariant memory for looped transformers",
+    "summary": "A model-architecture paper on memory and compute in re-executed layers; unrelated to the agent tool.",
+    "sids": [
+     "9883de882015971a"
+    ]
+   },
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Loom reaches Hacker News as agent memory that keeps up with your code",
+    "sids": [
+     "63559c70c4da4388"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Loom pitched as shared memory plus document search plus code indexing",
+    "summary": "The scope widens from per-agent memory to a shared layer with retrieval and a code index.",
+    "sids": [
+     "e76fa817c2806f1f"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Are the Nov 17 and Nov 21 Hacker News posts the same Loom project, or two tools with the same name?",
+   "How does Loom keep its code index and memories current when files are renamed, refactored or deleted?",
+   "Does Loom define what happens when two agents write conflicting entries to shared memory?",
+   "Does Loom run locally, or does shared memory require a hosted backend?"
+  ],
+  "generated_at": "2026-11-22T00:12:43Z"
+ }
+}

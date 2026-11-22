@@ -1,168 +1,278 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-11-20T00:12:48Z",
-  "covers_last_updated": "2026-11-18T18:56:12+00:00",
+  "generated_at": "2026-11-22T00:12:43Z",
+  "covers_last_updated": "2026-11-19T18:20:01+00:00",
   "covers_member_sids": [
-    "fdfc122cd97a630f",
-    "e46c1ab3f7ca9939",
-    "a8a5f23cd8e10643",
     "43862ef771dfba65",
+    "744a7a52285cfa40",
+    "526c07c3667e6cf7",
+    "8b24b2aa117fb77b",
     "94da3bfcbd46a769",
+    "57b08f9866a26766",
+    "5ab1b6ecf4ca3e7a",
     "c43d3ff3aa20c41c",
     "416b05f86baa94c5",
+    "464b347f5551c3b2",
+    "2e4c5bdb80c6e509",
+    "06c2c68bc425da7f",
     "5606760643e4651e",
+    "23c0753cd928bfa7",
+    "b76cb948754a8e57",
     "9c88a41fbb756af3",
+    "e07cc0f8ad9bbda1",
+    "1c564d62e97c9758",
     "3b4f703ae0a8f385",
+    "94045c979b35ebe7",
+    "77f0b452ecfd74d0",
     "501ef39353c40289",
+    "60cf435fff992a90",
     "5ddb49a19fc35296",
+    "2ffd7e8cb1f550c6",
     "c4a35e75b732ef4a",
+    "69a7c1548b162d4e",
     "dcfca63926ea22ea",
     "b6805052b5174dca",
+    "9b791542dc8bb7cc",
     "f1908d0038e22f5b",
+    "151cc2392264c544",
     "173841a135ec48af",
+    "7b04b19e28032924",
+    "590316d609c0ce23",
+    "0fe69ec1eb1a4f14",
+    "f90b714a57ce9fe0",
+    "c9c6bd7b30cb6c70",
     "ca54e3a4f2c1d30b",
     "3985de9df0cd2149",
+    "951243773dcd7469",
+    "75db6f155d9769a5",
     "53cced15d557cd0b",
     "fb7a288ad791ee0d",
     "baf7e4781272e609",
+    "8138237fac2e053c",
+    "81c44c827e9a0e1d",
+    "d495f69216affbb3",
     "1e13d673398b4485",
     "8f0034965a63d29c",
     "0d292c5fdc2bf79f",
+    "51009fb859c1b51e",
     "563c7d3375862838",
-    "e497c044e025058b"
+    "871015d49de97b4a",
+    "3be6797ec1d79375",
+    "c259fdb087f2c077",
+    "e497c044e025058b",
+    "1d45f44793728555",
+    "7f32f43e5847c550"
   ],
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 30 it ran through pruning, Anthropic's Nov 2 provable-inference update, knowledge editing and eval-validity work to Nov 13-16 papers on when a model should abstain, ask or escalate.",
-  "whats_new": "Nov 18: a contrastive-prototype method detects jailbreak prompts without training a separate guard model, after Nov 16-17 papers on calibrated abstention thresholds and provenance-aware decoding for omnimodal hallucinations.",
-  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on guardrail design: calibrated refusal, modality-aware hallucination control and lightweight jailbreak screening, each a component a serving stack can test.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Anthropic's Nov 2 provable-inference update it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+  "whats_new": "Nov 19: a deception study uses label-free knowledge and persona directions to build lie probes that transfer across lie types, and a second paper measures hallucination in cyber-threat-intelligence tasks.",
+  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
   "beats": [
     {
-      "kicker": "OCT 30",
-      "tone": "launch",
-      "headline": "Efficiency work: extreme-sparsity pruning and an early-stopping audit for reasoning models",
-      "summary": "Opens the window; a text-to-SQL architecture survey lands the same day.",
-      "sids": [
-        "fdfc122cd97a630f",
-        "e46c1ab3f7ca9939",
-        "a8a5f23cd8e10643"
-      ]
-    },
-    {
       "kicker": "FIRST-PARTY",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "Anthropic reports progress on zkSNARK-based provable inference",
-      "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference.",
       "sids": [
         "43862ef771dfba65"
+      ],
+      "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference."
+    },
+    {
+      "kicker": "AGENTS",
+      "tone": "rising",
+      "headline": "Agent context, failure analysis and harder agent benchmarks",
+      "sids": [
+        "744a7a52285cfa40",
+        "464b347f5551c3b2",
+        "94045c979b35ebe7",
+        "2ffd7e8cb1f550c6",
+        "0fe69ec1eb1a4f14",
+        "f90b714a57ce9fe0",
+        "75db6f155d9769a5",
+        "baf7e4781272e609",
+        "51009fb859c1b51e",
+        "3be6797ec1d79375"
+      ],
+      "summary": "From context engines and token trimming to where long-horizon errors enter, plus web, multimodal and visual-agent benchmarks."
+    },
+    {
+      "kicker": "SERVING & INFRA",
+      "tone": "rising",
+      "headline": "LLMs and agents aimed at kernels, cache reuse, routing and training simulation",
+      "sids": [
+        "8b24b2aa117fb77b",
+        "23c0753cd928bfa7",
+        "b76cb948754a8e57",
+        "77f0b452ecfd74d0",
+        "60cf435fff992a90",
+        "c4a35e75b732ef4a",
+        "151cc2392264c544",
+        "7b04b19e28032924",
+        "fb7a288ad791ee0d"
+      ],
+      "summary": "Includes a local 7B code model on GPU kernels, KV-cache reuse across a DeepSeek-V4-Flash update, and what token spend actually measures."
+    },
+    {
+      "kicker": "POST-TRAINING",
+      "tone": "rising",
+      "headline": "Preference optimization variants: Nash, debate, steerable adapters, token reweighting",
+      "sids": [
+        "5ab1b6ecf4ca3e7a",
+        "2e4c5bdb80c6e509",
+        "06c2c68bc425da7f",
+        "1c564d62e97c9758"
       ]
     },
     {
-      "kicker": "NOV 3-6",
+      "kicker": "KNOWLEDGE",
       "tone": "rising",
-      "headline": "Updating what models know: answerability drift, multimodal unlearning and lifelong knowledge editing",
-      "summary": "Also here: an LLM choosing federated aggregation rules without training.",
+      "headline": "Updating what models know: answerability drift, unlearning and knowledge editing",
       "sids": [
         "94da3bfcbd46a769",
         "c43d3ff3aa20c41c",
-        "416b05f86baa94c5",
-        "5606760643e4651e"
-      ]
+        "5606760643e4651e",
+        "b6805052b5174dca",
+        "590316d609c0ce23"
+      ],
+      "summary": "Plus how false corrections and wording change which facts a model can still reach."
     },
     {
-      "kicker": "NOV 9-10",
-      "tone": "rising",
-      "headline": "Judgment under scrutiny: rising rater standards on Chatbot Arena, framing effects and personality benchmarks",
-      "summary": "These days also bring an LLM AutoML searcher, physics-guided fault diagnosis, a training-simulation benchmark and a cognitive account of learning by thinking.",
+      "kicker": "EVAL VALIDITY",
+      "tone": "turn",
+      "headline": "What do scores measure? Rater drift, framing, throttling and shortcut probes",
       "sids": [
         "9c88a41fbb756af3",
-        "3b4f703ae0a8f385",
         "501ef39353c40289",
-        "5ddb49a19fc35296",
-        "c4a35e75b732ef4a",
         "dcfca63926ea22ea",
-        "b6805052b5174dca"
-      ]
-    },
-    {
-      "kicker": "NOV 11-12",
-      "tone": "turn",
-      "headline": "What do scores measure? ShadowBench and a corrupted-input study probe shortcuts behind passing evals",
-      "summary": "One tests recall without explicit entity names; the other asks whether LLMs pass NLI on noun-stripped or shuffled inputs.",
-      "sids": [
+        "9b791542dc8bb7cc",
         "f1908d0038e22f5b",
-        "173841a135ec48af"
-      ]
+        "173841a135ec48af",
+        "1e13d673398b4485"
+      ],
+      "summary": "Chatbot Arena standards rising, framing effects, models driven to a target score, and recall evals that lean on entity names."
     },
     {
-      "kicker": "NOV 13",
+      "kicker": "MULTIMODAL",
       "tone": "rising",
-      "headline": "Knowing when not to answer: black-box uncertainty and an interactive ambiguity-resolution eval",
-      "summary": "One splits prompt ambiguity from knowledge gaps via API calls only; the other scores when a model should ask versus assume. A tabular anomaly-detection paper lands the same day.",
+      "headline": "Multimodal hallucination: preference alignment and decoding fixes",
       "sids": [
+        "526c07c3667e6cf7",
+        "57b08f9866a26766",
+        "c9c6bd7b30cb6c70",
+        "8138237fac2e053c",
+        "d495f69216affbb3",
+        "563c7d3375862838",
+        "871015d49de97b4a",
+        "c259fdb087f2c077"
+      ],
+      "summary": "Eight papers attack vision and omnimodal models answering beyond their evidence."
+    },
+    {
+      "kicker": "SIDE BRANCHES",
+      "tone": "neutral",
+      "headline": "Applied one-offs: federated learning, AutoML, diagnostics and anomaly detection",
+      "sids": [
+        "416b05f86baa94c5",
+        "e07cc0f8ad9bbda1",
+        "3b4f703ae0a8f385",
+        "5ddb49a19fc35296",
+        "69a7c1548b162d4e",
         "ca54e3a4f2c1d30b",
-        "3985de9df0cd2149",
-        "53cced15d557cd0b"
-      ]
+        "951243773dcd7469",
+        "81c44c827e9a0e1d"
+      ],
+      "summary": "Grouped by shared wording, not by a common thread."
     },
     {
-      "kicker": "NOV 14-16",
+      "kicker": "ABSTAIN OR ESCALATE",
       "tone": "rising",
-      "headline": "Applied decisions: budgeted malware triage, annotation benchmarking, agent RL environments and an AI-infrastructure survey",
-      "summary": "The run moves from model internals to LLMs making operational calls under cost and documentation constraints.",
+      "headline": "Knowing when not to answer: uncertainty, clarification, triage and calibrated abstention",
       "sids": [
-        "fb7a288ad791ee0d",
-        "baf7e4781272e609",
-        "1e13d673398b4485",
-        "8f0034965a63d29c"
+        "3985de9df0cd2149",
+        "53cced15d557cd0b",
+        "8f0034965a63d29c",
+        "0d292c5fdc2bf79f"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Guardrails at the output: calibrated abstention, provenance-aware decoding and jailbreak detection",
-      "summary": "Nov 16-18 papers each target a control point between the model and the user: when to refuse, which modality to trust, which prompt to block.",
+      "headline": "Detecting bad outputs: jailbreak screening, domain hallucination and lie probes",
       "sids": [
-        "0d292c5fdc2bf79f",
-        "563c7d3375862838",
-        "e497c044e025058b"
-      ]
+        "e497c044e025058b",
+        "1d45f44793728555",
+        "7f32f43e5847c550"
+      ],
+      "summary": "Nov 18-19 papers target detection at serving time: which prompt to block, where a domain model hallucinates, when a model is lying."
     }
   ],
   "open_questions": [
+    "Do the Nov 19 knowledge and persona directions detect lies on models outside the study, and at what false-positive rate?",
     "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
     "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
-    "Does PACD report the decoding latency or extra forward passes it adds per token?",
-    "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
+    "Does KV-cache reuse across model updates hold beyond the DeepSeek-V4-Flash case study?",
     "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
     "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
   ],
-  "take_for_builders": "Before swapping in any of these guardrails, replay your own traffic: measure the jailbreak detector's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each method adds.",
+  "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds.",
   "day_captions": {
-    "fdfc122cd97a630f": "Opens the window: survey plus empirical audit of when reasoning models can stop early without losing reliability.",
-    "e46c1ab3f7ca9939": "Survey of LLM architectures and strategies for text-to-SQL.",
-    "a8a5f23cd8e10643": "Gradual pruning with sparse adaptation, targeting quality at extreme sparsity.",
     "43862ef771dfba65": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference.",
+    "744a7a52285cfa40": "Practitioner article: a context engine that selects, compresses and expires information before it reaches the agent.",
+    "526c07c3667e6cf7": "RLVR for multimodal reasoning using deceptive context to force real perception.",
+    "8b24b2aa117fb77b": "Question-driven coding agents for GPU kernel optimization, between scripted and free-form agents.",
     "94da3bfcbd46a769": "Shows post-training updates can leave a model's answerability judgments out of step with its knowledge.",
+    "57b08f9866a26766": "Hallucination mitigation for multimodal discrete diffusion language models.",
+    "5ab1b6ecf4ca3e7a": "Empirical study of Direct Nash Optimization against general preference functions.",
     "c43d3ff3aa20c41c": "Unlearning cross-modal associations so a visual input no longer unlocks sensitive information during reasoning.",
     "416b05f86baa94c5": "Tests whether an LLM inspecting client models can pick the federated aggregation rule without training.",
+    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch agent usage limits.",
+    "2e4c5bdb80c6e509": "Preference learning from multi-agent debate when gold answers or verifiers are missing.",
+    "06c2c68bc425da7f": "Jointly trained LoRA adapters that let one model shift between competing objectives.",
     "5606760643e4651e": "Lifelong knowledge editing for multimodal models, aimed at locality erosion and forgetting.",
+    "23c0753cd928bfa7": "Infrathon benchmark: can frontier agents keep improving real AI infrastructure over long horizons.",
+    "b76cb948754a8e57": "How much the interaction strategy around a local Qwen2.5-Coder-7B decides kernel results.",
     "9c88a41fbb756af3": "Benchmarks how personality-like tendencies shift outputs beyond what the prompt specifies.",
+    "e07cc0f8ad9bbda1": "Applied: cold-start cover-photo selection for Airbnb listings.",
+    "1c564d62e97c9758": "Token-level reweighting to make preference optimization robust to noisy preference data.",
     "3b4f703ae0a8f385": "Uses an LLM as one searcher across the architecture and hyperparameter choices AutoML frameworks keep separate.",
+    "94045c979b35ebe7": "Traces where errors enter long-horizon agent trajectories and which controls reach them.",
+    "77f0b452ecfd74d0": "Case study questioning engineer token spend as a productivity and budget metric.",
     "501ef39353c40289": "Audits whether LLM judgments of Chinese news headlines track the reported fact or its framing.",
+    "60cf435fff992a90": "Tests whether KV caches survive a model weight update, using DeepSeek-V4-Flash.",
     "5ddb49a19fc35296": "Engineer-style physical reasoning for fault diagnosis from sensor data.",
+    "2ffd7e8cb1f550c6": "A benchmark for multimodal knowledge agents.",
     "c4a35e75b732ef4a": "Framework, dataset and benchmark for simulating LLM training performance instead of running distributed jobs.",
+    "69a7c1548b162d4e": "Split-learning method to reduce gradient divergence on constrained devices.",
     "dcfca63926ea22ea": "Separates model change from rater change on Chatbot Arena; argues standards rose.",
     "b6805052b5174dca": "A cognitive account of how models gain insight through explanation and reasoning without new input.",
+    "9b791542dc8bb7cc": "Asks whether a model can be driven to a target benchmark score with believable failures.",
     "f1908d0038e22f5b": "Argues recall evals over-rely on explicit entity names, which bears on how forgetting is measured.",
+    "151cc2392264c544": "Small models as routers deciding when to switch on reasoning, retrieval, search or tools.",
     "173841a135ec48af": "Brings the input-corruption test from fine-tuned encoders to LLMs, extending the question of what eval scores measure.",
-    "ca54e3a4f2c1d30b": "Side branch: LLM self-play for anomaly detection over mixed-type tabular data.",
-    "3985de9df0cd2149": "Shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split.",
+    "7b04b19e28032924": "Cost-aware kernel optimization benchmark on real Ascend NPU workloads.",
+    "590316d609c0ce23": "After a model accepts a false correction, context and wording decide whether the true fact comes back.",
+    "0fe69ec1eb1a4f14": "Treats vision as a tool inside the harness for multimodal agentic coding.",
+    "f90b714a57ce9fe0": "Reproducible multimodal web-agent benchmark spanning heterogeneous applications.",
+    "c9c6bd7b30cb6c70": "Visual-evidence-guided preference optimization against multilingual object hallucination.",
+    "ca54e3a4f2c1d30b": "LLM self-play for anomaly detection over mixed-type tabular data.",
+    "3985de9df0cd2149": "Black-box split of prompt ambiguity from knowledge gaps, using API calls only.",
+    "951243773dcd7469": "Interactive program induction using language-model priors.",
+    "75db6f155d9769a5": "Tests whether mechanistic interpretability explains web-element hallucination in agents.",
     "53cced15d557cd0b": "Evaluates interactively when a model should ask for clarification versus make an assumption.",
     "fb7a288ad791ee0d": "Survey mapping LLM use across designing, optimizing and operating AI training and serving infrastructure.",
-    "baf7e4781272e609": "Agent-side entry: scaling structured, interactive RL environments for multi-turn tool-use training.",
+    "baf7e4781272e609": "Scales structured, interactive RL environments for multi-turn tool-use training.",
+    "8138237fac2e053c": "Entropy-guided preference alignment to cut VLM hallucination with scarce preference data.",
+    "81c44c827e9a0e1d": "Aligns local and global attributions for explainable federated learning.",
+    "d495f69216affbb3": "Severity-aware alignment that validates preference pairs at a fine grain.",
     "1e13d673398b4485": "Python tool and web interface for benchmarking LLM linguistic annotation under documented conditions.",
     "8f0034965a63d29c": "Cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget.",
     "0d292c5fdc2bf79f": "Moves abstention from heuristic thresholds to calibrated thresholds with statistical error control on accepted answers.",
+    "51009fb859c1b51e": "Visual agents that zoom into ultra-high-resolution images instead of answering from common sense.",
     "563c7d3375862838": "Training-free decoding that tracks which modality supports a claim, targeting cross-modal hallucination.",
-    "e497c044e025058b": "Latest item: jailbreak detection from contrastive representations without training an additional guard model."
+    "871015d49de97b4a": "Benchmark for multimodal reports that combine narrative and visualizations from tables.",
+    "3be6797ec1d79375": "Agentic physics reasoning with grounded visual memory to stop constraints applied out of scope.",
+    "c259fdb087f2c077": "Noise-aware generation for multimodal knowledge-graph reasoning.",
+    "e497c044e025058b": "Jailbreak detection from contrastive representations without training an additional guard model.",
+    "1d45f44793728555": "Exploratory measurement of hallucination in cyber-threat-intelligence summarization and QA.",
+    "7f32f43e5847c550": "Latest item: label-free knowledge and persona directions aimed at lie probes that transfer across lie types."
   }
 }

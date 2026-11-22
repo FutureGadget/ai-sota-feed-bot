@@ -1,0 +1,52 @@
+{
+  "slug": "activation-steering",
+  "generated_at": "2026-11-22T00:12:43Z",
+  "covers_last_updated": "2026-11-19T18:59:53+00:00",
+  "covers_member_sids": [
+    "ba560efbe9932076",
+    "c782cc86916eca79",
+    "63c5d50779da2bd3"
+  ],
+  "tldr": "On Nov 2 the VIAS paper tested activation steering, adding vectors to internal activations at generation time, to make LLM agents follow several organisational values at once. A Nov 13 paper argued that steering every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory.",
+  "whats_new": "A Nov 19 paper argues that RL post-training of diffusion transformers amounts to activation steering, linking a costly training step to an inference-time intervention.",
+  "why_it_matters": "Activation steering is a behavior control that needs no fine-tuning run, so if it can isolate values, gate per token, or stand in for RL gains, teams get a cheaper lever for compliance and quality tuning on open-weight models.",
+  "beats": [
+    {
+      "kicker": "COMPLIANCE",
+      "tone": "launch",
+      "headline": "VIAS isolates per-value steering vectors for organisational compliance",
+      "sids": [
+        "ba560efbe9932076"
+      ]
+    },
+    {
+      "kicker": "REFINEMENT",
+      "tone": "rising",
+      "headline": "SAE steering moves from every token to trajectory-aware gating",
+      "summary": "Targets the off-distribution drift that always-on steering causes.",
+      "sids": [
+        "c782cc86916eca79"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "RL post-training in diffusion transformers recast as activation steering",
+      "sids": [
+        "63c5d50779da2bd3"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does VIAS keep several value vectors from interfering when they are applied together?",
+    "How much generation quality does trajectory-aware gating recover compared with steering every token?",
+    "Can a steering vector reproduce the RL post-training gains in diffusion transformers without running RL?",
+    "Does any result here carry over between text LLMs and diffusion transformers?"
+  ],
+  "take_for_builders": "If you steer an open-weight model for policy compliance, measure output quality with steering on versus off per token before shipping; always-on steering is the failure mode the Nov 13 paper targets.",
+  "day_captions": {
+    "ba560efbe9932076": "Frames steering as a compliance tool for agents bound by multiple organisational values.",
+    "c782cc86916eca79": "Names the cost of always-on steering and proposes gating it per token.",
+    "63c5d50779da2bd3": "Extends the idea from text models to diffusion transformers and to explaining RL post-training."
+  }
+}

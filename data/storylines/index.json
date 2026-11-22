@@ -1,7 +1,71 @@
 {
- "generated_at": "2026-11-21T00:13:05.218527+00:00",
+ "generated_at": "2026-11-22T00:14:27.244418+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "loom-memory",
+   "label": "LooM Memory",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-11-04T17:52:11+00:00",
+   "last_updated": "2026-11-21T18:14:29+00:00",
+   "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
+   "days": [
+    "2026-11-04",
+    "2026-11-17",
+    "2026-11-21"
+   ],
+   "member_sids": [
+    "9883de882015971a",
+    "63559c70c4da4388",
+    "e76fa817c2806f1f"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.06835v1",
+    "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+    "https://github.com/ClickHouse/loom"
+   ],
+   "editorial": {
+    "tldr": "The thread opened Nov 4 with LooM, an arXiv method that stops memory growing with loop count in looped transformers; it shares only a name with the agent tool. On Nov 17 a Loom agent-memory project reached Hacker News, pitched as memory that keeps up with your code.",
+    "stale": false,
+    "whats_new": "A Nov 21 Hacker News post pitches Loom as one layer for shared agent memory, document search and code indexing, four days after a Loom post on agent memory that tracks code changes.",
+    "why_it_matters": "Loom bundles three things agent stacks usually run separately (memory store, doc retrieval, code index), so adopting it means trusting one tool to keep all three in sync with a changing repo.",
+    "take_for_builders": "Before wiring Loom into an agent stack, test it on a repo mid-refactor: check that the code index and stored memories drop references to deleted or moved code."
+   }
+  },
+  {
+   "slug": "shared-memory",
+   "label": "Shared Memory",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-11-09T13:43:52+00:00",
+   "last_updated": "2026-11-21T18:14:29+00:00",
+   "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
+   "days": [
+    "2026-11-09",
+    "2026-11-18",
+    "2026-11-21"
+   ],
+   "member_sids": [
+    "29f0e99816524f78",
+    "c16327a14472b017",
+    "e76fa817c2806f1f"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.12412v1",
+    "https://github.com/adityadebnath009/Project-M",
+    "https://github.com/ClickHouse/loom"
+   ],
+   "editorial": {
+    "tldr": "In September MemHub, Motif and a kernel-managed-memory paper pitched shared memory so context one agent learns stays usable by its teammates. The thread restarted Nov 9 with a replication study showing LLM agents coordinate unprompted through shared memory, then Project-M posted a local shared memory for coding agents on Nov 18.",
+    "stale": false,
+    "whats_new": "Loom reached Hacker News on Nov 21 as shared memory, document search and code indexing for AI agents, the second shared-memory tool for coding agents posted there in four days.",
+    "why_it_matters": "Shared memory is now a research finding as well as a product category: agents that share a store can coordinate without being told to, so the store's write and visibility rules shape agent behavior, not just recall.",
+    "take_for_builders": "Before adopting Project-M, Loom or any shared store for a multi-agent team, test concurrent writes and stale reads, and log which agent read what so unprompted coordination is visible."
+   }
+  },
   {
    "slug": "inference-across",
    "label": "Inference Across",
@@ -37,22 +101,20 @@
   {
    "slug": "deepseek-open-sources",
    "label": "DeepSeek Open-Sources",
-   "item_count": 10,
-   "day_count": 5,
-   "source_count": 3,
-   "first_seen": "2026-10-31T23:31:26+00:00",
+   "item_count": 9,
+   "day_count": 4,
+   "source_count": 2,
+   "first_seen": "2026-11-01T00:18:27+00:00",
    "last_updated": "2026-11-20T06:55:00+00:00",
    "via_scout": true,
    "latest_title": "Former DeepSeek Core Member Zhang Bo Open-Sources Personal Agent That Runs a 125B Model Locally on a 12GB GPU With No Token Fees",
    "days": [
-    "2026-10-31",
     "2026-11-01",
     "2026-11-02",
     "2026-11-04",
     "2026-11-20"
    ],
    "member_sids": [
-    "5bd78febd4a59e34",
     "7ae79fa7e63f017f",
     "7f903ef14a1441d8",
     "d795ff607b219d9a",
@@ -64,7 +126,6 @@
     "15cd14e6fdc7bf10"
    ],
    "member_urls": [
-    "https://github.com/deepseek-ai/dsh-superagent-prototype",
     "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
     "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaUpld3paRUZYenVQaE96RThTb1p3QXUyNm5OSWVtNnZoRXVQdFJPX2VyYVJxNzFqYXliNk1pQUJETkdQdzI2Qm40TDBkTDhSTmZQX0RKYTZvSjRyRFJXWU5QdjVnOHJZV3hlaUgwUmZ1aXg4V3kxU002QnBwbngteU5hckdXM0dKOFlqMlpIZXNzMG5fNHVuTm8zTWlHdktMeEM1MzU1Z3owcW9pMm1wZA?oc=5",
     "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
@@ -76,10 +137,10 @@
     "https://news.google.com/rss/articles/CBMidkFVX3lxTE1hWUhJZVduUzNpSkpLcFI4d0N6ZXRfQ0VOS085RzFXRlc4c2tOLXNqUUFUSE5hUmZCbFlLZDFYS2VfNExPUVNnbmM0RWs0Y2FISnoteEY5Z3hWUVpQM0RBd2s3SWJuYklJRlY1VjN3dE5WMmEzVUE?oc=5"
    ],
    "editorial": {
-    "tldr": "On Oct 31 DeepSeek's harness team put the architecture of dsh-superagent, an always-on router-worker coding agent, on GitHub as a research prototype. Press coverage from Nov 1 to Nov 4 framed it as a challenge to Claude Code that watches team chat for work and fixes bugs on its own.",
+    "tldr": "On Oct 31 DeepSeek's harness team open-sourced the architecture of dsh-superagent, an always-on router-worker coding agent released as a research prototype. Press coverage from Nov 1 to Nov 4 framed it as a challenge to Claude Code that watches team chat for work and fixes bugs on its own.",
     "stale": false,
     "whats_new": "Former DeepSeek core member Zhang Bo open-sourced a separate personal agent on Nov 20 that reportedly runs a 125B model locally on a 12GB GPU; it is not a DeepSeek release.",
-    "why_it_matters": "dsh-superagent is a published reference design for a proactive, chat-triggered coding agent from a frontier lab, but it ships as a research prototype and every capability claim so far comes from press rewrites, not hands-on evaluation.",
+    "why_it_matters": "dsh-superagent is a published reference design for a proactive, chat-triggered coding agent from a frontier lab, but it ships as a research prototype and every capability claim in this thread comes from press rewrites, not hands-on evaluation.",
     "take_for_builders": "Read the dsh-superagent repo as a design reference for chat-triggered agents, but do not deploy it until a license and an independent evaluation exist."
    }
   },
@@ -167,6 +228,38 @@
    }
   },
   {
+   "slug": "activation-steering",
+   "label": "Activation Steering",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-11-02T17:53:26+00:00",
+   "last_updated": "2026-11-19T18:59:53+00:00",
+   "latest_title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+   "days": [
+    "2026-11-02",
+    "2026-11-13",
+    "2026-11-19"
+   ],
+   "member_sids": [
+    "ba560efbe9932076",
+    "c782cc86916eca79",
+    "63c5d50779da2bd3"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.03518v1",
+    "http://arxiv.org/abs/2611.18274v1",
+    "http://arxiv.org/abs/2611.26627v1"
+   ],
+   "editorial": {
+    "tldr": "On Nov 2 the VIAS paper tested activation steering, adding vectors to internal activations at generation time, to make LLM agents follow several organisational values at once. A Nov 13 paper argued that steering every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory.",
+    "stale": false,
+    "whats_new": "A Nov 19 paper argues that RL post-training of diffusion transformers amounts to activation steering, linking a costly training step to an inference-time intervention.",
+    "why_it_matters": "Activation steering is a behavior control that needs no fine-tuning run, so if it can isolate values, gate per token, or stand in for RL gains, teams get a cheaper lever for compliance and quality tuning on open-weight models.",
+    "take_for_builders": "If you steer an open-weight model for policy compliance, measure output quality with steering on versus off per token before shipping; always-on steering is the failure mode the Nov 13 paper targets."
+   }
+  },
+  {
    "slug": "routing-inference",
    "label": "Efficient Learning",
    "item_count": 19,
@@ -237,6 +330,163 @@
     "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
     "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 19 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
     "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure."
+   }
+  },
+  {
+   "slug": "large-language",
+   "label": "Large Language",
+   "item_count": 59,
+   "day_count": 16,
+   "source_count": 9,
+   "first_seen": "2026-11-02T00:00:00+00:00",
+   "last_updated": "2026-11-19T18:20:01+00:00",
+   "latest_title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+   "days": [
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-14",
+    "2026-11-15",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19"
+   ],
+   "member_sids": [
+    "43862ef771dfba65",
+    "744a7a52285cfa40",
+    "526c07c3667e6cf7",
+    "8b24b2aa117fb77b",
+    "94da3bfcbd46a769",
+    "57b08f9866a26766",
+    "5ab1b6ecf4ca3e7a",
+    "c43d3ff3aa20c41c",
+    "416b05f86baa94c5",
+    "464b347f5551c3b2",
+    "2e4c5bdb80c6e509",
+    "06c2c68bc425da7f",
+    "5606760643e4651e",
+    "23c0753cd928bfa7",
+    "b76cb948754a8e57",
+    "9c88a41fbb756af3",
+    "e07cc0f8ad9bbda1",
+    "1c564d62e97c9758",
+    "3b4f703ae0a8f385",
+    "94045c979b35ebe7",
+    "77f0b452ecfd74d0",
+    "501ef39353c40289",
+    "60cf435fff992a90",
+    "5ddb49a19fc35296",
+    "2ffd7e8cb1f550c6",
+    "c4a35e75b732ef4a",
+    "69a7c1548b162d4e",
+    "dcfca63926ea22ea",
+    "b6805052b5174dca",
+    "9b791542dc8bb7cc",
+    "f1908d0038e22f5b",
+    "151cc2392264c544",
+    "173841a135ec48af",
+    "7b04b19e28032924",
+    "590316d609c0ce23",
+    "0fe69ec1eb1a4f14",
+    "f90b714a57ce9fe0",
+    "c9c6bd7b30cb6c70",
+    "ca54e3a4f2c1d30b",
+    "3985de9df0cd2149",
+    "951243773dcd7469",
+    "75db6f155d9769a5",
+    "53cced15d557cd0b",
+    "fb7a288ad791ee0d",
+    "baf7e4781272e609",
+    "8138237fac2e053c",
+    "81c44c827e9a0e1d",
+    "d495f69216affbb3",
+    "1e13d673398b4485",
+    "8f0034965a63d29c",
+    "0d292c5fdc2bf79f",
+    "51009fb859c1b51e",
+    "563c7d3375862838",
+    "871015d49de97b4a",
+    "3be6797ec1d79375",
+    "c259fdb087f2c077",
+    "e497c044e025058b",
+    "1d45f44793728555",
+    "7f32f43e5847c550"
+   ],
+   "member_urls": [
+    "https://www.anthropic.com/research/provable-inference",
+    "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "http://arxiv.org/abs/2611.03087v1",
+    "http://arxiv.org/abs/2611.03517v1",
+    "http://arxiv.org/abs/2611.04834v1",
+    "http://arxiv.org/abs/2611.05066v1",
+    "http://arxiv.org/abs/2611.05373v1",
+    "http://arxiv.org/abs/2611.06168v1",
+    "http://arxiv.org/abs/2611.08383v1",
+    "https://thinker.sh/how-it-works",
+    "http://arxiv.org/abs/2611.09568v1",
+    "http://arxiv.org/abs/2611.09634v1",
+    "http://arxiv.org/abs/2611.09770v1",
+    "http://arxiv.org/abs/2611.11995v1",
+    "http://arxiv.org/abs/2611.12079v1",
+    "http://arxiv.org/abs/2611.12392v1",
+    "http://arxiv.org/abs/2611.12727v1",
+    "http://arxiv.org/abs/2611.12763v1",
+    "http://arxiv.org/abs/2611.12791v1",
+    "http://arxiv.org/abs/2611.13254v1",
+    "http://arxiv.org/abs/2611.13396v1",
+    "http://arxiv.org/abs/2611.13531v1",
+    "http://arxiv.org/abs/2611.14051v1",
+    "http://arxiv.org/abs/2611.14263v1",
+    "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
+    "http://arxiv.org/abs/2611.14285v1",
+    "http://arxiv.org/abs/2611.14312v1",
+    "http://arxiv.org/abs/2611.14333v1",
+    "http://arxiv.org/abs/2611.14382v1",
+    "http://arxiv.org/abs/2611.15568v1",
+    "http://arxiv.org/abs/2611.15925v1",
+    "http://arxiv.org/abs/2611.16414v1",
+    "http://arxiv.org/abs/2611.16843v1",
+    "http://arxiv.org/abs/2611.17621v1",
+    "http://arxiv.org/abs/2611.17763v1",
+    "http://arxiv.org/abs/2611.17797v1",
+    "http://arxiv.org/abs/2611.17955v1",
+    "http://arxiv.org/abs/2611.18096v1",
+    "http://arxiv.org/abs/2611.18370v1",
+    "http://arxiv.org/abs/2611.18453v1",
+    "http://arxiv.org/abs/2611.18485v1",
+    "http://arxiv.org/abs/2611.18514v1",
+    "http://arxiv.org/abs/2611.18905v1",
+    "http://arxiv.org/abs/2611.19061v1",
+    "http://arxiv.org/abs/2611.19871v1",
+    "http://arxiv.org/abs/2611.20016v1",
+    "http://arxiv.org/abs/2611.20445v1",
+    "http://arxiv.org/abs/2611.20478v1",
+    "http://arxiv.org/abs/2611.21291v1",
+    "http://arxiv.org/abs/2611.21331v1",
+    "http://arxiv.org/abs/2611.21384v1",
+    "http://arxiv.org/abs/2611.21605v1",
+    "http://arxiv.org/abs/2611.22456v1",
+    "http://arxiv.org/abs/2611.22514v1",
+    "http://arxiv.org/abs/2611.23010v1",
+    "http://arxiv.org/abs/2611.24552v1",
+    "http://arxiv.org/abs/2611.24936v1",
+    "http://arxiv.org/abs/2611.25590v1",
+    "http://arxiv.org/abs/2611.26545v1"
+   ],
+   "editorial": {
+    "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Anthropic's Nov 2 provable-inference update it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+    "stale": false,
+    "whats_new": "Nov 19: a deception study uses label-free knowledge and persona directions to build lie probes that transfer across lie types, and a second paper measures hallucination in cyber-threat-intelligence tasks.",
+    "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
+    "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds."
    }
   },
   {
@@ -340,162 +590,6 @@
     "whats_new": "A Nov 19 paper reports deployment lessons from agents that distill memory from their own history to avoid repeat procedural failures such as mis-paginating an API or resolving the wrong entity.",
     "why_it_matters": "Agent memory is shifting from one fixed retrieval step to a design choice about what to store and when to inject it, which affects context cost and repeat-failure rates.",
     "take_for_builders": "Log your agent's recurring failures (pagination, entity resolution, unprompted answers) before adding a memory layer, so you can measure whether stored lessons actually reduce them."
-   }
-  },
-  {
-   "slug": "diffusion-language",
-   "label": "Diffusion Language",
-   "item_count": 9,
-   "day_count": 7,
-   "source_count": 3,
-   "first_seen": "2026-11-03T15:28:11+00:00",
-   "last_updated": "2026-11-19T15:40:24+00:00",
-   "latest_title": "dLoop: Looped Diffusion Language Models via Recurrent Latent Refinement",
-   "days": [
-    "2026-11-03",
-    "2026-11-05",
-    "2026-11-06",
-    "2026-11-09",
-    "2026-11-10",
-    "2026-11-12",
-    "2026-11-19"
-   ],
-   "member_sids": [
-    "57b08f9866a26766",
-    "0491c6de7a511fb5",
-    "2fb1a0f31494270f",
-    "5fbc35eb022e4033",
-    "0aacbce5f85ac122",
-    "ca0cd6bcfdb70098",
-    "679b2c4e802619e6",
-    "cbe67172baf08ac4",
-    "a8a16da3f476938c"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.05066v1",
-    "http://arxiv.org/abs/2611.08307v1",
-    "http://arxiv.org/abs/2611.08362v1",
-    "http://arxiv.org/abs/2611.09239v1",
-    "http://arxiv.org/abs/2611.12356v1",
-    "http://arxiv.org/abs/2611.14387v1",
-    "http://arxiv.org/abs/2611.17320v1",
-    "http://arxiv.org/abs/2611.25895v1",
-    "http://arxiv.org/abs/2611.26275v1"
-   ],
-   "editorial": {
-    "tldr": "This thread is now a run of independent arXiv papers on diffusion language models, not one event or vendor launch. It opened Nov 3 with hallucination in multimodal dLLMs, moved to which tokens can be committed in parallel (Nov 5), then to block-diffusion inference cost and speculative drafting (Nov 6-10).",
-    "stale": false,
-    "whats_new": "Two Nov 19 papers attack the denoising step count directly: one calibrates the cheapest schedule per task, model and sampler instead of using one fixed schedule, and dLoop refines latents recurrently to commit more tokens per step.",
-    "why_it_matters": "The open problem for diffusion LMs has shifted from \"can they generate in parallel\" to \"how many denoising steps does a given workload really need\", which is the number that sets their serving latency and cost.",
-    "take_for_builders": "Do not plan capacity around diffusion LMs yet; if you evaluate one, record denoising steps per request and quality per task, because the schedule papers show the cheapest safe step count varies by workload."
-   }
-  },
-  {
-   "slug": "same-different",
-   "label": "Same Different",
-   "item_count": 6,
-   "day_count": 6,
-   "source_count": 4,
-   "first_seen": "2026-11-01T14:22:25+00:00",
-   "last_updated": "2026-11-19T13:17:49+00:00",
-   "latest_title": "Same Judgement, Different Scores: Numerical Scoring Topology in LLM-as-a-Judge Evaluation",
-   "days": [
-    "2026-11-01",
-    "2026-11-02",
-    "2026-11-03",
-    "2026-11-08",
-    "2026-11-17",
-    "2026-11-19"
-   ],
-   "member_sids": [
-    "b78023b26122d472",
-    "6b0a48e52ca49e48",
-    "b05fd13d79e76b34",
-    "41573f419013b0c4",
-    "b4c01a00d7072c7f",
-    "4c7f163e7f53327e"
-   ],
-   "member_urls": [
-    "https://m3.sineframe.com/blog/same-model-different-agent",
-    "http://arxiv.org/abs/2611.03377v1",
-    "https://huggingface.co/blog/ibm-research/cuga-harness",
-    "http://arxiv.org/abs/2611.11581v1",
-    "http://arxiv.org/abs/2611.23613v1",
-    "http://arxiv.org/abs/2611.26077v1"
-   ],
-   "editorial": {
-    "tldr": "This thread is grouped by a shared \"Same X, Different Y\" title pattern, not by one event; what links the items is variance in agent and eval results that does not come from the model. It opened Nov 1-3 with a 17-point gap between agents on one model, an IBM harness comparison, and an arXiv audit of multimodal benchmark graders.",
-    "stale": false,
-    "whats_new": "A Nov 19 arXiv paper reports that the design of the numerical scoring scheme affects how reliable LLM-as-a-Judge evaluation is, extending the earlier grader audit from benchmark parsers to judge models.",
-    "why_it_matters": "Harness, error delivery and scoring scheme each move agent scores with the model held fixed, so a model-only comparison can misattribute a gain or regression.",
-    "take_for_builders": "Hold the model fixed and vary the harness, tool-error format and judge scoring scale in your own eval before attributing a score change to the model; treat the 17-point and CUGA figures as blog or vendor results until reproduced."
-   }
-  },
-  {
-   "slug": "exact-language",
-   "label": "Exact Language",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-11-05T17:41:20+00:00",
-   "last_updated": "2026-11-19T12:34:25+00:00",
-   "latest_title": "FrontierReplay: Split-Free Exact Prefix Caching for Hybrid Language Models",
-   "days": [
-    "2026-11-05",
-    "2026-11-16",
-    "2026-11-19"
-   ],
-   "member_sids": [
-    "2fb1a0f31494270f",
-    "ce03d967f429d822",
-    "da45bc7dce4c51b6"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.08362v1",
-    "http://arxiv.org/abs/2611.21529v1",
-    "http://arxiv.org/abs/2611.26020v1"
-   ],
-   "editorial": {
-    "tldr": "This is a loose grouping, not one event: three unrelated arXiv papers that share a theme of exactness guarantees for language models. It began with SpecCTMC (Nov 5), exact speculative sampling for diffusion LMs, then a study of small models trained under an exact verifier (Nov 16).",
-    "stale": false,
-    "whats_new": "FrontierReplay (Nov 19) proposes exact prefix-cache reuse for hybrid attention/recurrent models, whose in-place state updates normally limit reuse to saved checkpoint positions.",
-    "why_it_matters": "Each paper targets a correctness guarantee platform teams usually trade away for speed: unchanged output distributions, verifiable decisions, and exact cache reuse.",
-    "take_for_builders": "If you serve hybrid attention/recurrent models, check how your prefix cache handles recurrent state before assuming transformer-style hit rates; otherwise treat these as research to watch, not to deploy."
-   }
-  },
-  {
-   "slug": "attention-sparse",
-   "label": "Attention Sparse",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 4,
-   "first_seen": "2026-11-02T15:46:01+00:00",
-   "last_updated": "2026-11-19T11:23:22+00:00",
-   "latest_title": "DTS: Delta-Based Tile Scoring for Efficient Long-Context Sparse Attention",
-   "days": [
-    "2026-11-02",
-    "2026-11-03",
-    "2026-11-06",
-    "2026-11-19"
-   ],
-   "member_sids": [
-    "2ef0f5e9028f8dae",
-    "2d77f36eefa1549d",
-    "da4e6d10d3401d6d",
-    "f350b66d46c34624"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.03768v1",
-    "http://arxiv.org/abs/2611.04313v1",
-    "http://arxiv.org/abs/2611.09700v1",
-    "http://arxiv.org/abs/2611.25938v1"
-   ],
-   "editorial": {
-    "tldr": "This is a loose cluster of four independent arXiv papers, not one event: each attacks the cost of long-context attention by letting a query attend only to a selected subset of keys. It opened with work on DeepSeek Sparse Attention's learned indexer, then two training-free methods that choose keys by semantic blocks or per-head structure.",
-    "stale": false,
-    "whats_new": "DTS (Nov 19) scores attention tiles by deltas to decide which blocks to skip, targeting the prefill bottleneck of long documents and codebases.",
-    "why_it_matters": "Sparse attention is where long-context prefill cost and KV memory traffic get cut, so these selection methods decide how cheap 100K-token RAG and codebase prompts become in serving stacks.",
-    "take_for_builders": "Treat these as research only: wait for a serving-engine kernel and an independent long-context accuracy eval before swapping attention in production."
    }
   }
  ]

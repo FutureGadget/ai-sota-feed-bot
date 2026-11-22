@@ -1,7 +1,1341 @@
 {
-  "generated_at": "2026-11-21T00:13:05.539391+00:00",
+  "generated_at": "2026-11-22T00:11:19.052144+00:00",
   "window_days": 21,
-  "storyline_count": 0,
-  "needs_narrative_count": 0,
-  "storylines": []
+  "storyline_count": 5,
+  "needs_narrative_count": 5,
+  "storylines": [
+    {
+      "slug": "loom-memory",
+      "label": "LooM Memory",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-11-04T17:52:11+00:00",
+      "last_updated": "2026-11-21T18:14:29+00:00",
+      "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
+      "member_sids": [
+        "9883de882015971a",
+        "63559c70c4da4388",
+        "e76fa817c2806f1f"
+      ],
+      "via_scout": false,
+      "has_narrative": false,
+      "needs_narrative": true,
+      "reason": "no_narrative",
+      "narrative_path": "data/storylines/narratives/loom-memory.json",
+      "prior_narrative": null,
+      "timeline": [
+        {
+          "date": "2026-11-04",
+          "items": [
+            {
+              "sid": "9883de882015971a",
+              "title": "LooM: Loop-Invariant Memory for Causal Encoder-Decoder Language Models",
+              "url": "http://arxiv.org/abs/2611.06835v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Looped Transformers increase effective depth by re-executing shared layers, but three limitations hinder their adoption: memory grows with the loop count, compute can only be adjusted in whole-block steps, and the loop count is hard to change after training. We propose LooM (Loop",
+              "published": "2026-11-04T17:52:11+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-17",
+          "items": [
+            {
+              "sid": "63559c70c4da4388",
+              "title": "Loom: agent memory that keeps up with your code",
+              "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Loom: agent memory that keeps up with your code",
+              "published": "2026-11-17T10:20:15+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-21",
+          "items": [
+            {
+              "sid": "e76fa817c2806f1f",
+              "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+              "url": "https://github.com/ClickHouse/loom",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+              "published": "2026-11-21T18:14:29+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-memory",
+      "label": "Shared Memory",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-11-09T13:43:52+00:00",
+      "last_updated": "2026-11-21T18:14:29+00:00",
+      "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
+      "member_sids": [
+        "29f0e99816524f78",
+        "c16327a14472b017",
+        "e76fa817c2806f1f"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/shared-memory.json",
+      "prior_narrative": {
+        "slug": "shared-memory",
+        "generated_at": "2026-09-21T20:08:16Z",
+        "covers_last_updated": "2026-09-21T13:13:09+00:00",
+        "covers_member_sids": [
+          "c95ec4fda28e63d4",
+          "63c719faf3c1678c",
+          "ecbc939e4d2da1ba"
+        ],
+        "tldr": "In early September a startup and an academic paper both proposed giving AI agents persistent, shared memory instead of siloed per-session context. The pitch: context one agent learns should stay usable by every other agent on the same team, not vanish when a session ends.",
+        "whats_new": "Motif open-sourced a shared, versioned memory store for teams of coding agents on Sept 21, following MemHub's commercial persistent-memory product and a kernel-managed-memory research paper earlier in the month.",
+        "why_it_matters": "If cross-agent shared memory catches on, plan for memory-consistency and access-control problems, not just context loss — evaluate write conflicts before adopting a shared store.",
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "MemHub ships persistent shared memory for coding agents",
+            "sids": [
+              "c95ec4fda28e63d4"
+            ]
+          },
+          {
+            "kicker": "RESEARCH",
+            "tone": "rising",
+            "headline": "arXiv paper proposes kernel-managed shared memory for multi-agent personalization",
+            "sids": [
+              "63c719faf3c1678c"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Motif open-sources shared memory for teams of coding agents",
+            "sids": [
+              "ecbc939e4d2da1ba"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does Motif or MemHub define a conflict-resolution model for concurrent agent writes to shared memory?",
+          "Does kernel-managed shared memory, the arXiv proposal, ship in any production agent framework, or does it remain research?"
+        ],
+        "take_for_builders": "Before adopting a shared-memory layer for a multi-agent team, test how it handles concurrent writes and stale reads — none of September's three releases publish a consistency model.",
+        "day_captions": {
+          "c95ec4fda28e63d4": "First mover: a commercial product for persistent cross-agent memory.",
+          "63c719faf3c1678c": "Independent research proposes a kernel-level mechanism for the same problem.",
+          "ecbc939e4d2da1ba": "First open-source implementation targeting team-shared agent memory."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-11-09",
+          "items": [
+            {
+              "sid": "29f0e99816524f78",
+              "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+              "url": "http://arxiv.org/abs/2611.12412v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agent...",
+              "published": "2026-11-09T13:43:52+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-18",
+          "items": [
+            {
+              "sid": "c16327a14472b017",
+              "title": "Show HN: Project-M – Local shared memory for AI coding agents",
+              "url": "https://github.com/adityadebnath009/Project-M",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Show HN: Project-M – Local shared memory for AI coding agents",
+              "published": "2026-11-18T14:31:10+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-21",
+          "items": [
+            {
+              "sid": "e76fa817c2806f1f",
+              "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+              "url": "https://github.com/ClickHouse/loom",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+              "published": "2026-11-21T18:14:29+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "deepseek-open-sources",
+      "label": "DeepSeek Open-Sources",
+      "item_count": 9,
+      "source_count": 2,
+      "day_count": 4,
+      "first_seen": "2026-11-01T00:18:27+00:00",
+      "last_updated": "2026-11-20T06:55:00+00:00",
+      "latest_title": "Former DeepSeek Core Member Zhang Bo Open-Sources Personal Agent That Runs a 125B Model Locally on a 12GB GPU With No Token Fees",
+      "member_sids": [
+        "7ae79fa7e63f017f",
+        "7f903ef14a1441d8",
+        "d795ff607b219d9a",
+        "8ffb3cb5b711c694",
+        "a8f5be6d64b1c57f",
+        "4141e315102a7089",
+        "faef8337e561998f",
+        "28c838a66808367f",
+        "15cd14e6fdc7bf10"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/deepseek-open-sources.json",
+      "prior_narrative": {
+        "slug": "deepseek-open-sources",
+        "generated_at": "2026-11-21T00:12:22Z",
+        "covers_last_updated": "2026-11-20T06:55:00+00:00",
+        "covers_member_sids": [
+          "5bd78febd4a59e34",
+          "7ae79fa7e63f017f",
+          "7f903ef14a1441d8",
+          "d795ff607b219d9a",
+          "8ffb3cb5b711c694",
+          "a8f5be6d64b1c57f",
+          "4141e315102a7089",
+          "faef8337e561998f",
+          "28c838a66808367f",
+          "15cd14e6fdc7bf10"
+        ],
+        "tldr": "On Oct 31 DeepSeek's harness team put the architecture of dsh-superagent, an always-on router-worker coding agent, on GitHub as a research prototype. Press coverage from Nov 1 to Nov 4 framed it as a challenge to Claude Code that watches team chat for work and fixes bugs on its own.",
+        "whats_new": "Former DeepSeek core member Zhang Bo open-sourced a separate personal agent on Nov 20 that reportedly runs a 125B model locally on a 12GB GPU; it is not a DeepSeek release.",
+        "why_it_matters": "dsh-superagent is a published reference design for a proactive, chat-triggered coding agent from a frontier lab, but it ships as a research prototype and every capability claim so far comes from press rewrites, not hands-on evaluation.",
+        "provenance": {
+          "5bd78febd4a59e34": {
+            "surfaced_by": "scout"
+          },
+          "7ae79fa7e63f017f": {
+            "surfaced_by": "scout"
+          },
+          "7f903ef14a1441d8": {
+            "surfaced_by": "scout"
+          },
+          "d795ff607b219d9a": {
+            "surfaced_by": "scout"
+          },
+          "8ffb3cb5b711c694": {
+            "surfaced_by": "scout"
+          },
+          "a8f5be6d64b1c57f": {
+            "surfaced_by": "scout"
+          },
+          "4141e315102a7089": {
+            "surfaced_by": "scout"
+          },
+          "faef8337e561998f": {
+            "surfaced_by": "scout"
+          },
+          "28c838a66808367f": {
+            "surfaced_by": "scout"
+          }
+        },
+        "beats": [
+          {
+            "kicker": "RELEASE",
+            "tone": "launch",
+            "headline": "DeepSeek posts the dsh-superagent prototype architecture on GitHub",
+            "summary": "The primary source: a repo describing an always-on autonomous coding agent.",
+            "sids": [
+              "5bd78febd4a59e34"
+            ]
+          },
+          {
+            "kicker": "PRESS PICKUP",
+            "tone": "rising",
+            "headline": "Coverage frames it as a router-worker agent that works from team chat",
+            "summary": "Eight outlets over Nov 1–4 repeat the same release, with a Claude Code comparison and a research-prototype label.",
+            "sids": [
+              "7ae79fa7e63f017f",
+              "7f903ef14a1441d8",
+              "d795ff607b219d9a",
+              "8ffb3cb5b711c694",
+              "a8f5be6d64b1c57f",
+              "4141e315102a7089",
+              "faef8337e561998f",
+              "28c838a66808367f"
+            ]
+          },
+          {
+            "kicker": "ADJACENT",
+            "tone": "neutral",
+            "headline": "A former DeepSeek member open-sources a local personal agent",
+            "summary": "Zhang Bo's project is linked to the thread by the DeepSeek name, not by dsh-superagent.",
+            "sids": [
+              "15cd14e6fdc7bf10"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Will anyone publish a hands-on evaluation of dsh-superagent on real repositories?",
+          "What license does dsh-superagent ship under, and which models can its router and workers use?",
+          "Will DeepSeek move dsh-superagent beyond a research prototype into a maintained product?",
+          "Does the 125B-on-12GB claim for Zhang Bo's agent hold up, and at what quantization and speed?"
+        ],
+        "take_for_builders": "Read the dsh-superagent repo as a design reference for chat-triggered agents, but do not deploy it until a license and an independent evaluation exist.",
+        "day_captions": {
+          "5bd78febd4a59e34": "Primary source: the prototype repo on GitHub",
+          "7ae79fa7e63f017f": "First press report of the open-sourced architecture",
+          "7f903ef14a1441d8": "Attributes the release to DeepSeek's harness team; adds the find-and-fix-bugs claim",
+          "d795ff607b219d9a": "Frames it as a direct challenge to Claude Code",
+          "8ffb3cb5b711c694": "Names dsh-superagent and its router-worker design",
+          "a8f5be6d64b1c57f": "Labels it a research prototype",
+          "4141e315102a7089": "Describes the agent as proactive rather than prompt-driven",
+          "faef8337e561998f": "Highlights the team-chat trigger for picking up work",
+          "28c838a66808367f": "Last press rewrite of the release, Nov 4",
+          "15cd14e6fdc7bf10": "Separate project by an ex-DeepSeek member; claims a 125B model on a 12GB GPU"
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-11-01",
+          "items": [
+            {
+              "sid": "7ae79fa7e63f017f",
+              "title": "DeepSeek Open Sources the Architecture Behind Its Super-Agent",
+              "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Open Sources the Architecture Behind Its Super-Agent Startup Fortune",
+              "published": "2026-11-01T00:18:27+00:00"
+            },
+            {
+              "sid": "7f903ef14a1441d8",
+              "title": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own",
+              "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaUpld3paRUZYenVQaE96RThTb1p3QXUyNm5OSWVtNnZoRXVQdFJPX2VyYVJxNzFqYXliNk1pQUJETkdQdzI2Qm40TDBkTDhSTmZQX0RKYTZvSjRyRFJXWU5QdjVnOHJZV3hlaUgwUmZ1aXg4V3kxU002QnBwbngteU5hckdXM0dKOFlqMlpIZXNzMG5fNHVuTm8zTWlHdktMeEM1MzU1Z3owcW9pMm1wZA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own Pandaily",
+              "published": "2026-11-01T01:53:20+00:00"
+            },
+            {
+              "sid": "d795ff607b219d9a",
+              "title": "DeepSeek Unveils Open-Source 'Super-Agent' Coding Tool in Direct Challenge to Anthropic's Claude Code",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Unveils Open-Source 'Super-Agent' Coding Tool in Direct Challenge to Anthropic's Claude Code BigGo Finance",
+              "published": "2026-11-01T06:25:00+00:00"
+            },
+            {
+              "sid": "8ffb3cb5b711c694",
+              "title": "DeepSeek Open-Sources dsh-superagent, a Router-Worker Coding Agent",
+              "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVGVmcmxZdFpKS25HOEFNbnFrZmRkd0ZRVFNjUlNMMEEwQXZ3YjFSTm9nNGU3NGZMeFBQWEhtZUlvQU9Va3UzeDlIZXVMaW5QM0w1YUpscHUtMHVqeDlSTnotOTZLNXNUV09abkc3U0VGZjU0MTlLaWJJdGtEWnhTMFlkQWJuWWFVUmRnTFB4eXlUbDNiY0HSAZYBQVVfeXFMTlRlZnJsWXRaSktuRzhBTW5xa2ZkZHdGUVRTY1JTTDBBMEF2d2IxUk5vZzRlNzRmTHhQUFhIbWVJb0FPVWt1M3g5SGV1TGluUDNMNWFKbHB1LTB1ang5Uk56LTk2SzVzVFdPWm5HN1NFRmY1NDE5S2liSXRrRFp4UzBZZEFibllhVVJkZ0xQeHl5VGwzYmNB?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "DeepSeek Open-Sources dsh-superagent, a Router-Worker Coding Agent MarkTechPost",
+              "published": "2026-11-01T07:47:17+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-02",
+          "items": [
+            {
+              "sid": "a8f5be6d64b1c57f",
+              "title": "DeepSeek open-sources dsh-superagent research prototype",
+              "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQcFMxa1Q5RUs4eUlwcWV2bWdMNU1NR1gwbXpGUnFwZThweTRTU1VGQUZKTkh5Ukp1NnJPMG5FdkZCbXZSeDQwWXJvNmVON09JMzVvaUlDVTc4RjJpakxSdDF5aUJVSkdIbzBpajdyM0steEp6NUpDWmk3c0t3Zk5yXzd1V3o?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek open-sources dsh-superagent research prototype TNGlobal",
+              "published": "2026-11-02T02:27:13+00:00"
+            },
+            {
+              "sid": "4141e315102a7089",
+              "title": "DeepSeek team open-sources proactive coding agent research prototype",
+              "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek team open-sources proactive coding agent research prototype TechNode",
+              "published": "2026-11-02T04:32:41+00:00"
+            },
+            {
+              "sid": "faef8337e561998f",
+              "title": "DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work Help Net Security",
+              "published": "2026-11-02T07:09:55+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-04",
+          "items": [
+            {
+              "sid": "28c838a66808367f",
+              "title": "DeepSeek Open-Sources Super-Agent, a Coding Agent That Works From Team Chat",
+              "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOWRQWmRtMFZFaDVDWGpNYXg2WV9pcVlKcVItSXlrS0twTU55X3VPZU1OSFFOUGhQUmlMcXg5dkVIemtCMFYydFdxc2lDOTQzUFZYNjhZOEpBTHlzdmt2V0JRRXlqRG9DZ0xnSFI3Y0stYnNyRFZpNzg5ekh6czVoVW5vUk40WEE5ZVA1ZVNseXplX3Z3b2hGTUFiN1RvS3Vk?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Open-Sources Super-Agent, a Coding Agent That Works From Team Chat Technology Org",
+              "published": "2026-11-04T09:57:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-20",
+          "items": [
+            {
+              "sid": "15cd14e6fdc7bf10",
+              "title": "Former DeepSeek Core Member Zhang Bo Open-Sources Personal Agent That Runs a 125B Model Locally on a 12GB GPU With No Token Fees",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1hWUhJZVduUzNpSkpLcFI4d0N6ZXRfQ0VOS085RzFXRlc4c2tOLXNqUUFUSE5hUmZCbFlLZDFYS2VfNExPUVNnbmM0RWs0Y2FISnoteEY5Z3hWUVpQM0RBd2s3SWJuYklJRlY1VjN3dE5WMmEzVUE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Former DeepSeek Core Member Zhang Bo Open-Sources Personal Agent That Runs a 125B Model Locally on a 12GB GPU With No Token Fees finance.biggo.com",
+              "published": "2026-11-20T06:55:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "activation-steering",
+      "label": "Activation Steering",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-11-02T17:53:26+00:00",
+      "last_updated": "2026-11-19T18:59:53+00:00",
+      "latest_title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+      "member_sids": [
+        "ba560efbe9932076",
+        "c782cc86916eca79",
+        "63c5d50779da2bd3"
+      ],
+      "via_scout": false,
+      "has_narrative": false,
+      "needs_narrative": true,
+      "reason": "no_narrative",
+      "narrative_path": "data/storylines/narratives/activation-steering.json",
+      "prior_narrative": null,
+      "timeline": [
+        {
+          "date": "2026-11-02",
+          "items": [
+            {
+              "sid": "ba560efbe9932076",
+              "title": "VIAS: Value-Isolating Activation Steering for Multi-Value Alignment and Compliance for Organisations",
+              "url": "http://arxiv.org/abs/2611.03518v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Organisations increasingly deploy large language model agents that must follow organisational values. We check whether activation steering, which adds vectors to a model's internal activations during generation withou...",
+              "published": "2026-11-02T17:53:26+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-13",
+          "items": [
+            {
+              "sid": "c782cc86916eca79",
+              "title": "Right Token, Right Time: From Per-Token Gating to Trajectory-Aware Activation Steering",
+              "url": "http://arxiv.org/abs/2611.18274v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Activation steering via sparse autoencoders (SAEs) enables behavioral control of large language models without task-specific fine-tuning. Yet, standard methods apply the steering signal at every generated token, displacing representations from the distribution the model was train",
+              "published": "2026-11-13T15:06:43+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-19",
+          "items": [
+            {
+              "sid": "63c5d50779da2bd3",
+              "title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+              "url": "http://arxiv.org/abs/2611.26627v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Reinforcement learning (RL) post-training substantially improves the visual quality, text rendering, and compositional accuracy of diffusion transformers. Because capabilities such as rendering requested text or composing multiple objects are inherently prompt-dependent, a natura",
+              "published": "2026-11-19T18:59:53+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "large-language",
+      "label": "Large Language",
+      "item_count": 59,
+      "source_count": 9,
+      "day_count": 16,
+      "first_seen": "2026-11-02T00:00:00+00:00",
+      "last_updated": "2026-11-19T18:20:01+00:00",
+      "latest_title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+      "member_sids": [
+        "43862ef771dfba65",
+        "744a7a52285cfa40",
+        "526c07c3667e6cf7",
+        "8b24b2aa117fb77b",
+        "94da3bfcbd46a769",
+        "57b08f9866a26766",
+        "5ab1b6ecf4ca3e7a",
+        "c43d3ff3aa20c41c",
+        "416b05f86baa94c5",
+        "464b347f5551c3b2",
+        "2e4c5bdb80c6e509",
+        "06c2c68bc425da7f",
+        "5606760643e4651e",
+        "23c0753cd928bfa7",
+        "b76cb948754a8e57",
+        "9c88a41fbb756af3",
+        "e07cc0f8ad9bbda1",
+        "1c564d62e97c9758",
+        "3b4f703ae0a8f385",
+        "94045c979b35ebe7",
+        "77f0b452ecfd74d0",
+        "501ef39353c40289",
+        "60cf435fff992a90",
+        "5ddb49a19fc35296",
+        "2ffd7e8cb1f550c6",
+        "c4a35e75b732ef4a",
+        "69a7c1548b162d4e",
+        "dcfca63926ea22ea",
+        "b6805052b5174dca",
+        "9b791542dc8bb7cc",
+        "f1908d0038e22f5b",
+        "151cc2392264c544",
+        "173841a135ec48af",
+        "7b04b19e28032924",
+        "590316d609c0ce23",
+        "0fe69ec1eb1a4f14",
+        "f90b714a57ce9fe0",
+        "c9c6bd7b30cb6c70",
+        "ca54e3a4f2c1d30b",
+        "3985de9df0cd2149",
+        "951243773dcd7469",
+        "75db6f155d9769a5",
+        "53cced15d557cd0b",
+        "fb7a288ad791ee0d",
+        "baf7e4781272e609",
+        "8138237fac2e053c",
+        "81c44c827e9a0e1d",
+        "d495f69216affbb3",
+        "1e13d673398b4485",
+        "8f0034965a63d29c",
+        "0d292c5fdc2bf79f",
+        "51009fb859c1b51e",
+        "563c7d3375862838",
+        "871015d49de97b4a",
+        "3be6797ec1d79375",
+        "c259fdb087f2c077",
+        "e497c044e025058b",
+        "1d45f44793728555",
+        "7f32f43e5847c550"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/large-language.json",
+      "prior_narrative": {
+        "slug": "large-language",
+        "generated_at": "2026-11-20T00:12:48Z",
+        "covers_last_updated": "2026-11-18T18:56:12+00:00",
+        "covers_member_sids": [
+          "fdfc122cd97a630f",
+          "e46c1ab3f7ca9939",
+          "a8a5f23cd8e10643",
+          "43862ef771dfba65",
+          "94da3bfcbd46a769",
+          "c43d3ff3aa20c41c",
+          "416b05f86baa94c5",
+          "5606760643e4651e",
+          "9c88a41fbb756af3",
+          "3b4f703ae0a8f385",
+          "501ef39353c40289",
+          "5ddb49a19fc35296",
+          "c4a35e75b732ef4a",
+          "dcfca63926ea22ea",
+          "b6805052b5174dca",
+          "f1908d0038e22f5b",
+          "173841a135ec48af",
+          "ca54e3a4f2c1d30b",
+          "3985de9df0cd2149",
+          "53cced15d557cd0b",
+          "fb7a288ad791ee0d",
+          "baf7e4781272e609",
+          "1e13d673398b4485",
+          "8f0034965a63d29c",
+          "0d292c5fdc2bf79f",
+          "563c7d3375862838",
+          "e497c044e025058b"
+        ],
+        "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 30 it ran through pruning, Anthropic's Nov 2 provable-inference update, knowledge editing and eval-validity work to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+        "whats_new": "Nov 18: a contrastive-prototype method detects jailbreak prompts without training a separate guard model, after Nov 16-17 papers on calibrated abstention thresholds and provenance-aware decoding for omnimodal hallucinations.",
+        "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on guardrail design: calibrated refusal, modality-aware hallucination control and lightweight jailbreak screening, each a component a serving stack can test.",
+        "beats": [
+          {
+            "kicker": "OCT 30",
+            "tone": "launch",
+            "headline": "Efficiency work: extreme-sparsity pruning and an early-stopping audit for reasoning models",
+            "summary": "Opens the window; a text-to-SQL architecture survey lands the same day.",
+            "sids": [
+              "fdfc122cd97a630f",
+              "e46c1ab3f7ca9939",
+              "a8a5f23cd8e10643"
+            ]
+          },
+          {
+            "kicker": "FIRST-PARTY",
+            "tone": "rising",
+            "headline": "Anthropic reports progress on zkSNARK-based provable inference",
+            "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference.",
+            "sids": [
+              "43862ef771dfba65"
+            ]
+          },
+          {
+            "kicker": "NOV 3-6",
+            "tone": "rising",
+            "headline": "Updating what models know: answerability drift, multimodal unlearning and lifelong knowledge editing",
+            "summary": "Also here: an LLM choosing federated aggregation rules without training.",
+            "sids": [
+              "94da3bfcbd46a769",
+              "c43d3ff3aa20c41c",
+              "416b05f86baa94c5",
+              "5606760643e4651e"
+            ]
+          },
+          {
+            "kicker": "NOV 9-10",
+            "tone": "rising",
+            "headline": "Judgment under scrutiny: rising rater standards on Chatbot Arena, framing effects and personality benchmarks",
+            "summary": "These days also bring an LLM AutoML searcher, physics-guided fault diagnosis, a training-simulation benchmark and a cognitive account of learning by thinking.",
+            "sids": [
+              "9c88a41fbb756af3",
+              "3b4f703ae0a8f385",
+              "501ef39353c40289",
+              "5ddb49a19fc35296",
+              "c4a35e75b732ef4a",
+              "dcfca63926ea22ea",
+              "b6805052b5174dca"
+            ]
+          },
+          {
+            "kicker": "NOV 11-12",
+            "tone": "turn",
+            "headline": "What do scores measure? ShadowBench and a corrupted-input study probe shortcuts behind passing evals",
+            "summary": "One tests recall without explicit entity names; the other asks whether LLMs pass NLI on noun-stripped or shuffled inputs.",
+            "sids": [
+              "f1908d0038e22f5b",
+              "173841a135ec48af"
+            ]
+          },
+          {
+            "kicker": "NOV 13",
+            "tone": "rising",
+            "headline": "Knowing when not to answer: black-box uncertainty and an interactive ambiguity-resolution eval",
+            "summary": "One splits prompt ambiguity from knowledge gaps via API calls only; the other scores when a model should ask versus assume. A tabular anomaly-detection paper lands the same day.",
+            "sids": [
+              "ca54e3a4f2c1d30b",
+              "3985de9df0cd2149",
+              "53cced15d557cd0b"
+            ]
+          },
+          {
+            "kicker": "NOV 14-16",
+            "tone": "rising",
+            "headline": "Applied decisions: budgeted malware triage, annotation benchmarking, agent RL environments and an AI-infrastructure survey",
+            "summary": "The run moves from model internals to LLMs making operational calls under cost and documentation constraints.",
+            "sids": [
+              "fb7a288ad791ee0d",
+              "baf7e4781272e609",
+              "1e13d673398b4485",
+              "8f0034965a63d29c"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Guardrails at the output: calibrated abstention, provenance-aware decoding and jailbreak detection",
+            "summary": "Nov 16-18 papers each target a control point between the model and the user: when to refuse, which modality to trust, which prompt to block.",
+            "sids": [
+              "0d292c5fdc2bf79f",
+              "563c7d3375862838",
+              "e497c044e025058b"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
+          "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
+          "Does PACD report the decoding latency or extra forward passes it adds per token?",
+          "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
+          "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
+          "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
+        ],
+        "take_for_builders": "Before swapping in any of these guardrails, replay your own traffic: measure the jailbreak detector's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each method adds.",
+        "day_captions": {
+          "fdfc122cd97a630f": "Opens the window: survey plus empirical audit of when reasoning models can stop early without losing reliability.",
+          "e46c1ab3f7ca9939": "Survey of LLM architectures and strategies for text-to-SQL.",
+          "a8a5f23cd8e10643": "Gradual pruning with sparse adaptation, targeting quality at extreme sparsity.",
+          "43862ef771dfba65": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference.",
+          "94da3bfcbd46a769": "Shows post-training updates can leave a model's answerability judgments out of step with its knowledge.",
+          "c43d3ff3aa20c41c": "Unlearning cross-modal associations so a visual input no longer unlocks sensitive information during reasoning.",
+          "416b05f86baa94c5": "Tests whether an LLM inspecting client models can pick the federated aggregation rule without training.",
+          "5606760643e4651e": "Lifelong knowledge editing for multimodal models, aimed at locality erosion and forgetting.",
+          "9c88a41fbb756af3": "Benchmarks how personality-like tendencies shift outputs beyond what the prompt specifies.",
+          "3b4f703ae0a8f385": "Uses an LLM as one searcher across the architecture and hyperparameter choices AutoML frameworks keep separate.",
+          "501ef39353c40289": "Audits whether LLM judgments of Chinese news headlines track the reported fact or its framing.",
+          "5ddb49a19fc35296": "Engineer-style physical reasoning for fault diagnosis from sensor data.",
+          "c4a35e75b732ef4a": "Framework, dataset and benchmark for simulating LLM training performance instead of running distributed jobs.",
+          "dcfca63926ea22ea": "Separates model change from rater change on Chatbot Arena; argues standards rose.",
+          "b6805052b5174dca": "A cognitive account of how models gain insight through explanation and reasoning without new input.",
+          "f1908d0038e22f5b": "Argues recall evals over-rely on explicit entity names, which bears on how forgetting is measured.",
+          "173841a135ec48af": "Brings the input-corruption test from fine-tuned encoders to LLMs, extending the question of what eval scores measure.",
+          "ca54e3a4f2c1d30b": "Side branch: LLM self-play for anomaly detection over mixed-type tabular data.",
+          "3985de9df0cd2149": "Shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split.",
+          "53cced15d557cd0b": "Evaluates interactively when a model should ask for clarification versus make an assumption.",
+          "fb7a288ad791ee0d": "Survey mapping LLM use across designing, optimizing and operating AI training and serving infrastructure.",
+          "baf7e4781272e609": "Agent-side entry: scaling structured, interactive RL environments for multi-turn tool-use training.",
+          "1e13d673398b4485": "Python tool and web interface for benchmarking LLM linguistic annotation under documented conditions.",
+          "8f0034965a63d29c": "Cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget.",
+          "0d292c5fdc2bf79f": "Moves abstention from heuristic thresholds to calibrated thresholds with statistical error control on accepted answers.",
+          "563c7d3375862838": "Training-free decoding that tracks which modality supports a claim, targeting cross-modal hallucination.",
+          "e497c044e025058b": "Latest item: jailbreak detection from contrastive representations without training an additional guard model."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-11-02",
+          "items": [
+            {
+              "sid": "43862ef771dfba65",
+              "title": "Progress on provable inference for large language models",
+              "url": "https://www.anthropic.com/research/provable-inference",
+              "source": "anthropic_research",
+              "type": "research",
+              "summary_1line": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
+              "published": "2026-11-02T00:00:00+00:00"
+            },
+            {
+              "sid": "744a7a52285cfa40",
+              "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
+              "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge,...",
+              "published": "2026-11-02T11:00:00+00:00"
+            },
+            {
+              "sid": "526c07c3667e6cf7",
+              "title": "MIRA: Reinforcing Multimodal Reasoning via Deceptive Contextual Augmentation",
+              "url": "http://arxiv.org/abs/2611.03087v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "While Reinforcement Learning with Verifiable Rewards (RLVR) has significantly advanced multimodal reasoning, existing frameworks suffer from a critical \"perception-reasoning gap.\" Due to an over-reliance on seemingly relevant visual tokens, even minor perceptual perturbations can",
+              "published": "2026-11-02T13:09:45+00:00"
+            },
+            {
+              "sid": "8b24b2aa117fb77b",
+              "title": "Ask, Don't Equip: Question-Driven Coding Agents for Deep Kernel Optimization",
+              "url": "http://arxiv.org/abs/2611.03517v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "LLM agents for GPU kernel optimization sit at two ends of a structure-freedom tradeoff. Scripted agents fix what the model does at each step, via a learned policy, an optimization menu, or fixed roles, and are sample-...",
+              "published": "2026-11-02T17:51:58+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-03",
+          "items": [
+            {
+              "sid": "94da3bfcbd46a769",
+              "title": "Feeling of Knowing in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.04834v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Post-training updates change what large language models (LLMs) can answer, but may leave their answerability judgments misaligned. We study this knowledge-judgment desynchronization through functional feeling of knowi...",
+              "published": "2026-11-03T13:04:46+00:00"
+            },
+            {
+              "sid": "57b08f9866a26766",
+              "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+              "url": "http://arxiv.org/abs/2611.05066v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+              "published": "2026-11-03T15:28:11+00:00"
+            },
+            {
+              "sid": "5ab1b6ecf4ca3e7a",
+              "title": "Aligning Language Models with General Preferences: An Empirical Study of Direct Nash Optimization",
+              "url": "http://arxiv.org/abs/2611.05373v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampli...",
+              "published": "2026-11-03T18:59:15+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-04",
+          "items": [
+            {
+              "sid": "c43d3ff3aa20c41c",
+              "title": "Reasoning-Aware Cross-Modal Association Unlearning in Multimodal Large Reasoning Models",
+              "url": "http://arxiv.org/abs/2611.06168v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Multimodal large reasoning models (MLRMs) integrate visual inputs with textual and parametric knowledge, allowing sensitive information to be accessed through cross-modal associations during reasoning. This raises privacy concerns when a visual input should no longer provide acce",
+              "published": "2026-11-04T08:48:07+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "items": [
+            {
+              "sid": "416b05f86baa94c5",
+              "title": "FedReason: Large Language Models as Weight-Space Meta-Aggregators for Heterogeneous Federated Learning",
+              "url": "http://arxiv.org/abs/2611.08383v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Federated learning servers combine client models with a fixed aggregation rule, and each rule in common use is designed for one kind of heterogeneity. We study whether a large language model (LLM) that inspects the client models can choose the rule itself, without any training on",
+              "published": "2026-11-05T18:00:58+00:00"
+            },
+            {
+              "sid": "464b347f5551c3b2",
+              "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
+              "url": "https://thinker.sh/how-it-works",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bi...",
+              "published": "2026-11-05T19:22:23+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-06",
+          "items": [
+            {
+              "sid": "2e4c5bdb80c6e509",
+              "title": "Alignment by Confident Debate: Preference Learning from Multi-Agent Debate",
+              "url": "http://arxiv.org/abs/2611.09568v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Post-training language models for reasoning typically rely on gold answers, task-specific verifiers, or learned reward models, limiting scalability when such signals are scarce. Multi-agent debate offers a self-superv...",
+              "published": "2026-11-06T15:08:58+00:00"
+            },
+            {
+              "sid": "06c2c68bc425da7f",
+              "title": "Steerable Multi-Objective Group-Relative Preference Optimization with Jointly Trained Low-Rank Adapters",
+              "url": "http://arxiv.org/abs/2611.09634v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Language model deployment often requires different trade-offs between competing objectives as user preferences change, yet standard post-training methods typically produce a single policy for a fixed objective weighti...",
+              "published": "2026-11-06T15:50:32+00:00"
+            },
+            {
+              "sid": "5606760643e4651e",
+              "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
+              "url": "http://arxiv.org/abs/2611.09770v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Multimodal Large Language Models (MLLMs) require continuous factual updates to stay current, yet lifelong knowledge editing remains a daunting challenge. The primary obstacle is the severe Locality Erosion and Catastr...",
+              "published": "2026-11-06T17:32:49+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "items": [
+            {
+              "sid": "23c0753cd928bfa7",
+              "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
+              "url": "http://arxiv.org/abs/2611.11995v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
+              "published": "2026-11-09T07:24:54+00:00"
+            },
+            {
+              "sid": "b76cb948754a8e57",
+              "title": "Correct First, Fast Second: What a Local 7B Code Model Can and Cannot Do for GPU Kernel Optimization",
+              "url": "http://arxiv.org/abs/2611.12079v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "We study how much the interaction strategy around a fixed, locally hosted 7B-parameter code model (Qwen2.5-Coder-7B-Instruct) affects its ability to replace PyTorch operators with custom CUDA kernels. On 30 KernelBenc...",
+              "published": "2026-11-09T08:56:29+00:00"
+            },
+            {
+              "sid": "9c88a41fbb756af3",
+              "title": "More Than Just Style: Benchmarking Personality Influence in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.12392v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "In addition to the effects of explicit input prompts and instructions, large language model outputs are influenced by underlying behavioral preferences similar to human personality tendencies. These tendencies can aff...",
+              "published": "2026-11-09T13:29:45+00:00"
+            },
+            {
+              "sid": "e07cc0f8ad9bbda1",
+              "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+              "url": "http://arxiv.org/abs/2611.12727v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo th",
+              "published": "2026-11-09T17:12:09+00:00"
+            },
+            {
+              "sid": "1c564d62e97c9758",
+              "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
+              "url": "http://arxiv.org/abs/2611.12763v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing",
+              "published": "2026-11-09T17:38:16+00:00"
+            },
+            {
+              "sid": "3b4f703ae0a8f385",
+              "title": "Large Language Models as a Universal Searcher for Open-World Automated Machine Learning",
+              "url": "http://arxiv.org/abs/2611.12791v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Developing effective machine learning models requires complex manual tuning, while current Automated Machine Learning (AutoML) frameworks remain domain-specific and isolate model architecture, training hyperparameter,...",
+              "published": "2026-11-09T17:58:38+00:00"
+            },
+            {
+              "sid": "94045c979b35ebe7",
+              "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+              "url": "http://arxiv.org/abs/2611.13254v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried...",
+              "published": "2026-11-09T21:25:08+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-10",
+          "items": [
+            {
+              "sid": "77f0b452ecfd74d0",
+              "title": "The AI Era's Lines of Code? A Case Study on What an Engineer's Token Spend Measures",
+              "url": "http://arxiv.org/abs/2611.13396v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Organizations use engineers' token spend to monitor AI adoption, set budgets, and measure productivity, but the metric's relationship with engineering output is unclear. We link five weeks of token usage in coding age...",
+              "published": "2026-11-10T00:17:26+00:00"
+            },
+            {
+              "sid": "501ef39353c40289",
+              "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
+              "url": "http://arxiv.org/abs/2611.13531v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the...",
+              "published": "2026-11-10T03:54:03+00:00"
+            },
+            {
+              "sid": "60cf435fff992a90",
+              "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+              "url": "http://arxiv.org/abs/2611.14051v1",
+              "source": "arxiv_cn_open_weight_reports",
+              "type": "paper",
+              "summary_1line": "Reusing key--value (KV) caches across language model updates could avoid repeated computation of shared context, but changes in model weights raise a fundamental question about what these caches preserve. We investiga...",
+              "published": "2026-11-10T13:17:04+00:00"
+            },
+            {
+              "sid": "5ddb49a19fc35296",
+              "title": "Chain of Physics: Supporting Fault Diagnosis with Engineering-Inspired Large Language Model Reasoning",
+              "url": "http://arxiv.org/abs/2611.14263v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Fault diagnosis in complex systems requires linking observed changes in physical quantities to the failure mechanisms that produce them. Experienced engineers perform this task by combining sensor information with kno...",
+              "published": "2026-11-10T16:09:44+00:00"
+            },
+            {
+              "sid": "2ffd7e8cb1f550c6",
+              "title": "The Multimodal Knowledge Agent Benchmark",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "The Multimodal Knowledge Agent Benchmark",
+              "published": "2026-11-10T16:12:21+00:00"
+            },
+            {
+              "sid": "c4a35e75b732ef4a",
+              "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
+              "url": "http://arxiv.org/abs/2611.14285v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled compa...",
+              "published": "2026-11-10T16:26:19+00:00"
+            },
+            {
+              "sid": "69a7c1548b162d4e",
+              "title": "PSL-RGHA: Parallel Split Learning with Reference Gradient Half-Space Alignment for Mitigating Gradient Divergence",
+              "url": "http://arxiv.org/abs/2611.14312v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "The escalating complexity of deep neural networks hinders the deployment of federated learning (FL) on resource-constrained devices, especially for multimedia applications such as on-device image classification and speech recognition. Parallel split learning (PSL) has emerged as",
+              "published": "2026-11-10T16:42:30+00:00"
+            },
+            {
+              "sid": "dcfca63926ea22ea",
+              "title": "AI Isn't Getting Dumber, We're Getting Pickier: Rising Standards in Human Evaluation of Large Language Models",
+              "url": "http://arxiv.org/abs/2611.14333v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Users often complain that AI assistants such as ChatGPT are getting worse. Some versions do change, but human evaluation leaves a second possibility untested: the people judging may change. We separate the two on Chat...",
+              "published": "2026-11-10T16:56:16+00:00"
+            },
+            {
+              "sid": "b6805052b5174dca",
+              "title": "Cognitive Mapping of Learning by Thinking Mechanisms in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.14382v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large language models (LLMs) increasingly exhibit capabilities that resemble human Learning by Thinking (LbT), the acquisition of new insight through internal processes such as explanation and reasoning, without new e...",
+              "published": "2026-11-10T17:37:13+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "items": [
+            {
+              "sid": "9b791542dc8bb7cc",
+              "title": "Can We Make an LLM Dumber, or Is It Just Playing Dumb? An Empirical Study of Believable Performance Throttling",
+              "url": "http://arxiv.org/abs/2611.15568v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "A benchmark score is commonly read as a proxy for model capability. We study the inverse problem: can a model be driven to a target score, and do its failures resemble those of a naturally weaker model? We operationalize believable performance reduction along three axes: target c",
+              "published": "2026-11-11T14:53:50+00:00"
+            },
+            {
+              "sid": "f1908d0038e22f5b",
+              "title": "ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.15925v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large Language Models (LLMs) have emerged as primary interfaces for factual retrieval, yet current evaluation paradigms rely almost exclusively on explicit entity names. In this work, we demonstrate that LLM knowledge...",
+              "published": "2026-11-11T19:19:08+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "items": [
+            {
+              "sid": "151cc2392264c544",
+              "title": "Small Language Models for Inference-Capability Routing: Effects of Model Capacity and Prompt Optimization on Downstream Quality and Efficiency",
+              "url": "http://arxiv.org/abs/2611.16414v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Optional reasoning, retrieval, web search, and tool use can improve large language model responses but incur unnecessary computation when activated indiscriminately. This study investigates whether prompt optimization...",
+              "published": "2026-11-12T07:25:46+00:00"
+            },
+            {
+              "sid": "173841a135ec48af",
+              "title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
+              "url": "http://arxiv.org/abs/2611.16843v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Pre-trained encoders fine-tuned on natural language inference (NLI) and other language understanding tasks keep much of their accuracy after the input is perturbed, e.g. by removing all nouns or shuffling the words. D...",
+              "published": "2026-11-12T14:18:44+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-13",
+          "items": [
+            {
+              "sid": "7b04b19e28032924",
+              "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+              "url": "http://arxiv.org/abs/2611.17621v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Kernel optimization is essential for efficient large language model (LLM) training and inference on Ascend NPUs. Existing Ascend kernel benchmarks primarily focus on kernel generation, with less emphasis on the abilit...",
+              "published": "2026-11-13T00:45:36+00:00"
+            },
+            {
+              "sid": "590316d609c0ce23",
+              "title": "Knowledge After Collapse: Context and Wording Shape Factual Accessibility in Language Models",
+              "url": "http://arxiv.org/abs/2611.17763v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "When a language model accepts a false correction in a factual discussion, its next answer can depend on how the conversation continues. We introduce Knowledge Answer Divergence (KAD), an event-conditioned evaluation protocol that distinguishes initial false-answer adoption from s",
+              "published": "2026-11-13T05:19:42+00:00"
+            },
+            {
+              "sid": "0fe69ec1eb1a4f14",
+              "title": "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding",
+              "url": "http://arxiv.org/abs/2611.17797v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their int...",
+              "published": "2026-11-13T06:23:19+00:00"
+            },
+            {
+              "sid": "f90b714a57ce9fe0",
+              "title": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
+              "url": "http://arxiv.org/abs/2611.17955v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing r...",
+              "published": "2026-11-13T09:44:48+00:00"
+            },
+            {
+              "sid": "c9c6bd7b30cb6c70",
+              "title": "VEPO: Mitigating Multilingual Hallucinations in LVLMs via Visual Evidence-guided Preference Optimization",
+              "url": "http://arxiv.org/abs/2611.18096v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large vision-language models (LVLMs) achieve strong multimodal performance, yet they remain prone to object hallucination---generating answers that are linguistically fluent but visually ungrounded. This issue is especially severe in low-resource languages, where weaker cross-mod",
+              "published": "2026-11-13T12:23:14+00:00"
+            },
+            {
+              "sid": "ca54e3a4f2c1d30b",
+              "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
+              "url": "http://arxiv.org/abs/2611.18370v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Anomaly detection in tabular data poses significant challenges due to heterogeneous feature types-mixing numerical, categorical, and textual attributes, which complicate learning meaningful representations of normality. Recent work has applied large language models (LLMs) to this",
+              "published": "2026-11-13T16:16:03+00:00"
+            },
+            {
+              "sid": "3985de9df0cd2149",
+              "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
+              "url": "http://arxiv.org/abs/2611.18453v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemi...",
+              "published": "2026-11-13T17:26:39+00:00"
+            },
+            {
+              "sid": "951243773dcd7469",
+              "title": "Interactive Program Induction with Language Model Priors",
+              "url": "http://arxiv.org/abs/2611.18485v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Program induction refers to the process in which a learner aims to recover a program from a few given input-output examples. This paradigm broadens programming access by letting users demonstrate the rule-based behavi...",
+              "published": "2026-11-13T17:59:55+00:00"
+            },
+            {
+              "sid": "75db6f155d9769a5",
+              "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+              "url": "http://arxiv.org/abs/2611.18514v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+              "published": "2026-11-13T18:30:58+00:00"
+            },
+            {
+              "sid": "53cced15d557cd0b",
+              "title": "Ask Precisely, Assume Wisely: Interactive Evaluation of Ambiguity Resolution in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.18905v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Ambiguity is a core challenge in human--AI interaction, where models must decide when to make assumptions and when to seek clarification. Existing approaches to ambiguity evaluation largely focus on coverage over mult...",
+              "published": "2026-11-13T20:07:26+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-14",
+          "items": [
+            {
+              "sid": "fb7a288ad791ee0d",
+              "title": "Large Language Models for AI Infrastructure",
+              "url": "http://arxiv.org/abs/2611.19061v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Large language models (LLMs) are increasingly used to design, optimize, and operate the infrastructure behind AI training and serving, yet the literature remains fragmented across hardware design, machine learning sys...",
+              "published": "2026-11-14T01:12:36+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-15",
+          "items": [
+            {
+              "sid": "baf7e4781272e609",
+              "title": "Interactive Structured Environment Scaling for Large Language Model Agentic Reasoning",
+              "url": "http://arxiv.org/abs/2611.19871v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Reinforcement learning via environmental interaction is a cornerstone post-training paradigm for evolving large language models into autonomous agents capable of multi-turn tool use and exploration. Because the enviro...",
+              "published": "2026-11-15T08:20:34+00:00"
+            },
+            {
+              "sid": "8138237fac2e053c",
+              "title": "GEM-MM: Reducing VLM Hallucination with Entropy-Guided Preference Alignment",
+              "url": "http://arxiv.org/abs/2611.20016v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budg...",
+              "published": "2026-11-15T13:55:51+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-16",
+          "items": [
+            {
+              "sid": "81c44c827e9a0e1d",
+              "title": "Explainable Federated Learning via Global-Local Attribution Alignment",
+              "url": "http://arxiv.org/abs/2611.20445v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and bandwidth constraints. Prior approaches either keep explanations si",
+              "published": "2026-11-16T03:15:02+00:00"
+            },
+            {
+              "sid": "d495f69216affbb3",
+              "title": "Beyond Seeing: Fine-Grained Preference Validation and Severity-Aware Alignment for Mitigating Visual Hallucinations in Vision-Language Models",
+              "url": "http://arxiv.org/abs/2611.20478v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large vision-language models can produce fluent responses containing objects, attributes, or relations unsupported by the image. We study an implemented alignment pipeline that normalizes released fine-grained hallucination supervision, validates chosen-rejected preference pairs",
+              "published": "2026-11-16T03:42:49+00:00"
+            },
+            {
+              "sid": "1e13d673398b4485",
+              "title": "Benchmarking Large Language Models for Linguistic Annotation",
+              "url": "http://arxiv.org/abs/2611.21291v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Assessing large language models for linguistic annotation requires task-specific evaluation under documented conditions. We present dhAIBench, a Python benchmarking and annotation tool with a web interface for explori...",
+              "published": "2026-11-16T15:55:45+00:00"
+            },
+            {
+              "sid": "8f0034965a63d29c",
+              "title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
+              "url": "http://arxiv.org/abs/2611.21331v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "When triaging unknown binaries, security analysts must decide which samples to clear as benign, flag as malicious, or escalate for deeper analysis. Large Language Models (LLMs) could support these decisions by interpr...",
+              "published": "2026-11-16T16:19:01+00:00"
+            },
+            {
+              "sid": "0d292c5fdc2bf79f",
+              "title": "Stability-Compensated Threshold Calibration for Selection-Conditioned Risk Control in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.21384v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large language models often produce hallucinated answers, motivating selective prediction policies that abstain on uncertain queries. However, heuristic uncertainty thresholds alone do not provide statistical control of errors among accepted predictions. Linear Expectation Constr",
+              "published": "2026-11-16T16:45:29+00:00"
+            },
+            {
+              "sid": "51009fb859c1b51e",
+              "title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
+              "url": "http://arxiv.org/abs/2611.21605v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from common sense instead of reading the evidence. Reinforcement learning (...",
+              "published": "2026-11-16T18:59:04+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-17",
+          "items": [
+            {
+              "sid": "563c7d3375862838",
+              "title": "PACD: Provenance-Aware Consensus Decoding for Mitigating Cross-Modal Hallucinations in Omnimodal Large Language Models",
+              "url": "http://arxiv.org/abs/2611.22456v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Omnimodal large language models (Omni-LLMs) integrate audio, video, and text for multimodal reasoning, yet remain vulnerable to cross-modal hallucinations, where one modality improperly influences predictions about another. Existing training-free decoding methods mitigate these e",
+              "published": "2026-11-17T09:20:20+00:00"
+            },
+            {
+              "sid": "871015d49de97b4a",
+              "title": "MM-ReportBench: A Comprehensive Benchmark for Multimodal Report Generation from Tables",
+              "url": "http://arxiv.org/abs/2611.22514v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "The ability to generate multimodal reports integrating fluent narratives with faithful visualizations from tabular data, has become a cornerstone capability for modern vision-language models in practical domains such...",
+              "published": "2026-11-17T10:06:56+00:00"
+            },
+            {
+              "sid": "3be6797ec1d79375",
+              "title": "PhysScope: Agentic Multimodal Physics Reasoning with Grounded Visual Memory",
+              "url": "http://arxiv.org/abs/2611.23010v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Vision-language models (VLMs) can correctly interpret physics diagrams yet apply constraints outside the states or conditions in which they hold, causing premise errors to propagate through subsequent calculations. We...",
+              "published": "2026-11-17T16:22:21+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-18",
+          "items": [
+            {
+              "sid": "c259fdb087f2c077",
+              "title": "NaviGATE: Noise-Aware Dual-View Generation for Multimodal Knowledge Graph Reasoning",
+              "url": "http://arxiv.org/abs/2611.24552v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture grap...",
+              "published": "2026-11-18T14:53:42+00:00"
+            },
+            {
+              "sid": "e497c044e025058b",
+              "title": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
+              "url": "http://arxiv.org/abs/2611.24936v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an addit...",
+              "published": "2026-11-18T18:56:12+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-19",
+          "items": [
+            {
+              "sid": "1d45f44793728555",
+              "title": "Measuring Hallucination in Large Language Models for Cyber Threat Intelligence: An Exploratory Study",
+              "url": "http://arxiv.org/abs/2611.25590v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Large language models (LLMs) are increasingly used in cyber threat intelligence (CTI) tasks, such as summarization and question answering. However, they may produce hallucinations, false or misleading content not grounded in the source text, which can mislead analysts and corrupt",
+              "published": "2026-11-19T06:35:05+00:00"
+            },
+            {
+              "sid": "7f32f43e5847c550",
+              "title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+              "url": "http://arxiv.org/abs/2611.26545v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Linear probes are the cheapest LLM lie detectors but often fail to transfer across kinds of lie. Label-free directions from honest and deceptive role-play are untested at 70B scale and on lies about knowledge, where a lie and an honest denial can be identical. We widen a publishe",
+              "published": "2026-11-19T18:20:01+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

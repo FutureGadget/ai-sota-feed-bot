@@ -1,59 +1,24 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 27,
+ "item_count": 59,
  "day_count": 16,
- "source_count": 6,
- "first_seen": "2026-10-30T11:39:08+00:00",
- "last_updated": "2026-11-18T18:56:12+00:00",
- "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "source_count": 9,
+ "first_seen": "2026-11-02T00:00:00+00:00",
+ "last_updated": "2026-11-19T18:20:01+00:00",
+ "generated_at": "2026-11-22T00:14:27.244418+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
+  "arxiv_cn_open_weight_reports",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
-  "arxiv_llm_reliability"
+  "arxiv_llm_reliability",
+  "hackernews_ai",
+  "infoq_ai_ml"
  ],
  "days": [
-  {
-   "date": "2026-10-30",
-   "items": [
-    {
-     "title": "Early Stopping in Large Reasoning Models: A Survey and Empirical Audit of Efficiency and Reliability",
-     "url": "http://arxiv.org/abs/2611.00166v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Large reasoning models can improve accuracy by generating longer reasoning traces, but some of this computation may be unnecessary. Early-stopping methods aim to stop once enough reasoning is available to answer. Eval...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "fdfc122cd97a630f",
-     "published": "2026-10-30T11:39:08+00:00",
-     "editor_note": "Opens the window: survey plus empirical audit of when reasoning models can stop early without losing reliability."
-    },
-    {
-     "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
-     "url": "http://arxiv.org/abs/2611.00171v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neura...",
-     "why_it_matters": "Matches feed focus: agentic, evaluation.",
-     "sid": "e46c1ab3f7ca9939",
-     "published": "2026-10-30T13:45:49+00:00",
-     "editor_note": "Survey of LLM architectures and strategies for text-to-SQL."
-    },
-    {
-     "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
-     "url": "http://arxiv.org/abs/2610.41968v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "a8a5f23cd8e10643",
-     "published": "2026-10-30T16:17:43+00:00",
-     "editor_note": "Gradual pruning with sparse adaptation, targeting quality at extreme sparsity."
-    }
-   ]
-  },
   {
    "date": "2026-11-02",
    "items": [
@@ -66,6 +31,38 @@
      "sid": "43862ef771dfba65",
      "published": "2026-11-02T00:00:00+00:00",
      "editor_note": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference."
+    },
+    {
+     "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
+     "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge,...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "744a7a52285cfa40",
+     "published": "2026-11-02T11:00:00+00:00",
+     "editor_note": "Practitioner article: a context engine that selects, compresses and expires information before it reaches the agent."
+    },
+    {
+     "title": "MIRA: Reinforcing Multimodal Reasoning via Deceptive Contextual Augmentation",
+     "url": "http://arxiv.org/abs/2611.03087v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "While Reinforcement Learning with Verifiable Rewards (RLVR) has significantly advanced multimodal reasoning, existing frameworks suffer from a critical \"perception-reasoning gap.\" Due to an over-reliance on seemingly relevant visual tokens, even minor perceptual perturbations can",
+     "sid": "526c07c3667e6cf7",
+     "published": "2026-11-02T13:09:45+00:00",
+     "editor_note": "RLVR for multimodal reasoning using deceptive context to force real perception."
+    },
+    {
+     "title": "Ask, Don't Equip: Question-Driven Coding Agents for Deep Kernel Optimization",
+     "url": "http://arxiv.org/abs/2611.03517v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "LLM agents for GPU kernel optimization sit at two ends of a structure-freedom tradeoff. Scripted agents fix what the model does at each step, via a learned policy, an optimization menu, or fixed roles, and are sample-...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "8b24b2aa117fb77b",
+     "published": "2026-11-02T17:51:58+00:00",
+     "editor_note": "Question-driven coding agents for GPU kernel optimization, between scripted and free-form agents."
     }
    ]
   },
@@ -82,6 +79,27 @@
      "sid": "94da3bfcbd46a769",
      "published": "2026-11-03T13:04:46+00:00",
      "editor_note": "Shows post-training updates can leave a model's answerability judgments out of step with its knowledge."
+    },
+    {
+     "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.05066v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+     "sid": "57b08f9866a26766",
+     "published": "2026-11-03T15:28:11+00:00",
+     "editor_note": "Hallucination mitigation for multimodal discrete diffusion language models."
+    },
+    {
+     "title": "Aligning Language Models with General Preferences: An Empirical Study of Direct Nash Optimization",
+     "url": "http://arxiv.org/abs/2611.05373v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampli...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "5ab1b6ecf4ca3e7a",
+     "published": "2026-11-03T18:59:15+00:00",
+     "editor_note": "Empirical study of Direct Nash Optimization against general preference functions."
     }
    ]
   },
@@ -112,12 +130,45 @@
      "sid": "416b05f86baa94c5",
      "published": "2026-11-05T18:00:58+00:00",
      "editor_note": "Tests whether an LLM inspecting client models can pick the federated aggregation rule without training."
+    },
+    {
+     "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
+     "url": "https://thinker.sh/how-it-works",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bi...",
+     "why_it_matters": "Matches feed focus: agent, harness, codex.",
+     "sid": "464b347f5551c3b2",
+     "published": "2026-11-05T19:22:23+00:00",
+     "editor_note": "Show HN tool that trims context and caches knowledge to stretch agent usage limits."
     }
    ]
   },
   {
    "date": "2026-11-06",
    "items": [
+    {
+     "title": "Alignment by Confident Debate: Preference Learning from Multi-Agent Debate",
+     "url": "http://arxiv.org/abs/2611.09568v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Post-training language models for reasoning typically rely on gold answers, task-specific verifiers, or learned reward models, limiting scalability when such signals are scarce. Multi-agent debate offers a self-superv...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "2e4c5bdb80c6e509",
+     "published": "2026-11-06T15:08:58+00:00",
+     "editor_note": "Preference learning from multi-agent debate when gold answers or verifiers are missing."
+    },
+    {
+     "title": "Steerable Multi-Objective Group-Relative Preference Optimization with Jointly Trained Low-Rank Adapters",
+     "url": "http://arxiv.org/abs/2611.09634v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Language model deployment often requires different trade-offs between competing objectives as user preferences change, yet standard post-training methods typically produce a single policy for a fixed objective weighti...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "06c2c68bc425da7f",
+     "published": "2026-11-06T15:50:32+00:00",
+     "editor_note": "Jointly trained LoRA adapters that let one model shift between competing objectives."
+    },
     {
      "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
      "url": "http://arxiv.org/abs/2611.09770v1",
@@ -134,6 +185,28 @@
    "date": "2026-11-09",
    "items": [
     {
+     "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
+     "url": "http://arxiv.org/abs/2611.11995v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "23c0753cd928bfa7",
+     "published": "2026-11-09T07:24:54+00:00",
+     "editor_note": "Infrathon benchmark: can frontier agents keep improving real AI infrastructure over long horizons."
+    },
+    {
+     "title": "Correct First, Fast Second: What a Local 7B Code Model Can and Cannot Do for GPU Kernel Optimization",
+     "url": "http://arxiv.org/abs/2611.12079v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "We study how much the interaction strategy around a fixed, locally hosted 7B-parameter code model (Qwen2.5-Coder-7B-Instruct) affects its ability to replace PyTorch operators with custom CUDA kernels. On 30 KernelBenc...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "b76cb948754a8e57",
+     "published": "2026-11-09T08:56:29+00:00",
+     "editor_note": "How much the interaction strategy around a local Qwen2.5-Coder-7B decides kernel results."
+    },
+    {
      "title": "More Than Just Style: Benchmarking Personality Influence in Large Language Models",
      "url": "http://arxiv.org/abs/2611.12392v1",
      "source": "arxiv_cs_cl",
@@ -145,6 +218,26 @@
      "editor_note": "Benchmarks how personality-like tendencies shift outputs beyond what the prompt specifies."
     },
     {
+     "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+     "url": "http://arxiv.org/abs/2611.12727v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo th",
+     "sid": "e07cc0f8ad9bbda1",
+     "published": "2026-11-09T17:12:09+00:00",
+     "editor_note": "Applied: cold-start cover-photo selection for Airbnb listings."
+    },
+    {
+     "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
+     "url": "http://arxiv.org/abs/2611.12763v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing",
+     "sid": "1c564d62e97c9758",
+     "published": "2026-11-09T17:38:16+00:00",
+     "editor_note": "Token-level reweighting to make preference optimization robust to noisy preference data."
+    },
+    {
      "title": "Large Language Models as a Universal Searcher for Open-World Automated Machine Learning",
      "url": "http://arxiv.org/abs/2611.12791v1",
      "source": "arxiv_cs_cl",
@@ -154,12 +247,34 @@
      "sid": "3b4f703ae0a8f385",
      "published": "2026-11-09T17:58:38+00:00",
      "editor_note": "Uses an LLM as one searcher across the architecture and hyperparameter choices AutoML frameworks keep separate."
+    },
+    {
+     "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+     "url": "http://arxiv.org/abs/2611.13254v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried...",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "94045c979b35ebe7",
+     "published": "2026-11-09T21:25:08+00:00",
+     "editor_note": "Traces where errors enter long-horizon agent trajectories and which controls reach them."
     }
    ]
   },
   {
    "date": "2026-11-10",
    "items": [
+    {
+     "title": "The AI Era's Lines of Code? A Case Study on What an Engineer's Token Spend Measures",
+     "url": "http://arxiv.org/abs/2611.13396v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Organizations use engineers' token spend to monitor AI adoption, set budgets, and measure productivity, but the metric's relationship with engineering output is unclear. We link five weeks of token usage in coding age...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "77f0b452ecfd74d0",
+     "published": "2026-11-10T00:17:26+00:00",
+     "editor_note": "Case study questioning engineer token spend as a productivity and budget metric."
+    },
     {
      "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
      "url": "http://arxiv.org/abs/2611.13531v1",
@@ -170,6 +285,17 @@
      "sid": "501ef39353c40289",
      "published": "2026-11-10T03:54:03+00:00",
      "editor_note": "Audits whether LLM judgments of Chinese news headlines track the reported fact or its framing."
+    },
+    {
+     "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+     "url": "http://arxiv.org/abs/2611.14051v1",
+     "source": "arxiv_cn_open_weight_reports",
+     "type": "paper",
+     "summary_1line": "Reusing key--value (KV) caches across language model updates could avoid repeated computation of shared context, but changes in model weights raise a fundamental question about what these caches preserve. We investiga...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "60cf435fff992a90",
+     "published": "2026-11-10T13:17:04+00:00",
+     "editor_note": "Tests whether KV caches survive a model weight update, using DeepSeek-V4-Flash."
     },
     {
      "title": "Chain of Physics: Supporting Fault Diagnosis with Engineering-Inspired Large Language Model Reasoning",
@@ -183,6 +309,17 @@
      "editor_note": "Engineer-style physical reasoning for fault diagnosis from sensor data."
     },
     {
+     "title": "The Multimodal Knowledge Agent Benchmark",
+     "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "The Multimodal Knowledge Agent Benchmark",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "2ffd7e8cb1f550c6",
+     "published": "2026-11-10T16:12:21+00:00",
+     "editor_note": "A benchmark for multimodal knowledge agents."
+    },
+    {
      "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
      "url": "http://arxiv.org/abs/2611.14285v1",
      "source": "arxiv_cs_ai",
@@ -192,6 +329,16 @@
      "sid": "c4a35e75b732ef4a",
      "published": "2026-11-10T16:26:19+00:00",
      "editor_note": "Framework, dataset and benchmark for simulating LLM training performance instead of running distributed jobs."
+    },
+    {
+     "title": "PSL-RGHA: Parallel Split Learning with Reference Gradient Half-Space Alignment for Mitigating Gradient Divergence",
+     "url": "http://arxiv.org/abs/2611.14312v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "The escalating complexity of deep neural networks hinders the deployment of federated learning (FL) on resource-constrained devices, especially for multimedia applications such as on-device image classification and speech recognition. Parallel split learning (PSL) has emerged as",
+     "sid": "69a7c1548b162d4e",
+     "published": "2026-11-10T16:42:30+00:00",
+     "editor_note": "Split-learning method to reduce gradient divergence on constrained devices."
     },
     {
      "title": "AI Isn't Getting Dumber, We're Getting Pickier: Rising Standards in Human Evaluation of Large Language Models",
@@ -220,6 +367,16 @@
    "date": "2026-11-11",
    "items": [
     {
+     "title": "Can We Make an LLM Dumber, or Is It Just Playing Dumb? An Empirical Study of Believable Performance Throttling",
+     "url": "http://arxiv.org/abs/2611.15568v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "A benchmark score is commonly read as a proxy for model capability. We study the inverse problem: can a model be driven to a target score, and do its failures resemble those of a naturally weaker model? We operationalize believable performance reduction along three axes: target c",
+     "sid": "9b791542dc8bb7cc",
+     "published": "2026-11-11T14:53:50+00:00",
+     "editor_note": "Asks whether a model can be driven to a target benchmark score with believable failures."
+    },
+    {
      "title": "ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models",
      "url": "http://arxiv.org/abs/2611.15925v1",
      "source": "arxiv_llm_reliability",
@@ -236,6 +393,17 @@
    "date": "2026-11-12",
    "items": [
     {
+     "title": "Small Language Models for Inference-Capability Routing: Effects of Model Capacity and Prompt Optimization on Downstream Quality and Efficiency",
+     "url": "http://arxiv.org/abs/2611.16414v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Optional reasoning, retrieval, web search, and tool use can improve large language model responses but incur unnecessary computation when activated indiscriminately. This study investigates whether prompt optimization...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "151cc2392264c544",
+     "published": "2026-11-12T07:25:46+00:00",
+     "editor_note": "Small models as routers deciding when to switch on reasoning, retrieval, search or tools."
+    },
+    {
      "title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
      "url": "http://arxiv.org/abs/2611.16843v1",
      "source": "arxiv_cs_cl",
@@ -251,6 +419,59 @@
    "date": "2026-11-13",
    "items": [
     {
+     "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+     "url": "http://arxiv.org/abs/2611.17621v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Kernel optimization is essential for efficient large language model (LLM) training and inference on Ascend NPUs. Existing Ascend kernel benchmarks primarily focus on kernel generation, with less emphasis on the abilit...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "7b04b19e28032924",
+     "published": "2026-11-13T00:45:36+00:00",
+     "editor_note": "Cost-aware kernel optimization benchmark on real Ascend NPU workloads."
+    },
+    {
+     "title": "Knowledge After Collapse: Context and Wording Shape Factual Accessibility in Language Models",
+     "url": "http://arxiv.org/abs/2611.17763v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "When a language model accepts a false correction in a factual discussion, its next answer can depend on how the conversation continues. We introduce Knowledge Answer Divergence (KAD), an event-conditioned evaluation protocol that distinguishes initial false-answer adoption from s",
+     "sid": "590316d609c0ce23",
+     "published": "2026-11-13T05:19:42+00:00",
+     "editor_note": "After a model accepts a false correction, context and wording decide whether the true fact comes back."
+    },
+    {
+     "title": "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding",
+     "url": "http://arxiv.org/abs/2611.17797v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their int...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "0fe69ec1eb1a4f14",
+     "published": "2026-11-13T06:23:19+00:00",
+     "editor_note": "Treats vision as a tool inside the harness for multimodal agentic coding."
+    },
+    {
+     "title": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
+     "url": "http://arxiv.org/abs/2611.17955v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing r...",
+     "why_it_matters": "Matches feed focus: agent, evaluation, codex.",
+     "sid": "f90b714a57ce9fe0",
+     "published": "2026-11-13T09:44:48+00:00",
+     "editor_note": "Reproducible multimodal web-agent benchmark spanning heterogeneous applications."
+    },
+    {
+     "title": "VEPO: Mitigating Multilingual Hallucinations in LVLMs via Visual Evidence-guided Preference Optimization",
+     "url": "http://arxiv.org/abs/2611.18096v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large vision-language models (LVLMs) achieve strong multimodal performance, yet they remain prone to object hallucination---generating answers that are linguistically fluent but visually ungrounded. This issue is especially severe in low-resource languages, where weaker cross-mod",
+     "sid": "c9c6bd7b30cb6c70",
+     "published": "2026-11-13T12:23:14+00:00",
+     "editor_note": "Visual-evidence-guided preference optimization against multilingual object hallucination."
+    },
+    {
      "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
      "url": "http://arxiv.org/abs/2611.18370v1",
      "source": "arxiv_cs_cl",
@@ -258,17 +479,39 @@
      "summary_1line": "Anomaly detection in tabular data poses significant challenges due to heterogeneous feature types-mixing numerical, categorical, and textual attributes, which complicate learning meaningful representations of normality. Recent work has applied large language models (LLMs) to this",
      "sid": "ca54e3a4f2c1d30b",
      "published": "2026-11-13T16:16:03+00:00",
-     "editor_note": "Side branch: LLM self-play for anomaly detection over mixed-type tabular data."
+     "editor_note": "LLM self-play for anomaly detection over mixed-type tabular data."
     },
     {
      "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
      "url": "http://arxiv.org/abs/2611.18453v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibiti",
+     "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemi...",
      "sid": "3985de9df0cd2149",
      "published": "2026-11-13T17:26:39+00:00",
-     "editor_note": "Shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split."
+     "editor_note": "Black-box split of prompt ambiguity from knowledge gaps, using API calls only."
+    },
+    {
+     "title": "Interactive Program Induction with Language Model Priors",
+     "url": "http://arxiv.org/abs/2611.18485v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Program induction refers to the process in which a learner aims to recover a program from a few given input-output examples. This paradigm broadens programming access by letting users demonstrate the rule-based behavi...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "951243773dcd7469",
+     "published": "2026-11-13T17:59:55+00:00",
+     "editor_note": "Interactive program induction using language-model priors."
+    },
+    {
+     "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+     "url": "http://arxiv.org/abs/2611.18514v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "75db6f155d9769a5",
+     "published": "2026-11-13T18:30:58+00:00",
+     "editor_note": "Tests whether mechanistic interpretability explains web-element hallucination in agents."
     },
     {
      "title": "Ask Precisely, Assume Wisely: Interactive Evaluation of Ambiguity Resolution in Large Language Models",
@@ -311,13 +554,45 @@
      "why_it_matters": "Matches feed focus: agentic, eval.",
      "sid": "baf7e4781272e609",
      "published": "2026-11-15T08:20:34+00:00",
-     "editor_note": "Agent-side entry: scaling structured, interactive RL environments for multi-turn tool-use training."
+     "editor_note": "Scales structured, interactive RL environments for multi-turn tool-use training."
+    },
+    {
+     "title": "GEM-MM: Reducing VLM Hallucination with Entropy-Guided Preference Alignment",
+     "url": "http://arxiv.org/abs/2611.20016v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budg...",
+     "why_it_matters": "Matches feed focus: harness, evaluation.",
+     "sid": "8138237fac2e053c",
+     "published": "2026-11-15T13:55:51+00:00",
+     "editor_note": "Entropy-guided preference alignment to cut VLM hallucination with scarce preference data."
     }
    ]
   },
   {
    "date": "2026-11-16",
    "items": [
+    {
+     "title": "Explainable Federated Learning via Global-Local Attribution Alignment",
+     "url": "http://arxiv.org/abs/2611.20445v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and bandwidth constraints. Prior approaches either keep explanations si",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "81c44c827e9a0e1d",
+     "published": "2026-11-16T03:15:02+00:00",
+     "editor_note": "Aligns local and global attributions for explainable federated learning."
+    },
+    {
+     "title": "Beyond Seeing: Fine-Grained Preference Validation and Severity-Aware Alignment for Mitigating Visual Hallucinations in Vision-Language Models",
+     "url": "http://arxiv.org/abs/2611.20478v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large vision-language models can produce fluent responses containing objects, attributes, or relations unsupported by the image. We study an implemented alignment pipeline that normalizes released fine-grained hallucination supervision, validates chosen-rejected preference pairs",
+     "sid": "d495f69216affbb3",
+     "published": "2026-11-16T03:42:49+00:00",
+     "editor_note": "Severity-aware alignment that validates preference pairs at a fine grain."
+    },
     {
      "title": "Benchmarking Large Language Models for Linguistic Annotation",
      "url": "http://arxiv.org/abs/2611.21291v1",
@@ -349,6 +624,17 @@
      "sid": "0d292c5fdc2bf79f",
      "published": "2026-11-16T16:45:29+00:00",
      "editor_note": "Moves abstention from heuristic thresholds to calibrated thresholds with statistical error control on accepted answers."
+    },
+    {
+     "title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
+     "url": "http://arxiv.org/abs/2611.21605v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from common sense instead of reading the evidence. Reinforcement learning (...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "51009fb859c1b51e",
+     "published": "2026-11-16T18:59:04+00:00",
+     "editor_note": "Visual agents that zoom into ultra-high-resolution images instead of answering from common sense."
     }
    ]
   },
@@ -365,12 +651,45 @@
      "sid": "563c7d3375862838",
      "published": "2026-11-17T09:20:20+00:00",
      "editor_note": "Training-free decoding that tracks which modality supports a claim, targeting cross-modal hallucination."
+    },
+    {
+     "title": "MM-ReportBench: A Comprehensive Benchmark for Multimodal Report Generation from Tables",
+     "url": "http://arxiv.org/abs/2611.22514v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "The ability to generate multimodal reports integrating fluent narratives with faithful visualizations from tabular data, has become a cornerstone capability for modern vision-language models in practical domains such...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "871015d49de97b4a",
+     "published": "2026-11-17T10:06:56+00:00",
+     "editor_note": "Benchmark for multimodal reports that combine narrative and visualizations from tables."
+    },
+    {
+     "title": "PhysScope: Agentic Multimodal Physics Reasoning with Grounded Visual Memory",
+     "url": "http://arxiv.org/abs/2611.23010v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Vision-language models (VLMs) can correctly interpret physics diagrams yet apply constraints outside the states or conditions in which they hold, causing premise errors to propagate through subsequent calculations. We...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "3be6797ec1d79375",
+     "published": "2026-11-17T16:22:21+00:00",
+     "editor_note": "Agentic physics reasoning with grounded visual memory to stop constraints applied out of scope."
     }
    ]
   },
   {
    "date": "2026-11-18",
    "items": [
+    {
+     "title": "NaviGATE: Noise-Aware Dual-View Generation for Multimodal Knowledge Graph Reasoning",
+     "url": "http://arxiv.org/abs/2611.24552v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture grap...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "c259fdb087f2c077",
+     "published": "2026-11-18T14:53:42+00:00",
+     "editor_note": "Noise-aware generation for multimodal knowledge-graph reasoning."
+    },
     {
      "title": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
      "url": "http://arxiv.org/abs/2611.24936v1",
@@ -379,118 +698,189 @@
      "summary_1line": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an addit...",
      "sid": "e497c044e025058b",
      "published": "2026-11-18T18:56:12+00:00",
-     "editor_note": "Latest item: jailbreak detection from contrastive representations without training an additional guard model."
+     "editor_note": "Jailbreak detection from contrastive representations without training an additional guard model."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "Measuring Hallucination in Large Language Models for Cyber Threat Intelligence: An Exploratory Study",
+     "url": "http://arxiv.org/abs/2611.25590v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) are increasingly used in cyber threat intelligence (CTI) tasks, such as summarization and question answering. However, they may produce hallucinations, false or misleading content not grounded in the source text, which can mislead analysts and corrupt",
+     "sid": "1d45f44793728555",
+     "published": "2026-11-19T06:35:05+00:00",
+     "editor_note": "Exploratory measurement of hallucination in cyber-threat-intelligence summarization and QA."
+    },
+    {
+     "title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.26545v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Linear probes are the cheapest LLM lie detectors but often fail to transfer across kinds of lie. Label-free directions from honest and deceptive role-play are untested at 70B scale and on lies about knowledge, where a lie and an honest denial can be identical. We widen a publishe",
+     "sid": "7f32f43e5847c550",
+     "published": "2026-11-19T18:20:01+00:00",
+     "editor_note": "Latest item: label-free knowledge and persona directions aimed at lie probes that transfer across lie types."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 30 it ran through pruning, Anthropic's Nov 2 provable-inference update, knowledge editing and eval-validity work to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Anthropic's Nov 2 provable-inference update it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination to Nov 13-16 papers on when a model should abstain, ask or escalate.",
   "stale": false,
-  "whats_new": "Nov 18: a contrastive-prototype method detects jailbreak prompts without training a separate guard model, after Nov 16-17 papers on calibrated abstention thresholds and provenance-aware decoding for omnimodal hallucinations.",
-  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on guardrail design: calibrated refusal, modality-aware hallucination control and lightweight jailbreak screening, each a component a serving stack can test.",
-  "take_for_builders": "Before swapping in any of these guardrails, replay your own traffic: measure the jailbreak detector's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each method adds.",
+  "whats_new": "Nov 19: a deception study uses label-free knowledge and persona directions to build lie probes that transfer across lie types, and a second paper measures hallucination in cyber-threat-intelligence tasks.",
+  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
+  "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds.",
   "beats": [
    {
-    "kicker": "OCT 30",
-    "tone": "launch",
-    "headline": "Efficiency work: extreme-sparsity pruning and an early-stopping audit for reasoning models",
-    "summary": "Opens the window; a text-to-SQL architecture survey lands the same day.",
-    "sids": [
-     "fdfc122cd97a630f",
-     "e46c1ab3f7ca9939",
-     "a8a5f23cd8e10643"
-    ]
-   },
-   {
     "kicker": "FIRST-PARTY",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "Anthropic reports progress on zkSNARK-based provable inference",
-    "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference.",
     "sids": [
      "43862ef771dfba65"
+    ],
+    "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference."
+   },
+   {
+    "kicker": "AGENTS",
+    "tone": "rising",
+    "headline": "Agent context, failure analysis and harder agent benchmarks",
+    "sids": [
+     "744a7a52285cfa40",
+     "464b347f5551c3b2",
+     "94045c979b35ebe7",
+     "2ffd7e8cb1f550c6",
+     "0fe69ec1eb1a4f14",
+     "f90b714a57ce9fe0",
+     "75db6f155d9769a5",
+     "baf7e4781272e609",
+     "51009fb859c1b51e",
+     "3be6797ec1d79375"
+    ],
+    "summary": "From context engines and token trimming to where long-horizon errors enter, plus web, multimodal and visual-agent benchmarks."
+   },
+   {
+    "kicker": "SERVING & INFRA",
+    "tone": "rising",
+    "headline": "LLMs and agents aimed at kernels, cache reuse, routing and training simulation",
+    "sids": [
+     "8b24b2aa117fb77b",
+     "23c0753cd928bfa7",
+     "b76cb948754a8e57",
+     "77f0b452ecfd74d0",
+     "60cf435fff992a90",
+     "c4a35e75b732ef4a",
+     "151cc2392264c544",
+     "7b04b19e28032924",
+     "fb7a288ad791ee0d"
+    ],
+    "summary": "Includes a local 7B code model on GPU kernels, KV-cache reuse across a DeepSeek-V4-Flash update, and what token spend actually measures."
+   },
+   {
+    "kicker": "POST-TRAINING",
+    "tone": "rising",
+    "headline": "Preference optimization variants: Nash, debate, steerable adapters, token reweighting",
+    "sids": [
+     "5ab1b6ecf4ca3e7a",
+     "2e4c5bdb80c6e509",
+     "06c2c68bc425da7f",
+     "1c564d62e97c9758"
     ]
    },
    {
-    "kicker": "NOV 3-6",
+    "kicker": "KNOWLEDGE",
     "tone": "rising",
-    "headline": "Updating what models know: answerability drift, multimodal unlearning and lifelong knowledge editing",
-    "summary": "Also here: an LLM choosing federated aggregation rules without training.",
+    "headline": "Updating what models know: answerability drift, unlearning and knowledge editing",
     "sids": [
      "94da3bfcbd46a769",
      "c43d3ff3aa20c41c",
-     "416b05f86baa94c5",
-     "5606760643e4651e"
-    ]
+     "5606760643e4651e",
+     "b6805052b5174dca",
+     "590316d609c0ce23"
+    ],
+    "summary": "Plus how false corrections and wording change which facts a model can still reach."
    },
    {
-    "kicker": "NOV 9-10",
-    "tone": "rising",
-    "headline": "Judgment under scrutiny: rising rater standards on Chatbot Arena, framing effects and personality benchmarks",
-    "summary": "These days also bring an LLM AutoML searcher, physics-guided fault diagnosis, a training-simulation benchmark and a cognitive account of learning by thinking.",
+    "kicker": "EVAL VALIDITY",
+    "tone": "turn",
+    "headline": "What do scores measure? Rater drift, framing, throttling and shortcut probes",
     "sids": [
      "9c88a41fbb756af3",
-     "3b4f703ae0a8f385",
      "501ef39353c40289",
-     "5ddb49a19fc35296",
-     "c4a35e75b732ef4a",
      "dcfca63926ea22ea",
-     "b6805052b5174dca"
-    ]
-   },
-   {
-    "kicker": "NOV 11-12",
-    "tone": "turn",
-    "headline": "What do scores measure? ShadowBench and a corrupted-input study probe shortcuts behind passing evals",
-    "summary": "One tests recall without explicit entity names; the other asks whether LLMs pass NLI on noun-stripped or shuffled inputs.",
-    "sids": [
+     "9b791542dc8bb7cc",
      "f1908d0038e22f5b",
-     "173841a135ec48af"
-    ]
+     "173841a135ec48af",
+     "1e13d673398b4485"
+    ],
+    "summary": "Chatbot Arena standards rising, framing effects, models driven to a target score, and recall evals that lean on entity names."
    },
    {
-    "kicker": "NOV 13",
+    "kicker": "MULTIMODAL",
     "tone": "rising",
-    "headline": "Knowing when not to answer: black-box uncertainty and an interactive ambiguity-resolution eval",
-    "summary": "One splits prompt ambiguity from knowledge gaps via API calls only; the other scores when a model should ask versus assume. A tabular anomaly-detection paper lands the same day.",
+    "headline": "Multimodal hallucination: preference alignment and decoding fixes",
     "sids": [
+     "526c07c3667e6cf7",
+     "57b08f9866a26766",
+     "c9c6bd7b30cb6c70",
+     "8138237fac2e053c",
+     "d495f69216affbb3",
+     "563c7d3375862838",
+     "871015d49de97b4a",
+     "c259fdb087f2c077"
+    ],
+    "summary": "Eight papers attack vision and omnimodal models answering beyond their evidence."
+   },
+   {
+    "kicker": "SIDE BRANCHES",
+    "tone": "neutral",
+    "headline": "Applied one-offs: federated learning, AutoML, diagnostics and anomaly detection",
+    "sids": [
+     "416b05f86baa94c5",
+     "e07cc0f8ad9bbda1",
+     "3b4f703ae0a8f385",
+     "5ddb49a19fc35296",
+     "69a7c1548b162d4e",
      "ca54e3a4f2c1d30b",
-     "3985de9df0cd2149",
-     "53cced15d557cd0b"
-    ]
+     "951243773dcd7469",
+     "81c44c827e9a0e1d"
+    ],
+    "summary": "Grouped by shared wording, not by a common thread."
    },
    {
-    "kicker": "NOV 14-16",
+    "kicker": "ABSTAIN OR ESCALATE",
     "tone": "rising",
-    "headline": "Applied decisions: budgeted malware triage, annotation benchmarking, agent RL environments and an AI-infrastructure survey",
-    "summary": "The run moves from model internals to LLMs making operational calls under cost and documentation constraints.",
+    "headline": "Knowing when not to answer: uncertainty, clarification, triage and calibrated abstention",
     "sids": [
-     "fb7a288ad791ee0d",
-     "baf7e4781272e609",
-     "1e13d673398b4485",
-     "8f0034965a63d29c"
+     "3985de9df0cd2149",
+     "53cced15d557cd0b",
+     "8f0034965a63d29c",
+     "0d292c5fdc2bf79f"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Guardrails at the output: calibrated abstention, provenance-aware decoding and jailbreak detection",
-    "summary": "Nov 16-18 papers each target a control point between the model and the user: when to refuse, which modality to trust, which prompt to block.",
+    "headline": "Detecting bad outputs: jailbreak screening, domain hallucination and lie probes",
     "sids": [
-     "0d292c5fdc2bf79f",
-     "563c7d3375862838",
-     "e497c044e025058b"
-    ]
+     "e497c044e025058b",
+     "1d45f44793728555",
+     "7f32f43e5847c550"
+    ],
+    "summary": "Nov 18-19 papers target detection at serving time: which prompt to block, where a domain model hallucinates, when a model is lying."
    }
   ],
   "open_questions": [
+   "Do the Nov 19 knowledge and persona directions detect lies on models outside the study, and at what false-positive rate?",
    "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
    "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
-   "Does PACD report the decoding latency or extra forward passes it adds per token?",
-   "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
+   "Does KV-cache reuse across model updates hold beyond the DeepSeek-V4-Flash case study?",
    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
    "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
   ],
-  "generated_at": "2026-11-20T00:12:48Z"
+  "generated_at": "2026-11-22T00:12:43Z"
  }
 }
