@@ -68,6 +68,14 @@
     var li = node('li', 'editorial-item');
     var meta = node('div', 'editorial-meta');
     meta.appendChild(node('span', '', (LABELS[item.section] || item.section_label) + (item.kind === 'lab' ? ' · ' + tr('updates.skillLab', 'Skill Lab') : '')));
+    // An item the translator skipped keeps its English text on a translated
+    // page: mark it, as the feed cards do (languageMarks in the home template).
+    var english = Boolean(item.i18n && item.i18n.translated === false);
+    if (english) {
+      var tag = node('span', '', tr('card.englishTag', 'English'));
+      tag.title = tr('card.englishTitle', 'Not translated yet, shown in English');
+      meta.appendChild(tag);
+    }
     var itemStatus = status(item);
     if (itemStatus === 'new' || itemStatus === 'updated') meta.appendChild(node('span', 'editorial-badge', itemStatus === 'new' ? tr('card.new', 'New') : tr('updates.updated', 'Updated')));
     if (itemStatus === 'seen') meta.appendChild(node('span', '', tr('updates.opened', 'Opened')));
@@ -80,9 +88,14 @@
     meta.appendChild(time);
     var link = node('a', 'editorial-title', item.title);
     link.href = item.href;
+    if (english) link.lang = 'en';
     link.addEventListener('click', function () { capture('editorial_update_click', { id: item.id, section: item.section, placement: placement, status: itemStatus }); });
     li.append(meta, link);
-    if (item.summary) li.appendChild(node('p', 'editorial-summary', item.summary));
+    if (item.summary) {
+      var summary = node('p', 'editorial-summary', item.summary);
+      if (english) summary.lang = 'en';
+      li.appendChild(summary);
+    }
     return li;
   }
   function list(selected, placement) {
@@ -263,6 +276,12 @@
     var archive = document.getElementById('editorialUpdates');
     if (archive) renderCollection(archive, '', Infinity, 'updates');
   });
+  // "?locale=ko" on a localized home page (its dictionary names the language),
+  // so the desk reads in the page's language; pages with no dictionary stay English.
+  function localeQuery() {
+    var ui = window.UI;
+    return ui && ui.locale && ui.locale !== ui.defaultLocale ? '?locale=' + encodeURIComponent(ui.locale) : '';
+  }
   function run() {
     if (!document.querySelector('link[href^="/editorial-updates.css"]')) {
       var style = node('link');
@@ -272,7 +291,7 @@
     }
     state.promise = Promise.all([
       import('/editorial-state.js?v=20260910'),
-      fetch('/api/updates', { headers: { accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; })
+      fetch('/api/updates' + localeQuery(), { headers: { accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; })
     ]).then(function (result) { reader = result[0]; return result[1]; }).catch(function () { return null; });
     state.promise.then(function (data) {
       if (!data || data.catalog_version !== 1 || !Array.isArray(data.items)) throw new Error('catalog unavailable');
