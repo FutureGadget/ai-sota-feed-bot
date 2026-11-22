@@ -17785,6 +17785,18 @@
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai"
  },
+ "a279a61d80e00f54": {
+  "content_excerpt": "I did these experiments as part of an ongoing project exploring other side channels with David Africa, Agastya Sridharan, Mihir Sahasrabudhe, Kartikay Luthra, Juliana Li, and Scott Sauers. Thanks to all of them for helpful advice! Code is available here : https://github.com/niranjan-deshpande/side-channel-communication . The code and figures are written by Claude. Sauers recently showed that a model can be trained to detect whether its activations are being probed, even though the probe reads the model's activations without modifying them. Following this, David found that models can also be trained to detect whether their forward passes are batched with other requests on a GPU. Models can do this because these seemingly inconsequential environmental variables---whether a probe is attached, whether requests are batched, or even whether a model is served by vLLM or Hugging Face Trainer ---can subtly affect the the numerical results of a forward pass. Thus, models can learn information about their environments just by observing patterns in their computation. Importantly, models can also modify these variables. So if two models are in the same environment, one can communicate with the other by changing that environment in some detectable way! This might not supply much information, but even a few bits can be tremendously dangerous. For example: Here, I investigate whether models on the same inference engine can manipulate their environments to exchange information in this way. I ",
+  "first_seen": "2026-11-22T19:06:22.074557+00:00",
+  "id": "446f4535e1157dd3",
+  "published": "2026-11-22T18:43:50+00:00",
+  "sid": "a279a61d80e00f54",
+  "source": "hackernews_ai",
+  "summary_1line": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+  "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+  "type": "news",
+  "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being"
+ },
  "a2babe4c488b1701": {
   "first_seen": "2026-11-19T00:09:50.610543+00:00",
   "id": "a4cc443ce42dfb94",
@@ -19173,7 +19185,7 @@
   "published": "2026-11-17T08:58:14+00:00",
   "sid": "ae467cfd399481fc",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 13, downloads: 497.",
+  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 15, downloads: 497.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 11.",
   "title": "tencent/WeMM-Video-2B released on Hugging Face",
   "type": "release",
@@ -25464,6 +25476,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.19037v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "ea0942d08cef728f": {
+  "content_excerpt": "Pi Dash coordinated 26 Muse Code agents to rewrite its own Django backend in Rust. The main port took about ten days and cost about $350 in model usage. Pi Dash is an open source agent coordination platform developed by AI Republic, that automatically assigns tasks to a team of AI agents. We used the platform to refactor its own backend. This article is a short report on how that worked. On a Pi Dash board, agents do the issues: your own Muse Code, Claude Code, Codex or Cursor through the Pi Dash daemon, or the built-in Pi Dash Agent. The rulebook, the coordinator and the review-test-merge loop in this post are ordinary Pi Dash features. You can run the same setup on your own backlog. In late September and early October 2026, Pi Dash coordinated 26 Muse Code agents on 5 developer machines to rewrite its own backend from Python and Django to Rust. The main port took about ten days. The agents picked up issues from a Pi Dash board, wrote the code, reviewed it, tested it against the running Django server, and merged their own pull requests. The backend started as a fork of Plane ’s Django API. By September it was about 101,000 lines of application code, plus about 20,000 lines of cloud-only code. We wanted it in Rust. We also wanted to find out whether our own product could run a project this large with no person approving each step. It could, with caveats. This post covers the rules we gave the agents, how we checked that they were right, and what still needs improving. Why Mus",
+  "first_seen": "2026-11-22T19:06:22.074557+00:00",
+  "id": "a56213f899828e3e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-22T18:09:02+00:00",
+  "sid": "ea0942d08cef728f",
+  "source": "hackernews_ai",
+  "summary_1line": "26 AI agents rewrote a backend from Django to Rust with no human merges",
+  "title": "26 AI agents rewrote a backend from Django to Rust with no human merges",
+  "type": "news",
+  "url": "https://airepublic.com/blog/pi-dash-self-evolution-experiment",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ea7e5e3ff883dd79": {
   "first_seen": "2026-11-16T15:06:48.509599+00:00",
