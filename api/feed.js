@@ -8,6 +8,7 @@ import {
   readEditorial,
 } from '../lib/editorial.js';
 import { readDataJson } from '../lib/data-source.js';
+import { isLocalized } from '../lib/locales.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -271,7 +272,7 @@ function overlayLocalizedFeed(body, locale) {
 function maybeLocalized(body, searchParams) {
   const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
   const localizedSnapshot = String(searchParams.get('localized_snapshot') || '').trim().toLowerCase();
-  if (locale !== 'ko' || localizedSnapshot !== 'latest') return { body, cacheControl: null };
+  if (!isLocalized(locale) || localizedSnapshot !== 'latest') return { body, cacheControl: null };
 
   const cacheControl = 's-maxage=300, stale-while-revalidate=300';
   if (['0', 'false', 'no', 'off'].includes(String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase())) {
@@ -940,7 +941,7 @@ export async function GET(request) {
     const selectedLabels = parseLabelFilters(url.searchParams);
     const readerTuning = readReaderTuning();
     const localizedRequested =
-      String(url.searchParams.get('locale') || '').trim().toLowerCase() === 'ko'
+      isLocalized(url.searchParams.get('locale'))
       && String(url.searchParams.get('localized_snapshot') || '').trim().toLowerCase() === 'latest';
     const effectiveWindow = localizedRequested ? 'published' : windowMode;
     const editorial = localizedRequested ? null : readEditorial();

@@ -11,6 +11,15 @@ from calendar import monthrange
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+
+# Feed chrome the localized snapshot carries, per locale.
+FEED_UI = {
+    "ko": {
+        "title": "AI SOTA Feed",
+        "description": "최신 AI 기술 소식을 한 곳에서 확인하세요.",
+        "feed_title": "오늘의 주요 뉴스",
+    },
+}
 from zoneinfo import ZoneInfo
 
 try:
@@ -621,14 +630,7 @@ def main():
 
     is_complete = len(missing_targets) == 0
 
-    # UI defaults for ko
-    ui = {}
-    if args.locale == "ko":
-        ui = {
-            "title": "AI SOTA Feed",
-            "description": "최신 AI 기술 소식을 한 곳에서 확인하세요.",
-            "feed_title": "오늘의 주요 뉴스"
-        }
+    ui = FEED_UI.get(args.locale, {})
 
     snapshot = {
         "locale": args.locale,

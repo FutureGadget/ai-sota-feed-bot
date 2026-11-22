@@ -82,6 +82,7 @@ from urllib.parse import quote, urlparse, urlsplit
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
 import community  # noqa: E402
+import locales  # noqa: E402
 import source_labels  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
@@ -1005,23 +1006,18 @@ def iso_or_none(value) -> str | None:
         return None
 
 
-KO_WEEKDAYS = ("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일")
-
-
 def fmt_long_date(day_id: str, locale: str = "en") -> str:
     """e.g. 'Wednesday, Jun 10, 2026' / '2026년 6월 10일 수요일'."""
     try:
         d = date.fromisoformat(day_id)
     except Exception:
         return str(day_id)
-    if locale == "ko":
-        return f"{d.year}년 {d.month}월 {d.day}일 {KO_WEEKDAYS[d.weekday()]}"
-    return f"{d.strftime('%A')}, {d.strftime('%b')} {d.day}, {d.year}"
+    return locales.format_date(locale, "long", d)
 
 
 def fmt_short_date(d: date, locale: str = "en") -> str:
     """Article date badge: 'Nov 18' / '11월 18일'."""
-    return f"{d.month}월 {d.day}일" if locale == "ko" else f"{d.strftime('%b')} {d.day}"
+    return locales.format_date(locale, "short", d)
 
 
 # Reader-facing labels on recap pages. English pages keep the "en" strings;
@@ -1479,6 +1475,13 @@ def render_head(
 {PAGE_CSS}{extra_css}  </style>"""
 
 
+# Site footer line and its email link, per page language.
+FOOTER_COPY = {
+    "en": ("Built from the AI SOTA feed. Each item links to its original source.", "Email digest"),
+    "ko": ("AI SOTA 피드로 만들었습니다. 모든 항목은 원문으로 연결됩니다.", "이메일 다이제스트"),
+}
+
+
 def render_page(
     *,
     title: str,
@@ -1506,11 +1509,7 @@ def render_page(
 ) -> str:
     section = site_section_for_url(canonical)
     nav = render_site_nav(section)
-    footer_text, footer_link = (
-        ("AI SOTA 피드로 만들었습니다. 모든 항목은 원문으로 연결됩니다.", "이메일 다이제스트")
-        if lang == "ko"
-        else ("Built from the AI SOTA feed. Each item links to its original source.", "Email digest")
-    )
+    footer_text, footer_link = FOOTER_COPY.get(lang, FOOTER_COPY["en"])
     json_link = (
         f'\n        <a href="{escape(json_href)}">View as JSON</a>' if json_href else ""
     )
@@ -1588,9 +1587,9 @@ def render_page(
 </body>
 </html>
 """
-    if lang == "ko":
-        # Korean pages sign readers up for the Korean email edition.
-        page = page.replace('href="/subscribe"', 'href="/subscribe?lang=ko"')
+    if lang != locales.DEFAULT:
+        # Localized pages sign readers up for their language's email edition.
+        page = page.replace('href="/subscribe"', f'href="/subscribe?lang={lang}"')
     return page
 
 
@@ -1627,8 +1626,10 @@ SITE_DESTINATIONS = (
 def site_section_for_url(url: str) -> str:
     """Map a canonical/detail URL to its parent site destination."""
     path = urlsplit(url).path.rstrip("/") or "/"
-    if path.startswith("/ko/"):
-        path = path[3:] or "/"
+    for code in locales.others(locales.DEFAULT):
+        prefix = locales.get(code).path_prefix
+        if path.startswith(prefix + "/"):
+            path = path[len(prefix):] or "/"
     if path == "/" or path.startswith("/story/"):
         return "/"
     if path == "/daily" or path.startswith("/daily/"):
@@ -2030,8 +2031,8 @@ def render_community_pages(base_url: str) -> list[tuple[str, str | None]]:
 
     for locale in community.LOCALES:
         copy = community.COPY[locale]
-        prefix = "/ko" if locale == "ko" else ""
-        root_dir = WEB_DIR / ("ko" if locale == "ko" else "") / "community"
+        prefix = locales.get(locale).path_prefix
+        root_dir = WEB_DIR / prefix.lstrip("/") / "community"
         local_rows = [r for r in rows if community.thread_for(r["post"], locale)]
         for row in local_rows:
             kind, edition, post, recap = row["kind"], row["edition"], row["post"], row["recap"]
@@ -2047,14 +2048,14 @@ def render_community_pages(base_url: str) -> list[tuple[str, str | None]]:
             alternates = None
             language_links = None
             if has_other:
-                other = "en" if locale == "ko" else "ko"
                 alternates = [
-                    ("en", f"{base_url}{community.post_path(kind, edition, 'en')}"),
-                    ("ko", f"{base_url}{community.post_path(kind, edition, 'ko')}"),
-                    ("x-default", f"{base_url}{community.post_path(kind, edition, 'en')}"),
+                    *((c, f"{base_url}{community.post_path(kind, edition, c)}") for c in locales.LOCALES),
+                    ("x-default", f"{base_url}{community.post_path(kind, edition, locales.DEFAULT)}"),
                 ]
-                language_links = [(other, community.post_path(kind, edition, other), LANGUAGE_LABELS[other])]
-            back = "← 전체 스레드" if locale == "ko" else "← All threads"
+                language_links = [
+                    (o, community.post_path(kind, edition, o), locales.get(o).label) for o in locales.others(locale)
+                ]
+            back = copy["back_to_index"]
             hero = (
                 '<section class="community-hero">'
                 f'<p class="community-kicker"><a href="{prefix}/community">{back}</a></p>'
@@ -2104,14 +2105,13 @@ def render_community_pages(base_url: str) -> list[tuple[str, str | None]]:
             '<section class="community-hero">'
             f'<p class="community-dek">{escape(copy["index_dek"])}</p></section>'
         )
-        other = "en" if locale == "ko" else "ko"
         html = render_page(
             title=f"{copy['index_title']} · LLM Digest",
             description=copy["index_dek"],
             canonical=f"{base_url}{index_path}",
             published=None,
             h1=copy["section"],
-            meta_line=(f"스레드 {len(local_rows)}개" if locale == "ko" else f"{len(local_rows)} threads"),
+            meta_line=copy["n_threads"].format(n=len(local_rows)),
             json_href="",
             archive="",
             recap_title=copy["index_title"],
@@ -2124,17 +2124,16 @@ def render_community_pages(base_url: str) -> list[tuple[str, str | None]]:
             extra_css=community.THREAD_CSS,
             lang=locale,
             alternate_links=[
-                ("en", f"{base_url}/community"),
-                ("ko", f"{base_url}/ko/community"),
+                *((c, f"{base_url}{locales.path(c, '/community')}") for c in locales.LOCALES),
                 ("x-default", f"{base_url}/community"),
             ],
-            language_links=[(other, "/ko/community" if other == "ko" else "/community", LANGUAGE_LABELS[other])],
+            language_links=[(o, locales.path(o, "/community"), locales.get(o).label) for o in locales.others(locale)],
         )
         root_dir.mkdir(parents=True, exist_ok=True)
         (root_dir / "index.html").write_text(clean_generated_i18n_html(html), encoding="utf-8")
         written.append((index_path, None))
 
-    for locale_dir in (WEB_DIR / "community", WEB_DIR / "ko" / "community"):
+    for locale_dir in (WEB_DIR / locales.get(c).path_prefix.lstrip("/") / "community" for c in locales.LOCALES):
         for kind, spec in community.KINDS.items():
             html_re = DATE_HTML_RE if kind == "daily" else WEEK_HTML_RE
             out_dir = locale_dir / kind
@@ -6273,9 +6272,6 @@ def i18n_hash_matches(artifact_hash: str, source: dict) -> bool:
     return bool(value) and value in {i18n_source_hash(source), _i18n_hash_payload(source)}
 
 
-LANGUAGE_LABELS = {"en": "English", "ko": "Korean"}
-
-
 def superseded_storyline_slugs(storyline_details: list[dict], index: dict | None = None) -> set[str]:
     """Slugs whose English page is a redirect stub to a live thread."""
     if index is None:
@@ -6349,7 +6345,7 @@ def collect_i18n_pages(
                 continue
             page = {
                 "locale": locale,
-                "language_label": LANGUAGE_LABELS.get(locale, locale),
+                "language_label": locales.get(locale).label if locale in locales.LOCALES else locale,
                 "source_path": source_path,
                 "canonical_path": f"/{locale}{source_path}",
                 "translated_at": str(artifact.get("translated_at") or ""),
@@ -6562,7 +6558,7 @@ def render_i18n_daily_page(
             ("en", english_url),
             ("x-default", english_url),
         ],
-        language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
+        language_links=[(locales.DEFAULT, source_path, locales.get(locales.DEFAULT).label)],
     )
     return clean_generated_i18n_html(html)
 
@@ -6655,7 +6651,7 @@ def render_i18n_weekly_page(
             ("en", english_url),
             ("x-default", english_url),
         ],
-        language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
+        language_links=[(locales.DEFAULT, source_path, locales.get(locales.DEFAULT).label)],
     )
     return clean_generated_i18n_html(html)
 

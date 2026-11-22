@@ -31,6 +31,10 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "pipeline"))
+import locales  # noqa: E402
+
+LOCALIZED = locales.others(locales.DEFAULT)
 DATA = ROOT / "data"
 MANIFEST_KEY = "_deploy/data-manifest.json"
 
@@ -42,8 +46,7 @@ EXACT_FILES = [
     "processed/runs_index.json",
     "processed/editorial.json",
     "feedback/source_adjustments.json",
-    "i18n/ko/feed/latest.json",
-    "i18n/ko/feed/status.json",
+    *(f"i18n/{c}/feed/{name}" for c in LOCALIZED for name in ("latest.json", "status.json")),
     "stories/index.json",
     "wiki/index.json",
     "foundations/index.json",
@@ -55,7 +58,7 @@ TOP_LEVEL_DIRS = [
     "storylines",
     "playbook",
     "playbook/lab",
-    "i18n/ko/playbook",
+    *(f"i18n/{c}/playbook" for c in LOCALIZED),
 ]
 
 

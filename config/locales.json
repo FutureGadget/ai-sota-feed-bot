@@ -1,0 +1,56 @@
+{
+  "_comment": "Reader languages. The first entry is the default (English, the source of truth); every other entry is a localized edition served under its path_prefix. Read by pipeline/locales.py and lib/locales.js.",
+  "locales": [
+    {
+      "code": "en",
+      "label": "English",
+      "path_prefix": "",
+      "email": {
+        "segment_env": ["EMAIL_SEGMENT_ID", "EMAIL_AUDIENCE_ID"],
+        "font_stack": "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
+        "keep_all": false
+      },
+      "community": {"style": "reddit", "max_title_chars": 90},
+      "recap": {},
+      "dates": {
+        "months_short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "weekdays_long": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "weekdays_short": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        "long": "{weekday_long}, {mon} {day}, {year}",
+        "short": "{mon} {day}",
+        "header": "{weekday_short}, {mon} {day}",
+        "edition": "{mon} {day}, {year}",
+        "range_same_month": "{mon} {day}–{b_day}",
+        "range_cross_month": "{mon} {day}–{b_mon} {b_day}",
+        "edition_range_same_month": "{mon} {day}–{b_day}, {b_year}",
+        "edition_range_cross_month": "{mon} {day} – {b_mon} {b_day}, {b_year}"
+      }
+    },
+    {
+      "code": "ko",
+      "label": "Korean",
+      "path_prefix": "/ko",
+      "script": "[가-힣]",
+      "email": {
+        "segment_env": ["EMAIL_SEGMENT_ID_KO"],
+        "font_stack": "-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR','Segoe UI',Roboto,Helvetica,Arial,sans-serif",
+        "keep_all": true
+      },
+      "community": {"style": "dcinside", "max_title_chars": 45},
+      "recap": {"max_title_chars": 40, "max_highlight_chars": 100, "max_category_name_chars": 40},
+      "dates": {
+        "months_short": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        "weekdays_long": ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"],
+        "weekdays_short": ["월", "화", "수", "목", "금", "토", "일"],
+        "long": "{year}년 {month}월 {day}일 {weekday_long}",
+        "short": "{month}월 {day}일",
+        "header": "{month}월 {day}일 ({weekday_short})",
+        "edition": "{year}년 {month}월 {day}일",
+        "range_same_month": "{month}월 {day}–{b_day}일",
+        "range_cross_month": "{month}월 {day}–{b_month}월 {b_day}일",
+        "edition_range_same_month": "{year}년 {month}월 {day}일–{b_month}월 {b_day}일",
+        "edition_range_cross_month": "{year}년 {month}월 {day}일–{b_month}월 {b_day}일"
+      }
+    }
+  ]
+}

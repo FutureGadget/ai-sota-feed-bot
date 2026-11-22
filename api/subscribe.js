@@ -16,14 +16,15 @@
 
 import { follow, page, unfollow, watch } from '../lib/follow.js';
 import { readerIdFor } from '../lib/reader-id.js';
+import { DEFAULT_LOCALE, LOCALES, getLocale, localePath, parseLocale } from '../lib/locales.js';
 
 export { readerIdFor };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// The email edition a signup asked for: 'ko' or the default 'en'.
+// The email edition a signup asked for: a supported language, else the default.
 export function subscribeLocale(value) {
-  return String(value || '').trim().toLowerCase() === 'ko' ? 'ko' : 'en';
+  return parseLocale(value);
 }
 
 // The send time an English signup asked for: 'us' (11:30 UTC) or the default
@@ -36,17 +37,18 @@ export function subscribeSlot(value, locale = 'en') {
 // that is configured (so a switch can leave the others).
 export function editionSegments(env = process.env) {
   const read = (name) => String(env[name] || '').trim();
-  return {
-    en: read('EMAIL_SEGMENT_ID') || read('EMAIL_AUDIENCE_ID'),
-    ko: read('EMAIL_SEGMENT_ID_KO'),
-    enUs: read('EMAIL_SEGMENT_ID_EN_US'),
-  };
+  const segments = {};
+  for (const code of LOCALES) {
+    segments[code] = getLocale(code).email.segment_env.map(read).find(Boolean) || '';
+  }
+  segments.enUs = read('EMAIL_SEGMENT_ID_EN_US');
+  return segments;
 }
 
 export function segmentFor(locale, slot, segments = editionSegments()) {
-  if (locale === 'ko' && segments.ko) return segments.ko;
-  if (locale === 'en' && slot === 'us' && segments.enUs) return segments.enUs;
-  return segments.en;
+  if (locale !== DEFAULT_LOCALE && segments[locale]) return segments[locale];
+  if (locale === DEFAULT_LOCALE && slot === 'us' && segments.enUs) return segments.enUs;
+  return segments[DEFAULT_LOCALE];
 }
 function resendCall(apiKey, method, path, payload) {
   return fetch(`https://api.resend.com${path}`, {
@@ -150,11 +152,11 @@ export function welcomeEmail({ from, locale = 'en', weeklyOnly = false, slot = '
   const when = t.times[slot] || t.times.kst;
   const fill = ([name, desc]) => [name, desc.replace('{daily}', when.daily).replace('{weekly}', when.weekly)];
   const base = siteBase.replace(/\/$/, '');
-  const prefix = locale === 'ko' ? '/ko' : '';
+  const prefix = localePath(locale, '');
   const latest = `${base}${prefix}${weeklyOnly ? '/weekly' : '/daily'}?utm_source=email&utm_medium=email&utm_campaign=welcome-${locale}`;
   const items = (weeklyOnly ? [t.weekly, t.memory] : [t.daily, t.weekly, t.memory]).map(fill);
   const cta = weeklyOnly ? t.ctaWeekly : t.cta;
-  const keepAll = locale === 'ko' ? ';word-break:keep-all' : '';
+  const keepAll = getLocale(locale)?.email.keep_all ? ';word-break:keep-all' : '';
   const rows = items
     .map(
       ([name, desc], i) =>
@@ -323,7 +325,7 @@ export async function POST(request) {
     // success (idempotent). When both language editions are configured, it
     // also moves the contact to the edition this signup asked for.
     if (r.status === 409 || r.status === 422) {
-      const others = [...new Set([segments.en, segments.ko, segments.enUs].filter((id) => id && id !== segmentId))];
+      const others = [...new Set([...LOCALES.map((c) => segments[c]), segments.enUs].filter((id) => id && id !== segmentId))];
       if (segmentId && others.length) {
         const moved = await switchEdition(apiKey, email, segmentId, others);
         if (!moved.ok) {

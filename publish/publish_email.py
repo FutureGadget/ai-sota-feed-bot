@@ -50,6 +50,7 @@ from pipeline.build_skill_lab import (  # noqa: E402
 from pipeline.story_store import story_sid  # noqa: E402
 sys.path.insert(0, str(ROOT / "pipeline"))
 import community  # noqa: E402
+import locales  # noqa: E402
 import recap_i18n  # noqa: E402
 from source_labels import SOURCE_ACRONYMS, SOURCE_NAMES, source_name  # noqa: E402,F401
 
@@ -93,7 +94,7 @@ PREHEADER_PAD = "&#847;&zwnj;&nbsp;" * 40
 # Locale copy. The English recap is the source of truth; the Korean email reads
 # the agent-written translation (data/i18n/ko/<kind>/<id>.json) and these labels.
 # --------------------------------------------------------------------------- #
-LOCALES = ("en", "ko")
+LOCALES = locales.LOCALES
 EMAIL_COPY = {
     "en": {
         "daily_subject": "{top} · {n} picks, ~{mins} min",
@@ -207,7 +208,7 @@ def _t(locale: str, key: str, **kw) -> str:
 
 def site_path(locale: str, path: str) -> str:
     """Prefix a site path for a locale: ``/daily/x`` -> ``/ko/daily/x``."""
-    return f"/ko{path}" if locale == "ko" else path
+    return locales.path(locale, path)
 
 
 def _fresh_i18n(surface: str, ident: str, source: dict | None, locale: str) -> dict | None:
@@ -629,15 +630,17 @@ def unsubscribe_html(cfg: dict, locale: str = "en") -> str:
 def language_switch_html(cfg: dict, locale: str = "en") -> str:
     """Footer link to the signup page with the other edition preselected.
     Re-subscribing there moves an existing reader to that edition
-    (``api/subscribe.js``). Empty until the Korean segment is configured."""
-    if not segment_for("ko"):
+    (``api/subscribe.js``). Empty until a localized segment is configured."""
+    if not any(segment_for(c) for c in locales.others(locales.DEFAULT)):
         return ""
-    other = "en" if locale == "ko" else "ko"
-    url = f"{cfg['site_base'].rstrip('/')}/subscribe?lang={other}&utm_source={cfg['utm_source']}&utm_content=footer"
-    return (
-        f' · <a href="{html.escape(url)}" style="color:#999" lang="{other}">'
-        f"{html.escape(_t(locale, 'switch_lang'))}</a>"
-    )
+    links = ""
+    for other in locales.others(locale):
+        url = f"{cfg['site_base'].rstrip('/')}/subscribe?lang={other}&utm_source={cfg['utm_source']}&utm_content=footer"
+        links += (
+            f' · <a href="{html.escape(url)}" style="color:#999" lang="{other}">'
+            f"{html.escape(_t(locale, 'switch_lang'))}</a>"
+        )
+    return links
 
 
 def time_switch_html(cfg: dict, locale: str = "en", slot: str = "kst") -> str:
@@ -657,29 +660,16 @@ def time_switch_html(cfg: dict, locale: str = "en", slot: str = "kst") -> str:
     )
 
 
-EMAIL_FONT_STACK = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
-EMAIL_FONT_STACK_KO = (
-    "-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',"
-    "'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
-)
-
-
 def wrapper_attrs(locale: str = "en") -> str:
     """Attributes for the email's outer container. Korean breaks lines between
     words (keep-all) instead of mid-word, the same rule the web pages use, and
     names Hangul fonts before the Latin fallbacks."""
     style = "max-width:640px;margin:0 auto;padding:24px 18px;color:#111;background:#ffffff;"
-    if locale == "ko":
-        return (
-            f'lang="ko" style="{style}font-family:{EMAIL_FONT_STACK_KO};'
-            'word-break:keep-all;overflow-wrap:break-word"'
-        )
-    return f'style="{style}font-family:{EMAIL_FONT_STACK}"'
-
-
-EN_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-EN_WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-KO_WEEKDAYS = ("월", "화", "수", "목", "금", "토", "일")
+    email = locales.get(locale).email
+    if locale == locales.DEFAULT:
+        return f'style="{style}font-family:{email["font_stack"]}"'
+    wrap = ";word-break:keep-all;overflow-wrap:break-word" if email["keep_all"] else ""
+    return f'lang="{locale}" style="{style}font-family:{email["font_stack"]}{wrap}"'
 
 
 def header_date(day: str, locale: str = "en") -> str:
@@ -689,9 +679,7 @@ def header_date(day: str, locale: str = "en") -> str:
         d = datetime.strptime(str(day)[:10], "%Y-%m-%d")
     except ValueError:
         return str(day)
-    if locale == "ko":
-        return f"{d.month}월 {d.day}일 ({KO_WEEKDAYS[d.weekday()]})"
-    return f"{EN_WEEKDAYS[d.weekday()]}, {EN_MONTHS[d.month - 1]} {d.day}"
+    return locales.format_date(locale, "header", d)
 
 
 def week_range(wk: dict, locale: str = "en") -> str:
@@ -701,18 +689,14 @@ def week_range(wk: dict, locale: str = "en") -> str:
         b = datetime.strptime(str(wk.get("end"))[:10], "%Y-%m-%d")
     except ValueError:
         return str(wk.get("week") or "")
-    if locale == "ko":
-        tail = f"{b.day}일" if a.month == b.month else f"{b.month}월 {b.day}일"
-        return f"{a.month}월 {a.day}–{tail}"
-    tail = f"{b.day}" if a.month == b.month else f"{EN_MONTHS[b.month - 1]} {b.day}"
-    return f"{EN_MONTHS[a.month - 1]} {a.day}–{tail}"
+    return locales.format_range(locale, "range", a, b)
 
 
 def share_html(cfg: dict, page_url: str, title: str, locale: str = "en") -> str:
     """"Forward it" line: a mailto link that opens a new message with the web
     version and the signup link already filled in."""
     base = cfg["site_base"].rstrip("/")
-    sub_url = f"{base}/subscribe{'?lang=ko' if locale == 'ko' else ''}"
+    sub_url = f"{base}/subscribe{'' if locale == locales.DEFAULT else f'?lang={locale}'}"
     subject = _t(locale, "share_subject", title=title)
     body = _t(locale, "share_body", url=page_url.split("?")[0], sub=sub_url)
     href = f"mailto:?subject={quote(subject)}&body={quote(body)}"
@@ -1221,16 +1205,15 @@ def render_weekly(
 # send (08:00 in Seoul); every subscriber from before the time choice is in its
 # segments. "us" is 11:30 UTC (07:30 in New York) for English readers who pick it.
 SLOTS = ("kst", "us")
-EDITIONS = (("en", "kst"), ("ko", "kst"), ("en", "us"))
+EDITIONS = (*((c, "kst") for c in locales.LOCALES), (locales.DEFAULT, "us"))
 
 
 def segment_for(locale: str, slot: str = "kst") -> str:
     """The Resend segment an edition's broadcast targets ("" when unset)."""
-    if locale == "ko":
-        return (os.getenv("EMAIL_SEGMENT_ID_KO") or "").strip()
-    if slot == "us":
+    if locale == locales.DEFAULT and slot == "us":
         return (os.getenv("EMAIL_SEGMENT_ID_EN_US") or "").strip()
-    return (os.getenv("EMAIL_SEGMENT_ID") or os.getenv("EMAIL_AUDIENCE_ID") or "").strip()
+    names = locales.get(locale).email["segment_env"]
+    return next((v.strip() for v in (os.getenv(n) or "" for n in names) if v.strip()), "")
 
 
 def edition_state_key(kind: str, locale: str, slot: str = "kst") -> str:
