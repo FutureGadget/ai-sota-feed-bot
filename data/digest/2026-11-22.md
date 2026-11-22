@@ -2,104 +2,92 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Codeint – Measure duplication and complexity drift in AI-written code
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/avidianity/codeint
-- Score: 3.091 | Reliability: 1.0
+## 1. AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.909 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Patrick Debois on Multiplayer Software Factories | Tessl
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/PzNzUeHpurI
-- Score: 3.156 | Reliability: 0.806
-- Why it matters: Matches feed focus: agent.
-
-## 3. Zero Trust for AI Agents
-- Type: news | Source: hackernews_ai
-- URL: https://claude.com/resources/articles/zero-trust-for-ai-agents
-- Score: 3.026 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. From Cases to Criteria: Reusing Evaluation Knowledge for Task-Specific Rubric Generation
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.25903v1
-- Score: 1.998 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 5. Learning to Think with Images Faithfully via Adaptive Data Selection
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.26199v1
-- Score: 1.994 | Reliability: 1.0
-- Why it matters: 
-
-## 6. RL Can Only Reinforce What It Sees Succeed
+## 2. Beam Model Technical Report
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.26084v1
-- Score: 1.991 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: http://arxiv.org/abs/2611.26358v1
+- Score: 2.764 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 7. Why agent governance starts with observability
+## 3. Seer: Guiding Small Deep-Research Agents with Shared Decision Models
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26423v1
+- Score: 2.659 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 4. MemFolder: Structure-Guided Memory Folding for Efficient Agent Memory Management
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.26427v1
+- Score: 2.651 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 5. Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-20-inkling2-mini
+- Score: 1.822 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Why agent governance starts with observability
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/agent-governance-observability
-- Score: 1.829 | Reliability: 1.0
+- Score: 1.8 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. How Abundant designed efficient rollout architecture with Modal Sandboxes
-- Type: news | Source: modal_blog
-- URL: https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes
-- Score: 1.817 | Reliability: 1.0
-- Why it matters: 
-
-## 9. vllm v0.34.0
+## 7. vllm v0.34.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.237 | Reliability: 1.0
+- Score: 1.235 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
-## 10. claude-code v2.1.328
+## 8. claude-code v2.1.328
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.328
 - Score: 1.231 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 11. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
-- Type: video | Source: lennys_podcast
-- URL: https://youtu.be/WY0cdD4gNoQ
-- Score: 1.194 | Reliability: 0.806
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 12. codex 0.171.0-alpha.13.1
+## 9. codex 0.173.0-alpha.1
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13.1
-- Score: 1.19 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.1
+- Score: 1.177 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 13. tencent/WeMM-Video-4B-NVFP4 released on Hugging Face
+## 10. tencent/WeMM-Video-4B-GGUF released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Video-4B-NVFP4
-- Score: 1.016 | Reliability: 1.0
+- URL: https://huggingface.co/tencent/WeMM-Video-4B-GGUF
+- Score: 1.015 | Reliability: 1.0
 - Why it matters: 
 
-## 14. langgraph==1.2.23
+## 11. FLUID: Flexible, Evidence-Grounded Situated Task Guidance
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26491v1
+- Score: 2.606 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. KnowledgeClaw: Towards Agentic Knowledge Engineering via Omnimodal Hypergraphs
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.24294v1
+- Score: 2.468 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 13. langgraph-prebuilt==1.1.3
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 1.006 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 1.0 | Reliability: 1.0
 - Why it matters: 
 
-## 15. claude-agent-sdk-python v0.2.185
+## 14. claude-agent-sdk-python v0.2.185
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
 - Score: 0.949 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
+## 15. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/open-clairic/
-- Score: 0.949 | Reliability: 1.0
-- Why it matters: 
-
-## 17. Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/
-- Score: 0.845 | Reliability: 1.0
+- Score: 0.947 | Reliability: 1.0
 - Why it matters:
