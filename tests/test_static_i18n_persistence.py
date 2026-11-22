@@ -210,7 +210,8 @@ class GitHubReadTests(unittest.TestCase):
 
 
 class FeedRecoveryGateTests(unittest.TestCase):
-    def test_unrecovered_static_usage_skips_paid_step_and_completes_english_pipeline(self):
+    def run_full(self, **gate) -> tuple[subprocess.CompletedProcess, list[str]]:
+        """Run run_full.sh offline with every python call logged; return the result and the scripts called."""
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             script = root / "skills/ai-feed-digest-local/scripts/run_full.sh"
@@ -233,16 +234,31 @@ class FeedRecoveryGateTests(unittest.TestCase):
             activate.write_text(f'export PATH="{binary_dir}:$PATH"\n')
             write(root, "data/processed/latest.json", {})
             calls = root / "calls.jsonl"
-            environment = {**os.environ, "AUTO_PUSH_RUNTIME": "0", "STATIC_I18N_RECOVERY_BLOCKED": "1",
-                           "OFFLINE_CALL_LOG": str(calls)}
+            environment = {**os.environ, "AUTO_PUSH_RUNTIME": "0", "OFFLINE_CALL_LOG": str(calls), **gate}
             result = subprocess.run(["bash", str(script)], env=environment, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("FULL_RUN_OK", result.stdout)
-            self.assertIn("reason=unpersisted_static_usage_or_dry_run", result.stdout)
-            commands = [json.loads(line)[0] for line in calls.read_text().splitlines()]
-            self.assertIn("collectors/collect.py", commands)
-            self.assertIn("pipeline/render_static_pages.py", commands)
-            self.assertNotIn("pipeline/build_localized_feed.py", commands)
+            return result, [json.loads(line)[0] for line in calls.read_text().splitlines()]
+
+    def test_unrecovered_static_usage_skips_paid_step_and_completes_english_pipeline(self):
+        result, commands = self.run_full(STATIC_I18N_RECOVERY_BLOCKED="1")
+        self.assertIn("reason=unpersisted_static_usage_or_dry_run", result.stdout)
+        self.assertIn("collectors/collect.py", commands)
+        self.assertIn("pipeline/render_static_pages.py", commands)
+        self.assertNotIn("pipeline/build_localized_feed.py", commands)
+        self.assertNotIn("pipeline/build_localized_updates.py", commands)
+
+    def test_the_desk_titles_are_built_after_the_feed_cards(self):
+        _, commands = self.run_full()
+        feed, desk = "pipeline/build_localized_feed.py", "pipeline/build_localized_updates.py"
+        self.assertIn(desk, commands)
+        self.assertLess(commands.index(feed), commands.index(desk))
+
+    def test_the_kill_switch_skips_both_localized_builders(self):
+        result, commands = self.run_full(LOCALIZED_FEED_ENABLED="0")
+        self.assertIn("reason=disabled", result.stdout)
+        self.assertNotIn("pipeline/build_localized_feed.py", commands)
+        self.assertNotIn("pipeline/build_localized_updates.py", commands)
 
 
 class GitPublicationTests(unittest.TestCase):

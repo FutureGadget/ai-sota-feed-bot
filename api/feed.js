@@ -8,7 +8,7 @@ import {
   readEditorial,
 } from '../lib/editorial.js';
 import { readDataJson } from '../lib/data-source.js';
-import { isLocalized } from '../lib/locales.js';
+import { isLocalized, localizedFeedEnabled } from '../lib/locales.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -157,13 +157,6 @@ function overlayCard(item, entry, locale) {
     });
   }
   return overlaid;
-}
-
-// The operator's off switch: LOCALIZED_FEED_ENABLED=0 (or false/no/off) makes
-// every locale return the plain English feed.
-function localizedFeedEnabled() {
-  const flag = String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase();
-  return !['0', 'false', 'no', 'off'].includes(flag);
 }
 
 function withCardTranslations(body, searchParams) {

@@ -217,8 +217,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     `config/translation.json`, USD `Ledger` in `data/i18n/translation_spend.json`
     that raises `BudgetExceeded` at the monthly cap. `build_localized_feed.py`
     (live `/ko/` feed, one job per card, stored per card in
-    `data/i18n/<locale>/feed/cards.json`) and `scripts/translate.py` (static
-    pages, one job per page) share it; see
+    `data/i18n/<locale>/feed/cards.json`), `build_localized_updates.py` (the
+    Editor's Desk items, reusing current Korean artifacts first, stored per item
+    in `data/i18n/<locale>/updates/titles.json`) and `scripts/translate.py`
+    (static pages, one job per page) share it; see
     `docs/how-to/translation-budget-and-quota.md`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
@@ -541,8 +543,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   dictionary per language). It requests `/api/feed?locale=ko`, which returns the
   English home's feed with each card in Korean where
   `data/i18n/<locale>/feed/cards.json` has a current translation, English
-  otherwise. `LOCALIZED_FEED_ENABLED=0` turns the overlay off. The static-page
-  i18n renderer intentionally ignores `feed/**`.
+  otherwise. The Editor's Desk strip and panels read `/api/updates?locale=ko`,
+  which overlays `data/i18n/<locale>/updates/titles.json` the same way.
+  `LOCALIZED_FEED_ENABLED=0` turns both overlays off. The static-page i18n
+  renderer intentionally ignores `feed/**` and `updates/**`.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh
   translations only when the user explicitly asks for translated pages; do not

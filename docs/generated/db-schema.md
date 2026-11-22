@@ -322,6 +322,17 @@ accumulated ranked pool (calendar ranges):
   `pipeline/render_static_pages.py` ignores `data/i18n/<locale>/feed/**`.
   `scripts/r2_sync.py` publishes `cards.json` and the Worker preloads it for
   `api/feed.js`.
+- `data/i18n/<locale>/updates/titles.json` — per-item translations of the
+  Editor's Desk catalog. Shape: `{locale, updated_at, items: {<catalog item id>:
+  {source_hash, translated_at, title, summary, origin{title, summary}}}}`.
+  `source_hash` is the sha256 of the English `{summary, title}`; `origin` names
+  each field's source, `artifact` (a current Korean recap, storyline, topic,
+  foundation or playbook artifact) or the translator model. `/api/updates?locale=`
+  overlays an entry only while `source_hash` equals the item's current English
+  hash. Entries for items that left the catalog are dropped. Written by
+  `pipeline/build_localized_updates.py`. `pipeline/render_static_pages.py`
+  ignores `data/i18n/<locale>/updates/**`. `scripts/r2_sync.py` publishes it and
+  the Worker preloads it for `api/updates.js`.
 - `data/i18n/translation_spend.json` — **pipeline-only** USD ledger for every
   Claude translation call, shared by the live feed and the static-page
   translator (`pipeline/translator.py` `Ledger`); never added to `vercel.json`

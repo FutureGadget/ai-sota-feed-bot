@@ -101,9 +101,14 @@ async function preloadForApi(pathname, searchParams) {
       await preload(base);
       return playbookGET;
     }
-    case '/api/updates':
-      await preload(['served/updates.json']);
+    case '/api/updates': {
+      const keys = ['served/updates.json'];
+      // Desk titles for a localized locale.
+      const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
+      if (isLocalized(locale)) keys.push(`i18n/${locale}/updates/titles.json`);
+      await preload(keys);
       return updatesGET;
+    }
     case '/api/client-config':
       return clientConfigGET;
     default:

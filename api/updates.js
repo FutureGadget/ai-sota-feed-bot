@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { buildEditorialCatalog } from '../lib/editorial-catalog.js';
 import { readDataJson } from '../lib/data-source.js';
+import { withUpdateTranslations } from '../lib/update-translations.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -102,20 +103,23 @@ export function GET(request) {
     // catalog walk reads dozens of section files, too many for a Worker
     // request. `now` stays runtime-fresh.
     const served = readDataJson('served/updates.json', null);
-    if (served && Array.isArray(served.items)) {
-      return Response.json({ ...served, now: new Date().toISOString() });
-    }
-    return Response.json({
-      now: new Date().toISOString(),
-      catalog_version: 1,
-      items: buildEditorialCatalog(DATA),
-      daily: latestDaily(),
-      weekly: latestWeekly(),
-      storylines: latestStorylines(),
-      playbook: latestPlaybook(),
-      map: latestMap(),
-      foundations: latestFoundations(),
-    });
+    const body = served && Array.isArray(served.items)
+      ? { ...served, now: new Date().toISOString() }
+      : {
+        now: new Date().toISOString(),
+        catalog_version: 1,
+        items: buildEditorialCatalog(DATA),
+        daily: latestDaily(),
+        weekly: latestWeekly(),
+        storylines: latestStorylines(),
+        playbook: latestPlaybook(),
+        map: latestMap(),
+        foundations: latestFoundations(),
+      };
+    // ?locale=<l>: the same catalog, each item in that language where a
+    // current translation exists (lib/update-translations.js).
+    const locale = new URL(request.url).searchParams.get('locale');
+    return Response.json(withUpdateTranslations(body, locale));
   } catch (e) {
     return Response.json({ error: 'updates_read_failed', detail: String(e) }, { status: 500 });
   }
