@@ -6,9 +6,10 @@ import test from 'node:test';
 
 import { GET, sourceHash } from '../api/feed.js';
 
-// Per-card translations: /api/feed?locale=ko (without localized_snapshot=latest)
-// is the English response for the same params with each card overlaid from
-// data/i18n/ko/feed/cards.json while the stored source_hash still matches.
+// Per-card translations: /api/feed?locale=ko is the English response for the
+// same params with each card overlaid from data/i18n/ko/feed/cards.json while
+// the stored source_hash still matches. LOCALIZED_FEED_ENABLED=0 switches the
+// overlay off.
 
 async function invoke(query) {
   const url = new URL('https://example.test/api/feed');
@@ -152,23 +153,31 @@ test('the default locale and unknown locales get no overlay and no i18n field', 
   }
 });
 
-test('localized_snapshot=latest keeps the snapshot path and adds no per-card fields', async (t) => {
-  const { writeCards, tmp } = fixture(t);
-  const c = byId((await invoke({ limit: '20' })).body, 'c');
-  writeCards({ [C]: entryFor(c) });
-  writeJson(path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'), {
-    locale: 'ko', surface: 'feed', is_complete: true,
-    source_run_at: new Date().toISOString(),
-    expires_at: new Date(Date.now() + 3600000).toISOString(),
-    items: [{ translation_key: C, source_hash: sourceHash(c), title: '스냅샷 C' }],
-  });
+test('LOCALIZED_FEED_ENABLED=0 returns the plain English feed for locale=ko', async (t) => {
+  const { writeCards } = fixture(t);
+  const english = (await invoke({ limit: '20' })).body;
+  writeCards({ [C]: entryFor(byId(english, 'c')) });
+  const on = (await invoke({ locale: 'ko', limit: '20' })).body;
+  assert.equal(byId(on, 'c').title, 'KO c', 'the overlay is on by default');
 
-  const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', label: 'brief', limit: '20' });
-  assert.equal(res.body.mode, 'localized_snapshot');
-  assert.ok(res.body.items.every((it) => !('i18n' in it)));
-  fs.rmSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'cards.json'));
-  const again = await invoke({ locale: 'ko', localized_snapshot: 'latest', label: 'brief', limit: '20' });
-  assert.deepEqual(again.body.items, res.body.items, 'cards.json does not change the snapshot response');
+  const saved = process.env.LOCALIZED_FEED_ENABLED;
+  t.after(() => {
+    if (saved == null) delete process.env.LOCALIZED_FEED_ENABLED;
+    else process.env.LOCALIZED_FEED_ENABLED = saved;
+  });
+  for (const flag of ['0', 'false', 'off', ' No ']) {
+    process.env.LOCALIZED_FEED_ENABLED = flag;
+    const off = (await invoke({ locale: 'ko', limit: '20' })).body;
+    assert.equal(byId(off, 'c').title, 'Unrelated launch', flag);
+    assert.ok(off.items.every((it) => !('i18n' in it)), flag);
+    const { items: _o, date: _d, ...offRest } = off;
+    const { items: _e, date: _d2, ...enRest } = english;
+    assert.deepEqual(offRest, enRest, flag);
+    assert.deepEqual(off.items.map((it) => it.id), english.items.map((it) => it.id), flag);
+  }
+
+  process.env.LOCALIZED_FEED_ENABLED = '1';
+  assert.equal(byId((await invoke({ locale: 'ko', limit: '20' })).body, 'c').title, 'KO c');
 });
 
 test('the arrival-window ledger path, the English home default, is overlaid too', async (t) => {

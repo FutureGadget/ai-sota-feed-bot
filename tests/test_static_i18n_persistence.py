@@ -22,7 +22,7 @@ import persist_static_i18n as persistence  # noqa: E402
 
 AT = "2026-10-09T03:08:29+00:00"
 ARTIFACT = "data/i18n/ko/storyline/claude-5-5.json"
-FEED_STATUS = "data/i18n/ko/feed/status.json"
+FEED_CARDS = "data/i18n/ko/feed/cards.json"
 LEDGER = persistence.LEDGER
 RECEIPTS = persistence.RECEIPTS
 # Dollar amounts are binary fractions so float sums compare exactly.
@@ -130,8 +130,7 @@ class LedgerMergeTests(unittest.TestCase):
 
     def test_path_escape_and_non_static_files_are_refused(self):
         for path in [
-            "../secret.json", "data/i18n/ko/../../secret.json", "data/i18n/ko/feed/latest.json",
-            "data/i18n/ko/feed/status.json", RECEIPTS,
+            "../secret.json", "data/i18n/ko/../../secret.json", "data/i18n/ko/feed/cards.json", RECEIPTS,
         ]:
             saved = bundle()
             saved["files"][path] = {"before": None, "after": "{}"}
@@ -258,7 +257,7 @@ class GitPublicationTests(unittest.TestCase):
         self.git(self.root, "clone", str(self.remote), str(self.feed))
         self.identity(self.feed)
         write(self.feed, LEDGER, BASE)
-        write(self.feed, FEED_STATUS, {"run": "base"})
+        write(self.feed, FEED_CARDS, {"run": "base"})
         write(self.feed, "data/processed/latest.json", {"version": "base"})
         (self.feed / "web").mkdir()
         write(self.feed, "web/source.json", {"version": "base"})
@@ -297,7 +296,7 @@ class GitPublicationTests(unittest.TestCase):
             "month": BASE["month"], "usd": BASE["usd"] + usd,
             "history": BASE["history"] + [{"at": AT, "key": "feed/1", "surface": "feed", "usd": usd}],
         })
-        write(self.feed, FEED_STATUS, {"run": f"feed-{extra}"})
+        write(self.feed, FEED_CARDS, {"run": f"feed-{extra}"})
         write(self.feed, "data/processed/latest.json", {"version": "fresh-feed"})
         write(self.feed, "web/source.json", {"version": "fresh-feed"})
         self.commit(self.feed, f"feed usage {extra}")
@@ -326,7 +325,7 @@ class GitPublicationTests(unittest.TestCase):
             persistence.publish(self.static, self.saved, render=lambda _: self.fail("replay rendered twice"))
         self.assertEqual(self.latest(LEDGER)["usd"], 4.375)  # base + feed 0.125 + static 0.25
         self.assertEqual([h["surface"] for h in self.latest(LEDGER)["history"]], ["feed", "feed", "static"])
-        self.assertEqual(self.latest(FEED_STATUS), {"run": "feed-0.0"})
+        self.assertEqual(self.latest(FEED_CARDS), {"run": "feed-0.0"})
         self.assertIn("actions-123-1", self.latest(RECEIPTS)["static_runs"])
         self.assertEqual(self.latest("web/rendered.json")["feed"], "fresh-feed")
         self.assertEqual(self.latest(ARTIFACT)["title"], "클로드")
@@ -346,7 +345,7 @@ class GitPublicationTests(unittest.TestCase):
         persistence.publish(self.static, self.saved, render=render_with_race)
         self.assertEqual(len(renders), 2)
         self.assertEqual(self.latest(LEDGER)["usd"], 4.4375)  # base + feed 0.1875 + static 0.25
-        self.assertEqual(self.latest(FEED_STATUS), {"run": "feed-0.0625"})
+        self.assertEqual(self.latest(FEED_CARDS), {"run": "feed-0.0625"})
 
     def test_render_failure_leaves_checkpoint_for_later_replay(self):
         self.advance_feed()

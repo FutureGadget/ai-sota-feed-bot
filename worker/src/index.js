@@ -42,17 +42,9 @@ async function preloadForApi(pathname, searchParams) {
         'served/pool.json',
         'served/brief_ledger.json',
       ];
-      if (
-        searchParams.get('locale') === 'ko'
-        && searchParams.get('localized_snapshot') === 'latest'
-      ) {
-        keys.push('i18n/ko/feed/latest.json', 'i18n/ko/feed/status.json');
-      }
-      // Per-card translations: any localized locale without the snapshot flag.
+      // Per-card translations for a localized locale.
       const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
-      if (isLocalized(locale) && searchParams.get('localized_snapshot') !== 'latest') {
-        keys.push(`i18n/${locale}/feed/cards.json`);
-      }
+      if (isLocalized(locale)) keys.push(`i18n/${locale}/feed/cards.json`);
       await preload(keys);
       return feedGET;
     }
