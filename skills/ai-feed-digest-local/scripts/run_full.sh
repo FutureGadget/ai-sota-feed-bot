@@ -60,6 +60,10 @@ json.loads(p.read_text(encoding='utf-8'))
 print('latest_json_valid=true')
 PY
 
+# build_digest.py above already wrote the Haiku card summaries (pipeline/summaries.py,
+# data/processed/summaries.json) into latest.json, the run snapshot and the Brief
+# ledger, so the Korean builder below translates the new English text. Keep it after
+# build_digest.py: a card's translation is keyed by a hash of that text.
 # Korean live-feed card and Editor's Desk title translations are optional and
 # translation-provider gated. Missing credentials must never block the English
 # hourly feed publish.

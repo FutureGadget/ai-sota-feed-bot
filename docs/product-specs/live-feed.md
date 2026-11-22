@@ -40,6 +40,43 @@ substantive changelog ranks above a bare version bump); the tier never makes
 an item Brief-eligible. Items from older snapshots without a tier behave the
 same way.
 
+## Card summaries
+
+The line under a card's headline is `summary_1line`. Collectors often hand the
+pipeline a teaser that is not a summary: the title again, or the article's raw
+opening lines ("Hi HN, Sanchit here from..."). The build replaces it with one
+plain English sentence written by Claude Haiku (`pipeline/summaries.py`,
+surface `summary` in `config/translation.json`).
+
+- **Scope.** Every card in the edition (`latest.json`, the run snapshot) and
+  every admitted card in the day's Brief ledger, which is what the 24-hour feed
+  serves. The edition pass runs before `latest.json` is written. The ledger pass
+  runs after admission, because the ledger fills a card's text once and never
+  overwrites it.
+- **Input.** The title and the best evidence the build already holds, in this
+  order: the judged excerpt or transcript digest (`content_excerpt`), the
+  collector summary, the old teaser. Under 40 characters of evidence (for
+  example `Release 0.171.0`) counts as none. With none, the build fetches the
+  article once. If that fails, the card keeps its old text and is not retried
+  until evidence appears.
+- **Output.** One sentence, aimed at 160 characters or fewer: what the item is
+  or does and its key fact, in third person, without hype and without facts
+  beyond the evidence. An answer that is empty, over 260 characters, or repeats
+  the title is rejected and the old text stays.
+- **Original text.** The replaced teaser moves to `source_summary_1line`.
+- **Cache.** `data/processed/summaries.json` maps the item URL to its summary and
+  the evidence it came from. A card is summarized once. It is summarized again
+  only when its evidence is at least 20% longer than before (a fetched article
+  after a snippet). Entries unseen for 30 days are dropped. The Korean card
+  translation is keyed by a hash of `summary_1line`, so a new summary
+  retranslates the card.
+- **Limits.** At most `summaries.max_calls_per_run` (80) calls per build. Spend
+  goes to the shared USD ledger (`docs/how-to/translation-budget-and-quota.md`).
+  At the monthly cap, with no credentials (`summary_skipped
+  reason=not_configured`), or when the build cannot persist ledger spend (dry
+  run, failed static recovery), cached summaries still apply, nothing new is
+  bought, and the build publishes as usual.
+
 ## Rolling 24-hour window and stable order
 
 The default Brief covers the last 24 hours by feed arrival (`first_seen`), not

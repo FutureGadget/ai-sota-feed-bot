@@ -20,6 +20,8 @@ pipeline/source_alerts.py              -> local degradation alert artifacts/logs
 pipeline/build_digest.py               -> data/processed/latest.json + data/digest/*.md
    raw -> editorial pre-ranking -> Jev gate/category -> ranking -> edition
    (pipeline/judge.py + pipeline/editorial_judge.py; incremental no-delta skip)
+   then pipeline/summaries.py: Haiku summary_1line per edition + ledger card
+   (cache data/processed/summaries.json; shared USD ledger; fail-open)
 pipeline/brief_ledger.py               -> data/brief/<date>.json (24h admission ledger)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/watch.py build                -> data/watch/index.json + web/watch-data.json (watchlist entities)
@@ -211,7 +213,13 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
     binds sources to index rows with SHA-256, and replaces the derived
     `data/playbook/lab/{index,latest}.json` files after full validation
-  - `translator.py` - the only module that calls the Anthropic API: one
+  - `summaries.py` - one-sentence English `summary_1line` per feed card, written
+    by Claude Haiku (surface `summary`) from the evidence the build holds; run by
+    `build_digest.py` on the edition and the Brief ledger cards; cache
+    `data/processed/summaries.json`; calls through `translator.request_json`, so
+    the same ledger and cap (see `docs/product-specs/live-feed.md`, "Card summaries")
+  - `translator.py` - the only module that calls the Anthropic API:
+    `request_json` is the one call site; one
     Messages call per `Job`, cached system prompt (`config/translation/<locale>.md`
     style guide plus the `config/glossary.yaml` do-not-translate list), policy in
     `config/translation.json`, USD `Ledger` in `data/i18n/translation_spend.json`

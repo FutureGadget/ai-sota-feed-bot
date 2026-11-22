@@ -21,6 +21,7 @@ from judged_pool import record_run as record_judged_pool
 from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
+import summaries
 
 # Optional server-side operational telemetry. Never fatal.
 try:
@@ -840,6 +841,18 @@ def run():
             f"reason={judge_diag.get('reason', 'ok')}"
         )
 
+        # Haiku one-sentence summaries replace teasers that echo the title or
+        # open mid-thought. Optional: with no credentials or budget the items
+        # keep their text and the build goes on. The second pass, over the
+        # ledger's cards, runs after admission below.
+        summarizer = None
+        try:
+            summarizer = summaries.for_build()
+            summarizer.apply(ranked_items)
+            summarizer.save()
+        except Exception as exc:
+            print(f"summary_step_failed stage=edition err={exc}")
+
         processed_dir = ROOT / "data" / "processed"
         processed_dir.mkdir(parents=True, exist_ok=True)
         atomic_write_json(processed_dir / "latest.json", ranked_items)
@@ -900,6 +913,8 @@ def run():
             f"rejected_quota={ledger_diag.get('rejected_quota', {})} "
             f"reason={ledger_diag.get('reason', 'ok')}"
         )
+        if summarizer is not None:
+            summaries.finish_build(summarizer, run_at_iso, judged_pool_candidates, ranked_items)
         if telemetry is not None:
             telemetry.capture(
                 "feed_build_completed",

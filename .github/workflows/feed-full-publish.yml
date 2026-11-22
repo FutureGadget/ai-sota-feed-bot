@@ -87,8 +87,9 @@ jobs:
       # GitHub OIDC tokens expire after about 5 minutes and the Anthropic SDK
       # rereads this file on each credential refresh, so keep rewriting it.
       # The first fetch must succeed; a failed refresh keeps the previous token.
-      # Translation is optional: if the token cannot be fetched, the localized
-      # feed step fails on its own and English publishing continues.
+      # Claude is optional: if the token cannot be fetched, the card summaries
+      # (build_digest.py logs summary_skipped reason=not_configured) and the
+      # localized feed step skip on their own and English publishing continues.
       - name: Fetch GitHub OIDC token and keep it fresh
         continue-on-error: true
         run: |

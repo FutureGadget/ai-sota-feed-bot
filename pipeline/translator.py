@@ -1,6 +1,10 @@
-"""Translate English site text with Claude. The only module that calls the API.
+"""Claude calls for the site: translation and feed-card summaries. The only module that calls the API.
 
-One Messages API call per job. The system prompt (fixed instruction, the
+``request_json`` is the one call site: it reserves budget in the shared ledger,
+sends one Messages API request, records the real cost, and parses a JSON reply
+(retrying once). ``translate`` and ``pipeline/summaries.py`` both go through it.
+
+One Messages API call per translation job. The system prompt (fixed instruction, the
 locale's style guide, the do-not-translate glossary) is identical for every
 job of a locale, so it is marked for prompt caching.
 
@@ -88,10 +92,27 @@ def model_for(surface: str) -> str:
 
 
 def make_client():
-    """An Anthropic client. Build one per run and pass it to every ``translate`` call."""
+    """An Anthropic client. Build one per run and pass it to every call."""
     import anthropic
 
     return anthropic.Anthropic()
+
+
+def is_configured() -> bool:
+    """True when the environment carries Anthropic credentials.
+
+    An API key or auth token (local runs), or a workload identity token file
+    that exists (CI, see ``docs/how-to/translation-budget-and-quota.md``).
+    """
+    if os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"):
+        return True
+    token_file = os.environ.get("ANTHROPIC_IDENTITY_TOKEN_FILE")
+    if not token_file:
+        return False
+    try:
+        return bool(Path(token_file).read_text(encoding="utf-8").strip())
+    except OSError:
+        return False
 
 
 def _utc_now() -> datetime:
@@ -245,6 +266,48 @@ def _parse(text: str, keys: set[str]) -> dict[str, str] | None:
     return parsed
 
 
+def request_json(
+    *,
+    model: str,
+    system_text: str,
+    user: str,
+    keys: set[str],
+    field_chars: int,
+    key: str,
+    surface: str,
+    client,
+    ledger: Ledger | None = None,
+    max_tokens: int | None = None,
+) -> tuple[dict[str, str], float]:
+    """One Claude request whose reply must be a JSON object with exactly ``keys``.
+
+    The system prompt is marked for prompt caching. Each attempt (one retry
+    after an unparseable reply) is reserved against the ledger before the call
+    and its real cost recorded after, so ``BudgetExceeded`` can be raised before
+    any spend. Returns the parsed fields and the cost in USD.
+    """
+    system = [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}]
+    cost = 0.0
+    for attempt in (1, 2):
+        if ledger is not None:
+            ledger.reserve(_estimate(model, system_text, user, field_chars))
+        response = client.messages.create(
+            model=model,
+            max_tokens=max_tokens or _max_tokens(field_chars),
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        )
+        spent = _cost(model, response.usage)
+        cost += spent
+        if ledger is not None:
+            ledger.record(spent, key=key, surface=surface)
+        text = "".join(b.text for b in response.content if b.type == "text")
+        parsed = _parse(text, keys)
+        if parsed is not None:
+            return parsed, cost
+    raise TranslationError(f"{key}: reply was not a JSON object with keys {sorted(keys)}")
+
+
 def translate(
     jobs: list[Job],
     locale: str,
@@ -263,7 +326,6 @@ def translate(
     model = model_for(surface)
     max_context = int(policy["max_context_chars"])
     system_text = _system_prompt(locale)
-    system = [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}]
     if client is None:
         client = make_client()
 
@@ -273,30 +335,17 @@ def translate(
         translated: dict[str, str] = {}
         cost = 0.0
         if todo:
-            user = _user_message(job.context, todo, max_context)
-            field_chars = sum(len(v) for v in todo.values())
-            for attempt in (1, 2):
-                if ledger is not None:
-                    ledger.reserve(_estimate(model, system_text, user, field_chars))
-                response = client.messages.create(
-                    model=model,
-                    max_tokens=_max_tokens(field_chars),
-                    system=system,
-                    messages=[{"role": "user", "content": user}],
-                )
-                spent = _cost(model, response.usage)
-                cost += spent
-                if ledger is not None:
-                    ledger.record(spent, key=job.key, surface=surface)
-                text = "".join(b.text for b in response.content if b.type == "text")
-                parsed = _parse(text, set(todo))
-                if parsed is not None:
-                    translated = parsed
-                    break
-                if attempt == 2:
-                    raise TranslationError(
-                        f"{job.key}: reply was not a JSON object with keys {sorted(todo)}"
-                    )
+            translated, cost = request_json(
+                model=model,
+                system_text=system_text,
+                user=_user_message(job.context, todo, max_context),
+                keys=set(todo),
+                field_chars=sum(len(v) for v in todo.values()),
+                key=job.key,
+                surface=surface,
+                client=client,
+                ledger=ledger,
+            )
         results.append(
             Result(
                 key=job.key,
