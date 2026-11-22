@@ -72,6 +72,11 @@ def main() -> None:
     print(f"index rebuilt: {len(entries)} recap(s)" + (f", {errors_total} skipped (invalid)" if errors_total else ""))
 
     # Refresh the pre-rendered /daily/<date> pages + sitemap (SEO/link previews).
+    # Share cards need Pillow; routines may lack it, so install the pinned one.
+    sys.path.insert(0, str(ROOT / "pipeline"))
+    import og_cards
+
+    og_cards.install_pillow()
     render = ROOT / "pipeline" / "render_static_pages.py"
     subprocess.run([sys.executable, str(render)], check=True)
 

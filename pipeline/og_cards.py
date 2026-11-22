@@ -23,6 +23,8 @@ no longer renders, mirroring the static-page orphan pruning.
 from __future__ import annotations
 
 import io
+import subprocess
+import sys
 from pathlib import Path
 
 try:
@@ -55,15 +57,19 @@ DISPLAY_FONT = FONT_DIR / "Geist-SemiBold.ttf"
 TEXT_FONT = FONT_DIR / "Geist-Regular.ttf"
 MONO_FONT = FONT_DIR / "GeistMono-Medium.ttf"
 
-# Geist has no Hangul. Korean text uses Nanum Gothic (the fonts-nanum package
-# the feed workflow installs) or a system Korean sans.
+# Geist has no Hangul. Korean text uses the vendored Nanum Gothic (OFL, Hangul
+# plus Latin, from @fontsource/nanum-gothic) so every environment draws the same
+# card; system Korean sans fonts are fallbacks only.
+CJK_FONT_DIR = ROOT / "assets" / "fonts" / "nanum"
 CJK_BOLD_FONTS = [
+    CJK_FONT_DIR / "NanumGothic-Bold.woff",
     "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
 ]
 CJK_REG_FONTS = [
+    CJK_FONT_DIR / "NanumGothic-Regular.woff",
     "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
@@ -72,6 +78,22 @@ CJK_REG_FONTS = [
 
 # Cards registered by ensure() this run; prune() keeps exactly these.
 _keep: set[str] = set()
+
+
+def install_pillow() -> bool:
+    """Install the pinned Pillow when it is missing, so pages rendered outside
+    the feed workflow (the recap routines) get their share cards instead of the
+    default one. Call it before rendering in a fresh process."""
+    if HAVE_PIL:
+        return True
+    lines = (ROOT / "requirements.txt").read_text(encoding="utf-8").splitlines()
+    pin = next((l.strip() for l in lines if l.strip().lower().startswith("pillow==")), "pillow")
+    for extra in ([], ["--break-system-packages"]):
+        cmd = [sys.executable, "-m", "pip", "install", "-q", pin, *extra]
+        if subprocess.run(cmd, capture_output=True).returncode == 0:
+            return True
+    print("og_cards_unavailable reason=pillow_install_failed")
+    return False
 
 
 def fonts_available() -> bool:

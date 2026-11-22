@@ -23,6 +23,20 @@ class OgCardTest(unittest.TestCase):
         self.assertTrue(og_cards.fonts_available())
         self.assertTrue((og_cards.FONT_DIR / "OFL.txt").exists())
 
+    def test_korean_text_uses_the_vendored_hangul_font(self) -> None:
+        self.assertTrue((og_cards.CJK_FONT_DIR / "OFL.txt").exists())
+        for kind, expected in (("display", "NanumGothic-Bold.woff"), ("text", "NanumGothic-Regular.woff")):
+            font = og_cards.face(kind, 40, "11월 22일 AI 데일리")
+            self.assertEqual(Path(font.path).name, expected)
+            # Hangul and Latin both have real glyphs (not the .notdef box).
+            self.assertNotEqual(font.getmask("데").getbbox(), font.getmask("\uffff").getbbox())
+            self.assertGreater(font.getlength("AI"), 0)
+
+    def test_install_pillow_is_a_no_op_when_present(self) -> None:
+        with mock.patch.object(og_cards.subprocess, "run") as run:
+            self.assertTrue(og_cards.install_pillow())
+        run.assert_not_called()
+
     def test_palette_matches_the_site_light_theme(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
         light = css.split('html[data-theme="dark"]', 1)[0]
@@ -104,3 +118,23 @@ class OgCopyTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class InstallPillowTest(unittest.TestCase):
+    def test_missing_pillow_installs_the_pinned_version(self) -> None:
+        pin = next(l.strip() for l in (ROOT / "requirements.txt").read_text().splitlines() if l.startswith("pillow=="))
+        calls = []
+
+        def fake_run(cmd, capture_output):
+            calls.append(cmd)
+            return mock.Mock(returncode=1 if len(calls) == 1 else 0)
+
+        with mock.patch.object(og_cards, "HAVE_PIL", False), mock.patch.object(og_cards.subprocess, "run", fake_run):
+            self.assertTrue(og_cards.install_pillow())
+        self.assertEqual(calls[0][-2:], ["-q", pin])
+        self.assertEqual(calls[1][-1], "--break-system-packages")
+
+    def test_failed_install_reports_and_returns_false(self) -> None:
+        with mock.patch.object(og_cards, "HAVE_PIL", False), \
+             mock.patch.object(og_cards.subprocess, "run", return_value=mock.Mock(returncode=1)):
+            self.assertFalse(og_cards.install_pillow())
