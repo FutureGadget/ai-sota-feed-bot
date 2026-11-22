@@ -230,5 +230,79 @@ class LedgerTest(unittest.TestCase):
         self.assertEqual([p.name for p in self.path.parent.iterdir()], [self.path.name])
 
 
+
+class RequestJsonTest(unittest.TestCase):
+    def _call(self, client, **extra):
+        return tr.request_json(
+            model="claude-haiku-5-5",
+            system_text="sys",
+            user="user",
+            keys={"summary"},
+            field_chars=100,
+            key="k",
+            surface="summary",
+            client=client,
+            **extra,
+        )
+
+    def test_returns_parsed_fields_and_cost_and_records_the_surface(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = tr.Ledger(Path(tmp) / "spend.json", monthly_cap=1.0, now=clock(2026, 11))
+            fields, cost = self._call(FakeClient(reply({"summary": "One sentence."})), ledger=ledger)
+            self.assertEqual(fields, {"summary": "One sentence."})
+            self.assertGreater(cost, 0)
+            entry = json.loads((Path(tmp) / "spend.json").read_text())["history"][0]
+            self.assertEqual((entry["key"], entry["surface"]), ("k", "summary"))
+            self.assertAlmostEqual(ledger.spent, cost, places=6)
+
+    def test_retries_once_then_raises_and_both_attempts_are_charged(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = tr.Ledger(Path(tmp) / "spend.json", monthly_cap=1.0, now=clock(2026, 11))
+            client = FakeClient(reply("nope"), reply("still nope"))
+            with self.assertRaises(tr.TranslationError):
+                self._call(client, ledger=ledger)
+            self.assertEqual(len(client.calls), 2)
+            self.assertGreater(ledger.spent, 0)
+
+    def test_budget_exceeded_is_raised_before_any_call(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = tr.Ledger(Path(tmp) / "spend.json", monthly_cap=0.0, now=clock(2026, 11))
+            client = FakeClient()
+            with self.assertRaises(tr.BudgetExceeded):
+                self._call(client, ledger=ledger)
+            self.assertEqual(client.calls, [])
+
+    def test_max_tokens_override(self):
+        client = FakeClient(reply({"summary": "x"}))
+        self._call(client, max_tokens=300)
+        self.assertEqual(client.calls[0]["max_tokens"], 300)
+
+
+class IsConfiguredTest(unittest.TestCase):
+    def _env(self, **env):
+        keep = {k: v for k, v in os.environ.items() if not k.startswith("ANTHROPIC_")}
+        return patch.dict(os.environ, {**keep, **env}, clear=True)
+
+    def test_false_without_any_credential(self):
+        with self._env():
+            self.assertFalse(tr.is_configured())
+
+    def test_api_key_or_auth_token(self):
+        with self._env(ANTHROPIC_API_KEY="k"):
+            self.assertTrue(tr.is_configured())
+        with self._env(ANTHROPIC_AUTH_TOKEN="t"):
+            self.assertTrue(tr.is_configured())
+
+    def test_identity_token_file_must_exist_and_have_content(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            token = Path(tmp) / "jwt"
+            with self._env(ANTHROPIC_IDENTITY_TOKEN_FILE=str(token)):
+                self.assertFalse(tr.is_configured())
+                token.write_text("\n")
+                self.assertFalse(tr.is_configured())
+                token.write_text("eyJ...")
+                self.assertTrue(tr.is_configured())
+
+
 if __name__ == "__main__":
     unittest.main()
