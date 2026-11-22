@@ -2,92 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.909 | Reliability: 1.0
-- Why it matters: 
+## 1. ZeroBurn – Cut coding-agent token burn 98% with 0-token MCP and local Ollama
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/thoufeeque22/zeroburn
+- Score: 3.3 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 2. Beam Model Technical Report
+## 2. Show HN: I built a game where you are an LLM's subagent
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/gulivan/worker755
+- Score: 3.2 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. AgentRoboCritic: Understanding the Capability of Frontier Agents on Direct Robot Control
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.26358v1
-- Score: 2.764 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 3. Seer: Guiding Small Deep-Research Agents with Shared Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.26423v1
-- Score: 2.659 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 4. MemFolder: Structure-Guided Memory Folding for Efficient Agent Memory Management
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.26427v1
-- Score: 2.651 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.26613v1
+- Score: 2.571 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 5. Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-20-inkling2-mini
-- Score: 1.822 | Reliability: 1.0
-- Why it matters: 
+## 4. Asuka-FM: A System-Architectural Co-Design Framework for Efficient Text-to-Image Pretraining on Consumer Hardware
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26437v1
+- Score: 2.531 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 5. Democratizing Cross-Project Knowledge for Transforming Water Governance and Climate Resilience: an Agentic AI Ecosystem
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.26398v1
+- Score: 2.277 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
 ## 6. Why agent governance starts with observability
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/agent-governance-observability
-- Score: 1.8 | Reliability: 1.0
+- Score: 1.778 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. vllm v0.34.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.235 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
+## 7. How Abundant designed efficient rollout architecture with Modal Sandboxes
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes
+- Score: 1.771 | Reliability: 1.0
+- Why it matters: 
 
-## 8. claude-code v2.1.328
+## 8. codex 0.171.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0
+- Score: 1.755 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, eval.
+
+## 9. claude-code v2.1.329
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.328
-- Score: 1.231 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.329
+- Score: 1.368 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 9. codex 0.173.0-alpha.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.1
-- Score: 1.177 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 10. vllm v0.34.0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
+- Score: 1.234 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, codex.
 
-## 10. tencent/WeMM-Video-4B-GGUF released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Video-4B-GGUF
-- Score: 1.015 | Reliability: 1.0
-- Why it matters: 
-
-## 11. FLUID: Flexible, Evidence-Grounded Situated Task Guidance
+## 11. Mind2Act World: A Diagnostic Benchmark for Embodied Mind, Physical Action, and Mind-Action Composition in Robotic Manipulation
 - Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.26491v1
-- Score: 2.606 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- URL: http://arxiv.org/abs/2611.26444v1
+- Score: 2.14 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 12. KnowledgeClaw: Towards Agentic Knowledge Engineering via Omnimodal Hypergraphs
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.24294v1
-- Score: 2.468 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 13. langgraph-prebuilt==1.1.3
+## 12. langgraph==1.2.23
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
-- Score: 1.0 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
+- Score: 1.036 | Reliability: 1.0
 - Why it matters: 
 
-## 14. claude-agent-sdk-python v0.2.185
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
-- Score: 0.949 | Reliability: 1.0
+## 13. tencent/WeMM-Video-4B-NVFP4 released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeMM-Video-4B-NVFP4
+- Score: 1.014 | Reliability: 1.0
+- Why it matters: 
+
+## 14. New in AWS Quick: More capable flows, an updated web experience, and agents that work together
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together/
+- Score: 0.987 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 15. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
+## 15. claude-agent-sdk-python v0.2.185
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
+- Score: 0.978 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/open-clairic/
-- Score: 0.947 | Reliability: 1.0
+- Score: 0.946 | Reliability: 1.0
 - Why it matters:
