@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 
 import { readDataJson, readDataRaw, hasCustomDataSource } from '../lib/data-source.js';
+import { DEFAULT_LOCALE, getLocale } from '../lib/locales.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -109,11 +110,11 @@ export function GET(request) {
     }
 
     const locale = String(url.searchParams.get('locale') || '').trim();
-    const localized = locale === 'ko';
+    const localized = locale !== DEFAULT_LOCALE && Boolean(getLocale(locale));
 
     function readJsonWithFallback(filename, fallbackVal) {
       if (localized) {
-        const primary = readDataJson(`i18n/ko/playbook/${filename}`, undefined);
+        const primary = readDataJson(`i18n/${locale}/playbook/${filename}`, undefined);
         if (primary !== undefined) return primary;
       }
       return readDataJson(`playbook/${filename}`, fallbackVal);
