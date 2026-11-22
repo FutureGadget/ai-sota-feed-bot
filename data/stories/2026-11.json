@@ -5486,6 +5486,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18272v1"
  },
+ "31dbae397b46d6b3": {
+  "content_excerpt": "40+ Models Chosen for Production...40+ Models Chosen for Production...40+ Models Chosen for Production... We are notifying customers about a security incident involving a subset of prompts submitted to Together AI’s serverless inference service in June and July 2026. An unauthorized party downloaded stored prompt samples after a credential for a private repository was exposed in a public code repository. We apologize for this incident. We are reviewing the affected data to determine what information was exposed and which customers require direct notification. As part of routine software testing, we collected prompt samples authorized for that use and stored them in a private Hugging Face repository. The samples came from requests to the MiniMax M3, GLM-5.2, and Kimi K2.6 models, primarily on June 24, July 4, July 8, and July 14, 2026. During development of our public GitHub repository, xorl, an AI coding agent committed a credential that provided access to the private Hugging Face repository. Our automated scanning detected the exposed credential, and we reverted the commit. During the exposure window, an unauthorized party obtained the credential and used it to download the stored prompt samples. The party subsequently searched those samples for credentials to other services and tested whether those credentials were valid. Five of the credentials tested were canary credentials associated with a Dragos security experiment. We have no reason to believe the unauthorized party h",
+  "first_seen": "2026-11-22T05:04:04.306883+00:00",
+  "id": "7908bbb3b6b6a047",
+  "published": "2026-11-22T03:07:27+00:00",
+  "sid": "31dbae397b46d6b3",
+  "source": "hackernews_ai",
+  "summary_1line": "Together.ai: Prompt Leakage for Requests",
+  "title": "Together.ai: Prompt Leakage for Requests",
+  "type": "news",
+  "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026"
+ },
  "31fa9cd8fb58d57c": {
   "first_seen": "2026-11-19T11:06:25.197218+00:00",
   "id": "b4a43e338368f530",
@@ -11370,6 +11382,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "67952d9a918d2536": {
+  "content_excerpt": "At OpenAI, we take a defense in depth ⁠ (opens in a new window) approach when it comes to safeguarding agents. While our investments in training and alignment are fundamental to this effort, we also implement features in our agentic harness, Codex ⁠ (opens in a new window) , to provide additional protections. Because one of the most common (and potentially risky) things Codex does is run commands on your computer, we built the Codex sandbox so Codex can work in your existing environment within filesystem and network limits you control. A ⁠ (opens in a new window) sandbox ⁠ (opens in a new window) limits what a program can access while it runs. For a photo-organizing task, you might configure the Codex sandbox to let commands read and modify files in ~/Pictures while blocking network access to prevent uploads. For code review, you might allow access to online documentation while keeping source files read-only. Users configure the Codex sandbox through ⁠ (opens in a new window) permission profiles ⁠ (opens in a new window) , which define the filesystem and network restrictions for a Codex session. In this article, we’ll start with the tradeoffs behind Codex’s sandbox defaults, then explain the sandbox’s design and how the harness uses it to run commands. We’ll show how end users and enterprises can tailor its permissions to their needs and how developers can reuse the sandbox in their own tools. Finally, we’ll examine how these restrictions are enforced on macOS, Linux, and Win",
   "first_seen": "2026-11-18T19:06:02.952744+00:00",
   "id": "f6f3a5c121add453",
   "matched_topics": [
