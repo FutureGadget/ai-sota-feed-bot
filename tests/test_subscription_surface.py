@@ -125,6 +125,15 @@ class SubscriptionSurfaceTest(unittest.TestCase):
         self.assertIn("<loc>https://example.com/subscribe</loc>", xml)
         self.assertIn("<loc>https://example.com/playbook</loc>", xml)
 
+    def test_sitemap_lists_every_language_home_next_to_the_english_one(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch.object(render, "WEB_DIR", Path(tmp)):
+                render.write_sitemap("https://example.com", [], [])
+            xml = (Path(tmp) / "sitemap.xml").read_text(encoding="utf-8")
+
+        self.assertIn("<loc>https://example.com/</loc>", xml)
+        self.assertIn("<loc>https://example.com/ko/</loc>", xml)
+
 
 if __name__ == "__main__":
     unittest.main()

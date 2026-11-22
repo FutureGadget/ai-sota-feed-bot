@@ -18,10 +18,13 @@ import locales  # noqa: E402
 
 
 class R2SyncListTest(unittest.TestCase):
-    def test_every_localized_locale_publishes_its_feed_snapshot_status_and_cards(self) -> None:
+    def test_every_localized_locale_publishes_its_feed_cards_and_nothing_else_of_the_feed(self) -> None:
         for code in locales.others(locales.DEFAULT):
-            for name in ("latest.json", "status.json", "cards.json"):
-                self.assertIn(f"i18n/{code}/feed/{name}", r2_sync.EXACT_FILES)
+            self.assertIn(f"i18n/{code}/feed/cards.json", r2_sync.EXACT_FILES)
+            self.assertEqual(
+                [f for f in r2_sync.EXACT_FILES if f.startswith(f"i18n/{code}/feed/")],
+                [f"i18n/{code}/feed/cards.json"],
+            )
 
 
 if __name__ == "__main__":

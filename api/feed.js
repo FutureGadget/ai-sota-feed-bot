@@ -125,152 +125,6 @@ function withReaderAdjustment(it, tuning) {
   return adj ? { ...it, reader_adjustment: adj } : it;
 }
 
-function readLocalizedFeed(locale) {
-  const base = `i18n/${String(locale || '')}/feed`;
-  return {
-    latest: readDataJson(`${base}/latest.json`, null),
-    status: readDataJson(`${base}/status.json`, null),
-  };
-}
-
-function localizedSnapshotIsCurrent(snapshot) {
-  if (!snapshot || snapshot.is_complete !== true) return false;
-  const expiresAt = parseDateMaybe(snapshot.expires_at);
-  const sourceRunAt = parseDateMaybe(snapshot.source_run_at);
-  const now = new Date();
-  if (expiresAt) return expiresAt > now;
-  if (!sourceRunAt) return false;
-  return now.getTime() - sourceRunAt.getTime() <= 24 * 60 * 60 * 1000;
-}
-
-// Budget-governor passthrough (translation-budget-governor plan, Phase 5):
-// status.json may now carry `status: "budget_paused"`, `reason`,
-// `resumes_at`, `mode` (governor ladder step), and `budget` (ledger
-// snapshot). These are optional, pure passthroughs — present when the
-// pipeline's governor has written them, absent otherwise (older status.json,
-// or governor never engaged).
-//
-// Note: status.json's `mode` field names the governor step (normal/conserve/
-// economy/paused). It is intentionally NOT written to the response's
-// top-level `mode` key, which is an established, tested API contract field
-// meaning the response shape (`"localized_snapshot"`, per
-// docs/product-specs/localized-live-feed.md). The governor step is exposed
-// as `governor_mode` instead so both fields coexist without collision.
-function localizedStatusBody(body, locale, snapshot, statusPayload) {
-  const current = localizedSnapshotIsCurrent(snapshot);
-  const status = current ? 'current' : String(statusPayload?.status || 'missing');
-  const result = {
-    ...body,
-    locale,
-    mode: 'localized_snapshot',
-    status,
-    is_current: current,
-    is_complete: current,
-    source_run_at: snapshot?.source_run_at || statusPayload?.source_run_at || null,
-    translated_at: snapshot?.translated_at || statusPayload?.translated_at || null,
-    expires_at: snapshot?.expires_at || statusPayload?.expires_at || null,
-  };
-  if (statusPayload?.reason != null) result.reason = statusPayload.reason;
-  if (statusPayload?.resumes_at != null) result.resumes_at = statusPayload.resumes_at;
-  if (statusPayload?.mode != null) result.governor_mode = statusPayload.mode;
-  if (statusPayload?.budget != null) result.budget = statusPayload.budget;
-  return result;
-}
-
-// Frozen-snapshot render: when the Korean snapshot is no longer current
-// (budget pause or ordinary staleness), serve the last complete snapshot's
-// own items as clearly-dated Korean content instead of live English items,
-// so the paused /ko/ page still shows articles. Requires snapshots carrying
-// target_keys + per-item source_meta (build_localized_feed.py); older
-// artifacts return null and keep the previous behavior.
-function frozenLocalizedItems(snapshot) {
-  const keys = Array.isArray(snapshot?.target_keys) ? snapshot.target_keys : [];
-  if (!keys.length) return null;
-  const byKey = new Map();
-  for (const row of Array.isArray(snapshot?.items) ? snapshot.items : []) {
-    const key = normUrl(row?.translation_key || row?.key);
-    if (key) byKey.set(key, row);
-  }
-  const items = [];
-  for (const rawKey of keys) {
-    const row = byKey.get(normUrl(rawKey));
-    if (!row || !row.source_meta) continue;
-    items.push({
-      id: row.id || null,
-      url: row.source_meta.url || row.translation_key || null,
-      source: row.source_meta.source || null,
-      published: row.source_meta.published || null,
-      type: row.source_meta.type || null,
-      title: row.title || '',
-      summary_1line: row.summary_1line || '',
-      why_it_matters: row.why_it_matters || '',
-      also_covered: Array.isArray(row.also_covered) ? row.also_covered : [],
-    });
-  }
-  return items.length ? items : null;
-}
-
-function overlayLocalizedFeed(body, locale) {
-  const { latest, status } = readLocalizedFeed(locale);
-  const withStatus = localizedStatusBody(body, locale, latest, status);
-  if (!withStatus.is_current) {
-    const frozen = frozenLocalizedItems(latest);
-    if (frozen) return { ...withStatus, items: frozen, frozen_snapshot: true };
-    return withStatus;
-  }
-  if (!Array.isArray(body?.items)) return withStatus;
-
-  const translations = new Map();
-  for (const row of Array.isArray(latest?.items) ? latest.items : []) {
-    const key = normUrl(row?.translation_key || row?.key);
-    if (key) translations.set(key, row);
-  }
-
-  const missing = body.items
-    .filter((item) => {
-      const key = translationKey(item);
-      if (!key || !translations.has(key)) return true;
-      const translated = translations.get(key);
-      const expectedHash = sourceHash(item);
-      return String(translated?.source_hash || '') !== expectedHash;
-    })
-    .map((item) => translationKey(item));
-  if (missing.length) {
-    // The live English feed has moved past the snapshot (new/changed items
-    // not yet translated — e.g. mid-hour, a failed batch, or a budget pause
-    // blocking catch-up). Serve the last complete snapshot as frozen dated
-    // content instead of an empty list. During a budget pause, keep the
-    // paused status so the shell explains *why* catch-up is not happening.
-    const frozen = frozenLocalizedItems(latest);
-    const incompleteStatus =
-      status?.status === 'budget_paused' ? 'budget_paused' : 'incomplete';
-    return {
-      ...withStatus,
-      status: incompleteStatus,
-      is_current: false,
-      is_complete: false,
-      localized_missing_count: missing.length,
-      items: frozen || [],
-      ...(frozen ? { frozen_snapshot: true } : {}),
-    };
-  }
-
-  return {
-    ...withStatus,
-    items: body.items.map((item) => {
-      const translated = translations.get(translationKey(item));
-      if (!translated) return item;
-      return {
-        ...item,
-        id: item.id,
-        title: translated.title || item.title,
-        summary_1line: translated.summary_1line || item.summary_1line,
-        why_it_matters: translated.why_it_matters || item.why_it_matters,
-      };
-    }),
-  };
-}
-
 // Per-card translations (data/i18n/<locale>/feed/cards.json, written by
 // pipeline/build_localized_feed.py): the normal English response for the same
 // params, each card replaced by its stored translation while the stored
@@ -305,10 +159,16 @@ function overlayCard(item, entry, locale) {
   return overlaid;
 }
 
+// The operator's off switch: LOCALIZED_FEED_ENABLED=0 (or false/no/off) makes
+// every locale return the plain English feed.
+function localizedFeedEnabled() {
+  const flag = String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase();
+  return !['0', 'false', 'no', 'off'].includes(flag);
+}
+
 function withCardTranslations(body, searchParams) {
   const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
-  const snapshot = String(searchParams.get('localized_snapshot') || '').trim().toLowerCase();
-  if (!isLocalized(locale) || snapshot === 'latest' || !Array.isArray(body?.items)) return body;
+  if (!isLocalized(locale) || !localizedFeedEnabled() || !Array.isArray(body?.items)) return body;
   const cards = readCardTranslations(locale);
   return {
     ...body,
@@ -316,32 +176,6 @@ function withCardTranslations(body, searchParams) {
       const key = translationKey(item);
       return overlayCard(item, key && Object.hasOwn(cards, key) ? cards[key] : null, locale);
     }),
-  };
-}
-
-function maybeLocalized(body, searchParams) {
-  const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
-  const localizedSnapshot = String(searchParams.get('localized_snapshot') || '').trim().toLowerCase();
-  if (!isLocalized(locale) || localizedSnapshot !== 'latest') return { body, cacheControl: null };
-
-  const cacheControl = 's-maxage=300, stale-while-revalidate=300';
-  if (['0', 'false', 'no', 'off'].includes(String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase())) {
-    return {
-      body: {
-        ...body,
-        locale,
-        mode: 'localized_snapshot',
-        status: 'disabled',
-        is_current: false,
-        is_complete: false,
-        items: [],
-      },
-      cacheControl
-    };
-  }
-  return {
-    body: overlayLocalizedFeed(body, locale),
-    cacheControl
   };
 }
 
@@ -990,17 +824,13 @@ export async function GET(request) {
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(url.searchParams.get('limit') || '200'), 10) || 200));
     const selectedLabels = parseLabelFilters(url.searchParams);
     const readerTuning = readReaderTuning();
-    const localizedRequested =
-      isLocalized(url.searchParams.get('locale'))
-      && String(url.searchParams.get('localized_snapshot') || '').trim().toLowerCase() === 'latest';
-    const effectiveWindow = localizedRequested ? 'published' : windowMode;
-    const editorial = localizedRequested ? null : readEditorial();
+    const editorial = readEditorial();
 
     // Default 24h path: serve the admission ledger, not the accumulated run
     // pool. The ledger already contains every admitted story (including the
     // keeps that never won an edition), so the run snapshots are only needed
     // for the "updated X ago" timestamps.
-    const ledger = effectiveWindow === 'arrival' ? readBriefLedger() : null;
+    const ledger = windowMode === 'arrival' ? readBriefLedger() : null;
     const usableLedger = ledgerCoversWindow(ledger, from, to) ? ledger : null;
     if (usableLedger) {
       const runSummaries = filterRunsByDate(readRunIndexSummaries(), from, to).map((r) => ({
@@ -1033,10 +863,8 @@ export async function GET(request) {
         },
       };
       body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
-      // The ledger branch is never the snapshot path (snapshot requests are
-      // forced to `published`), so decorate coverage, then lay per-card
-      // translations over the English cards. The global Vercel API cache
-      // header still applies.
+      // Decorate coverage, then lay per-card translations over the English
+      // cards: the pipeline hashed the decorated cards.
       const ledgerCoverage = clusterCoverage(assembled.editorialItems);
       for (const it of body.items) {
         const mergedCoverage = mergeAlsoCovered(it, ledgerCoverage.get(itemKey(it)));
@@ -1051,12 +879,12 @@ export async function GET(request) {
     if (!runs.length) {
       const assembled = assembleServedPool(
         readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1 })),
-        { from, to, windowMode: effectiveWindow, selectedLabels, editorial, readerTuning, limit }
+        { from, to, windowMode: windowMode, selectedLabels, editorial, readerTuning, limit }
       );
       const body = {
         mode: 'latest',
         date: new Date().toISOString(),
-        filters: { from, to, limit, labels: selectedLabels, window: effectiveWindow },
+        filters: { from, to, limit, labels: selectedLabels, window: windowMode },
         runs: [],
         items: assembled.items,
         total_items: assembled.totalItems,
@@ -1065,20 +893,14 @@ export async function GET(request) {
         reader_tuning: readerTuningSummary(readerTuning),
       };
       body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
-      const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
       // No runs -> the pool-built side map is empty; cluster this fallback's
-      // own (small) item list directly. English path only, same reason as the
-      // main handler below: ko snapshot hashes pin pooled also_covered.
-      if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
-        const latestCoverage = clusterCoverage(assembled.editorialItems);
-        for (const it of localizedBody.items) {
-          const mergedCoverage = mergeAlsoCovered(it, latestCoverage.get(itemKey(it)));
-          if (mergedCoverage.length) it.also_covered = mergedCoverage;
-        }
+      // own (small) item list directly.
+      const latestCoverage = clusterCoverage(assembled.editorialItems);
+      for (const it of body.items) {
+        const mergedCoverage = mergeAlsoCovered(it, latestCoverage.get(itemKey(it)));
+        if (mergedCoverage.length) it.also_covered = mergedCoverage;
       }
-      const headers = {};
-      if (cacheControl) headers['Cache-Control'] = cacheControl;
-      return Response.json(withCardTranslations(localizedBody, url.searchParams), { status: 200, headers });
+      return Response.json(withCardTranslations(body, url.searchParams), { status: 200 });
     }
 
     const filteredRuns = filterRunsByDate(runs, from, to);
@@ -1095,7 +917,7 @@ export async function GET(request) {
     const assembled = assembleServedPool(baseItems, {
       from,
       to,
-      windowMode: effectiveWindow,
+      windowMode: windowMode,
       selectedLabels,
       editorial,
       readerTuning,
@@ -1105,7 +927,7 @@ export async function GET(request) {
     const body = {
       mode: 'history',
       date: new Date().toISOString(),
-      filters: { from, to, limit, labels: selectedLabels, window: effectiveWindow },
+      filters: { from, to, limit, labels: selectedLabels, window: windowMode },
       runs: runSummaries,
       items: assembled.items,
       total_items: assembled.totalItems,
@@ -1114,21 +936,13 @@ export async function GET(request) {
       reader_tuning: readerTuningSummary(readerTuning),
     };
     body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
-    const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
-    // Coverage decoration runs AFTER the localized overlay and only on the
-    // English path: the ko snapshot's source_hash pins the pipeline's own
-    // also_covered entries, so pooled items must reach that hash untouched.
     // The items here are per-request {...it} copies (labels step above), so
     // assigning a fresh also_covered never touches the cached pool.
-    if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
-      for (const it of localizedBody.items) {
-        const mergedCoverage = mergeAlsoCovered(it, coverageByItem.get(itemKey(it)));
-        if (mergedCoverage.length) it.also_covered = mergedCoverage;
-      }
+    for (const it of body.items) {
+      const mergedCoverage = mergeAlsoCovered(it, coverageByItem.get(itemKey(it)));
+      if (mergedCoverage.length) it.also_covered = mergedCoverage;
     }
-    const headers = {};
-    if (cacheControl) headers['Cache-Control'] = cacheControl;
-    return Response.json(withCardTranslations(localizedBody, url.searchParams), { status: 200, headers });
+    return Response.json(withCardTranslations(body, url.searchParams), { status: 200 });
   } catch (e) {
     return Response.json({ error: 'feed_read_failed', detail: String(e) }, { status: 500 });
   }
