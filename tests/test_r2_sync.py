@@ -26,6 +26,10 @@ class R2SyncListTest(unittest.TestCase):
                 [f"i18n/{code}/feed/cards.json"],
             )
 
+    def test_every_localized_locale_publishes_its_desk_titles(self) -> None:
+        for code in locales.others(locales.DEFAULT):
+            self.assertIn(f"i18n/{code}/updates/titles.json", r2_sync.EXACT_FILES)
+
 
 if __name__ == "__main__":
     unittest.main()

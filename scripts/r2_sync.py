@@ -47,6 +47,7 @@ EXACT_FILES = [
     "processed/editorial.json",
     "feedback/source_adjustments.json",
     *(f"i18n/{c}/feed/cards.json" for c in LOCALIZED),
+    *(f"i18n/{c}/updates/titles.json" for c in LOCALIZED),
     "stories/index.json",
     "wiki/index.json",
     "foundations/index.json",
