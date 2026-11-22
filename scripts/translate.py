@@ -334,7 +334,7 @@ def translate_candidates(
     # cancelled run never loses metering. Each page is written as soon as it is
     # translated: a failure or the cap never discards finished pages.
     ledger = translator.Ledger(ROOT / "data" / "i18n" / "translation_spend.json")
-    print(f"translate_static_budget usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
+    print(f"translate_static_spend usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
     model = translator.model_for("static")
     client = client or translator.make_client()
 
@@ -409,7 +409,7 @@ def translate_candidates(
         f"{unavailable_skipped} skipped (paid output unavailable), "
         f"{not_tried} not tried (monthly cap), {len(items)} total"
     )
-    print(f"translate_static_budget_done usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
+    print(f"translate_static_spend_done usd_spent={ledger.spent:.4f} cap={ledger.monthly_cap:.2f}")
 
     if successes > 0 and not dry_run:
         _rebuild_playbook_i18n_index(locale)
