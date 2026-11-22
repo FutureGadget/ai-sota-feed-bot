@@ -219,6 +219,23 @@ class BuildLocalizedFeedTest(unittest.TestCase):
         self.assertEqual(cards[items[1]["url"]]["summary_1line"], f"{PREFIX}A rewritten summary.")
         self.assertEqual(cards[items[0]["url"]]["summary_1line"], f"{PREFIX}Summary 0.")
 
+    def test_cards_from_another_model_are_retranslated(self) -> None:
+        items = [_mk_item(i) for i in range(2)]
+        self._run_main(items)
+        snapshot = self._snapshot()
+        for card in snapshot["items"]:
+            self.assertEqual(card["model"], translator.model_for("feed"))
+
+        # A card from an earlier translator (Google cards carry no model).
+        old = dict(snapshot["items"][0], title="구글 번역")
+        old.pop("model")
+        self._write_existing_snapshot([old, snapshot["items"][1]])
+        again = EchoClient()
+        self._run_main(items, client=again)
+
+        self.assertEqual([r["title"] for r in again.requested], ["Title 0"])
+        self.assertEqual(self._snapshot()["items"][0]["title"], f"{PREFIX}Title 0")
+
     def test_nothing_dirty_makes_no_call(self) -> None:
         items = [_mk_item(i) for i in range(2)]
         self._run_main(items)
