@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      actions: read
+      actions: write  # start deploy-cloudflare.yml after publishing
       id-token: write
     env:
       ANTHROPIC_FEDERATION_RULE_ID: fdrl_01GN2AuwqLTq1XD8kxxuTbqr
@@ -160,7 +160,16 @@ jobs:
           retention-days: 90
 
       - name: Publish saved outputs
+        id: publish
         if: ${{ always() && steps.save.outcome == 'success' }}
         run: |
           .venv/bin/python scripts/persist_static_i18n.py publish \
             --checkpoint "$RUNNER_TEMP/static-i18n/checkpoint.json"
+
+      # GITHUB_TOKEN pushes do not trigger deploy-cloudflare.yml; start it so
+      # the translated pages and data reach the live site.
+      - name: Deploy the published translations
+        if: ${{ always() && steps.publish.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-cloudflare.yml --ref main
