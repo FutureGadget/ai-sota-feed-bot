@@ -1814,7 +1814,7 @@
   "sid": "106e03d32f20d4dc",
   "source": "arxiv_cs_cl",
   "summary": "We ask how far a driving model can get with one camera and real-time latency. BADAS-3.0 is a 1B-parameter video encoder with four small heads. From two seconds of one forward camera, it predicts the current speed, the metric path just driven, a collision-risk score and six candidate futures over 6.4 seconds, in under 50 ms. Given the car's current speed, BADAS-3.0 has 44% lower minADE$_6$ over five trajectory benchmarks than the 34B Alpamayo 2 Super, which reads six cameras and runs over 100x slower. The gain comes from camera rigs that neither model was trained on. On the rig they share, the two are on par. Existing benchmarks are mostly nominal driving, so we add two open-loop safety benchmarks, one of real dashcam collisions and near-misses and one of Euro NCAP scenarios. On both, BADAS-3.0 has a higher pass rate than every published planner we tested.",
-  "summary_1line": "We ask how far a driving model can get with one camera and real-time latency. BADAS-3.0 is a 1B-parameter video encoder with four small heads. From two seconds of one forward camera, it predicts the current speed, the...",
+  "summary_1line": "We ask how far a driving model can get with one camera and real-time latency. BADAS-3.0 is a 1B-parameter video encoder with four small heads. From two seconds of one forward camera, it predicts the current speed, the metric path just driven, a collision-risk score and six candid",
   "title": "BADAS-3.0: Real-Time Driving Perception and Planning from One Camera",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26294v1"
@@ -12041,7 +12041,7 @@
   "sid": "6facc619133f560d",
   "source": "arxiv_cs_cl",
   "summary": "When a familiar rule stops working, an agent has to weigh what pre-training taught it against what it now observes. We ask how outcome-reward reinforcement learning (RL) changes this balance, in a puzzle world where both sides are known: small language models trained from scratch on games played by a Bayesian player, so that the prior and the right answer are exact. Base models hedge as their corpus did, and RL turns that hedging into decisions, in whichever direction the reward favours. But RL can only reinforce what it sees succeed. When the right action is rare, each run either learns it everywhere or not at all, and which runs take off is predicted before training by one count: the expected number of groups of attempts in which the action wins. About 35 such groups give even odds. The count holds for new and repeated problems and for groups of 4 to 256 attempts, and across learning rates, optimizers, GRPO variants and model sizes from 1.3M to 85M parameters, which move the threshold but not what is counted.",
-  "summary_1line": "When a familiar rule stops working, an agent has to weigh what pre-training taught it against what it now observes. We ask how outcome-reward reinforcement learning (RL) changes this balance, in a puzzle world where b...",
+  "summary_1line": "When a familiar rule stops working, an agent has to weigh what pre-training taught it against what it now observes. We ask how outcome-reward reinforcement learning (RL) changes this balance, in a puzzle world where both sides are known: small language models trained from scratch",
   "title": "RL Can Only Reinforce What It Sees Succeed",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26084v1",
@@ -17086,6 +17086,20 @@
   "url": "https://github.com/runpod/runpod-mcp/issues/202",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "9e6bd2a43844cbfa": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jayesh Bhayani discusses Tesco’s decade-long enterprise transformation from fragmented legacy systems to a unified cloud-edge platform. He explains how aligning system, talent, and process modernizations allowed Tesco to scale mission-critical retail operations to millions of customers, while sharing practical lessons on build vs. buy, cloud cost management, and preparing for agentic commerce. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to hel",
+  "first_seen": "2026-11-22T07:05:15.939061+00:00",
+  "id": "55847a80cdecf62f",
+  "image_url": "https://res.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/en/headerimage/generatedHeaderImage-1795178998128.jpg",
+  "published": "2026-11-22T06:27:00+00:00",
+  "sid": "9e6bd2a43844cbfa",
+  "source": "infoq_ai_ml",
+  "summary": "AWS Lambda now runs Event Functions on EC2 G-series GPU instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU, vLLM and SGLang base images that need no handler code, and 90-minute asynchronous timeouts. Billing is the instance price plus a 9.75 percent fee; first hands-on tests report an eight-minute publish and no response streaming. By Steef-Jan Wiggers",
+  "summary_1line": "AWS Lambda now runs Event Functions on EC2 G-series GPU instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU, vLLM and SGLang base images that need no handler code...",
+  "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
  "9e8bf10c4a9ee0de": {
   "content_excerpt": "Track what you actually ship with AI, no config, no daemon, no account by default. Vibetime wraps Claude Code, Codex, Gemini, Aster, and Opencode and prints a session summary every time you're done. Cursor Desktop and ZCode are tracked through session hooks. No config, no daemon, no account by default. Running vibe with nothing after it sets up everything: shell hooks that wrap claude , codex , gemini , aster , and opencode in the terminal, plus desktop session hooks for the Claude Code, Codex, Cursor, and ZCode apps (see Desktop apps ). The tools work exactly the same — Vibetime tracks your git state while you code and prints the endcard when you're done. Fish, Bash, and Zsh are detected automatically, and the matching syntax is written to that shell's rc file. vibe init does the same thing explicitly, and re-running it is always safe. Every time you close a Claude Code, Codex, Gemini, Aster, Opencode, Cursor, or ZCode session: How duration works — Vibetime polls your git state every 30 seconds. If no file changes, commits, or staging activity are detected for 30 minutes, the idle time is excluded from your session duration. Laptop sleep and background idle are automatically handled. Non-git projects use wall-clock time. Whose commits count — once you're logged in, only yours. Pulling or merging your team's work into your branch mid-session no longer counts their commits as yours. Vibetime matches on the email in that repo's git config user.email plus your GitHub noreply add",
   "first_seen": "2026-11-12T14:05:44.007889+00:00",
@@ -18356,13 +18370,18 @@
  "a8b0d0cda04f24ec": {
   "first_seen": "2026-11-22T00:08:44.872902+00:00",
   "id": "c977aea19d18857f",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-19T15:43:51+00:00",
   "sid": "a8b0d0cda04f24ec",
   "source": "arxiv_cs_cl",
+  "summary": "Reasoning capabilities in large language models have evolved from prompting-based methods to internalized model behaviors. In this paper, we investigate whether the internal thinking model of an LLM can be deliberately changed and whether such a change is beneficial. Instead of relying on Chain-of-Thought, we train models to follow Question--Option--Criteria (QOC), a structured decision process that decomposes a task into explicit questions, competing options, and evaluation criteria. We present a three-generation development pipeline that ranges from a basic QOC decision core to richer answer synthesis and statistically enriched QOC reasoning. We then evaluate the resulting models with respect to both internal consistency and output quality. Across the reported experiments, QOC-based fine-tuning improves answer quality relative to non-fine-tuned base models and yields particularly strong gains once models are large enough to execute the underlying QOC computations reliably. The results suggest that the internal thinking model of an LLM is trainable and that structured alternatives to Chain-of-Thought can provide a promising path toward more reliable, interpretable, and task-adapted decision support.",
   "summary_1line": "Reasoning capabilities in large language models have evolved from prompting-based methods to internalized model behaviors. In this paper, we investigate whether the internal thinking model of an LLM can be deliberately changed and whether such a change is beneficial. Instead of r",
   "title": "What If Chain-of-Thought Is Not Enough?",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.26282v1"
+  "url": "http://arxiv.org/abs/2611.26282v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "a8b588e8a456d4f8": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
@@ -27596,6 +27615,17 @@
   "title": "Prompt Canaries Detect Prompt Leaks at AI Providers",
   "type": "news",
   "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+ },
+ "ff923bd851cac253": {
+  "first_seen": "2026-11-22T07:06:49.619902+00:00",
+  "id": "3a2b3a5140a162b7",
+  "published": "2026-11-19T16:04:04+00:00",
+  "sid": "ff923bd851cac253",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Target Language Extraction (TLE) aims to isolate speech in a target language from multilingual mixtures. Existing approaches primarily rely on acoustic modeling with language identity labels, which provide only coarse categorical guidance. In this work, we propose a language-orie",
+  "title": "Language-Oriented Semantic Modeling for Target Language Extraction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26317v1"
  },
  "ffb135670dcdd2fa": {
   "first_seen": "2026-11-06T07:09:24.149502+00:00",
