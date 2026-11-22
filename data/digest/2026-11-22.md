@@ -5,119 +5,101 @@ Focus: AI Platform Engineering
 ## 1. Show HN: Aaf-gate – policy gate and kill switch for existing agent runtimes
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/buberlo/aaf-gate
-- Score: 3.479 | Reliability: 1.0
+- Score: 3.374 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Show HN: TheGitAI CLI/Desktop Agent with Computer Control on Linux (Wayland+X11)
 - Type: news | Source: hackernews_ai
 - URL: https://thegit.ai/tour
-- Score: 3.194 | Reliability: 1.0
+- Score: 3.092 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Models Can Communicate via Inference Servers Despite Being Sandboxed
+## 3. 26 AI agents rewrote a backend from Django to Rust with no human merges
 - Type: news | Source: hackernews_ai
-- URL: https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being
-- Score: 3.011 | Reliability: 1.0
-- Why it matters: 
+- URL: https://airepublic.com/blog/pi-dash-self-evolution-experiment/
+- Score: 2.986 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 4. Perplexity and Intelligence
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/perplexity-and-intelligence
-- Score: 2.609 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 5. Combatting adversarial distillation
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/combatting-adversarial-distillation
-- Score: 2.517 | Reliability: 1.0
-- Why it matters: 
-
-## 6. A$^2$-VLA: Adapting Vision-Language-Action Policies to New Tools through Agentic Affordance Discovery
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.25656v1
-- Score: 2.335 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 7. Your Software Factory Needs a Bill of Materials | Daniel Meppiel
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/MHrw1wxSuz8
-- Score: 2.164 | Reliability: 0.75
+## 4. MemFolder: Structure-Guided Memory Folding for Efficient Agent Memory Management
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.26427v1
+- Score: 2.526 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 8. Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/inkling2mini
-- Score: 2.092 | Reliability: 1.0
-- Why it matters: 
-
-## 9. When Safety Rationales Hallucinate: Diagnosing and Grounding Multimodal Safety Guards
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.25793v1
-- Score: 2.045 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 10. LangSmith Tool Gateway: Secure, governed tool use for agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/langsmith-tool-gateway
-- Score: 2.035 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 11. Why Do LLMs Help with Scientific Misconduct Requests and What to Do About It?: Increasing the Trustworthiness of AI for Science
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.25492v1
-- Score: 2.002 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 12. Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-18-flydsl-monokernels
-- Score: 1.795 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Genie 4 is now available
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-is-now-available/
-- Score: 1.703 | Reliability: 1.0
-- Why it matters: 
-
-## 14. claude-code v2.1.330
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.330
-- Score: 1.436 | Reliability: 1.0
+## 5. How the Claude Code team thinks about verification
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/
+- Score: 2.215 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 15. codex 0.173.0-alpha.4
+## 6. AURA: AUdio-dRiven streaming Avatar
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26540v1
+- Score: 2.127 | Reliability: 1.0
+- Why it matters: 
+
+## 7. Backtracking Agent Applications Security Incidents
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26525v1
+- Score: 2.125 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. LangSmith for Coding Agents: Now track spend by outcome
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-coding-agents-roi
+- Score: 1.946 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-18-flydsl-monokernels
+- Score: 1.792 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Genie 4 is now available
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-is-now-available/
+- Score: 1.662 | Reliability: 1.0
+- Why it matters: 
+
+## 11. claude-code v2.1.330
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.330
+- Score: 1.446 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 12. Cut self-hosted LLM cost and latency with the distributed KV caching agent skill
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill/
+- Score: 1.311 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. codex 0.173.0-alpha.3
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.4
-- Score: 1.243 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.3
+- Score: 1.227 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 16. vllm v0.34.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.201 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 17. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
-- Type: video | Source: lennys_podcast
-- URL: https://youtu.be/WY0cdD4gNoQ
-- Score: 1.117 | Reliability: 0.75
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 18. tencent/Hy4-FP8 released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy4-FP8
-- Score: 1.058 | Reliability: 1.0
-- Why it matters: 
-
-## 19. langgraph==1.2.23
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 0.981 | Reliability: 1.0
-- Why it matters: 
-
-## 20. claude-agent-sdk-python v0.2.185
+## 14. claude-agent-sdk-python v0.2.187
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
-- Score: 0.928 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.187
+- Score: 1.095 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 15. langgraph-prebuilt==1.1.3
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 0.986 | Reliability: 1.0
+- Why it matters: 
+
+## 16. tencent/WeMM-Video-2B released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeMM-Video-2B
+- Score: 0.974 | Reliability: 1.0
+- Why it matters: 
+
+## 17. vllm v0.34.0rc4
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc4
+- Score: 0.359 | Reliability: 1.0
+- Why it matters:
