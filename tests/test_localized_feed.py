@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -73,6 +74,52 @@ class TranslationKeyAndHashTest(unittest.TestCase):
 
         self.assertEqual(localized._source_hash(item), localized._source_hash(changed_metadata))
         self.assertNotEqual(localized._source_hash(item), localized._source_hash(changed_text))
+
+
+class FeedParamsTest(unittest.TestCase):
+    NOW = datetime(2026, 11, 22, 15, 9, 33, 376000, tzinfo=timezone.utc)  # 00:09 KST on the 23rd
+
+    def test_snapshot_window_is_the_last_seven_seoul_days(self) -> None:
+        self.assertEqual(
+            localized.snapshot_params("brief", 100, self.NOW),
+            {
+                "label": "brief",
+                "limit": "100",
+                "from": "2026-11-17T00:00:00.000+09:00",
+                "to": "2026-11-23T23:59:59.999+09:00",
+            },
+        )
+
+    def test_home_params_are_the_english_home_default_request(self) -> None:
+        self.assertEqual(
+            localized.home_params(self.NOW),
+            {
+                "label": "brief",
+                "limit": "200",
+                "window": "arrival",
+                "from": "2026-11-21T15:09:33.376Z",
+                "to": "2026-11-22T15:09:33.376Z",
+            },
+        )
+
+    def test_home_params_match_what_web_index_requests_by_default(self) -> None:
+        # web/index.html buildFeedUrl(): drift here means the Korean reader is
+        # translated a different set of cards than the English home shows.
+        page = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("let limitState = '200';", page)
+        self.assertIn("const DEFAULT_SECTION_LABELS = ['brief'];", page)
+        self.assertIn("u.searchParams.set('window', 'arrival');", page)
+        self.assertIn("now.getTime() - 24 * 60 * 60 * 1000", page)
+
+    def test_fetch_hands_the_params_to_the_feed_handler_and_parses_its_json(self) -> None:
+        completed = subprocess.CompletedProcess([], 0, stdout='{"items": []}', stderr="")
+        with patch.object(localized.subprocess, "run", return_value=completed) as run:
+            feed = localized._fetch_english_feed({"label": "brief", "limit": "5"})
+
+        self.assertEqual(feed, {"items": []})
+        env = run.call_args.kwargs["env"]
+        self.assertEqual(json.loads(env["FEED_PARAMS"]), {"label": "brief", "limit": "5"})
+        self.assertEqual(run.call_args.kwargs["cwd"], localized.ROOT)
 
 
 class ItemJobTest(unittest.TestCase):

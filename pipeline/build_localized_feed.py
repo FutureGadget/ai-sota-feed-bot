@@ -9,6 +9,7 @@ stays frozen and ``status.json`` says ``budget_paused``.
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
@@ -114,35 +115,64 @@ def _classify_dirty(
                 dirty_lookahead.append(it)
     return dirty_targets, dirty_lookahead
 
-def _fetch_english_feed(label: str, limit: int) -> dict[str, Any]:
-    js_code = f"""
-import {{ GET }} from './api/feed.js';
-function kstWindow(days) {{
-  const now = new Date();
-  const kstNow = new Date(now.toLocaleString('en-US', {{ timeZone: 'Asia/Seoul' }}));
-  const end = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 999);
-  const start = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate() - (days - 1), 0, 0, 0, 0);
-  const offset = '+09:00';
-  const fmt = (d) => {{
-    const pad = (n, w = 2) => String(n).padStart(w, '0');
-    return `${{d.getFullYear()}}-${{pad(d.getMonth() + 1)}}-${{pad(d.getDate())}}T${{pad(d.getHours())}}:${{pad(d.getMinutes())}}:${{pad(d.getSeconds())}}.${{pad(d.getMilliseconds(), 3)}}${{offset}}`;
-  }};
-  return {{ from: fmt(start), to: fmt(end) }};
-}}
-const w = kstWindow(7);
+KST = timezone(timedelta(hours=9))
+SNAPSHOT_DAYS = 7
+# The English home's default view (web/index.html buildFeedUrl): the Brief lens,
+# a rolling 24-hour window keyed by feed arrival, up to 200 cards.
+HOME_LABEL = "brief"
+HOME_LIMIT = 200
+HOME_HOURS = 24
+
+_FETCH_JS = """
+import { GET } from './api/feed.js';
 const url = new URL('http://localhost/api/feed');
-url.searchParams.set('label', '{label}');
-url.searchParams.set('limit', '{limit}');
-url.searchParams.set('from', w.from);
-url.searchParams.set('to', w.to);
-const req = {{ url: url.toString() }};
-GET(req)
-  .then(res => res.json())
-  .then(data => {{ console.log(JSON.stringify(data)); }})
-  .catch(console.error);
+for (const [key, value] of Object.entries(JSON.parse(process.env.FEED_PARAMS))) {
+  url.searchParams.set(key, value);
+}
+GET({ url: url.toString() })
+  .then((res) => res.json())
+  .then((data) => { console.log(JSON.stringify(data)); })
+  .catch((err) => { console.error(err); process.exit(1); });
 """
-    cmd = ["node", "-e", js_code]
-    res = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
+
+
+def _kst_window(days: int, now: datetime) -> dict[str, str]:
+    """The last ``days`` Seoul calendar days up to the end of today, as /api/feed from/to."""
+    today = now.astimezone(KST).replace(hour=0, minute=0, second=0, microsecond=0)
+
+    def fmt(d: datetime) -> str:
+        return d.isoformat(timespec="milliseconds")
+
+    start = today - timedelta(days=days - 1)
+    end = today.replace(hour=23, minute=59, second=59, microsecond=999000)
+    return {"from": fmt(start), "to": fmt(end)}
+
+
+def snapshot_params(label: str, limit: int, now: datetime) -> dict[str, str]:
+    """/api/feed params for the 7-day snapshot selector the /ko/ page requests."""
+    return {"label": label, "limit": str(limit), **_kst_window(SNAPSHOT_DAYS, now)}
+
+
+def home_params(now: datetime) -> dict[str, str]:
+    """/api/feed params of the English home's default request."""
+    def fmt(d: datetime) -> str:
+        return d.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+    return {
+        "label": HOME_LABEL,
+        "limit": str(HOME_LIMIT),
+        "window": "arrival",
+        "from": fmt(now - timedelta(hours=HOME_HOURS)),
+        "to": fmt(now),
+    }
+
+
+def _fetch_english_feed(params: dict[str, str]) -> dict[str, Any]:
+    """The English /api/feed response for ``params``, from the repo's own handler."""
+    env = {**os.environ, "FEED_PARAMS": json.dumps(params)}
+    res = subprocess.run(
+        ["node", "-e", _FETCH_JS], cwd=ROOT, env=env, capture_output=True, text=True, check=True
+    )
     return json.loads(res.stdout)
 
 
@@ -213,7 +243,7 @@ def main(client=None):
 
     fetch_limit = max(100, args.limit * 2)
     print(f"Fetching English feed (label={args.label}, limit={fetch_limit})...")
-    feed = _fetch_english_feed(args.label, fetch_limit)
+    feed = _fetch_english_feed(snapshot_params(args.label, fetch_limit, now))
     all_items = feed.get("items", [])
     if not all_items:
         print("No items in feed!")
