@@ -5487,7 +5487,7 @@
   "url": "http://arxiv.org/abs/2611.18272v1"
  },
  "31dbae397b46d6b3": {
-  "content_excerpt": "40+ Models Chosen for Production...40+ Models Chosen for Production...40+ Models Chosen for Production... We are notifying customers about a security incident involving a subset of prompts submitted to Together AI’s serverless inference service in June and July 2026. An unauthorized party downloaded stored prompt samples after a credential for a private repository was exposed in a public code repository. We apologize for this incident. We are reviewing the affected data to determine what information was exposed and which customers require direct notification. As part of routine software testing, we collected prompt samples authorized for that use and stored them in a private Hugging Face repository. The samples came from requests to the MiniMax M3, GLM-5.2, and Kimi K2.6 models, primarily on June 24, July 4, July 8, and July 14, 2026. During development of our public GitHub repository, xorl, an AI coding agent committed a credential that provided access to the private Hugging Face repository. Our automated scanning detected the exposed credential, and we reverted the commit. During the exposure window, an unauthorized party obtained the credential and used it to download the stored prompt samples. The party subsequently searched those samples for credentials to other services and tested whether those credentials were valid. Five of the credentials tested were canary credentials associated with a Dragos security experiment. We have no reason to believe the unauthorized party h",
+  "content_excerpt": "40+ Models Chosen for Production...40+ Models Chosen for Production...40+ Models Chosen for Production... We are notifying customers about a security incident involving a subset of prompts submitted to Together AI’s serverless inference service in June and July 2026. An unauthorized party downloaded stored prompt samples after a credential for a private repository was exposed in a public code repository. We apologize for this incident. We are reviewing the affected data to determine what information was exposed and which customers require direct notification. As part of routine software testing, we collected prompt samples authorized for that use and stored them in a private Hugging Face repository. The samples came from requests to the MiniMax M3, GLM-5.2, and Kimi K2.6 models, primarily on June 24, July 4, July 8, and July 14, 2026. During development of our public GitHub repository, xorl, an AI coding agent committed a credential that provided access to the private Hugging Face repository. Our automated scanning detected the exposed credential, and we reverted the commit. During the exposure window, an unauthorized party obtained the credential and used it to download the stored prompt samples. The party subsequently searched those samples for credentials to other services and tested whether those credentials were valid. Five of the credentials tested were canary credentials associated with a Dragos security experiment. We have worked with an external forensic investigatio",
   "first_seen": "2026-11-22T05:04:04.306883+00:00",
   "id": "7908bbb3b6b6a047",
   "published": "2026-11-22T03:07:27+00:00",
@@ -20710,6 +20710,22 @@
   "url": "http://arxiv.org/abs/2611.07372v1",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "bd45098603528b17": {
+  "content_excerpt": "Tether is a Rust harness that wraps an agent somebody else wrote. Every model call and tool call the agent makes goes through it, is checked against a policy, and is written to a trace. This is about one property of that trace: you can run the agent again from it, with no network and no cost, and get the same run. Not a similar run. The same events, equal field for field. That sounds like a logging feature. It turned out to be the design decision everything else hangs from, and getting it exactly right took more care than expected. This write-up covers why it is worth having, the four decisions that make it work, and where it stops working. Here is a recorded run of a small agent that writes a note, tries to delete its workspace and is refused. Replaying it and comparing the two: On its own that is a party trick. It becomes useful when you change one thing and replay again, because whatever differs is then caused by the thing you changed. Change the policy. Policy is the one part of a run that is not played back. It is evaluated again, so you can hold an old run to new rules and see what they would have decided, without the agent doing anything: A week of production traces is a test suite for a policy change, and running it costs nothing. Change the prompt or the model. Now the recording cannot answer, because the model was never asked this question. The replay follows the recording up to the first request that differs, then goes live: real model, real tools, a fresh workspac",
+  "first_seen": "2026-11-22T06:05:05.339894+00:00",
+  "id": "08ba4cd9189699d1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-22T05:11:17+00:00",
+  "sid": "bd45098603528b17",
+  "source": "hackernews_ai",
+  "summary_1line": "Replaying an agent run and what it takes",
+  "title": "Replaying an agent run and what it takes",
+  "type": "news",
+  "url": "https://github.com/chizy7/tether/blob/master/docs/REPLAY.md",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bd66ab3bbbe26fb8": {
   "first_seen": "2026-11-03T12:04:47.176869+00:00",
   "id": "ff868958c08caf3b",
@@ -27200,6 +27216,18 @@
   "type": "news",
   "url": "https://openai.com/index/heimstaden",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "fc8fc61c5d80d591": {
+  "content_excerpt": "Counts come from the compiled assemblies: a model is a public concrete type with a [ModelDomain] attribute, and a family is one of its declared domains or categories, so one model can count in several rows. The model and component counts are in the generated table at the top of this page. Against the other .NET libraries, the difference that can be stated without a benchmark is the runtime: Run the end-to-end training and inference comparison against Python PyTorch on your own CPU or GPU. 11-model benchmark and commands Native acceleration binaries are optional packages maintained by AiDotNet.Tensors. Install only the backend you need alongside AiDotNet: AiDotNet works without these packages using the Tensors engine's available managed and in-house kernels. Full runnable version (inline Iris dataset, train/test split, accuracy report): samples/getting-started/HelloWorld/Program.cs",
+  "first_seen": "2026-11-22T06:05:05.339894+00:00",
+  "id": "989ca53e35a4bc56",
+  "published": "2026-11-22T05:07:05+00:00",
+  "sid": "fc8fc61c5d80d591",
+  "source": "hackernews_ai",
+  "summary_1line": "AiDotNet – Comprehensive AI/ML Framework for .NET",
+  "title": "AiDotNet – Comprehensive AI/ML Framework for .NET",
+  "type": "news",
+  "url": "https://github.com/ooples/AiDotNet"
  },
  "fcaeb8e884476a8c": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
