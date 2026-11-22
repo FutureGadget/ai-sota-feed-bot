@@ -1880,6 +1880,10 @@
       font-size: 0.78rem;
       color: var(--muted);
     }
+    /* Korean breaks between words (eojeol), never inside one. Card rules above
+       set word-break: break-word, which would split Hangul syllables; this
+       restores keep-all inside the page. overflow-wrap still breaks long URLs. */
+    html[lang="ko"] main * { word-break: keep-all; }
   </style>
   <link rel="stylesheet" href="/front-page.css?v=20261119-readable" />
   <link rel="stylesheet" href="/skills-strip.css?v=20261102-radar" />
