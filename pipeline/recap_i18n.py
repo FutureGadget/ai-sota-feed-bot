@@ -28,6 +28,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import locales  # noqa: E402
 import render_static_pages as render  # noqa: E402
 
 ROOT = render.ROOT
@@ -36,13 +37,14 @@ KINDS = {
     "daily": {"dir": render.DAILY_DIR, "id_re": re.compile(r"^\d{4}-\d{2}-\d{2}$")},
     "weekly": {"dir": render.WEEKLY_DIR, "id_re": re.compile(r"^\d{4}-W\d{2}$")},
 }
-SCRIPT_CHECKS = {"ko": re.compile(r"[가-힣]")}
+SCRIPT_CHECKS = {c: locales.get(c).script for c in locales.LOCALES if locales.get(c).script}
 MAX_FIELD_CHARS = 1200
 # Readability caps per locale: a title fits the hero in about three lines on
 # a phone, a highlight in about three lines of the "30 seconds" list.
-MAX_TITLE_CHARS = {"ko": 40}
-MAX_HIGHLIGHT_CHARS = {"ko": 100}
-MAX_CATEGORY_NAME_CHARS = {"ko": 40}
+_CAPS = {c: locales.get(c).recap for c in locales.LOCALES}
+MAX_TITLE_CHARS = {c: r["max_title_chars"] for c, r in _CAPS.items() if "max_title_chars" in r}
+MAX_HIGHLIGHT_CHARS = {c: r["max_highlight_chars"] for c, r in _CAPS.items() if "max_highlight_chars" in r}
+MAX_CATEGORY_NAME_CHARS = {c: r["max_category_name_chars"] for c, r in _CAPS.items() if "max_category_name_chars" in r}
 
 
 def _intro_list(value) -> list[str]:

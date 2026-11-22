@@ -26,6 +26,9 @@ from datetime import date
 from html import escape
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import locales  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 COMMUNITY_DIR = ROOT / "data" / "community"
 
@@ -33,14 +36,14 @@ KINDS = {
     "daily": {"recap_dir": ROOT / "data" / "daily", "id_re": re.compile(r"^\d{4}-\d{2}-\d{2}$"), "id_field": "date"},
     "weekly": {"recap_dir": ROOT / "data" / "weekly", "id_re": re.compile(r"^\d{4}-W\d{2}$"), "id_field": "week"},
 }
-STYLES = {"en": "reddit", "ko": "dcinside"}
-LOCALES = ("en", "ko")
+STYLES = {c: locales.get(c).community["style"] for c in locales.LOCALES}
+LOCALES = locales.LOCALES
 MAX_COMMENTS = 14
 MAX_DEPTH = 2
 MAX_BODY_CHARS = 2400
 MAX_COMMENT_CHARS = 600
 # A post title should fit the thread header in about three lines on a phone.
-MAX_TITLE_CHARS = {"en": 90, "ko": 45}
+MAX_TITLE_CHARS = {c: locales.get(c).community["max_title_chars"] for c in locales.LOCALES}
 
 # Literal translations of the English thread's stock phrases. A Korean board
 # regular would never write these; `--check` rejects them so the routine
@@ -71,6 +74,8 @@ COPY = {
         "n_points": "{n} points",
         "n_comments": "{n} comments",
         "empty": "No threads yet.",
+        "back_to_index": "← All threads",
+        "n_threads": "{n} threads",
     },
     "ko": {
         "section": "커뮤니티",
@@ -90,10 +95,11 @@ COPY = {
         "n_points": "추천 {n}",
         "n_comments": "댓글 {n}개",
         "empty": "아직 스레드가 없습니다.",
+        "back_to_index": "← 전체 스레드",
+        "n_threads": "스레드 {n}개",
     },
 }
 
-MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 
 # --------------------------------------------------------------------------- #
@@ -303,13 +309,11 @@ def thread_for(post: dict | None, locale: str) -> dict | None:
 
 
 def post_path(kind: str, edition: str, locale: str = "en") -> str:
-    prefix = "/ko" if locale == "ko" else ""
-    return f"{prefix}/community/{kind}/{edition}"
+    return locales.path(locale, f"/community/{kind}/{edition}")
 
 
 def recap_path(kind: str, edition: str, locale: str = "en") -> str:
-    prefix = "/ko" if locale == "ko" else ""
-    return f"{prefix}/{kind}/{edition}"
+    return locales.path(locale, f"/{kind}/{edition}")
 
 
 def localized_recap_exists(kind: str, edition: str, locale: str) -> bool:
@@ -341,14 +345,10 @@ def edition_label(kind: str, recap: dict, locale: str = "en") -> str:
     try:
         if kind == "daily":
             d = date.fromisoformat(str(recap.get("date")))
-            return f"{d.year}년 {d.month}월 {d.day}일" if locale == "ko" else f"{MONTHS[d.month - 1]} {d.day}, {d.year}"
+            return locales.format_date(locale, "edition", d)
         s = date.fromisoformat(str(recap.get("start")))
         e = date.fromisoformat(str(recap.get("end")))
-        if locale == "ko":
-            return f"{s.year}년 {s.month}월 {s.day}일–{e.month}월 {e.day}일"
-        if s.month == e.month:
-            return f"{MONTHS[s.month - 1]} {s.day}–{e.day}, {e.year}"
-        return f"{MONTHS[s.month - 1]} {s.day} – {MONTHS[e.month - 1]} {e.day}, {e.year}"
+        return locales.format_range(locale, "edition_range", s, e)
     except Exception:  # noqa: BLE001
         return str(recap.get(KINDS.get(kind, {}).get("id_field", "date")) or "")
 
