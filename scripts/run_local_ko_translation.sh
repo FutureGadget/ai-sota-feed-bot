@@ -2,15 +2,20 @@
 # ==============================================================================
 # Script: scripts/run_local_ko_translation.sh
 # Purpose: Orchestrates the hourly/scheduled translation pipeline for the
-#          Korean (/ko/) live feed and static pages using Google Cloud Translation API.
+#          Korean (/ko/) live feed and static pages with Claude (pipeline/translator.py).
 #
 # Usage:
 #   chmod +x scripts/run_local_ko_translation.sh
 #   ./scripts/run_local_ko_translation.sh
 #
 # Prerequisites:
-#   1. GOOGLE_TRANSLATE_API_KEY must be set in the environment.
+#   1. Anthropic credentials in the environment: ANTHROPIC_API_KEY, or workload
+#      identity (ANTHROPIC_IDENTITY_TOKEN_FILE and the federation ids).
 #   2. Local git repository configured with write access to origin/main.
+#
+# Spend is metered in USD in data/i18n/translation_spend.json, shared with the
+# CI workflows, and stops at TRANSLATION_MONTHLY_USD_CAP (default: the policy
+# in config/translation.json). The ledger is committed with the translations.
 # ==============================================================================
 
 set -euo pipefail
@@ -23,13 +28,12 @@ ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 BASE_URL="https://www.llm-digest.com"
 
 echo "=== [1/5] Checking Prerequisites & Updating Repository ==="
-# Verify GOOGLE_TRANSLATE_API_KEY is set
-if [ -z "${GOOGLE_TRANSLATE_API_KEY:-}" ]; then
-  echo "Error: GOOGLE_TRANSLATE_API_KEY is not set in the environment."
-  echo "Please export GOOGLE_TRANSLATE_API_KEY=your_key and try again."
+# Fail early when no Anthropic credentials are visible.
+if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -z "${ANTHROPIC_IDENTITY_TOKEN_FILE:-}" ]; then
+  echo "Error: set ANTHROPIC_API_KEY (or ANTHROPIC_IDENTITY_TOKEN_FILE for workload identity)."
   exit 1
 fi
-echo "Google Translate API Key is configured."
+echo "Anthropic credentials are configured."
 
 # Ensure we are on main and up to date
 cd "${ROOT_DIR}"

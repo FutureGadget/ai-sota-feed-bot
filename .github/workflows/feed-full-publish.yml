@@ -20,6 +20,16 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+      id-token: write
+    env:
+      ANTHROPIC_FEDERATION_RULE_ID: fdrl_01GN2AuwqLTq1XD8kxxuTbqr
+      ANTHROPIC_ORGANIZATION_ID: c5b5d449-b5e3-4ee2-8710-0214f52e2d83
+      ANTHROPIC_SERVICE_ACCOUNT_ID: svac_01Tf5xcLoVaBZiGUC7e5K38f
+      ANTHROPIC_WORKSPACE_ID: wrkspc_016Khe3Wp6MbgC6YGEbWB7xi
+      ANTHROPIC_IDENTITY_TOKEN_FILE: /tmp/gha-jwt
     steps:
       - name: Reject publishing from a non-main ref
         if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
@@ -65,7 +75,7 @@ jobs:
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       # A failed static publish must be reconciled before the feed spends from
-      # the shared guard. Keep English publishing available if recovery fails.
+      # the shared ledger. Keep English publishing available if recovery fails.
       - name: Recover pending paid static outputs
         id: recovery
         if: ${{ !inputs.dry_run }}
@@ -74,17 +84,36 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: .venv/bin/python scripts/persist_static_i18n.py recover
 
+      # GitHub OIDC tokens expire after about 5 minutes and the Anthropic SDK
+      # rereads this file on each credential refresh, so keep rewriting it.
+      # The first fetch must succeed; a failed refresh keeps the previous token.
+      # Translation is optional: if the token cannot be fetched, the localized
+      # feed step fails on its own and English publishing continues.
+      - name: Fetch GitHub OIDC token and keep it fresh
+        continue-on-error: true
+        run: |
+          set -eo pipefail
+          umask 077
+          fetch_token() {
+            curl -sS -f -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.anthropic.com" \
+              | jq -er .value > "$ANTHROPIC_IDENTITY_TOKEN_FILE.tmp" || return 1
+            mv "$ANTHROPIC_IDENTITY_TOKEN_FILE.tmp" "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+          }
+          fetch_token
+          (
+            while sleep 240; do
+              fetch_token || echo "OIDC token refresh failed" >&2
+            done
+          ) > /dev/null 2>&1 &
+          disown
+
       - name: Run full publish
         env:
           AUTO_PUSH_RUNTIME: ${{ inputs.dry_run && '0' || '1' }}
           # Unpublished usage cannot be omitted from the next paid request.
           # A no-push dry run cannot durably record paid usage either.
           STATIC_I18N_RECOVERY_BLOCKED: ${{ (inputs.dry_run || steps.recovery.outcome == 'failure') && '1' || '0' }}
-          # Google Cloud Translation API key for Korean live-feed snapshots
-          # (pipeline/build_localized_feed.py). Optional: when absent the
-          # localized feed step emits localized_feed_missing_credentials
-          # and leaves the prior snapshot in place.
-          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
           # Jev quality gate (pipeline/editorial_judge.py via OpenRouter
           # System One). Optional: when unset the build logs
           # judge_skipped reason=not_configured and runs deterministically.

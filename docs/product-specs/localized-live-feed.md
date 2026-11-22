@@ -91,14 +91,12 @@ When the Korean snapshot is stale or missing:
 - Keep the page functional and honest; no silent failure.
 
 When the Korean snapshot is stale specifically because the translation budget
-is paused (`status: "budget_paused"`, see Translation Budget Governor):
+is paused (`status: "budget_paused"`, see Translation Budget Cap):
 
 - Show one calm notice line, not a modal, above the feed: it names the frozen
   snapshot date and the resume date, for example "이번 달 번역 예산이 소진되어
   {snapshot date} 스냅샷을 보여드리고 있습니다. 새 번역은 {resumes_at,
   formatted KST}에 재개됩니다 · 최신 소식은 영어 피드에서 → " (link to `/`).
-  For a daily-cap pause (`reason: "provider_daily_cap"`), say "내일"
-  (tomorrow) instead of a month date.
 - This notice replaces — not stacks with — the generic stale banner: a budget
   pause is the more specific explanation. Keep the generic stale state for
   genuinely unexplained staleness.
@@ -185,7 +183,6 @@ Add a feed-specific i18n artifact separate from the static-page artifacts:
 data/i18n/ko/feed/latest.json
 data/i18n/ko/feed/status.json
 data/i18n/ko/feed/runs/<snapshot-id>.json
-data/i18n/ko/feed/budget.json          # pipeline-only ledger, see Translation Budget Governor
 ```
 
 Proposed `latest.json` shape:
@@ -316,18 +313,14 @@ The endpoint must return enough status for the page to render honestly:
 }
 ```
 
-`status` may also be `budget_paused` (see Translation Budget Governor). The
+`status` may also be `budget_paused` (see Translation Budget Cap). The
 endpoint forwards the fields `data/i18n/ko/feed/status.json` carries for that
-state — `status`, `reason`, `resumes_at`, `budget`, and the governor's ladder
-step as `governor_mode` — alongside the existing fields above; it does not
-compute or reinterpret them. `governor_mode` is deliberately a distinct key
-from the top-level `mode` field above: `mode` is this endpoint's established
-response-shape field (always `"localized_snapshot"` here), while
-`status.json`'s own `mode` field names the governor step
-(`normal`/`conserve`/`economy`/`paused`); passing the latter through under
-the same key would silently overwrite the former, so it is exposed as
-`governor_mode` instead. See Translation Budget Governor for the full
-`status.json` shape.
+state — `status`, `reason`, `resumes_at`, and `budget` — alongside the existing
+fields above; it does not compute or reinterpret them. (Older `status.json`
+files could also carry a governor `mode`, which the endpoint exposes as
+`governor_mode` so it cannot overwrite the top-level `mode`. The builder no
+longer writes it.) See Translation Budget Cap for the full `status.json`
+shape.
 
 The localized response must preserve operational fields from the source English
 items: `id`, `url`, `source`, `published`, `type`, labels, scores, story links,
@@ -409,125 +402,101 @@ Required machine-readable status:
 
 - Durable status file: `data/i18n/ko/feed/status.json`.
 - Grep-friendly log keys: `localized_feed_ok`, `localized_feed_stale`,
-  `localized_feed_incomplete`, `localized_feed_missing_credentials`,
-  `localized_feed_disabled`, and `localized_feed_budget_paused` (the budget
-  governor's pause state — see Translation Budget Governor).
+  `localized_feed_incomplete`, `localized_feed_disabled`, and
+  `localized_feed_budget_paused` (the monthly cap's pause state — see
+  Translation Budget Cap).
 - Status fields: `locale`, `status`, `source_run_at`, `translated_at`,
   `expires_at`, `eligible_count`, `translated_count`, `missing_count`, and
-  `reason`. When the budget governor is active, `status.json` also carries
-  `resumes_at`, `mode`, and `budget` (present in every mode, not only
-  `budget_paused`, so ops can watch the ladder) — see Translation Budget
-  Governor for the full shape.
+  `reason`, and `budget` (USD spent against the monthly cap, written on every
+  run). A `budget_paused` status also carries `resumes_at` — see Translation
+  Budget Cap for the full shape.
 
-## Translation Budget Governor
+## Translation Budget Cap
 
-The Google Translate API call in the flow above has a monthly character
-budget. A local ledger paces spending across the month through a graduated
-degradation ladder instead of translating at full cadence until the budget
-dies mid-month. Key insight: this spec's freshness rule only promises 24-hour
-snapshot currency, but the pipeline runs hourly — cutting translation cadence
-is free budget readers cannot detect.
+Each card is translated by Claude (`pipeline/translator.py`, model from
+`config/translation.json`, one call per card). Spend is metered in USD by one
+ledger, `data/i18n/translation_spend.json`, shared with the static-page
+translator. When the month's spend plus the next call's estimate would pass
+`monthly_usd_cap` (policy default, or `TRANSLATION_MONTHLY_USD_CAP`), the
+translator raises `BudgetExceeded` and the feed stops translating until the
+month rolls over. There is no degradation ladder: the hourly run translates only
+cards whose `source_hash` changed, so a normal month costs far less than the
+cap, and the cap is a hard stop.
 
 ### Ledger artifact
 
 ```text
-data/i18n/ko/feed/budget.json
+data/i18n/translation_spend.json
 ```
 
 Pipeline-only: it is never added to `vercel.json` `includeFiles`. Everything
-`api/feed.js` and `/ko/` need travels through `status.json` instead. Shape,
-rollover, and seeding rules live in `docs/generated/db-schema.md`; the
-one-off seeding procedure lives in
+`api/feed.js` and `/ko/` need travels through `status.json` instead. Shape and
+rollover rules live in `docs/generated/db-schema.md`; operations live in
 `docs/how-to/translation-budget-and-quota.md`.
 
-### Governor modes
+### `budget_paused` status and resume date
 
-At the start of each run the governor computes `month_fraction_elapsed`
-(day of month / days in month, UTC) and `budget_fraction_used`
-(`chars_used / monthly_cap`) from the ledger, then picks the first matching
-mode:
+When the translator raises `BudgetExceeded` before every target card has a
+current translation, the builder keeps the previous `latest.json` untouched and
+writes `status.json` as `budget_paused` instead of a generic failure:
 
-| Mode | Rule | Reader-visible behavior |
-|---|---|---|
-| `paused` | `remaining < 2%` of `monthly_cap`, OR the last run hit a still-in-effect provider quota 403 | Translation is skipped entirely; the previous complete snapshot is kept. `/ko/` shows the `budget_paused` notice (see User Experience) naming a resume date. |
-| `economy` | `budget_fraction_used > month_fraction_elapsed + 0.15` | Only the top 10 Brief cards are translated instead of 20 (all fields on those 10 remain fully translated — no per-item field dropping); fewer than 20 items is accepted as complete under the existing up-to-limit rule. The conserve cadence rule (below) also applies. |
-| `conserve` | `budget_fraction_used > month_fraction_elapsed` | If the existing snapshot's `source_run_at` is younger than `LOCALIZED_FEED_CONSERVE_MIN_AGE_HOURS` (default 6), this run skips translating. `/ko/` still reports `status: "current"` — the 24-hour freshness contract is unaffected — with `mode: "conserve"` visible in `status.json` for ops only; nothing changes for the reader. |
-| `normal` | otherwise | Today's behavior: full hourly translation, no visible change. |
+- `reason` is always `"monthly_cap"`.
+- `resumes_at` is 00:00 UTC on the first day of next month, when the ledger
+  month rolls over.
 
-`LOCALIZED_FEED_BUDGET_GOVERNOR=0` forces `normal` mode regardless of the
-ledger (metering still records spend; only the ladder is bypassed) — the
-governor's kill switch.
+If the cap is reached only while translating lookahead cards beyond the visible
+top N, every target card is already current, so the run finishes normally and
+the status stays `current`.
 
-### `budget_paused` status and resume dates
-
-When the Google Translate API returns a 403 whose error body indicates a
-quota reason (`dailyLimitExceeded`, `userRateLimitExceeded`,
-`rateLimitExceeded`, `quotaExceeded`, or another message matching
-`"quota"`/`"limit"`), or when the ledger itself reports the monthly floor is
-hit, `status.json` is written as `budget_paused` instead of a generic
-failure, with one of two resume flavors:
-
-- Provider **daily** cap (the console backstop, see the how-to) →
-  `resumes_at` is next midnight **US/Pacific** (Google's daily quota reset),
-  `reason: "provider_daily_cap"`.
-- Ledger **monthly** budget floor →
-  `resumes_at` is the first of next month at Pacific midnight (Google's
-  billing boundary, expressed in UTC), `reason: "monthly_budget"`. The
-  ledger month itself also rolls on the Pacific calendar so both sides
-  reset together.
-
-When both apply, the monthly reason wins — it is the later, truer date.
-`budget_paused` never fakes currency: once the frozen snapshot's
-`expires_at` passes, `is_current` still goes false exactly as in the normal
-stale path; `budget_paused` only explains *why* and adds `resumes_at`.
+`budget_paused` never fakes currency: once the frozen snapshot's `expires_at`
+passes, `is_current` still goes false exactly as in the normal stale path;
+`budget_paused` only explains *why* and adds `resumes_at`.
 
 `status.json` (superset of the existing shape in "Required machine-readable
-status" above — every existing field is kept so `api/feed.js` and tests keep
-working):
+status" above, so `api/feed.js` and tests keep working):
 
 ```json
 {
   "locale": "ko",
   "surface": "feed",
   "status": "budget_paused",
-  "reason": "monthly_budget",
-  "resumes_at": "2026-08-01T00:00:00Z",
-  "mode": "paused",
-  "budget": { "chars_used": 492000, "monthly_cap": 500000, "month": "2026-07" },
+  "reason": "monthly_cap",
+  "resumes_at": "2026-08-01T00:00:00+00:00",
+  "budget": { "usd_spent": 59.98, "monthly_usd_cap": 60, "month": "2026-07" },
   "source_run_at": "…", "translated_at": "…", "expires_at": "…",
-  "eligible_count": 20, "translated_count": 20, "missing_count": 0
+  "eligible_count": 20, "translated_count": 20, "missing_count": 20
 }
 ```
 
-`mode` and `budget` are written in every mode, not only `budget_paused`, so
-ops can watch the ladder from a normal or conserving run too.
+`budget` is written on every run, not only `budget_paused`, so ops can watch
+spend from a normal run too.
 
 ### Operational log line
 
-Every localized-feed run logs one grep-friendly line, independent of mode:
+Every localized-feed run logs one grep-friendly line:
 
 ```text
-localized_feed_budget mode=<mode> chars_used=<n> cap=<n> month=<YYYY-MM>
+localized_feed_budget usd_spent=<n> cap=<n> month=<YYYY-MM>
 ```
 
-### Boundaries specific to the governor
+### Boundaries specific to the cap
 
 Always:
 
-- English hourly publish is never blocked by any governor/meter failure —
-  governor failures are caught and degrade to keeping the previous snapshot
-  plus writing status, mirroring the existing missing-credentials path.
-- `budget.json` stays out of `vercel.json` `includeFiles`.
+- English hourly publish is never blocked by a translation or ledger failure.
+  The localized feed step fails on its own (`run_full.sh` logs
+  `localized_feed_step_failed=1`) and the previous snapshot stays.
+- `translation_spend.json` stays out of `vercel.json` `includeFiles`.
 - Every degraded state is visible in `status.json` plus a grep-friendly log
   key.
+- A card is translated whole or not at all: its title, summary, why-it-matters
+  line, and also-covered titles come from one call, so a card never mixes
+  languages.
 
 Never:
 
 - Claim `/ko/` is current past `expires_at`, regardless of pause reason.
-- Count Korean output characters as spend (only input/English characters
-  actually sent to the API are metered).
-- Drop translated fields per-item in economy mode (breaks `source_hash`
-  economics — items would register dirty forever).
+- Replace a complete snapshot with an incomplete one.
 - Silently serve the English feed at `/ko/` as if it were Korean.
 
 ## Commands
@@ -639,13 +608,13 @@ Ask first:
 
 - Showing mixed Korean/English cards as the normal `/ko/` feed. (Approved
   exception: the labeled "그 이후 새로 올라온 소식 (영어)" fallback section —
-  see User Experience and Translation Budget Governor — is a separate,
+  see User Experience and Translation Budget Cap — is a separate,
   clearly-labeled section shown only when paused/stale, not a mixed-language
   feed.)
 - Adding `/ko/` to `sitemap.xml`.
 - Translating non-Brief lenses such as Research, Releases, All, or pinned
   topics.
-- Adding new paid translation providers or persistent external services.
+- Adding new paid translation providers or persistent external services. (Claude is the only provider; the model and cap live in `config/translation.json`.)
 - Exposing `/ko/` to search engines before the static seed and expiry-removal
   rules are implemented.
 

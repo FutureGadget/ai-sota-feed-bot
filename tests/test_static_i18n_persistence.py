@@ -22,8 +22,11 @@ import persist_static_i18n as persistence  # noqa: E402
 
 AT = "2026-10-09T03:08:29+00:00"
 ARTIFACT = "data/i18n/ko/storyline/claude-5-5.json"
-STATIC = "data/i18n/ko/feed/static_budget.json"
-BASE = {"month": "2026-10", "month_chars": 49829, "day": "2026-10-08", "day_chars": 8370}
+FEED_STATUS = "data/i18n/ko/feed/status.json"
+LEDGER = persistence.LEDGER
+RECEIPTS = persistence.RECEIPTS
+# Dollar amounts are binary fractions so float sums compare exactly.
+BASE = {"month": "2026-10", "usd": 4.0, "history": [{"at": AT, "key": "feed/0", "surface": "feed", "usd": 4.0}]}
 
 
 def encoded(value):
@@ -36,22 +39,20 @@ def write(root, path, value):
     target.write_text(encoded(value), encoding="utf-8")
 
 
-def guard_plus(chars):
-    return {**BASE, "month_chars": BASE["month_chars"] + chars,
-            "day_chars": BASE["day_chars"] + chars, "updated_at": AT}
+def ledger_plus(usd, key="static/x"):
+    return {
+        "month": BASE["month"], "usd": BASE["usd"] + usd,
+        "history": BASE["history"] + [{"at": AT, "key": key, "surface": "static", "usd": usd}],
+    }
 
 
-def bundle(chars=1509):
+def bundle(usd=0.25):
     return {
         "version": 1, "run_id": "actions-123-1", "locale": "ko", "started_at": AT,
         "base_commit": "0" * 40,
         "checkpoint_complete": True,
         "files": {
-            persistence.GUARD: {"before": encoded(BASE), "after": encoded(guard_plus(chars))},
-            STATIC: {"before": None, "after": encoded({
-                "month": "2026-10", "chars_used": chars, "monthly_cap": 100000,
-                "history": [{"at": AT, "chars": chars, "run": "static-run"}], "updated_at": AT,
-            })},
+            LEDGER: {"before": encoded(BASE), "after": encoded(ledger_plus(usd))},
             ARTIFACT: {"before": None, "after": encoded({"source_hash": "a" * 64, "title": "클로드"})},
         },
     }
@@ -66,85 +67,72 @@ class LedgerMergeTests(unittest.TestCase):
     def read(self, path):
         return json.loads((self.root / path).read_text(encoding="utf-8"))
 
-    def test_delta_preserves_feed_and_static_usage_and_replays_once(self):
-        write(self.root, persistence.GUARD, guard_plus(1459))
-        write(self.root, STATIC, {
-            "month": "2026-10", "chars_used": 23, "monthly_cap": 90000,
-            "seeded_from": "existing seed", "history": [{"at": AT, "chars": 23, "run": "other"}],
+    def test_delta_preserves_feed_spend_and_replays_once(self):
+        # Main already holds a feed run's spend that the static checkpoint never saw.
+        write(self.root, LEDGER, {
+            "month": "2026-10", "usd": 4.125,
+            "history": BASE["history"] + [{"at": AT, "key": "feed/1", "surface": "feed", "usd": 0.125}],
         })
         saved = bundle()
         self.assertTrue(persistence.apply_bundle(self.root, saved))
-        guard = self.read(persistence.GUARD)
-        self.assertEqual((guard["day_chars"], guard["month_chars"]), (11338, 52797))
-        ledger = self.read(STATIC)
-        self.assertEqual(ledger["chars_used"], 1532)
-        self.assertEqual(ledger["monthly_cap"], 90000)
-        self.assertEqual(ledger["seeded_from"], "existing seed")
-        self.assertEqual(len(ledger["history"]), 2)
+        ledger = self.read(LEDGER)
+        self.assertEqual(ledger["usd"], 4.375)
+        self.assertEqual([h["surface"] for h in ledger["history"]], ["feed", "feed", "static"])
         self.assertFalse(persistence.apply_bundle(self.root, saved))
-        self.assertEqual(self.read(persistence.GUARD), guard)
+        self.assertEqual(self.read(LEDGER), ledger)
+        receipt = self.read(RECEIPTS)["static_runs"]["actions-123-1"]
+        self.assertEqual(receipt["usage"], {"spend": {"period": "2026-10", "usd": 0.25}})
         changed = copy.deepcopy(saved)
         changed["files"][ARTIFACT]["after"] = encoded({"title": "different"})
         with self.assertRaisesRegex(persistence.PersistenceError, "different checkpoint"):
             persistence.apply_bundle(self.root, changed)
 
-    def test_old_recovery_does_not_roll_new_day_or_month_back(self):
-        write(self.root, persistence.GUARD, {
-            "month": "2026-11", "month_chars": 50, "day": "2026-11-01", "day_chars": 30,
+    def test_first_run_creates_the_ledger(self):
+        saved = bundle()
+        saved["files"][LEDGER]["before"] = None
+        saved["files"][LEDGER]["after"] = encoded({
+            "month": "2026-10", "usd": 0.25, "history": [{"at": AT, "key": "static/x", "surface": "static", "usd": 0.25}],
         })
-        write(self.root, STATIC, {"month": "2026-11", "chars_used": 20, "history": []})
-        persistence.apply_bundle(self.root, bundle())
-        self.assertEqual(self.read(persistence.GUARD)["month_chars"], 50)
-        self.assertEqual(self.read(persistence.GUARD)["day_chars"], 30)
-        self.assertEqual(self.read(STATIC)["chars_used"], 20)
-        self.assertEqual(self.read(STATIC)["history"][0]["chars"], 1509)
-        self.assertEqual(self.read(persistence.GUARD)["static_runs"]["actions-123-1"]["usage"]["month"]["chars"], 1509)
-
-    def test_same_month_new_day_charges_only_month(self):
-        write(self.root, persistence.GUARD, {
-            "month": "2026-10", "month_chars": 51288, "day": "2026-10-09", "day_chars": 90,
-        })
-        persistence.apply_bundle(self.root, bundle())
-        self.assertEqual(self.read(persistence.GUARD)["month_chars"], 52797)
-        self.assertEqual(self.read(persistence.GUARD)["day_chars"], 90)
-
-    def test_new_period_applies_its_full_usage_without_old_month_usage(self):
-        saved = bundle(60)
-        after = {"month": "2026-11", "month_chars": 60, "day": "2026-11-01", "day_chars": 60}
-        saved["files"][persistence.GUARD]["after"] = encoded(after)
-        write(self.root, persistence.GUARD, BASE)
         persistence.apply_bundle(self.root, saved)
-        self.assertEqual(self.read(persistence.GUARD)["month_chars"], 60)
-        self.assertEqual(self.read(persistence.GUARD)["day_chars"], 60)
+        self.assertEqual(self.read(LEDGER)["usd"], 0.25)
 
-    def test_provider_day_trip_is_a_floor_not_a_second_charge(self):
-        saved = bundle(5)
-        after = {**guard_plus(5), "day_chars": 16000, "tripped_at": AT}
-        saved["files"][persistence.GUARD]["after"] = encoded(after)
-        write(self.root, persistence.GUARD, guard_plus(1459))
+    def test_old_recovery_does_not_roll_a_new_month_back(self):
+        write(self.root, LEDGER, {"month": "2026-11", "usd": 0.5, "history": []})
+        persistence.apply_bundle(self.root, bundle())
+        self.assertEqual(self.read(LEDGER)["month"], "2026-11")
+        self.assertEqual(self.read(LEDGER)["usd"], 0.5)
+        self.assertEqual(self.read(LEDGER)["history"][0]["usd"], 0.25)
+        self.assertEqual(self.read(RECEIPTS)["static_runs"]["actions-123-1"]["usage"]["spend"]["usd"], 0.25)
+
+    def test_new_month_applies_its_full_usage_without_old_month_usage(self):
+        saved = bundle(0.0625)
+        saved["files"][LEDGER]["after"] = encoded({"month": "2026-11", "usd": 0.0625, "history": []})
+        write(self.root, LEDGER, BASE)
         persistence.apply_bundle(self.root, saved)
-        self.assertEqual(self.read(persistence.GUARD)["month_chars"], 51293)
-        self.assertEqual(self.read(persistence.GUARD)["day_chars"], 16000)
+        self.assertEqual((self.read(LEDGER)["month"], self.read(LEDGER)["usd"]), ("2026-11", 0.0625))
 
-    def test_concurrent_artifact_change_fails_without_mutating_ledgers(self):
-        write(self.root, persistence.GUARD, BASE)
+    def test_concurrent_artifact_change_fails_without_mutating_the_ledger(self):
+        write(self.root, LEDGER, BASE)
         write(self.root, ARTIFACT, {"source_hash": "b" * 64, "title": "concurrent translation"})
         with self.assertRaisesRegex(persistence.PersistenceError, "concurrent source artifact"):
             persistence.apply_bundle(self.root, bundle())
-        self.assertEqual(self.read(persistence.GUARD), BASE)
-        self.assertFalse((self.root / STATIC).exists())
+        self.assertEqual(self.read(LEDGER), BASE)
+        self.assertFalse((self.root / RECEIPTS).exists())
 
     def test_corrupt_and_negative_ledgers_fail_closed(self):
-        for after in ["{bad", encoded(guard_plus(-1)), encoded({**BASE, "month_chars": "1509"})]:
+        for after in ["{bad", encoded(ledger_plus(-0.25)), encoded({**BASE, "usd": "0.25"}), encoded({**BASE, "month": "2026-13"})]:
             saved = bundle()
-            saved["files"][persistence.GUARD]["after"] = after
-            write(self.root, persistence.GUARD, BASE)
+            saved["files"][LEDGER]["after"] = after
+            write(self.root, LEDGER, BASE)
             with self.assertRaises(persistence.PersistenceError):
                 persistence.apply_bundle(self.root, saved)
-            self.assertEqual(self.read(persistence.GUARD), BASE)
+            self.assertEqual(self.read(LEDGER), BASE)
 
-    def test_path_escape_and_feed_changes_are_refused(self):
-        for path in ["../secret.json", "data/i18n/ko/../../secret.json", "data/i18n/ko/feed/budget.json"]:
+    def test_path_escape_and_non_static_files_are_refused(self):
+        for path in [
+            "../secret.json", "data/i18n/ko/../../secret.json", "data/i18n/ko/feed/latest.json",
+            "data/i18n/ko/feed/status.json", RECEIPTS,
+        ]:
             saved = bundle()
             saved["files"][path] = {"before": None, "after": "{}"}
             with self.assertRaisesRegex(persistence.PersistenceError, "unexpected checkpoint path"):
@@ -156,22 +144,20 @@ class LedgerMergeTests(unittest.TestCase):
         persistence.apply_bundle(self.root, saved)
         self.assertEqual(self.read("data/i18n/ko/playbook/index.json"), [])
 
-    def test_ambiguous_guard_charges_survive_without_an_output(self):
-        saved = bundle(120)
+    def test_ambiguous_charges_survive_without_an_output(self):
+        saved = bundle(0.0625)
         del saved["files"][ARTIFACT]
-        del saved["files"][STATIC]
-        write(self.root, persistence.GUARD, guard_plus(1459))
+        write(self.root, LEDGER, {**BASE, "usd": 4.125})
         persistence.apply_bundle(self.root, saved)
-        self.assertEqual(self.read(persistence.GUARD)["month_chars"], 51408)
+        self.assertEqual(self.read(LEDGER)["usd"], 4.1875)
 
     def test_lost_output_receipt_blocks_only_the_billed_source_version(self):
         saved = bundle()
         del saved["files"][ARTIFACT]
         saved["lost_outputs"] = {ARTIFACT: "a" * 64}
         persistence.apply_bundle(self.root, saved)
-        with patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(persistence.lost_output_run(self.root, ARTIFACT, "a" * 64), "actions-123-1")
-            self.assertIsNone(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64))
+        self.assertEqual(persistence.lost_output_run(self.root, ARTIFACT, "a" * 64), "actions-123-1")
+        self.assertIsNone(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64))
 
     def test_lost_payload_receipt_survives_metadata_only_source_changes(self):
         saved = bundle()
@@ -179,27 +165,25 @@ class LedgerMergeTests(unittest.TestCase):
         saved["lost_outputs"] = {ARTIFACT: "a" * 64}
         saved["lost_payloads"] = {ARTIFACT: "c" * 64}
         persistence.apply_bundle(self.root, saved)
-        with patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64, "c" * 64), "actions-123-1")
-            self.assertIsNone(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64, "d" * 64))
+        self.assertEqual(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64, "c" * 64), "actions-123-1")
+        self.assertIsNone(persistence.lost_output_run(self.root, ARTIFACT, "b" * 64, "d" * 64))
         saved["lost_payloads"] = {"../secret.json": "c" * 64}
         with self.assertRaisesRegex(persistence.PersistenceError, "unexpected lost output path"):
             persistence.validate_bundle(saved)
 
     def test_partial_manual_reconciliation_is_reported_not_charged_twice(self):
         saved = bundle()
-        write(self.root, persistence.GUARD, BASE)
-        write(self.root, STATIC, json.loads(saved["files"][STATIC]["after"]))
+        write(self.root, LEDGER, ledger_plus(0.25))
         with self.assertRaisesRegex(persistence.PersistenceError, "accounting is uncertain"):
             persistence.apply_bundle(self.root, saved)
-        self.assertEqual(self.read(persistence.GUARD), BASE)
+        self.assertEqual(self.read(LEDGER), ledger_plus(0.25))
 
     def test_incomplete_checkpoint_cannot_publish_or_acknowledge_usage(self):
         saved = bundle()
         saved["checkpoint_complete"] = False
         with self.assertRaisesRegex(persistence.PersistenceError, "incomplete"):
             persistence.apply_bundle(self.root, saved)
-        self.assertFalse((self.root / persistence.GUARD).exists())
+        self.assertFalse((self.root / RECEIPTS).exists())
 
 
 class GitHubReadTests(unittest.TestCase):
@@ -252,7 +236,6 @@ class FeedRecoveryGateTests(unittest.TestCase):
             calls = root / "calls.jsonl"
             environment = {**os.environ, "AUTO_PUSH_RUNTIME": "0", "STATIC_I18N_RECOVERY_BLOCKED": "1",
                            "OFFLINE_CALL_LOG": str(calls)}
-            environment.pop("GOOGLE_TRANSLATE_API_KEY", None)
             result = subprocess.run(["bash", str(script)], env=environment, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("FULL_RUN_OK", result.stdout)
@@ -274,8 +257,8 @@ class GitPublicationTests(unittest.TestCase):
         self.git(self.root, "init", "--bare", "--initial-branch=main", str(self.remote))
         self.git(self.root, "clone", str(self.remote), str(self.feed))
         self.identity(self.feed)
-        write(self.feed, persistence.GUARD, BASE)
-        write(self.feed, "data/i18n/ko/feed/budget.json", {"chars_used": 79420})
+        write(self.feed, LEDGER, BASE)
+        write(self.feed, FEED_STATUS, {"run": "base"})
         write(self.feed, "data/processed/latest.json", {"version": "base"})
         (self.feed / "web").mkdir()
         write(self.feed, "web/source.json", {"version": "base"})
@@ -308,9 +291,13 @@ class GitPublicationTests(unittest.TestCase):
     def latest(self, path):
         return json.loads(self.git(self.remote, "show", f"main:{path}").stdout)
 
-    def advance_feed(self, extra=0):
-        write(self.feed, persistence.GUARD, guard_plus(1459 + extra))
-        write(self.feed, "data/i18n/ko/feed/budget.json", {"chars_used": 80879 + extra})
+    def advance_feed(self, extra=0.0):
+        usd = 0.125 + extra
+        write(self.feed, LEDGER, {
+            "month": BASE["month"], "usd": BASE["usd"] + usd,
+            "history": BASE["history"] + [{"at": AT, "key": "feed/1", "surface": "feed", "usd": usd}],
+        })
+        write(self.feed, FEED_STATUS, {"run": f"feed-{extra}"})
         write(self.feed, "data/processed/latest.json", {"version": "fresh-feed"})
         write(self.feed, "web/source.json", {"version": "fresh-feed"})
         self.commit(self.feed, f"feed usage {extra}")
@@ -328,7 +315,7 @@ class GitPublicationTests(unittest.TestCase):
         self.advance_feed()
         result = self.git(self.static, "pull", "--rebase", "origin", "main", check=False)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("CONFLICT (content): Merge conflict in data/i18n/spend_guard.json", result.stdout)
+        self.assertIn("CONFLICT (content): Merge conflict in data/i18n/translation_spend.json", result.stdout)
         self.assertNotEqual(self.git(self.remote, "show", f"main:{ARTIFACT}", check=False).returncode, 0)
         self.assertTrue(self.saved_path.exists())
 
@@ -337,10 +324,10 @@ class GitPublicationTests(unittest.TestCase):
         with patch.object(persistence.urllib.request, "urlopen", side_effect=AssertionError("no network")):
             persistence.publish(self.static, self.saved, render=self.render)
             persistence.publish(self.static, self.saved, render=lambda _: self.fail("replay rendered twice"))
-        self.assertEqual(self.latest(persistence.GUARD)["month_chars"], 52797)
-        self.assertEqual(self.latest(persistence.GUARD)["day_chars"], 11338)
-        self.assertEqual(self.latest("data/i18n/ko/feed/budget.json")["chars_used"], 80879)
-        self.assertEqual(self.latest(STATIC)["chars_used"], 1509)
+        self.assertEqual(self.latest(LEDGER)["usd"], 4.375)  # base + feed 0.125 + static 0.25
+        self.assertEqual([h["surface"] for h in self.latest(LEDGER)["history"]], ["feed", "feed", "static"])
+        self.assertEqual(self.latest(FEED_STATUS), {"run": "feed-0.0"})
+        self.assertIn("actions-123-1", self.latest(RECEIPTS)["static_runs"])
         self.assertEqual(self.latest("web/rendered.json")["feed"], "fresh-feed")
         self.assertEqual(self.latest(ARTIFACT)["title"], "클로드")
         self.assertEqual(json.loads(self.saved_path.read_text()), self.saved)
@@ -354,22 +341,21 @@ class GitPublicationTests(unittest.TestCase):
             renders.append(root)
             self.render(root)
             if len(renders) == 1:
-                self.advance_feed(extra=17)
+                self.advance_feed(extra=0.0625)
 
         persistence.publish(self.static, self.saved, render=render_with_race)
         self.assertEqual(len(renders), 2)
-        self.assertEqual(self.latest(persistence.GUARD)["month_chars"], 52814)
-        self.assertEqual(self.latest("data/i18n/ko/feed/budget.json")["chars_used"], 80896)
-        self.assertEqual(self.latest(STATIC)["chars_used"], 1509)
+        self.assertEqual(self.latest(LEDGER)["usd"], 4.4375)  # base + feed 0.1875 + static 0.25
+        self.assertEqual(self.latest(FEED_STATUS), {"run": "feed-0.0625"})
 
     def test_render_failure_leaves_checkpoint_for_later_replay(self):
         self.advance_feed()
         with self.assertRaises(RuntimeError):
             persistence.publish(self.static, self.saved, render=lambda _: (_ for _ in ()).throw(RuntimeError("render failed")))
         self.assertEqual(json.loads(self.saved_path.read_text()), self.saved)
-        self.assertEqual(self.latest(persistence.GUARD)["month_chars"], 51288)
+        self.assertEqual(self.latest(LEDGER)["usd"], 4.125)
         persistence.publish(self.static, self.saved, render=self.render)
-        self.assertEqual(self.latest(persistence.GUARD)["month_chars"], 52797)
+        self.assertEqual(self.latest(LEDGER)["usd"], 4.375)
 
     def test_prepare_refuses_dirty_checkout_instead_of_discarding_outputs(self):
         with self.assertRaisesRegex(persistence.PersistenceError, "dirty checkout"):
@@ -382,7 +368,7 @@ class GitPublicationTests(unittest.TestCase):
         self.git(self.root, "clone", str(self.remote), str(fresh))
         self.git(fresh, "checkout", "--detach", self.saved["base_commit"])
         persistence.prepare(fresh, self.root / "fresh.json", "actions-456-1", "ko")
-        self.assertEqual(json.loads((fresh / persistence.GUARD).read_text())["month_chars"], 51288)
+        self.assertEqual(json.loads((fresh / LEDGER).read_text())["usd"], 4.125)
 
     def test_recovery_restores_checkpoint_before_another_paid_run(self):
         self.advance_feed()
@@ -406,7 +392,7 @@ class GitPublicationTests(unittest.TestCase):
             persistence, "publish", side_effect=lambda root, saved: original_publish(root, saved, render=self.render)
         ):
             persistence.recover_pending(self.static, "owner/repo", "456")
-        self.assertEqual(self.latest(STATIC)["chars_used"], 1509)
+        self.assertEqual(self.latest(LEDGER)["usd"], 4.375)
 
     def test_missing_checkpoint_after_paid_step_blocks_further_charges(self):
         def github(_, suffix, **kwargs):
@@ -434,7 +420,7 @@ class GitPublicationTests(unittest.TestCase):
                 persistence.recover_pending(self.static, "owner/repo", "456")
 
     def test_recovery_replays_oldest_first_until_an_acknowledged_run(self):
-        write(self.feed, persistence.GUARD, {**BASE, "static_runs": {"actions-100-1": {"sha256": "known"}}})
+        write(self.feed, RECEIPTS, {"static_runs": {"actions-100-1": {"sha256": "known"}}})
         self.commit(self.feed, "acknowledged frontier")
         self.git(self.feed, "push", "origin", "main")
         archives = {}

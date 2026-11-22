@@ -207,9 +207,13 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
     binds sources to index rows with SHA-256, and replaces the derived
     `data/playbook/lab/{index,latest}.json` files after full validation
-  - `translation_guard.py` - fail-closed spend guard in front of every Google
-    Translate request (reserve-before-send ledger `data/i18n/spend_guard.json`,
-    16,000/day and 500,000/month, paced); see
+  - `translator.py` - the only module that calls the Anthropic API: one
+    Messages call per `Job`, cached system prompt (`config/translation/<locale>.md`
+    style guide plus the `config/glossary.yaml` do-not-translate list), policy in
+    `config/translation.json`, USD `Ledger` in `data/i18n/translation_spend.json`
+    that raises `BudgetExceeded` at the monthly cap. `build_localized_feed.py`
+    (live `/ko/` feed, one job per card) and `scripts/translate.py` (static
+    pages, one job per page) share it; see
     `docs/how-to/translation-budget-and-quota.md`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
@@ -372,8 +376,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `feed_replay.py` (served-Brief stability/admission scorecard; runbook
   `docs/how-to/feed-replay.md`),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
-  publication; delta-merges spend ledgers with idempotent receipts in
-  `spend_guard.json`; see `docs/how-to/translation-budget-and-quota.md`),
+  publication; delta-merges the spend ledger with idempotent receipts in
+  `data/i18n/static_runs.json`; see `docs/how-to/translation-budget-and-quota.md`),
   `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `deck_replay.py` (deck selector
   replay against published recaps, label packets, labeled metrics),
@@ -535,7 +539,7 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   create or refresh localized pages opportunistically during unrelated work.
   Exception: the daily and weekly recap routines write their own Korean recap
   (`.agents/skills/recap-translation/`, `pipeline/recap_i18n.py`) in the same
-  run; Google Translate (`scripts/translate.py`) no longer translates them.
+  run; the static translator (`scripts/translate.py`) no longer translates them.
   Use `docs/how-to/add-pretranslated-pages.md`; product contract:
   `docs/product-specs/multilingual-pretranslated-pages.md`; live-feed contract:
   `docs/product-specs/localized-live-feed.md`.

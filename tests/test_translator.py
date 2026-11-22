@@ -47,6 +47,17 @@ def clock(year: int, month: int):
 
 
 class TranslateTest(unittest.TestCase):
+    def test_output_budget_grows_with_the_job_and_stays_within_the_sdk_limit(self):
+        small = FakeClient(reply({"title": "제목"}))
+        tr.translate([tr.Job("k", {"title": "Title"})], "ko", "feed", client=small)
+        self.assertEqual(small.calls[0]["max_tokens"], tr.MIN_OUTPUT_TOKENS)
+        page = FakeClient(reply({"0": "본문"}))
+        tr.translate([tr.Job("k", {"0": "word " * 3000})], "ko", "static", client=page)
+        self.assertGreater(page.calls[0]["max_tokens"], tr.MIN_OUTPUT_TOKENS)
+        huge = FakeClient(reply({"0": "본문"}))
+        tr.translate([tr.Job("k", {"0": "word " * 30000})], "ko", "static", client=huge)
+        self.assertEqual(huge.calls[0]["max_tokens"], tr.MAX_OUTPUT_TOKENS)
+
     def test_returns_parsed_fields_in_job_order(self):
         client = FakeClient(reply({"title": "에이전트 공개", "summary": "요약"}))
         job = tr.Job("k1", {"title": "Agents ship", "summary": "A summary"})

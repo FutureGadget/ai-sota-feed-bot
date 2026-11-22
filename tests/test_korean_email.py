@@ -63,7 +63,7 @@ class RecapTranslationTest(unittest.TestCase):
         self.assertEqual(recap["categories"][0]["articles"][0]["url"], self.source["categories"][0]["articles"][0]["url"])
         self.assertIsNone(recap_i18n.load_localized("daily", "1999-01-01", "ko"))
 
-    def test_google_translate_skips_agent_translated_recaps(self):
+    def test_static_translate_skips_agent_translated_recaps(self):
         sys.path.insert(0, str(ROOT / "scripts"))
         import translate
 
