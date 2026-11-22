@@ -83,6 +83,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
 import community  # noqa: E402
 import locales  # noqa: E402
+import render_home  # noqa: E402
 import source_labels  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
@@ -6006,8 +6007,8 @@ def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | N
     return sitemap_entries
 
 
-FEED_SEED_START = "<!-- feed-seed:start -->"
-FEED_SEED_END = "<!-- feed-seed:end -->"
+FEED_SEED_START = render_home.FEED_SEED_START
+FEED_SEED_END = render_home.FEED_SEED_END
 FEED_SEED_MAX_ITEMS = 12
 FEED_SEED_MIN_ITEMS = 6
 
@@ -6028,22 +6029,19 @@ def select_seed_window(entries: list[tuple[date | None, dict]]) -> list[tuple[da
     return entries[:FEED_SEED_MAX_ITEMS]
 
 
-def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
-    """Splice the latest ranked feed items into the / shell as static markup.
+def _feed_seed_block(story_sids: set[str]) -> tuple[str, int] | None:
+    """The home page's crawler-visible feed snapshot, markers included.
 
-    web/index.html is client-rendered, so crawlers, link unfurlers, and no-JS
-    readers see an empty shell. This writes the top items from the committed
-    feed snapshot (data/processed/latest.json) into the marker region inside
-    <section id="list">; the feed JS overwrites the region on boot, so readers
-    with JS never diverge from the live feed. Idempotent: only rewrites the
-    shell when the seed content actually changed.
+    The home page is client-rendered, so crawlers, link unfurlers, and no-JS
+    readers would see an empty shell. This builds the top items from the
+    committed feed snapshot (data/processed/latest.json) as the marker region
+    inside <section id="list">; the feed JS overwrites the region on boot, so
+    readers with JS never diverge from the live feed. ``None`` when there is
+    nothing to show.
     """
-    shell = WEB_DIR / "index.html"
-    if not shell.exists():
-        return 0
     items = load_json(ROOT / "data" / "processed" / "latest.json")
     if not isinstance(items, list):
-        return 0
+        return None
 
     def score(it: dict) -> float:
         try:
@@ -6152,7 +6150,7 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         stamps = (parse_dt(it.get(k)) for k in ("collected_at", "last_seen", "published"))
         seeded_stamps.extend(s for s in stamps if s is not None)
     if not cards:
-        return 0
+        return None
     heading = _seed_heading(
         sorted(d for d in seeded_dates if d is not None),
         max(seeded_stamps) if seeded_stamps else None,
@@ -6175,19 +6173,18 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         "      </div>\n"
         f"      {FEED_SEED_END}"
     )
-    html = shell.read_text(encoding="utf-8")
-    start = html.find(FEED_SEED_START)
-    end = html.find(FEED_SEED_END)
-    if start == -1 or end == -1 or end < start:
-        print(
-            "warning: feed-seed markers missing in web/index.html; seed skipped",
-            file=sys.stderr,
-        )
-        return 0
-    new_html = html[:start] + block + html[end + len(FEED_SEED_END):]
-    if new_html != html:
-        shell.write_text(new_html, encoding="utf-8")
-    return len(cards)
+    return block, len(cards)
+
+
+def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
+    """Regenerate the home pages with the latest feed snapshot spliced in.
+
+    Idempotent: a page is only rewritten when its content changed. Returns the
+    number of seeded cards (0 keeps the snapshot each page already carries).
+    """
+    seed = _feed_seed_block(story_sids)
+    render_home.write_pages({locales.DEFAULT: seed[0]} if seed else None)
+    return seed[1] if seed else 0
 
 
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
