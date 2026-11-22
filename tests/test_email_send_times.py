@@ -18,12 +18,18 @@ sys.path.insert(0, str(ROOT / "pipeline"))
 import publish.publish_email as email  # noqa: E402
 
 DAILY_ID = "2026-11-18"
+WEEKLY_ID = "2026-W46"
 ENV = {"EMAIL_API_KEY": "k", "EMAIL_SEGMENT_ID": "seg-en", "EMAIL_SEGMENT_ID_KO": "seg-ko", "EMAIL_SEGMENT_ID_EN_US": "seg-us"}
 THREAD = {"slug": "s", "label": "S", "last_updated": "2026-11-18T10:00:00+00:00", "member_sids": ["a", "b"],
           "latest_title": "T", "item_count": 2, "day_count": 2, "whats_new": "W"}
 
 
+def _recap(kind: str, ident: str) -> dict:
+    return json.loads((ROOT / "data" / kind / f"{ident}.json").read_text(encoding="utf-8"))
+
+
 def run(argv, state, env=ENV, kind="daily"):
+    """Run main() against fixed recaps, not whatever recap is newest in data/."""
     sent = []
 
     def fake_send(cfg, api_key, subject, body, name="", kind="daily", locale="en", slot="kst"):
@@ -36,6 +42,8 @@ def run(argv, state, env=ENV, kind="daily"):
          mock.patch.object(email, "send_broadcast", side_effect=fake_send), \
          mock.patch.object(email, "ensure_reader_id_property", return_value=False), \
          mock.patch.object(email, "load_state", return_value=state), \
+         mock.patch.object(email, "_latest_daily", return_value=_recap("daily", DAILY_ID)), \
+         mock.patch.object(email, "_latest_weekly", return_value=_recap("weekly", WEEKLY_ID)), \
          mock.patch.object(email, "save_state"), \
          mock.patch.object(sys, "argv", ["publish_email.py", "--kind", kind, *argv]), \
          redirect_stdout(out):
