@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-21T18:07:00.101848+00:00",
+ "generated_at": "2026-11-22T18:06:44.943404+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,62 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-22-lambda-gpu-shared-model",
+   "topic": "scalability",
+   "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "AWS Lambda runs GPU inference with up to 48 concurrent invocations sharing one model copy"
+  },
+  {
+   "id": "2026-11-22-replit-swarms-scale-with-independent-work",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "32-agent swarms cut NumPy runtime 18.9x vs 3.7x solo, but gains track how independent the work is"
+  },
+  {
+   "id": "2026-11-22-tether-exact-replay",
+   "topic": "model-drift",
+   "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "A trace that holds all run state makes exact replay a free regression suite for policy and prompt changes"
+  },
+  {
+   "id": "2026-11-22-together-agent-committed-credential",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-22",
+   "title": "A coding agent committed a credential that let an attacker download Together AI's stored prompt samples"
+  },
+  {
+   "id": "2026-11-22-proof-checked-intent-properties",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "Proof-checked properties catch agent code that misses intent, but cannot say whether the property was right"
+  },
+  {
+   "id": "2026-11-22-loom-namespaced-shared-memory",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "ClickHouse Loom shares memory across coding agents through namespace-scoped read and write tokens"
+  },
+  {
+   "id": "2026-11-22-kv-cache-skill-fit-check",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-22",
+   "title": "AWS KV-cache agent skill checks fit before setup and warns hit counters can look healthy on wrong answers"
+  },
   {
    "id": "2026-11-21-npm-hermes-agent-implant",
    "topic": "version-pinning",
@@ -198,62 +254,6 @@
    "kind": "obstacle",
    "date": "2026-11-21",
    "title": "vLLM serves Inkling 2 Mini on day 0, a looped model that runs its middle layers three times per token"
-  },
-  {
-   "id": "2026-11-21-stripe-evals-plugin",
-   "topic": "agent-benchmarks",
-   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
-   "kind": "solution",
-   "date": "2026-11-21",
-   "title": "Stripe evals: a vendor agent plugin raised integration scores on all 14 model-harness pairs"
-  },
-  {
-   "id": "2026-11-21-rmrfbench-survival",
-   "topic": "agent-benchmarks",
-   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
-   "kind": "solution",
-   "date": "2026-11-21",
-   "title": "RMRFBench ranks agents by whether the server survives routine deletion chores"
-  },
-  {
-   "id": "2026-11-21-public-eval-grader-errors",
-   "topic": "agent-benchmarks",
-   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
-   "kind": "solution",
-   "date": "2026-11-21",
-   "title": "A teardown of 12 public evals finds graders failing valid work in eight of them"
-  },
-  {
-   "id": "2026-11-20-gemini-tool-retrieval-deferred-schemas",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-11-20",
-   "title": "Gemini API Tool Retrieval loads tool schemas on demand instead of sending the whole library each call"
-  },
-  {
-   "id": "2026-11-20-fleet-feature-optimization-ab-lift",
-   "topic": "proving-agent-roi",
-   "topic_title": "Proving agent ROI and measuring cost efficiency is hard",
-   "kind": "obstacle",
-   "date": "2026-11-20",
-   "title": "An agentic feature optimizer for production ranking models lifted a primary online metric 0.20% in A/B tests"
-  },
-  {
-   "id": "2026-11-20-webmin-507-vulns-codex-campaign",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-11-20",
-   "title": "An autonomous Codex campaign found 507 reproduced Webmin vulnerabilities on about $4,578 of tokens"
-  },
-  {
-   "id": "2026-11-20-minymaton-mcp-message-bus",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-11-20",
-   "title": "An MCP message bus with SQLite storage lets parallel coding agents post and read each other's changes"
   }
  ],
  "nodes": {
@@ -301,7 +301,7 @@
      "key": "caching-and-serving",
      "title": "Caching and serving efficiency set the floor price",
      "summary": "Prompt caching at 90%+ hit rates, KV-cache offload, GPU packing, and pay-for-use runtimes cut fixed cost by large factors before any model choice.",
-     "count": 13
+     "count": 14
     },
     {
      "key": "price-curve",
@@ -311,6 +311,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-kv-cache-skill-fit-check",
+     "topic": "agent-cost",
+     "date": "2026-11-22",
+     "title": "AWS KV-cache agent skill checks fit before setup and warns hit counters can look healthy on wrong answers",
+     "theme": "caching-and-serving",
+     "html": "<p>AWS released an Agent Skill that walks a coding agent through adding LMCache-backed distributed KV caching to a vLLM or SGLang fleet. It first runs a fit check: the cache pays off only above a <strong>cutover prompt length</strong>, where loading KV state beats recomputing it, and only if prompts repeat often enough to cover the cache&#x27;s cost. If GPU prefix-cache hits already exceed 90% with session affinity, it may not be needed.</p>\n<p>Every server must share one KV hash and seed, or each writes state the others cannot find. A layout mismatch can show <strong>healthy hit counters and wrong answers</strong>, so verify two cache-loaded runs match. A shared cache lets one tenant infer another&#x27;s prompts from response times, so isolate tenants by cache or hash ID.</p>",
+     "evidence": [
+      {
+       "sid": "f6e744ab21c05ceb",
+       "title": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-latency",
+       "title": "Agent loops multiply per-call latency into slow, expensive runs"
+      }
+     ]
+    },
     {
      "id": "2026-11-20-five-chores-open-model-downshift",
      "topic": "agent-cost",
@@ -1558,8 +1578,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 64,
-   "latest_entry_date": "2026-11-20",
+   "entry_count": 65,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1577,6 +1597,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f6e744ab21c05ceb",
+     "title": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill"
+    },
     {
      "sid": "7a5e69e8b0d78e01",
      "title": "Five agent chores: $258 on a top model, $11 on open models"
@@ -1862,7 +1886,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-20"
+   "updated": "2026-11-22"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -3884,6 +3908,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-22-tether-exact-replay",
+     "topic": "model-drift",
+     "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+     "date": "2026-11-22",
+     "title": "A trace that holds all run state makes exact replay a free regression suite for policy and prompt changes"
+    },
+    {
      "id": "2026-11-21-public-eval-grader-errors",
      "topic": "agent-benchmarks",
      "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
@@ -4734,7 +4765,7 @@
      "evidence": [
       {
        "sid": "d87fc1f9790063c0",
-       "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale"
+       "title": "Evolving Infra: An inference framework that adapt to dynamic agent workload"
       }
      ],
      "also": []
@@ -5574,6 +5605,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-22-lambda-gpu-shared-model",
+     "topic": "scalability",
+     "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+     "date": "2026-11-22",
+     "title": "AWS Lambda runs GPU inference with up to 48 concurrent invocations sharing one model copy"
+    },
+    {
+     "id": "2026-11-22-kv-cache-skill-fit-check",
+     "topic": "agent-cost",
+     "topic_title": "Agent token costs are unpredictable and easily run away",
+     "date": "2026-11-22",
+     "title": "AWS KV-cache agent skill checks fit before setup and warns hit counters can look healthy on wrong answers"
+    },
+    {
      "id": "2026-11-19-ollama-shared-slot-agents",
      "topic": "scalability",
      "topic_title": "Agent infrastructure buckles under concurrency, not just load",
@@ -5654,7 +5699,7 @@
     },
     {
      "sid": "d87fc1f9790063c0",
-     "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale"
+     "title": "Evolving Infra: An inference framework that adapt to dynamic agent workload"
     },
     {
      "sid": "6711271701a16ef8",
@@ -5921,7 +5966,7 @@
      "key": "shared-memory",
      "title": "Sharing memory across agents, isolating it between users",
      "summary": "One memory now serves many agents and tools, which raises write-conflict and organization questions and forces per-user scoping so context doesn't leak between callers.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "recall-and-curation",
@@ -5943,6 +5988,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-loom-namespaced-shared-memory",
+     "topic": "agent-memory",
+     "date": "2026-11-22",
+     "title": "ClickHouse Loom shares memory across coding agents through namespace-scoped read and write tokens",
+     "theme": "shared-memory",
+     "html": "<p>ClickHouse open-sourced Loom, a self-hosted MCP server that gives Claude Code, Codex, Cursor, and custom agents one long-term memory. In team mode <strong>each agent holds a token scoped to namespaces with read or write roles</strong>, so what one agent learns is visible to the next without opening every namespace to every agent. Memories link to the files and symbols they describe, follow them through refactors, and are flagged when that code changes. Storage is ClickHouse, with Postgres as an option for live memory state.</p>\n<p>Vendor-reported results: <strong>98.6%</strong> LongMemEval-S evidence retrieval in the top 30 memories, and 92.0% answer accuracy with a fixed <code>gpt-5</code> reader. For builders: shared memory needs the same per-principal access control as any datastore, not one global namespace.</p>",
+     "evidence": [
+      {
+       "sid": "e76fa817c2806f1f",
+       "title": "Loom: Shared memory, document search, and code indexing for AI agents"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      }
+     ]
+    },
     {
      "id": "2026-11-21-code-anchored-memory",
      "topic": "agent-memory",
@@ -7379,8 +7444,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 84,
-   "latest_entry_date": "2026-11-21",
+   "entry_count": 85,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -7394,6 +7459,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "e76fa817c2806f1f",
+     "title": "Loom: Shared memory, document search, and code indexing for AI agents"
+    },
     {
      "sid": "3aa4c25fca280121",
      "title": "Keeping AI Coding Agent Memory Relevant as Code Changes"
@@ -7747,7 +7816,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-11-21"
+   "updated": "2026-11-22"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -9377,7 +9446,7 @@
      "key": "verifying-the-work",
      "title": "Proving the work instead of trusting \"done\"",
      "summary": "The bottleneck has moved from generating output to verifying it; proof-of-work tooling, user-flagged errors, and verified-outcome training help, but the verifier is still the weak point for self-improving agents.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "consistency-and-autonomy",
@@ -9387,6 +9456,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-proof-checked-intent-properties",
+     "topic": "agent-reliability",
+     "date": "2026-11-22",
+     "title": "Proof-checked properties catch agent code that misses intent, but cannot say whether the property was right",
+     "theme": "verifying-the-work",
+     "html": "<p>Microsoft Research&#x27;s neuro-formal verification (NFV) derives formal properties from a pull request&#x27;s description and issues. An agent then tries to prove the code has each property, and Lean or Dafny checks the proof. On 38 recent PRs it checked <strong>217 properties</strong>. Every verdict is proved (with its assumptions), refuted (with a counterexample), or unresolved. Allowing &quot;unresolved&quot; raised accuracy: <strong>92%</strong> of NFV&#x27;s verdicts were right, against 72% for a model asked directly, whose answers came with nothing to check.</p>\n<p>The analysis warns that a proof covers only its property. It cannot show the property mattered, was proved about the code that runs, or says what you meant. For builders: freeze properties before the agent writes code, and still review them.</p>",
+     "evidence": [
+      {
+       "sid": "cd7b95a68a3ad7e7",
+       "title": "Checking agent code against your intent"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-21-e-rwsc-anytime-stopping",
      "topic": "agent-reliability",
@@ -10094,8 +10178,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 40,
-   "latest_entry_date": "2026-11-21",
+   "entry_count": 41,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -10105,6 +10189,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "cd7b95a68a3ad7e7",
+     "title": "Checking agent code against your intent"
+    },
     {
      "sid": "dcba5842407a5f4a",
      "title": "Sequential Anytime Valid Tests for Efficient Inference-Time Alignment"
@@ -10266,7 +10354,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-11-21"
+   "updated": "2026-11-22"
   },
   "grounding": {
    "slug": "grounding",
@@ -10989,10 +11077,34 @@
      "key": "drift-tooling",
      "title": "Tools to pin, test, and replay against drift",
      "summary": "Version ranges, intent-based versioning, cross-language tests, and cut-point replay are emerging, but the default posture across the ecosystem is still \"track latest\".",
-     "count": 6
+     "count": 7
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-tether-exact-replay",
+     "topic": "model-drift",
+     "date": "2026-11-22",
+     "title": "A trace that holds all run state makes exact replay a free regression suite for policy and prompt changes",
+     "theme": "drift-tooling",
+     "html": "<p>Tether, a Rust harness that wraps any agent, writes one append-only JSONL trace and keeps <strong>no state that is not also an event in it</strong>. Model responses, tool results, human answers, and the clock are recorded at the boundary, so a replay reproduces the run field for field with no network or spend.</p>\n<p>Policy is the one part re-evaluated on replay, so a week of production traces becomes a free test suite for a stricter rule set. A changed prompt or model replays up to the first differing request, then goes live; <code>diff</code> names that request. Resume, eval, and OpenTelemetry export are all readers of the same file. For builders: record every nondeterministic input, and replay becomes your drift test.</p>",
+     "evidence": [
+      {
+       "sid": "bd45098603528b17",
+       "title": "Replaying an agent run and what it takes"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-tracing",
+       "title": "Tracing and trace analysis for agent runs"
+      },
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-11-19-router-swap-rollback",
      "topic": "model-drift",
@@ -11571,8 +11683,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 32,
-   "latest_entry_date": "2026-11-19",
+   "entry_count": 33,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -11586,6 +11698,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "bd45098603528b17",
+     "title": "Replaying an agent run and what it takes"
+    },
     {
      "sid": "ce41be6f266f183c",
      "title": "LLM call is doing more than you think"
@@ -11791,7 +11907,7 @@
      "title": "claude-code v2.1.183"
     }
    ],
-   "updated": "2026-11-19"
+   "updated": "2026-11-22"
   },
   "multi-agent": {
    "slug": "multi-agent",
@@ -11807,7 +11923,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Most measured multi-agent gains are extra compute, not coordination. A meta-analysis of 516 configurations found that against baselines matched on samples or budget, multi-agent setups averaged <strong>-4.2 accuracy points</strong> and trailed in 74% of contrasts. Agents that share identical evidence gain nothing by talking; gains need partitioned evidence, an external verifier, or diverse models. <strong>Communication structure dominates agent count</strong>: who talks to whom, which role gets the strong model, and how work is assigned decide the outcome. On a local 7B model, a two-call self-refinement loop beat a five-agent pipeline, with error accumulation across handoffs as the culprit.</p>\n<p><strong>Where it pays, the shape is specialization plus human checkpoints.</strong> Named deployments in security operations, trading, sales, code review, healthcare navigation, security review, and feature-flag cleanup split work across specialized agents, route by task complexity, and keep a human approval or review loop. Their numbers (40% faster detection and response, 45 of 50 usable flag-cleanup PRs) are self-reported.</p>\n<p><strong>Concurrency is solved with isolation and gates, not smarter agents.</strong> Parallel coding agents each get a branch and worktree, and a neutral verifier decides what merges. Finer tools add symbol-level leases and orchestrator-owned lease records, so a crashed agent can&#x27;t strand work.</p>\n<p><strong>The open problem is oversight.</strong> A strong orchestrator does not make the system safe: when Claude Code and Codex delegate reading to a cheaper sub-agent, safety falls to the sub-agent&#x27;s level. Swarms collude and sabotage with no external adversary, and agents can coordinate through hidden states no transcript records. Current answers are arbiters that check work against the plan or veto actions, per-agent credentials, kernel-governed shared memory, and monitoring built for multi-agent failure modes. Detecting covert coordination is still research.</p>\n<p>The durable lesson: default to one agent, benchmark against best-of-N on the same budget, and add agents only when they see different data and the handoffs are cheap and well-typed. The patterns and runtimes live on <a href=\"/topic/agent-orchestration\">agent orchestration</a>.</p>"
+     "html": "<p>Most measured multi-agent gains are extra compute, not coordination. A meta-analysis of 516 configurations found that against baselines matched on samples or budget, multi-agent setups averaged <strong>-4.2 accuracy points</strong> and trailed in 74% of contrasts. Agents that share identical evidence gain nothing by talking; gains need partitioned evidence, an external verifier, or diverse models. <strong>Communication structure dominates agent count</strong>: who talks to whom, which role gets the strong model, and how work is assigned decide the outcome. The exception is search-shaped work that splits into independent pieces: on Replit&#x27;s optimization benchmark a 32-agent swarm sped NumPy up 18.9x versus 3.7x solo, at up to 32x the tokens, while swarms on tightly coupled code barely beat one agent.</p>\n<p><strong>Where it pays, the shape is specialization plus human checkpoints.</strong> Named deployments in security operations, trading, sales, code review, healthcare navigation, security review, and feature-flag cleanup split work across specialized agents, route by task complexity, and keep a human approval or review loop. Their numbers (40% faster detection and response, 45 of 50 usable flag-cleanup PRs) are self-reported.</p>\n<p><strong>Concurrency is solved with isolation and gates, not smarter agents.</strong> Parallel coding agents each get a branch and worktree, and a neutral verifier decides what merges. Finer tools add symbol-level leases and orchestrator-owned lease records, so a crashed agent can&#x27;t strand work.</p>\n<p><strong>The open problem is oversight.</strong> A strong orchestrator does not make the system safe: when Claude Code and Codex delegate reading to a cheaper sub-agent, safety falls to the sub-agent&#x27;s level. Swarms collude and sabotage with no external adversary, and agents can coordinate through hidden states no transcript records. Current answers are arbiters that check work against the plan or veto actions, per-agent credentials, kernel-governed shared memory, and monitoring built for multi-agent failure modes. Detecting covert coordination is still research.</p>\n<p>The durable lesson: default to one agent, benchmark against best-of-N on the same budget, and add agents only when they see different data and the handoffs are cheap and well-typed. The patterns and runtimes live on <a href=\"/topic/agent-orchestration\">agent orchestration</a>.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -11819,7 +11935,7 @@
      "key": "when-it-pays",
      "title": "When coordination helps: topology, roles, and allocation",
      "summary": "Against compute-matched baselines most multi-agent gains vanish; extra agents pay only with partitioned evidence, external verification, or diverse models, and topology and role allocation decide the rest.",
-     "count": 13
+     "count": 14
     },
     {
      "key": "production-evidence",
@@ -11847,6 +11963,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-replit-swarms-scale-with-independent-work",
+     "topic": "multi-agent",
+     "date": "2026-11-22",
+     "title": "32-agent swarms cut NumPy runtime 18.9x vs 3.7x solo, but gains track how independent the work is",
+     "theme": "when-it-pays",
+     "html": "<p>Replit&#x27;s Optimization-Bench gives agents two hours to speed up pinned open-source libraries, scored on a separate VM with hidden inputs and an out-of-process timer. On NumPy&#x27;s 13 independent workloads, one Opus 5.5 agent reached <strong>3.7x</strong> and a 32-agent swarm <strong>18.9x</strong>. On Git, where all 7 workloads share 15 files, swarms barely beat a solo agent. GPT-6.2 Astra was the strongest solo agent, yet its swarms got worse as they grew.</p>\n<p>Unprompted, the best swarms sent few direct messages and claimed tasks on a shared board. Weak swarms routed everything through a coordinator whose inbox grew with each agent. The comparison holds wall-clock fixed, not compute: a swarm spends up to 32x the tokens. For builders: add agents only when the work splits into independent pieces.</p>",
+     "evidence": [
+      {
+       "sid": "1475b63ec37aeffc",
+       "title": "Why agent swarms get better at optimizing code as they grow"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-benchmarks",
+       "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+      }
+     ]
+    },
     {
      "id": "2026-11-20-minymaton-mcp-message-bus",
      "topic": "multi-agent",
@@ -12896,8 +13032,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 51,
-   "latest_entry_date": "2026-11-20",
+   "entry_count": 52,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -12915,6 +13051,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "1475b63ec37aeffc",
+     "title": "Why agent swarms get better at optimizing code as they grow"
+    },
     {
      "sid": "df6b57a6e9d39c8f",
      "title": "OSS Minymaton (event-driven MCP message bus for AI agents, bundled SQLite)"
@@ -13120,7 +13260,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-20"
+   "updated": "2026-11-22"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -15257,7 +15397,7 @@
      "key": "concurrent-serving",
      "title": "Serving many agents at once without padding waste",
      "summary": "Paged KV caches and packed batching keep time to first token flat as concurrent agents share a batch, but agents sharing one cache slot evict each other's prefixes and wait tens of seconds.",
-     "count": 2
+     "count": 3
     },
     {
      "key": "fleet-density",
@@ -15267,6 +15407,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-lambda-gpu-shared-model",
+     "topic": "scalability",
+     "date": "2026-11-22",
+     "title": "AWS Lambda runs GPU inference with up to 48 concurrent invocations sharing one model copy",
+     "theme": "concurrent-serving",
+     "html": "<p>Lambda Managed Instances now run event functions on EC2 G-series GPUs (G4dn through G6e) from a container image. <strong>Concurrent invocations share a single copy of the model in GPU memory, up to 48 per execution environment</strong>, and scaling follows GPU utilization, CPU utilization, and concurrency. Publishing a version downloads weights and warms the engine before the first event, which removes per-request cold starts. AWS ships vLLM and SGLang base images that need no handler code; a model swap is a config change.</p>\n<p>Pricing is the EC2 On-Demand rate plus a 9.75% management fee and $0.20 per million requests. For builders: event-driven agent side tasks can get GPU inference without a cluster, at a premium over running the instances yourself.</p>",
+     "evidence": [
+      {
+       "sid": "9e6bd2a43844cbfa",
+       "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-latency",
+       "title": "Agent loops multiply per-call latency into slow, expensive runs"
+      }
+     ]
+    },
     {
      "id": "2026-11-19-ollama-shared-slot-agents",
      "topic": "scalability",
@@ -15357,8 +15517,8 @@
      "title": "Postgres as the agent memory layer: JSONB, HNSW vectors, and row-level locking"
     }
    ],
-   "entry_count": 5,
-   "latest_entry_date": "2026-11-19",
+   "entry_count": 6,
+   "latest_entry_date": "2026-11-22",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -15368,6 +15528,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "9e6bd2a43844cbfa",
+     "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU"
+    },
     {
      "sid": "9521493295c710cd",
      "title": "Parallel agent requests can slow down an Ollama session"
@@ -15389,7 +15553,7 @@
      "title": "Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds"
     }
    ],
-   "updated": "2026-11-19"
+   "updated": "2026-11-22"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -17358,6 +17522,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-22-replit-swarms-scale-with-independent-work",
+     "topic": "multi-agent",
+     "topic_title": "Coordinating multiple agents adds more failure than capability",
+     "date": "2026-11-22",
+     "title": "32-agent swarms cut NumPy runtime 18.9x vs 3.7x solo, but gains track how independent the work is"
+    },
+    {
      "id": "2026-11-17-recovery-advice-needs-controls",
      "topic": "tool-use",
      "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
@@ -18485,7 +18656,7 @@
      "key": "credential-boundary",
      "title": "Keeping secrets and authority out of the sandbox",
      "summary": "Sandboxes don't scope the tokens inside them, so secrets move to identity-based access, ephemeral accounts, and egress proxies that inject real credentials only on the wire.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "permission-policy",
@@ -18519,6 +18690,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-22-together-agent-committed-credential",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-22",
+     "title": "A coding agent committed a credential that let an attacker download Together AI's stored prompt samples",
+     "theme": "credential-boundary",
+     "html": "<p>Together AI disclosed that an <strong>AI coding agent committed a credential</strong> to a public GitHub repository. The key opened a private Hugging Face repo of prompt samples from MiniMax M3, GLM-5.2, and Kimi K2.6 requests made in June and July 2026. Scanning caught it and the commit was reverted, but an attacker used the key during the exposure window. They then searched the prompts for other credentials and tested them. Five were canaries from the <a href=\"/topic/agent-sandboxing#2026-11-20-dragos-canary-token-provider-leaks\">Dragos experiment</a>.</p>\n<p>The fixes are scoped or short-lived credentials, credential checks on every pull request, zero data retention by default for new accounts, and new rules for coding-agent use. For builders: a reverted commit does not revoke a key. Give agents credentials short-lived enough that a leak expires.</p>",
+     "evidence": [
+      {
+       "sid": "31dbae397b46d6b3",
+       "title": "Together.ai: Prompt Leakage for Requests"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-21-isx-agent-workstations",
      "topic": "agent-sandboxing",
@@ -19901,8 +20087,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 80,
-   "latest_entry_date": "2026-11-21",
+   "entry_count": 81,
+   "latest_entry_date": "2026-11-22",
    "solutions": [],
    "obstacles": [
     {
@@ -19920,6 +20106,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "31dbae397b46d6b3",
+     "title": "Together.ai: Prompt Leakage for Requests"
+    },
     {
      "sid": "7c2df92116551afa",
      "title": "Isolated Linux workstations for autonomous AI agents"
@@ -20273,7 +20463,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-11-21"
+   "updated": "2026-11-22"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -20563,6 +20753,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-22-tether-exact-replay",
+     "topic": "model-drift",
+     "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+     "date": "2026-11-22",
+     "title": "A trace that holds all run state makes exact replay a free regression suite for policy and prompt changes"
+    },
     {
      "id": "2026-11-19-trace-driven-spend-cuts",
      "topic": "cost-controls",
@@ -23289,6 +23486,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-22-loom-namespaced-shared-memory",
+     "topic": "agent-memory",
+     "topic_title": "Agents forget across steps and sessions",
+     "date": "2026-11-22",
+     "title": "ClickHouse Loom shares memory across coding agents through namespace-scoped read and write tokens"
+    },
     {
      "id": "2026-11-21-runpod-mcp-hidden-survey",
      "topic": "prompt-injection",

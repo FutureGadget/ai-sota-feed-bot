@@ -8,7 +8,7 @@ solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-11-17
+updated: 2026-11-22
 themes:
   - key: when-it-pays
     title: "When coordination helps: topology, roles, and allocation"
@@ -42,8 +42,10 @@ trailed in 74% of contrasts. Agents that share identical evidence gain nothing
 by talking; gains need partitioned evidence, an external verifier, or diverse
 models. **Communication structure dominates agent count**: who talks to whom,
 which role gets the strong model, and how work is assigned decide the outcome.
-On a local 7B model, a two-call self-refinement loop beat a five-agent
-pipeline, with error accumulation across handoffs as the culprit.
+The exception is search-shaped work that splits into independent pieces: on
+Replit's optimization benchmark a 32-agent swarm sped NumPy up 18.9x versus
+3.7x solo, at up to 32x the tokens, while swarms on tightly coupled code
+barely beat one agent.
 
 **Where it pays, the shape is specialization plus human checkpoints.** Named
 deployments in security operations, trading, sales, code review, healthcare

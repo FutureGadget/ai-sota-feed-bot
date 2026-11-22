@@ -7,20 +7,20 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (40 entries, updated 2026-11-21)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (41 entries, updated 2026-11-22)
   → solutions: agent-sandboxing
   - theme `deterministic-boundaries` — Deterministic boundaries around the model (7)
   - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (4)
   - theme `hallucination-containment` — Containing hallucination during and after generation (10)
-  - theme `verifying-the-work` — Proving the work instead of trusting "done" (11)
+  - theme `verifying-the-work` — Proving the work instead of trusting "done" (12)
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (8)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (84 entries, updated 2026-11-21)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (85 entries, updated 2026-11-22)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (16)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
-  - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
+  - theme `shared-memory` — Sharing memory across agents, isolating it between users (11)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (20)
   - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (12)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (9)
@@ -63,21 +63,21 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (29)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (51 entries, updated 2026-11-20)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (52 entries, updated 2026-11-22)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
-  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (13)
+  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (14)
   - theme `production-evidence` — Production deployments and what they report (14)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (6)
   - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (13)
   - theme `shared-context` — What each agent gets to see (5)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (64 entries, updated 2026-11-20)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (65 entries, updated 2026-11-22)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (15)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (14)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (11)
-  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (13)
+  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (14)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (12 entries, updated 2026-11-20)
   → solutions: cost-controls, llm-as-judge
@@ -115,20 +115,20 @@ Schema: `config/wiki_schema.md`.
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (9)
 
 ### scalability
-- [scalability](obstacles/scalability.md) — Agent infrastructure buckles under concurrency, not just load (5 entries, updated 2026-11-19)
+- [scalability](obstacles/scalability.md) — Agent infrastructure buckles under concurrency, not just load (6 entries, updated 2026-11-22)
   → solutions: agent-sandboxing
   - theme `coordinator-free-scheduling` — Removing the central coordinator instead of scaling it (2)
-  - theme `concurrent-serving` — Serving many agents at once without padding waste (2)
+  - theme `concurrent-serving` — Serving many agents at once without padding waste (3)
   - theme `fleet-density` — Sandbox density and scale-to-zero for idle fleets (1)
 
 ### drift
-- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (32 entries, updated 2026-11-19)
+- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (33 entries, updated 2026-11-22)
   → solutions: agent-benchmarks, version-pinning
   - theme `bundled-cli-bumps` — SDK bumps that hide what changed underneath (10)
   - theme `regressions-and-reverts` — Regressions shipped and rolled back in point releases (5)
   - theme `model-and-default-changes` — Models, defaults, and prompts that change under you (7)
   - theme `serving-runtime-drift` — The serving runtime as a drift source (4)
-  - theme `drift-tooling` — Tools to pin, test, and replay against drift (6)
+  - theme `drift-tooling` — Tools to pin, test, and replay against drift (7)
 
 ## Solutions
 - [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (61 entries, updated 2026-11-21)
@@ -142,8 +142,8 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (6)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (8)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (80 entries, updated 2026-11-21)
-  - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (11)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (81 entries, updated 2026-11-22)
+  - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (12)
   - theme `permission-policy` — Scoping what the agent may do (13)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (14)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (15)
