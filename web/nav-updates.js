@@ -3,13 +3,24 @@
  * outputs; see docs/product-specs/nav-update-indicators.md. */
 (function () {
   'use strict';
+  // UI text comes from the page's dictionary (the global t(), written by
+  // pipeline/render_home.py) where the page has one. The English fallback serves
+  // pages without it; tests/test_ui_dictionary.py pins every fallback to
+  // config/ui/en.json.
+  function tr(key, fallback, vars) {
+    var text = typeof globalThis.t === 'function' ? globalThis.t(key) : fallback;
+    return vars ? text.replace(/\{(\w+)\}/g, function (match, name) { return name in vars ? vars[name] : match; }) : text;
+  }
   var KEY = 'ai_feed_editorial_state_v2';
   var DISMISS = 'ai_feed_whats_new_dismissed_v1';
   var EXPAND = 'ai_feed_whats_new_expanded_v1';
   var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines',
     '/playbook': 'playbook', '/map': 'map', '/foundations': 'foundations' };
-  var LABELS = { daily: 'Daily recap', weekly: 'Weekly recap', storylines: 'Storylines',
-    playbook: 'Playbook', map: 'Agent Know-How', foundations: 'Foundations' };
+  var LABELS = { daily: tr('nav.daily', 'Daily recap'), weekly: tr('nav.weekly', 'Weekly recap'), storylines: tr('nav.storylines', 'Storylines'),
+    playbook: tr('nav.playbook', 'Playbook'), map: tr('nav.map', 'Agent Know-How'), foundations: tr('nav.foundations', 'Foundations') };
+  // A localized page links its sections at localized paths (window.UI.links).
+  var links = (window.UI && window.UI.links) || {};
+  Object.keys(ROUTE).forEach(function (path) { if (links[path]) ROUTE[links[path]] = ROUTE[path]; });
   var state = { data: null, promise: null, stripSections: [], renderFeed: renderFeed,
     unread: function (section) { return items().some(function (i) { return i.section === section && fresh(i) && status(i) !== 'seen'; }); },
     fresh: function (section) { return items().some(function (i) { return i.section === section && fresh(i); }); } };
@@ -46,20 +57,23 @@
   }
   function dateLabel(item) {
     var date = new Date(item.updated_at);
-    if (item.date_precision === 'day') return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    var dateLocale = typeof globalThis.t === 'function' ? globalThis.t('format.dateLocale') : undefined;
+    if (item.date_precision === 'day') return date.toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
     var hours = Math.floor((Date.parse(state.data.now) - date.getTime()) / 3600000);
-    if (hours >= 0 && hours < 1) return 'less than 1h ago';
-    if (hours >= 1 && hours < 24) return hours + 'h ago';
-    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    if (hours >= 0 && hours < 1) return tr('updates.lessThanHour', 'less than 1h ago');
+    if (hours >= 1 && hours < 24) return tr('time.hoursAgo', '{n}h ago', { n: hours });
+    return date.toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric' });
   }
   function row(item, placement) {
     var li = node('li', 'editorial-item');
     var meta = node('div', 'editorial-meta');
-    meta.appendChild(node('span', '', item.section_label + (item.kind === 'lab' ? ' · Skill Lab' : '')));
+    meta.appendChild(node('span', '', (LABELS[item.section] || item.section_label) + (item.kind === 'lab' ? ' · ' + tr('updates.skillLab', 'Skill Lab') : '')));
     var itemStatus = status(item);
-    if (itemStatus === 'new' || itemStatus === 'updated') meta.appendChild(node('span', 'editorial-badge', itemStatus === 'new' ? 'New' : 'Updated'));
-    if (itemStatus === 'seen') meta.appendChild(node('span', '', 'Opened'));
-    var time = node('time', '', (item.kind === 'edition' || item.kind === 'lab' ? 'Published ' : 'Updated ') + dateLabel(item));
+    if (itemStatus === 'new' || itemStatus === 'updated') meta.appendChild(node('span', 'editorial-badge', itemStatus === 'new' ? tr('card.new', 'New') : tr('updates.updated', 'Updated')));
+    if (itemStatus === 'seen') meta.appendChild(node('span', '', tr('updates.opened', 'Opened')));
+    var time = node('time', '', item.kind === 'edition' || item.kind === 'lab'
+      ? tr('updates.published', 'Published {date}', { date: dateLabel(item) })
+      : tr('updates.updatedOn', 'Updated {date}', { date: dateLabel(item) }));
     time.dateTime = item.updated_at;
     // Day-only source dates never acquire fabricated hour-level precision.
     time.title = item.updated_at;
@@ -77,7 +91,7 @@
     return ul;
   }
   function viewAll(section) {
-    var a = node('a', 'editorial-all', 'View all updates →');
+    var a = node('a', 'editorial-all', tr('updates.viewAll', 'View all updates →'));
     a.href = '/updates' + (section ? '?section=' + encodeURIComponent(section) : '');
     return a;
   }
@@ -104,13 +118,13 @@
     anchor.replaceChildren();
     if (combined) combined.replaceChildren();
     if (!selected.length || get('sessionStorage', DISMISS) === '1') return;
-    var el = panel(selected, 'Latest from the Editor’s Desk', 'feed');
+    var el = panel(selected, tr('updates.latestFromDesk', 'Latest from the Editor’s Desk'), 'feed');
     // On phones the full rows push every story below the first screen, so
     // the feed placement starts as a one-line summary the reader can expand.
     if (compactFeed() && get('sessionStorage', EXPAND) !== '1') {
       el.classList.add('editorial-compact');
       var expand = node('button', 'editorial-expand',
-        selected.length + (selected.length === 1 ? ' update' : ' updates') + ' · Show');
+        selected.length === 1 ? tr('updates.expandOne', '{n} update · Show', { n: 1 }) : tr('updates.expandMany', '{n} updates · Show', { n: selected.length }));
       expand.type = 'button';
       expand.setAttribute('aria-expanded', 'false');
       expand.addEventListener('click', function () {
@@ -120,9 +134,9 @@
       });
       el.querySelector('.editorial-heading').after(expand);
     }
-    var dismiss = node('button', 'editorial-dismiss', 'Hide');
+    var dismiss = node('button', 'editorial-dismiss', tr('updates.hide', 'Hide'));
     dismiss.type = 'button';
-    dismiss.setAttribute('aria-label', 'Hide editorial updates for this session');
+    dismiss.setAttribute('aria-label', tr('updates.hideLabel', 'Hide editorial updates for this session'));
     dismiss.addEventListener('click', function () {
       set('sessionStorage', DISMISS, '1');
       capture('editorial_updates_dismiss', { placement: 'feed' });
@@ -142,7 +156,7 @@
     if (!nav) return;
     var old = document.getElementById('editorialDeskLatest');
     if (old) old.remove();
-    var el = panel(items().slice(0, 3), 'Latest updates', 'desk');
+    var el = panel(items().slice(0, 3), tr('updates.latest', 'Latest updates'), 'desk');
     el.id = 'editorialDeskLatest';
     if (!items().length) el.hidden = true;
     nav.before(el);
@@ -154,7 +168,7 @@
       var badge = node('span', 'nav-update-dot', String(count));
       badge.setAttribute('aria-hidden', 'true');
       a.appendChild(badge);
-      a.appendChild(node('span', 'nav-update-sr', ' (' + count + ' new or updated items)'));
+      a.appendChild(node('span', 'nav-update-sr', ' ' + tr('chrome.unreadMany', '({count} new or updated items)', { count: count })));
     });
   }
   function renderCollection(host, section, limit, placement) {
@@ -164,20 +178,20 @@
     var selected = items().filter(function (i) { return (!section || i.section === section) && (filter !== 'unread' || status(i) !== 'seen'); });
     var result = host.querySelector('[data-editorial-results]');
     result.replaceChildren(list(selected.slice(0, limit), placement));
-    if (!selected.length) result.appendChild(node('p', 'editorial-empty', filter === 'unread' ? 'You’re caught up here. Browse Latest to revisit an article.' : 'No published updates yet.'));
-    host.querySelector('[data-editorial-count]').textContent = selected.length + (filter === 'unread' ? ' unopened items' : ' updates');
+    if (!selected.length) result.appendChild(node('p', 'editorial-empty', filter === 'unread' ? tr('updates.emptyUnread', 'You’re caught up here. Browse Latest to revisit an article.') : tr('updates.emptyLatest', 'No published updates yet.')));
+    host.querySelector('[data-editorial-count]').textContent = filter === 'unread' ? tr('updates.countUnread', '{n} unopened items', { n: selected.length }) : tr('updates.countLatest', '{n} updates', { n: selected.length });
   }
   function collection(host, section, limit, placement) {
     var controls = node('div', 'editorial-controls');
-    var label = node('label', '', 'Show ');
+    var label = node('label', '', tr('updates.filterShow', 'Show') + ' ');
     var select = node('select');
     select.dataset.editorialFilter = '';
-    [['latest', 'Latest'], ['unread', 'Unread']].forEach(function (v) { var o = node('option', '', v[1]); o.value = v[0]; select.appendChild(o); });
+    [['latest', tr('updates.filterLatest', 'Latest')], ['unread', tr('updates.filterUnread', 'Unread')]].forEach(function (v) { var o = node('option', '', v[1]); o.value = v[0]; select.appendChild(o); });
     label.appendChild(select); controls.appendChild(label);
     if (!section) {
-      var sectionLabel = node('label', '', 'Section ');
+      var sectionLabel = node('label', '', tr('updates.sectionLabel', 'Section') + ' ');
       var sections = node('select'); sections.dataset.editorialSection = '';
-      var all = node('option', '', 'All sections'); all.value = ''; sections.appendChild(all);
+      var all = node('option', '', tr('updates.allSections', 'All sections')); all.value = ''; sections.appendChild(all);
       Object.keys(LABELS).forEach(function (key) { var o = node('option', '', LABELS[key]); o.value = key; sections.appendChild(o); });
       var querySection = new URLSearchParams(location.search).get('section');
       sections.value = LABELS[querySection] ? querySection : '';
@@ -196,7 +210,7 @@
       var chrome = document.querySelector('.site-chrome');
       if (chrome) {
         sectionPanel = node('details', 'editorial-panel editorial-section');
-        sectionPanel.appendChild(node('summary', '', 'Latest in ' + LABELS[section]));
+        sectionPanel.appendChild(node('summary', '', tr('updates.latestIn', 'Latest in {section}', { section: LABELS[section] })));
         collection(sectionPanel, section, 3, 'section');
         sectionPanel.appendChild(viewAll(section));
         chrome.after(sectionPanel);
@@ -269,7 +283,7 @@
       renderDesk(); renderFeed(); renderSections();
     }).catch(function () {
       var archive = document.getElementById('editorialUpdates');
-      if (archive) archive.textContent = 'Updates are temporarily unavailable. Browse the Editor’s Desk sections or reload to try again.';
+      if (archive) archive.textContent = tr('updates.unavailable', 'Updates are temporarily unavailable. Browse the Editor’s Desk sections or reload to try again.');
     });
   }
 

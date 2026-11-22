@@ -102,10 +102,11 @@ class FeedParamsTest(unittest.TestCase):
             },
         )
 
-    def test_home_params_match_what_web_index_requests_by_default(self) -> None:
-        # web/index.html buildFeedUrl(): drift here means the Korean reader is
-        # translated a different set of cards than the English home shows.
-        page = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    def test_home_params_match_what_the_home_template_requests_by_default(self) -> None:
+        # buildFeedUrl() in ui/templates/index.html, the source of the English
+        # and the Korean home alike: drift here means the Korean reader is
+        # translated a different set of cards than the home page shows.
+        page = (ROOT / "ui" / "templates" / "index.html").read_text(encoding="utf-8")
         self.assertIn("let limitState = '200';", page)
         self.assertIn("const DEFAULT_SECTION_LABELS = ['brief'];", page)
         self.assertIn("u.searchParams.set('window', 'arrival');", page)

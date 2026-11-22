@@ -4,9 +4,10 @@ Use this when adding or refreshing localized static pages such as
 `/ko/daily/<date>`, `/ko/weekly/<week>`, `/ko/story/<sid>`,
 `/ko/storyline/<slug>`, `/ko/topic/<slug>`, or `/ko/foundations/<slug>`.
 
-The live feed page (`/`) is not part of this workflow yet. It is a
-client-rendered app backed by `/api/feed` and hourly ranking data, so it needs a
-separate localized feed-data/API contract before it can become `/ko/`.
+The home page (`/` and `/ko/`) is not part of this workflow. It is one template
+built for every language, and its cards are translated per card by
+`build_localized_feed.py`. To change its text or add a language, use
+`docs/how-to/add-ui-text.md`.
 
 The product contract lives in
 `docs/product-specs/multilingual-pretranslated-pages.md`. This is the operating

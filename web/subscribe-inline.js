@@ -8,6 +8,14 @@
   const SUBSCRIBED_KEY = "ai_feed_email_subscribed_v1";
   const NUDGE_DONE_KEY = "ai_feed_subscribe_nudge_done_v1";
   // Korean pages sign readers up for the Korean edition.
+    // UI text comes from the page's dictionary (the global t(), written by
+    // pipeline/render_home.py) where the page has one. The English fallback serves
+    // pages without it; tests/test_ui_dictionary.py pins every fallback to
+    // config/ui/en.json.
+  const tr = (key, fallback, vars) => {
+    const text = typeof globalThis.t === "function" ? globalThis.t(key) : fallback;
+    return vars ? text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? vars[name] : match)) : text;
+  };
   const pageLocale = () => ((document.documentElement.lang || "").toLowerCase().startsWith("ko") ? "ko" : "en");
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const CTA_SELECTOR = "a[data-subscribe-inline]:not([data-subscribe-inline-done])";
@@ -91,12 +99,12 @@
     const email = String(input.value || "").trim();
     const honeypot = String(form.elements.website?.value || "").trim();
     if (!EMAIL_RE.test(email)) {
-      setMessage(form, "Please enter a valid email address.", "err");
+      setMessage(form, tr("form.invalidEmail", "Please enter a valid email address."), "err");
       input.focus();
       return;
     }
     button.disabled = true;
-    setMessage(form, "Subscribing…", "");
+    setMessage(form, tr("form.subscribing", "Subscribing…"), "");
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
@@ -112,18 +120,18 @@
         input.disabled = true;
         button.remove();
         form.querySelector(".subscribe-inline-note")?.remove();
-        setMessage(form, "You’re subscribed. The next brief will arrive by email.", "ok");
+        setMessage(form, tr("form.subscribed", "You’re subscribed. The next brief will arrive by email."), "ok");
         return;
       }
       setMessage(
         form,
         response.status === 400
-          ? "Please enter a valid email address."
-          : "Subscription is temporarily unavailable. Please try again shortly.",
+          ? tr("form.invalidEmail", "Please enter a valid email address.")
+          : tr("form.subscribeUnavailable", "Subscription is temporarily unavailable. Please try again shortly."),
         "err",
       );
     } catch {
-      setMessage(form, "Network error. Check your connection and try again.", "err");
+      setMessage(form, tr("form.network", "Network error. Check your connection and try again."), "err");
     }
     button.disabled = false;
   };
@@ -137,14 +145,14 @@
     form.dataset.subscribePlacement = placement;
     form.innerHTML = `
       ${kicker ? `<p class="subscribe-inline-kicker">${kicker}</p>` : ""}
-      <label class="subscribe-inline-label" for="${id}">Email address</label>
+      <label class="subscribe-inline-label" for="${id}">${tr("form.emailAddress", "Email address")}</label>
       <div class="subscribe-inline-row">
         <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
         <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">Subscribe</button>
+        <button type="submit">${tr("form.subscribe", "Subscribe")}</button>
       </div>
-      <p class="subscribe-inline-note">Daily + weekly · unsubscribe anytime ·
-        <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="${placement}_options">Weekly only →</a></p>
+      <p class="subscribe-inline-note">${tr("form.subscribeNote", "Daily + weekly · unsubscribe anytime ·")}
+        <a href="${typeof window.localHref === "function" ? window.localHref("/subscribe") : "/subscribe"}" data-subscribe-channel="email" data-subscribe-placement="${placement}_options">${tr("form.weeklyOnly", "Weekly only →")}</a></p>
       <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -170,7 +178,7 @@
       const placement = /^[a-z0-9_-]{1,40}$/.test(raw) ? raw : "inline";
       // Static-page CTAs carry their own heading; the feed's finish line
       // needs a label so the field isn't anonymous.
-      const form = buildForm(placement, link.closest(".subscribe-cta") ? "" : "The next brief, by email");
+      const form = buildForm(placement, link.closest(".subscribe-cta") ? "" : tr("form.nextBrief", "The next brief, by email"));
       link.insertAdjacentElement("afterend", form);
       link.hidden = true;
       observeView(form, placement);
@@ -206,12 +214,12 @@
     const email = String(input.value || "").trim();
     const honeypot = String(form.elements.website?.value || "").trim();
     if (!EMAIL_RE.test(email)) {
-      setMessage(form, "Please enter a valid email address.", "err");
+      setMessage(form, tr("form.invalidEmail", "Please enter a valid email address."), "err");
       input.focus();
       return;
     }
     button.disabled = true;
-    setMessage(form, "Saving…", "");
+    setMessage(form, tr("form.saving", "Saving…"), "");
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
@@ -226,18 +234,18 @@
         input.disabled = true;
         button.remove();
         form.querySelectorAll(".subscribe-inline-note").forEach((note) => note.remove());
-        setMessage(form, "✓ We’ll email you when this story moves.", "ok");
+        setMessage(form, tr("form.followSaved", "✓ We’ll email you when this story moves."), "ok");
         return;
       }
       setMessage(
         form,
         response.status === 400
-          ? "Please enter a valid email address."
-          : "Email follows are temporarily unavailable. Please try again shortly.",
+          ? tr("form.invalidEmail", "Please enter a valid email address.")
+          : tr("form.followUnavailable", "Email follows are temporarily unavailable. Please try again shortly."),
         "err",
       );
     } catch {
-      setMessage(form, "Network error. Check your connection and try again.", "err");
+      setMessage(form, tr("form.network", "Network error. Check your connection and try again."), "err");
     }
     button.disabled = false;
   };
@@ -249,14 +257,14 @@
     form.className = "subscribe-inline follow-email";
     form.noValidate = true;
     form.innerHTML = `
-      <p class="subscribe-inline-kicker">Email alert · this story only</p>
-      <label class="subscribe-inline-label" for="${id}">Email address for alerts about this story</label>
+      <p class="subscribe-inline-kicker">${tr("form.followKicker", "Email alert · this story only")}</p>
+      <label class="subscribe-inline-label" for="${id}">${tr("form.followLabel", "Email address for alerts about this story")}</label>
       <div class="subscribe-inline-row">
         <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
         <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">Email me</button>
+        <button type="submit">${tr("form.emailMe", "Email me")}</button>
       </div>
-      <p class="subscribe-inline-note">Sent only when it gets new coverage · unfollow from any alert</p>
+      <p class="subscribe-inline-note">${tr("form.followNote", "Sent only when it gets new coverage · unfollow from any alert")}</p>
       <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -275,7 +283,7 @@
       const followed = !!readJson(FOLLOWS_KEY)[slug];
       const emailed = !!readJson(EMAIL_FOLLOWS_KEY)[slug];
       if (emailed && !form) {
-        slot.textContent = "✓ You’ll get an email when this story moves.";
+        slot.textContent = tr("form.followDone", "✓ You’ll get an email when this story moves.");
         slot.classList.add("follow-email-done");
         slot.hidden = !followed;
         return;

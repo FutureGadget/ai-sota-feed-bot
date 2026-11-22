@@ -15,6 +15,14 @@
 // watch_match_cases.json pins both. Defensive throughout: any failure leaves
 // the page as it was.
 (() => {
+  // UI text comes from the page's dictionary (the global t(), written by
+  // pipeline/render_home.py) where the page has one. The English fallback serves
+  // pages without it; tests/test_ui_dictionary.py pins every fallback to
+  // config/ui/en.json.
+  const tr = (key, fallback, vars) => {
+    const text = typeof globalThis.t === "function" ? globalThis.t(key) : fallback;
+    return vars ? text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? vars[name] : match)) : text;
+  };
   const WATCH_KEY = "ai_feed_watchlist_v1";
   const EMAIL_KEY = "ai_feed_watch_email_v1";
   const INTRO_KEY = "ai_feed_watch_intro_dismissed_v1";
@@ -24,7 +32,11 @@
   const NEW_WINDOW_MS = 7 * 86400000;
   const ROWS_PER_ENTITY = 2;
   const MAX_ROWS = 6;
-  const KIND_LABELS = { tool: "Tools", model: "Models", topic: "Topics" };
+  const KIND_LABELS = {
+    tool: tr("watch.kindTool", "Tools"),
+    model: tr("watch.kindModel", "Models"),
+    topic: tr("watch.kindTopic", "Topics"),
+  };
 
   // ---------------------------------------------------------------- matching
   const normalize = (text) => {
@@ -155,9 +167,9 @@
     const t = Date.parse(iso || "");
     if (!Number.isFinite(t)) return "";
     const hours = Math.floor((Date.now() - t) / 3600000);
-    if (hours < 1) return "just now";
-    if (hours < 24) return `${hours}h ago`;
-    return `${Math.floor(hours / 24)}d ago`;
+    if (hours < 1) return tr("time.justNow", "just now");
+    if (hours < 24) return tr("time.hoursAgo", "{n}h ago", { n: hours });
+    return tr("time.daysAgo", "{n}d ago", { n: Math.floor(hours / 24) });
   };
 
   const readerId = () => {
@@ -183,12 +195,12 @@
     const honeypot = String(form.elements.website?.value || "").trim();
     const slugs = watchedSlugs();
     if (!EMAIL_RE.test(email)) {
-      setMessage(form, "Please enter a valid email address.", "err");
+      setMessage(form, tr("form.invalidEmail", "Please enter a valid email address."), "err");
       input.focus();
       return;
     }
     button.disabled = true;
-    setMessage(form, "Saving…", "");
+    setMessage(form, tr("form.saving", "Saving…"), "");
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
@@ -204,19 +216,19 @@
         input.disabled = true;
         button.remove();
         form.querySelectorAll(".subscribe-inline-note").forEach((note) => note.remove());
-        setMessage(form, "✓ We’ll email you on days something you watch changes.", "ok");
+        setMessage(form, tr("watch.saved", "✓ We’ll email you on days something you watch changes."), "ok");
         emailFormOpen = false;
         return;
       }
       setMessage(
         form,
         response.status === 400
-          ? "Please enter a valid email address."
-          : "Email alerts are temporarily unavailable. Please try again shortly.",
+          ? tr("form.invalidEmail", "Please enter a valid email address.")
+          : tr("watch.unavailable", "Email alerts are temporarily unavailable. Please try again shortly."),
         "err",
       );
     } catch {
-      setMessage(form, "Network error. Check your connection and try again.", "err");
+      setMessage(form, tr("form.network", "Network error. Check your connection and try again."), "err");
     }
     button.disabled = false;
   };
@@ -228,14 +240,14 @@
     form.className = "subscribe-inline watch-email-form";
     form.noValidate = true;
     form.innerHTML = `
-      <p class="subscribe-inline-kicker">Email alert · only what you watch</p>
-      <label class="subscribe-inline-label" for="${id}">Email address for watchlist alerts</label>
+      <p class="subscribe-inline-kicker">${esc(tr("watch.formKicker", "Email alert · only what you watch"))}</p>
+      <label class="subscribe-inline-label" for="${id}">${esc(tr("watch.formLabel", "Email address for watchlist alerts"))}</label>
       <div class="subscribe-inline-row">
         <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
         <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">Email me</button>
+        <button type="submit">${esc(tr("form.emailMe", "Email me"))}</button>
       </div>
-      <p class="subscribe-inline-note">At most one email a day, only when something you watch changes · stop from any alert</p>
+      <p class="subscribe-inline-note">${esc(tr("watch.formNote", "At most one email a day, only when something you watch changes · stop from any alert"))}</p>
       <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -259,7 +271,7 @@
     const uncovered = uncoveredSlugs();
     const emailed = emailedSlugs().length > 0;
     if (!uncovered.length) {
-      slot.innerHTML = `<p class="watch-email-status">✓ Email alerts are on for your watchlist.</p>`;
+      slot.innerHTML = `<p class="watch-email-status">${esc(tr("watch.emailOn", "✓ Email alerts are on for your watchlist."))}</p>`;
       return;
     }
     if (forceOpen || emailFormOpen) {
@@ -267,8 +279,8 @@
       return;
     }
     slot.innerHTML = emailed
-      ? `<p class="watch-email-status">Email alerts cover ${watched.length - uncovered.length} of ${watched.length}. <button type="button" class="watch-link" data-watch-email-open>Update</button></p>`
-      : `<button type="button" class="watch-link" data-watch-email-open>Email me when these change</button>`;
+      ? `<p class="watch-email-status">${esc(tr("watch.emailCovers", "Email alerts cover {n} of {total}.", { n: watched.length - uncovered.length, total: watched.length }))} <button type="button" class="watch-link" data-watch-email-open>${esc(tr("watch.update", "Update"))}</button></p>`
+      : `<button type="button" class="watch-link" data-watch-email-open>${esc(tr("watch.emailOffer", "Email me when these change"))}</button>`;
   };
 
   const editorHtml = () =>
@@ -331,11 +343,11 @@
       viewState = "intro";
       html = `
         <div class="watch-home-head">
-          <h2 class="watch-home-title">Watch what you run</h2>
-          <button type="button" class="watch-dismiss" data-watch-intro-dismiss aria-label="Hide the watchlist prompt" title="Hide">×</button>
+          <h2 class="watch-home-title">${esc(tr("watch.introTitle", "Watch what you run"))}</h2>
+          <button type="button" class="watch-dismiss" data-watch-intro-dismiss aria-label="${esc(tr("watch.introHideLabel", "Hide the watchlist prompt"))}" title="${esc(tr("watch.hide", "Hide"))}">×</button>
         </div>
-        <p class="watch-home-copy">Pick the tools and models you use. This page will show what changed for them since your last visit.</p>
-        ${editorOpen ? "" : `<div class="watch-chips watch-intro-chips">${introSlugs().map((s) => chipHtml(s, "home_intro")).join("")}<button type="button" class="watch-link" data-watch-edit>All ${data.entities.length} →</button></div>`}`;
+        <p class="watch-home-copy">${esc(tr("watch.introCopy", "Pick the tools and models you use. This page will show what changed for them since your last visit."))}</p>
+        ${editorOpen ? "" : `<div class="watch-chips watch-intro-chips">${introSlugs().map((s) => chipHtml(s, "home_intro")).join("")}<button type="button" class="watch-link" data-watch-edit>${esc(tr("watch.allCount", "All {n} →", { n: data.entities.length }))}</button></div>`}`;
     } else {
       const { rows, total } = homeRows();
       newCount = total;
@@ -345,21 +357,21 @@
           <li class="watch-row">
             <span class="watch-row-label">${esc(ent.label)}</span>
             <a href="/story/${esc(item.sid)}" data-watch-item="${esc(ent.slug)}">${esc(item.title)}</a>
-            <span class="watch-row-when">${esc(relTime(item.first_seen))}${extra > 0 ? ` · +${extra} more` : ""}</span>
+            <span class="watch-row-when">${esc(relTime(item.first_seen))}${extra > 0 ? ` · ${esc(tr("watch.extraMore", "+{n} more", { n: extra }))}` : ""}</span>
           </li>`)
         .join("");
       html = `
         <div class="watch-home-head">
-          <h2 class="watch-home-title">Your watchlist</h2>
-          <span class="watch-home-count">${total ? `${total} new` : `Nothing new in ${slugs.length} watched`}</span>
+          <h2 class="watch-home-title">${esc(tr("watch.label", "Your watchlist"))}</h2>
+          <span class="watch-home-count">${esc(total ? tr("watch.newCount", "{n} new", { n: total }) : tr("watch.quiet", "Nothing new in {n} watched", { n: slugs.length }))}</span>
           <span class="watch-home-actions">
-            ${total ? `<button type="button" class="watch-link" data-watch-seen>Mark seen</button>` : ""}
-            <button type="button" class="watch-link" data-watch-edit aria-expanded="${editorOpen}">${editorOpen ? "Done" : "Edit"}</button>
+            ${total ? `<button type="button" class="watch-link" data-watch-seen>${esc(tr("watch.markSeen", "Mark seen"))}</button>` : ""}
+            <button type="button" class="watch-link" data-watch-edit aria-expanded="${editorOpen}">${esc(editorOpen ? tr("watch.done", "Done") : tr("watch.edit", "Edit"))}</button>
           </span>
         </div>
         ${list ? `<ul class="watch-rows">${list}</ul>` : ""}`;
     }
-    html += `${editorOpen ? `<div class="watch-editor">${editorHtml()}${slugs.length ? "" : `<p class="watch-email-status"><button type="button" class="watch-link" data-watch-edit>Show fewer</button></p>`}</div>` : ""}<div class="watch-email-slot" hidden></div>`;
+    html += `${editorOpen ? `<div class="watch-editor">${editorHtml()}${slugs.length ? "" : `<p class="watch-email-status"><button type="button" class="watch-link" data-watch-edit>${esc(tr("watch.showFewer", "Show fewer"))}</button></p>`}</div>` : ""}<div class="watch-email-slot" hidden></div>`;
     root.innerHTML = html;
     const slot = root.querySelector(".watch-email-slot");
     if (keepForm) {
@@ -383,12 +395,12 @@
       const surface = el.dataset.watchContext === "story" ? "story" : "card";
       const chips = slugs.map((slug) => chipHtml(slug, surface)).join("");
       el.innerHTML = surface === "story"
-        ? `<p class="tldr-label">Watch</p>
-           <p class="watch-box-copy">Watch a topic to see what changed for it next time you visit.</p>
+        ? `<p class="tldr-label">${esc(tr("watch.watch", "Watch"))}</p>
+           <p class="watch-box-copy">${esc(tr("watch.boxCopy", "Watch a topic to see what changed for it next time you visit."))}</p>
            <div class="watch-chips">${chips}</div>
-           <p class="watch-box-hint" hidden>Watching in this browser. New coverage shows at the top of the <a href="/">live feed</a>.</p>
+           <p class="watch-box-hint" hidden>${esc(tr("watch.boxHint", "Watching in this browser. New coverage shows at the top of the {link}.", { link: "\u0001" })).replace("\u0001", `<a href="${typeof window.localHref === "function" ? window.localHref("/") : "/"}">${esc(tr("watch.liveFeed", "live feed"))}</a>`)}</p>
            <div class="watch-email-slot" hidden></div>`
-        : `<span class="watch-chips-label">Watch</span><div class="watch-chips">${chips}</div>`;
+        : `<span class="watch-chips-label">${esc(tr("watch.watch", "Watch"))}</span><div class="watch-chips">${chips}</div>`;
       el.hidden = false;
       if (surface === "story") paintStoryBox(el);
     });

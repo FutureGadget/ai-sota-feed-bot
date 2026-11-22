@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 
 CONFIG_PATH = Path(__file__).resolve().parent.parent / "config" / "locales.json"
+UI_DIR = CONFIG_PATH.parent / "ui"
 
 
 @dataclass(frozen=True)
@@ -53,6 +54,11 @@ DEFAULT: str = LOCALES[0]
 
 def get(code: str) -> Locale:
     return _REGISTRY[code]
+
+
+def ui(code: str) -> dict[str, str]:
+    """The flat UI dictionary for a language, ``config/ui/<code>.json``."""
+    return json.loads((UI_DIR / f"{code}.json").read_text(encoding="utf-8"))
 
 
 def path(code: str, site_path: str) -> str:

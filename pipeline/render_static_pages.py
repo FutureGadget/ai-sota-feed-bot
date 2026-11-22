@@ -83,6 +83,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
 import community  # noqa: E402
 import locales  # noqa: E402
+import render_home  # noqa: E402
 import source_labels  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
@@ -859,7 +860,16 @@ def _js_tofixed2(value: float) -> str:
     return f"{value:.2f}"
 
 
-def _ranked_because(item: dict) -> str:
+def _slot_label(slot: str, code: str) -> str:
+    """A slot's reader-facing name; other languages use their dictionary's ``slot.*``."""
+    if code != locales.DEFAULT:
+        label = locales.ui(code).get(f"slot.{slot}")
+        if label:
+            return label
+    return _RANKED_SLOT_LABELS.get(slot, str(slot).replace("_", " "))
+
+
+def _ranked_because(item: dict, code: str = locales.DEFAULT) -> str:
     """Deterministic ranking rationale for items without an editorial why.
 
     Mirrors ``rankedBecauseText`` in web/index.html - same components, order,
@@ -873,13 +883,14 @@ def _ranked_because(item: dict) -> str:
     if why and why != _LEGACY_PLACEHOLDER_WHY:
         if not why.startswith(MECHANICAL_WHY_PREFIXES):
             return ""
+    ui = locales.ui(code)
     parts: list[str] = []
     topics = [str(t).strip() for t in (item.get("matched_topics") or []) if str(t or "").strip()]
     if topics:
-        parts.append(f"{' + '.join(topics[:2])} match")
+        parts.append(ui["ranked.topics"].format(topics=" + ".join(topics[:2])))
     slot = item.get("slot")
     if slot:
-        parts.append(_RANKED_SLOT_LABELS.get(slot, str(slot).replace("_", " ")))
+        parts.append(_slot_label(slot, code))
     decay_raw = item.get("time_decay_factor")
     if decay_raw is not None and str(decay_raw).strip() != "":
         try:
@@ -887,7 +898,7 @@ def _ranked_because(item: dict) -> str:
         except (TypeError, ValueError):
             decay = None
         if decay is not None and math.isfinite(decay):
-            parts.append(f"fresh {_js_tofixed2(decay)}")
+            parts.append(ui["ranked.fresh"].format(value=_js_tofixed2(decay)))
     score_raw = item.get("final_score")
     if score_raw is None:
         score_raw = item.get("score")
@@ -897,8 +908,8 @@ def _ranked_because(item: dict) -> str:
         except (TypeError, ValueError):
             score = None
         if score is not None and math.isfinite(score):
-            parts.append(f"score {_js_tofixed2(score)}")
-    return f"Ranked: {' · '.join(parts)}" if parts else ""
+            parts.append(ui["ranked.score"].format(value=_js_tofixed2(score)))
+    return ui["ranked.prefix"].format(parts=" · ".join(parts)) if parts else ""
 
 
 def _trim_title_suffix(title: str, source: str, url: str) -> str:
@@ -936,31 +947,26 @@ def _trim_title_suffix(title: str, source: str, url: str) -> str:
     return original
 
 
-def _seed_heading(dates: list[date], updated_at: datetime | None = None) -> str:
+def _seed_heading(
+    dates: list[date], updated_at: datetime | None = None, code: str = locales.DEFAULT
+) -> str:
     """Honest date-span label for the crawler-visible feed seed."""
-    if not dates:
-        heading = "Top signals"
-    else:
+    ui = locales.ui(code)
+    heading = ui["seed.title"]
+    if dates:
         lo, hi = dates[0], dates[-1]
         if lo == hi:
-            heading = f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year}"
+            span = locales.format_date(code, "edition", lo)
         elif lo.year != hi.year:
-            heading = (
-                f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year} "
-                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
-            )
-        elif lo.month == hi.month:
-            heading = f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
+            span = f"{locales.format_date(code, 'edition', lo)} \u2013 {locales.format_date(code, 'edition', hi)}"
         else:
-            heading = (
-                f"Top signals \u00b7 {lo.strftime('%b')} {lo.day} "
-                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
-            )
+            span = locales.format_range(code, "edition_range", lo, hi)
+        heading += f" \u00b7 {span}"
     if updated_at is not None:
-        heading += (
-            f" \u00b7 Updated {updated_at.strftime('%b')} {updated_at.day},"
-            f" {updated_at:%H:%M} UTC"
+        stamp = ui["seed.updated"].format(
+            date=locales.format_date(code, "short", updated_at.date()), time=f"{updated_at:%H:%M}"
         )
+        heading += f" \u00b7 {stamp}"
     return heading
 
 
@@ -6006,8 +6012,8 @@ def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | N
     return sitemap_entries
 
 
-FEED_SEED_START = "<!-- feed-seed:start -->"
-FEED_SEED_END = "<!-- feed-seed:end -->"
+FEED_SEED_START = render_home.FEED_SEED_START
+FEED_SEED_END = render_home.FEED_SEED_END
 FEED_SEED_MAX_ITEMS = 12
 FEED_SEED_MIN_ITEMS = 6
 
@@ -6028,22 +6034,26 @@ def select_seed_window(entries: list[tuple[date | None, dict]]) -> list[tuple[da
     return entries[:FEED_SEED_MAX_ITEMS]
 
 
-def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
-    """Splice the latest ranked feed items into the / shell as static markup.
+def _feed_seed_block(story_sids: set[str], code: str = locales.DEFAULT) -> tuple[str, int] | None:
+    """The home page's crawler-visible feed snapshot, markers included.
 
-    web/index.html is client-rendered, so crawlers, link unfurlers, and no-JS
-    readers see an empty shell. This writes the top items from the committed
-    feed snapshot (data/processed/latest.json) into the marker region inside
-    <section id="list">; the feed JS overwrites the region on boot, so readers
-    with JS never diverge from the live feed. Idempotent: only rewrites the
-    shell when the seed content actually changed.
+    The home page is client-rendered, so crawlers, link unfurlers, and no-JS
+    readers would see an empty shell. This builds the top items from the
+    committed feed snapshot (data/processed/latest.json) as the marker region
+    inside <section id="list">; the feed JS overwrites the region on boot, so
+    readers with JS never diverge from the live feed. ``None`` when there is
+    nothing to show.
+
+    ``code`` is the page's language. Its chrome (heading, links, closing
+    note) is that language's text, and links go to localized pages that
+    exist. The items come from the English snapshot, so another language
+    marks them ``lang="en"``.
     """
-    shell = WEB_DIR / "index.html"
-    if not shell.exists():
-        return 0
+    ui = locales.ui(code)
+    en_attr = "" if code == locales.DEFAULT else ' lang="en"'
     items = load_json(ROOT / "data" / "processed" / "latest.json")
     if not isinstance(items, list):
-        return 0
+        return None
 
     def score(it: dict) -> float:
         try:
@@ -6119,12 +6129,9 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         shown_summary = "" if is_release_row else summary
         sid = story_sid(url)
         has_story = sid in story_sids
-        perma = (
-            f' <a href="/story/{sid}">Context &amp; related coverage →</a>'
-            if has_story
-            else ""
-        )
-        ranked_why = "" if (is_release_row or story_why(it)) else _ranked_because(it)
+        story_href = render_home.localize(code, f"/story/{sid}")
+        perma = f' <a href="{story_href}">{escape(ui["seed.context"], quote=False)}</a>' if has_story else ""
+        ranked_why = "" if (is_release_row or story_why(it)) else _ranked_because(it, code)
         meta = " · ".join(
             x
             for x in (
@@ -6136,27 +6143,34 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         )
         meta_context = ""
         if not shown_summary and has_story:
-            meta_context = (
-                f' · <a href="/story/{sid}">Context</a>' if meta else f'<a href="/story/{sid}">Context</a>'
-            )
+            context_link = f'<a href="{story_href}">{escape(ui["seed.contextShort"], quote=False)}</a>'
+            meta_context = f" · {context_link}" if meta else context_link
             perma = ""
-        body = f"<p>{escape(clip(shown_summary, 240))}{perma}</p>" if shown_summary or perma else ""
+        summary_html = escape(clip(shown_summary, 240))
+        if summary_html and en_attr:
+            summary_html = f"<span{en_attr}>{summary_html}</span>"
+        body = f"<p>{summary_html}{perma}</p>" if shown_summary or perma else ""
         cards.append(
             '<article class="seed-item'
             + (' release-row">' if is_release_row else '">')
             + f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
-            + f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
+            + f'<h3><a href="{escape(url)}" rel="noopener"{en_attr}>{escape(title)}</a></h3>'
             + f"{body}</article>"
         )
         seeded_dates.append(published_date)
         stamps = (parse_dt(it.get(k)) for k in ("collected_at", "last_seen", "published"))
         seeded_stamps.extend(s for s in stamps if s is not None)
     if not cards:
-        return 0
+        return None
     heading = _seed_heading(
         sorted(d for d in seeded_dates if d is not None),
         max(seeded_stamps) if seeded_stamps else None,
+        code,
     )
+    caught_up = escape(ui["end.caughtAll"], quote=False)
+    summary_note = escape(ui["seed.summary"].format(count=len(cards)), quote=False)
+    recap_link = escape(ui["seed.recap"], quote=False)
+    recap_href = render_home.localize(code, "/daily")
     block = (
         f"{FEED_SEED_START}\n"
         "      <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.\n"
@@ -6168,26 +6182,26 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         f"        <h2>{heading}</h2>\n        "
         + "\n        ".join(cards)
         + f'\n        <div class="end-marker" role="status">\n'
-          '          <div class="end-marker-title">✓ You\'re all caught up</div>\n'
-          f'          <div class="end-marker-sub">Top {len(cards)} ranked stories in this snapshot · fresh brief every 2 hours</div>\n'
+          f'          <div class="end-marker-title">✓ {caught_up}</div>\n'
+          f'          <div class="end-marker-sub">{summary_note}</div>\n'
           "        </div>\n"
-        '\n        <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>\n'
+        f'\n        <p class="seed-more"><a href="{recap_href}">{recap_link}</a></p>\n'
         "      </div>\n"
         f"      {FEED_SEED_END}"
     )
-    html = shell.read_text(encoding="utf-8")
-    start = html.find(FEED_SEED_START)
-    end = html.find(FEED_SEED_END)
-    if start == -1 or end == -1 or end < start:
-        print(
-            "warning: feed-seed markers missing in web/index.html; seed skipped",
-            file=sys.stderr,
-        )
-        return 0
-    new_html = html[:start] + block + html[end + len(FEED_SEED_END):]
-    if new_html != html:
-        shell.write_text(new_html, encoding="utf-8")
-    return len(cards)
+    return block, len(cards)
+
+
+def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
+    """Regenerate the home pages with the latest feed snapshot spliced in.
+
+    Idempotent: a page is only rewritten when its content changed. Returns the
+    number of seeded cards (0 keeps the snapshot each page already carries).
+    """
+    seeds = {code: _feed_seed_block(story_sids, code) for code in locales.LOCALES}
+    render_home.write_pages({code: seed[0] for code, seed in seeds.items() if seed})
+    default_seed = seeds[locales.DEFAULT]
+    return default_seed[1] if default_seed else 0
 
 
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
