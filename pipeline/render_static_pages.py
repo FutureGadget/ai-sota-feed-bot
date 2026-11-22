@@ -6198,9 +6198,10 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
     Idempotent: a page is only rewritten when its content changed. Returns the
     number of seeded cards (0 keeps the snapshot each page already carries).
     """
-    seed = _feed_seed_block(story_sids)
-    render_home.write_pages({locales.DEFAULT: seed[0]} if seed else None)
-    return seed[1] if seed else 0
+    seeds = {code: _feed_seed_block(story_sids, code) for code in locales.LOCALES}
+    render_home.write_pages({code: seed[0] for code, seed in seeds.items() if seed})
+    default_seed = seeds[locales.DEFAULT]
+    return default_seed[1] if default_seed else 0
 
 
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:

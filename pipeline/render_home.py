@@ -244,7 +244,7 @@ def write_pages(seeds: Mapping[str, str] | None = None) -> list[Path]:
     """Write every language's home page; returns the paths that changed."""
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     changed: list[Path] = []
-    for code in (locales.DEFAULT,):
+    for code in locales.LOCALES:
         path = output_path(code)
         html = render(code, template, seed=(seeds or {}).get(code))
         if path.is_file() and path.read_text(encoding="utf-8") == html:
@@ -262,7 +262,7 @@ def stale_pages() -> list[Path]:
     """
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     stale = []
-    for code in (locales.DEFAULT,):
+    for code in locales.LOCALES:
         path = output_path(code)
         if not path.is_file() or path.read_text(encoding="utf-8") != render(code, template):
             stale.append(path)

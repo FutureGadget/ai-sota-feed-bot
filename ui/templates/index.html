@@ -457,6 +457,11 @@
       color: #fde68a;
       background: #78350f;
     }
+    .badge-lang {
+      border-color: var(--border);
+      color: var(--muted);
+      background: transparent;
+    }
     a.badge-storyline {
       text-decoration: none;
       cursor: pointer;
@@ -3421,6 +3426,16 @@
     // frontPage: '' (ledger card), 'lead', 'second', or 'pair' - the front-page
     // layout's top stories (see renderFeedList). Same markup and controls;
     // only a kicker replaces the rank column so CSS can set it as a column.
+    // A card the translator skipped shows in English on a translated page. The
+    // attribute tells browsers and screen readers; the tag tells the reader.
+    function languageMarks(it) {
+      if (!(it.i18n && it.i18n.translated === false)) return { attr: '', tag: '' };
+      return {
+        attr: ' lang="en"',
+        tag: `<span class="badge badge-lang" title="${esc(t('card.englishTitle'))}">${esc(t('card.englishTag'))}</span>`,
+      };
+    }
+
     function cardHtml(it, { rank = null, runId = '', hideable = true, frontPage = '' } = {}) {
       const key = itemKey(it);
       const rawTitle = String(it.title || t('card.untitled'));
@@ -3472,8 +3487,7 @@
       const rankLabel = rank === null ? '' : `${t('card.rank', { rank })}${climbingLabel}`;
       // A card the API could not translate keeps its English text; mark it so
       // the reader knows why this one is not in their language.
-      const untranslated = Boolean(it.i18n && it.i18n.translated === false);
-      const enAttr = untranslated ? ' lang="en"' : '';
+      const { attr: enAttr, tag: languageTag } = languageMarks(it);
       // Reciprocity: surface when reader clicks/feedback boosted this source's
       // ranking (auto-tune adjustment via the feed API). Threshold keeps the
       // badge meaningful — only clearly boosted sources get it.
@@ -3515,7 +3529,7 @@
               ${published ? `<span class="when">${esc(published)}</span>` : ''}
               ${watchDuration ? `<span class="badge badge-watch">${esc(watchDuration)}</span>` : ''}
               ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
-              ${untranslated ? `<span class="badge badge-lang" title="${esc(t('card.englishTitle'))}">${esc(t('card.englishTag'))}</span>` : ''}
+              ${languageTag}
               ${isNew ? `<span class="badge badge-new">${esc(t('card.new'))}</span>` : ''}
               ${storylineBadge}
             </div>
@@ -3528,7 +3542,7 @@
                     <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="${esc(t('card.shareLabel'))}" title="${esc(t('card.shareTitle'))}">${esc(t('card.shareButton'))}</button>
                     ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${esc(hidden ? t('card.restoreLabel') : t('card.hideLabel'))}" title="${esc(hidden ? t('card.restoreTitle') : t('card.hideTitle'))}">${esc(hidden ? t('card.restoreButton') : t('card.hideButton'))}</button>` : ''}
                   </div>
-                  ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}"${enAttr}>${esc(why)}</p>` : ''}
+                  ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}"${whyRaw ? enAttr : ''}>${esc(why)}</p>` : ''}
                   ${isFresh || sourceCount >= 2 || isReaderBoosted ? `<p class="card-signals">
                     ${isFresh ? `<span class="badge badge-fresh">${esc(t('card.fresh'))}</span>` : ''}
                     ${sourceCount >= 2 ? `<span class="badge badge-trend" title="${esc(t('card.trendTitle', { n: sourceCount }))}">${esc(t('card.trendBadge', { n: sourceCount }))}</span>` : ''}
