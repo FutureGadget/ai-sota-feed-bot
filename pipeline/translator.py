@@ -40,7 +40,7 @@ LATIN = re.compile(r"[A-Za-z]")
 
 # USD per million tokens: input, output, cache read, cache write.
 PRICES: dict[str, tuple[float, float, float, float]] = {
-    "claude-sonnet-5-5": (2.00, 10.00, 0.20, 2.50),
+    "claude-sonnet-5-5": (2.00, 10.00, 0.10, 2.50),
     "claude-haiku-5-5": (0.10, 0.50, 0.01, 0.125),
 }
 

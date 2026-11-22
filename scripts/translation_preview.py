@@ -29,26 +29,23 @@ FIELDS = ("title", "summary_1line", "why_it_matters")
 
 
 def build_jobs(locale: str, limit: int) -> tuple[list[translator.Job], dict[str, dict], int]:
-    """Jobs for the first `limit` snapshot cards with an English source item."""
+    """Jobs for the cards the /ko/ builder would translate now: the top `limit`
+    Brief items from the same /api/feed selector build_localized_feed.py uses.
+    Current Korean text comes from the committed snapshot, when it has the card."""
     snapshot = json.loads((ROOT / "data" / "i18n" / locale / "feed" / "latest.json").read_text(encoding="utf-8"))
-    english = json.loads((ROOT / "data" / "processed" / "latest.json").read_text(encoding="utf-8"))
-    by_key = {feed._translation_key(it): it for it in english}
+    by_key = {card["translation_key"]: card for card in snapshot["items"]}
+    english = feed._fetch_english_feed("brief", max(100, limit * 2)).get("items", [])[:limit]
     jobs, current = [], {}
-    for card in snapshot["items"]:
-        key = card["translation_key"]
-        src = by_key.get(key)
-        if src is None:
-            continue
+    for src in english:
+        key = feed._translation_key(src)
         fields = {f: src[f] for f in FIELDS if (src.get(f) or "").strip()}
         for i, entry in enumerate(src.get("also_covered") or []):
             if (entry.get("title") or "").strip():
                 fields[f"also_covered_title_{i}"] = entry["title"]
         context = src.get("content_excerpt") or src.get("summary") or ""
         jobs.append(translator.Job(key, fields, context))
-        current[key] = card
-        if len(jobs) == limit:
-            break
-    return jobs, current, len(snapshot["items"])
+        current[key] = by_key.get(key, {})
+    return jobs, current, len(english)
 
 
 def cell(text: str) -> str:
@@ -72,8 +69,8 @@ def main() -> None:
     p.add_argument("--dry-run", action="store_true", help="print the jobs and exit without calling the API")
     args = p.parse_args()
 
-    jobs, current, snapshot_count = build_jobs(args.locale, args.limit)
-    print(f"Matched {len(jobs)} of {snapshot_count} snapshot cards to an English source item.\n")
+    jobs, current, _ = build_jobs(args.locale, args.limit)
+    print(f"Previewing {len(jobs)} Brief cards (the set build_localized_feed.py translates).\n")
 
     if args.dry_run:
         for job in jobs:

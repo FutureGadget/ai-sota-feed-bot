@@ -103,7 +103,7 @@ class TranslateTest(unittest.TestCase):
         )
         client = FakeClient(reply({"title": "제목"}, **usage))
         [res] = tr.translate([tr.Job("k", {"title": "Title"})], "ko", "feed", client=client)
-        self.assertAlmostEqual(res.cost_usd, 2.00 + 10.00 + 0.20 + 2.50)
+        self.assertAlmostEqual(res.cost_usd, 2.00 + 10.00 + 0.10 + 2.50)
 
     def test_cost_sums_a_retry(self):
         client = FakeClient(reply("bad", input_tokens=1_000_000, output_tokens=0),

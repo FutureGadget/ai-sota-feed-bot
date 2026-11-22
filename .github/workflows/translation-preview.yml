@@ -1,13 +1,13 @@
 name: Translation Preview
 
-# Manual only. Translates the committed /ko/ feed cards with Claude and posts a
+# Manual only. Translates the current top-20 /ko/ Brief cards with Claude and posts a
 # side-by-side table (English / Google / Claude) to the run summary. Writes no
 # data and commits nothing.
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "Max feed cards to translate"
+        description: "Brief cards to translate"
         default: "20"
         type: string
 
