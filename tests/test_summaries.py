@@ -17,6 +17,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline"))
 
+import brief_ledger  # noqa: E402
 import summaries  # noqa: E402
 import translator  # noqa: E402
 
@@ -440,6 +441,67 @@ class LedgerTest(SummarizerCase):
         before = path.stat().st_mtime_ns
         self.assertEqual(summaries.apply_to_ledger(self.summarizer(SummaryClient()), "2026-11-20T12:00:00+00:00", {}, brief_dir=brief_dir), 0)
         self.assertEqual(path.stat().st_mtime_ns, before)
+
+
+class BuildWiringTest(SummarizerCase):
+    """build_digest.run(): summaries reach latest.json and the ledger; a failing summarizer never fails the build."""
+
+    def _run_build(self, for_build):
+        import build_digest
+        import ranking
+
+        root = Path(self.tmp.name) / "repo"
+        brief_dir = root / "data" / "brief"
+        brief_dir.mkdir(parents=True)
+        run_at = "2026-11-20T12:00:00+00:00"
+        ledger_card = {"url": "https://example.com/post-1", "title": "Post 1", "story_key": "s1",
+                       "summary_1line": "Hi HN, Sanchit here"}
+        (brief_dir / "2026-11-20.json").write_text(json.dumps({"date": "2026-11-20", "items": {"s1": ledger_card}}))
+        edition = [make_item(1)]
+        patches = [
+            patch.object(build_digest, "ROOT", root),
+            patch.object(build_digest, "load_profile", return_value={}),
+            patch.object(build_digest, "load_items_for_tier0", return_value=([make_item(1)], "raw", Path("items.json"))),
+            patch.object(build_digest, "apply_pre_ranking", side_effect=lambda items: (items, {})),
+            patch.object(build_digest, "load_source_health", return_value={}),
+            patch.object(build_digest, "load_llm_cfg", return_value={}),
+            patch.object(build_digest, "write_editorial_artifact"),
+            patch.object(build_digest, "write_run_snapshot", return_value=(run_at, "run.json")),
+            patch.object(build_digest, "record_judged_pool", return_value={}),
+            patch.object(build_digest, "record_brief_ledger", return_value={}),
+            patch.object(build_digest.summaries, "for_build", for_build),
+            patch.object(brief_ledger, "BRIEF_DIR", brief_dir),
+            patch.object(ranking, "run_ranking", return_value=(edition, {})),
+            patch.dict(os.environ, {"TIER0_INCREMENTAL": "0"}),
+        ]
+        out = io.StringIO()
+        for p in patches:
+            p.start()
+            self.addCleanup(p.stop)
+        with redirect_stdout(out):
+            build_digest.run()
+        latest = json.loads((root / "data" / "processed" / "latest.json").read_text())
+        ledger = json.loads((brief_dir / "2026-11-20.json").read_text())["items"]["s1"]
+        return latest[0], ledger, out.getvalue()
+
+    def test_latest_json_and_the_ledger_card_carry_the_summary(self):
+        client = SummaryClient(lambda title: "RunAnywhere runs language models on phones offline.")
+        card, ledger_card, log = self._run_build(lambda: self.summarizer(client))
+        self.assertEqual(card["summary_1line"], "RunAnywhere runs language models on phones offline.")
+        self.assertEqual(card["source_summary_1line"], "Hi HN, Sanchit here from RunAnywhere, we have been building")
+        self.assertEqual(ledger_card["summary_1line"], card["summary_1line"])
+        self.assertEqual(len(client.calls), 1)  # the edition pass paid; the ledger pass hit the cache
+        self.assertIn("summary_stats", log)
+        self.assertEqual(list(summaries.load_store(self.store)), ["https://example.com/post-1"])
+
+    def test_a_summarizer_that_cannot_start_leaves_the_build_and_the_text_alone(self):
+        def broken():
+            raise RuntimeError("policy file unreadable")
+
+        card, ledger_card, log = self._run_build(broken)
+        self.assertTrue(card["summary_1line"].startswith("Hi HN"))
+        self.assertEqual(ledger_card["summary_1line"], "Hi HN, Sanchit here")
+        self.assertIn("summary_step_failed stage=edition", log)
 
 
 if __name__ == "__main__":

@@ -325,6 +325,7 @@ class Summarizer:
                 max_tokens=MAX_OUTPUT_TOKENS,
             )
         except translator.BudgetExceeded as exc:
+            self.calls -= 1  # reserved before any request, so nothing was sent
             self.blocked = "budget"
             self.stats["skipped_budget"] += 1
             print(f"summary_budget_cap_reached: {exc}")
@@ -399,6 +400,32 @@ def apply_to_ledger(
         lambda items: summarizer.apply(items, evidence_from=evidence_from),
         brief_dir=brief_dir,
     )
+
+
+def finish_build(
+    summarizer: Summarizer,
+    run_at: str,
+    candidates: list[dict[str, Any]],
+    edition: list[dict[str, Any]],
+) -> None:
+    """The build's second summary pass, after the ledger admitted its cards. Never raises.
+
+    Summarizes the day's ledger cards, using the build's candidates (and the
+    edition, which is the same items after ranking) for their evidence. Then it
+    saves the store and logs the build's totals.
+    """
+    try:
+        rich = {item_key(i): i for i in [*candidates, *edition] if item_key(i)}
+        changed = apply_to_ledger(summarizer, run_at, rich)
+        print(f"summary_ledger_cards_changed={changed}")
+    except Exception as exc:
+        print(f"summary_step_failed stage=ledger err={exc}")
+    try:
+        pruned = summarizer.save()
+        print(f"summary_store entries={len(summarizer.entries)} pruned={pruned}")
+    except Exception as exc:
+        print(f"summary_step_failed stage=save err={exc}")
+    print(summarizer.log_line())
 
 
 def fetch_missing_evidence(rows: list[dict[str, Any]]) -> dict[str, str]:
