@@ -1,8 +1,10 @@
 {
   "surfaces": {
     "feed": {"model": "claude-sonnet-5-5", "freshness": "realtime"},
-    "static": {"model": "claude-sonnet-5-5", "freshness": "daily"}
+    "static": {"model": "claude-sonnet-5-5", "freshness": "daily"},
+    "summary": {"model": "claude-haiku-5-5", "freshness": "realtime"}
   },
   "monthly_usd_cap": 60,
-  "max_context_chars": 12000
+  "max_context_chars": 12000,
+  "summaries": {"max_calls_per_run": 80, "max_evidence_chars": 3000, "prune_days": 30}
 }
