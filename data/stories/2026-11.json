@@ -4790,6 +4790,23 @@
   "url": "https://www.langchain.com/blog/langsmith-coding-agents-roi",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "2a7f0fddd2dac162": {
+  "content_excerpt": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows High-performance coding agents. Run dozens of agents in parallel without melting your machine. More agents, less RAM, no lag. Want to switch to prereleases (Linux x86_64) and live-update running sessions? Run: Already on a recent build? You can also run jcode update --prerelease (or /update prerelease inside jcode), and switch back anytime with jcode update --stable (or /update stable ). See Update channels and Linux self-dev prereleases . Spawn two or more agents in the same repo, and they will automatically be managed by the server to allow native collaboration. When agent A edits a file that agent B has read (code shifting under its feet), the server notifies agent B. Agent B can ignore it if it is not relevant, or it can check the diff to make sure that it doesn't conflict. Each agent has messaging abilities, capable of DMing just one agent, broadcasting to all other agents hosted by the server, or just agents working in that repo. This allows you to spawn multiple sessions in the same repo, and have all conflicts automatically resolved. Agents are also able to spawn their own swarms autonomously. They have a swarm tool which allows them to spawn in their own teamates to accomplish tasks in parallel. Doing so turns the main agent into a coordinator and the spawned agents into workers. Groups of agents, their messaging channels, their completion statuses, etc are all automatica",
+  "first_seen": "2026-11-23T10:06:18.384668+00:00",
+  "id": "b7e2370b5bdcab6c",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-23T09:13:48+00:00",
+  "sid": "2a7f0fddd2dac162",
+  "source": "hackernews_ai",
+  "summary_1line": "Jcode is an open-source coding agent harness that runs multiple agents in parallel on the same repo, with a server that notifies agents of file changes and manages messaging and swarm coordination.",
+  "title": "Jcode: High performance coding agent harness written in Rust",
+  "type": "news",
+  "url": "https://github.com/1jehuang/jcode",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "2a9427c55f20d0ad": {
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
   "id": "e525ca50992c1084",
@@ -4964,6 +4981,7 @@
   "published": "2026-11-20T15:24:05+00:00",
   "sid": "2cb9b069f7eafcb7",
   "source": "arxiv_cs_cl",
+  "summary": "Decision models receive a question with a closed list of answers and return a probability for each answer instead of free text. They promise low latency and robustness to prompt wording, but no study has compared several of them with fine-tuned encoders across languages. We ask whether systems used without training on labelled data (zero-shot) can replace fine-tuning, and what the decision format adds over a general-purpose large language model (LLM). We compare three decision models (Jev, OpenAI Decisions, Strands Decider 2B) and two LLMs (GPT-6 Luna, Qwen3.5-2B), given Italian instructions, with two fine-tuned multilingual encoders (tabularisai, XLM-EMO) on four emotions (joy, sadness, anger, fear) in 10 social-media datasets in five languages, with paired difference and equivalence tests. The three best zero-shot systems (two decision models and one LLM) score on average about one macro-F1 point below an encoder fine-tuned on the target dataset; our test sets cannot exclude a gap of 4-5 points, and on single datasets either approach wins by up to 22 points. They beat encoders fine-tuned on another dataset by 8-15 points, though against XLM-EMO this may not extend to new datasets, and instructions in each text's language change their results by under 1 point. Exploratorily, they beat the strongest public emotion model used as is by about 6 points. OpenAI's decision endpoint matches GPT-6 Luna, the LLM it runs on, at a fifth of its median latency, and a 2-billion-parameter d",
   "summary_1line": "Compares three decision models and two LLMs in zero-shot use against fine-tuned multilingual encoders for four-emotion classification across 10 social-media datasets in five languages.",
   "title": "Decision Models for Multilingual Emotion Classification: A Comparative Study Against LLMs and Encoders",
   "type": "paper",
@@ -7529,6 +7547,22 @@
   "title": "FedReason: Large Language Models as Weight-Space Meta-Aggregators for Heterogeneous Federated Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08383v1"
+ },
+ "416b7269a8b3e488": {
+  "first_seen": "2026-11-23T10:06:18.384668+00:00",
+  "id": "a1d51e5b594721eb",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-20T17:52:02+00:00",
+  "sid": "416b7269a8b3e488",
+  "source": "arxiv_cs_ai",
+  "summary": "Vision-language models (VLMs) exhibit strong semantic understanding but remain limited in their ability to reason about metric 3D space in the physical world. Existing VLMs typically infer 3D scene structure from one or more images without known camera calibration or cross-view geometric constraints. This makes metric 3D inference inherently ambiguous and leaves it unclear whether their spatial predictions are grounded in visual evidence or driven primarily by semantic priors. In contrast, calibrated stereo provides explicit cross-view geometry that resolves this ambiguity and offers a more reliable foundation for metric 3D perception and geometric generalization. We investigate how VLMs can learn transferable 3D representations directly from calibrated binocular observations. To this end, we introduce StereoVLM, the first geometry-aware binocular VLM for metric 3D spatial reasoning. StereoVLM follows a hierarchical learning paradigm spanning from cross-view correspondence and disparity estimation to calibration-conditioned metric depth perception and semantic spatial reasoning. We further find that disparity supervision generalizes substantially better than direct binocular depth supervision on unseen environments. To evaluate these capabilities, we introduce Stereo3D-Bench, a comprehensive benchmark across three levels, from point-level geometry to object-level spatial reasoning. StereoVLM-8B achieves 95.17% depth accuracy ($δ_1$) and a 66.98 average object-level score on S",
+  "summary_1line": "Introduces StereoVLM, a binocular vision-language model trained hierarchically on calibrated stereo images, reporting 95.17% depth accuracy and a 66.98 object-level score on its new Stereo3D-Bench.",
+  "title": "StereoVLM: Binocular Vision-Language Models for Metric 3D Spatial Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27915v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "416f7fb8cabe8243": {
   "content_excerpt": "OpenAI has made substantial progress in continuous, full-duplex voice AI. But the architecture gives conversational models more autonomy while making several forms of business control harder to enforce and optimizes TTFA latency at the expense of providing relevant results. The compromises deserve more attention than they're currently receiving. In September 2026, a developer testing GPT-Live found that 14 out of 75 appointment-cancellation requests were not delegated to the backend within six seconds. Five were never delegated. The agent had explicit instructions to delegate cancellation requests and never confirm success without backend verification. Nevertheless, it sometimes assured callers that an appointment was being canceled without actually initiating the operation. The developer published a reproducible test after encountering the same behavior in production. In that case, the customer was told their consultation was canceled. It wasn't. What's interesting is that GPT-Live's main architectural innovation is separating the conversational model from deeper reasoning and execution. A relatively lightweight voice model continuously handles the interaction, while another model or application performs the actual work. So the less capable model controls access to the more capable one. If it fails to delegate, the backend's intelligence, tools, and business logic become irrelevant. I think this illustrates a broader problem with the latest direction of voice AI. We've made ",
@@ -10944,7 +10978,7 @@
   "sid": "5ffdc5c7963d8fb2",
   "source": "modal_blog",
   "summary": "Abundant builds RL environments that run on Modal Sandboxes, powering training for frontier labs.",
-  "summary_1line": "Abundant builds RL environments that run on Modal Sandboxes, powering training for frontier labs.",
+  "summary_1line": "Abundant, which builds RL training environments for frontier AI labs, describes how it designed its rollout architecture on Modal, running each rollout in a Modal Sandbox with a monitor that sends heartbeats.",
   "title": "How Abundant designed efficient rollout architecture with Modal Sandboxes",
   "type": "news",
   "url": "https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes"
@@ -20715,6 +20749,22 @@
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
  },
+ "b5f0a68bb81481a9": {
+  "content_excerpt": "Make AI agents prove what they checked. Bind every agent verdict to a SHA-256 of the files it read, and refuse to ship on mismatch. Set it up in one command: npx slipmark init . Your coding agents then write their sign-off with slipmark attest (see Works with your coding agent ). No model calls, no account, one GitHub Action. A slip mark is the paint line engineers draw across a bolt once it has been tightened and checked. If the bolt ever moves, the line breaks and everyone can see it. Slipmark does the same for AI agent verdicts: once an agent signs off a file, any change after that breaks the mark. Agents now review code, audit specs and sign off their own work. The weak point is the verdict. An agent can report \"passed\" about a file that has since changed, or that it never looked at, and nothing downstream can tell. We run a nightly pipeline of 20+ agents: research, architecture, security audit, build, QA. Every morning they reported what passed. Then we found the final verification job had been checking the wrong branch for months. It could not fail, so it never did. Months of green ticks, proving nothing. So we built the gate: bind every verdict to the hash of what it read, and re-check before shipping. Pointed at 23 open agent pull requests, it refused all 23. Slipmark doesn't decide whether your agent is right. It makes sure the verdict you are trusting is about the code you are shipping. So pair it with the checks you already trust. Slipmark is the lock on the verdic",
+  "first_seen": "2026-11-23T10:06:18.384668+00:00",
+  "id": "353b8e2c4ed48c97",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T09:48:31+00:00",
+  "sid": "b5f0a68bb81481a9",
+  "source": "hackernews_ai",
+  "summary_1line": "Slipmark is an open-source tool that binds each AI agent verdict to SHA-256 hashes of the files it read and blocks shipping when those files change, set up with one npx command and a GitHub Action.",
+  "title": "Show HN: Slipmark – make AI agents prove what they checked",
+  "type": "news",
+  "url": "https://github.com/founder-ship-it/Slipmark",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b6805052b5174dca": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "9bb9b3b122cd8c0b",
@@ -22455,6 +22505,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.23138v1"
  },
+ "c6e7d4310329b414": {
+  "content_excerpt": "1 Pivotal Research, 2 University of Bath, 3 National University Philippines, 4 University of Notre Dame, 5 Hebrew University of Jerusalem ScrapeBench tests whether AI agents follow website scraping policies. The evaluation instructs agents to scrape landing pages and examines how their actions change in response to different legal instructions and policy resources provided in the prompt. The evaluation focuses on websites' terms of service Terms of service (ToS) are a legally binding agreement between a website or app operator and its visitors, governing permitted use of the service. , which can prohibit or restrict scraping activities, and robots.txt A robots.txt file contains instructions for bots indicating which web pages they can and cannot access. Robots.txt files are particularly important for web crawlers from search engines such as Google. files, which stipulate instructions for automated crawlers. Explicitly Prohibited (EP) websites explicitly prohibit scraping in their terms of service or robots.txt. Not Explicitly Prohibited (NEP) websites have no explicit prohibition in either source. The benchmark uses 1,895 high-traffic, English-language websites accessible from the United States, drawn from the February 2026 Chrome Top Million Websites (CrUX) list . The sample contains 1,626 EP websites and 269 NEP websites . In this evaluation, Compliance means not scraping an EP website, while Over-refusal means not scraping an NEP website. Choose a prompt to compare the age",
+  "first_seen": "2026-11-23T10:06:18.384668+00:00",
+  "id": "08e4f5520c88336e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T09:59:57+00:00",
+  "sid": "c6e7d4310329b414",
+  "source": "hackernews_ai",
+  "summary_1line": "ScrapeBench tests whether AI agents respect website scraping policies in terms of service and robots.txt across 1,895 high-traffic English-language sites, reporting compliance and over-refusal under different prompts.",
+  "title": "AI agents violate website scraping policies ~97% of the time (NeurIPS2026)",
+  "type": "news",
+  "url": "https://scrapebench.github.io",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "c6ef8b89d656b341": {
   "first_seen": "2026-11-07T16:03:44.856316+00:00",
   "id": "81f636993fe119f9",
@@ -23692,6 +23758,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.23045v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "d43ec4840a23ed16": {
+  "first_seen": "2026-11-23T10:06:18.384668+00:00",
+  "id": "58d19216e3caec20",
+  "published": "2026-11-20T18:51:29+00:00",
+  "sid": "d43ec4840a23ed16",
+  "source": "arxiv_cs_cl",
+  "summary": "Deploying large language models (LLMs) in long-horizon and continual interactions requires maintaining reusable memory states for future inference, posing challenges for existing architectures. Standard Transformers accumulate layer-wise, token-level KV caches, incurring linear GPU memory growth and quadratic computational complexity as the context expands. In contrast, linear-time architectures compress history into fixed-size states, but struggle to retain fine-grained details. We introduce MemOnce, a foundation architecture that learns scalable memory states for language models. MemOnce is based on two core designs: (a) Memory encoder-decoder: it caches only a small subset of final-layer hidden states as compact memory representations and dynamically decodes them back into KV caches for attention layers; (b) Memory sparse attention: for each continual input, MemOnce adaptively retrieves relevant memory representations, with the sparse indices computed only once across layers. Coupling these two designs enables efficient on-the-fly memory loading and KV cache decoding, drastically reducing the GPU memory footprint and achieving linear-time complexity. We conduct extensive experiments to show that MemOnce outperforms Transformers and other architectures across varying model sizes, context lengths, and training paradigms (pretraining and post-training adaptation). In particular, adapting Qwen3.5-4B with MemOnce reduces memory state cache by 1313$\\times$ and prefill latency by",
+  "summary_1line": "MemOnce proposes an LLM architecture that caches compact final-layer hidden states as memory and decodes them into KV caches, reporting a 1313× smaller memory state cache and 6.9× lower prefill latency for Qwen3.5-4B at 1M context.",
+  "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27973v1"
  },
  "d48977b6fbc84b1e": {
   "content_excerpt": "Microsoft researchers have discovered “Lazarus,” a backdoor technique that can reprogram dormant neurons in an AI model, causing an otherwise normal AI agent to execute malicious commands when a hidden trigger appears. The threat is especially serious for AI agents with tool or terminal access. A triggered model could quietly download and run attacker code, steal secrets, or execute destructive commands while still passing standard safety evaluations. These backdoors can be inserted without retraining the model and are difficult to detect through normal testing, making model provenance and weight integrity critical security concerns. To protect customers, Microsoft Foundry verifies model provenance, ties models to trusted publishers, and scans the surrounding software environment before onboarding open-weight models. Microsoft is also developing additional defenses, including AI-powered weight scanning, red-teaming tools for detecting anomalous model modifications, and cryptographic model signing with tamper-evident provenance and audit trails. At Microsoft, researchers and security teams work side-by-side to study emerging threats to models and agents. Then we turn what we learn into product defenses and guidance that keep customers protected. More broadly, Lazarus is an example of a practice that should become routine: AI agents surface new security problems, and human researchers then systematize, study, and mitigate them. We find (opens in new tab) that weight-reprogrammi",
@@ -26427,7 +26505,7 @@
   "published": "2026-11-18T09:54:14+00:00",
   "sid": "eb695e4874b14e40",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 0, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 3, downloads: 0.",
   "summary_1line": "Tencent has posted the WeMM-Ecom-35B-A3B image-text-to-text model weights on Hugging Face, with the listing showing no likes or downloads so far.",
   "title": "tencent/WeMM-Ecom-35B-A3B released on Hugging Face",
   "type": "release",
