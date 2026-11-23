@@ -95,13 +95,19 @@ exchanges its GitHub OIDC token for a short-lived Anthropic token:
   defaults, so the translating jobs list `contents: write` and `actions: read`
   as well. Do not drop them.
 - The job `env` carries the federation rule, organization, service account, and
-  workspace ids, plus `ANTHROPIC_IDENTITY_TOKEN_FILE=/tmp/gha-jwt`. The values are
-  identical in `translation-preview.yml`, `feed-full-publish.yml`, and
-  `i18n-translate.yml`. They are identifiers, not secrets.
-- The step "Fetch GitHub OIDC token and keep it fresh" runs before the translate
-  step. GitHub's token lives about 5 minutes and the SDK rereads the file on each
-  refresh, so the step rewrites it every 240 seconds in the background. The first
-  fetch must succeed. A failed refresh keeps the previous token.
+  workspace ids. The values are identical in `translation-preview.yml`,
+  `feed-full-publish.yml`, and `i18n-translate.yml`. They are identifiers, not
+  secrets.
+- `translator.make_client()` requests a new GitHub OIDC token for every token
+  exchange (`translator.github_identity_token`). Anthropic accepts an identity
+  token only once (a repeated `jti` gets HTTP 401), and one job runs several
+  Claude callers in separate processes (card summaries, the Korean feed, the
+  Editor's Desk), so a token shared through a file let only the first one in.
+  Build every client with `make_client()`. A bare `anthropic.Anthropic()` in CI
+  has no credentials.
+- For a local run with workload identity, set `ANTHROPIC_IDENTITY_TOKEN_FILE` and
+  the ids. Outside GitHub Actions `make_client()` uses the SDK's normal
+  environment.
 - The federation rule is pinned to `main`. A run from any other ref (a PR branch
   or a manual dispatch on a branch) can fetch a token but Anthropic refuses the
   exchange, so it cannot spend. The static workflow also refuses to publish from
@@ -225,8 +231,10 @@ dollars.
   English. `run_full.sh` skips the builder when `LOCALIZED_FEED_ENABLED` is not `1` in the pipeline's
   environment, which stops the spend.
 - **A run says it cannot authenticate.** Check that the job has `id-token: write`
-  and runs on `main`, that the OIDC step succeeded, and that the ids in the
-  workflow match the federation rule.
+  and runs on `main`, and that the ids in the workflow match the federation rule.
+  `Token exchange failed (HTTP 401)` from a caller that ran after another one in
+  the same job means a reused identity token: that caller built its client
+  without `translator.make_client()`.
 - **`ValueError: no price for model`.** Add the model to `translator.PRICES`.
 - **Static pages stay untranslated.** Candidates must be missing or stale
   (`pipeline/export_i18n_candidates.py`), inside `--days`, and under `--limit`.
