@@ -973,6 +973,24 @@
   "url": "http://arxiv.org/abs/2611.18562v1",
   "why_it_matters": "Matches feed focus: agentic, harness."
  },
+ "08677cfb29ca5fe2": {
+  "first_seen": "2026-11-23T18:04:21.055449+00:00",
+  "id": "059db2719f5c6db3",
+  "image_url": "https://i.ytimg.com/vi/NxypyNu1944/hq720.jpg",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T16:46:58+00:00",
+  "sid": "08677cfb29ca5fe2",
+  "source": "ai_native_dev",
+  "summary": "Everyone agrees context matters, but context isn't one thing. Birgitta Boeckeler, Principal Engineer & Developer Relations at Unblocked, separates codified context, like the AGENTS.md files and skills you deliberately author and reuse, from ambient context assembled at task time from Slack, wikis, tickets and PRs. She walks through what it takes to build a context engine that ingests, evaluates, assembles and observes ambient context, including how it resolves conflicting information using code as the source of reality. Recorded at AI DevCon New York 2026. What we cover: – Why 'context' needs more precise categories – Codified vs ambient context, and why they're delivered differently – A framework for what good-quality context looks like – The limits of wiring agents to many MCP servers – Building a context engine: ingest, evaluate, assemble, observe – Resolving conflicting information, with code as the source of reality Chapters: 00:00:00 - Introduction: context isn't one thing 00:02:20 - Codified vs ambient context 00:07:21 - A delivery lifecycle for context 00:08:37 - What good-quality context looks like 00:09:56 - Delivering ambient context with MCP servers 00:11:43 - Context engines 00:13:41 - Ingest: syncing many systems reliably 00:16:02 - Evaluating and assembling context 00:18:59 - Conflict detection: code as the source of reality 00:24:55 - Maintaining your context Register now for AI DevCon London 2027, June 7–8 at The Brewery, Moorgate: https://tessl.co/c3e Try Te",
+  "summary_1line": "A recorded talk by Birgitta Boeckeler of Unblocked distinguishes codified context, such as AGENTS.md files and skills, from ambient context gathered at task time from Slack, wikis, tickets and PRs, and outlines building a context engine.",
+  "title": "Context != Context: Codified vs Ambient Context for Agents | Birgitta Boeckeler, Unblocked",
+  "type": "video",
+  "url": "https://youtu.be/NxypyNu1944",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "08a0e8fcc9a87a88": {
   "content_excerpt": "Our latest Quito Lambda showcases how to use LocalStack to test AI-assisted DynamoDB fixes locally. The session offers a practical approach to AI-assisted debugging: give the agent a repeatable test environment that exposes meaningful failures, and control where its commands can operate. AI can generate interfaces faster than ever, but speed alone does not create usable, accessible, production-rea",
   "first_seen": "2026-11-20T04:11:57.860186+00:00",
@@ -4390,7 +4408,7 @@
   "published": "2026-11-23T16:13:37+00:00",
   "sid": "26a3da6a312086c4",
   "source": "hackernews_ai",
-  "summary_1line": "My AI coding agents spend most of their time waiting",
+  "summary_1line": "A developer timed an overnight run of Claude Code agents building features for an iOS app, finding that simulator checks took about two-thirds of the time and the model itself was fast.",
   "title": "My AI coding agents spend most of their time waiting",
   "type": "news",
   "url": "https://jurajb.dev/coding-agents-mostly-waiting",
@@ -14671,6 +14689,23 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/introducing-unity-gateway-insights"
  },
+ "8104b9926333ee8b": {
+  "content_excerpt": "AgentClock is a public MCP service that any agent can call. A normal agent process does not check the time between messages, so an agent cannot feel time passing or say how long it has been idle, how long a task has taken, or whether it has passed a deadline. The AgentTime research (arXiv:2610.09944) shows that an agent's time estimation error collapses to almost nothing when it has a real elapsed-time tool, and AgentClock is that tool. It is a working clock that an agent can call directly. Point your agent at the public MCP URL, and your agent will have a public MCP service it can call whenever it needs the real time. AgentClock is a standard streamable HTTP MCP server, so any agent that can add an MCP server by URL can use it. The configuration format below is common to most agents, but if your agent uses a different key name, use the same URL and type in that format. An MCP tool is something that your agent calls when it decides to, so it is not fused into your agent, and nothing runs inside your agent between turns. The tool only helps when your agent actually calls it, so add this line to your agent's instructions to make it a habit: The clock service itself runs continuously, and it stays anchored to external time references while nobody is talking to it. That is why the answer is trustworthy whenever the agent asks, but it does not give the agent a subjective sense of time passing, and no MCP server can create one. Instead, the service gives the agent a real clock to c",
+  "first_seen": "2026-11-23T18:04:21.055449+00:00",
+  "id": "2b432f5baf98298d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T16:57:29+00:00",
+  "sid": "8104b9926333ee8b",
+  "source": "hackernews_ai",
+  "summary": "My agents constantly lose track of time, especially when assigned tasks that require accounting for durations and knowing when to act or meet deadlines. I made a public MCP server that my agents can use to contextualise and use time properly. You can share it with your agents too.",
+  "summary_1line": "AgentClock is a public MCP server offering AI agents a time tool, clock_now, which returns the current UTC and Unix time with optional timezone rendering, plus a clock_status tool for source and sync details.",
+  "title": "Show HN: I built an MCP server that gives AI agents a reliable clock",
+  "type": "news",
+  "url": "https://agentclock.andalabx.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8138237fac2e053c": {
   "first_seen": "2026-11-17T04:04:14.578855+00:00",
   "id": "1a95195d1fea646d",
@@ -18721,7 +18756,7 @@
   "sid": "a373cca9a4fe103c",
   "source": "langchain_blog",
   "summary": "New controls are now in LangSmith to help teams manage access to sensitive trace data. Learn more.",
-  "summary_1line": "New controls are now in LangSmith to help teams manage access to sensitive trace data. Learn more.",
+  "summary_1line": "LangSmith adds three access controls for production traces, including input and output controls and user groups with per-workspace permissions, so teams can limit who sees sensitive customer data.",
   "title": "Protect sensitive data in your traces: new controls in LangSmith",
   "type": "news",
   "url": "https://www.langchain.com/blog/protect-sensitive-data-in-your-traces-new-controls-in-langsmith"
@@ -19775,6 +19810,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "ac79ea6f11fcdf0a": {
+  "first_seen": "2026-11-23T18:04:21.055449+00:00",
+  "id": "4014d6984fc0e4f8",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/1_-_alloydb-omni-local-models.max-1000x1000.png",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-23T17:00:00+00:00",
+  "sid": "ac79ea6f11fcdf0a",
+  "source": "google_cloud_blog",
+  "summary": "Open models like Gemma 4 from Google DeepMind are a great option to keep your data local. But how can a local AI model integrate with on-premises data? AlloyDB Omni , Google’s 100% PostgreSQL-compatible database that runs anywhere, now integrates with locally hosted large language models (LLMs). With AlloyDB Omni, you can build agentic experiences on your own infrastructure and on your own terms. Whether it’s in the cloud, in your datacenter, or even on your laptop, you can have data plus AI anywhere. Built-in AI for your local environment AlloyDB Omni is a downloadable, run-anywhere edition of AlloyDB that easily deploys to your own infrastructure, including on-premises. AlloyDB Omni packs powerful, built-in AI, including the same ScaNN indexing technology powering Google Search. When you pair AlloyDB Omni with a model, you can store vector embeddings at scale; search them semantically; and even query the database using natural language. You can use virtually any model you like, whether that’s a frontier Cloud-hosted model like Gemini or a local model. And with locally hosted models you maintain complete control over your data environment. Connecting to Gemma 4, Qwen3.8, and other local models You can now connect AlloyDB Omni to local models like Gemma 4 and Qwen3.8 . No matter which model you choose, the architecture remains the same. AlloyDB Omni calls a local model server directly from SQL — keeping prompts, data, and responses inside your environment. This setup enables ",
+  "summary_1line": "AlloyDB Omni, Google's downloadable PostgreSQL-compatible database, can now connect to locally hosted models such as Gemma 4 and Qwen3.8, which SQL queries can call so data stays on-premises.",
+  "title": "Data + AI Anywhere: AlloyDB Omni integration with local models",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "ac80c769cb30bbd5": {
   "first_seen": "2026-11-15T00:05:45.123797+00:00",
@@ -21769,6 +21821,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18230v1"
  },
+ "bd08ca16b1b883ab": {
+  "first_seen": "2026-11-23T18:04:21.055449+00:00",
+  "id": "07a12ca0d9833c9e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-20T18:41:39+00:00",
+  "sid": "bd08ca16b1b883ab",
+  "source": "arxiv_cs_lg",
+  "summary": "Machine learning has largely kept separate the choice of architecture and the process of training. A classic Transformer, for instance, trains a fixed set of attention and MLP sublayers at every layer, in the same order, and optimizes the weights within. This uniformity is a convention rather than a principled design choice, and it is likely suboptimal: the best architecture for a given task may be smaller, more efficient, and far from uniform. We believe that, ideally, training itself should shape the model's topology. To this end, we introduce Model Carving, which learns both a Transformer's weights and its architecture in a single run. By applying learnable, scalar gates to each sublayer, we allow the training loss to remove the model's own components during training -- freeing a smaller heterogeneous network inside. We evaluate Model Carving by pre-training standard Transformers from 140M to 2.7B parameters and looped Transformers from 140M to 1.3B. At equal training compute, carved models reach a lower validation loss than dense models trained with up to 1.7 times more compute. Furthermore, carved models also outperform size-matched models produced by pruning or distillation, suggesting that the best way to obtain small models for edge devices is to carve them during training, not to compress a large one afterwards. This advantage both grows with scale and carries over to downstream tasks such as few-shot evaluation and generation. Because the removed sublayers no longer",
+  "summary_1line": "Introduces Model Carving, which uses learnable scalar gates on each sublayer to learn Transformer weights and architecture together in one run, reporting lower validation loss than dense models at equal compute.",
+  "title": "Model Carving: Training Transformers That Optimize Their Own Topology",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27962v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "bd15814c3ca88c7e": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. >50% of tickets written by agents, the AI budgets behind $100M-in-months ARR, and selling without SDRs or FDEs Linear was founded to build a better issue tracker. Seven years and $134 million in funding later, its CEO Karri Saarinen published a post titled \"Issue tracking is dead.\" In this episode, we chat with Cristina Cordova , COO of Linear , about how the company navigated that and how its go-to-market changed along the way. Cristina spent seven and a half years at Stripe, led platform and partnerships at Notion, and was a partner at First Round before joining Linear in 2023. Linear's founders built it after living with legacy issue trackers at Coinbase, Airbnb and Uber, and it spread self-serve through startups like Vercel and Ramp. When she joined, Linear had about 40 people and one salesperson. Since then it has shipped an MCP server, a platform for building agents into Linear, integrations with Codex, Cursor and GitHub Copilot, and its own Linear Agent. Agents created 3% of Linear's work a year ago. Now it's more than half. Linear passed $100 million in ARR this year with more than 40,000 paying customers and 177% net revenue retention, and in Au",
   "first_seen": "2026-11-20T00:09:24.605000+00:00",
@@ -21937,7 +22005,7 @@
   "published": "2026-11-23T16:49:26+00:00",
   "sid": "bdedb1e4ef84ac62",
   "source": "hackernews_ai",
-  "summary_1line": "Show HN: Verfy – checks an AI coding agent's tool calls before they run",
+  "summary_1line": "Verfy is an MIT-licensed open-source CLI that checks AI coding agent tool calls against a policy before they run, locks MCP tool definitions so changed tools are blocked, and signs a receipt for each call.",
   "title": "Show HN: Verfy – checks an AI coding agent's tool calls before they run",
   "type": "news",
   "url": "https://github.com/verfy-dev/verfy",
@@ -25483,7 +25551,7 @@
   "sid": "de374040446e8fb1",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 0.",
-  "summary_1line": "Tencent has posted the WeMM-Ecom-0.8B-GPTQ model weights on Hugging Face for image-text-to-text tasks, with 2 likes and no recorded downloads so far.",
+  "summary_1line": "Tencent has posted the quantized WeMM-Ecom-0.8B-GPTQ model weights on Hugging Face for image-text-to-text tasks; the listing shows 2 likes and no downloads so far.",
   "title": "tencent/WeMM-Ecom-0.8B-GPTQ released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-0.8B-GPTQ"
