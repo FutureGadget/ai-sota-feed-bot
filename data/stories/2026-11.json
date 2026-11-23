@@ -1,4 +1,15 @@
 {
+ "000d9bb102ddded4": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "cc9400489f594300",
+  "published": "2026-11-20T09:20:22+00:00",
+  "sid": "000d9bb102ddded4",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Action-conditioned video world models imagine future observations under candidate robot actions, providing a promising visual tool for robot policy evaluation and interaction simulation. However, existing video world models often optimize global reconstruction errors instead of e",
+  "title": "Learning Interaction Dynamics via Motion-Region Guidance for Robotic Video World Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27344v1"
+ },
  "0015a0b3155ca355": {
   "content_excerpt": "🐝 One Queen, many bees: an open-source Mac app that turns Claude Code, Codex, Gemini CLI and Cursor Agent into a hive. Schedules, event triggers, squads with review loops, a honeycomb view. No API keys. One Queen. Many bees. Your coding agents, working as a hive. A free, open-source Mac app that turns Claude Code, Codex, Gemini CLI, Antigravity, DeepSeek Harness and Cursor Agent into a small, friendly team you can watch, schedule and steer. Every agent is a bee with a name, a face and a job. They bob while they work, doze when they are idle, and earn a new look as they climb from Bronze to Master. Sticker bees by default, maids or butlers if you like: pick a skin in Settings → Appearance. Honey bee, Maid café and the classic bee above come with the app; Butler is installed from More skins. Agent Hive is a macOS app that runs several coding-agent CLIs at once and lets them work as a team. Each agent is a bee : Claude Code, Codex, Gemini CLI, Antigravity ( agy ), DeepSeek Harness ( dsh ), Cursor Agent, or any command you like, working in its own folder. You can talk to each bee, put it on a schedule, chain bees into a relay where one writes and another reviews, or pull them into a group and let Queen hand out the work. It uses the CLIs and logins you already have, including a Claude or ChatGPT subscription. It ships no API keys, stores none, has no account and no server of its own. This downloads the latest release for your Mac (Apple silicon or Intel), puts Agent Hive.app in /",
   "first_seen": "2026-11-19T02:09:33.680726+00:00",
@@ -4080,6 +4091,17 @@
   "url": "https://github.com/AGGIB/Stroq",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "24ed891a976fe11b": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "3142858563008862",
+  "published": "2026-11-20T04:42:26+00:00",
+  "sid": "24ed891a976fe11b",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "CTRL is a system that runs an RL learner and a persistent rollout engine on every GPU under CUDA MPS, reporting 1.11-2.24× the throughput of verl's asynchronous baselines across 24 Qwen3 workload settings.",
+  "title": "CTRL: Concurrent Training and Rollout for LLM Reinforcement Learning via GPU Co-Residency",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27119v1"
+ },
  "253d2626b6cc1b75": {
   "first_seen": "2026-11-13T04:04:56.067313+00:00",
   "id": "ad97615d8c64581a",
@@ -4515,6 +4537,24 @@
   "type": "news",
   "url": "https://openai.com/index/introducing-images-2-6",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "295f69cfd2192ad5": {
+  "first_seen": "2026-11-23T03:06:20.286626+00:00",
+  "id": "be0fdc2c7dc1c802",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-20T04:05:35+00:00",
+  "sid": "295f69cfd2192ad5",
+  "source": "arxiv_cs_ai",
+  "summary": "When an AI coding agent deletes the wrong files or a long agent run crashes, users fall back on recovery mechanisms: resume from a checkpoint, undo, ask for approval, read the log. Research runtimes promise stronger guarantees, such as saga-style compensation and transactional rollback. We ask what public evidence shows about whether either kind works in real use. Under a protocol frozen before data collection, we graded 12 persistent agent runtimes, 26 coding-agent harnesses and 12 research runtimes on eight recovery mechanisms, from not found to exercised in a real run, with two blind coding passes, adjudication and re-verification against archived sources. Recovery is exercised almost everywhere in practice: 11 of 12 runtimes and 25 of 26 harnesses have at least one real-use report. Yet of 128 such reports, only 19 describe the run fully recovering; 54 are partial and 45 failed. Checkpoint/resume recovered once in 27 reports, rollback once in 15. Research runtimes show the opposite profile: guarantees evaluated on benchmarks, none reported in operation, and compensation of external effects, their central guarantee, is offered by no harness at all.",
+  "summary_1line": "Across 50 agent systems, public reports show recovery mechanisms used often but rarely fully successful: of 128 real-use reports, 19 describe full recovery, 54 partial and 45 failed.",
+  "title": "Exercised, Rarely Recovered: What Public Reports Say About Recovery in 50 AI Agent Harnesses and Runtimes",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27090v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "296934c7ca00fc14": {
   "first_seen": "2026-11-18T04:04:01.263181+00:00",
@@ -6241,13 +6281,17 @@
   "content_excerpt": "Evidence-linked reports, insights, cost analysis, and offline replays of coding-agent sessions. Create offline reports from coding-agent conversations: complete messages, evidence-linked analysis, per-model token and cost comparisons, and a zoomable timeline with local day/night shading. Supports Copilot CLI, Claude Code, Codex, Cursor exports, and Replit conversation exports. Use Python 3.12 or later. Install the package and its Chromium renderer in a virtual environment: On Linux, missing browser system libraries may require python -m playwright install --with-deps chromium and system-install privileges. Report commands check rendering dependencies before processing sessions or launching an agent. The installed agent-session-insights command works from any directory. python -m agent_session_insights accepts the same arguments. For a source checkout, use python review.py after installing requirements.txt ; see the maintainer guide . If Windows activation is unavailable, invoke the virtual environment's .\\.venv\\Scripts\\python.exe with the module or checkout entry point directly. This selects the newest matching session , freezes its logs, launches its native harness headlessly for reviewed annotations, then generates and verifies the report. The harness CLI must be on PATH and signed in; normal model charges apply. Only the selected evidence is reviewed. Use --noagent for measured accounting and replay without qualitative annotations or model calls. Automatic discovery suppor",
   "first_seen": "2026-11-23T00:09:43.552170+00:00",
   "id": "200ac738780cad55",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-22T23:27:31+00:00",
   "sid": "387a01d6f9e4006a",
   "source": "hackernews_ai",
   "summary_1line": "A Python tool that builds offline reports from coding-agent session logs, covering Copilot CLI, Claude Code, Codex, Cursor and Replit exports, with per-model token and cost comparisons and a timeline.",
   "title": "Agent Session Insights",
   "type": "news",
-  "url": "https://github.com/markrussinovich/agent-session-insights"
+  "url": "https://github.com/markrussinovich/agent-session-insights",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "389ca34384de6c96": {
   "first_seen": "2026-11-17T05:05:35.483671+00:00",
@@ -7158,6 +7202,22 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3ff306b207bee77b": {
+  "first_seen": "2026-11-23T03:06:20.286626+00:00",
+  "id": "0eddcb873ccb2282",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T04:10:02+00:00",
+  "sid": "3ff306b207bee77b",
+  "source": "arxiv_cs_ai",
+  "summary": "Language-model agents using the Model Context Protocol (MCP) face three runtime verification gaps: (i) action fabrication, where post-tool prose narrates side effects that failed, timed out, or never ran; (ii) provenance collapse, where unverified model prose or web text enters durable memory alongside executed tool outputs; and (iii) syndicated echo amplification, where mirrored web pages satisfy multi-source corroboration from one origin. Existing MCP firewalls inspect wire calls before execution, while LLM-judge guardrails require multi-gigabyte VRAM without binding prose to receipts. We present epistemic-guard (v0.5.2), an open-source Python library and out-of-process stdio MCP receipt proxy (15 modules, 0 MiB GPU VRAM). epistemic-guard isolates Ed25519 signing keys out of process, writes RFC 6962 Merkle logs with AER-1 receipt translation, checks post-turn prose on CPU with SHA-256-verified OpenVINO INT8 encoders (4 models, 279.48 MB total; 82.67 MB on the supervision path), gates SQLite writes across 7 provenance domains, and collapses verbatim and lightly edited wire-syndicated RAG mirrors. On conformance suites, epistemic-guard rejects 100.0% of tampered receipts (200 Merkle leaves), passes 58/58 official AER-1 ingestion vectors and 50/50 reference-verified AER-1 exports, verifies 100.0% of 40 fault-injected wire calls and 100 concurrent appends with 0 key leaks, and blocks 100.0% of 100 unauthorized memory writes. Across $N=250$ frozen-benchmark traces, epistemic-gua",
+  "summary_1line": "epistemic-guard v0.5.2 is an open-source Python library and out-of-process stdio MCP receipt proxy that checks agent prose against tool receipts, gates memory writes by provenance, and runs on CPU without GPU VRAM.",
+  "title": "Epistemic Guard: Out-of-Process MCP Receipt Proxying, Post-Turn Prose Supervision, and Provenance-Gated Memory for Tool-Using Autonomous Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27095v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4007ff9b6bbe0018": {
   "content_excerpt": "AXI is a host-side layer that holds the exact state of an AI job outside the chat, checks every reply with a deterministic gate before it is applied, and sends the model a short fresh prompt at every step. This paper reports pre-registered tests on Gemini 3.8 Flash, open models, an NVIDIA T4 and L4 and a Google TPU v6e: exact state on 1,500 of 1,500 steps, prompts 169 times smaller on average, one exact step 4.5 to 9.3 times cheaper, and up to 185 times more sessions per chip (memory headroom). Predictions were hash-locked before each run and every figure can be recomputed from the saved files. The architecture is by Rajnish Choubey; the tests were built and run by Shalendra Gaur. Code and tests: https://github.com/gaurshalendra2412/axi-runtime Update, 17 November 2026: since this version was published, the repository has added ten engineering questions answered on 11 open models (Tests 35 to 45; mostly one NVIDIA L4, Tests 39 and 40 on a CPU): state exact on 80,000 of 80,000 steps on a 7B model, a kept chat computing 1.24 to 4.11 times the prompt tokens per step, and 256 sessions on one L4. They are in the repository, not in the PDF of this version: https://github.com/gaurshalendra2412/axi-runtime",
   "first_seen": "2026-11-05T09:05:17.469685+00:00",
@@ -7884,6 +7944,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09614v1"
  },
+ "459d70ee53e01cfa": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "631002400f773d31",
+  "published": "2026-11-20T05:19:59+00:00",
+  "sid": "459d70ee53e01cfa",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Introduces RI-Bench, a benchmark measuring whether senior LLM agents uphold their duties toward subordinate reports across peer review, appellate, and parliamentary settings, finding frequent deference to generic reviews and dropped witness limitations.",
+  "title": "Do Senior Agents Do Their Job? Measuring Role Integrity in How LLM Agents Use Subordinate Material",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27139v1"
+ },
  "45b80d77d473d30f": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
   "id": "56d6b48ee0943322",
@@ -8226,6 +8297,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09807v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "4a7318bd3c25667f": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "220c61590db2431d",
+  "published": "2026-11-20T09:23:21+00:00",
+  "sid": "4a7318bd3c25667f",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Introduces GRACE, a 4,028-question GraphRAG benchmark built from LC-QuAD 2.0 queries over Wikidata with four controlled evidence interventions, and proposes QCFSE-SA, which raises controlled-state accuracy from 57.17% to 62.78%.",
+  "title": "GRACE: Controlled Evidence Interventions for Diagnosing and Improving Knowledge Integration in GraphRAG",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27350v1"
  },
  "4a907587b3452512": {
   "first_seen": "2026-11-18T07:05:07.242320+00:00",
@@ -12669,6 +12751,17 @@
   "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "744f45c1d631f480": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "b4776afde17b5da7",
+  "published": "2026-11-20T04:49:56+00:00",
+  "sid": "744f45c1d631f480",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Proposes a round-trip check for latent world model planning that executes plans each CEM iteration and penalizes action mismatches, raising success on DINO-WM, LeWM and JEPA-WM at 0.2% to 3.1% extra planning time.",
+  "title": "A Plan or an Adversarial Example? A Round-Trip Check for Latent World Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27124v1"
+ },
  "74c0682eceea721e": {
   "first_seen": "2026-11-21T00:09:03.773639+00:00",
   "id": "adbb10048cb8b97a",
@@ -13885,6 +13978,17 @@
   "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "7e8598eadf6b004c": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "c5cb932439231be6",
+  "published": "2026-11-20T04:07:37+00:00",
+  "sid": "7e8598eadf6b004c",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "PLoQ is a 4-bit activation quantization method for LLMs that estimates a low-rank basis per prompt during prefill, quantizes those dominant components separately, and restores them in the GEMM without changing the weights.",
+  "title": "PLoQ: A Prompt-Specific Low-Rank Basis for 4-bit Quantization of LLM Activations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27092v1"
+ },
  "7ea8d672f28ccb5b": {
   "content_excerpt": "Agent A writes a change. Agent B reviews it and says it looks great. Agent A then edits one more file “real quick” and ships. Nobody lied. The review was fine. It was a review of different code. I have been doing this for roughly thirty years, and I can report that “the thing we checked is not the thing we shipped” is the oldest bug in the business. We have simply found a way to do it faster and with more confidence. I wrote Uncle ( github.com/unclehq/uncle ) because I got tired of it. At Yahoo I built Yahoo Mail's anti-spam system. Billions of messages a month, six patents, and one durable lesson: a component does not get to declare its own output trustworthy because it produced it. Spammers taught me that. Apparently it also applies to the thing we now let write our code, review our code, and then tell us how it went. Today's workflow: the agent implements, tests, reviews itself, and reports “done, all green.” Did the tests run? Did they finish? Did the reviewer look at the final code? Who knows, ask the agent. (It will say yes. It is very confident. It is always very confident.) A second reviewing agent does not fix this. Adding reviewers to an unbound review is just adding more people to a meeting that has already ended. A Git tree has a hash. That is a concrete thing to staple evidence to. So record that the review passed against a particular tree, that the tests passed against that same tree, that a human approved it, and then check, before publishing, that you are stil",
   "first_seen": "2026-11-11T00:05:47.504556+00:00",
@@ -14177,6 +14281,22 @@
   "type": "news",
   "url": "https://wasmcloud.com/blog/2025-01-15-running-distributed-ml-and-ai-workloads-with-wasmcloud"
  },
+ "817153b1ff39da26": {
+  "first_seen": "2026-11-23T03:06:20.286626+00:00",
+  "id": "8dc577364bab134e",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-20T03:54:23+00:00",
+  "sid": "817153b1ff39da26",
+  "source": "arxiv_llm_reliability",
+  "summary": "Training-free activation guardrails such as kNNGuard score prompts by comparing last-token LLM hidden states (the Layer Ensemble branch, kNNGuard LE) and sentence embeddings (all-MiniLM-L6-v2, Embedding-kNN) against a small reference bank (50 examples per class), combining the two branches into a Fused Ensemble (kNNGuard FE). While effective on short inputs (up to 256 tokens), standard kNNGuard degrades substantially on long inputs (over 1000 tokens): averaged across Qwen3.5-4B and Gemma-4-E4B-it, kNNGuard LE AUROC drops from 0.742 (0.777 and 0.706) to 0.554 (0.587 and 0.521) on Content Harm Moderation (Aegis-2.0), and from 0.994 (0.995 and 0.992) to 0.556 (0.598 and 0.513) on RAG Hallucination Detection (HaluBench). We trace this degradation to three causes: (1) hidden-state drift as sequence length increases, (2) hard 256-token truncation in MiniLM, and (3) signal dilution when a long document is compressed into a single final-token vector. We then evaluate three training-free adaptations: a Length-Routed Dual Bank, a long-context embedding model (Qwen3-Embedding-0.6B), and Strided Window Pooling across intermediate token positions. On Content Harm Moderation, dual-bank routing and strided window pooling raise long-context kNNGuard LE AUROC from 0.554 to 0.828 (+0.274 AUROC) and fused kNNGuard FE AUROC from 0.721 to 0.886 (+0.164 AUROC) with no latency overhead from bank routing. On RAG Hallucination Detection, where the guardrail must verify logical consistency between a g",
+  "summary_1line": "An arXiv paper audits the training-free kNNGuard prompt guardrail, finding its AUROC falls to about 0.55 on inputs over 1000 tokens, and tests length-routed banks, a long-context embedding model, and strided window pooling as fixes.",
+  "title": "Auditing and Adapting kNNGuard for Long-Context Prompts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27084v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "818a7b201aa40d45": {
   "content_excerpt": "Local LLM inference is seeing adoption in default developer workflows, and the tooling that serves those models now ships inside products developers already trust. One of those is Docker Model Runner (DMR), the feature in Docker Desktop that pulls, runs, and serves models locally. In November 2025, we reported ZDI-26-150 / CVE-2026-28400 , a denial-of-service (on macOS) stemming from an unauthenticated argument-injection vulnerability in DMR. A container created with the default set of privileges could overwrite and corrupt the Docker Desktop VM’s data disk. Further analysis, under non-default configurations, turned the same primitive into arbitrary code execution on the host, on both macOS and Windows. In this post, we walk through the full chain: the argument-injection primitive, the host file read/write foothold it grants, how we take partial control of what gets written, and the payoff that turns a constrained file write into arbitrary code execution on the host through Docker Extensions. We then cover two further escapes we found along the way: one from an overly permissive Seatbelt sandbox configuration on macOS, and one that pivots the WSL2 VM-to-host boundary through Docker Extensions. Docker Desktop helps run Docker containers on macOS, Windows, and Linux. Docker Desktop for Windows with Windows containers and Docker Desktop for Linux are out of scope for this blog. Since macOS and Windows don’t come with a Linux kernel to run Linux containers, Docker Desktop ships a",
   "first_seen": "2026-11-20T08:05:31.831754+00:00",
@@ -14217,6 +14337,17 @@
   "type": "news",
   "url": "https://github.com/itsmeyaw/skillset",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "81a62c33127d0095": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "010d951209dc99da",
+  "published": "2026-11-20T04:32:13+00:00",
+  "sid": "81a62c33127d0095",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Introduces a benchmark protocol and public artifact for LLM business workflows across six Python implementations, reporting that schema validity and task quality diverge, with PydanticAI, LangGraph, and DSPy scoring highest.",
+  "title": "Schema-Validated LLM Workflows: A Benchmark Protocol and Comparative Evaluation Across Six Python Implementations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27106v1"
  },
  "81c44c827e9a0e1d": {
   "first_seen": "2026-11-17T05:05:35.483671+00:00",
@@ -14418,6 +14549,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08811v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "8380a7e14f68d581": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "91d1621bb45b3f27",
+  "published": "2026-11-20T03:36:18+00:00",
+  "sid": "8380a7e14f68d581",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "DM-PRM uses a general-purpose yes/no decision model to score each step zero-shot, without step labels or fine-tuning, and adds those scores to policy-gradient advantages, improving GRPO on ALFWorld and WebShop.",
+  "title": "Decision Models Are General-Purpose Process Reward Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27068v1"
  },
  "839362c88e6491a8": {
   "content_excerpt": "Your agents call tools. Those tools touch data. Magertron governs both — and knows which tool touched which table, for whom, and what it cost. One gateway for model inference and tool calls across every vendor. Developers are spinning up ungoverned MCP servers on laptops, in personal cloud accounts, and inside your perimeter — with no audit trail and no controls. AI agents talking to these servers can execute actions at scale. Now you can find them. Magertron reads MCP client configs on every endpoint you manage, shows you every server in use — approved or not — and points them at the gateway with a single policy change. No resident agent on the laptop — a script and a timer, delivered by the MDM you already run. Enforcement lives in the Envoy ext_authz path. Every call crosses the same boundary — whether it lands on an MCP tool, a REST endpoint or an inference provider. Anthropic, OpenAI, or your own model pods — registered as governed endpoints. Every inference call is metered, charged back, and budget-capped, with provider keys held by Magertron, never the agent. SaaS or cloud-hosted MCP servers, registered in Magertron and governed by the same policies as your internal servers. Deploy MCP servers and LLM pods from any container image, monitor real-time CPU and memory metrics, and scale with a slider. Every action is audited. Namespace-scoped governance policies evaluate every deployment at deploy time. Error-severity rules block non-compliant servers. Warnings flag for re",
@@ -16699,13 +16841,19 @@
  "98fbc15e4bd87bcf": {
   "first_seen": "2026-11-23T02:08:27.557144+00:00",
   "id": "ed43196c55bdd993",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
   "published": "2026-11-20T02:15:39+00:00",
   "sid": "98fbc15e4bd87bcf",
   "source": "arxiv_agent_systems_research",
+  "summary": "In letter-of-credit (LC) document examination, a correct final decision does not show that every requirement was examined. We therefore evaluate examination requirement by requirement and make each requirement executable. A language model converts the bill of lading (BL) and commercial invoice (IV) requirements of a credit into atomic conditions and logical structures, and a deterministic verifier retrieves the named evidence and computes each outcome, so every check can be compared with a gold encoding and traced to logged evidence. Because LC records are confidential, our on-premises 9B parser is fine-tuned only on synthetic pairs built from templates and human-reviewed public document values. On 345 real LC cases, final-decision accuracy proves misleading: a constant PASS rule has the highest raw accuracy while examining nothing. Although it never sees a real record during training, the fine-tuned parser detects 93% of the atomic requirements its ontology covers and reconstructs 86% of the covered requirements exactly. It verifies 82% of the evaluable requirements correctly, against 54% for a tool-using agent, and leads the agent on both satisfied requirements and discrepancies. It also completely examines 1.8 times as many cases as few-shot prompting of the same model, while direct prediction and the agent complete none. Executing the gold encodings with the same verifier shows that some of the remaining errors, missed discrepancies included, come from the operators and n",
   "summary_1line": "Proposes a system that converts letter-of-credit bill of lading and invoice requirements into executable checks run by a deterministic verifier, reporting 82% correct verification on 345 real cases against 54% for a tool-using agent.",
   "title": "From Letter-of-Credit Requirements to Executable Specifications: Evaluating Verification Accuracy and Completeness",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.26988v1"
+  "url": "http://arxiv.org/abs/2611.26988v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "991ad48e8559b2fe": {
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
@@ -17110,6 +17258,17 @@
   "type": "news",
   "url": "https://www.langchain.com/blog/agents-are-going-async",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "9c6762081656a960": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "3b5b8be2885aa603",
+  "published": "2026-11-20T08:38:08+00:00",
+  "sid": "9c6762081656a960",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Tracks 6,503 clinical cases across six HPO releases (Oct 2021–June 2026) and finds diagnostic rankers' accuracy jumps when a case's source publication enters HPO, then collapses when those links are removed.",
+  "title": "Observed, Curated, Reused: Observation Bias in Clinical AI Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27301v1"
  },
  "9c834fbaec2b5dd3": {
   "content_excerpt": "AI coding agents lose context once a PR enters the pipeline. See how code context and delivery context work An AI coding agent can read a repository, trace its dependencies, edit a dozen files, and open a pull request that passes its own tests. Then the PR enters the delivery pipeline, and much of what the agent learned stays behind. The pipeline produces evidence the agent never sees: a failed build, a vulnerable dependency flagged by a scan, a latency regression after deployment, an incident traced to a change that looked safe. That evidence could improve the original change and prevent the next failure, but only if something carries it back into the engineering workflow. Writing code is often no longer the slow part. Moving a change through build, test, security, deployment, and runtime is, and each of those stages is a question of risk. Context engineering across the SDLC is the work of connecting them. This post covers what context an agent needs, how the Code Context Engine and the Software Delivery Knowledge Graph supply two halves of it, and what works today and what Harness has said is planned. Context engineering is the work of selecting, organizing, retrieving, and maintaining what an AI agent knows while it works on a task. It covers more than prompt wording. An agent may need architectural decisions, dependency relationships, repository conventions, test results, security findings, deployment history, and operating constraints. Agent memory and context engineerin",
@@ -20110,7 +20269,7 @@
   "sid": "b567dafa4beaa81d",
   "source": "claude_agent_sdk_python_releases",
   "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.186/ pip install claude-agent-sdk==0.2.186",
-  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.186/ pip install claude-agent-sdk==0.2.186",
+  "summary_1line": "Version 0.2.186 of the claude-agent-sdk Python package is available on PyPI and can be installed with pip, but the evidence gives no details of its changes.",
   "title": "claude-agent-sdk-python v0.2.186",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186",
@@ -22128,7 +22287,7 @@
   "sid": "c876496118766282",
   "source": "vllm_releases",
   "summary": "v0.34.0 1,061 commits from 412 contributors (120 new). Thank you! TL;DR 10 new models (Mistral Large 4, MiniMax-M3.1-Flash, Nemotron-3.5-Transcribe, and more!) Extensible KV cache is on by default: vLLM sizes the KV cache from memory actually free after warmup, so most models get a bigger cache and more throughput - in most cases you should now remove gpu_memory_utilization from your configs. Model Runner V1 is gone. Model Runner V2 is now the only GPU runner. Big speedups on Blackwell and MI355X: up to 1.95× decode (Step5 on GB200), 1.6× throughput (GLM-5.3-Flash), 1.24–1.40× faster long-prompt TTFT (GLM-5.3). Upgrade check: default block size is now 64, ROCm 7.2 images are gone, and huggingface_hub >= 2.0.0 is required. See Before you upgrade . Before you upgrade Important These changes can break existing setups. Change What to do PR Model Runner V1 removed Remove VLLM_USE_V2_MODEL_RUNNER=0 ; it now fails at startup. Port V1 logits processors to vllm.v1.worker.gpu.sample.logits_processor . #63373 Default --block-size is 64 (was 16) Pass --block-size 16 to keep the old behavior. ROCm paged attention still uses 16. #63231 Extensible KV cache on by default; gpu_memory_utilization defaults to 1.0 In most cases it's now best to not set gpu_memory_utilization . This should provide maximum kv cache capacity while avoiding runtime OOMs. Use it to share a GPU with other processes or when extensible kv cache is disabled. #56492 ROCm 7.2 artifacts dropped Use the ROCm 10.0 wheels and ",
-  "summary_1line": "10 new models (Mistral Large 4, MiniMax-M3.1-Flash, Nemotron-3.5-Transcribe, and more!) · Extensible KV cache is on by default: vLLM sizes the KV cache from memory actually free after warmup, so most models get a bigg...",
+  "summary_1line": "vLLM v0.34.0 is a release with 1,061 commits from 412 contributors, adding 10 new models and making the extensible KV cache on by default, along with breaking changes such as Model Runner V1 removal and a default block size of 64.",
   "title": "vllm v0.34.0",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0",
@@ -24050,6 +24209,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04903v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "db1ba5abb7620254": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "417d70a31ba00729",
+  "published": "2026-11-20T05:39:34+00:00",
+  "sid": "db1ba5abb7620254",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Finds that 4-bit quantization of reward models and LLM judges flips 1.1-12.3% of RewardBench preference decisions even when benchmark accuracy barely changes, and that these flips alter best-of-64 selections far more often than final answers.",
+  "title": "The Vulnerability Window: Decision Instability in Quantized Reward Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27155v1"
  },
  "db35ae7ec1e7fc03": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
@@ -26478,6 +26648,17 @@
   "type": "research",
   "url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation"
  },
+ "f2e33d978c25dc5c": {
+  "first_seen": "2026-11-23T03:09:03.766425+00:00",
+  "id": "0e4ba15032953254",
+  "published": "2026-11-20T05:38:42+00:00",
+  "sid": "f2e33d978c25dc5c",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Measures how repetitive full repository histories are for code model training, finding typical repos hold about 19 copies of their current code and that near-duplicate deduplication across versions cuts this to about two.",
+  "title": "Git History Is a Pangenome: Repetition in Code Training Corpora and What Deduplication Removes, Keeps and Misses",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27154v1"
+ },
  "f2efc5956ddf15b6": {
   "first_seen": "2026-11-11T20:05:49.624616+00:00",
   "id": "98e932e7ffde4e6b",
@@ -26565,7 +26746,7 @@
   "sid": "f3d370a5121afbf2",
   "source": "claude_code_releases",
   "summary": "What's changed Added a trust dialog warning that says where a folder's hooks are declared Added a warning in the conversation, in Claude Desktop and other non-interactive hosts, when hooks in managed settings fail to load Added this session's scheduled tasks, /loop wakeups, the goal and this conversation's forks to /tasks ; x stops one after asking Added a \"Server message\" row to a server's page in /mcp that shows the JSON-RPC error message of a remote HTTP MCP server that refuses the connection Added a \"Marketplace auto-update\" row to /status that names managed marketplaces that get no automatic updates, and why Added support for turning on Code Mode while OpenTelemetry events and metrics are enabled; each tool call the code makes sends its events; tracing still keeps it off Fixed ~/.claude.json sometimes being reset to defaults when a network stall or file lock made it unreadable and cleared during a save Fixed repeated sign-outs on macOS when Claude Code could read the Keychain but not save to it. That session now stops at expiry and says why, and other sessions stay signed in Fixed /terminal-setup corrupting VS Code settings or keybindings files around block comments, and reporting success while losing the Shift+Enter binding where keybindings.json has an unclosed string Fixed files accepted through the IDE diff being saved without their last newline, and losing their byte order mark (BOM) when an edit was accepted by saving the diff in VS Code Fixed picking a cloud sessi",
-  "summary_1line": "Added a trust dialog warning that says where a folder's hooks are declared · Added a warning in the conversation, in Claude Desktop and other non-interactive hosts, when hooks in managed settings fail to load · Added...",
+  "summary_1line": "Claude Code v2.1.329 release notes list new trust-dialog hook warnings, /tasks and /status additions, and fixes covering config resets, macOS sign-outs, /teleport session handling and MCP reconnects.",
   "title": "claude-code v2.1.329",
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.329",
