@@ -1,9 +1,8 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-11-22T00:12:43Z",
+  "generated_at": "2026-11-23T00:12:44Z",
   "covers_last_updated": "2026-11-19T18:20:01+00:00",
   "covers_member_sids": [
-    "43862ef771dfba65",
     "744a7a52285cfa40",
     "526c07c3667e6cf7",
     "8b24b2aa117fb77b",
@@ -63,19 +62,10 @@
     "1d45f44793728555",
     "7f32f43e5847c550"
   ],
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Anthropic's Nov 2 provable-inference update it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination to Nov 13-16 papers on when a model should abstain, ask or escalate.",
-  "whats_new": "Nov 19: a deception study uses label-free knowledge and persona directions to build lie probes that transfer across lie types, and a second paper measures hallucination in cyber-threat-intelligence tasks.",
+  "tldr": "This thread is a reading list of LLM research papers grouped by shared wording, not one event. From Nov 2 it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination, then to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+  "whats_new": "Nov 19: a deception study tests label-free knowledge and persona directions as lie probes at 70B scale, aimed at the transfer failures of linear probes. A second paper measures hallucination in cyber-threat-intelligence tasks.",
   "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
   "beats": [
-    {
-      "kicker": "FIRST-PARTY",
-      "tone": "launch",
-      "headline": "Anthropic reports progress on zkSNARK-based provable inference",
-      "sids": [
-        "43862ef771dfba65"
-      ],
-      "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference."
-    },
     {
       "kicker": "AGENTS",
       "tone": "rising",
@@ -210,12 +200,10 @@
     "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
     "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
     "Does KV-cache reuse across model updates hold beyond the DeepSeek-V4-Flash case study?",
-    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
-    "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
+    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?"
   ],
   "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds.",
   "day_captions": {
-    "43862ef771dfba65": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference.",
     "744a7a52285cfa40": "Practitioner article: a context engine that selects, compresses and expires information before it reaches the agent.",
     "526c07c3667e6cf7": "RLVR for multimodal reasoning using deceptive context to force real perception.",
     "8b24b2aa117fb77b": "Question-driven coding agents for GPU kernel optimization, between scripted and free-form agents.",
@@ -273,6 +261,6 @@
     "c259fdb087f2c077": "Noise-aware generation for multimodal knowledge-graph reasoning.",
     "e497c044e025058b": "Jailbreak detection from contrastive representations without training an additional guard model.",
     "1d45f44793728555": "Exploratory measurement of hallucination in cyber-threat-intelligence summarization and QA.",
-    "7f32f43e5847c550": "Latest item: label-free knowledge and persona directions aimed at lie probes that transfer across lie types."
+    "7f32f43e5847c550": "Latest item: tests label-free knowledge and persona directions as lie probes at 70B scale, where linear probes often fail to transfer."
   }
 }

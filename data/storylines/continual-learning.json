@@ -1,15 +1,16 @@
 {
  "slug": "continual-learning",
  "label": "Continual Learning",
- "item_count": 4,
- "day_count": 3,
- "source_count": 3,
+ "item_count": 6,
+ "day_count": 4,
+ "source_count": 4,
  "first_seen": "2026-11-02T17:50:48+00:00",
- "last_updated": "2026-11-18T15:46:58+00:00",
- "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "last_updated": "2026-11-19T17:54:04+00:00",
+ "generated_at": "2026-11-23T00:13:28.700650+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_cs_lg"
  ],
  "days": [
@@ -69,19 +70,44 @@
      "editor_note": "Moves from methods to a platform, targeting continual learning on edge devices."
     }
    ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "Policy Improvement-Guided Replay for Continual Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2611.25989v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Continual reinforcement learning (CRL) requires models to acquire new capabilities while retaining performance on previous tasks. A stability-oriented perspective common in conventional continual learning emphasizes knowledge preservation and interference mitigation. Complementin",
+     "sid": "3e8eb23833610c66",
+     "published": "2026-11-19T12:12:19+00:00",
+     "editor_note": "Opens the RL branch: picks what to replay by policy improvement, not only by preserving old knowledge."
+    },
+    {
+     "title": "Grid Cells as Spectral Successor Features: A Reusable Basis for Continual Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2611.26504v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Continual reinforcement learning requires agents to adapt when the task changes while reusing what they know about the environment. Successor features separate dynamics from task-specific reward, but their effectiveness depends on the choice of base features. Taking the identific",
+     "sid": "4554d13ae5865101",
+     "published": "2026-11-19T17:54:04+00:00",
+     "editor_note": "Proposes a reusable feature basis so an RL agent can carry environment knowledge across task changes."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "October's papers framed continual learning around forgetting, replay selection and agent benchmarks. November turned to cheaper adapters: RASP (Nov 2) keeps a single fixed-size LoRA instead of one branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data.",
+  "tldr": "November's continual-learning papers started with cheaper adapters: RASP (Nov 2) keeps one fixed-size LoRA instead of a branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data. On Nov 18 the thread moved toward deployment, adding specialist vision models to a trained agent's tools and running continual learning on edge devices.",
   "stale": false,
-  "whats_new": "Nov 18: two papers move continual learning toward deployment, one adding specialist vision models to a trained multimodal agent's tool space, the other (Hypnos) running continual learning end to end on edge devices.",
-  "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters and incremental tool addition are the mechanisms that would make it cheap.",
+  "whats_new": "Nov 19: two papers carry continual learning into reinforcement learning, one choosing replay by policy improvement and the other using grid-cell-inspired successor features as a reusable basis across changing tasks.",
+  "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters, incremental tool addition and targeted replay are the candidate mechanisms.",
   "take_for_builders": "Do not adopt yet; if you add tools or fine-tune adapters on a live agent, rerun the old task evals after each update to catch regressions.",
   "status": {
    "state": "Developing · research",
    "tone": "rising",
-   "changed": "2026-11-18",
-   "detail": "Four arXiv papers in November; all research-stage, none shipped in a product or framework."
+   "changed": "2026-11-19",
+   "detail": "Six arXiv papers in November on a shared theme rather than one event; all research-stage, none shipped in a product or framework."
   },
   "beats": [
    {
@@ -95,13 +121,23 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "DEPLOYMENT",
+    "tone": "rising",
     "headline": "Continual learning reaches agent tool spaces and edge hardware",
     "summary": "Incremental tool addition for multimodal agents and an end-to-end edge platform, both on Nov 18.",
     "sids": [
      "3d0b2294ca5ad80c",
      "1efbc276679369d7"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "The thread branches into continual reinforcement learning",
+    "summary": "Two Nov 19 papers target agents whose task changes: replay chosen by policy improvement, and successor features built on a grid-cell basis.",
+    "sids": [
+     "3e8eb23833610c66",
+     "4554d13ae5865101"
     ]
    }
   ],
@@ -109,8 +145,8 @@
    "Does the tool-space extension paper show that adding a specialist model leaves existing tool-use accuracy unchanged?",
    "Do RASP or the single-prompt method report results beyond vision transformers, on LLMs?",
    "Does Hypnos release code or report on-device memory and latency figures?",
-   "Do any of these methods report results on the Continual Learning Exam benchmark from October?"
+   "Do the continual RL papers test on language-model agents, or only on classic RL environments?"
   ],
-  "generated_at": "2026-11-20T00:12:42Z"
+  "generated_at": "2026-11-23T00:12:24Z"
  }
 }

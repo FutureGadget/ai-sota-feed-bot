@@ -1,122 +1,145 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-20T00:13:25Z",
-  "covers_last_updated": "2026-11-18T14:53:42+00:00",
-  "covers_member_sids": ["1d7852cb09b3031f", "ce941c554e9fce8e", "3e4010b903d1d7e9", "65dc6916d3b352f1", "35220abd16206ae7", "282f057baf2d5931", "0f8439521ab02185", "744a7a52285cfa40", "526c07c3667e6cf7", "8b24b2aa117fb77b", "57b08f9866a26766", "5ab1b6ecf4ca3e7a", "c43d3ff3aa20c41c", "d4ec23da5e445584", "7ae1983bc20b4540", "63ff637171c98d2c", "4e7cf2bff5db16a6", "464b347f5551c3b2", "2e4c5bdb80c6e509", "06c2c68bc425da7f", "5606760643e4651e", "6c6377dea1cd8cea", "23c0753cd928bfa7", "b76cb948754a8e57", "e07cc0f8ad9bbda1", "1c564d62e97c9758", "a34f1fafb710e628", "2ffd7e8cb1f550c6", "69a7c1548b162d4e", "151cc2392264c544", "2b4992932ff2ee7d", "7b04b19e28032924", "590316d609c0ce23", "0fe69ec1eb1a4f14", "f90b714a57ce9fe0", "c9c6bd7b30cb6c70", "8138237fac2e053c", "81c44c827e9a0e1d", "d495f69216affbb3", "b5bf234c229cd676", "51009fb859c1b51e", "871015d49de97b4a", "3be6797ec1d79375", "c259fdb087f2c077"],
-  "tldr": "This is a loose cluster of mostly arXiv papers on agent training, alignment and knowledge handling, not one developing story. It started with RL recipes, preference-optimization variants and kernel-tuning agents, then widened to retrieval, agent memory and vision-language grounding work.",
-  "whats_new": "Nov 18: NaviGATE proposes noise-aware reasoning over multimodal knowledge graphs, after a week where Jetriever ranked agent memories by usefulness instead of similarity and PhysScope targeted physics-diagram agents.",
-  "why_it_matters": "If you run RAG or agent memory, these papers name concrete failure modes (models answering from pretraining instead of retrieved context, similarity search returning unhelpful memories, stale personal facts), but every result is author-reported on the papers' own benchmarks.",
+  "generated_at": "2026-11-23T00:12:38Z",
+  "covers_last_updated": "2026-11-19T17:54:04+00:00",
+  "covers_member_sids": [
+    "473a95cd7c540d1a",
+    "bce25dc1c825a3e7",
+    "3ac08f6799c57341",
+    "08c314bb237b4b82",
+    "d97ee2168f669bce",
+    "981c5fba5d1f60bf",
+    "fb3e45410f2c29fc",
+    "4553deeec0e06574",
+    "4e9768611cda6532",
+    "4f75e58fea1157aa",
+    "6fd3ac39e855936d",
+    "84ecbe8e1def5e6c",
+    "c4a35e75b732ef4a",
+    "283f892f9c4f657a",
+    "a7b79c5f448ee3b6",
+    "8ccdea5bc171877c",
+    "335ccd3caa00e6d5",
+    "7d287f2835ce9649",
+    "ea7e5e3ff883dd79",
+    "97cfb937ffa2810c",
+    "a0ffcbab57857e23",
+    "ab31cf7efa665033",
+    "3e8eb23833610c66",
+    "3538d600a000ec1b",
+    "4554d13ae5865101"
+  ],
+  "tldr": "This is a loose cluster of mostly arXiv papers, not one developing story. It began as broad agent training, retrieval and alignment work, then re-centered in November on RL itself: agent and multi-agent RL, RL-learned memory, training cost, and tool-use reliability.",
+  "whats_new": "Nov 19: two continual-RL papers (policy-improvement-guided replay, grid-cell successor features) target learning new tasks without losing old ones, after StateAlign showed RL tool-use gains can raise tool hallucination.",
+  "why_it_matters": "If you post-train or operate tool-using agents, this cluster names concrete costs of RL: rollout underutilization, tool hallucination that rises with task score, and crude stop rules, but nearly every result is author-reported.",
   "beats": [
     {
       "kicker": "AGENT RL",
       "tone": "launch",
-      "headline": "RL recipes target the hard parts of training agents: delayed credit, orchestration and partial verifiers",
-      "summary": "TSBPO, few-step flow RL, CRESiST for speech translation, learned multi-agent orchestration, and negative-only policy optimization.",
-      "sids": ["3e4010b903d1d7e9", "65dc6916d3b352f1", "7ae1983bc20b4540", "4e7cf2bff5db16a6", "2b4992932ff2ee7d"]
+      "headline": "RL methods aim at multi-turn, multi-agent and tool-using agents",
+      "summary": "Open multi-agent foundations, JHiMA-WebRL, targeted guidance, Octopus latent-KV sub-agents, and a study of what multi-turn RL actually improves.",
+      "sids": [
+        "bce25dc1c825a3e7",
+        "08c314bb237b4b82",
+        "d97ee2168f669bce",
+        "981c5fba5d1f60bf",
+        "4553deeec0e06574"
+      ]
     },
     {
-      "kicker": "PREFERENCE OPTIMIZATION",
+      "kicker": "RL FOR MEMORY",
       "tone": "rising",
-      "headline": "Preference-optimization papers target general preferences, shifting objectives, noisy labels and missing gold answers",
-      "summary": "DNO empirical study, preference learning from multi-agent debate, steerable multi-objective GRPO with LoRA adapters, and PORT token reweighting.",
-      "sids": ["5ab1b6ecf4ca3e7a", "2e4c5bdb80c6e509", "06c2c68bc425da7f", "1c564d62e97c9758"]
+      "headline": "RL is used to learn what to keep: prompt compression, incremental summaries and world-model memory",
+      "summary": "EffComp, the Twists and Turns long-term memory benchmark, MaxIM, and test-time model-based RL for memory.",
+      "sids": [
+        "473a95cd7c540d1a",
+        "fb3e45410f2c29fc",
+        "84ecbe8e1def5e6c",
+        "6fd3ac39e855936d"
+      ]
     },
     {
-      "kicker": "KERNEL & INFRA AGENTS",
+      "kicker": "TRAINING COST",
       "tone": "rising",
-      "headline": "Agents that tune GPU kernels and AI infrastructure get methods and benchmarks",
-      "summary": "Question-driven kernel agents, a local 7B CUDA study, Infrathon, and the Ascend NPU benchmark AscendGYM.",
-      "sids": ["8b24b2aa117fb77b", "b76cb948754a8e57", "23c0753cd928bfa7", "7b04b19e28032924"]
+      "headline": "RL training cost gets attacked from sampler, scheduler and serving stack",
+      "summary": "FewStepRL, the ASP rollout scheduler, LM-SimBench for parallelism choices, and vLLM's TPU v7 co-design reporting a 107x cycle speedup.",
+      "sids": [
+        "4e9768611cda6532",
+        "4f75e58fea1157aa",
+        "c4a35e75b732ef4a",
+        "8ccdea5bc171877c"
+      ]
     },
     {
-      "kicker": "CONTEXT & RETRIEVAL",
-      "tone": "rising",
-      "headline": "Retrieval becomes an agent harness problem: context engines, compiled knowledge and graph retrieval",
-      "summary": "Knowledge compilation for search harnesses, InfoQ's context-engine architecture, ArcRAG, distilling lookups into weights, private retrieval, and the Thinker context-trimming tool.",
-      "sids": ["ce941c554e9fce8e", "0f8439521ab02185", "744a7a52285cfa40", "d4ec23da5e445584", "464b347f5551c3b2", "a34f1fafb710e628"]
-    },
-    {
-      "kicker": "MEMORY & KNOWLEDGE",
-      "tone": "rising",
-      "headline": "Papers probe whether models actually use the knowledge in context and memory",
-      "summary": "ImplicitHop, DAMI for linear-attention recall, relational reasoning over RAG context, ROSE knowledge editing, TransMem, Knowledge Answer Divergence and Jetriever.",
-      "sids": ["1d7852cb09b3031f", "35220abd16206ae7", "63ff637171c98d2c", "5606760643e4651e", "6c6377dea1cd8cea", "590316d609c0ce23", "b5bf234c229cd676"]
-    },
-    {
-      "kicker": "VISION GROUNDING",
+      "kicker": "RELIABILITY",
       "tone": "turn",
-      "headline": "Vision-language models that hallucinate objects or reason past what they see get alignment fixes",
-      "summary": "MIRA, latent multimodal reasoning, VIGOR, cross-modal unlearning, VEPO, GEM-MM and severity-aware preference validation.",
-      "sids": ["282f057baf2d5931", "526c07c3667e6cf7", "57b08f9866a26766", "c43d3ff3aa20c41c", "c9c6bd7b30cb6c70", "8138237fac2e053c", "d495f69216affbb3"]
+      "headline": "Better task scores can mean more tool hallucination, so papers add state-awareness, scaffolds and stop rules",
+      "summary": "AutoScaffold, StateAlign, Learn then Bet intervention rules, AutoRL, imitation-bootstrapped MARL, and safe in-context RL under a cost budget.",
+      "sids": [
+        "283f892f9c4f657a",
+        "335ccd3caa00e6d5",
+        "7d287f2835ce9649",
+        "ea7e5e3ff883dd79",
+        "97cfb937ffa2810c",
+        "a0ffcbab57857e23"
+      ]
     },
     {
-      "kicker": "OFF-LENS",
+      "kicker": "APPLIED & OFF-LENS",
       "tone": "neutral",
-      "headline": "Optimization papers on routing, merchandising and federated learning ride along on shared vocabulary",
-      "summary": "Small-model capability routing, cold-start cover-photo selection, parallel split learning, and explainable federated learning.",
-      "sids": ["e07cc0f8ad9bbda1", "69a7c1548b162d4e", "151cc2392264c544", "81c44c827e9a0e1d"]
+      "headline": "Applied RL papers and an unrelated hallucination benchmark ride along on shared vocabulary",
+      "summary": "Interactive HTML generation, ReShap interpretability, RLDE document editing, and a Bengali hallucination benchmark.",
+      "sids": [
+        "3ac08f6799c57341",
+        "a7b79c5f448ee3b6",
+        "ab31cf7efa665033",
+        "3538d600a000ec1b"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Multimodal agents get grounding benchmarks, and knowledge-graph reasoning goes multimodal",
-      "summary": "Google's Multimodal Knowledge Agent Benchmark, Vision-as-a-Tool, WebArena-Pro, ViRA, MM-ReportBench, PhysScope and NaviGATE.",
-      "sids": ["2ffd7e8cb1f550c6", "0fe69ec1eb1a4f14", "f90b714a57ce9fe0", "51009fb859c1b51e", "871015d49de97b4a", "3be6797ec1d79375", "c259fdb087f2c077"]
+      "headline": "Continual RL: learning new tasks without losing old ones",
+      "summary": "Policy-improvement-guided replay and grid cells as spectral successor features.",
+      "sids": [
+        "3e8eb23833610c66",
+        "4554d13ae5865101"
+      ]
     }
   ],
   "open_questions": [
-    "Does any independent group reproduce TSBPO's gains on long-horizon agent tasks outside the paper's own environments?",
-    "Does negative-only policy optimization train useful agents when the verifier can only reject wrong answers in real tool-use settings?",
-    "Do kernel-optimization agents beat vendor libraries and hand-tuned kernels on Infrathon or AscendGYM workloads under their cost accounting?",
-    "Does utility-based memory ranking like Jetriever beat embedding similarity on production agent memory without a large cost increase?",
-    "Do the VLM hallucination fixes (VEPO, GEM-MM, severity-aware alignment) hold up on screenshots and documents rather than natural photos?",
-    "Does external visual tooling (Vision-as-a-Tool, zooming in ViRA) beat a stronger base model's own vision on WebArena-Pro-style tasks?"
+    "Does StateAlign's reduction in tool hallucination hold on tool APIs outside the paper's own benchmarks?",
+    "Does vLLM's 107x RL cycle speedup on TPU v7 carry over to policies larger than Qwen3-0.6B?",
+    "Do learned intervention rules like Learn then Bet beat turn limits on production agent runs without stopping good runs early?",
+    "Does RL-learned memory (MaxIM, EffComp) beat plain summarization or truncation once training cost is counted?",
+    "Do the continual-RL methods keep old skills when applied to LLM post-training rather than control tasks?"
   ],
-  "take_for_builders": "Add eval cases where the retrieved context or image contradicts the model's prior (altered facts, decoy diagrams) and check the agent follows the evidence before adopting any new retrieval, memory or alignment recipe from this cluster.",
+  "take_for_builders": "Before adopting an RL-tuned tool-use model, track tool-hallucination rate (calls to tools that do not fit the state) alongside task success in your evals, since the two can move in opposite directions.",
   "day_captions": {
-    "1d7852cb09b3031f": "Earliest knowledge item: a test of whether models combine facts from context with facts from memory.",
-    "ce941c554e9fce8e": "Argues a search harness with plain BM25/grep solves accuracy, so the open problem is compiling knowledge for it.",
-    "3e4010b903d1d7e9": "One recipe coupling continuation sampling, delayed credit and token-loss aggregation for agent RL.",
-    "65dc6916d3b352f1": "Adjacent method work: how to inject stochasticity so GRPO works on few-step flow models.",
-    "35220abd16206ae7": "Architecture angle: memory initialization to improve long-context recall in gated linear attention.",
-    "282f057baf2d5931": "First vision-reasoning paper: chain-of-thought in continuous latent space for unified multimodal models.",
-    "0f8439521ab02185": "Proposes distilling past retrievals into weights to cut RAG storage and inference cost.",
-    "744a7a52285cfa40": "Practitioner view: a context engine that selects, compresses and expires information, separating context, memory and knowledge.",
-    "526c07c3667e6cf7": "Names the perception-reasoning gap in RLVR and trains against deceptive visual context.",
-    "8b24b2aa117fb77b": "First kernel-agent item: argues for question-driven agents over scripted or fully free-form ones.",
-    "57b08f9866a26766": "Extends hallucination mitigation to multimodal discrete diffusion language models.",
-    "5ab1b6ecf4ca3e7a": "Empirical look at Direct Nash Optimization's practical variant for general-preference alignment.",
-    "c43d3ff3aa20c41c": "Privacy angle: unlearning cross-modal associations that reasoning models use to reach sensitive facts.",
-    "d4ec23da5e445584": "GraphRAG variant that composes retrieval strategies instead of fixing one per graph construction.",
-    "7ae1983bc20b4540": "Applies explorative policy learning to the quality-latency trade-off in simultaneous speech translation.",
-    "63ff637171c98d2c": "Tests whether multilingual models reason over relations stated in context or fall back on memorized associations.",
-    "4e7cf2bff5db16a6": "Brings RL to multi-agent systems: learning how a central orchestrator picks agents and routes information.",
-    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch coding-agent usage limits.",
-    "2e4c5bdb80c6e509": "Uses multi-agent debate as a preference signal when gold answers and verifiers are missing.",
-    "06c2c68bc425da7f": "Trains one steerable policy across objective trade-offs with jointly trained low-rank adapters.",
-    "5606760643e4651e": "Lifelong knowledge editing for multimodal models without eroding unrelated facts.",
-    "6c6377dea1cd8cea": "Retrieval for personal agents whose user preferences and goals change across conversations.",
-    "23c0753cd928bfa7": "Infrathon asks whether frontier agents can keep improving real AI infrastructure over long horizons.",
-    "b76cb948754a8e57": "Measures how much interaction strategy matters for Qwen2.5-Coder-7B writing CUDA kernels on 30 KernelBench tasks.",
-    "e07cc0f8ad9bbda1": "Off-lens outlier: cold-start cover-photo optimization for Airbnb listings, pulled in by shared vocabulary.",
-    "1c564d62e97c9758": "Token-level reweighting to make preference optimization robust to noisy annotations.",
-    "a34f1fafb710e628": "Security angle: private knowledge retrieval and private inference for multi-agent systems.",
-    "2ffd7e8cb1f550c6": "Google's Multimodal Knowledge Agent Benchmark, the one first-party lab item in the cluster.",
-    "69a7c1548b162d4e": "Off-lens: gradient alignment for parallel split learning on constrained devices.",
-    "151cc2392264c544": "Tests whether small models and prompt optimization can route requests to optional reasoning, retrieval or tools.",
-    "2b4992932ff2ee7d": "Extends RL with verifiable rewards to settings where the verifier can only confirm failures.",
-    "7b04b19e28032924": "AscendGYM extends kernel benchmarking to cost-aware optimization on Ascend NPUs.",
-    "590316d609c0ce23": "Failure mode: after accepting a false correction, a model's later answers depend on context and wording.",
-    "0fe69ec1eb1a4f14": "Argues coding agents should call external vision tools instead of relying on built-in vision.",
-    "f90b714a57ce9fe0": "WebArena-Pro widens reproducible web-agent testing to heterogeneous, multimodal, stateful apps.",
-    "c9c6bd7b30cb6c70": "VEPO applies preference optimization to multilingual object hallucination in vision-language models.",
-    "8138237fac2e053c": "Entropy-guided weighting to stretch a small multimodal preference budget against hallucination.",
-    "81c44c827e9a0e1d": "Off-lens: attribution alignment for explainable federated learning.",
-    "d495f69216affbb3": "Validates chosen-rejected pairs and weights hallucinations by severity before alignment.",
-    "b5bf234c229cd676": "Replaces similarity search with a usefulness score for ranking agent memories.",
-    "51009fb859c1b51e": "Relative policy optimization across inputs to make zooming visual agents ground answers in the image.",
-    "871015d49de97b4a": "Benchmark for generating reports with faithful charts from tables.",
-    "3be6797ec1d79375": "Targets physics-diagram agents that apply constraints outside the conditions where they hold.",
-    "c259fdb087f2c077": "Newest: knowledge-graph reasoning that combines structure, text and images while filtering noisy modalities."
+    "473a95cd7c540d1a": "Earliest item: hybrid RL plus supervised training to compress prompts for cheaper calls.",
+    "bce25dc1c825a3e7": "Theory angle: an axiomatic basis for RL when only some agents in the system are controllable.",
+    "3ac08f6799c57341": "Applied RL: rewards from interaction, not just renderability, for generated HTML pages.",
+    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon GUI web tasks.",
+    "d97ee2168f669bce": "Tackles base-model coverage limits by stabilizing on-policy guidance from rich textual rewards like judge models.",
+    "981c5fba5d1f60bf": "Multi-agent RL where sub-agents share latent KV state instead of isolated context windows.",
+    "fb3e45410f2c29fc": "Graph-based benchmark for long-term memory in trial-and-error tasks like research and software work.",
+    "4553deeec0e06574": "Diagnostic study: multi-turn agent RL gains depend on sampling breadth and interaction depth.",
+    "4e9768611cda6532": "Cost angle: RL fine-tuning of few-step diffusion models to cut rollout cost.",
+    "4f75e58fea1157aa": "Infra angle: a rollout scheduler that removes padding and other underutilization in asynchronous LLM RL.",
+    "6fd3ac39e855936d": "Encodes memory into world models with test-time model-based RL.",
+    "84ecbe8e1def5e6c": "Uses RL to learn incremental summaries as bounded memory of unbounded histories.",
+    "c4a35e75b732ef4a": "Benchmark for simulating training parallelism strategies instead of paying for real runs.",
+    "283f892f9c4f657a": "AI-generated scaffolds to use more of RLVR experience than a single outcome reward.",
+    "a7b79c5f448ee3b6": "Interpretability for deep RL policies with many simultaneous actions.",
+    "8ccdea5bc171877c": "Only practitioner item: vLLM reports ~100 min to ~56 s per 8K RL cycle for Qwen3-0.6B on TPU v7.",
+    "335ccd3caa00e6d5": "Failure mode named: RL tool-use gains can come with more tool hallucination; trains state-aware decisions.",
+    "7d287f2835ce9649": "Replaces turn limits and keyword filters with learned, interpretable rules for when to stop or assist an agent run.",
+    "ea7e5e3ff883dd79": "Multi-agent system that attempts to run the RL training pipeline itself.",
+    "97cfb937ffa2810c": "Extends demonstration bootstrapping from single-agent to multi-agent RL.",
+    "a0ffcbab57857e23": "Safety angle: in-context RL that improves on new tasks while staying within a cost budget.",
+    "ab31cf7efa665033": "Applied RL: iterative, interpretable document editing instead of one-pass rewrites.",
+    "3e8eb23833610c66": "Continual RL via replay guided by policy improvement, not only knowledge preservation.",
+    "3538d600a000ec1b": "Off-lens: a Bengali hallucination-detection benchmark pulled in by shared vocabulary.",
+    "4554d13ae5865101": "Newest: grid-cell-inspired successor features as a reusable basis when tasks change."
   }
 }

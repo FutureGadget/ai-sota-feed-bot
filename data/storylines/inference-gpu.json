@@ -1,0 +1,105 @@
+{
+ "slug": "inference-gpu",
+ "label": "Inference GPU",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-11-06T18:01:00+00:00",
+ "last_updated": "2026-11-22T06:27:00+00:00",
+ "generated_at": "2026-11-23T00:13:28.700650+00:00",
+ "sources": [
+  "aws_ml_blog",
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints",
+     "url": "https://aws.amazon.com/blogs/machine-learning/sagemaker-inference-now-supports-multi-instance-gpu-to-maximize-gpu-utilization-for-model-endpoints",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Amazon SageMaker Inference now supports GPU partitioning with NVIDIA Multi-Instance GPU (MIG), which divides one GPU into hardware-isolated partitions so you can run a different model in each or take a right-sized fra...",
+     "sid": "819549b983fd9118",
+     "published": "2026-11-06T18:01:00+00:00",
+     "editor_note": "Starting point: AWS brings hardware GPU partitioning to managed SageMaker endpoints."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+     "url": "https://github.com/tinyBigGAMES/VindexLLM",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+     "sid": "cd44a088d357479c",
+     "published": "2026-11-08T05:25:50+00:00",
+     "editor_note": "Off-thread community project on local Windows inference; clustered by keyword only."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-22",
+   "items": [
+    {
+     "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU",
+     "url": "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "AWS Lambda now runs Event Functions on EC2 G-series GPU instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU, vLLM and SGLang base images that need no handler code...",
+     "sid": "9e6bd2a43844cbfa",
+     "published": "2026-11-22T06:27:00+00:00",
+     "editor_note": "Extends GPU sharing to serverless: one model per GPU serves up to 48 concurrent Lambda invocations."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose topic cluster, not one event: three unrelated items about running inference on GPUs. Its main thread is AWS adding ways to share one GPU, starting with NVIDIA Multi-Instance GPU partitions for SageMaker endpoints on Nov 6.",
+  "stale": false,
+  "whats_new": "AWS Lambda now runs GPU inference on EC2 G-series instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU and vLLM/SGLang base images.",
+  "why_it_matters": "Two AWS launches in three weeks move GPU sharing into managed services, so small or bursty models no longer need a dedicated, mostly idle GPU endpoint.",
+  "take_for_builders": "If you run small or bursty models on dedicated GPU endpoints, benchmark the same model on a SageMaker MIG partition and on Lambda GPU before your next capacity renewal.",
+  "beats": [
+   {
+    "kicker": "PARTITION",
+    "tone": "launch",
+    "headline": "SageMaker endpoints can split one GPU with NVIDIA MIG",
+    "summary": "Hardware-isolated partitions let one GPU host several models or a right-sized slice for one.",
+    "sids": [
+     "819549b983fd9118"
+    ]
+   },
+   {
+    "kicker": "SIDE NOTE",
+    "tone": "neutral",
+    "headline": "Hobby project: a Windows Vulkan GGUF engine written in Delphi",
+    "summary": "A Hacker News item on local inference, unrelated to the managed-service thread.",
+    "sids": [
+     "cd44a088d357479c"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Lambda runs GPU inference with 48 concurrent invocations per model",
+    "summary": "Lambda Managed Instances on G-series GPUs share one loaded model across invocations, with vLLM and SGLang base images.",
+    "sids": [
+     "9e6bd2a43844cbfa"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Which G-series instance types and regions does Lambda GPU support at launch?",
+   "How does Lambda GPU pricing compare with a SageMaker endpoint on a MIG partition for the same model?",
+   "What cold-start time does a Lambda GPU function show when it loads a model?",
+   "Does SageMaker MIG support cover all MIG profiles, or only a fixed set of partition sizes?"
+  ],
+  "generated_at": "2026-11-23T00:12:27Z"
+ }
+}

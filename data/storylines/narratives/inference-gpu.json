@@ -1,0 +1,48 @@
+{
+  "slug": "inference-gpu",
+  "generated_at": "2026-11-23T00:12:27Z",
+  "covers_last_updated": "2026-11-22T06:27:00+00:00",
+  "covers_member_sids": [
+    "819549b983fd9118",
+    "cd44a088d357479c",
+    "9e6bd2a43844cbfa"
+  ],
+  "tldr": "This is a loose topic cluster, not one event: three unrelated items about running inference on GPUs. Its main thread is AWS adding ways to share one GPU, starting with NVIDIA Multi-Instance GPU partitions for SageMaker endpoints on Nov 6.",
+  "whats_new": "AWS Lambda now runs GPU inference on EC2 G-series instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU and vLLM/SGLang base images.",
+  "why_it_matters": "Two AWS launches in three weeks move GPU sharing into managed services, so small or bursty models no longer need a dedicated, mostly idle GPU endpoint.",
+  "beats": [
+    {
+      "kicker": "PARTITION",
+      "tone": "launch",
+      "headline": "SageMaker endpoints can split one GPU with NVIDIA MIG",
+      "summary": "Hardware-isolated partitions let one GPU host several models or a right-sized slice for one.",
+      "sids": ["819549b983fd9118"]
+    },
+    {
+      "kicker": "SIDE NOTE",
+      "tone": "neutral",
+      "headline": "Hobby project: a Windows Vulkan GGUF engine written in Delphi",
+      "summary": "A Hacker News item on local inference, unrelated to the managed-service thread.",
+      "sids": ["cd44a088d357479c"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Lambda runs GPU inference with 48 concurrent invocations per model",
+      "summary": "Lambda Managed Instances on G-series GPUs share one loaded model across invocations, with vLLM and SGLang base images.",
+      "sids": ["9e6bd2a43844cbfa"]
+    }
+  ],
+  "open_questions": [
+    "Which G-series instance types and regions does Lambda GPU support at launch?",
+    "How does Lambda GPU pricing compare with a SageMaker endpoint on a MIG partition for the same model?",
+    "What cold-start time does a Lambda GPU function show when it loads a model?",
+    "Does SageMaker MIG support cover all MIG profiles, or only a fixed set of partition sizes?"
+  ],
+  "take_for_builders": "If you run small or bursty models on dedicated GPU endpoints, benchmark the same model on a SageMaker MIG partition and on Lambda GPU before your next capacity renewal.",
+  "day_captions": {
+    "819549b983fd9118": "Starting point: AWS brings hardware GPU partitioning to managed SageMaker endpoints.",
+    "cd44a088d357479c": "Off-thread community project on local Windows inference; clustered by keyword only.",
+    "9e6bd2a43844cbfa": "Extends GPU sharing to serverless: one model per GPU serves up to 48 concurrent Lambda invocations."
+  }
+}

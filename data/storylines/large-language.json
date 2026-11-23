@@ -1,14 +1,13 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 59,
+ "item_count": 58,
  "day_count": 16,
- "source_count": 9,
- "first_seen": "2026-11-02T00:00:00+00:00",
+ "source_count": 8,
+ "first_seen": "2026-11-02T11:00:00+00:00",
  "last_updated": "2026-11-19T18:20:01+00:00",
- "generated_at": "2026-11-22T00:14:27.244418+00:00",
+ "generated_at": "2026-11-23T00:13:28.700650+00:00",
  "sources": [
-  "anthropic_research",
   "arxiv_agent_systems_research",
   "arxiv_cn_open_weight_reports",
   "arxiv_cs_ai",
@@ -22,16 +21,6 @@
   {
    "date": "2026-11-02",
    "items": [
-    {
-     "title": "Progress on provable inference for large language models",
-     "url": "https://www.anthropic.com/research/provable-inference",
-     "source": "anthropic_research",
-     "type": "research",
-     "summary_1line": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
-     "sid": "43862ef771dfba65",
-     "published": "2026-11-02T00:00:00+00:00",
-     "editor_note": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference."
-    },
     {
      "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
      "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
@@ -577,7 +566,7 @@
      "url": "http://arxiv.org/abs/2611.20445v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and bandwidth constraints. Prior approaches either keep explanations si",
+     "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and band...",
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "81c44c827e9a0e1d",
      "published": "2026-11-16T03:15:02+00:00",
@@ -723,27 +712,18 @@
      "summary_1line": "Linear probes are the cheapest LLM lie detectors but often fail to transfer across kinds of lie. Label-free directions from honest and deceptive role-play are untested at 70B scale and on lies about knowledge, where a lie and an honest denial can be identical. We widen a publishe",
      "sid": "7f32f43e5847c550",
      "published": "2026-11-19T18:20:01+00:00",
-     "editor_note": "Latest item: label-free knowledge and persona directions aimed at lie probes that transfer across lie types."
+     "editor_note": "Latest item: tests label-free knowledge and persona directions as lie probes at 70B scale, where linear probes often fail to transfer."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Anthropic's Nov 2 provable-inference update it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+  "tldr": "This thread is a reading list of LLM research papers grouped by shared wording, not one event. From Nov 2 it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination, then to Nov 13-16 papers on when a model should abstain, ask or escalate.",
   "stale": false,
-  "whats_new": "Nov 19: a deception study uses label-free knowledge and persona directions to build lie probes that transfer across lie types, and a second paper measures hallucination in cyber-threat-intelligence tasks.",
+  "whats_new": "Nov 19: a deception study tests label-free knowledge and persona directions as lie probes at 70B scale, aimed at the transfer failures of linear probes. A second paper measures hallucination in cyber-threat-intelligence tasks.",
   "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
   "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds.",
   "beats": [
-   {
-    "kicker": "FIRST-PARTY",
-    "tone": "launch",
-    "headline": "Anthropic reports progress on zkSNARK-based provable inference",
-    "sids": [
-     "43862ef771dfba65"
-    ],
-    "summary": "The thread's only lab-published item: cryptographic proofs applied to LLM inference."
-   },
    {
     "kicker": "AGENTS",
     "tone": "rising",
@@ -878,9 +858,8 @@
    "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
    "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
    "Does KV-cache reuse across model updates hold beyond the DeepSeek-V4-Flash case study?",
-   "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
-   "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
+   "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?"
   ],
-  "generated_at": "2026-11-22T00:12:43Z"
+  "generated_at": "2026-11-23T00:12:44Z"
  }
 }

@@ -1,12 +1,12 @@
 {
  "slug": "routing-inference",
  "label": "Efficient Learning",
- "item_count": 19,
- "day_count": 12,
+ "item_count": 18,
+ "day_count": 11,
  "source_count": 7,
- "first_seen": "2026-11-01T08:46:40+00:00",
+ "first_seen": "2026-11-02T08:46:28+00:00",
  "last_updated": "2026-11-19T18:58:31+00:00",
- "generated_at": "2026-11-22T00:14:27.244418+00:00",
+ "generated_at": "2026-11-23T00:13:28.700650+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -18,22 +18,6 @@
  ],
  "days": [
   {
-   "date": "2026-11-01",
-   "items": [
-    {
-     "title": "MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference",
-     "url": "http://arxiv.org/abs/2611.01704v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE model...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "01d6db945cd3f0c2",
-     "published": "2026-11-01T08:46:40+00:00",
-     "editor_note": "Opens the cluster at the model layer: nested MoE experts with dynamic mixed-precision quantization."
-    }
-   ]
-  },
-  {
    "date": "2026-11-02",
    "items": [
     {
@@ -44,7 +28,7 @@
      "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
      "sid": "473a95cd7c540d1a",
      "published": "2026-11-02T08:46:28+00:00",
-     "editor_note": "Adds input-side savings: prompt compression trained with mixed RL and supervised learning."
+     "editor_note": "Opens the cluster on the input side: prompt compression trained with mixed RL and supervised learning."
     }
    ]
   },
@@ -278,19 +262,18 @@
   }
  ],
  "editorial": {
-  "tldr": "This is a loose topical cluster, not one event: 19 independent items from Nov 1 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
+  "tldr": "This is a loose topical cluster, not one event: 18 independent items from Nov 2 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
   "stale": false,
   "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
-  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 19 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
+  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 18 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
   "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure.",
   "beats": [
    {
     "kicker": "MODEL",
     "tone": "neutral",
-    "headline": "MoE quantization, expert-parallel compression and speculative decoding",
-    "summary": "Efficiency inside the model and decode loop: fewer bits, less all-to-all traffic, cheaper draft verification.",
+    "headline": "Expert-parallel compression, speculative decoding and quantization trade-offs",
+    "summary": "Efficiency inside the model and decode loop: less all-to-all traffic, cheaper draft verification, fewer bits.",
     "sids": [
-     "01d6db945cd3f0c2",
      "a4e942d0f147f07c",
      "018ac20c79d4eeba",
      "dec4d075135f7b7e"
@@ -350,6 +333,6 @@
    "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
    "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
   ],
-  "generated_at": "2026-11-21T00:12:24Z"
+  "generated_at": "2026-11-23T00:12:25Z"
  }
 }

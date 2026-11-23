@@ -1,21 +1,23 @@
 {
   "slug": "continual-learning",
-  "generated_at": "2026-11-20T00:12:42Z",
-  "covers_last_updated": "2026-11-18T15:46:58+00:00",
+  "generated_at": "2026-11-23T00:12:24Z",
+  "covers_last_updated": "2026-11-19T17:54:04+00:00",
   "covers_member_sids": [
     "d8518666be6b2970",
     "de25d9c4c09e2ab0",
     "3d0b2294ca5ad80c",
-    "1efbc276679369d7"
+    "1efbc276679369d7",
+    "3e8eb23833610c66",
+    "4554d13ae5865101"
   ],
-  "tldr": "October's papers framed continual learning around forgetting, replay selection and agent benchmarks. November turned to cheaper adapters: RASP (Nov 2) keeps a single fixed-size LoRA instead of one branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data.",
-  "whats_new": "Nov 18: two papers move continual learning toward deployment, one adding specialist vision models to a trained multimodal agent's tool space, the other (Hypnos) running continual learning end to end on edge devices.",
-  "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters and incremental tool addition are the mechanisms that would make it cheap.",
+  "tldr": "November's continual-learning papers started with cheaper adapters: RASP (Nov 2) keeps one fixed-size LoRA instead of a branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data. On Nov 18 the thread moved toward deployment, adding specialist vision models to a trained agent's tools and running continual learning on edge devices.",
+  "whats_new": "Nov 19: two papers carry continual learning into reinforcement learning, one choosing replay by policy improvement and the other using grid-cell-inspired successor features as a reusable basis across changing tasks.",
+  "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters, incremental tool addition and targeted replay are the candidate mechanisms.",
   "status": {
     "state": "Developing · research",
     "tone": "rising",
-    "changed": "2026-11-18",
-    "detail": "Four arXiv papers in November; all research-stage, none shipped in a product or framework."
+    "changed": "2026-11-19",
+    "detail": "Six arXiv papers in November on a shared theme rather than one event; all research-stage, none shipped in a product or framework."
   },
   "beats": [
     {
@@ -23,27 +25,45 @@
       "tone": "launch",
       "headline": "Fixed-cost adapters replace per-task growth",
       "summary": "Two vision-transformer papers bound parameter cost: one stationary-size LoRA, then one shared prompt with no replay buffer.",
-      "sids": ["d8518666be6b2970", "de25d9c4c09e2ab0"]
+      "sids": [
+        "d8518666be6b2970",
+        "de25d9c4c09e2ab0"
+      ]
+    },
+    {
+      "kicker": "DEPLOYMENT",
+      "tone": "rising",
+      "headline": "Continual learning reaches agent tool spaces and edge hardware",
+      "summary": "Incremental tool addition for multimodal agents and an end-to-end edge platform, both on Nov 18.",
+      "sids": [
+        "3d0b2294ca5ad80c",
+        "1efbc276679369d7"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Continual learning reaches agent tool spaces and edge hardware",
-      "summary": "Incremental tool addition for multimodal agents and an end-to-end edge platform, both on Nov 18.",
-      "sids": ["3d0b2294ca5ad80c", "1efbc276679369d7"]
+      "headline": "The thread branches into continual reinforcement learning",
+      "summary": "Two Nov 19 papers target agents whose task changes: replay chosen by policy improvement, and successor features built on a grid-cell basis.",
+      "sids": [
+        "3e8eb23833610c66",
+        "4554d13ae5865101"
+      ]
     }
   ],
   "open_questions": [
     "Does the tool-space extension paper show that adding a specialist model leaves existing tool-use accuracy unchanged?",
     "Do RASP or the single-prompt method report results beyond vision transformers, on LLMs?",
     "Does Hypnos release code or report on-device memory and latency figures?",
-    "Do any of these methods report results on the Continual Learning Exam benchmark from October?"
+    "Do the continual RL papers test on language-model agents, or only on classic RL environments?"
   ],
   "take_for_builders": "Do not adopt yet; if you add tools or fine-tune adapters on a live agent, rerun the old task evals after each update to catch regressions.",
   "day_captions": {
     "d8518666be6b2970": "Challenges the one-LoRA-branch-per-session premise with a single stationary-size adapter.",
     "de25d9c4c09e2ab0": "Drops rehearsal data entirely, anchoring behavior through one shared prompt.",
     "3d0b2294ca5ad80c": "Brings the problem to agents: adding specialist vision models to an already trained agent's tools.",
-    "1efbc276679369d7": "Moves from methods to a platform, targeting continual learning on edge devices."
+    "1efbc276679369d7": "Moves from methods to a platform, targeting continual learning on edge devices.",
+    "3e8eb23833610c66": "Opens the RL branch: picks what to replay by policy improvement, not only by preserving old knowledge.",
+    "4554d13ae5865101": "Proposes a reusable feature basis so an RL agent can carry environment knowledge across task changes."
   }
 }

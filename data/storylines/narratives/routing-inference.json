@@ -1,9 +1,8 @@
 {
   "slug": "routing-inference",
-  "generated_at": "2026-11-21T00:12:24Z",
+  "generated_at": "2026-11-23T00:12:25Z",
   "covers_last_updated": "2026-11-19T18:58:31+00:00",
   "covers_member_sids": [
-    "01d6db945cd3f0c2",
     "473a95cd7c540d1a",
     "219537f3fa2b3690",
     "9b6ce22e2f29b264",
@@ -23,17 +22,16 @@
     "a20d3952433df237",
     "024d4dfaa92472bb"
   ],
-  "tldr": "This is a loose topical cluster, not one event: 19 independent items from Nov 1 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
+  "tldr": "This is a loose topical cluster, not one event: 18 independent items from Nov 2 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
   "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
-  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 19 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
+  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 18 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
   "beats": [
     {
       "kicker": "MODEL",
       "tone": "neutral",
-      "headline": "MoE quantization, expert-parallel compression and speculative decoding",
-      "summary": "Efficiency inside the model and decode loop: fewer bits, less all-to-all traffic, cheaper draft verification.",
+      "headline": "Expert-parallel compression, speculative decoding and quantization trade-offs",
+      "summary": "Efficiency inside the model and decode loop: less all-to-all traffic, cheaper draft verification, fewer bits.",
       "sids": [
-        "01d6db945cd3f0c2",
         "a4e942d0f147f07c",
         "018ac20c79d4eeba",
         "dec4d075135f7b7e"
@@ -95,8 +93,7 @@
   ],
   "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure.",
   "day_captions": {
-    "01d6db945cd3f0c2": "Opens the cluster at the model layer: nested MoE experts with dynamic mixed-precision quantization.",
-    "473a95cd7c540d1a": "Adds input-side savings: prompt compression trained with mixed RL and supervised learning.",
+    "473a95cd7c540d1a": "Opens the cluster on the input side: prompt compression trained with mixed RL and supervised learning.",
     "219537f3fa2b3690": "First agent-layer item: distills textual skill memory into weights for self-evolving agents.",
     "9b6ce22e2f29b264": "Google's open-source launch of an XLA-based serving engine, the one new serving product in the set.",
     "e5680f897e15540f": "First KV-cache paper: caches prefixes by conversational intent rather than exact prefix match.",
