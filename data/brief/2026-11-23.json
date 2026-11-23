@@ -1,33 +1,33 @@
 {
  "date": "2026-11-23",
  "diagnostics": {
-  "admitted": 4,
-  "candidates": 140,
-  "duplicate_url": 1,
-  "items": 4,
-  "keeps": 61,
-  "new": 4,
-  "off_topic": 24,
-  "prior_story": 35,
+  "admitted": 1,
+  "candidates": 169,
+  "duplicate_url": 2,
+  "items": 5,
+  "keeps": 78,
+  "new": 1,
+  "off_topic": 26,
+  "prior_story": 47,
   "rejected_gate": {
-   "insufficient_evidence": 5,
-   "judge_drop": 6,
-   "off_topic": 24,
-   "score_low": 36
+   "insufficient_evidence": 6,
+   "judge_drop": 9,
+   "off_topic": 26,
+   "score_low": 38
   },
   "rejected_quota": {
    "source_quota": 5
   },
-  "releases": 9,
-  "reviews": 47,
+  "releases": 12,
+  "reviews": 50,
   "role_counts": {
-   "community": 4
+   "community": 1
   },
   "run_candidates": 140,
-  "stale_story": 24,
-  "stories": 69,
-  "unjudged": 5,
-  "updated": 0,
+  "stale_story": 31,
+  "stories": 90,
+  "unjudged": 7,
+  "updated": 3,
   "written": true
  },
  "items": {
@@ -54,7 +54,7 @@
     "release_lane": 0.4
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T00:09:43.552170+00:00",
+   "last_seen": "2026-11-23T01:09:18.523952+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -64,15 +64,16 @@
    "rank_at_first_seen": 1,
    "release_tier": null,
    "score_at_first_seen": 1.4374,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
    "source_role": "community",
+   "source_summary_1line": "aaf-gate is an open-source Python stdlib add-on that puts a deterministic policy gate, kill switch, call limits and tamper-evident audit in front of tool calls in existing agent runtimes, primarily Hermes Agent; version 1.0.0rc1 is unproduction-ready.",
    "source_tune": 0.131,
    "story_cluster_id": "cb6a3ebc95352d87",
    "story_key": "story|title:aaf gate policy gate and kill switch for existing agent runtimes",
-   "summary_1line": "aaf-gate is an open-source Python stdlib add-on that puts a deterministic policy gate, kill switch, call limits and tamper-evident audit in front of tool calls in existing agent runtimes, primarily Hermes Agent; version 1.0.0rc1 is unproduction-ready.",
+   "summary_1line": "aaf-gate is an Apache 2.0 Python stdlib policy gate and kill switch for existing AI agent runtimes, primarily Hermes Agent, now at v1 candidate 1.0.0rc1 and not production-ready.",
    "time_decay_factor": 0.973,
    "title": "Show HN: Aaf-gate – policy gate and kill switch for existing agent runtimes",
    "type": "news",
@@ -105,7 +106,7 @@
     "release_lane": 0.34
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T00:09:43.552170+00:00",
+   "last_seen": "2026-11-23T01:09:18.523952+00:00",
    "llm_category": "agent_engineering",
    "matched_topics": [],
    "prefilter_score": 1.958,
@@ -113,7 +114,7 @@
    "rank_at_first_seen": 4,
    "release_tier": null,
    "score_at_first_seen": 1.0803,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -127,6 +128,55 @@
    "type": "news",
    "url": "https://github.com/markrussinovich/agent-session-insights",
    "utility": 1.0803,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": ""
+  },
+  "story|title:ai privacy cloak": {
+   "admission_rank": 5,
+   "admitted_at": "2026-11-23T01:09:18.523952+00:00",
+   "also_covered": [],
+   "content_excerpt": "A local proxy that sits between AI coding agents (Claude Code, Cursor, aider, Codex CLI, ...) and the model provider's API, redacting secrets and PII before they leave your machine — and restoring them transparently in the response. Status: early scaffold / MVP in progress. Not production-ready. Name is a placeholder. Is this plug-and-play, or does it need configuration? A few one-time terminal commands, then it's invisible. There's no config file to write and cloak has no API keys or accounts of its own - cloak install detects your shell and writes one environment variable your agent already knows how to read ( ANTHROPIC_BASE_URL , or the equivalent for your provider), cloak serve (or cloak service install for something that survives reboots) starts it, and from then on you just use Claude Code / Cursor / aider exactly as before. The only ongoing interaction is cloak toggle / enable / disable if you ever want to turn redaction off without losing your agent's connection. See the full steps below. Use a real build, not go run , for anything in step 3 onward - go run compiles to a throwaway temp binary, and cloak service install needs a stable path to relaunch on login. cloak proxies one provider's API at a time: anthropic (default), openai , or gemini . This writes the right environment variable into your shell profile: Then restart your shell (or source ~/.zshrc ) so new terminal sessions pick up the variable. Pick foreground (simplest, stops when the terminal closes) or background (survives reboots): Either way, once it's running, just use Claude Code / Cursor / aider as normal - requests are redacted on the way out and restored on the way back in, with no change to your workflow. cloak-tray doesn't start or stop cloak serve - it's a thin GUI client on the same control API as step 4, so it only does anything useful while cloak is already running. macOS: unsigned by default, but package-macos.sh now signs + notarizes a real build when CLOAK_SIGN_IDENTITY and CLOAK_NOTARY_PROFILE are set (one-time Keychain setup, documented at the top of the script) - opens with no Gatekeeper warning at all once that's in place. Windows: still unsigned, no code-signing certificate owned yet - SmartScreen will warn on first run. Traditional certs run ~$200-500/yr and usually need business verification; Microsoft's newer Trusted Signing (Azure-based, pay-per-use) is worth checking as a cheaper option, but verify current pricing/eligibility directly since it's changed before.",
+   "first_seen": "2026-11-23T01:09:18.523952+00:00",
+   "freshness_at_admission": 0.9201,
+   "id": "f2b8e2af7a2d866b",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.69,
+   "judge_evidence_chars": 2499,
+   "judge_judged_at": "2026-11-22T20:06:41.099820+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.56,
+   "judge_signals": {
+    "corporate_marketing": 0.05,
+    "keep": 0.56,
+    "platform_relevant": 0.97,
+    "release_lane": 0.18
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-23T01:09:18.523952+00:00",
+   "llm_category": "agent_engineering",
+   "matched_topics": [],
+   "prefilter_score": 1.718,
+   "published": "Sun, 22 Nov 2026 19:50:15 +0000",
+   "rank_at_first_seen": 5,
+   "release_tier": null,
+   "score_at_first_seen": 1.02,
+   "seen_count": 2,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "d7438bafd32baca4",
+   "story_key": "story|title:ai privacy cloak",
+   "summary_1line": "A local proxy that sits between AI coding agents and their model provider's API to redact secrets and PII before requests leave the machine, restoring them in responses; it is an early MVP and not production-ready.",
+   "time_decay_factor": null,
+   "title": "AI Privacy Cloak",
+   "type": "news",
+   "url": "https://github.com/miloshke/ai-privacy-cloak",
+   "utility": 1.02,
    "utility_basis": "judge",
    "v2_slot": "community_signal",
    "why_it_matters": ""
@@ -154,7 +204,7 @@
     "release_lane": 0.31
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T00:09:43.552170+00:00",
+   "last_seen": "2026-11-23T01:09:18.523952+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -164,7 +214,7 @@
    "rank_at_first_seen": 3,
    "release_tier": null,
    "score_at_first_seen": 1.1529,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -234,5 +284,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-23T00:09:43.552170+00:00"
+ "updated_at": "2026-11-23T01:09:18.523952+00:00"
 }
