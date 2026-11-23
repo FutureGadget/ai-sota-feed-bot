@@ -3094,13 +3094,18 @@
  "1b1bfd8ea8c77791": {
   "first_seen": "2026-11-23T02:08:27.557144+00:00",
   "id": "404678477221bf42",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-19T20:10:13+00:00",
   "sid": "1b1bfd8ea8c77791",
   "source": "arxiv_agent_systems_research",
+  "summary": "Systems that flag violent video for a human operator can now be built from language models without training, by combining perception models and letting a language model decide. We ask how the observations of the perception models should reach the decision, and which evidence matters. On the XD-Violence test set (799 clips) we fix one set of perception agents (video description, object detection, sound tagging, speech recognition and speech tagging) and one reasoning model, and compare three interfaces: messages between agents, a typed evidence graph explored with tools, and flat text read in one pass; and a single audio-visual model given the raw clip. Two annotators provide a human reference that records the decision, the incident segments and whether they relied on sight, sound or speech. Flat text matches the single model (F1 0.967 against 0.968), while the graph agent and message passing are less accurate; a variant of the graph agent developed on a separate set did not close the gap, and both graph summaries and multi-turn tool use lowered accuracy. These results hold with reworded prompts and with a larger reasoning model, except that the larger model weakens message passing enough for the graph agent to beat it. Sound events improve F1 by +0.012 [+0.004, +0.021], in line with the annotators, who used sound or speech on most violent clips. Citations of stored observations are faithful, changing about half of the decisions when removed, but no more so with the graph than",
   "summary_1line": "Compares three ways of passing observations from perception agents to a language-model reasoner for flagging violent video, finding flat text matches a single audio-visual model (F1 0.967 vs 0.968) on XD-Violence.",
   "title": "What Helps Language-Model Agents Review Violent Video? A Controlled Comparison with a Human Evidence Reference",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.26776v1"
+  "url": "http://arxiv.org/abs/2611.26776v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1b30e1b7d868884c": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
@@ -4374,6 +4379,22 @@
   "title": "The new Genie: autonomous AI for complex enterprise work",
   "type": "news",
   "url": "https://www.databricks.com/blog/new-genie-autonomous-ai-complex-enterprise-work"
+ },
+ "26a3da6a312086c4": {
+  "content_excerpt": "I timed every second of an overnight run where my Claude Code agents built features for Note to Self , my iOS app for texting yourself notes. One Claude Code session is the manager. It doesn’t write code. For each feature it starts a fresh agent and takes it through the same steps: The analysis agent got every transcript from the night: the 11 feature agents, the 11 Opus reviews, the 11 Codex logs, the manager’s own session and the git log. It split the night into phases from the manager’s transcript (plan, build, review, fixes), and then put every second of each phase into one bucket: It expects about 10% of the time to land in the wrong bucket at the edges, mostly between UI tests and simulator checks. Their total barely moves. Two thirds of the night was the simulator. The model is fast. Proving the work is slow. The last feature’s fix round was still running when the analysis started, so its bar stops early. The reviews were worth it. They raised 127 findings, and about 36 of them were real bugs. What they cost is the proof that has to run again after every fix. The first of the 11 features was the UI test suite itself. 45 tests became 12 user journeys, each launching the app once and starting from seeded data instead of typing its own. The suite went from 875 seconds to 375, all green. And UI tests still took a third of the night. A suite that takes 57% less time helps less than you’d think when it runs 20 times a night, on top of 191 runs of single classes. The analysis",
+  "first_seen": "2026-11-23T17:05:33.151855+00:00",
+  "id": "b5f6569b748bbe91",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T16:13:37+00:00",
+  "sid": "26a3da6a312086c4",
+  "source": "hackernews_ai",
+  "summary_1line": "My AI coding agents spend most of their time waiting",
+  "title": "My AI coding agents spend most of their time waiting",
+  "type": "news",
+  "url": "https://jurajb.dev/coding-agents-mostly-waiting",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "26bc756ec216b604": {
   "first_seen": "2026-11-11T20:05:49.624616+00:00",
@@ -6119,6 +6140,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "345d0e687c4728ff": {
+  "first_seen": "2026-11-23T17:05:33.151855+00:00",
+  "id": "2146666f185ad691",
+  "published": "2026-11-20T18:35:28+00:00",
+  "sid": "345d0e687c4728ff",
+  "source": "arxiv_cs_lg",
+  "summary": "Hyperparameter optimization (HPO) is essential for high predictive performance, but its computational cost becomes prohibitive when candidate configurations require repeated training on large datasets. This paper proposes a ranking-preserving coreset (RPC) selection framework for accelerating evolutionary HPO. The method constructs a compact coreset that preserves the relative ranking of hyperparameter configurations observed on the full training data. Coreset selection is formulated as an evolutionary optimization problem that maximizes Spearman rank correlation between full-data and subset-based configuration rankings while penalizing subset size. The selected coreset is then used for HPO with three evolutionary algorithms: Genetic Algorithm (GA), Cross-generational elitist Selection, Heterogeneous Recombination and Cataclysmic Mutation (CHC), and Particle Swarm Optimization (PSO). Experiments on seven tabular, two text, and two image benchmark datasets show that RPC substantially reduces HPO time while maintaining test accuracy comparable to full-dataset HPO across decision tree, text classification, and image classification tasks. Across datasets and optimizers, HPO-stage speedups range from approximately 1.14x to 8.80x, while the one-time coreset construction cost is accounted for separately through end-to-end runtime and break-even analysis. On 20 held-out configurations excluded from coreset construction, RPC achieves higher ranking correlation than same-size random sa",
+  "summary_1line": "Hyperparameter optimization (HPO) is essential for high predictive performance, but its computational cost becomes prohibitive when candidate configurations require repeated training on large datasets. This paper prop...",
+  "title": "Ranking-Preserving Coreset Selection for Efficient Evolutionary Hyperparameter Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27959v1"
  },
  "34685a84f2863ee6": {
   "first_seen": "2026-11-16T08:04:02.861282+00:00",
@@ -21893,6 +21926,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08162v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "bdedb1e4ef84ac62": {
+  "content_excerpt": "Verfy CLI (MIT): lock MCP tool definitions and block tools that change after you approved them, guard every Claude Code tool call, signed receipts. pip install verfy The server changes the tool's description after you approved it. Verfy notices the new SHA-256 and blocks the call. Try it on the website . python fix.py looks harmless as a command. Verfy reads the script before it runs and names the line that would wipe the home folder. ▶ The 60-second version (MP4, 1.1 MB): pin the tools, the server ships an update, verfy lock check fails, the gateway hides the tool and denies the call. Recorded with verfy 0.17.0: every terminal line is real output of its demo server ( python -m verfy.demo_server --rugpull ). Stop what your agent shouldn't do. Prove what it did. For Claude Code, Codex, Gemini CLI, Cursor, GitHub Copilot and Devin: Verfy checks each tool call before it runs, stops a tool that changes in secret, and signs a receipt for every call it checks. Where to go: bugs and questions in issues ; security reports privately, as SECURITY.md describes. The Verfy CLI is MIT and always will be. Verfy Cloud is a paid hosted service (free for now; paid plans are not on sale yet). This repository is the CLI; the hosted service is developed separately. Verfy checks every tool call a coding agent makes against your policy before it runs, locks the MCP tool definitions the agent may use, and writes an Ed25519-signed, hash-chained receipt for every call it checks. Verfy Cloud, the hoste",
+  "first_seen": "2026-11-23T17:05:33.151855+00:00",
+  "id": "0f0264448eeab79c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T16:49:26+00:00",
+  "sid": "bdedb1e4ef84ac62",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Verfy – checks an AI coding agent's tool calls before they run",
+  "title": "Show HN: Verfy – checks an AI coding agent's tool calls before they run",
+  "type": "news",
+  "url": "https://github.com/verfy-dev/verfy",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "bdf2dbbea35477e7": {
   "first_seen": "2026-11-13T05:03:49.483648+00:00",
