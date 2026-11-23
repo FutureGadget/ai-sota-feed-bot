@@ -6256,6 +6256,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07134v1"
  },
+ "34b252753273b01f": {
+  "content_excerpt": "VEKTOR is a memory system for AI agents. It keeps memories in a five-layer graph, decides what to save, change or drop, and checks every tool call for unsafe instructions before it runs. A set of small tools sits around it. We wrote all of it ourselves. Every question ran through the memory code with a fresh database per question. Answers came from GLM-5.3-Flash and were graded with the benchmark's own rules by two open-weight models, GLM-5.3-Flash and DeepSeek V4.1 Flash. The score is the average of the two. Memories were saved with gpt-oss:120b. This is the oracle variant of LongMemEval, so the score is not comparable with published results on the full variant. GLM-5.3-Flash judge 89.4% (447 of 500), DeepSeek V4.1 Flash judge 89.8% (449 of 500). One run. 440 of 500 questions were marked right by both judges. The judges disagreed on 16 questions, mostly preference. Same 500 questions, average of both judges: 88.5% with 12 memories per ordinary question, 89.6% with 30. Preference moved most, from 78.3% to 86.7%. What changed. A silent recall error on freshly made memory databases (a missing column) is fixed. Ordinary questions now get 30 memories instead of 12. Saving records actions and durations: bought, replaced, donated, started, and how long each lasted. Counting questions about friends and family now get the wide recall too. The Desk chat uses the same idea: it looks up more memories for questions about your own history, and the lookup takes about the same time. Limits.",
+  "first_seen": "2026-11-23T22:06:24.495357+00:00",
+  "id": "e1794738720f217d",
+  "published": "2026-11-23T21:36:49+00:00",
+  "sid": "34b252753273b01f",
+  "source": "hackernews_ai",
+  "summary_1line": "VEKTOR, an AI agent memory system, reports 89.4% and 89.8% on the oracle variant of LongMemEval under two judge models, with a single run and caveats that the score is not comparable to full-variant results.",
+  "title": "Humanizer and AI-text detection tools",
+  "type": "news",
+  "url": "https://vektormemory.com/research"
+ },
  "34b99cad8f6b6602": {
   "first_seen": "2026-11-10T08:04:55.363407+00:00",
   "id": "b3028bd87c5c2f63",
@@ -6457,6 +6469,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26510v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "36fb5b1c7a9ff4c8": {
+  "content_excerpt": "How are businesses across the economy adopting AI? What bottlenecks and challenges have they faced? How can employers reorganize human expertise around increasingly capable models? To understand businesses’ experiences better, we conducted 66 interviews with 58 of Anthropic’s enterprise customers. We found: The use of LLMs has exploded across the economy. How are human organizations reshaping around these strange new collaborators? Consider an employee at a midsize law firm that we spoke to. For years, the firm’s mailroom had followed the same protocol: a scanner sent PDFs of incoming correspondence to an inbox; a mail clerk opened each PDF, skimmed it, clicked “Save As,” renamed it, and placed it in the firm’s file system. The process took five minutes per letter. One day, a senior developer visited the mailroom to watch the mail being processed. In a month, he built an AI system that eventually became two API calls, which name the document based on its first page and then assign it a place in the firm’s document system. The mail clerks “were blown away.” An employee at another law firm we interviewed hoped AI would create “a second brain” for the firm. (“For higher-level stuff, it just opens up possibilities.”) But the firm struggled to get everyone to use AI effectively. Demand letters to potential defendants were filled with excessive em dashes and occasional errors. Attorneys building apps kept “running into the wall based on hallucinated menus or buttons that don’t exis",
+  "first_seen": "2026-11-23T22:06:24.495357+00:00",
+  "id": "f1d78833ce2d3eac",
+  "published": "2026-11-23T00:00:00+00:00",
+  "sid": "36fb5b1c7a9ff4c8",
+  "source": "anthropic_research",
+  "summary": "We interviewed people at 58 companies that use Claude about how AI is changing their work. They described few layoffs but reduced hiring, and said the most valuable uses of AI often involved reorganizing roles and workplaces around it.",
+  "summary_1line": "Anthropic reports on 66 interviews with 58 of its enterprise customers about how businesses adopt AI, using examples such as a law firm that automated its mailroom document filing with AI.",
+  "title": "Working with AI",
+  "type": "research",
+  "url": "https://www.anthropic.com/research/working-with-ai"
  },
  "370ba7508446141c": {
   "content_excerpt": "What is easy for humans to skim past in code, agents see as a call to action. They do not know better, latching on to that which is littered across the files read during the planning and research phase of the coding journey. As agents' agency through tools and skills grows the ability for side-quests scales proportionally. Obsolete specs, long resolved bugs, and lagging documentation no longer rest in long forgotten corners of the codebase, but rather are unintentionally ingested as context indirecting and misdirecting the next wave of coders - the agents. This indirection is not free: in the best case it only costs tokens, steps, and time - in the worst case it distracts and grounds the agent on falsehoods leading to incorrect logic and decisions during implementation. Measuring how often agents fall into these traps across millions of monthly sessions is impossible with manual human review - we need an objective signal derivable from the code itself. Inline TODO(bug/...) comments provide the perfect proxy. TODOs tend to be left behind long after the underlying bug is resolved or abandoned, while the linked bug ticket acts as the canonical record. By cross-referencing every TODO an agent encounters against the TODO's bug status and the user's prompt, we can automatically separate valid work from wasted detours at scale. By leveraging the distributed traces of agent interactions across thousands of engineers and over hundreds of millions of individual agent steps, we quantify",
@@ -15683,6 +15708,23 @@
   "url": "http://arxiv.org/abs/2611.20191v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "895b540db6a8889e": {
+  "first_seen": "2026-11-23T22:06:24.495357+00:00",
+  "id": "34d52c24a2616f8e",
+  "image_url": "https://lh3.googleusercontent.com/jIoM2lo98EDqLMQjIaXBlXPmXgPbUPpM2GgtXcDsGekZBOPUY41IjBsnuZIhLac7MSOuRkklNBsp20a5M25oDz-xTIY0BIqoBxUqmmXvEHwlM3MJJw=w528-h297-n-nu-rw-lo",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T16:59:40+00:00",
+  "sid": "895b540db6a8889e",
+  "source": "google_deepmind_blog",
+  "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.",
+  "summary_1line": "Google DeepMind describes using teams of AI agents together with formal verification to find improvements to quantum algorithms for applications in fusion and chemistry.",
+  "title": "Finding faster quantum algorithms with agents and formal verification",
+  "type": "news",
+  "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8965cbc03281cfdd": {
   "content_excerpt": "Give each cloud agent its own Linux sandbox, in your own Google Cloud project. A sandbox runs commands and keeps files. Put it to sleep while the user is away, and open the same ID later to get the files back. A 2 vCPU / 4 GB sandbox costs about 1.9¢ for each hour it is awake , cluster overhead included. Daytona and E2B list 16.6¢ for the same hour. A sleeping sandbox costs only its storage. The agent deploys the cluster with Terraform, runs the verifier, and shows you how to connect your backend. Or deploy it by hand . Costs are for one sandbox at 2 vCPU and 4 GB. Managed providers are at list prices for compute and storage only. Timings used 4 vCPU and 8 GB. Every bar in the chart above prices the same mostly idle sandbox, at the 0.076 vCPU that Energy’s running sandboxes averaged, about 4% of 2 vCPU. Daytona, E2B and Fly.io charge for the full size while it runs. Vercel charges for the CPU in use and all of the memory. Modal charges for what is used. The GKE figure is a whole cluster bill divided by its sandboxes: 520 awake at 56 to a machine, with two spare machines, node disks, system nodes, the cluster fee and snapshot storage. It needs that scale. A small cluster still pays for its minimum machines. Over a 730-hour month awake, 1.9¢ an hour is $14.22. Packed tighter on C4D machines, the GKE compute estimate falls to about $7.80 a month, or 1.1¢ an hour. A sleeping sandbox is a snapshot in Cloud Storage. Machines you keep running still appear on your bill. Medians. The ",
   "first_seen": "2026-11-20T00:09:24.605000+00:00",
@@ -19678,6 +19720,28 @@
   "title": "vllm v0.34.0rc3",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc3"
+ },
+ "a9972b90c90a6092": {
+  "first_seen": "2026-11-23T22:06:24.495357+00:00",
+  "id": "ab2c68f083f97cf5",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-23T21:34:41+00:00",
+  "release_highlights": [
+   "Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS",
+   "Added oidc.groups_jsonpath to the Claude apps gateway, to read groups from the matching entries of a list of objects with a small subset of JSONPath (RFC 9535)",
+   "Added an API connectivity section to claude doctor that reports whether the API can be reached, with the HTTP status or the error, or says why it wasn't tested"
+  ],
+  "sid": "a9972b90c90a6092",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS Added oidc.groups_jsonpath to the Claude apps gateway, to read groups from the matching entries of a list of objects with a small subset of JSONPath (RFC 9535) Added an API connectivity section to claude doctor that reports whether the API can be reached, with the HTTP status or the error, or says why it wasn't tested Added a notice when tap-mode voice dictation stops by itself, after 15 seconds without recognized speech or at its 2-minute limit Added CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION to ask for uncompressed model responses behind a proxy that cuts compressed ones off; not advised yet for self-hosted runners or Remote Control Added CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME=1 for Claude apps gateways: with oidc.use_proxy: true , sign-in requests hand the proxy an https IdP's hostname even with NO_PROXY set Added gen_ai.usage.* , gen_ai.response.model and gen_ai.operation.name to claude_code.llm_request trace spans; gen_ai.usage.input_tokens includes prompt cache tokens Added optionalDependencies to plugin manifests: plugins that install with the plugin listing them and can be disabled or uninstalled on their own Fixed MCP tool calls hanging for up to 30 minutes on some malformed replies from a local or WebSocket server Fixed PushNotification telling a headless run, such as a scheduled one, that the terminal was active in",
+  "summary_1line": "Claude Code v2.1.331 release notes list added Code Mode support on several cloud platforms, a claude doctor API connectivity check, and gen_ai trace attributes, along with a set of bug fixes.",
+  "title": "claude-code v2.1.331",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "a99dfdd20d85acbb": {
   "first_seen": "2026-11-14T01:03:49.057821+00:00",
@@ -24195,7 +24259,7 @@
   "sid": "d40b37a43fa11767",
   "source": "langchain_blog",
   "summary": "LangSmith Tool Gateway, now in Public Beta, handles credentials, identity, and access for every agent tool call, with policies, approvals, and traces.",
-  "summary_1line": "LangSmith Tool Gateway, now in Public Beta, handles credentials, identity, and access for every agent tool call, with policies, approvals, and traces.",
+  "summary_1line": "LangSmith has launched Tool Gateway in Public Beta, a managed layer that handles credentials, identity, and access controls for agent tool calls and records them for tracing and audit.",
   "title": "LangSmith Tool Gateway: Secure, governed tool use for agents",
   "type": "news",
   "url": "https://www.langchain.com/blog/langsmith-tool-gateway",
@@ -27463,6 +27527,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "eff6094aa8ae73b9": {
+  "content_excerpt": "Boundless serves open models fast, with Zero Data Retention, for companies growing faster than they can plan. We're releasing plans in batches so every subscriber gets fast, reliable capacity. This first batch has 200 plans. Every request runs with Zero Data Retention, with nothing to switch on. Our SOC 2 observation period is underway. Abliterated DeepSeek V4.1 Flash 1017 and abliterated Kimi K3.1 Pro take on the malware, logs and exploits other models refuse, with Zero Data Retention on every request. Your traffic can grow overnight. Boundless keeps every request fast and private, at lower rates than the major providers. Every open model is tuned at launch, then gets faster as our agents ship new serving recipes to everyone. Our most popular models cost less per token than at the major inference providers. Vercel measures every provider's speed in public, model by model. Here's how our most popular models stack up right now. Abliterated models for vulnerability research, red teaming and detection work, with Zero Data Retention. Improvement agents make every model faster and more reliable over time, without changing its outputs. Let our inference engineers tune serving to your traffic and keep optimizing it 24/7. Using Deepseek Abliterated via Boundless and paying with stablecoins to hack Tempo. What a time to be alive. Essentially my harness can now use any model on Boundless without me setting up anything I love how @BoundlessHQ is going all-in with agentic payments. Great",
+  "first_seen": "2026-11-23T22:06:24.495357+00:00",
+  "id": "a9acd999878a557e",
+  "published": "2026-11-23T21:37:43+00:00",
+  "sid": "eff6094aa8ae73b9",
+  "source": "hackernews_ai",
+  "summary_1line": "Boundless is an inference provider offering open models with Zero Data Retention, releasing a first batch of 200 $199-per-month plans that include $500 of inference each month.",
+  "title": "Boundless Plans:Pay $199, get $500 of inference. Every month. ZDR",
+  "type": "news",
+  "url": "https://boundless.network"
  },
  "f0247d2be6d23fda": {
   "content_excerpt": "Søren Kierkegaard wrote that life can only be understood backward , but it must be lived forward . We’ve encountered a similar bind when designing memory for AI agents. As humans, we encode memory constantly as we go about our lives. The hippocampus plays a central role in this, capturing experiences in the moment so that memories form quickly and are immediately available. But only some experiences are consolidated into long-term knowledge. Much of that consolidation appears to happen when our brains are offline. As we sleep, and during quiet rest , the hippocampus replays our recent experiences. This is thought to gradually distill those experiences and integrate them into the neocortex—the part of our brains that stores most of what we think of as knowledge. Agent memory can use a similar division of labor. Agents capture much of their work in logs or transcripts. Researchers at Letta and UC Berkeley proposed sleep-time compute as a way for models to use idle time between interactions to reorganize their existing context. The same idea can help agents organize their memory by reflecting on logs to fix mistakes or produce new notes and representations. This process is often called dreaming (Figure 1). We’ve found that dreaming has been a useful tool for helping us give Claude effective memory. In this post, we share how we’ve come to think about agent memory and walk through several evaluations we’ve used to explore agent memory, including the use of dreaming, and what each",
