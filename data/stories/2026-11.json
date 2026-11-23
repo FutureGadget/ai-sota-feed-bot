@@ -9713,13 +9713,18 @@
  "52fc3d0a0ca2cc0f": {
   "first_seen": "2026-11-23T05:07:55.250986+00:00",
   "id": "259ad4c90c0ee20c",
+  "matched_topics": [
+   "eval"
+  ],
   "published": "2026-11-20T01:48:57+00:00",
   "sid": "52fc3d0a0ca2cc0f",
   "source": "arxiv_llm_reliability",
+  "summary": "Multimodal Large Language Models (MLLMs) have achieved strong video comprehension, largely benefiting from extensive training on realistic video data. However, when video perception severely conflicts with internal priors or common sense, we identify a critical failure pattern termed Modal Polarization, where models fail to integrate modalities and instead bifurcate into two distinct extremes: Cognitive Inertia, where models rigidly adhere to priors despite contradictory visual evidence, and Perceptual Inertia, where they blindly trust video perception while ignoring logical inconsistencies. To investigate this, we introduce TheaterBench, a benchmark designed to expose Modal Polarization using counter-intuitive scenarios that violate physical laws or common sense - situations rarely encountered in standard training distributions. Extensive experiments reveal that current state-of-the-art (SOTA) models exhibit severe Modal Polarization, and many de-hallucination methods merely rebalance the trade-off between Perceptual and Cognitive Inertia rather than fundamentally resolving the conflict. This work serves as a foundational step for evaluating and enhancing the perceptual-cognitive equilibrium of future video understanding models.",
   "summary_1line": "Introduces TheaterBench, a benchmark of counter-intuitive video scenarios that violate physical laws or common sense, used to test how multimodal video models fail when visual evidence conflicts with their priors.",
   "title": "When Perception Collides with Priors: Diagnosing Modal Polarization in Video Understanding Models",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.26972v1"
+  "url": "http://arxiv.org/abs/2611.26972v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "5303ff4c2285ef2a": {
   "first_seen": "2026-11-13T13:03:52.323114+00:00",
@@ -14932,6 +14937,22 @@
   "url": "http://arxiv.org/abs/2611.02338v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "824283cf95f0a1c6": {
+  "first_seen": "2026-11-23T23:05:33.285542+00:00",
+  "id": "2b73fe6f1701be12",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-23T22:48:38+00:00",
+  "sid": "824283cf95f0a1c6",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.172.0",
+  "summary_1line": "Release 0.172.0",
+  "title": "codex rust-v0.172.0",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.172.0",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "824c03b970f1dc58": {
   "content_excerpt": "TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixture-of-Experts with ~26B physical total and 3B active parameters per token. It uses a neat trick to increase capacity: some layers are visited in a loop that repeats three times, which makes it work like it had more parameters. It supports a 1M-token context size, accepts images and text inputs. Thinking Machines Lab ships the model in a mixed-precision format, with NVFP4 and MXFP8 expert weights. A DSpark drafter is also included for additional speed-up at a small memory cost. Inkling 2 Mini is much, much smaller than Inkling 2 Small, and is designed for local AI setups. We think this is a refreshingly new great local model. In our vibe tests, it's at least comparable with Qwen 3.8 27B. More validation is needed, but we are super excited about this release! We ship transformers, Llama App (llama.cpp), and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware. This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup. Inkling 2 Mini is a mixture-of-experts model with 24 decoder layers, but the 12 middle layers run three times in a loop. Therefore, the model acts as if it had 48 (6+ 3*12 + 6) logical layers with just 24 physical ones. Similar to Inkling 2 Small, Inkling 2 Mini executes 48 layer visits per token. The hidden size is 2,304 instead of 4,608. At each layer visit, both va",
   "first_seen": "2026-11-20T21:04:14.791782+00:00",
@@ -17869,6 +17890,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPb0Q4MTRpbWJLRFEtNURGZHhCUU1kYjQtU29PTzlNc0RncjlEeXh5ZnJ1VEphYVI1Uks5YmZfQXZ6VnM0N1h3cDBmeTJCdzlSNzY1ZC1EeWFBcXptc2lQQzhpMTM2NTVocFZybGlJSi1NMFNuYlBFTklyaDZoMzlQUEtkTFd0ZTVPY2xHeUYzSFJ3OTY0Ymc?oc=5"
  },
+ "9bc3c9cea6bb8c2f": {
+  "first_seen": "2026-11-23T23:05:33.285542+00:00",
+  "id": "72ec9de2d2f7e8b2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T22:27:52+00:00",
+  "sid": "9bc3c9cea6bb8c2f",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.188/ pip install claude-agent-sdk==0.2.188",
+  "summary_1line": "The Claude Agent SDK for Python is available on PyPI as version 0.2.188, installable with pip; the release notes provided do not list specific changes.",
+  "title": "claude-agent-sdk-python v0.2.188",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.188",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9c0e227c170b2b6c": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
@@ -20505,6 +20542,19 @@
   "type": "research",
   "url": "https://huggingface.co/blog/ibm-research/cuga-harness",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "b0689cf87ab570a4": {
+  "content_excerpt": "An open-source runtime that helps operators protect running Linux systems without needing to wait for the patch or restarts OpenAI and Cisco are launching Shirudo, an open-source runtime that helps teams protect Linux systems while they roll out patches. In a controlled test ⁠ (opens in a new window) , a Codex-generated shield blocked a Java4Shell exploit attempt against a running Elasticsearch service without requiring a restart. We’re inviting developers, security researchers, and infrastructure operators across the industry to help develop the project further. The project brings together OpenAI’s frontier AI, security and infrastructure research and Cisco’s infrastructure and security expertise to help protect the systems people rely on every day. Testing and deploying a patch can still take days or weeks. Protecting a service in the meantime can be challenging because an exploit and a legitimate request may rely on the same Linux operation. Blocking that operation entirely could take the service offline. Shirudo (Japanese for “shield”) is designed to help security teams navigate this tradeoff. Teams can test whether a temporary safeguard, called a shield, blocks the behavior that exposes a vulnerability while allowing legitimate requests through. Once an operator approves the shield, it can be deployed while the service continues running. Shirudo uses eBPF, a Linux technology that allows small programs to run at specific points inside the operating system. This makes it p",
+  "first_seen": "2026-11-23T23:05:33.285542+00:00",
+  "id": "abf95077897dd087",
+  "published": "2026-11-23T21:20:00+00:00",
+  "sid": "b0689cf87ab570a4",
+  "source": "openai_blog",
+  "summary": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
+  "summary_1line": "OpenAI and Cisco released Shirudo, an open-source eBPF-based runtime that lets operators deploy temporary shields to block vulnerable code paths on running Linux systems without restarts or waiting for patches.",
+  "title": "OpenAI and Cisco introduce Shirudo",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-shirudo"
  },
  "b0b6c263afe6d2d0": {
   "first_seen": "2026-11-19T08:08:26.397515+00:00",
