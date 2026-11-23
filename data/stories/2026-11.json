@@ -3185,6 +3185,22 @@
   "url": "https://simonwillison.net/2026/Nov/18/daniel-stenberg",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "1c392a1bc673b265": {
+  "content_excerpt": "Code shows what an app does today. Code does not show what the app must continue to do, or why. Code does not show which spec proves each required behaviour. When coding agents write most of the code, no one keeps this knowledge. Each new agent session starts without it. The results are concrete. An agent changes a deliberate decision because the decision looks like a bug. An agent proposes an alternative that you rejected before. An agent deletes or weakens the spec for a required behaviour, and the suite stays green. agent_primitives keeps this knowledge in your repository, next to the code. Each capability of the app gets a capability doc. The capability doc states what the capability must do, as numbered intent clauses. Tagged RSpec examples prove each intent clause. Before an agent plans or changes code, it reads the capability doc or an excerpt of it. The primitives tree is the docs/primitives/ directory. It contains the capability docs. Each RSpec example that proves an intent clause has an intent: tag with the ID of that intent clause. Three commands check the primitives tree: Ten skills tell your agent when to read, write and check the primitives tree, from planning to review. The import command copies these skills into the skills directory of your agent. Each capability doc keeps its intent clauses and its evaluations in YAML frontmatter. The commands read this frontmatter. An example with an intent: tag is a tagged example. An evaluation names the spec file that co",
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "2fbaa4079b2c5123",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T08:42:40+00:00",
+  "sid": "1c392a1bc673b265",
+  "source": "hackernews_ai",
+  "summary_1line": "agent_primitives is a Ruby gem that stores each app capability's required behaviour as numbered intent clauses in docs/primitives/, linked to tagged RSpec examples, so coding agents can read them before changing code.",
+  "title": "Agent_primitives – tie each app behaviour to the specs that prove it",
+  "type": "news",
+  "url": "https://github.com/pitch-sourcery/agent_primitives",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1c564d62e97c9758": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
   "id": "57937ed34ca9fade",
@@ -4378,6 +4394,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.22835v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "280b34cc70faab1a": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "090984f9e94c2b03",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-20T15:46:35+00:00",
+  "sid": "280b34cc70faab1a",
+  "source": "arxiv_cs_lg",
+  "summary": "Mixture-of-Experts (MoE) architectures offer high computational efficiency, but storing all experts requires substantial memory and limits deployment on resource-constrained hardware. Most retraining-free MoE compression methods commit to either pruning or merging experts, often with a uniform compression ratio across layers. We introduce DPMA (Differentiable Prune Merge Absorb), which jointly learns compression operations and layer-wise expert allocation through gradient descent under a global expert budget. Separate learnable coefficients allow DPMA to prune experts, merge their parameters, and absorb their routing contributions by forwarding routing weights to retained experts. These coefficients and expert assignments are optimised to match the original model's outputs on calibration data while its weights remain frozen. Across four MoE models, eight multiple-choice benchmarks, and five compression ratios, DPMA achieves the highest accuracy averaged over benchmarks and compression ratios on each model among the evaluated methods. At $75\\%$ expert reduction, it outperforms the strongest baseline on every model, with gains of up to $6.7$ percentage points.",
+  "summary_1line": "Mixture-of-Experts (MoE) architectures offer high computational efficiency, but storing all experts requires substantial memory and limits deployment on resource-constrained hardware. Most retraining-free MoE compress...",
+  "title": "DPMA: Learning to Compress Mixture-of-Experts Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27759v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "282dddb5d1dcd0de": {
   "first_seen": "2026-11-03T09:04:30.637668+00:00",
@@ -7419,7 +7451,7 @@
   "published": "2026-11-23T07:14:15+00:00",
   "sid": "414a6c5fd9291c20",
   "source": "search_cn_open_weight_labs",
-  "summary_1line": "Chinese AI lab Z.ai has released GLM-5.4 with vision capabilities for users of its Coding Plan, according to a report from cwibc.co.id; the evidence gives no details on benchmarks, pricing, or availability beyond that.",
+  "summary_1line": "Chinese AI lab Z.ai has released GLM-5.4 with vision capabilities for users of its Coding Plan, according to a cwibc.co.id report; no benchmarks, pricing, or availability details are given.",
   "title": "Z.ai Releases GLM-5.4 With Vision for Coding Plan Users",
   "type": "release",
   "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBnZmxmV2FVaXZobC1WTWNvLTFtcFVwYkhNZGJMMVM0WFhlcE1xMUxIck5HRUZhNUQ5V3NlQV91eWpLV1YxT1BSNEJucFdvZ2k3RFNvTW50Q1ppMHBQRGc?oc=5"
@@ -11905,6 +11937,22 @@
   "url": "http://arxiv.org/abs/2611.18493v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "686cf3f80e008446": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "a9112de6d88d2866",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-20T14:46:42+00:00",
+  "sid": "686cf3f80e008446",
+  "source": "arxiv_cs_cl",
+  "summary": ", including flagship models such as Qwen3.8-Max, Kimi-K3.1-Pro and DeepSeek-V4.1-Flash, and approaches the strongest closed-source thinking models such as GPT-6.1-Sol and Gemini-4-Argon, while surpassing models that consume \\textbf{more than 30$\\times$} its inference compute. Beyond general translation, Hy-MT3 is optimized for two industrial scenarios. For \\textbf{game localization}, built with high-quality game-domain data and a professional evaluation system from the Honor of Kings team, Hy-MT3-30B-A3B matches or outperforms strong closed-source models such as Gemini 3.1 Pro on all core metrics, and can be plugged into game development pipelines through an open-source toolchain. For \\textbf{image translation}, Hy-MT3 improves context understanding and error correction to better tolerate OCR errors, achieving the best result among models of comparable size. Finally, we open-source \\textbf{TransRubric}, a rubric-based automatic evaluation suite for translation, which outperforms other evaluation schemes on the WMT26 metrics shared task test set and is more stable with respect to human evaluation.",
+  "summary_1line": "Hy-MT3 is a third-generation multilingual translation model family in 1.8B, 7B and 30B-A3B sizes, expanding language coverage from 38 to 102 languages.",
+  "title": "Hy-MT3: More Accurate, Robust and Practical Multilingual Translation Models in the Wild",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27673v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "6891036f2be78fdd": {
   "first_seen": "2026-11-19T03:08:59.229921+00:00",
   "id": "7f29de75ad034d0f",
@@ -12721,11 +12769,11 @@
    "agent",
    "eval"
   ],
-  "published": "2026-11-18T19:14:28+00:00",
+  "published": "2026-11-23T07:39:04+00:00",
   "sid": "723f93aecd87135a",
   "source": "hackernews_ai",
   "summary": "Hi HN - This is James and Kemal. In past lives we led Firebase and Tensorflow/JAX respectively. HN has been a particularly big part of my (James’) career and the trajectory I’ve taken would be meaningfully different without it. Thank you! Our team shipped a benchmark: KradleBench. We test AI in Minecraft Worlds. 1. The worlds are multi-agent. Humans and other AIs are in there too, often pursuing their own goals. Collaboration and conflict skills fall out of this property. 2. The world are dynamic. They constantly change, which means that agents need to react. “Capture the Flag” has a single winning condition, and many different ways to achieve it. This leads to many emergent and creative strategies. 3. The worlds are real-time. They are not turn-based, they do not wait for AIs to finish thinking. Nature balanced speed and intelligence in humans, we can understand this in AIs too. Underneath all this is Kradle, a platform to test and understand intelligence. It’s a petri dish where any intelligence type (LLM, World Model, Human) can be compared and generate useful information to improve current systems, whether it’s on capabilities or safety. Some findings so far: - A skilled human was #1, until yesterday when Astra 6.2 surpassed them. We lose badly on solo tasks and out-compete on multi-agent ones - Astra 6.2 iterates on its strategy 4x faster than Fable 5.2. The Claude family tends to think hard and stick with strategies. The OpenAI models tend to be more reactive and iterat",
-  "summary_1line": "Hi HN - This is James and Kemal. In past lives we led Firebase and Tensorflow/JAX respectively. HN has been a particularly big part of my (James’) career and the trajectory I’ve taken would be meaningfully different w...",
+  "summary_1line": "KradleBench is a benchmark that tests AI agents in multi-agent, dynamic, real-time Minecraft worlds, where reported results show Astra 6.2 surpassing a skilled human on the overall ranking.",
   "title": "Show HN: KradleBench – Multi-agent AI evals in Minecraft",
   "type": "news",
   "url": "https://www.kradle.ai?1",
@@ -14317,7 +14365,7 @@
   "sid": "7fa60a4f02eb5f8f",
   "source": "claude_agent_sdk_python_releases",
   "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.185/ pip install claude-agent-sdk==0.2.185",
-  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.185/ pip install claude-agent-sdk==0.2.185",
+  "summary_1line": "Version 0.2.185 of the claude-agent-sdk Python package is published on PyPI and can be installed with pip; the evidence gives no details of its changes.",
   "title": "claude-agent-sdk-python v0.2.185",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185",
@@ -14748,6 +14796,22 @@
   "title": "Show HN: Magertron – AI Orchestrator for agents' tools, APIs, LLMs and streams",
   "type": "news",
   "url": "https://magertron.com/#install",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "83e0f7acb9556e17": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "31f97fad4a02a4f3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T07:07:54+00:00",
+  "sid": "83e0f7acb9556e17",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Local-cloud agent systems pair a cloud model with a small on-device agent that acts on private data, often as the last check before an irreversible action. We identify, for the first time, a failure in which such an agent is led into a violation by its own correct decisions within a session. After it correctly releases an item whose restriction was lifted, it becomes more likely to release the next item that is still restricted. Because the trigger is a correct decision, a history with no faulty step can still end in a violation. We call this failure correct-precedent generalization and find it in 13 open-weight models from nine developers. A single correct precedent can cut the safe rate of the most affected agent roughly in half, and the risk compounds when a refused request is simply sent again in a new session. Interventions on the agent's history indicate that it carries its decision on the released item over to the restricted one instead of checking that item's status. Building on this finding, we propose Paired Decision Distillation (PDD), which distills the decisions of a weakly affected teacher into a LoRA adapter. PDD restores the safe rate to nearly 100% in every distilled model, without extra prompt text or model calls.",
+  "summary_1line": "Reports a failure in which an on-device agent's earlier correct release of an item makes it more likely to wrongly release a still-restricted item, tested across 13 open-weight models, with a LoRA-based fix proposed.",
+  "title": "Correct Precedents Induce Policy Violations in On-Device LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27216v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "841194ca9dd70bcb": {
@@ -25854,6 +25918,23 @@
   "url": "https://blink.cash/arena",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e6984ddef819064d": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "15fd7ed4e23b7ea9",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-20T10:39:02+00:00",
+  "sid": "e6984ddef819064d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Small language models (SLMs) are increasingly attractive for cheap, high-throughput agentic deployment, but they remain weak at multi-step reasoning and tool use that long-horizon tasks demand. We study how to post-train an SLM to seek advice from a stronger model and act on that advice itself, following an advisor-executor pattern. Out of the box, this pattern fails across open- and closed-source small-model families: wiring an SLM to an advisor is a harness-design matter that is not enough on its own. A post-training recipe is needed to teach the model when to ask, in a cost-aware fashion, and how to follow advice across steps. Our method, ADAPT (ADvisor-Aware Post-Training), is a multi-stage recipe that instills this behavior, learning entirely from the policy's own rollouts supervised by the environment's outcome, with no learned reward model or human annotation. Across three domains, compared to an untrained harness baseline, ADAPT improves success rate in embodied text reasoning (TextWorld) from 24.5% to 77.3%, code generation (LiveCodeBench) from 21.8% to 56.0%, and deep web search (GAIA) from 17.5% to 49.3%, while querying the advisor sparingly (~1.0-2.1 calls per task). On the two long-horizon domains it closes 70-85% of the gap to an oracle that perfectly times when to ask for advice, and on code generation it exceeds that oracle. The gains persist when the advisor is replaced by one unseen in training, showing that the learned help-seeking policy is robust to a cha",
+  "summary_1line": "Introduces ADAPT, a post-training recipe that teaches a small language model when to request advice from a stronger advisor model, reporting higher success rates on TextWorld, LiveCodeBench and GAIA with about 1 to 2 advisor calls per task.",
+  "title": "Learning When to Ask: Advisor-Aware Post-Training for SLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27443v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
+ },
  "e69956fbb635a06d": {
   "first_seen": "2026-11-13T03:04:51.949705+00:00",
   "id": "712fe6dd2f3dd2fe",
@@ -26339,6 +26420,18 @@
   "title": "llm 0.37.3",
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/16/llm"
+ },
+ "eb695e4874b14e40": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "0c4267a3b405213b",
+  "published": "2026-11-18T09:54:14+00:00",
+  "sid": "eb695e4874b14e40",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 0, downloads: 0.",
+  "summary_1line": "Tencent has posted the WeMM-Ecom-35B-A3B image-text-to-text model weights on Hugging Face, with the listing showing no likes or downloads so far.",
+  "title": "tencent/WeMM-Ecom-35B-A3B released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/WeMM-Ecom-35B-A3B"
  },
  "eb7336db174a104a": {
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
@@ -27515,7 +27608,7 @@
   "sid": "f5b5db019790445e",
   "source": "langgraph_releases",
   "summary": "Changes since prebuilt==1.1.2 release(prebuilt): 1.1.3 ( #9741 ) fix(langgraph,prebuilt): give Send-dispatched tool calls the same state as an edge ( #9728 ) fix(prebuilt): make wrap_tool_call state overrides reach the tool ( #9730 )",
-  "summary_1line": "release(prebuilt): 1.1.3 · fix(langgraph,prebuilt): give Send-dispatched tool calls the same state as an edge · fix(prebuilt): make wrap_tool_call state overrides reach the tool",
+  "summary_1line": "Release notes for langgraph-prebuilt 1.1.3, listing fixes that give Send-dispatched tool calls the same state as an edge and make wrap_tool_call state overrides reach the tool.",
   "title": "langgraph-prebuilt==1.1.3",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3"
@@ -28058,6 +28151,22 @@
   "title": "How Standard Bank Group automates AI risk assessment for generative AI",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/how-standard-bank-group-automates-ai-risk-assessment-for-generative-ai"
+ },
+ "fb383705f2b384cb": {
+  "first_seen": "2026-11-23T09:05:48.697788+00:00",
+  "id": "339463068291e254",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-20T14:17:08+00:00",
+  "sid": "fb383705f2b384cb",
+  "source": "arxiv_cs_cl",
+  "summary": "Machine unlearning is an approach to privacy protection: it aims to remove the influence of designated data while preserving the model's behavior on information that should be retained. While a growing body of work investigates this objective in autoregressive large language models, machine unlearning remains underexplored in diffusion language models (DLMs). DLMs generate text through iterative denoising, exposing partially masked states whose internal representations change throughout the generation process. This raises a DLM-specific question: can selective forgetting improve by identifying forget-data-associated features and adapting their suppression across denoising stages? We conduct a controlled investigation of this question in LLaDA-8B-Instruct. To evaluate the unlearning of knowledge plausibly encoded during pre-training, we use WMDP as our forget-domain benchmark. Using top-k sparse autoencoders and denoising-state replay, we compare static and stage-adaptive feature suppression. We find substantial shifts in forget-data-associated features across denoising stages, but tracking these dynamics alone does not reliably improve the forget-retain trade-off at the evaluated operating points. Together, our study provides an initial empirical foundation for developing and evaluating machine unlearning as a post-training privacy mechanism in DLMs.",
+  "summary_1line": "Studies post-training machine unlearning in the diffusion language model LLaDA-8B-Instruct, using WMDP as the forget benchmark and sparse autoencoders to compare static and stage-adaptive feature suppression across denoising steps.",
+  "title": "Auditing Post-Training Unlearning in Diffusion Language Models using Sparse Autoencoders",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27652v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "fb3e45410f2c29fc": {
   "first_seen": "2026-11-05T06:05:14.674295+00:00",
