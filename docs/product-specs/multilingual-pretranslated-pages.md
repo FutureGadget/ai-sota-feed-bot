@@ -192,8 +192,9 @@ hidden language action in the shared page actions. `site-chrome.js` reveals that
 icon only when the target locale matches the reader's browser language, using
 `navigator.languages` / `navigator.language`. For example, a reader with a
 Korean browser on `/daily/2026-07-04` sees a compact `KO` globe link to
-`/ko/daily/2026-07-04`. Korean pages emit the inverse `EN` action for English
-browsers.
+`/ko/daily/2026-07-04`. Korean pages emit the inverse `EN` action, which shows
+to every reader whatever their browser language, so a reader who lands on a
+translation can always go back to English.
 
 ## Acceptance Criteria
 
@@ -202,6 +203,7 @@ browsers.
 - Korean pages include `hreflang` links for Korean, English, and `x-default`.
 - English pages with fresh translations expose a compact language action when
   the target locale matches the browser language.
+- Korean pages always show the `EN` action.
 - The sitemap includes localized URLs only when translations are fresh.
 - Translation validation fails on lost URLs, placeholders, model names, or stale
   `source_hash` values.
