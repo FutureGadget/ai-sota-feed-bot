@@ -52,6 +52,12 @@
     if (value) el.textContent = value;
     return el;
   }
+  // The item's page in this page's language when one exists (/api/updates?locale=
+  // sets localized_href); item.href stays the identity for read state.
+  function pageHref(item) {
+    var h = item.localized_href;
+    return typeof h === 'string' && /^\/[a-z]{2}\//.test(h) && h.slice(3) === item.href ? h : item.href;
+  }
   function validHref(href) {
     return typeof href === 'string' && /^\/(daily\/\d{4}-\d{2}-\d{2}|weekly\/\d{4}-W\d{2}|playbook\/(?:\d{4}-\d{2}-\d{2}|lab\/[a-z0-9-]+)|storyline\/[a-z0-9-]+|topic\/[a-z0-9-]+|foundations\/[a-z0-9-]+)$/.test(href);
   }
@@ -87,7 +93,7 @@
     time.title = item.updated_at;
     meta.appendChild(time);
     var link = node('a', 'editorial-title', item.title);
-    link.href = item.href;
+    link.href = pageHref(item);
     if (english) link.lang = 'en';
     link.addEventListener('click', function () { capture('editorial_update_click', { id: item.id, section: item.section, placement: placement, status: itemStatus }); });
     li.append(meta, link);

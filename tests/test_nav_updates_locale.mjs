@@ -113,3 +113,20 @@ test('a translated item, or one with no language data, carries no mark', async (
     assert.equal(rows[0].find((el) => el.textContent === '영문' || el.textContent === 'English').length, 0);
   }
 });
+
+test('on the Korean page a desk link opens the Korean page when the item has one', async () => {
+  const { rows } = await runPage({
+    dictionary: korean,
+    catalog: catalog(
+      item('ko', { localized_href: '/ko/storyline/ko', i18n: { locale: 'ko', translated: true } }),
+      item('en', { i18n: { locale: 'ko', translated: false } }),
+      item('bad', { localized_href: '/ko/storyline/elsewhere' }),
+    ),
+  });
+  const hrefs = Object.fromEntries(rows.map((row) => [titleOf(row).textContent, titleOf(row).href]));
+  assert.deepEqual(hrefs, {
+    'Title ko': '/ko/storyline/ko',
+    'Title en': '/storyline/en',
+    'Title bad': '/storyline/bad',
+  });
+});

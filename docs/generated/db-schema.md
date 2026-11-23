@@ -333,7 +333,9 @@ accumulated ranked pool (calendar ranges):
   `api/feed.js`.
 - `data/i18n/<locale>/updates/titles.json` — per-item translations of the
   Editor's Desk catalog. Shape: `{locale, updated_at, items: {<catalog item id>:
-  {source_hash, translated_at, title, summary, origin{title, summary}}}}`.
+  {source_hash, translated_at, title, summary, origin{title, summary}}},
+  links: {<catalog item id>: "/<locale><href>"}}`. `links` lists the items whose
+  page exists in the locale; the API returns it as `localized_href`.
   `source_hash` is the sha256 of the English `{summary, title}`; `origin` names
   each field's source, `artifact` (a current Korean recap, storyline, topic,
   foundation or playbook artifact) or the translator model. `/api/updates?locale=`

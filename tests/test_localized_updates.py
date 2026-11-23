@@ -167,6 +167,50 @@ class BuildLocalizedUpdatesTest(unittest.TestCase):
             "origin": {"title": translator.model_for("feed"), "summary": translator.model_for("feed")},
         }})
 
+    # -- links to the reader's language ---------------------------------------
+
+    def page(self, relative: str) -> None:
+        path = self.root / "web" / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("<!doctype html>", encoding="utf-8")
+
+    def links(self) -> dict:
+        return json.loads(self.store_path.read_text(encoding="utf-8"))["links"]
+
+    def test_an_item_with_a_korean_page_links_it_and_one_without_does_not(self) -> None:
+        recap = _item("daily", "2026-11-22", "What happened in AI — Nov 22, 2026", "A leak.")
+        english_only = _item("daily", "2026-11-21", "What happened in AI — Nov 21, 2026", "Tools.", day=2)
+        self.catalog = [recap, english_only]
+        self.page("ko/daily/2026-11-22.html")
+        self.page("daily/2026-11-21.html")
+
+        self.run_main()
+
+        self.assertEqual(self.links(), {recap["id"]: "/ko/daily/2026-11-22"})
+
+    def test_an_item_left_in_english_still_links_its_korean_page(self) -> None:
+        item = _item("daily", "2026-11-22", "What happened in AI — Nov 22, 2026", "A leak.")
+        self.catalog = [item]
+        self.page("ko/daily/2026-11-22.html")
+
+        self.run_main(client=EchoClient(fail_when=lambda fields: True))
+
+        self.assertNotIn(item["id"], self.stored())
+        self.assertEqual(self.links(), {item["id"]: "/ko/daily/2026-11-22"})
+
+    def test_a_korean_page_that_appears_later_is_linked_on_the_next_run(self) -> None:
+        item = _item("storylines", "a", "Shared Memory", "One.")
+        self.catalog = [item]
+        self.run_main()
+        self.assertEqual(self.links(), {})
+
+        self.page("ko/storylines/a.html")
+        later = EchoClient()
+        self.run_main(client=later)
+
+        self.assertEqual(later.calls, [])
+        self.assertEqual(self.links(), {item["id"]: "/ko/storylines/a"})
+
     def test_an_item_without_an_english_summary_is_stored_without_one(self) -> None:
         self.catalog = [_item("map", "agent-cost", "Agent token costs run away")]
         self.run_main()
