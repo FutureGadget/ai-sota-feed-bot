@@ -304,5 +304,94 @@ class IsConfiguredTest(unittest.TestCase):
                 self.assertTrue(tr.is_configured())
 
 
+    def test_a_github_actions_job_counts_as_configured(self):
+        with self._env(**GITHUB_OIDC_ENV):
+            self.assertTrue(tr.is_configured())
+
+
+GITHUB_OIDC_ENV = {
+    "ACTIONS_ID_TOKEN_REQUEST_URL": "set-per-test",
+    "ACTIONS_ID_TOKEN_REQUEST_TOKEN": "runner-request-token",
+    "ANTHROPIC_FEDERATION_RULE_ID": "fdrl_test",
+    "ANTHROPIC_ORGANIZATION_ID": "org-test",
+    "ANTHROPIC_SERVICE_ACCOUNT_ID": "svac_test",
+    "ANTHROPIC_WORKSPACE_ID": "wrkspc_test",
+}
+
+
+class GithubWorkloadIdentityTest(unittest.TestCase):
+    """make_client in a GitHub Actions job, against a local fake of GitHub's OIDC
+    endpoint and Anthropic's token exchange, which accepts each identity token
+    once like the real one (a repeated ``jti`` gets HTTP 401)."""
+
+    def setUp(self):
+        import http.server
+        import threading
+
+        self.issued = 0
+        self.assertions: list[str] = []
+        test = self
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *args):
+                pass
+
+            def reply(self, status, payload):
+                body = json.dumps(payload).encode()
+                self.send_response(status)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+            def do_GET(self):
+                assert "audience=https%3A%2F%2Fapi.anthropic.com" in self.path, self.path
+                assert self.headers["Authorization"] == "Bearer runner-request-token"
+                test.issued += 1
+                self.reply(200, {"value": f"jwt-{test.issued}"})
+
+            def do_POST(self):
+                body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+                if self.path.startswith("/v1/oauth/token"):
+                    if body["assertion"] in test.assertions:
+                        return self.reply(401, {"error": {"type": "authentication_error", "message": "Authentication failed"}})
+                    test.assertions.append(body["assertion"])
+                    return self.reply(200, {"access_token": f"at-{len(test.assertions)}", "expires_in": 3600, "token_type": "Bearer"})
+                self.reply(200, {
+                    "id": "msg_1", "type": "message", "role": "assistant", "model": "m",
+                    "content": [{"type": "text", "text": "ok"}], "stop_reason": "end_turn",
+                    "usage": {"input_tokens": 1, "output_tokens": 1},
+                })
+
+        self.server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+        self.base = f"http://localhost:{self.server.server_address[1]}"
+        keep = {k: v for k, v in os.environ.items() if not k.startswith("ANTHROPIC_")}
+        env = {**keep, **GITHUB_OIDC_ENV, "ANTHROPIC_BASE_URL": self.base,
+               "ACTIONS_ID_TOKEN_REQUEST_URL": f"{self.base}/oidc?api-version=2.0"}
+        self._env = patch.dict(os.environ, env, clear=True)
+        self._env.start()
+
+    def tearDown(self):
+        self._env.stop()
+        self.server.shutdown()
+        self.server.server_close()
+
+    def call(self, client):
+        client.messages.create(model="m", max_tokens=1, messages=[{"role": "user", "content": "hi"}])
+
+    def test_each_client_in_a_job_exchanges_its_own_identity_token(self):
+        # Two builders in one job (summaries, then the Korean feed) each build a client.
+        for _ in range(2):
+            self.call(tr.make_client())
+        self.assertEqual(self.assertions, ["jwt-1", "jwt-2"])
+
+    def test_one_client_exchanges_once_for_many_calls(self):
+        client = tr.make_client()
+        for _ in range(3):
+            self.call(client)
+        self.assertEqual(self.assertions, ["jwt-1"])
+
+
 if __name__ == "__main__":
     unittest.main()

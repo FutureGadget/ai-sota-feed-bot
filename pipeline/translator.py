@@ -91,20 +91,69 @@ def model_for(surface: str) -> str:
     return _read_policy()["surfaces"][surface]["model"]
 
 
+GITHUB_OIDC_AUDIENCE = "https://api.anthropic.com"
+
+
+def _has_key() -> bool:
+    return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+
+
+def _on_github_oidc() -> bool:
+    """A GitHub Actions job with ``id-token: write`` and a federation rule set."""
+    return all(os.environ.get(name) for name in (
+        "ACTIONS_ID_TOKEN_REQUEST_URL", "ACTIONS_ID_TOKEN_REQUEST_TOKEN",
+        "ANTHROPIC_FEDERATION_RULE_ID", "ANTHROPIC_ORGANIZATION_ID",
+    ))
+
+
+def github_identity_token() -> str:
+    """A new GitHub Actions OIDC token, requested for each token exchange.
+
+    Anthropic accepts an identity token once: the exchange rejects a repeated
+    ``jti`` with HTTP 401. So each exchange, in each process of a job, needs its
+    own token, and a token file shared by the job's processes lets only the
+    first one through.
+    """
+    import urllib.parse
+    import urllib.request
+
+    url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
+    url += ("&" if "?" in url else "?") + "audience=" + urllib.parse.quote(GITHUB_OIDC_AUDIENCE, safe="")
+    request = urllib.request.Request(
+        url, headers={"Authorization": f"Bearer {os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']}"}
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read())["value"]
+
+
 def make_client():
-    """An Anthropic client. Build one per run and pass it to every call."""
+    """An Anthropic client. Build one per run and pass it to every call.
+
+    In GitHub Actions it authenticates by workload identity with a new OIDC
+    token per exchange (``github_identity_token``). Elsewhere the SDK reads its
+    usual environment: an API key, or an identity token file for local runs.
+    """
     import anthropic
 
-    return anthropic.Anthropic()
+    if _has_key() or not _on_github_oidc():
+        return anthropic.Anthropic()
+    return anthropic.Anthropic(credentials=anthropic.WorkloadIdentityCredentials(
+        identity_token_provider=github_identity_token,
+        federation_rule_id=os.environ["ANTHROPIC_FEDERATION_RULE_ID"],
+        organization_id=os.environ["ANTHROPIC_ORGANIZATION_ID"],
+        service_account_id=os.environ.get("ANTHROPIC_SERVICE_ACCOUNT_ID") or None,
+        workspace_id=os.environ.get("ANTHROPIC_WORKSPACE_ID") or None,
+    ))
 
 
 def is_configured() -> bool:
     """True when the environment carries Anthropic credentials.
 
-    An API key or auth token (local runs), or a workload identity token file
-    that exists (CI, see ``docs/how-to/translation-budget-and-quota.md``).
+    An API key or auth token, a GitHub Actions job that can request OIDC tokens
+    (CI, see ``docs/how-to/translation-budget-and-quota.md``), or a workload
+    identity token file that exists (local runs).
     """
-    if os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"):
+    if _has_key() or _on_github_oidc():
         return True
     token_file = os.environ.get("ANTHROPIC_IDENTITY_TOKEN_FILE")
     if not token_file:

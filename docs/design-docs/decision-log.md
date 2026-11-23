@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-11-23 (Each Claude client in CI requests its own GitHub OIDC token)
+
+- **Decision:** `translator.make_client()` in GitHub Actions authenticates with `WorkloadIdentityCredentials` whose identity-token provider requests a new GitHub OIDC token for every exchange. The workflows drop the step that wrote one token to `/tmp/gha-jwt` and refreshed it every 240 seconds, and `ANTHROPIC_IDENTITY_TOKEN_FILE`.
+- **Context / Problem:** The 2026-11-23 00:01 feed build summarized 22 cards, then both Korean builders failed with `Token exchange failed (HTTP 401)` and translated nothing. Anthropic enforces single use of an identity token's `jti` by default (`check_jti`), and the card summaries had already exchanged the token in the file. Before the summaries, one process per job exchanged it, so the problem never showed.
+- **Rationale:** A token per exchange matches what the exchange requires and removes the background refresher. Turning off `check_jti` on the issuer would weaken replay protection for every workload.
+- **Rollback:** Revert the PR. It brings back the shared token file, and with it the 401 for every Claude caller after the first in a job.
+
 ## 2026-11-23 (Korean pages always link back to English; the desk links Korean pages)
 
 - **Decision:** (1) `site-chrome.js` always shows the language link to the default locale (`EN` on a `/ko/` page). Links to other languages still show only when the browser prefers that language. (2) `build_localized_updates.py` writes a `links` map into the desk store for every catalog item whose page exists under `web/<locale>/`. `/api/updates?locale=` returns it as `localized_href`, and `web/nav-updates.js` links the desk row there. `href` stays the item identity.
