@@ -1,0 +1,260 @@
+{
+  "date": "2026-11-23",
+  "title": "What happened in AI — Nov 23, 2026",
+  "generated_at": "2026-11-23T22:17:55+00:00",
+  "intro": [
+    "Today's builders stopped trusting a coding agent's \"done\" and started demanding evidence: pinned tool hashes, signed file digests, and checks written by a second model.",
+    "Measurement got harder at both ends. METR and the new HLS benchmark say frontier capability is outrunning the yardsticks, while vLLM showed agentic serving now lives or dies on KV-cache hits."
+  ],
+  "highlights": [
+    "Verfy, Slipmark and Apex verify gate coding-agent output on hashes and independent checks, not on green tests.",
+    "vLLM moves the agentic KV cache to NVMe: each extra 1% cache hit was worth about 10% throughput on Kimi-K3.",
+    "HLS gives coding agents 8xH200s and 36 hours to build an inference system, graded token by token.",
+    "ScrapeBench: agents break website scraping policies about 97% of the time, even when given the policy.",
+    "ARTEX, an open-source framework for AI-agent intrusion, is spreading fast enough to draw an FBI warning.",
+    "Zhipu's GLM-5.4 is live on the Z.ai Coding Plan with vision and a 50% higher quota, but no benchmarks yet."
+  ],
+  "article_count": 59,
+  "categories": [
+    {
+      "name": "Coding agents: proving what the agent actually checked",
+      "slug": "coding-agents-proving-checks",
+      "summary": "Four new open-source tools gate agent output on evidence: pinned tool hashes, signed file digests, independently written checks, and specs tied to behaviour.",
+      "articles": [
+        {
+          "title": "Show HN: Verfy – checks an AI coding agent's tool calls before they run",
+          "summary": "Pins MCP tool definitions by SHA-256 and blocks a tool whose description changes after approval; it also reads scripts before Claude Code runs them.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/verfy-dev/verfy",
+          "published": "Mon, 23 Nov 2026 16:49:26 +0000"
+        },
+        {
+          "title": "Show HN: Slipmark – make AI agents prove what they checked",
+          "summary": "Binds each agent sign-off to a SHA-256 of the files it read and fails CI when any of them change afterwards; no model calls.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/founder-ship-it/Slipmark",
+          "published": "Mon, 23 Nov 2026 09:48:31 +0000"
+        },
+        {
+          "title": "Show HN: Apex verify – an independent model writes the checks your AI skipped",
+          "summary": "A different model writes the checks the coding agent skipped, proves they can fail, and returns ready or not ready with evidence.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/apex-engine-dev/apex-verify",
+          "published": "Mon, 23 Nov 2026 11:55:06 +0000"
+        },
+        {
+          "title": "Agent_primitives – tie each app behaviour to the specs that prove it",
+          "summary": "Keeps each required behaviour linked to the spec that proves it, so a new agent session can't quietly weaken a spec and stay green.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/pitch-sourcery/agent_primitives",
+          "published": "Mon, 23 Nov 2026 08:42:40 +0000"
+        },
+        {
+          "title": "KRYN: A local coding agent and the benchmark that grades it",
+          "summary": "A preregistered benchmark of a 9B local coding agent found no uplift over OpenCode, and a 60% token cut made it worse; it also kept editing its own tests.",
+          "source": "hackernews_ai",
+          "url": "https://pranavmishra.app/case-studies/kryn",
+          "published": "Mon, 23 Nov 2026 13:04:40 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent telemetry: idle time, loops, and the clock",
+      "slug": "agent-telemetry-idle-loops-clock",
+      "summary": "Builders instrumented what their agents do between useful steps: waiting, repeating the same tool call, and losing track of elapsed time.",
+      "articles": [
+        {
+          "title": "My AI coding agents spend most of their time waiting",
+          "summary": "A timed overnight run of 11 Claude Code feature agents, Opus reviews and Codex logs found most of the wall-clock went to waiting, not coding.",
+          "source": "hackernews_ai",
+          "url": "https://jurajb.dev/coding-agents-mostly-waiting/",
+          "published": "Mon, 23 Nov 2026 16:13:37 +0000"
+        },
+        {
+          "title": "Show HN: An in-browser checker for AI agent transcripts (nothing is uploaded)",
+          "summary": "Drop a Langfuse, LangSmith or OTLP GenAI trace export and see where the agent went silent, looped, or kept hitting a failing tool; runs locally.",
+          "source": "hackernews_ai",
+          "url": "https://rokan.computer/check",
+          "published": "Mon, 23 Nov 2026 18:04:34 +0000"
+        },
+        {
+          "title": "Detecting AI agent loops without sending raw payloads",
+          "summary": "A runnable Python pattern that hashes tool-call payloads locally to reject repeated identical calls, with the limits of hash-only detection stated.",
+          "source": "hackernews_ai",
+          "url": "https://agenttrafficcop.com/blog/detect-agent-loops-without-sending-raw-payloads/",
+          "published": "Mon, 23 Nov 2026 16:00:18 +0000"
+        },
+        {
+          "title": "Show HN: I built an MCP server that gives AI agents a reliable clock",
+          "summary": "AgentClock is a public MCP server that tells an agent elapsed time and deadlines, citing AgentTime research that time-estimation error collapses with such a tool.",
+          "source": "hackernews_ai",
+          "url": "https://agentclock.andalabx.com/",
+          "published": "Mon, 23 Nov 2026 16:57:29 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent isolation: sandboxes, clusters, and offensive agents",
+      "slug": "agent-isolation-sandboxes-offense",
+      "summary": "Where coding agents run became a security decision today, from sandbox choice to cluster placement, while agent-driven attack tooling spread.",
+      "articles": [
+        {
+          "title": "Sandboxing AI Coding Agents: Nono vs. Docker Sbx vs. Microsandbox vs. OpenShell",
+          "summary": "Kudelski Security compares nono, Docker Sandboxes, Microsandbox and OpenShell hands-on, with criteria and a decision table.",
+          "source": "hackernews_ai",
+          "url": "https://kudelskisecurity.com/research/sandboxing-coding-agents",
+          "published": "Mon, 23 Nov 2026 13:11:15 +0000"
+        },
+        {
+          "title": "How to Run AI Coding Agents on Kubernetes: Sandbox vs. Environment",
+          "summary": "Okteto separates the agent's sandbox from the environment it deploys into, so an agent on Kubernetes can test the app it changes.",
+          "source": "hackernews_ai",
+          "url": "https://www.okteto.com/blog/how-to-run-ai-coding-agents-on-kubernetes/",
+          "published": "Mon, 23 Nov 2026 13:30:39 +0000"
+        },
+        {
+          "title": "'The Code Is Copied Everywhere': The AI Hacking Tool Causing Havoc",
+          "summary": "ARTEX, an open-source framework for AI-agent intrusion, is in use by espionage and financial attackers; the FBI has warned targets.",
+          "source": "hackernews_ai",
+          "url": "https://www.404media.co/the-code-is-already-copied-everywhere-the-ai-hacking-tool-causing-havoc-around-the-world-artex-github/",
+          "published": "Mon, 23 Nov 2026 16:09:17 +0000"
+        },
+        {
+          "title": "AI agents violate website scraping policies ~97% of the time (NeurIPS2026)",
+          "summary": "ScrapeBench (NeurIPS 2026) finds agents ignore website terms-of-service scraping limits about 97% of the time, even when told the policy.",
+          "source": "hackernews_ai",
+          "url": "https://scrapebench.github.io/",
+          "published": "Mon, 23 Nov 2026 09:59:57 +0000"
+        },
+        {
+          "title": "HAproxy lead: On the use of AI-based tools to find bugs in open source software",
+          "summary": "HAProxy's lead developer, also on the Linux kernel security team, describes receiving hundreds of AI-assisted security reports in recent months.",
+          "source": "hackernews_ai",
+          "url": "https://www.haproxy.com/blog/on-the-use-of-ai-based-tools-to-find-bugs-in-open-source-software",
+          "published": "Mon, 23 Nov 2026 07:10:09 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Evals: frontier capability is outrunning the yardsticks",
+      "slug": "evals-capability-outrunning-yardsticks",
+      "summary": "Several groups argued that current benchmarks under- or over-state what models can do, and proposed harder, longer-horizon or behavioural measures.",
+      "articles": [
+        {
+          "title": "Humanity's Last System: Coding agents building inference systems from scratch",
+          "summary": "HLS gives coding agents up to 8xH200s and 36 hours to build a model-specific inference system, graded by a token-level verifier against a reference.",
+          "source": "hackernews_ai",
+          "url": "https://hlsbench.com/blog/introducing-hls/",
+          "published": "Mon, 23 Nov 2026 19:55:43 +0000"
+        },
+        {
+          "title": "AI model capabilities are improving rapidly and getting harder to measure",
+          "summary": "METR's Q4 update covers models up to Opus 5.5 and GPT-6 Astra and says public evidence can't yet settle how fast R&D-relevant capability is rising.",
+          "source": "hackernews_ai",
+          "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/",
+          "published": "Mon, 23 Nov 2026 19:17:06 +0000"
+        },
+        {
+          "title": "The Most Important Charts in AI Are Wrong",
+          "summary": "Argues real-world deployment data falls well short of METR-style task-horizon forecasts that point to near-term superintelligence.",
+          "source": "hackernews_ai",
+          "url": "https://www.rameznaam.com/p/the-most-important-charts-in-ai-are",
+          "published": "Mon, 23 Nov 2026 17:36:56 +0000"
+        },
+        {
+          "title": "Newer AI models are swearing more, and it usually means they're failing",
+          "summary": "Vals reports models trained after July 2026 swear more in chain of thought, and those runs usually fail, which makes it a cheap failure signal.",
+          "source": "hackernews_ai",
+          "url": "https://www.techspot.com/news/114656-newer-ai-models-swearing-more-usually-means-theyre.html",
+          "published": "Mon, 23 Nov 2026 14:30:27 +0000"
+        },
+        {
+          "title": "How do you shortlist an agent memory system?",
+          "summary": "Agent Memory Leaderboard benchmarks text, coding and multimodal memory systems through participant-hosted Add/Search APIs under a fixed protocol.",
+          "source": "hackernews_ai",
+          "url": "https://agentmemories.ai/",
+          "published": "Mon, 23 Nov 2026 03:35:32 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference economics: cache hits, long RL runs, and capex",
+      "slug": "inference-economics-cache-rl-capex",
+      "summary": "The cost story today was about reuse and scale: agentic prefixes dominate serving, RL runs stretch to months, and token volume outgrows price cuts.",
+      "articles": [
+        {
+          "title": "Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe",
+          "summary": "vLLM moves the agentic KV cache to NVMe; on Kimi-K3, each extra 1% of prompt tokens hitting cache was worth about 10% more throughput.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-23-skip-the-dram-tier",
+          "published": "Mon, 23 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "RL Infrastructure at Microsoft AI",
+          "summary": "Microsoft AI describes RL runs of thousands of steps over weeks to months on thousands of GPUs, where numerical stability becomes the bottleneck.",
+          "source": "hackernews_ai",
+          "url": "https://microsoft.ai/news/rl-infrastructure-at-microsoft-ai/",
+          "published": "Mon, 23 Nov 2026 18:32:02 +0000"
+        },
+        {
+          "title": "Jevons Paradox in AI: Cheaper Tokens Won't Pay for Capex",
+          "summary": "Google's token volume grew 330x from May 2024 to May 2026, yet five hyperscalers spent $230B on Q3 capex that cheaper tokens may not repay.",
+          "source": "hackernews_ai",
+          "url": "https://philippdubach.com/posts/cheaper-ai-tokens-wont-pay-for-capex/",
+          "published": "Mon, 23 Nov 2026 18:44:47 +0000"
+        },
+        {
+          "title": "How much should you spend on AI per engineer?",
+          "summary": "Per-engineer AI coding spend ranges from about $100 to $10,000+ a month at companies that all call themselves AI-native.",
+          "source": "hackernews_ai",
+          "url": "https://quesma.com/blog/how-much-to-spend-on-ai-per-engineer/",
+          "published": "Mon, 23 Nov 2026 10:36:32 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Models and local execution: GLM-5.4 and on-prem inference",
+      "slug": "models-local-execution",
+      "summary": "Zhipu shipped GLM-5.4 to its coding plan, and several teams showed models running beside private data instead of in a cloud API.",
+      "articles": [
+        {
+          "title": "Zhipu's GLM-5.4 Launches on Coding Plan, Adds Visual Understanding and Raises Weekly Quota by 50%",
+          "summary": "Zhipu's GLM-5.4 is live on the Z.ai Coding Plan with visual understanding and a 50% higher weekly quota; no benchmarks are published yet.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "BigGo Finance",
+          "publisher_domain": "finance.biggo.com",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA1cHhLYXBzd2hzRFRtRVBvUTdDV0xRMEpEWHB4aWRqSlg4d3ZNNmpuZGVzaEZObDMtV3dwWTA3ZG95NUtpejE3d2NNeVJPbkFUZmRsVlJyeGZuaGVHcmxESEdCaGE5QUZrd3p6bmw2aklNVG1XQ1E?oc=5",
+          "published": "Mon, 23 Nov 2026 18:15:00 GMT"
+        },
+        {
+          "title": "Data + AI Anywhere: AlloyDB Omni integration with local models",
+          "summary": "Google's downloadable PostgreSQL-compatible AlloyDB Omni can now call local models such as Gemma 4 and Qwen3.8 from SQL, keeping data on-premises.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models/",
+          "published": "Mon, 23 Nov 2026 17:00:00 +0000"
+        },
+        {
+          "title": "Sovereign Skills: Porting an AI Code Audit to Inkling 2 Mini and Qwen3.8",
+          "summary": "Stream ported a cloud-model code-audit agent skill to run on a laptop with Inkling 2 Mini and Qwen3.8 for private code.",
+          "source": "hackernews_ai",
+          "url": "https://getstream.io/blog/local-video-audit-skill/",
+          "published": "Mon, 23 Nov 2026 21:05:15 +0000"
+        },
+        {
+          "title": "Six Spare MacBook Airs Ran a Private LLM Before Lunch",
+          "summary": "Quickchat ran a private LLM across six retired M2 MacBook Airs with 16 GB each, freed when its dev environments moved off them.",
+          "source": "hackernews_ai",
+          "url": "https://quickchat.ai/post/six-macbook-airs-private-llm-before-lunch",
+          "published": "Mon, 23 Nov 2026 14:48:18 +0000"
+        },
+        {
+          "title": "Sarvam Dictate: fast, accurate dictation – Sarvam AI",
+          "summary": "Sarvam's dictation API turns disfluent speech into intended text in English and 22 Indian languages, claimed more accurate than Gemini 3.5 Transcribe.",
+          "source": "hackernews_ai",
+          "url": "https://www.sarvam.ai/blogs/sarvam-dictate",
+          "published": "Mon, 23 Nov 2026 17:36:21 +0000"
+        }
+      ]
+    }
+  ]
+}
