@@ -2,146 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. ChittiOS – an OS where the agent is the driver
+## 1. Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-23-skip-the-dram-tier
+- Score: 4.096 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 2. ChittiOS – an OS where the agent is the driver
 - Type: news | Source: hackernews_ai
 - URL: https://chittios.com/
-- Score: 3.698 | Reliability: 1.0
+- Score: 3.574 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Show HN: Ignis – A browser-native LLM and multimodal inference engine
+## 3. GLM-5.4 Arrives on Z.ai's Coding Plan: No Benchmarks Yet
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMia0FVX3lxTE9iNktnU3JGMUdTamh3RlhTN2RacGR2dGVSYnV5Sm9hblVZUFZ5OUxsQmxOMUZHbVRXNXVNUC1rTHhOOEdrVnZkQmFZMkhKcWxrQkp0VjdnNUdtWm91MWoyUUVQNGNMYkFNaVNR?oc=5
+- Score: 3.358 | Reliability: 1.0
+- Why it matters: 
+
+## 4. Show HN: Open-source MCP server to check AI search crawler readiness
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/alicexixi85/geo-seo-mcp-pro
+- Score: 3.216 | Reliability: 1.0
+- Why it matters: 
+
+## 5. Show HN: Ignis – A browser-native LLM and multimodal inference engine
 - Type: news | Source: hackernews_ai
 - URL: https://ignis.ray-d-song.com/
-- Score: 3.125 | Reliability: 1.0
+- Score: 3.014 | Reliability: 1.0
 - Why it matters: 
 
-## 3. How Public Evals Work, Where They Break, and What Should Change
+## 6. How Public Evals Work, Where They Break, and What Should Change
 - Type: news | Source: eugene_yan
 - URL: https://eugeneyan.com/writing/public-evals
-- Score: 2.959 | Reliability: 1.0
+- Score: 2.964 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 4. Show HN: Run Mult AI Agents (Claude, Gemini, etc.) as a team of bees, maids
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/ericwang915/agent-hive
-- Score: 2.911 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Reasoning in Fewer Tokens: Concept-Normalized Multilingual Scratchpads and Reversible Model-Adaptive Reasoning Codes
+## 7. Tasklets: A Unit-Test Benchmark for Language Model Architectures
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.27326v1
-- Score: 2.781 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+- URL: http://arxiv.org/abs/2611.27607v1
+- Score: 2.628 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 6. AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.719 | Reliability: 1.0
-- Why it matters: 
-
-## 7. How OpenAI’s Performance Factory keeps ChatGPT fast
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
-- Score: 2.648 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 8. Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.27376v1
+## 8. Search-RSI: Expanding Search Worlds Along Multimodal Agents' Capability Frontier
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.27780v1
 - Score: 2.606 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- Why it matters: Matches feed focus: agent, eval.
 
-## 9. Patrick Debois on Multiplayer Software Factories | Tessl
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/PzNzUeHpurI
-- Score: 2.554 | Reliability: 0.778
-- Why it matters: Matches feed focus: agent.
+## 9. Non-penetrating World Models
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.27963v1
+- Score: 2.592 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 10. Combatting adversarial distillation
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/combatting-adversarial-distillation
-- Score: 2.416 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Inside the Codex sandbox
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/inside-the-codex-sandbox
-- Score: 2.38 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 12. Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/harness-adapters-at-scale
-- Score: 2.19 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
-
-## 13. Using a "chaos loop" to harden the Claude Docs launch: 60 server errors across billions of requests
+## 10. Using a "chaos loop" to harden the Claude Docs launch: 60 server errors across billions of requests
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/chaos-loop-claude-docs-launch/
-- Score: 2.148 | Reliability: 1.0
+- Score: 2.131 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 14. [AINews] Gemini 4 Neon: GDM's Opus/Sol Contender
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-gemini-4-neon-gdm-s-opus-sol-contender/
-- Score: 1.996 | Reliability: 1.0
-- Why it matters: 
+## 11. RoSci: Exploring Robustness in Science VLMs
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.27750v1
+- Score: 2.503 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 15. Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/inkling2mini
-- Score: 1.978 | Reliability: 1.0
-- Why it matters: 
+## 12. Topology Hub Optimal Transport: Eliminating Long Context Dilution at Flash Speed
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.27951v1
+- Score: 2.411 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 16. Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-20-inkling2-mini
-- Score: 1.77 | Reliability: 1.0
-- Why it matters: 
-
-## 17. Genie 4 is now available
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-is-now-available/
-- Score: 1.636 | Reliability: 1.0
-- Why it matters: 
-
-## 18. claude-code v2.1.330
+## 13. claude-code v2.1.329
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.330
-- Score: 1.373 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.329
+- Score: 1.223 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 19. codex 0.173.0-alpha.2
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.2
-- Score: 1.159 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 20. langgraph==1.2.24
+## 14. langgraph==1.2.24
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.24
-- Score: 1.097 | Reliability: 1.0
+- Score: 1.077 | Reliability: 1.0
 - Why it matters: 
 
-## 21. tencent/Hy4-FP8 released on Hugging Face
+## 15. codex 0.173.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.1
+- Score: 1.072 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 16. tencent/Hy4-base released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy4-FP8
-- Score: 1.03 | Reliability: 1.0
+- URL: https://huggingface.co/tencent/Hy4-base
+- Score: 1.026 | Reliability: 1.0
 - Why it matters: 
 
-## 22. claude-agent-sdk-python v0.2.186
+## 17. claude-agent-sdk-python v0.2.186
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186
-- Score: 0.952 | Reliability: 1.0
+- Score: 0.933 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 23. Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm
+## 18. Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters
 - Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/
-- Score: 0.711 | Reliability: 1.0
+- URL: https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters/
+- Score: 0.699 | Reliability: 1.0
 - Why it matters: 
 
-## 24. vllm v0.34.0rc4
+## 19. vllm v0.34.0rc3
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc4
-- Score: 0.356 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc3
+- Score: 0.35 | Reliability: 1.0
 - Why it matters:
