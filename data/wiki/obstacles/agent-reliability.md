@@ -8,14 +8,14 @@ solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-23
 themes:
   - key: deterministic-boundaries
     title: Deterministic boundaries around the model
     summary: Production teams bound the model with schemas, server-side gates, type checkers, and harness invariants, so enforcement sits outside the model's own decision instead of inside a longer prompt.
   - key: execution-and-identity
     title: Agent identity, durable execution, and spend guards
-    summary: Durable runtimes like Temporal deliver measured completion gains, while agent identity still borrows service-account patterns and cloud billing alerts lag agent-speed spend by about a day.
+    summary: Durable runtimes like Temporal deliver measured completion gains, but public reports show full recovery only 15% of the time, agent identity borrows service-account patterns, and billing alerts lag spend by a day.
   - key: hallucination-containment
     title: Containing hallucination during and after generation
     summary: Hallucination is treated as a containable failure through layered oversight, decoding-time calibration, and calibrated detectors, with evidence that some hallucinations widen useful context rather than mislead.
@@ -48,8 +48,11 @@ Four patterns carry most of the weight:
   lives outside the model's decision.
 - **Durable execution.** Checkpointing and exactly-once runtimes borrowed from
   distributed systems; Brex's move to Temporal took long-run completion from
-  about 96% to 99.9%. Agent identity is the weaker leg: it still borrows
-  workload-identity patterns that assume every replica behaves the same.
+  about 96% to 99.9%. In the wild, recovery is rarer than its features
+  suggest: only 19 of 128 public reports on 50 harnesses describe full
+  recovery, and no harness compensates side effects outside the sandbox.
+  Agent identity is the weaker leg, still borrowing replica-uniform
+  workload-identity patterns.
 - **Layered hallucination control.** Grounded generation, decoding-time
   calibration, calibrated detectors, and abstention, stacked as in the HALO
   architecture. Detection is precise in-domain but transfers poorly across

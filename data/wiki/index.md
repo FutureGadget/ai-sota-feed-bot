@@ -7,12 +7,12 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (41 entries, updated 2026-11-22)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (44 entries, updated 2026-11-23)
   → solutions: agent-sandboxing
   - theme `deterministic-boundaries` — Deterministic boundaries around the model (7)
-  - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (4)
-  - theme `hallucination-containment` — Containing hallucination during and after generation (10)
-  - theme `verifying-the-work` — Proving the work instead of trusting "done" (12)
+  - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (5)
+  - theme `hallucination-containment` — Containing hallucination during and after generation (11)
+  - theme `verifying-the-work` — Proving the work instead of trusting "done" (13)
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (8)
 
 ### memory
@@ -35,40 +35,40 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (35 entries, updated 2026-11-20)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (36 entries, updated 2026-11-23)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (8)
   - theme `calling-reliability` — Making the calling loop reliable (12)
-  - theme `guarding-the-call` — Checking and governing tool calls before they run (6)
+  - theme `guarding-the-call` — Checking and governing tool calls before they run (7)
   - theme `production-runtimes` — Running tool-calling agents in production (5)
 
 ### grounding
-- [grounding](obstacles/grounding.md) — An agent's answer is only as good as what it retrieved — and whether it can prove it (29 entries, updated 2026-11-13)
+- [grounding](obstacles/grounding.md) — An agent's answer is only as good as what it retrieved — and whether it can prove it (30 entries, updated 2026-11-23)
   → solutions: context-compaction, vector-kb
   - theme `retrieval-architecture` — Picking the retrieval architecture: SQL, graph, gateway, or managed service (10)
   - theme `better-retrievers` — Better retrievers and smarter search effort (6)
   - theme `context-budget` — Cutting what retrieval puts into context (4)
-  - theme `adversarial-evidence` — Evidence that misleads without being false (4)
+  - theme `adversarial-evidence` — Evidence that misleads without being false (5)
   - theme `proving-attribution` — Proving the answer is backed by its source (5)
 
 ### evaluation
-- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (126 entries, updated 2026-10-30)
+- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (127 entries, updated 2026-11-23)
   → solutions: agent-benchmarks, llm-as-judge
   - theme `grading-trajectories` — Grading the trajectory, and checking the grader (23)
   - theme `score-validity` — Benchmark scores are noisier and less valid than they look (20)
-  - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (14)
+  - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (15)
   - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (19)
   - theme `domain-benchmarks` — Narrow benchmarks for domains, platforms, and failure modes (21)
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (29)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (52 entries, updated 2026-11-22)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (55 entries, updated 2026-11-23)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
-  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (14)
-  - theme `production-evidence` — Production deployments and what they report (14)
+  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (15)
+  - theme `production-evidence` — Production deployments and what they report (15)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (6)
-  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (13)
+  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (14)
   - theme `shared-context` — What each agent gets to see (5)
 
 ### cost
@@ -86,14 +86,14 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (6)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (61 entries, updated 2026-11-21)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (63 entries, updated 2026-11-23)
   → solutions: context-compaction, speculative-decoding
   - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (11)
-  - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (15)
+  - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (16)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (12)
   - theme `day-0-support` — Day-0 serving for new models and hardware (11)
   - theme `less-work-per-step` — Less work per step: small models, shorter prompts, faster drafting (6)
-  - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (6)
+  - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (7)
 
 ### observability
 - [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did (27 entries, updated 2026-11-19)
@@ -105,10 +105,10 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (72 entries, updated 2026-11-21)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (73 entries, updated 2026-11-23)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (13)
-  - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (14)
+  - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (15)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (13)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (15)
   - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (8)
@@ -131,41 +131,41 @@ Schema: `config/wiki_schema.md`.
   - theme `drift-tooling` — Tools to pin, test, and replay against drift (7)
 
 ## Solutions
-- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (61 entries, updated 2026-11-21)
+- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (63 entries, updated 2026-11-23)
   - theme `trusting-the-score` — What a score measures: model, harness, or noise (16)
-  - theme `own-workload` — Benchmarking on your own tools and real work (11)
+  - theme `own-workload` — Benchmarking on your own tools and real work (12)
   - theme `domain-suites` — Domain-specific suites mined from real work (15)
-  - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (9)
+  - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (10)
   - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (10)
-- [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (27 entries, updated 2026-11-20)
+- [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (28 entries, updated 2026-11-23)
   - theme `code-driven` — Coordination written as code, not tool calls (6)
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (6)
-  - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (8)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (81 entries, updated 2026-11-22)
+  - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (9)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (83 entries, updated 2026-11-23)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (12)
   - theme `permission-policy` — Scoping what the agent may do (13)
-  - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (14)
+  - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (15)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (15)
-  - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (15)
+  - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (16)
   - theme `guardrails-and-verification` — Guardrails, red-teaming, and checks on agent output (12)
 - [agent-tracing](solutions/agent-tracing.md) — Tracing and trace analysis for agent runs (15 entries, updated 2026-11-20)
   - theme `capture` — Capturing the run: zero-config SDKs, platform spans, new modalities (4)
   - theme `storage` — Storing and searching traces at fleet scale (4)
   - theme `diagnosis` — Reading and diagnosing traces (7)
-- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (21 entries, updated 2026-11-21)
+- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (22 entries, updated 2026-11-23)
   - theme `curating-the-working-set` — Curating what stays in context (11)
   - theme `compaction-safety` — The compactor as a safety surface (4)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (5)
-  - theme `compressed-serving` — Buying back accuracy lost to compression (1)
+  - theme `compressed-serving` — Buying back accuracy lost to compression (2)
 - [cost-controls](solutions/cost-controls.md) — Cost controls: budgets, metering, and per-task attribution (20 entries, updated 2026-11-19)
   - theme `vendor-spend-controls` — Vendor consoles add analytics, entitlements, and spend caps (6)
   - theme `attribution` — Attributing spend to the PR, the agent, and the anomaly (4)
   - theme `hard-caps` — Hard caps that run before the call, not after the bill (5)
   - theme `caching-and-filtering` — Caching and pre-filtering cut fixed overhead (5)
-- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (27 entries, updated 2026-11-21)
+- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (28 entries, updated 2026-11-23)
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
-  - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (7)
+  - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (8)
   - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (13)
   - theme `scoring-design` — The rubric and scale are part of the judge (4)
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (38 entries, updated 2026-11-18)

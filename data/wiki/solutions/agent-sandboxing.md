@@ -6,7 +6,7 @@ status: active
 obstacles: [prompt-injection]
 related_storylines: []
 evidence: []
-updated: 2026-11-20
+updated: 2026-11-23
 themes:
   - key: credential-boundary
     title: Keeping secrets and authority out of the sandbox
@@ -22,7 +22,7 @@ themes:
     summary: MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.
   - key: egress-and-escapes
     title: "Real escapes: egress, allowlists, and harness bugs"
-    summary: Every reported escape went through open egress, a vulnerable allowlisted host, an exposed endpoint, or a spoofable trust check, never a broken isolation primitive.
+    summary: Every reported escape went through open egress, a vulnerable allowlisted host, an exposed endpoint, a spoofable trust check, or a shared inference server, never a broken isolation primitive.
   - key: guardrails-and-verification
     title: Guardrails, red-teaming, and checks on agent output
     summary: Guardrail models can be attacked themselves, so teams add static analysis, automated remediation, continuous red-teaming, and workload inventory around the sandbox.
@@ -37,7 +37,9 @@ that gets through.
 
 ## State of the art
 **Isolation is solved well enough; the boundary around it is not.** MicroVMs,
-gVisor, bubblewrap, and Seatbelt held in every reported incident. The escapes
+gVisor, bubblewrap, and Seatbelt held in every reported incident, though two
+sandboxed models sharing one vLLM server can still signal through its prefix
+cache and batch sizing, so shared serving is a boundary too. The escapes
 went through open DNS/HTTPS egress, a vulnerable package proxy on the
 allowlist, a customer's unauthenticated sandbox endpoint, a spoofable Host
 header in a harness, or an eval prompt that falsely claimed "no internet".
