@@ -94,6 +94,23 @@
   "url": "http://arxiv.org/abs/2611.08905v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "00d52199bef25f9e": {
+  "content_excerpt": "AI evaluations help shape which systems people build, adopt, and trust. An evaluation gives a system tasks, checks its answers or actions, and produces a score. Building and maintaining a useful evaluation therefore takes real work: defining tasks that reflect domain expertise, scoring them reliably, and checking that the results support the claims made. When methods, code, and data stay private, that work is harder for others to scrutinize or build on. Open source offers a means to build stronger, more frequently updated, and more comparable evaluations and the infrastructure around them. Existing tasks, environments, and tools give builders a starting point, so their effort can go to domain expertise and validation. Sharing how an evaluation was built, including what went wrong, lets others find errors, improve it, and reuse it. The Hugging Face hub is the home for AI evaluation: we host around 3500 eval leaderboards and have seen about a 16X growth in eval datasets on the hub in the past year , to about 17000 datasets. In recent months, we have also incorporated support for agentic abstractions that are relevant to evaluation. For example, Traces that store an agent’s work in an easily reviewable and sharable way; Benchmarks that highlight datasets used to evaluate models with leaderboards; and Environments that show datasets used as agentic RL or evaluation environments. In the research community, AI evaluation terminology is notoriously inconsistent . The glossary at the",
+  "first_seen": "2026-11-23T14:05:30.100026+00:00",
+  "id": "400545bcdedfe7b9",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-23T00:00:00+00:00",
+  "sid": "00d52199bef25f9e",
+  "source": "huggingface_blog",
+  "summary_1line": "A Hugging Face blog post argues that open, shareable AI evaluations are easier to scrutinize and reuse, and describes how the hub hosts about 3,500 eval leaderboards and roughly 17,000 eval datasets.",
+  "title": "How to build and maintain an agentic evaluation",
+  "type": "research",
+  "url": "https://huggingface.co/blog/agentic-evals",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "011b27afc6a841bf": {
   "content_excerpt": "NVIDIA’s Ian Buck kicked off the company’s week at SC26 in Chicago on Monday with new tools for AI agents, software that can plan experiments, run code and check results on researchers’ own systems. In NVIDIA’s special address, Buck announced Nemotron for Science , the Rubin HPC GPU and an expanded Vera CPU platform for high-performance computing . He also detailed a new collaboration in quantum computing with IBM and Fermi National Accelerator Laboratory . “The frontier of computing and the new scientific stack is going to be simulation, as always, but combined with AI and the future of quantum,” said Buck, vice president of hyperscale and high-performance computing at NVIDIA. Buck opened the talk by looking back to his first public talk on CUDA, at an SC06 tutorial in Tampa, Florida, 20 years ago. NVIDIA now offers more than 1,000 CUDA-X libraries , he said. “[Agents] have been just a game changer in how we interface with our supercomputers, with our devices, our instruments and how we can do the research,” Buck said. Simulation remains the foundation of scientific computing, “which will always be on the top,” Buck said, with AI, quantum and now agents working alongside it. Nemotron for Science combines the Nemotron 3.5 Super VL open model with a new open chemistry dataset and post-training recipes for life sciences and chemistry, Buck explained. Researchers can run it locally on a DGX Spark, a workstation or their own supercomputer. At Argonne National Laboratory, Buck sai",
   "first_seen": "2026-11-17T17:07:12.026587+00:00",
@@ -16223,7 +16240,7 @@
   "sid": "8f7a055a1b360233",
   "source": "claude_code_releases",
   "summary": "What's changed Added a confirmation before /install-github-app changes a repository Added claude mcp add-json - to read the server's JSON from stdin, so tokens can stay off the command line; not available inside a Claude Code session Added a line when a resumed session's earlier messages can't be loaded Added a list in /status of broken agent, skill, command and output style files, keybinding errors, an unavailable sandbox, ignored permission settings and hook matchers that never match Added a note in /config when other settings override a row Added x-claude-code-managed-settings-checksum to the gateway hint headers; sent where managed settings set CLAUDE_CODE_GATEWAY_HINT_HEADERS=1 , including where they already do Added support for naming a session's billing group with the attributionProject setting, for Claude apps gateways that set admin.billing_group_tag Added /tui classic as the name for the non-fullscreen renderer; /tui default still works Remote Control: Fixed stopping the server in worktree mode deleting a running session's git-ignored files, such as .env Fixed self-hosted runners with --use-anthropic-git-proxy deleting a non-empty directory named by GIT_CONFIG_GLOBAL at startup: the runner now keeps it, ignores the variable and warns Fixed claude mcp add and claude mcp remove with project scope deleting other top-level keys from .mcp.json , such as $schema or another tool's servers Fixed /export overwriting an existing file without asking: the dialog now asks, and /",
-  "summary_1line": "Added a confirmation before /install-github-app changes a repository · Added claude mcp add-json - to read the server's JSON from stdin, so tokens can stay off the command line; not available inside a Claude Code sess...",
+  "summary_1line": "Claude Code v2.1.327 release notes list new confirmations, status checks and settings, plus fixes for file deletion in MCP and Remote Control, export overwrites, and session resume problems.",
   "title": "claude-code v2.1.327",
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.327",
@@ -17033,6 +17050,22 @@
   "title": "XYBench: Helping with the problem behind the question",
   "type": "research",
   "url": "https://huggingface.co/blog/allenai/xybench"
+ },
+ "96ee621aa0ebe1e9": {
+  "content_excerpt": "In this blog post, we compare four major sandboxing tools for AI coding agents in a hands-on approach: nono, Docker Sandboxes, Microsandbox and OpenShell. We describe what makes a good sandbox and our evaluation criteria. We provide a comparison table at the end that hopefully helps you decide which tool is right for you. Disclaimer: we are not affiliated with any of the tools discussed in this article. According to JetBrains' Developer Ecosystem Survey 2026 , 90% of professional developers used AI coding agents at work at least weekly between May and July, and 68% used them daily. Meanwhile, Stack Overflow's 2026 survey found that only 7% of respondents trust AI output for important work decisions. What this shows is that AI coding agents are widely used, but at the same time, few of their users trust them for important decisions. Not only shouldn't they be trusted for important decisions because they can hallucinate or take unwanted actions by mistake, but they also have inherent vulnerabilities that attackers can exploit to manipulate their behavior and force them to take malicious actions. Indeed, prompt injection is still an unsolved problem. The 2025 CaMeL paper describes a defense mechanism to solve it but it's impractical to implement in practice. Meanwhile, Anthropic reports that prompt injection attack success rate (ASR) against Fable 5, Opus 5 and Sonnet 5 is as low as 0.0% and therefore made Auto mode the default mechanism to automatically classify commands to be ",
+  "first_seen": "2026-11-23T14:05:30.100026+00:00",
+  "id": "b7d18db0ac5a3061",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T13:11:15+00:00",
+  "sid": "96ee621aa0ebe1e9",
+  "source": "hackernews_ai",
+  "summary_1line": "A hands-on blog post comparing four sandboxing tools for AI coding agents (nono, Docker Sandboxes, Microsandbox and OpenShell), citing survey data on agent use and trust and prompt injection risks.",
+  "title": "Sandboxing AI Coding Agents: Nono vs. Docker Sbx vs. Microsandbox vs. OpenShell",
+  "type": "news",
+  "url": "https://kudelskisecurity.com/research/sandboxing-coding-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "96ef71c73b9aef6d": {
   "content_excerpt": "When our evals became too expensive and slow to run, we rearchitected our single investigation agent into a team of ~40 loosely coupled agents. While there are some tradeoffs, it’s made evals run 5x faster for cents on the dollar, and we can experiment much more rapidly to evolve our product. We’ve been building Cleric for about three years now, starting with a single agent, initially based on LangGraph, and later switching to Claude Agent SDK. Cleric’s investigation agent takes a system alert (service down, latency up, memory/disk pressure, and so on), plans an investigation, and queries observability systems and Kubernetes for logs, metrics, traces, pod statuses, etc. It then generates hypotheses, collects findings, and repeats this in a loop, each time going deeper, until it finds a root cause with evidence pointing back to the source systems. In the last month, our agent has evolved in some interesting ways—the core difference being that it’s not one agent anymore. This post gets into why, what it unlocked, and how we’re thinking about the future. Evaluations are the engine of agent improvement loop, and so from the early start of Cleric, we invested heavily in this area. Our evals were end-to-end investigations. We’d simulate a system failure with a known root cause, have our agent run a full investigation on it, and check whether the agent found that expected root cause. Each run cost around $1.5 and took about four minutes to complete. The full suite cost $200 and took",
@@ -19599,6 +19632,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18417v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "abfca96c86b5b090": {
+  "content_excerpt": "Agents that optimize your code like an algorithm engineer: a falsifiable hypothesis before every experiment, correctness checked after every change, one reviewable patch per accepted change, and a PDF report of the whole session. A skill for Claude Code and Codex, from the Algorithm Engineering Group at Heidelberg University. Algorithm Engineering is a cycle of design, analysis, implementation and experiment, driven by falsifiable hypotheses. AAE hands this cycle to an autonomous agent. During setup you agree with the agent on the benchmark, the metric, the correctness assertions and the budget; then it runs on its own. A falsifiable hypothesis: \"changing X will improve the metric by roughly Z, because ...\" Predict direction and size of the effect before measuring, from profiling and analysis. Run the benchmark; keep the change only if it is better and still correct, otherwise revert. From the report of the KaHIP kaffpa session: 122 experiments, 69 hypotheses, 41 patches, 3.9x faster in total. In Codex, install the skill with scripts/install_codex_skill.py and call it with $aae ; any other agent can follow AAE.md . To try it first, run the 10-minute quick-start example : a slow but correct shortest-path program with a benchmark and a correctness check. Sessions share what they learned: the knowledge base collects optimization techniques and experiment results, and agents read it before they start. Contributions from your own sessions are welcome. David A. Bader, Adil Chhabra,",
+  "first_seen": "2026-11-23T14:05:30.100026+00:00",
+  "id": "e358ed79047001e9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T14:02:15+00:00",
+  "sid": "abfca96c86b5b090",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+  "title": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+  "type": "news",
+  "url": "https://chszlab.github.io/AgenticAlgorithmEngineering",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ac365dad75e58220": {
   "content_excerpt": "Find how your LLM agent actually fails — free error-analysis tool + 100-trace case study EvalSift Lite is a free, MIT-licensed Python tool (3.10+, no dependencies, no API key) for error analysis on LLM agent traces: it validates a traces.jsonl file, grades each trace with deterministic code checks, and writes a Markdown/HTML report of what failed. It comes with a case study: 100 traces from a tool-using support agent, labeled by hand. Get the full Solo kit (100 labeled traces + data): https://merletownley.gumroad.com/l/fjppx The demo grades 8 traces from a fake support agent with 4 planted failures and catches all 4. A support agent for a fictional outdoor store, with order, stock and policy tools. One labeler, 88 pass and 12 fail. Full breakdown: case-study/FAILURES.md The 100 questions are in case-study/questions.jsonl , so you can run them on your own agent and see whether it makes the same mistakes. One JSON object per line: trace_id , input , output , optional steps[] (each with type set to llm or tool , plus name , args , result , error ) and optional metadata{} . Then: EvalSift adds agent skills for Claude Code, Codex and Cursor that walk you through error analysis, building a failure taxonomy, writing an LLM judge, checking that judge against human labels, and gating regressions in CI. It also includes the full case-study data: all 100 traces, the labels with notes, and a note on how the labels were made. Find how your LLM agent actually fails — free error-analysis to",
@@ -25316,6 +25365,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12777v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "de374040446e8fb1": {
+  "first_seen": "2026-11-23T14:05:30.100026+00:00",
+  "id": "0e2f509ce4076c85",
+  "published": "2026-11-23T06:04:04+00:00",
+  "sid": "de374040446e8fb1",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 0.",
+  "summary_1line": "Tencent has posted the WeMM-Ecom-0.8B-GPTQ model weights on Hugging Face for image-text-to-text tasks, with 2 likes and no recorded downloads so far.",
+  "title": "tencent/WeMM-Ecom-0.8B-GPTQ released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/WeMM-Ecom-0.8B-GPTQ"
  },
  "de721704d1329b66": {
   "first_seen": "2026-11-19T16:06:21.033634+00:00",

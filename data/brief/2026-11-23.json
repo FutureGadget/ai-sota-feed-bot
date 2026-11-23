@@ -1,34 +1,35 @@
 {
  "date": "2026-11-23",
  "diagnostics": {
-  "admitted": 4,
-  "candidates": 497,
+  "admitted": 2,
+  "candidates": 508,
   "duplicate_url": 6,
-  "items": 50,
-  "keeps": 261,
-  "new": 4,
-  "off_topic": 64,
+  "items": 52,
+  "keeps": 266,
+  "new": 2,
+  "off_topic": 65,
   "prior_story": 72,
   "rejected_gate": {
-   "insufficient_evidence": 19,
+   "insufficient_evidence": 20,
    "judge_drop": 21,
-   "off_topic": 64,
-   "score_low": 88
+   "off_topic": 65,
+   "score_low": 91
   },
   "rejected_quota": {
    "role_quota": 94,
-   "source_quota": 18
+   "source_quota": 21
   },
-  "releases": 44,
-  "reviews": 109,
+  "releases": 45,
+  "reviews": 113,
   "role_counts": {
-   "community": 4
+   "community": 1,
+   "first_party": 1
   },
   "run_candidates": 140,
-  "stale_story": 65,
-  "stories": 305,
-  "unjudged": 23,
-  "updated": 4,
+  "stale_story": 66,
+  "stories": 311,
+  "unjudged": 24,
+  "updated": 8,
   "written": true
  },
  "items": {
@@ -384,6 +385,57 @@
    "v2_slot": "community_signal",
    "why_it_matters": "Matches feed focus: agent."
   },
+  "story|title:ai agents violate website scraping policies 97 of the time neurips2026": {
+   "admission_rank": 51,
+   "admitted_at": "2026-11-23T14:07:42.992755+00:00",
+   "also_covered": [],
+   "content_excerpt": "1 Pivotal Research, 2 University of Bath, 3 National University Philippines, 4 University of Notre Dame, 5 Hebrew University of Jerusalem ScrapeBench tests whether AI agents follow website scraping policies. The evaluation instructs agents to scrape landing pages and examines how their actions change in response to different legal instructions and policy resources provided in the prompt. The evaluation focuses on websites' terms of service Terms of service (ToS) are a legally binding agreement between a website or app operator and its visitors, governing permitted use of the service. , which can prohibit or restrict scraping activities, and robots.txt A robots.txt file contains instructions for bots indicating which web pages they can and cannot access. Robots.txt files are particularly important for web crawlers from search engines such as Google. files, which stipulate instructions for automated crawlers. Explicitly Prohibited (EP) websites explicitly prohibit scraping in their terms of service or robots.txt. Not Explicitly Prohibited (NEP) websites have no explicit prohibition in either source. The benchmark uses 1,895 high-traffic, English-language websites accessible from the United States, drawn from the February 2026 Chrome Top Million Websites (CrUX) list . The sample contains 1,626 EP websites and 269 NEP websites . In this evaluation, Compliance means not scraping an EP website, while Over-refusal means not scraping an NEP website. Choose a prompt to compare the agents. Switch between compliance and over-refusal to see both measures. We evaluate newer models with ScrapeBench to report progress on compliance with website scraping policies for AI agents not covered in the original paper. Under P1, agents receive only the instruction to scrape the landing page. Compliance ranges from 0% to 11% across the six agents. Under P3, Claude Opus 4.6 exhibits 40.1% compliance and 16.4% over-refusal. Under P5, compliance was 83.6% and over-refusal was 8.2%. On EP websites under P4, GPT-5.2 requested robots.txt in 100% of trials and terms of service in 82.8%. Its compliance rate was 14.2%. We developed a human baseline for our evaluation by studying the responses of 180 human participants who were tasked with making scraping decisions on 15 randomly sampled websites under P1, P4, and P7 conditions. Imperial, J. M., Slate, D., & Kolt, N. (2026). ScrapeBench: Evaluating legal compliance of AI agents in website scraping. In Advances in neural information processi",
+   "first_seen": "2026-11-23T14:07:42.992755+00:00",
+   "freshness_at_admission": 0.9972,
+   "id": "08e4f5520c88336e",
+   "image_url": null,
+   "judge_category": "evaluation_reliability",
+   "judge_category_confidence": 0.9,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-23T10:08:24.582359+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.86,
+   "judge_signals": {
+    "corporate_marketing": 0.08,
+    "keep": 0.86,
+    "platform_relevant": 0.95,
+    "release_lane": 0.05
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.743,
+   "published": "Mon, 23 Nov 2026 09:59:57 +0000",
+   "rank_at_first_seen": 51,
+   "release_tier": null,
+   "score_at_first_seen": 1.3704,
+   "seen_count": 2,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "050b78278f4e291e",
+   "story_key": "story|title:ai agents violate website scraping policies 97 of the time neurips2026",
+   "summary_1line": "ScrapeBench tests whether AI agents respect website scraping policies in terms of service and robots.txt across 1,895 high-traffic English-language sites, reporting compliance and over-refusal under different prompts.",
+   "time_decay_factor": 0.998,
+   "title": "AI agents violate website scraping policies ~97% of the time (NeurIPS2026)",
+   "type": "news",
+   "url": "https://scrapebench.github.io/",
+   "utility": 1.3704,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:ai privacy cloak": {
    "admission_rank": 5,
    "admitted_at": "2026-11-23T01:09:18.523952+00:00",
@@ -456,7 +508,7 @@
     "release_lane": 0.08
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "agent_engineering",
    "matched_topics": [],
    "prefilter_score": 1.928,
@@ -464,7 +516,7 @@
    "rank_at_first_seen": 50,
    "release_tier": null,
    "score_at_first_seen": 1.4084,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -608,7 +660,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T05:07:55.250986+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent",
@@ -619,7 +671,7 @@
    "rank_at_first_seen": 23,
    "release_tier": null,
    "score_at_first_seen": 1.2523,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -862,7 +914,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T12:06:30.186329+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.581,
@@ -870,7 +922,7 @@
    "rank_at_first_seen": 26,
    "release_tier": null,
    "score_at_first_seen": 1.0829,
-   "seen_count": 9,
+   "seen_count": 10,
    "slot": "research_watch",
    "source": "arxiv_cs_cl",
    "source_count": 1,
@@ -1297,6 +1349,58 @@
    "v2_slot": "community_signal",
    "why_it_matters": "Matches feed focus: agent."
   },
+  "story|title:how to build and maintain an agentic evaluation": {
+   "admission_rank": 52,
+   "admitted_at": "2026-11-23T14:07:42.992755+00:00",
+   "also_covered": [],
+   "content_excerpt": "AI evaluations help shape which systems people build, adopt, and trust. An evaluation gives a system tasks, checks its answers or actions, and produces a score. Building and maintaining a useful evaluation therefore takes real work: defining tasks that reflect domain expertise, scoring them reliably, and checking that the results support the claims made. When methods, code, and data stay private, that work is harder for others to scrutinize or build on. Open source offers a means to build stronger, more frequently updated, and more comparable evaluations and the infrastructure around them. Existing tasks, environments, and tools give builders a starting point, so their effort can go to domain expertise and validation. Sharing how an evaluation was built, including what went wrong, lets others find errors, improve it, and reuse it. The Hugging Face hub is the home for AI evaluation: we host around 3500 eval leaderboards and have seen about a 16X growth in eval datasets on the hub in the past year , to about 17000 datasets. In recent months, we have also incorporated support for agentic abstractions that are relevant to evaluation. For example, Traces that store an agent’s work in an easily reviewable and sharable way; Benchmarks that highlight datasets used to evaluate models with leaderboards; and Environments that show datasets used as agentic RL or evaluation environments. In the research community, AI evaluation terminology is notoriously inconsistent . The glossary at the end defines each term we use and notes the other names you may come across. AI evaluation design has evolved in three forms as language models have become more capable and able to perform more complex work: question answer, agentic, and teams or swarms. Question-answer benchmarks such as MMLU (2020) and GPQA (2023) measure knowledge and reasoning through the answers models produce. As models became capable of planning and using tools, agentic benchmarks such as SWE-bench and WebArena expanded the scope to resolving software issues and completing tasks on websites. These tasks require evaluation setups that account for the environment in which the system operates and the changes it makes. Lately, research on multi-agent systems has started to add another dimension: how agents coordinate and what they accomplish together. This includes decentralized swarms , teams managed by an orchestrator , and specialized agents collaborating on scientific work . Figure 1 shows a rough timeline of th",
+   "first_seen": "2026-11-23T14:07:42.992755+00:00",
+   "freshness_at_admission": 0.7618,
+   "id": "400545bcdedfe7b9",
+   "image_url": null,
+   "judge_category": "evaluation_reliability",
+   "judge_category_confidence": 0.97,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-23T14:07:18.338681+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.6,
+   "judge_signals": {
+    "corporate_marketing": 0.26,
+    "keep": 0.6,
+    "platform_relevant": 0.98,
+    "release_lane": 0.06
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
+   "llm_category": "research",
+   "matched_topics": [
+    "agentic",
+    "evaluation"
+   ],
+   "prefilter_score": 1.882,
+   "published": "Mon, 23 Nov 2026 00:00:00 GMT",
+   "rank_at_first_seen": 52,
+   "release_tier": null,
+   "score_at_first_seen": 0.9864,
+   "seen_count": 1,
+   "slot": "research_watch",
+   "source": "huggingface_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": -0.064,
+   "story_cluster_id": "365b46efdaf034a0",
+   "story_key": "story|title:how to build and maintain an agentic evaluation",
+   "summary_1line": "A Hugging Face blog post argues that open, shareable AI evaluations are easier to scrutinize and reuse, and describes how the hub hosts about 3,500 eval leaderboards and roughly 17,000 eval datasets.",
+   "time_decay_factor": 0.917,
+   "title": "How to build and maintain an agentic evaluation",
+   "type": "research",
+   "url": "https://huggingface.co/blog/agentic-evals",
+   "utility": 0.9864,
+   "utility_basis": "judge",
+   "v2_slot": "research_watch",
+   "why_it_matters": "Matches feed focus: agentic, evaluation."
+  },
   "story|title:ignis a browser native llm and multimodal inference engine": {
    "admission_rank": 35,
    "admitted_at": "2026-11-23T07:05:46.900619+00:00",
@@ -1472,7 +1576,7 @@
     "release_lane": 0.12
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1482,7 +1586,7 @@
    "rank_at_first_seen": 48,
    "release_tier": null,
    "score_at_first_seen": 1.4753,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -1876,7 +1980,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -1886,7 +1990,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 1.3885,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "practitioner_analysis",
    "source": "vllm_blog",
    "source_count": 1,
@@ -1978,7 +2082,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T10:08:49.854025+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "research",
    "matched_topics": [
     "evaluation"
@@ -1988,7 +2092,7 @@
    "rank_at_first_seen": 25,
    "release_tier": null,
    "score_at_first_seen": 1.1451,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -2080,7 +2184,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.581,
@@ -2088,7 +2192,7 @@
    "rank_at_first_seen": 28,
    "release_tier": null,
    "score_at_first_seen": 0.6769,
-   "seen_count": 10,
+   "seen_count": 11,
    "slot": "research_watch",
    "source": "arxiv_cs_cl",
    "source_count": 1,
@@ -2328,7 +2432,7 @@
     "release_lane": 0.88
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-23T13:07:38.789977+00:00",
+   "last_seen": "2026-11-23T14:07:42.992755+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.898,
@@ -2336,7 +2440,7 @@
    "rank_at_first_seen": 45,
    "release_tier": "major",
    "score_at_first_seen": 1.8721,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "open_weight_releases",
    "source": "hf_tencent_hunyuan_releases",
    "source_count": 1,
@@ -2558,5 +2662,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-23T13:07:38.789977+00:00"
+ "updated_at": "2026-11-23T14:07:42.992755+00:00"
 }
