@@ -646,7 +646,8 @@
   "published": "2026-11-23T06:04:19+00:00",
   "sid": "05d297a0e8af0fb9",
   "source": "hf_tencent_hunyuan_releases",
-  "summary_1line": "Tencent has posted the WeMM-Ecom-2B-GPTQ model weights on Hugging Face for image-text-to-text tasks, with 1 like and no recorded downloads so far.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 0.",
+  "summary_1line": "Tencent has released the WeMM-Ecom-2B-GPTQ model weights on Hugging Face for image-text-to-text tasks, and the listing shows one like and no recorded downloads so far.",
   "title": "tencent/WeMM-Ecom-2B-GPTQ released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-2B-GPTQ"
@@ -1703,6 +1704,22 @@
   "url": "http://arxiv.org/abs/2611.09364v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "0ee7c242dcdd5bf5": {
+  "first_seen": "2026-11-23T13:05:31.066038+00:00",
+  "id": "8e057464d2089570",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-20T16:38:30+00:00",
+  "sid": "0ee7c242dcdd5bf5",
+  "source": "arxiv_cs_lg",
+  "summary": "Early deep learning models attempted to simulate visual perception using a neural hierarchy that alternated between two types of layer: one modelled on cortical simple cells (that was designed to increase selectivity), and one modelled on cortical complex cells (that aimed to increase tolerance). We show that such a neural network (NN) architecture, when implemented with novel components that are better able to learn selective and tolerant representations, is capable of accurate and robust image classification and improved alignment between the behaviour of the model and the perceptual abilities of humans. Firstly, the proposed models are shallow, fewer than ten layer-pairs, which is more consistent with the rapid feedforward object categorisation performed by the biological visual system. Secondly, they are far less prone to producing classification predictions with high confidence for samples from unknown classes or for image consisting of pure noise, and hence, like humans are not easily fooled into perceiving objects that are not present in the image. Thirdly, for the proposed NNs adversarial samples cause predictions with low confidence, enabling them to be accurately identified. In contrast to humans, our networks still do not correctly classify adversarial samples. However, the behaviour of our networks is a significant step towards human-like behaviour compared to standard DNNs that produce highly confident, but incorrect, classification predictions for adversarial sa",
+  "summary_1line": "Proposes shallow neural networks alternating simple-cell-like and complex-cell-like layers that give low confidence on unknown and adversarial inputs and remain competitive on standard classification benchmarks.",
+  "title": "Redesigning Neural Networks to Not be Confidently Wrong even to Strong Adversarial Attacks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27811v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0eeb85033b17e767": {
   "first_seen": "2026-11-13T06:03:51.634232+00:00",
   "id": "be87b585c00d7835",
@@ -2186,7 +2203,7 @@
   "published": "2026-11-23T06:05:01+00:00",
   "sid": "137868a115bd3a29",
   "source": "hf_tencent_hunyuan_releases",
-  "summary_1line": "Tencent has posted the WeMM-Ecom-35B-A3B-GPTQ model weights on Hugging Face for image-text-to-text tasks, with 1 like and 0 downloads recorded so far.",
+  "summary_1line": "Tencent has published the WeMM-Ecom-35B-A3B-GPTQ model weights on Hugging Face for image-text-to-text tasks; the listing shows 1 like and 0 downloads so far.",
   "title": "tencent/WeMM-Ecom-35B-A3B-GPTQ released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-35B-A3B-GPTQ"
@@ -3704,6 +3721,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26491v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "20b17c04ceb14bf6": {
+  "content_excerpt": "Catch AI code changes that pass your tests but are wrong. A different model writes the missing checks, proves they can fail, and answers ready / not ready with evidence. CLI, Claude Code and Gemini CLI hooks, GitHub Action. AI coding agents say \"done\" when the tests pass. But the tests only check what somebody wrote down. Apex verify takes the change an AI made and the task you gave it, has a different AI write the missing checks, proves those checks can fail, runs them next to your own tests, and answers ready , not ready or unknown , with the evidence . It works on a copy of your code, so your project is never touched. It checks any change: the working tree an agent just edited, a branch, or a diff from any tool or person. It can also stand in the agent's way (a Claude Code and Gemini CLI hook that blocks \"done\") and gate pull requests (a GitHub Action). A pretend agent \"fixes\" a slug function and says done; its project's own tests pass. Apex verify catches what they missed: You need Node 20+, git, and an API key for the model that writes the checks (use a different, ideally stronger model than your agent's). It downloads a 48 KB file (about 2 seconds), changes nothing in your project, and prints a verdict. Exit code 0 is ready, 1 not ready, 3 unknown. No key? Add --no-model : only your tests and the cheating scan run, and the verdict is at most unknown . Run in a real Claude Code session: Claude said done on a wrong change, the Stop hook blocked it with the failing checks,",
+  "first_seen": "2026-11-23T13:07:38.789977+00:00",
+  "id": "e98efa07cdbf2e48",
+  "published": "2026-11-23T11:55:06+00:00",
+  "sid": "20b17c04ceb14bf6",
+  "source": "hackernews_ai",
+  "title": "Show HN: Apex verify – an independent model writes the checks your AI skipped",
+  "type": "news",
+  "url": "https://github.com/apex-engine-dev/apex-verify"
  },
  "20b2a3cb6b99ab11": {
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
@@ -12755,7 +12783,7 @@
   "sid": "7143de9af0b19bbe",
   "source": "triton_releases",
   "summary": "Triton Inference Server The Triton Inference Server provides a cloud inferencing solution optimized for both CPUs and GPUs. The server provides an inference service via an HTTP or GRPC endpoint, allowing remote clients to request inferencing for any model being managed by the server. For edge deployments, Triton Server is also available as a shared library with an API that allows the full functionality of the server to be included directly in an application. New Features and Improvements PyTorch backend: Added AOTI BF16 input/output support. THIRD-PARTY-NOTICES.txt is now included in the containers. Fixed a use-after-free in the dynamic batcher and a preserve_ordering completion-slot issue on response-cache hits. Prevented silent gRPC stream cancellations under backpressure. Bounded the decompressed HTTP inference response size in the client library. Perf Analyzer: Honored supplied output shapes, propagated the binary exit code, tagged the wheel as platform-specific, and limited profile-data export to the needed inputs and outputs. Python backend: Now logs when the backend stub exits on a crash signal. Known Issues The Triton TensorRT-LLM Backend container image is not included in this release. vLLM's v0 API and Ray are affected by vulnerabilities. Users should consider their own architecture and mitigation steps which may include but should not be limited to: Do not expose Ray executors and vLLM hosts to a network where any untrusted connections might reach the host. Ensure ",
-  "summary_1line": "PyTorch backend: Added AOTI BF16 input/output support · THIRD-PARTY-NOTICES.txt is now included in the containers · Fixed a use-after-free in the dynamic batcher and a preserve_ordering completion-slot issue on respon...",
+  "summary_1line": "Triton Inference Server 2.75.0 release notes, matching NGC container 26.11, list new features and fixes for the PyTorch, Perf Analyzer and Python backends, plus known issues such as the missing TensorRT-LLM container and vLLM/Ray vulnerabilities.",
   "title": "Release 2.75.0 corresponding to NGC container 26.11",
   "type": "release",
   "url": "https://github.com/triton-inference-server/server/releases/tag/v2.75.0",
@@ -14277,6 +14305,23 @@
   "title": "PLoQ: A Prompt-Specific Low-Rank Basis for 4-bit Quantization of LLM Activations",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.27092v1"
+ },
+ "7e8cd7da94611da2": {
+  "content_excerpt": "Each agent is a folder with its own instructions, tools and Docker image, where you can define it's skills, soul and tools (by adding them to the Dockerfile). You can chat to each agent, but main can easily create and delegate tasks. Tasks are Markdown files in that agent's kanban/ folder. Moving a task between todo , in-progress , done and blocked changes the task's status. shoebox starts agent containers automatically as tasks arrive. When a task finishes or gets blocked, main is notified and reports back to you. poem is included as an agent by default. As its name suggests, it writes poems, including a cron-based daily poem. Ask main: Have poem write a short poem about a quiet morning. Main will dispatch the task and reports back when it finishes. You can keep chatting while poem works. Ask main to create an agent, or add a folder under data/agents/ yourself. An agent needs; agent.json is the configuration for Pi, defining the agent's tools, skills, MCP servers and optional model (which wins over PI_MODEL in .env ). Add skills under skills/ as needed. MCP servers go under mcpServers , as in other MCP clients; ${NAME} takes a value from the agent's .env . Use FROM agent-base for Pi, Python and the task runtime. Add any other software your agent needs, for example, the included code agent can add Claude Code, tmux and Chromium by uncommenting them. When you start shoebox, it creates each agent's workspace, memory and task folders, and builds the agent's image. It rebuilds th",
+  "first_seen": "2026-11-23T13:05:31.066038+00:00",
+  "id": "eaf6a46fc88a3cc7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T11:07:29+00:00",
+  "sid": "7e8cd7da94611da2",
+  "source": "hackernews_ai",
+  "summary": "I was sick and tired of the bloated mess that Hermes Agent has become, often dealing with hard-to-triage bugs that made managing agents a part-time job. I don't need a self-improving magical agent, I need; - A primary agent to chat to, with sub-agent delegation - Isolated sub-agent workspaces, tools, binaries and skills - Kanban and cron-tasks to manage tasks - An easy way to chat (Telegram, Web UI) I built shoebox, crazy simple filesystem-based AI agent orchestration that uses a basic folder-structure to determine which agents to run, what they should do, and what capabilities they have. Been running this on prod-level workloads (with extended product-development runs) and have been very happy with the results. Curious to hear what you think!",
+  "summary_1line": "shoebox is a tool where each AI agent is a folder with its own Docker image, and a main agent delegates Markdown-file tasks to them, starting containers automatically and reporting back when tasks finish or get blocked.",
+  "title": "Show HN: Crazy simple AI agent orchestration with Markdown and Containers",
+  "type": "news",
+  "url": "https://github.com/ameesme/shoebox",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7ea8d672f28ccb5b": {
   "content_excerpt": "Agent A writes a change. Agent B reviews it and says it looks great. Agent A then edits one more file “real quick” and ships. Nobody lied. The review was fine. It was a review of different code. I have been doing this for roughly thirty years, and I can report that “the thing we checked is not the thing we shipped” is the oldest bug in the business. We have simply found a way to do it faster and with more confidence. I wrote Uncle ( github.com/unclehq/uncle ) because I got tired of it. At Yahoo I built Yahoo Mail's anti-spam system. Billions of messages a month, six patents, and one durable lesson: a component does not get to declare its own output trustworthy because it produced it. Spammers taught me that. Apparently it also applies to the thing we now let write our code, review our code, and then tell us how it went. Today's workflow: the agent implements, tests, reviews itself, and reports “done, all green.” Did the tests run? Did they finish? Did the reviewer look at the final code? Who knows, ask the agent. (It will say yes. It is very confident. It is always very confident.) A second reviewing agent does not fix this. Adding reviewers to an unbound review is just adding more people to a meeting that has already ended. A Git tree has a hash. That is a concrete thing to staple evidence to. So record that the review passed against a particular tree, that the tests passed against that same tree, that a human approved it, and then check, before publishing, that you are stil",
@@ -18823,6 +18868,23 @@
   "url": "https://github.com/GoogleChrome/modern-web-guidance",
   "why_it_matters": "Matches feed focus: agentic, eval, codex."
  },
+ "a49f8a5d1a19b958": {
+  "first_seen": "2026-11-23T13:05:31.066038+00:00",
+  "id": "e7ea0e2dfcb73479",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-20T17:53:21+00:00",
+  "sid": "a49f8a5d1a19b958",
+  "source": "arxiv_cs_lg",
+  "summary": "Reward-independent representations enable reinforcement learning agents to reuse knowledge across tasks, but limited representation capacity raises three fundamental questions: what statistical dependence should these representations capture, which components of that dependence should be retained for policy improvement, and how does discarding the remaining components affect decision-making? We address these questions through canonical dependence analysis. For a reference policy, we construct an action-centered, positive-lag canonical dependence matrix (CDM) that isolates the additional predictive contribution of the current action beyond the current state. Its singular value decomposition yields Spectral Universal Advantage Features (SUAF), paired features that recover delayed advantage through linear reward projections. We show that the spectrum quantifies mutual information between current action and future state-action visitation conditioned on current state and determines reward specific approximation errors. Retaining the leading modes gives optimal rank-constrained approximations under both isotropic average-case and reward-uniform minimax criteria. Separating the immediate reward contrast also avoids the spectral floor arising from direct compression of the full advantage operator. To learn SUAF from reward-free data, we develop an action-centered Soft-HGR objective with bidirectional temporal-difference estimation. We further connect spectral approximation errors to ",
+  "summary_1line": "The paper proposes Spectral Universal Advantage Features (SUAF), reward-independent representations derived from an action-centered canonical dependence matrix, and reports finite-state and zero-shot evaluations on discrete and continuous-control tasks.",
+  "title": "SUAF: Spectral Universal Advantage Features for Zero-Shot Policy Improvement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27919v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "a4e942d0f147f07c": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
   "id": "abca04ac5dc90b5a",
@@ -21395,6 +21457,23 @@
   "url": "https://github.com/salespeak-ai/inbox-envoy",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "bac47501e3966159": {
+  "first_seen": "2026-11-23T13:05:31.066038+00:00",
+  "id": "4a6d53bc95494edd",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-20T17:13:50+00:00",
+  "sid": "bac47501e3966159",
+  "source": "arxiv_cs_ai",
+  "summary": "Specification-guided reinforcement learning (RL) translates formal specifications of desired behavior of agents into shaped rewards. This paper introduces SLICR, a significant paradigm shift that advances the state of the art to specification-guided RL in adversarial settings under partial observability. We employ Strategy Logic (SL), which allows explicit quantification over agents' strategies and uses the linear temporal logic (LTL) to specify the agents' objectives and constraints. This enables reasoning not only about how agents should act to satisfy a specification, but also about how they should respond to the strategies and behaviors of other agents. We evaluate SLICR on three popular benchmarks: Predator-Prey, Google Research Football, and our home-grown extension of SMAC-HARD, demonstrating its effectiveness, scalability, and ability to adapt to diverse adversarial strategies.",
+  "summary_1line": "Specification-guided reinforcement learning (RL) translates formal specifications of desired behavior of agents into shaped rewards. This paper introduces SLICR, a significant paradigm shift that advances the state of...",
+  "title": "SLICR: Strategy Logic-Guided Multi-Agent Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.27865v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "bacfcd2e6f6e8302": {
   "first_seen": "2026-11-22T00:08:44.872902+00:00",
   "id": "a66cbaa9515332c2",
@@ -22285,6 +22364,22 @@
   "title": "DeepSeek opens its full app toolkit to developers through its API",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5ZeFE5eEI5enVPUzhwZkdXM0d3T3RYRWZSbTVKOVNuZTRlcGxiSThJWHRReTJONjVwNTE3em1ZRXNtR0dFRU1KQ3lyVml1WmJOZ2lRYnAydU5MZmh4b1lmQXlwcTdjcU5kM2NoVldfdjUycUpDZ2ptajdB?oc=5"
+ },
+ "c418f7f6a711625e": {
+  "content_excerpt": "A coding agent that runs entirely on a Mac with a 9B model, the preregistered benchmark I built to test it against plain OpenCode, and what it found: no uplift yet, a 60% token cut that made the agent worse, and an agent that kept changing its own tests. The best coding agents in the world run in someone else's data center. They're fast, they're good, and every file you show them leaves your machine and costs money per token. I wanted the other version: an agent that lives on my laptop, costs nothing to run, keeps the code where it is, and is good enough to do real engineering work. Not autocomplete. Something you'd hand a bug to. KRYN is that project. It's a coding workspace for Apple Silicon that puts OpenCode 's agent loop in front of a local Qwen3.5-9B model and wraps the whole stack in the parts a shared laptop needs: a verified installer with rollback, a memory guard, a session record that survives restarts, and recovery when something stops. v1.0.0 shipped on 2 October 2026 and v1.0.1 on 23 November. The long-term target is frontier-adjacent coding: close enough to the hosted agents that the difference stops mattering for most tasks. KRYN doesn't claim that yet, and the reason this write-up is long is that I built the machinery to know when it can. Half of this project is the product. The other half is a benchmark rig strict enough that I'll believe it when it says yes. The roadmap turns the distance into eight gates. A local coding agent has three constraints a hosted",
+  "first_seen": "2026-11-23T13:05:31.066038+00:00",
+  "id": "08eb108d0304e6f4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T13:04:40+00:00",
+  "sid": "c418f7f6a711625e",
+  "source": "hackernews_ai",
+  "summary_1line": "KRYN is a local coding workspace for Apple Silicon that runs OpenCode's agent loop on a 9B Qwen3.5 model, with a preregistered benchmark, the author reports no measured uplift over plain OpenCode so far.",
+  "title": "KRYN: A local coding agent and the benchmark that grades it",
+  "type": "news",
+  "url": "https://pranavmishra.app/case-studies/kryn",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c430d9570f8f07c3": {
   "content_excerpt": "We rebuilt the Framer Agent’s harness to let it take on whole workflows in a single program. Making it up to 33% cheaper, and 20% faster. A request like “find every use of our old brand color and replace it” can involve inspecting thousands of nodes and changing hundreds of properties. The agent can now express that work in JavaScript, inspect the document, decide which nodes to change, and apply the updates without returning to the model for each decision. To support that much work in one program, we built an execution system that runs JavaScript while the model is still writing it. We compile incoming code into executable cells and run them as they become available. You can see the first changes on the canvas before the model finishes generating the rest. We preserve the live feedback of our original harness while giving the agent loops, conditionals, and access to the document. We can also catch failed assumptions before generation finishes, stop the remaining stream, avoid further output-token charges, and return the information the agent needs to try again. The new architecture uses 2x fewer tool steps and 39% fewer cached input tokens per message, on average. This represents a meaningful increase in task efficiency with no measured reduction in quality. Framer uses a tree structure to represent your design documents. This tree acts as an AST from which code and CMS content are deterministically generated. The first version of our harness used a DSL (domain-specific lang",
@@ -23715,13 +23810,18 @@
  "d313ec6b6ed5c4fe": {
   "first_seen": "2026-11-23T04:18:53.412580+00:00",
   "id": "11e783ca465acba3",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-20T15:24:08+00:00",
   "sid": "d313ec6b6ed5c4fe",
   "source": "arxiv_cs_cl",
+  "summary": "Scientific discourse depends on argumentative reasoning: identifying claims, evaluating evidence, and constructing coherent responses. While recent advances in reasoning-capable language models have demonstrated strong performance on mathematical, coding, and logical benchmarks, their ability to engage in scientific argumentation remains unclear. We present the first systematic evaluation of language models across seven tasks spanning argument mining, rebuttal generation, and discourse-level reasoning using research papers, peer reviews, and grant proposals. Our study reveals that even frontier models with strong general reasoning skills struggle with domain-specific argumentative tasks, highlighting a fundamental capability gap. To address this, we introduce a training framework that explicitly scaffolds the argumentative reasoning process in language models, substantially improving their competence in scientific discourse. The resulting compact models approach or exceed the performance of much larger proprietary systems and generalize to unseen conversational settings, demonstrating reasoning transfer beyond task-specific supervision. These findings underscore that effective scientific argumentation is not an emergent property of scale, but requires explicit reasoning-aware training, and they point toward practical pathways for building AI systems that can contribute meaningfully to scientific discourse.",
   "summary_1line": "Evaluates language models on seven scientific argumentation tasks (argument mining, rebuttal generation, discourse reasoning) using research papers, peer reviews, and grant proposals, and proposes a training framework that scaffolds argumentative reasoning.",
   "title": "Beyond Math, Code, and Logic: Do Reasoning Models Transfer to Scientific Argumentation?",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.27722v1"
+  "url": "http://arxiv.org/abs/2611.27722v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "d3143518079c6eae": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
@@ -26497,7 +26597,7 @@
   "sid": "eace29d2efd34712",
   "source": "claude_agent_sdk_python_releases",
   "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.183/ pip install claude-agent-sdk==0.2.183",
-  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.183/ pip install claude-agent-sdk==0.2.183",
+  "summary_1line": "Version 0.2.183 of the claude-agent-sdk Python package is published on PyPI and can be installed with pip; the evidence gives no details of its changes.",
   "title": "claude-agent-sdk-python v0.2.183",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183",
@@ -26631,7 +26731,7 @@
   "published": "2026-11-23T06:04:32+00:00",
   "sid": "ec3abc4805e29181",
   "source": "hf_tencent_hunyuan_releases",
-  "summary_1line": "Tencent has posted a 4B-parameter GPTQ-quantized image-text-to-text model on Hugging Face; the listing shows 1 like and no recorded downloads so far.",
+  "summary_1line": "The model is a 4B-parameter, GPTQ-quantized image-text-to-text model posted by Tencent, with the Hugging Face listing showing 1 like and no recorded downloads so far.",
   "title": "tencent/WeMM-Ecom-4B-GPTQ released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-4B-GPTQ"

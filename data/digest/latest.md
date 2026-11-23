@@ -2,86 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe
+## 1. KRYN: A local coding agent and the benchmark that grades it
+- Type: news | Source: hackernews_ai
+- URL: https://pranavmishra.app/case-studies/kryn
+- Score: 4.222 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Show HN: Slipmark – make AI agents prove what they checked
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/founder-ship-it/Slipmark
+- Score: 3.774 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Show HN: Crazy simple AI agent orchestration with Markdown and Containers
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/ameesme/shoebox
+- Score: 3.624 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-23-skip-the-dram-tier
-- Score: 3.535 | Reliability: 1.0
+- Score: 3.438 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 2. $γ$-Scape: An Agent-Centric World for Mobile Embodied Intelligence
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.27306v1
-- Score: 2.679 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 3. tencent/WeMM-Ecom-9B-GPTQ released on Hugging Face
+## 5. tencent/WeMM-Ecom-2B-GPTQ released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Ecom-9B-GPTQ
-- Score: 2.607 | Reliability: 1.0
+- URL: https://huggingface.co/tencent/WeMM-Ecom-2B-GPTQ
+- Score: 2.567 | Reliability: 1.0
 - Why it matters: 
 
-## 4. HookEvo: A Framework for Coordinated Plugin Evolution on Hook-Enabled Agent Runtimes
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.27294v1
-- Score: 2.513 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 5. Can Vision-Language Models Synthesize Executable Game-Playing Programs?
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.27741v1
-- Score: 2.459 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 6. Why agent governance starts with observability
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/agent-governance-observability
-- Score: 1.719 | Reliability: 1.0
+## 6. Patrick Debois on Multiplayer Software Factories | Tessl
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/PzNzUeHpurI
+- Score: 2.36 | Reliability: 0.833
 - Why it matters: Matches feed focus: agent.
 
-## 7. codex 0.171.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0
-- Score: 1.523 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 8. vllm v0.34.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.099 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 9. claude-code v2.1.326
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
-- Score: 1.001 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 10. langgraph==1.2.23
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 0.916 | Reliability: 1.0
-- Why it matters: 
-
-## 11. RoSci: Exploring Robustness in Science VLMs
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.27750v1
-- Score: 2.389 | Reliability: 1.0
+## 7. SLICR: Strategy Logic-Guided Multi-Agent Reinforcement Learning
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.27865v1
+- Score: 2.148 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 12. Open CDLM: A Benchmark and Library for Continuous Diffusion Language Models
+## 8. Beyond Math, Code, and Logic: Do Reasoning Models Transfer to Scientific Argumentation?
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.27536v1
-- Score: 2.356 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.27722v1
+- Score: 2.111 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 13. claude-agent-sdk-python v0.2.185
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
-- Score: 0.868 | Reliability: 1.0
+## 9. Redesigning Neural Networks to Not be Confidently Wrong even to Strong Adversarial Attacks
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.27811v1
+- Score: 2.08 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 10. How Abundant designed efficient rollout architecture with Modal Sandboxes
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes
+- Score: 1.715 | Reliability: 1.0
+- Why it matters: 
+
+## 11. SUAF: Spectral Universal Advantage Features for Zero-Shot Policy Improvement
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.27919v1
+- Score: 2.063 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 12. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/WY0cdD4gNoQ
+- Score: 1.104 | Reliability: 0.833
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 13. codex 0.173.0-alpha.4
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.4
+- Score: 1.102 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 14. claude-code v2.1.328
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.328
+- Score: 1.098 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 15. langgraph-prebuilt==1.1.3
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 0.889 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Release 2.75.0 corresponding to NGC container 26.11
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.75.0
+- Score: 0.824 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. New in AWS Quick: More capable flows, an updated web experience, and agents that work together
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together/
-- Score: 0.775 | Reliability: 1.0
+## 17. claude-agent-sdk-python v0.2.183
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183
+- Score: 0.802 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
