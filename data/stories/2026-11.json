@@ -1241,7 +1241,7 @@
   "published": "2026-11-19T00:00:00+00:00",
   "sid": "0ada1934a0788fbd",
   "source": "eugene_yan",
-  "summary": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
+  "summary": "Some critiques and suggestions based on a teardown of 12 benchmarks.",
   "summary_1line": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
   "title": "How Public Evals Work and Fail, and What Should Change",
   "type": "news",
@@ -11744,7 +11744,7 @@
   "sid": "67952d9a918d2536",
   "source": "openai_blog",
   "summary": "See how Codex runs commands on your machine while enforcing the filesystem and network limits you control across macOS, Linux, and Windows.",
-  "summary_1line": "See how Codex runs commands on your machine while enforcing the filesystem and network limits you control across macOS, Linux, and Windows.",
+  "summary_1line": "Explains how OpenAI's Codex sandbox limits filesystem and network access when Codex runs commands, and describes its default permission profile that allows workspace writes, broad reads and no network access.",
   "title": "Inside the Codex sandbox",
   "type": "news",
   "url": "https://openai.com/index/inside-the-codex-sandbox",
@@ -17946,6 +17946,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21596v1"
  },
+ "a1327cf24dc78c34": {
+  "content_excerpt": "A bare-metal OS, built from scratch in Rust — no POSIX, no libc, no ELF. A tiny language model runs on the silicon, and a capability-checked, audited ABI means it can plan anything and only do what it was granted. The model’s output is an untrusted plan . It never causes a side effect directly — it is parsed, grammar-constrained, capability- and taint-checked, and only then executed by deterministic native code. Above the line: stochastic. Below: deterministic. Delegation only ever narrows authority · a skill is bounded by its install-time grant, forever · prompt-injection-as-privilege-escalation is refused at the OS boundary. The shell coming up, a hosted model answering a question by calling a tool, the audit log, the hardware underneath, and an image decoded in-kernel — recorded from the running OS, not a mockup. CPU LLM inference on GGUF models — architecture-dynamic loaders (Qwen hybrid, Gemma), every mainstream quant plus sub-2-bit packs, hand-written SIMD kernels, split across every core. No cloud, no host. An in-kernel browser: HTML + CSS/flexbox layout, paint, forms, SVG, text selection and clipboard, and its own small JavaScript engine. Three decoders and a player, each validated frame-for-frame against FFmpeg and libvpx — 1080p30 on bare metal, with HLS over the network. Speech-to-text and text-to-speech through an in-kernel ONNX interpreter, fully offline — or a hosted provider if you configure one. An unforgeable capability ABI with a scope gate and an append-onl",
+  "first_seen": "2026-11-23T06:06:41.559143+00:00",
+  "id": "9e786c950235c29b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T05:33:01+00:00",
+  "sid": "a1327cf24dc78c34",
+  "source": "hackernews_ai",
+  "summary_1line": "ChittiOS is a bare-metal operating system written in Rust, without POSIX, libc or ELF, that runs a small language model on the hardware and gates the model's actions through capability and taint checks.",
+  "title": "ChittiOS – an OS where the agent is the driver",
+  "type": "news",
+  "url": "https://chittios.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a13ff1e216e18174": {
   "first_seen": "2026-11-07T19:03:41.770501+00:00",
   "id": "81b59238a81f00af",
@@ -23191,6 +23207,41 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.16315v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d095f837dfa59f6c": {
+  "also_covered": [
+   {
+    "source": "google_deepmind_blog",
+    "title": "Introducing Gemini 4 Neon",
+    "url": "https://deepmind.google/blog/introducing-gemini-4-neon/"
+   },
+   {
+    "source": "google_deepmind_blog",
+    "title": "Introducing Gemini 4 Hydrogen",
+    "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/"
+   },
+   {
+    "source": "google_deepmind_blog",
+    "title": "Gemini 4 Carbon is now available",
+    "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/"
+   },
+   {
+    "source": "philschmid",
+    "title": "Gemini 4 Carbon, Hydrogen, Decisions API, self-hosted agent sandboxes and more",
+    "url": "https://www.philschmid.de/google-deepmind-roundup-nov-2026"
+   }
+  ],
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 18, 2026 — Google’s middle tier scores 61 on the Intelligence Index. Plus, Anthropic prices its IPO at $83. Google DeepMind shipped Gemini 4 Neon , its fourth Gemini 4 model in about seven weeks. If you’re confused about the naming, you’re not alone; the 1.5 month old Argon is now retired , the old Pro and Flash from Gemini 1-3 are dead, and if you’re thinking the names are based on atomic weights, Neon (10), the midtier model is faster/cheaper than Carbon (6). This is a helpful guide to the current leading models and sizes: Because of how distillation, RL, and benchmarking works, Neon technically outperforms Carbon by some measures despite being a smaller model… Also today, Anthropic priced its IPO at $83 per share , above its initial range, and Palo Alto Networks agreed to buy Applied Compute in a $4.5B all-stock deal . Anthropic · Palo Alto Networks AI News for November 17–18, 2026. We checked 12 subreddits and 544 Twitter accounts . Browse past issues . Pricing and specs. Neon costs $3 for input, $0.15 for cached input and $15 for output per million tokens. It has a 1M-token context window and four effort levels. Vals reports a maximum outpu",
+  "first_seen": "2026-11-23T06:06:41.559143+00:00",
+  "id": "51c2e3533e01131b",
+  "published": "2026-11-19T07:07:43+00:00",
+  "sid": "d095f837dfa59f6c",
+  "source": "latent_space",
+  "summary": "November 18, 2026 — Google’s middle tier scores 61 on the Intelligence Index. Plus, Anthropic prices its IPO at $83.",
+  "summary_1line": "November 18, 2026 — Google’s middle tier scores 61 on the Intelligence Index. Plus, Anthropic prices its IPO at $83.",
+  "title": "[AINews] Gemini 4 Neon: GDM's Opus/Sol Contender",
+  "type": "news",
+  "url": "https://latent.space/p/ainews-gemini-4-neon-gdm-s-opus-sol-contender"
  },
  "d0b0e957f5d02012": {
   "first_seen": "2026-11-16T13:04:20.816459+00:00",
