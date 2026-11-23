@@ -1,0 +1,113 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-context-lifecycle",
+  "source_hash": "98a0bd25c9225760440ad764974e6bd464dcaf3ce57b7354757539bc7541d7d4",
+  "translated_at": "2026-11-23T04:02:25.073343+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-context-lifecycle",
+  "title": "컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?",
+  "question": "Why does adding more context sometimes hurt an agent?",
+  "summary": "프로덕션 에이전트 실패의 대부분은 추론 능력 부족이 아니라 관리되지 않은 컨텍스트에서 비롯된다. 컨텍스트를 설계(architect), 수집(ingest), 범위 지정(scope), 예측(anticipate), 압축(compact)하는 수명주기로 다루면 정확도를 희생하지 않고도 토큰 비용을 제곱이 아닌 선형으로 유지할 수 있다.",
+  "status": "active",
+  "cluster": "memory",
+  "cluster_label": "Memory and context",
+  "updated": "2026-10-23",
+  "latest_evidence_added": "2026-10-23",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>에이전트가 장시간 실행되거나 규모가 큰 작업에서 실패할 때, 해결책은 대개 추론 능력을 높이는 것이 아니라 컨텍스트에 들어 있는 내용을 재배치하는 것이다. 요약기만 쓰면 5단계 수명주기 중 한 단계만 다루게 되며, 근본 원인은 해결하지 못한 채 토큰 수를 줄이는 대가로 신뢰성을 잃는 경우가 많다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>프로덕션 에이전트 실패는 대부분 추론 능력 부족이 아니라 관리되지 않은 컨텍스트에서 나온다. 컨텍스트는 가득 차면 잘라내는 로그가 아니라, 설계하고 수집하고 범위를 정하고 예측하고 압축해야 할 대상으로 다뤄야 한다.</p>\n<ul><li>단순 누적은 턴 수에 따라 토큰 비용이 제곱으로 늘어난다.</li><li>단순 요약은 비용을 선형으로 만들지만, 임계점을 넘으면 사실 정보를 잃는다.</li><li>반드시 남아야 할 내용을 기준으로 검증한 압축은 정확도 손실 없이 선형 비용을 달성한다.</li></ul>\n<p>유지하는 컨텍스트의 양은 신뢰성 파라미터다. 한 트리밍 연구에서는 예산이 25% 이하일 때 실패 확률이 50% 이상일 때보다 거의 11배 높아졌다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>컨텍스트를 대화 기록이 아니라 작업 집합(working set)으로 다뤄야 한다. 컨텍스트의 형태는 다섯 가지 결정이 좌우한다.</p>\n<ol><li><strong>Architect</strong> — 어떤 구조로 담을 것인가 (플랫 로그 vs. 구조화된 사실 저장소).</li><li><strong>Ingest</strong> — 무엇을, 어떤 형태로 들일 것인가.</li><li><strong>Scope</strong> — 전체 세션이 아닌 현재 단계에 관련된 것은 무엇인가.</li><li><strong>Anticipate</strong> — 필요해지기 전에 무엇을 미리 가져올 것인가.</li><li><strong>Compact</strong> — 유지되는 사실의 출처를 잃지 않으면서 어떻게 줄일 것인가.</li></ol>\n<p>곧바로 5단계로 건너뛰는 것이 흔한 실수다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>비용이 제곱으로 증가한다.</strong> 매 턴마다 누적된 기록을 다시 전송하거나 어텐션을 수행하므로 턴당 비용이 계속 오르고, 세션 전체 비용은 턴 수의 제곱에 비례해 늘어난다.</p>\n<p><strong>요약은 손실이 있고 절벽이 있다.</strong> 기록을 압축하면 비용은 선형으로 평평해지지만, 요약할 때마다 구체적인 수치, 정확한 사실, 사실의 출처가 빠질 수 있다. 성능은 너무 많이 사라질 때까지는 유지되다가 그 뒤 급격히 떨어진다. 해법은 보존해야 할 내용을 기준으로 검증하는 압축이며, 이 검증은 설계, 수집, 범위 지정이 압축기가 잃어도 되는 대상을 이미 제한하고 있을 때만 작동한다.</p>\n<p><strong>하니스 선택이 능력 한계처럼 보인다.</strong> OpenAI의 ARC-AGI-3 보고서에 따르면 기본 하니스는 매 수마다 모델의 내부 추론을 버려서, 모델이 턴마다 처음부터 다시 시작했다. 턴 간에 추론을 유지하고 강제 절단 대신 요약하도록 바꾸자 GPT-5.6 Sol은 13.3%에서 38.3%로 올랐고 출력 토큰은 약 6배 줄었다(벤더 보고). 이런 콜드 스타트와 강제 절단은 수명주기 관점에서 성능이 떨어질 것으로 예측되는 관리되지 않은 패턴 그 자체다.</p>\n<p><strong>가장 많이 자르는 것보다 올바른 토큰을 자르는 것이 낫다.</strong> 프로토콜 보존 트리밍 연구에서 최신성, 관련성, 요약 기반 전략은 토큰을 약 60% 절감했지만 작업 성공률은 66.6~77.3%에 그쳤다. 상호작용 프로토콜이 의존하는 상태를 보존하는 트리밍은 92.2%에 도달했고, 여기에 적응형 예산 하한을 더하자 56%를 절감하면서도 96.0%를 기록했다. 실패가 급증하는 예산 기준은 워크플로 복잡도가 높을수록 올라가므로, 단순한 워크플로에 맞춰 조정한 하한은 복잡한 워크플로에서는 부족하다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>컨텍스트 구조를 먼저 정한다.</strong> 요약기를 만들기 전에 세션 로그와 구조화된 사실 저장소 중 무엇을 쓸지 결정한다. 이 선택이 나중에 무엇을 복구할 수 있는지 좌우한다.</li><li><strong>턴당 토큰 비용을 지켜본다.</strong> 턴당 한계 비용이 오르는 것은 단순 누적의 가장 이른 신호다.</li><li><strong>필수 사실을 기준으로 압축을 테스트한다.</strong> 요약이 잘 읽히는지가 아니라 후속 단계가 의존하는 특정 사실의 재현율을 확인한다.</li><li><strong>턴 간에 추론을 이어간다.</strong> 원본 기록을 다시 보내기보다 응답 체이닝이나 유지된 상태를 선호한다.</li><li><strong>임계값 기준으로 요약하고, 윈도우가 가득 찼을 때 가장 오래된 메시지를 강제 절단하지 않는다.</strong></li><li><strong>유지 예산은 50% 이상으로 둔다.</strong> 더 낮춰야 한다면 최신성이나 관련성만 쓰지 말고 프로토콜 인지형 트리밍을 사용한다.</li><li><strong>하한은 워크플로 복잡도 등급별로 정한다.</strong> 모든 에이전트에 하나의 임계값을 쓰지 않는다.</li><li><strong>재현율과 함께 레이턴시와 토큰 비용을 측정한다.</strong> LongMemEval과 LoCoMo 점수는 프로덕션 비용에 대해 아무것도 알려주지 않는다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>수집과 범위 지정은 통제하지 않은 채 &quot;요약기를 추가한다&quot;를 전체 해법으로 취급한다.</li><li>재현율 벤치마크에서 이긴 결과를 프로덕션 준비 완료의 증거로 읽는다.</li><li>제곱 비용 증가를 캐싱이나 배칭으로 해결할 수 있는 서빙 문제로 취급한다.</li><li>턴 사이에 추론을 버려 놓고, 그 결과로 생긴 콜드 스타트를 모델 탓으로 돌린다.</li><li>자체 보고, 자체 하니스에서 나온 점수 상승을 검증된 능력 향상으로 인용한다.</li><li>토큰 절감만을 위해 트리밍을 최적화한다. 절감률이 가장 높은 전략의 작업 성공률이 가장 낮았다.</li><li>복잡도가 서로 다른 워크플로에 하나의 고정된 유지 컨텍스트 하한을 쓴다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<ul><li><a href=\"/topic/agent-memory\">/topic/agent-memory</a> — 에이전트가 단계와 세션을 거치며 잊어버리는 이유.</li><li><a href=\"/topic/agent-cost\">/topic/agent-cost</a> — 토큰 비용이 에이전트 동작을 따라가는 이유.</li><li><code>context-compaction-safety</code> — 압축이 재현율이 아니라 안전 제약을 깨뜨리는 문제.</li></ul>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "langchain-2026-context-engineering-retrieval",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "Context Engineering for AI Agents Starts with Retrieval",
+      "note": "LangChain's Deep Agents harness gates what enters context: read_file returns 100 lines by default, tool results over about 20,000 tokens are offloaded to a file with a path and preview, and subagents each read one retrieved file and return only key facts and a source URL. Retrieved text is treated as untrusted. Vendor engineering write-up; reports configuration values, not benchmark results.",
+      "added": "2026-10-23",
+      "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
+      "sid": "b0133c74d1515b7b"
+    },
+    {
+      "id": "gaggar-2026-protocol-preserving-context-trimming",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Protocol-Preserving Context Trimming for Agentic Workflows: Benefits, Failure Regimes, and Budget Guardrails",
+      "note": "Compares five trimming strategies. Recency, relevance, and summarization saved about 60% of tokens but reached only 66.6-77.3% task success. Protocol-aware trimming reached 92.2%; adaptive budget guardrails reached 96.0% success and 1.0% cascading failure at 56.0% savings. Retained budgets at or below 25% raised failure odds 10.92-fold versus 50% or more (p < 0.001); safe thresholds rose with workflow complexity. Single-author study on its own workflow suite, so treat odds ratios as directional.",
+      "added": "2026-09-23",
+      "url": "http://arxiv.org/abs/2609.16461v1",
+      "sid": "a3b54d5a91acaa5a"
+    },
+    {
+      "id": "openai-2026-arc-agi-3-retained-reasoning-compaction",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+      "note": "GPT-5.6 Sol went from 13.3% to 38.3% on the ARC-AGI-3 public set after two harness settings: retained reasoning (chaining previous_response_id so reasoning carries across turns) and compaction (summarizing dialogue state instead of hard-truncating past roughly 175K characters). Output tokens per game fell about 6x. Vendor-reported on OpenAI's own harness, not an independently verified leaderboard entry.",
+      "added": "2026-07-31",
+      "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
+      "sid": "265c6a0134aba9b6"
+    },
+    {
+      "id": "menlo-context-lifecycle-2026",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
+      "note": "Splits context management into five primitives: architecting, ingesting, scoping, anticipating, compacting. Naive accumulation grows session token cost quadratically with turns; plain summarization flattens it to linear but hits an accuracy cliff as facts and provenance drop. Only compaction validated against what must survive avoids both. The reference implementation (Maximem Synap) reports 92% on LongMemEval and 93.2% on LoCoMo; the authors note those benchmarks ignore latency, token efficiency, and context-rot resistance.",
+      "added": "2026-07-24",
+      "url": "http://arxiv.org/abs/2607.21503",
+      "sid": "fae52c3b17c1c504"
+    },
+    {
+      "id": "agent-context-lifecycle-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "Lifecycle framing vs. single-stage fixes",
+      "note": "Editorial synthesis: a summarizer alone addresses only the compacting stage of the five-stage lifecycle. Ingestion and scoping stay unmanaged, which is why teams that bolt on summarization as their only context-cost fix keep hitting the same accuracy cliff.",
+      "added": "2026-07-24"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-memory",
+      "title": "Agents forget across steps and sessions"
+    },
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    }
+  ],
+  "related_playbook_cards": [
+    "pb-context-lifecycle-not-storage"
+  ],
+  "related_storylines": []
+}

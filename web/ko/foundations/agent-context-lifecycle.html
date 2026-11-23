@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는? | LLM Digest</title>
+  <meta name="description" content="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/foundations/agent-context-lifecycle" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/foundations/agent-context-lifecycle" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/foundations/agent-context-lifecycle" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/foundations/agent-context-lifecycle" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?" />
+  <meta property="og:description" content="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/foundations/agent-context-lifecycle" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/foundations-agent-context-lifecycle-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/foundations-agent-context-lifecycle-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?" />
+  <meta name="twitter:description" content="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?", "description": "Most production agent failures trace back to unmanaged context, not weak reasoning. Treating context as a lifecycle to architect, ingest, scope, anticipate, and compact keeps token cost linear instead of quadratic without paying for it in accuracy.", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/agent-context-lifecycle", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?", "item": "https://www.llm-digest.com/foundations/agent-context-lifecycle"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-readable" />
+  <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
+  <script defer src="/site-chrome.js?v=20261119-readable"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-readable"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    body { font-family:var(--font-sans); }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:var(--font-display);
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:var(--font-mono);
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:var(--font-display);
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:var(--font-display);
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .foundation-xlabel { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul, .foundation-prose ol:not(.foundation-new-list) { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:var(--font-mono);
+      font-size: 0.78rem; color:var(--accent); letter-spacing: 0; text-transform: none; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:var(--font-mono);
+      font-size:.7rem; margin-left:.35rem; }
+    .foundation-evidence-list li { scroll-margin-top:5rem; padding:.2rem 0; }
+    .foundation-evidence-list li:target { background:var(--brief-wash);
+      box-shadow:-.7rem 0 0 var(--brief-wash), .7rem 0 0 var(--brief-wash); }
+    .foundation-evidence-list p { margin:.3rem 0 0; color:var(--fg); font-size:.9rem; line-height:1.55; }
+    .foundation-evidence-meta { display:block; margin:.15rem 0 0; font-family:var(--font-mono);
+      font-size:.68rem; color:var(--muted); }
+    .foundation-evidence-meta a { font-weight:400; color:var(--muted); text-decoration:underline; }
+    .foundation-new-list, .foundations-recent ol { margin:0; padding:0; list-style:none;
+      display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-new-list li, .foundations-recent li { display:grid; grid-template-columns:6.6rem minmax(0,1fr);
+      gap:.8rem; font-size:.94rem; line-height:1.4; }
+    .foundation-new-list time, .foundations-recent time { font-family:var(--font-mono);
+      font-size:.7rem; color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .foundation-new-list a, .foundations-recent a { font-weight:600; text-decoration:none; }
+    .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
+    .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border);
+      background:var(--brief-wash); border-radius: 12px; }
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:var(--font-display);
+      font-size:1.3rem; line-height:1.1; }
+    .fr-concept { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      letter-spacing: 0; text-transform: none; color:var(--warm); margin:0 0 .1rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-new-list li, .foundations-recent li { grid-template-columns:1fr; gap:.1rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/foundations">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Builder Foundations</h1>
+        <p id="meta" class="muted">Evidence-tiered mechanisms for agent builders</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/community" data-site-destination="/community">Community</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations" aria-current="page">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/foundations?slug=agent-context-lifecycle">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/foundations/agent-context-lifecycle" data-share-title="컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?">Share this page</button>
+        <a class="site-language-action" href="/foundations/agent-context-lifecycle" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">컨텍스트를 더 넣으면 에이전트 성능이 떨어지는 경우가 있는 이유는?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Memory and context<span class="sep">·</span>5 sources<span class="sep">·</span>updated 2026-10-23</p></section>
+      <!-- range is included in the custom hero -->
+      <!-- intro is inside the foundation concept hero -->
+      <div class="foundation-concept"><div class="foundation-lead"><p>When an agent fails on long-running or larger tasks, the fix is usually rearranging what is in its context, not making it reason better. A summarizer alone treats one stage of a five-stage lifecycle and often trades reliability for a lower token count without fixing the root cause.</p></div>
+<aside class="foundation-xlinks"><div><span class="foundation-xlabel">Related map topics</span><ul><li><a href="/topic/agent-memory">Agents forget across steps and sessions</a></li><li><a href="/topic/agent-cost">Agent token costs are unpredictable and easily run away</a></li></ul></div></aside>
+<section class="foundation-section foundation-new"><div class="foundation-rail">What's new in the evidence</div><div class="foundation-prose"><ol class="foundation-new-list"><li><time datetime="2026-10-23">Oct 23, 2026</time><a href="#ev-langchain-2026-context-engineering-retrieval">Context Engineering for AI Agents Starts with Retrieval</a></li><li><time datetime="2026-09-23">Sep 23, 2026</time><a href="#ev-gaggar-2026-protocol-preserving-context-trimming">Protocol-Preserving Context Trimming for Agentic Workflows: Benefits, Failure Regimes, and Budget Guardrails</a></li><li><time datetime="2026-07-31">Jul 31, 2026</time><a href="#ev-openai-2026-arc-agi-3-retained-reasoning-compaction">How enabling two settings tripled our scores on the ARC-AGI-3 benchmark</a></li></ol></div></section>
+<section class="foundation-section"><div class="foundation-rail">Short answer</div><div class="foundation-prose"><p>Production agent failures mostly come from unmanaged context, not weak reasoning. Treat context as something you architect, ingest, scope, anticipate, and compact, not a log you truncate when it fills up.</p>
+<ul><li>Naive accumulation grows token cost quadratically with turns.</li><li>Plain summarization makes cost linear but loses facts past a threshold.</li><li>Compaction validated against what must survive gets linear cost without the accuracy loss.</li></ul>
+<p>How much context you keep is a reliability parameter: one trimming study found budgets at or below 25% raised failure odds nearly 11-fold versus 50% or more.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Builder model</div><div class="foundation-prose"><p>Treat context as a working set, not a transcript. Five decisions shape it:</p>
+<ol><li><strong>Architect</strong> — what structure holds it (flat log vs. structured fact store).</li><li><strong>Ingest</strong> — what may enter, and in what form.</li><li><strong>Scope</strong> — what is relevant to this step versus the whole session.</li><li><strong>Anticipate</strong> — what to prefetch before it is needed.</li><li><strong>Compact</strong> — how to shrink it without losing the provenance of kept facts.</li></ol>
+<p>Skipping straight to step 5 is the common mistake.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Mechanism</div><div class="foundation-prose"><p><strong>Cost grows quadratically.</strong> Each turn re-sends or attends over the accumulated history, so per-turn cost keeps rising and total session cost grows with the square of turn count.</p>
+<p><strong>Summarization is lossy with a cliff.</strong> Collapsing history flattens cost to linear, but each pass can drop specific numbers, exact facts, and where a fact came from. Performance holds until too much is gone, then falls sharply. The fix is compaction checked against what must be preserved, and that check only works if architecture, ingestion, and scope already constrain what the compactor may lose.</p>
+<p><strong>Harness choices look like capability limits.</strong> OpenAI&#x27;s ARC-AGI-3 write-up shows a stock harness discarding the model&#x27;s private reasoning after every move, so the model restarted cold each turn. Retaining reasoning across turns and summarizing instead of hard-truncating took GPT-5.6 Sol from 13.3% to 38.3% with about 6x fewer output tokens (vendor-reported). Cold restarts and hard truncation are exactly the unmanaged patterns the lifecycle view predicts will underperform.</p>
+<p><strong>Cutting the right tokens beats cutting the most.</strong> In the protocol-preserving trimming study, recency, relevance, and summarization strategies saved about 60% of tokens but reached only 66.6-77.3% task success. Trimming that preserves state the interaction protocol depends on reached 92.2%; adding an adaptive budget floor reached 96.0% while still saving 56%. The budget below which failures spike rises with workflow complexity, so a floor tuned on simple workflows under-provisions complex ones.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">How to apply</div><div class="foundation-prose"><ul><li><strong>Choose the context structure first.</strong> Decide between a session log and a structured fact store before writing a summarizer; that choice determines what is recoverable later.</li><li><strong>Watch per-turn token cost.</strong> Rising marginal cost per turn is the earliest sign of naive accumulation.</li><li><strong>Test compaction against required facts.</strong> Check recall on the specific facts downstream steps depend on, not whether the summary reads well.</li><li><strong>Carry reasoning across turns.</strong> Prefer response chaining or retained state over replaying raw history.</li><li><strong>Summarize on a threshold; do not hard-truncate</strong> the oldest messages when the window fills.</li><li><strong>Keep retained budgets at 50% or more.</strong> If you must go lower, use protocol-aware trimming, not recency or relevance alone.</li><li><strong>Set the floor per workflow-complexity class</strong>, not one threshold for every agent.</li><li><strong>Measure latency and token cost next to recall</strong>; LongMemEval and LoCoMo scores say nothing about production cost.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Failure modes</div><div class="foundation-prose"><ul><li>Treating &quot;add a summarizer&quot; as the whole fix while ingestion and scoping stay ungoverned.</li><li>Reading a recall-benchmark win as proof of production readiness.</li><li>Treating quadratic cost growth as a serving problem that caching or batching can fix.</li><li>Discarding reasoning between turns and blaming the resulting cold restarts on the model.</li><li>Citing a self-reported, own-harness score jump as a verified capability gain.</li><li>Optimizing trimming for token savings alone: the highest-savings strategies had the lowest task success.</li><li>Using one fixed retained-context floor for workflows of different complexity.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Related</div><div class="foundation-prose"><ul><li><a href="/topic/agent-memory">/topic/agent-memory</a> — why agents forget across steps and sessions.</li><li><a href="/topic/agent-cost">/topic/agent-cost</a> — why token cost tracks agent behavior.</li><li><code>context-compaction-safety</code> — compaction breaking safety constraints instead of recall.</li></ul></div></section>
+<section class="foundation-section foundation-evidence" id="evidence"><div class="foundation-rail">Evidence · 5 sources<br>newest first</div><ol class="foundation-evidence-list"><li id="ev-langchain-2026-context-engineering-retrieval"><span class="foundation-evidence-kind">Field report</span><a href="https://www.langchain.com/blog/context-engineering-starts-with-retrieval" target="_blank" rel="noopener">Context Engineering for AI Agents Starts with Retrieval</a><span class="foundation-evidence-tier">production field-report-backed</span><span class="foundation-evidence-meta"><time datetime="2026-10-23">added Oct 23, 2026</time> · <a href="/story/b0133c74d1515b7b">in the feed</a></span><p>LangChain&#x27;s Deep Agents harness gates what enters context: read_file returns 100 lines by default, tool results over about 20,000 tokens are offloaded to a file with a path and preview, and subagents each read one retrieved file and return only key facts and a source URL. Retrieved text is treated as untrusted. Vendor engineering write-up; reports configuration values, not benchmark results.</p></li><li id="ev-gaggar-2026-protocol-preserving-context-trimming"><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2609.16461v1" target="_blank" rel="noopener">Protocol-Preserving Context Trimming for Agentic Workflows: Benefits, Failure Regimes, and Budget Guardrails</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-09-23">added Sep 23, 2026</time> · <a href="/story/a3b54d5a91acaa5a">in the feed</a></span><p>Compares five trimming strategies. Recency, relevance, and summarization saved about 60% of tokens but reached only 66.6-77.3% task success. Protocol-aware trimming reached 92.2%; adaptive budget guardrails reached 96.0% success and 1.0% cascading failure at 56.0% savings. Retained budgets at or below 25% raised failure odds 10.92-fold versus 50% or more (p &lt; 0.001); safe thresholds rose with workflow complexity. Single-author study on its own workflow suite, so treat odds ratios as directional.</p></li><li id="ev-openai-2026-arc-agi-3-retained-reasoning-compaction"><span class="foundation-evidence-kind">Primary doc</span><a href="https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores" target="_blank" rel="noopener">How enabling two settings tripled our scores on the ARC-AGI-3 benchmark</a><span class="foundation-evidence-tier">primary-doc-backed</span><span class="foundation-evidence-meta"><time datetime="2026-07-31">added Jul 31, 2026</time> · <a href="/story/265c6a0134aba9b6">in the feed</a></span><p>GPT-5.6 Sol went from 13.3% to 38.3% on the ARC-AGI-3 public set after two harness settings: retained reasoning (chaining previous_response_id so reasoning carries across turns) and compaction (summarizing dialogue state instead of hard-truncating past roughly 175K characters). Output tokens per game fell about 6x. Vendor-reported on OpenAI&#x27;s own harness, not an independently verified leaderboard entry.</p></li><li id="ev-menlo-context-lifecycle-2026"><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2607.21503" target="_blank" rel="noopener">Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-07-24">added Jul 24, 2026</time> · <a href="/story/fae52c3b17c1c504">in the feed</a></span><p>Splits context management into five primitives: architecting, ingesting, scoping, anticipating, compacting. Naive accumulation grows session token cost quadratically with turns; plain summarization flattens it to linear but hits an accuracy cliff as facts and provenance drop. Only compaction validated against what must survive avoids both. The reference implementation (Maximem Synap) reports 92% on LongMemEval and 93.2% on LoCoMo; the authors note those benchmarks ignore latency, token efficiency, and context-rot resistance.</p></li><li id="ev-agent-context-lifecycle-editorial-synthesis"><span class="foundation-evidence-kind">Editorial</span>Lifecycle framing vs. single-stage fixes<span class="foundation-evidence-tier">editorial inference</span><span class="foundation-evidence-meta"><time datetime="2026-07-24">added Jul 24, 2026</time></span><p>Editorial synthesis: a summarizer alone addresses only the compacting stage of the five-stage lifecycle. Ingestion and scoping stay unmanaged, which is why teams that bolt on summarization as their only context-cost fix keep hitting the same accuracy cliff.</p></li></ol></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

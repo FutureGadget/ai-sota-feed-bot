@@ -1,0 +1,141 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-eval-design",
+  "source_hash": "d8cbc1f5544f1930ea674d6c50f58f9d8d93e66993e2f6d6bcf8bc3bb1f5271f",
+  "translated_at": "2026-11-23T04:03:09.885257+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-eval-design",
+  "title": "에이전트 평가는 실제로 무엇을 측정해야 하는가?",
+  "question": "What should an agent eval actually measure?",
+  "summary": "유용한 에이전트 평가는 출력뿐 아니라 궤적(trajectory)도 채점하고, 채점기 비용을 점검 빈도에 맞추며, 구성마다 실행을 반복하고, 에이전트만큼 엄격하게 평가 자체를 감사한다. 평가 하나를 고쳤더니 점수가 42%에서 95%로 올랐다.",
+  "status": "active",
+  "cluster": "evaluation",
+  "cluster_label": "Evals and reliability",
+  "updated": "2026-11-04",
+  "latest_evidence_added": "2026-11-04",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>평가 점수가 낮으면 보통 \"에이전트가 실패했다\"고 해석한다. Anthropic은 이 해석이 틀렸던 사례를 보고했다. 팀이 평가의 채점 버그, 모호한 태스크 명세, 확률적 태스크를 고치자 Opus 4.5의 CORE-Bench 점수가 42%에서 95%로 올랐다. 에이전트는 전혀 바뀌지 않았다. 점수가 나쁜 에이전트를 개선하는 데 시간을 쓰기 전에, 먼저 평가 쪽이 고장 난 것은 아닌지 한 시간쯤 확인해 볼 만하다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>에이전트 평가는 입력과 채점 로직으로 이루어지며, 약한 고리는 대개 채점 로직이다. 채점기는 세 유형이 있고 각각 비용과 정확도 사이에서 균형이 다르다. 코드 기반 채점기는 저렴하고 객관적이지만 코드로 작성한 항목만 검사한다. 모델 기반 채점기는 뉘앙스를 다룰 수 있지만 비결정적이고 비싸다. 사람 채점기는 기준을 세우지만 확장되지 않는다.</p>\n<p>에이전트는 실행마다 결과가 달라지므로 통과/실패 수치 하나로는 부족하다. <strong>pass@k</strong>는 에이전트가 그 태스크를 풀 수 있는지를, <strong>pass^k</strong>는 매번 푸는지를 묻는다. 그리고 어느 쪽이든 점수가 나쁘다면 에이전트가 아니라 평가가 고장 난 것일 수 있다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>평가를 소프트웨어로 취급해야 한다. 버그, 모호한 명세, 불안정한 동작이라는 일반적인 실패 요인이 똑같이 있다. 세 가지 모두 실제 에이전트 실패와 같은 증상, 즉 낮은 점수로 나타난다.</p>\n<ul><li><strong>채점기 선택은 비용과 정확도의 트레이드오프다.</strong> 코드 기반 채점기(단위 테스트, 문자열 검사, 정적 분석)는 모든 커밋마다 돌릴 수 있지만 코드로 작성한 항목만 검사한다. 모델 기반 채점기는 뉘앙스를 잡아내지만 자체적인 비결정성이 더해진다. <a href=\"/foundations/llm-judge-reliability\">LLM-as-judge 점수를 믿어도 될까?</a>를 참고. 사람 채점기는 나머지 채점기를 보정한다. 실제 평가 스위트는 세 가지를 섞어 쓰며, 각 검사를 얼마나 자주 돌려야 하는지에 맞춘다.</li><li><strong>점수 하나로는 실패가 드문지, 확실한지 알 수 없다.</strong> 태스크를 5번 중 1번 푸는 에이전트와 5번 중 4번 푸는 에이전트는 모두 pass^5에서 실패한다. 후자는 재시도를 붙이면 프로덕션에 가까운 동작이지만, 전자는 태스크를 풀지 못하는 것이다.</li><li><strong>테스트 대상 단위는 시스템이다.</strong> 태스크 정보, 도구, 예산, 모델이 모두 점수에 영향을 주므로, 결과는 모델만이 아니라 구성 전체를 설명한다.</li></ul>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>실제 실패에서 시작한다.</strong> Anthropic은 잘못된 사례에서 가져온 20~50개 태스크를 권장하며, 각 태스크에는 모호하지 않은 명세와 참조 해답이 있어야 한다. CORE-Bench에서 42%가 95%로 뛴 원인도 모호함이었다. 거절하는 것이 올바른 동작인 부정 사례도 포함해야 한다. 풀 수 있는 태스크만 있는 스위트로는 과신을 감지할 수 없다.</p>\n<p><strong>환경을 안정적으로 유지하고 결과를 채점한다.</strong> 불안정한 샌드박스는 회귀와 구분되지 않는 노이즈를 만든다. 단계를 정확히 일치시키는 방식은 다른 경로로 도달한 올바른 결과에 불이익을 주므로, 결과와 궤적을 따로 채점한다.</p>\n<p><strong>에이전트 유형별로 산출물을 채점한다.</strong></p>\n<ul><li>코딩: 결과는 단위 테스트로, 과정은 트랜스크립트 검토로 확인한다.</li><li>대화형: 백엔드 상태와 어조를 보는 LLM 루브릭을 함께 쓴다.</li><li>리서치: 근거성, 커버리지, 출처 품질을 각각 별도 검사로 둔다.</li><li>컴퓨터 사용: 올바르게 보이는 화면이 실패한 동작을 가릴 수 있으므로 인터페이스와 백엔드 상태를 모두 본다.</li></ul>\n<p><strong>구성을 반복해서 측정한다.</strong> 1만 8,000개 궤적을 대상으로 한 연구에서, 결과 분산의 54%는 동일한 구성 안에서 실행마다 생기는 노이즈였고, 시간 예산이나 모델 크기보다 태스크 정보가 결과를 더 크게 움직였다. TRACE는 동일한 재실행에서 결과의 15~36%가 뒤집힌다는 것을 확인했다.</p>\n<p><strong>점수가 움직이면 채점기를 테스트한다.</strong> TRACE는 도구 이름을 바꾼 뒤 바뀌지 않은 궤적을 다시 채점했고, 이름을 되돌리자 0.250의 하락이 사라졌다.</p>\n<p><strong>측정 도구를 감사한다.</strong> 한 리더보드 감사에서 13점의 격차가 채점기 때문임이 드러났다. 한 에이전트의 에피소드 중 약 절반이 채점 자체가 실행되지 않은 채 실패로 저장되어 있었다. 에이전트를 다시 실행하지 않고 재채점만으로 격차가 해소됐다.</p>\n<p><strong>도구 출력에 한계를 명시하게 한다.</strong> 상한이나 검색 한도 없이 출력된 결과는 에이전트와 검증기 모두를 오도한다. 생략된 사실을 명시하기 전까지 검증기는 틀린 답 90개를 90개 모두 받아들였다.</p>\n<p><strong>시뮬레이션된 도구를 감사한다.</strong> 벤치마크 4개에서 상태를 변경하는 도구 34개에 걸쳐 결함 7건이 나타났다. 한 임상 도구는 실제로 하지 않은 쓰기를 했다고 보고했고, 채점기는 이를 성공으로 처리했다. 결함이 매번 존재하면 반복 실행으로는 드러나지 않는다.</p>\n<p><strong>포화에 주의한다.</strong> 상한에 가까워지면 평가는 좋은 에이전트와 뛰어난 에이전트를 구분하지 못한다. <a href=\"/foundations/benchmark-production-reliability-gap\">높은 벤치마크 점수는 프로덕션 신뢰성을 예측할까?</a>를 참고.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>에이전트를 건드리기 전에 평가를 감사한다.</strong> 실패한 트랜스크립트를 직접 읽고 모호한 명세, 잘못된 참조, 유효한 경로를 놓친 채점기가 있는지 확인한다.</li><li><strong>프로덕션에서 가져온 실제 실패 20~50개로 시작한다.</strong></li><li><strong>pass@k와 pass^k를 함께 보고한다.</strong> 집계 수치 하나로는 어느 쪽인지 알 수 없다.</li><li><strong>채점기 유형을 실행 주기에 맞춘다.</strong> 모든 커밋에는 코드 기반, 뉘앙스에는 모델 기반, 자동 채점기 보정에는 사람을 쓴다.</li><li><strong>출력뿐 아니라 궤적도 채점한다.</strong></li><li><strong>에이전트를 탓하기 전에 재채점한다.</strong> 바뀌지 않은 궤적을 이전 형식으로 다시 채점해 격차가 사라지면 채점기가 바뀐 것이다.</li><li><strong>채점된 비율을 보고하고 평가기 버전을 고정한다.</strong> 재채점할 때는 diff를 공개한다.</li><li><strong>구성마다 여러 번 실행하고 편차를 보고한다.</strong></li><li><strong>태스크 정보, 예산, 도구를 평가 차원으로 다룬다.</strong> 자기 검증은 프롬프트 한 줄이 아니라 도구로 테스트한다.</li><li><strong>도구를 계약에 맞춰 점검한다.</strong> 보고된 상태가 실제로 기록된 상태와 일치하는지, 출력에 상한과 한계가 명시되어 있는지 확인한다.</li><li><strong>포화된 평가는 폐기한다.</strong></li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li><strong>엉뚱한 것을 디버깅:</strong> 평가에 모호한 명세나 채점기 버그가 없는지 확인하지 않고 에이전트를 바꾼다.</li><li><strong>집계 점수 하나:</strong> 실패가 가끔인지 전면적인지 가린다.</li><li><strong>단계 정확 일치:</strong> 유효한 다른 경로에 불이익을 준다.</li><li><strong>부정 사례 없음:</strong> 과신을 잡아내지 못한다.</li><li><strong>도구 출력을 정답으로 신뢰:</strong> 결함이 있거나 한계가 표시되지 않은 도구 때문에 채점기가 일어나지 않은 동작에 보상을 준다.</li><li><strong>조용한 측정 도구 오류:</strong> 채점되지 않은 에피소드를 실패로 집계해 오류 없이 리더보드 순위가 뒤바뀐다.</li><li><strong>취약한 채점기:</strong> 외형만 바꿔도 가짜 회귀가 생긴다.</li><li><strong>단일 실행 비교:</strong> 분산을 실제 차이로 읽는다.</li><li><strong>잘못된 귀속:</strong> 도구도 바뀌었는데 모델의 공으로 돌린다.</li><li><strong>포화된 평가 최적화.</strong></li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p><a href=\"/topic/agent-evaluation\">에이전트 평가</a>, 공개 벤치마크가 자체 평가와 어디서 달라지는지 다루는 <a href=\"/topic/agent-benchmarks\">에이전트 벤치마크</a>, 모델 기반 채점기의 실패를 다루는 <a href=\"/foundations/llm-judge-reliability\">LLM-as-judge 점수를 믿어도 될까?</a>, 점수를 프로덕션 주장으로 읽는 법을 다루는 <a href=\"/foundations/benchmark-production-reliability-gap\">높은 벤치마크 점수는 프로덕션 신뢰성을 예측할까?</a>를 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "arxiv-2611-04399-silent-instrument-errors",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Silent Instrument Errors Reorder Agent Leaderboards",
+      "note": "Audits HAL and tau2-bench from published artifacts. A 13-point gap against a specialized scaffold came from the grader: the general agent ended conversations in a way that never triggered grading, so about half its episodes were stored as failures. Regrading closed the gap without rerunning any agent. Also found double-counted cost, grader actions logged as agent actions, and a mode check that cut four files' scores by 59-82 points with no error.",
+      "added": "2026-11-04",
+      "url": "http://arxiv.org/abs/2611.04399v1",
+      "sid": "7dfaaa125cb6bf17"
+    },
+    {
+      "id": "arxiv-2610-32110-warped-formatters",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers",
+      "note": "Tool output that omits search limits, result caps, or identifier namespaces misleads agents even when the tool computed correctly. Stating the omitted details cut unsupported claims for three of four failure types. In one test, verifiers moved from accepting 90 of 90 incorrect answers to rejecting 90 of 90. Verifiers caught the errors once given the missing facts. Abstract-level read only.",
+      "added": "2026-11-04",
+      "url": "http://arxiv.org/abs/2610.32110v1",
+      "sid": "bd36dcd4473fffd5"
+    },
+    {
+      "id": "episem-bench-2026-missing-evidence",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
+      "note": "Executable benchmark of 300 matched unsafe/safe task pairs across six domains and ten models. Suppressing a safety-relevant fact from a tool response, while every returned statement stays true, can lead agents to take prohibited actions. Models differ widely in omission robustness and evidence acquisition; giving agents recovery access reduces unsafe execution for all ten. Abstract-level read only; per-model rates not verified.",
+      "added": "2026-10-23",
+      "url": "http://arxiv.org/abs/2610.31650v1",
+      "sid": "9831d6e2b082e033"
+    },
+    {
+      "id": "arxiv-2609-37315-executable-contract-audit",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Do Agent Benchmarks Do What They Say? An Executable-Contract Audit of Tool-Using Agent Environments",
+      "note": "Checks each simulated tool against its advertised interface across 34 mutating tools in four benchmarks and confirms seven tool defects plus one evaluator property. On AgentDojo, at least 5 of 25 mutating tools diverge from their contract. On tau2-bench, the evaluator rewards a refuel of a suspended line and fails the repaired tool. A clinical benchmark's tool reports writes it never made, and its grader counts that message as success.",
+      "added": "2026-10-14",
+      "url": "https://arxiv.org/abs/2609.37315",
+      "sid": "ec84f4f58551c9cf"
+    },
+    {
+      "id": "arxiv-2610-11678-trace-verifier-brittleness",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "TRACE: Diagnosing Verifier Brittleness in Agentic Evaluation",
+      "note": "Protocol that mutates one part of an eval, compares paired runs, and rescores unchanged trajectories. Renaming tools cut a scripted agent's score by 0.250 with identical operations; restoring names at scoring time closed the gap. On tau2-bench (88 tasks), misleading tool names lowered every agent's reward 0.20-0.44, while identical reruns flipped 15-36% of outcomes. Two frontier judges disagreed on 57% of records.",
+      "added": "2026-10-09",
+      "url": "http://arxiv.org/abs/2610.11678v1",
+      "sid": "10abc73be739f08b"
+    },
+    {
+      "id": "arxiv-2610-01618-agents-are-systems",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Agents Are Systems, Not Models: Rethinking Agentic Evaluation",
+      "note": "Runs a coding agent on four scientific tasks that require operating specialist models, across more than 18,000 trajectories varying task information, reasoning approach, self-verification, time budget, and backbone model. 54% of outcome variance came from run-to-run variability within identical configurations. Task information had the largest effect, above time budget or model size; extra time helped only with enough information or a capable model. Verification tools changed behavior substantially; verification prompts had minimal effect.",
+      "added": "2026-10-02",
+      "url": "http://arxiv.org/abs/2610.01618v1",
+      "sid": "068e3817b6d56fbd"
+    },
+    {
+      "id": "anthropic-2026-demystifying-agent-evals",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "Demystifying evals for AI agents",
+      "note": "Anthropic's guide to building agent evals. Names three grader types: code-based (fast, cheap, objective), model-based (flexible, non-deterministic, expensive), and human (best quality, slowest). Recommends starting from 20-50 real-failure tasks with unambiguous specs and reference solutions, positive and negative cases, isolated environments, and outcome grading over step matching. Defines pass@k and pass^k. Reports Opus 4.5's CORE-Bench score rising from 42% to 95% after fixing grading bugs, ambiguous specs, and stochastic tasks in the eval.",
+      "added": "2026-09-02",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "sid": "6c790a16de0afd2b"
+    },
+    {
+      "id": "agent-eval-design-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "A low eval score is a claim about two things at once: the agent's behavior and the eval's own correctness. Builders default to debugging the first without checking the second. Treat the eval as software that needs its own bug-fixing pass before trusting what it reports about the agent.",
+      "added": "2026-09-02"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+      "slug": "agent-benchmarks",
+      "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

@@ -1,0 +1,109 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-harness-control-plane-exposure",
+  "source_hash": "36112802bf2d40c8288e5db24f9373b506a00cac268aec225b161644bfbf4df9",
+  "translated_at": "2026-11-23T04:03:28.761528+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-harness-control-plane-exposure",
+  "title": "에이전트는 어떻게 로컬 인터페이스를 호출해 자신의 샌드박스를 해제할 수 있었나?",
+  "question": "Why could an agent disable its own sandbox by calling a local interface?",
+  "summary": "CVE-2026-82533(CVSS 9.4)은 DeepSeek 코딩 에이전트 하네스의 샌드박스 셸이 인증 없는 로컬 제어 인터페이스를 호출해 자신의 샌드박스와 승인 프롬프트를 끌 수 있게 한 취약점이다. 이 인터페이스가 비밀 값이 아니라 호출자가 넣은 Host 헤더를 신뢰했기 때문이다.",
+  "status": "active",
+  "cluster": "safety",
+  "cluster_label": "Safety and control",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-09-26",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>하네스가 세션 권한을 바꾸는 데 쓰는 로컬 인터페이스(샌드박스 해제, 승인 생략, 모드 전환)는 격리하지 않으면 가두려는 프로세스가 그대로 접근할 수 있다. CVE-2026-82533(CVSS 9.4)에서는 에이전트 자신의 샌드박스에서 실행한 셸 명령 하나로 샌드박스와 모든 승인 프롬프트가 꺼졌다. 프롬프트 인젝션은 필요 없었다. 권한 있는 에이전트를 조종하는 쓰기 가능한 로컬 설정도 같은 종류의 제어 표면이다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>DeepSeek 하네스는 샌드박스 셸에 제어 인터페이스의 주소와 세션 ID를 넘겨 주었고, 셸의 도구가 이를 그대로 쓸 수 있었다. 이 인터페이스는 <code>Host</code> 헤더가 기대한 값과 일치하는 요청이면 무엇이든 받아들였다. 코드 주석에는 이 검사가 &quot;인증 계층이 아니다&quot;라고 적혀 있었지만, 인증을 대신하는 장치는 따로 없었다. 그 결과 에이전트는 인터페이스를 호출해 세션을 <code>danger-full-access</code>로 설정할 수 있었다. 0.1.2-rc.1의 수정은 시작 시 한 번 쓰는 토큰을 서명된 쿠키와 교환하도록 요구하며, 이 비밀 값은 샌드박스에 노출되지 않는다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>하네스의 모든 제어 표면에 두 가지를 물어야 한다.</p>\n<ul><li><strong>격리된 프로세스가 접근할 수 있는가?</strong> 샌드박스 셸이 호스트와 포트에 닿거나 파일에 쓸 수 있다면, 에이전트가 쓰도록 의도했는지와 무관하게 실제로 동작하는 경로다.</li><li><strong>정상 호출자로 인증할 수 있는가?</strong> <code>Host</code> 헤더, 경로, 주장하는 세션 ID는 모두 호출자가 정하는 값이다. 인증에는 발급받은 경우에만 호출자가 가질 수 있는 비밀 값이 필요하다.</li></ul>\n<p>두 질문 중 하나라도 답이 &quot;아니오&quot;이면 구멍이 막힌다. CVE-2026-82533은 둘 다 실패했다. Meta의 Muse 클라이언트도 설정 파일을 통해 둘 다 실패했다. 로컬 프로세스라면 누구나 해당 설정을 쓸 수 있었고, 클라이언트는 디스크에 있는 값을 그대로 신뢰했다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>네트워크 컨트롤 플레인.</strong> 이 하네스는 샌드박스 에이전트와 로컬 제어 인터페이스를 같은 호스트에서 실행했다. 이 인터페이스는 하네스의 브라우저 UI를 제공했고, 샌드박스 없이 실행하려는 사용자를 위한 <code>danger-full-access</code> 모드를 갖고 있었다. 도구가 인터페이스에 접근할 수 있도록 하네스는 인터페이스 주소와 세션 ID를 샌드박스 셸의 환경에 내보냈다.</p>\n<p><code>Host</code> 헤더 검사는 일부 교차 출처 브라우저 공격을 막지만, 모든 클라이언트가 자기 <code>Host</code> 헤더를 직접 설정하므로 호출자가 누구인지는 알려 주지 못한다. 에이전트는 기대하는 값을 보내 인터페이스를 호출하고 모드를 바꿀 수 있었다. 그 뒤로 에이전트의 명령은 아무 격리 없이 실행됐다.</p>\n<p>토큰과 쿠키를 쓰는 수정은 접근 가능성이 의미하는 바를 바꾼다. 시작 토큰을 받은 적 없는 프로세스는 유효한 쿠키를 만들 수 없으므로, 같은 호스트에 있다는 사실만으로는 더 이상 충분하지 않다.</p>\n<p><strong>설정 컨트롤 플레인.</strong> Muse는 받아쓰기 음성을 수신하는 서버인 <code>endo_voyager_dictation_endpoint</code>를 권한 없는 사용자도 쓸 수 있는 저장소에서 읽었다. 서명이나 기본값 검사 없이 이 값을 신뢰했다. 이 값을 덮어쓰면 마이크 음성과 계정 인증 토큰이 공격자에게 넘어갔다. Muse가 macOS에서 넓은 권한을 갖고 있었기 때문에, 탈취한 채널을 통한 프롬프트 인젝션으로 로컬 파일까지 빼낼 수 있었다. Meta는 이 설정에 대한 쓰기를 인증하는 대신 프로덕션 빌드에서 설정 자체를 제거했다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>컨트롤 플레인을 샌드박스의 네트워크 경로 밖에 둔다.</strong> 격리된 셸이 자신의 권한을 관리하는 인터페이스를 해석하거나 접근할 수 없어야 한다.</li><li><strong>대역 외 비밀 값으로 인증한다.</strong> 예를 들어 신뢰할 수 있는 시작 시점에 한 번 교환한 토큰을 서명된 쿠키에 담아 쓴다. 호출자가 제공하는 헤더, 경로, 식별자는 쓰지 않는다.</li><li><strong>모든 권한 상승 모드</strong>(&quot;full access&quot;, &quot;sandbox off&quot;, &quot;skip approval&quot;)를 내부 편의 기능이 아니라 프로덕션 관리자 엔드포인트처럼 다룬다.</li><li><strong>샌드박스에 주입하는 것을 감사한다.</strong> 환경 변수, 마운트된 소켓, 프로세스가 건드리면 안 되는 인프라를 설명하는 설정이 대상이다.</li><li><strong>패치가 요구하는 것이</strong> 샌드박스 프로세스가 가진 적 없는 비밀 값인지 확인한다. 같은 요청 속성 검사를 더 엄격하게 만든 것이어서는 안 된다.</li><li><strong>디버그·진단용 설정 키는 프로덕션 빌드에서 제거한다.</strong> 권한 없는 프로세스가 쓸 수 있고 엔드포인트를 바꾸거나 권한을 넓히는 키가 대상이다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li><code>Host</code> 헤더나 경로 검사를 인증으로 취급한다.</li><li>에이전트가 &quot;쓰지 않을 것&quot;이라고 가정하고, 샌드박스에 자신을 가두는 인프라의 주소나 식별자를 넘긴다.</li><li>하네스 자체 도구를 위한 권한 상승 모드를 만들면서, 격리된 프로세스도 거기에 접근할 수 있는지 따져 보지 않는다.</li><li>&quot;로컬 전용&quot;이면 안전하다고 가정한다. 로컬에는 같은 호스트의 샌드박스 프로세스도 포함된다.</li><li>권한 있는 클라이언트를 조종하는 쓰기 가능한 디버그 설정 키를 배포하면서, 그 파일이 이를 읽는 앱만큼 보호된다고 가정한다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>기본 격리 도구 모음은 <a href=\"/topic/agent-sandboxing\">에이전트 샌드박싱</a>, 하네스 내부 인터페이스가 에이전트가 접근할 수 있는 표면이 되는 과정은 <a href=\"/topic/tool-use\">도구 사용</a>을 참고. 경계가 내부에서 열린 것이 아니라 처음부터 닫혀 있지 않았던 <a href=\"/foundations/cyber-eval-sandbox-escapes\">사이버 평가 샌드박스 탈출</a>과 비교해 볼 만하다.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "story-200b2d2e1357f4e9-infoq-meta-muse-zeroday",
+      "kind": "story",
+      "tier": "source story",
+      "title": "Un-Mused: How a Single Debug Setting Bypassed macOS Security in Meta’s AI Client",
+      "note": "InfoQ on Patrick Wardle's disclosure: Meta's Muse macOS client shipped an undocumented debug preference, endo_voyager_dictation_endpoint, that any unprivileged local process could overwrite without an OS prompt. That rerouted dictation audio plus the account auth token to an attacker server, and could chain with prompt injection to exfiltrate local files via the TCC-permissioned assistant. Meta's hotfix removed the preference from production builds; no CVE was filed.",
+      "added": "2026-09-26",
+      "sid": "200b2d2e1357f4e9"
+    },
+    {
+      "id": "story-6d7e21b41e293e2d-hackernews-deepseek-harness",
+      "kind": "story",
+      "tier": "source story",
+      "title": "DeepSeek Harness Flaw Let AI Agents Disable Their Own File Sandbox Without Approval",
+      "note": "The Hacker News' technical account. The harness gave the agent's shell the address and session ID of an unauthenticated local control interface. Its only check was the client-supplied Host header, commented in code as 'not an auth layer'. One call set the session to danger-full-access, disabling sandbox and approvals. CVE-2026-82533, CVSS 9.4, versions 0.1.1-rc.2 and earlier; fixed in 0.1.2-rc.1 (2026-08-27) with a one-time startup token exchanged for a signed cookie.",
+      "added": "2026-09-12",
+      "sid": "6d7e21b41e293e2d"
+    },
+    {
+      "id": "story-8478102e21445d5c-ox-security-cve",
+      "kind": "story",
+      "tier": "source story",
+      "title": "CVE-2026-82533: DeepSeek Harness Vulnerability Lets AI Agents Escape Their Own Sandbox",
+      "note": "OX Security's disclosure write-up, naming and scoring the CVE.",
+      "added": "2026-09-12",
+      "sid": "8478102e21445d5c"
+    },
+    {
+      "id": "story-cdd15242b725bbc8-forkast-deepseek-harness",
+      "kind": "story",
+      "tier": "source story",
+      "title": "DeepSeek Harness Sandbox Escape Lets AI Agents Disable Their Own Confinement",
+      "note": "Corroborating outlet coverage of the same disclosed CVE.",
+      "added": "2026-09-12",
+      "sid": "cdd15242b725bbc8"
+    },
+    {
+      "id": "agent-harness-control-plane-exposure-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "Unlike the 2026 cyber-eval sandbox incidents, where an external network misconfiguration left a real boundary open, here the harness put its own privilege-escalation interface on a path the confined process already had and authenticated it with a value the caller supplies. Muse extends the lesson to config: a writable value that steers a privileged assistant is a control plane too. The lesson is control-plane placement and authentication, not network egress.",
+      "added": "2026-09-12"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-sandboxing",
+      "title": "Sandboxing, scoped credentials, and guardrails"
+    },
+    {
+      "slug": "tool-use",
+      "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    }
+  ],
+  "related_playbook_cards": [
+    "pb-audit-debug-flags-permission-bypass"
+  ],
+  "related_storylines": []
+}

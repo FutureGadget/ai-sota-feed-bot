@@ -1,95 +1,156 @@
 {
   "locale": "ko",
   "source_path": "/foundations/llm-judge-reliability",
-  "source_hash": "6ecca1526f64c3c7a452bd9e8a0b7307bfd057e78afa3f5ede41d97bcb058461",
-  "translated_at": "2026-11-07T03:21:50.338660+00:00",
-  "model": "claude-opus-5-5 (refresh of google/gemma-4-e4b)",
+  "source_hash": "bcaef44fa399525103acc47b8b831c81bcff33fd71c321b45a55b351a749a19c",
+  "translated_at": "2026-11-23T04:02:05.009847+00:00",
+  "model": "claude-sonnet-5-5",
   "review_status": "machine",
-  "audience": "strong-software-engineer",
+  "slug": "llm-judge-reliability",
+  "title": "LLM-as-judge 점수를 신뢰할 수 있을까?",
+  "question": "Can you trust an LLM-as-judge score?",
+  "summary": "LLM judge는 정답이 아니라 고유한 편향을 지닌 측정 도구다. 채점 대상인 에이전트를 검증하듯 judge도 똑같이 검증해야 하며, 확인 가능한 증거가 있는 에이전트 궤적에는 결정론적 스코어러를 고려할 만하다.",
+  "status": "active",
   "cluster": "evaluation",
   "cluster_label": "Evals and reliability",
+  "updated": "2026-11-20",
+  "latest_evidence_added": "2026-11-20",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>에이전트 트레이스를 LLM judge로 채점한다면, 그 점수는 에이전트에 관한 사실이 아니다. 고유한 실패 양상을 가진 두 번째 모델을 거쳐 걸러진 에이전트의 모습일 뿐이다. judge를 CI 게이팅이나 대시보드에 연결하기 전에, judge가 특정 슬롯, 길이, 언어, 또는 루브릭의 숫자 방향을 선호하는지 확인해야 한다. 같은 실행을 압축하거나 위임한 뷰로 보여줘도 판단이 일치하는지도 확인해야 한다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>홀드아웃 세트에서의 LLM-as-judge 정확도는 필요조건이지만 충분조건은 아니다. judge에는 위치, 길이, 언어, 점수 앵커 방향에 대한 체계적 편향이 있고, 단순 정확도는 이를 가린다. 벤치마크를 통과한 judge도 평가가 잡아내야 할 실패를 놓칠 수 있다.</p>\n<p>그 밑에는 더 깊은 두 가지 간극이 있다. judge는 답변이 그럴듯한지를 채점할 뿐, 궤적이 그 답변을 정당하게 도출했는지는 채점하지 않는다. 또한 판정은 judge가 읽는 궤적의 뷰에 따라 달라진다. Verification Transport는 실행이 위임 및 도구 조합 경계를 넘나들 때 약 31%의 판정 실패가 발생한다고 측정했다. judge를 테스트 대상 컴포넌트로 취급하고, 출처(provenance) 정보를 제공해야 한다. 증거를 확인할 수 있는 경우에는 결정론적 스코어러를 쓰되, 이것 역시 감사해야 한다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>judge는 학습 루프 대신 프롬프트를 쓰는 분류기이며, 분류기는 단일 집계 정확도로는 드러나지 않는 방식으로 실패한다. judge 설계는 스펙트럼으로 나뉜다.</p>\n<ul><li><strong>프롬프트 기반 프런티어 LLM:</strong> 유연하지만 비싸고, 미묘한 편향이 있다.</li><li><strong>소형 파인튜닝 분류기</strong>(인코더 또는 증류 LLM): 프로덕션 레이블로 학습하며, 저렴하고 빠르지만 범위가 좁고 레이블 품질을 넘어서지 못한다.</li><li><strong>기록된 궤적에 대한 결정론적 검사:</strong> 증거를 확인할 수 있는 영역에서는 정확하지만, 규칙이 예상하지 못한 것은 보지 못한다.</li></ul>\n<p>세 가지 모두 에이전트에 필요한 것과 같은 요소가 필요하다. 스코어러를 튜닝한 사례가 아니라 실제 실패 사례로 만든 홀드아웃 테스트 세트다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>LLM judge는 응답, 루브릭, 그리고 흔히 비교 대상인 두 번째 응답을 조건으로 판정을 내린다. 판정이 모델 출력이므로 모델 수준의 아티팩트를 그대로 물려받는다.</p>\n<ul><li><strong>위치 편향:</strong> 먼저 제시된 후보를 선호한다. BabelJudge의 순서 일관성은 스와힐리어에서 0.480으로 떨어져 무작위에 가까웠다.</li><li><strong>장황함 편향:</strong> 철저함의 대용으로 더 긴 텍스트를 선호한다.</li><li><strong>분포 이동에 따른 성능 저하:</strong> 튜닝된 언어나 도메인을 벗어나면 보정이 무너진다.</li><li><strong>앵커 방향 편향:</strong> 루브릭의 문구가 아니라 숫자에 대한 선입견(\"5점이 좋다\")으로 점수를 매기므로, 척도를 뒤집으면 판정이 바뀐다.</li></ul>\n<p>에이전트 궤적에는 표현 방식의 문제가 더해진다. 프로덕션에서는 하나의 실행이 원시 도구 호출, 조합된 매크로 도구, 서브 에이전트 요약, 압축된 히스토리 중 하나의 형태로 judge에 전달된다. 각 뷰는 서로 다른 증거를 가리므로 같은 실행도 판정이 달라질 수 있다. 직접 검증은 잘못된 판정으로 뒤집히는 경향이 있고, 증거 기반 프로토콜은 판단을 보류하는 경향이 있다. 이는 실패가 줄어든 것처럼 보이지만 더 신뢰할 수 있다는 뜻은 아니다. 출처 정보를 복원하자 실패의 대부분이 회복되었다.</p>\n<p>결정론적 궤적 채점은 증거를 확인할 수 있는 영역에서 judge를 제거한다. GroundEval은 기록된 궤적을 시스템이 아는 정답과 대조해 채점한다. 에이전트가 부재를 주장하기 전에 확인했는지(<strong>Silence</strong>), 당시 이용 가능한 증거만으로 추론했는지(<strong>Perspective</strong>), 실제 인과 메커니즘을 사용했는지(<strong>Counterfactual</strong>)를 본다. 최종 텍스트만 보는 judge가 놓치는, 유창하지만 근거 없는 답변을 잡아낼 수 있다.</p>\n<p>결정론적 검사에도 고유한 사각지대가 있다. 잘못된 필드를 읽는 규칙은 실제 결과를 놓친다. AgentDojo의 공격 검사기는 에이전트가 공격자의 행동을 실행한 실행 중 11.9%를 놓쳤다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<p>judge의 판정을 신뢰하기 전에 다음 검사를 수행한다.</p>\n<ul><li><strong>순서 교환 테스트.</strong> 모든 쌍별 비교를 양방향으로 실행하고, 일치하는 판정만 센다.</li><li><strong>척도 반전 프로브.</strong> 앵커를 뒤집어 샘플을 다시 채점한다. 판정이 judge 자체의 재실행 노이즈를 넘어 움직이면, 프로덕션에서는 양방향 점수를 평균한다.</li><li><strong>장황함 및 슬라이스별 검사.</strong> 길이와 판정의 관계를 추적하고, 신뢰도는 합산하지 말고 언어나 도메인별로 보고한다.</li><li><strong>실제 실패로 만든 홀드아웃 세트.</strong> judge가 당연히 맞히는 사례가 아니라 팀이 겪은 프로덕션 실패를 사용한다.</li><li><strong>안정성과 사람과의 일치도.</strong> 동일한 입력을 여러 번 다시 채점하고, 우연 보정 지표로 사람의 레이블과 비교한다.</li><li><strong>출처 정보와 함께 프로덕션 뷰를 판정.</strong> 위임이나 압축 이후 검증자가 실제로 보게 될 궤적 표현을 채점하고, 그 표현의 원본인 원시 도구 호출 로그를 첨부한다.</li><li><strong>더 저렴한 judge도 재검증.</strong> 인코더, 증류 모델, 결정 모델을 같은 세트로 테스트하고, 임계값을 조정하며 보정을 측정하고, 모델, 프롬프트, 루브릭이 바뀔 때마다 다시 실행한다.</li><li><strong>결정론적 스코어러를 우선하되 감사한다.</strong> 증거를 확인할 수 있는 곳에서는 궤적을 정답과 대조해 채점하고, 검사기의 판정을 실제 수행된 행동과 주기적으로 대조한다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li><strong>집계 정확도 맹신:</strong> 합산된 수치가 한 슬라이스의 붕괴를 가린다.</li><li><strong>순서·앵커 무시:</strong> 슬롯을 바꾸거나 척도를 뒤집었을 때 판정이 뒤집히는지 전혀 테스트하지 않는다.</li><li><strong>벤치마크 전용 검증:</strong> judge가 평가가 잡아내야 할 프로덕션 실패를 한 번도 보지 못한다.</li><li><strong>설정 후 방치하는 judge:</strong> 에이전트, 프롬프트, judge 모델이 바뀐 뒤에도 재검증하지 않는다.</li><li><strong>추상화 무시:</strong> 원시 트레이스로 검증한 뒤 압축되거나 위임된 요약을 판정한다.</li><li><strong>판단 보류를 정확도로 착각:</strong> 판정을 거부하는 프로토콜은 신뢰할 수 있어 보이지만 아무것도 채점하지 않는다.</li><li><strong>경로가 아닌 답변만 채점:</strong> 궤적의 증거를 확인하지 않고 유창한 답변을 신뢰한다.</li><li><strong>검사기 맹신:</strong> 자동화된 벤치마크 판정을 행동과 대조해 감사하지 않고 증거로 취급한다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>에이전트 궤적 채점은 <a href=\"/topic/agent-evaluation\">에이전트 평가</a>, 이 페이지가 검토하는 모델 채점 패턴은 <a href=\"/topic/llm-as-judge\">LLM-as-judge</a>, 벤치마크 자체가 실제 동작을 예측하는지는 <a href=\"/foundations/benchmark-production-reliability-gap\">높은 벤치마크 점수가 프로덕션 신뢰성을 예측할까?</a>를 참고.</p>"
+    }
+  ],
   "evidence": [
     {
-      "added": "2026-10-21",
+      "id": "scale-reversal-judge-bias-2026",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Rubric Semantics or Numerical Priors? Auditing Scale-Direction Bias in LLM Judges",
+      "note": "Inverts a rubric's score anchors (1 = best instead of 5 = best) without changing the criteria and checks whether judges give consistent scores. Across five meta-evaluation benchmarks and seven open and proprietary judges, violations are widespread, and raw reversal agreement is misleading until normalized against each judge's own run-to-run noise. Averaging scores over both anchor directions reduces the dependence without hurting agreement with human ratings.",
+      "added": "2026-11-20",
+      "url": "http://arxiv.org/abs/2611.25588v1",
+      "sid": "d59766235f01efbf"
+    },
+    {
+      "id": "verification-transport-2026",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Do Verifier Judgments Survive Abstraction? Measuring Verification Transport for LLM Agent Evaluation",
+      "note": "Shows the same frozen agent execution, viewed through composed tools, delegation, or a compacted history, changes verifier verdicts. Across four benchmarks, seven verifier backbones, four protocols, and three boundaries, judgment failure reaches about 31% under macro abstraction plus delegation. Direct verification flips to wrong verdicts; evidence-grounded protocols abstain instead. Restoring execution provenance recovers 85.5% of failures.",
+      "added": "2026-11-20",
+      "url": "http://arxiv.org/abs/2611.18471v1",
+      "sid": "a44ee00fea440f11"
+    },
+    {
+      "id": "agentdojo-verdict-audit-2026",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Did the Attack Really Work? Auditing, Re-running, and Sealing AI-Agent Security Findings with .sova",
+      "note": "Audits AgentDojo's automated attack-success checks against the tool calls agents actually made. Agreement is 97.7% on 19,381 runs, but the checker scored 433 runs as no attack where the agent paid the attacker or took the decisive action: 11.9% of real attacks. A reply-text check also counted warnings as attacks. Preprint, not peer reviewed; the author's company builds the audit tool.",
+      "added": "2026-11-20",
+      "url": "https://zenodo.org/records/24321025",
+      "sid": "cd759e6684ea23fc"
+    },
+    {
       "id": "google-cloud-audit-llm-evaluators-2026",
       "kind": "primary-doc",
-      "note": "Google Cloud's audit recipe: measure score variance across repeated passes on identical inputs, compare against human experts with chance-corrected metrics, and use at least two judge models on decomposed criteria, flagging divergence. Cites prior work that swapping option order can flip a verdict over 75% of the time. Gives no thresholds or pass counts.",
-      "sid": "4e6e796fa0c5bfc0",
       "tier": "primary-doc-backed",
       "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators",
-      "url": "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators"
+      "note": "Google Cloud's audit recipe: measure score variance across repeated passes on identical inputs, compare against human experts with chance-corrected metrics, and use at least two judge models on decomposed criteria, flagging divergence. Cites prior work that swapping option order can flip a verdict over 75% of the time. Gives no thresholds or pass counts.",
+      "added": "2026-10-21",
+      "url": "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators",
+      "sid": "4e6e796fa0c5bfc0"
     },
     {
-      "added": "2026-10-21",
       "id": "hamel-decision-model-evals-2026",
       "kind": "production-field-report",
-      "note": "Tests six small decision models on 98 apartment-leasing agent traces (61 failures) with five-fold cross-validation. Tuning the default 0.50 threshold recovers performance; the cheapest model scored F1 0.79 at 0.82 cents per 100 runs versus 0.87 at 3.72 cents. Calibration must be measured: one group predicted 8% failure but 60% failed. Small, single dataset.",
-      "sid": "58b479d20c57cce8",
       "tier": "production field-report-backed",
       "title": "How To Use Decision Models for Evals",
-      "url": "https://hamel.dev/blog/posts/decision-model-evals"
+      "note": "Tests six small decision models on 98 apartment-leasing agent traces (61 failures) with five-fold cross-validation. Tuning the default 0.50 threshold recovers performance; the cheapest model scored F1 0.79 at 0.82 cents per 100 runs versus 0.87 at 3.72 cents. Calibration must be measured: one group predicted 8% failure but 60% failed. Small, single dataset.",
+      "added": "2026-10-21",
+      "url": "https://hamel.dev/blog/posts/decision-model-evals",
+      "sid": "58b479d20c57cce8"
     },
     {
-      "added": "2026-07-10",
       "id": "groundeval-2026-judge-free-agent-evaluation",
       "kind": "benchmark-result",
-      "note": "In a case study, two frontier LLM judges scored a plausible agent response 0.85 or higher while the recorded trajectory showed the agent never retrieved the artifact its answer depended on; GroundEval scored it 0.000. Replaces the judge with a deterministic scorer over grounded, time-bounded, access-controlled evidence on three tracks: Silence, Perspective, and Counterfactual. The authors' case studies suggest the failure is common, not exceptional.",
       "tier": "benchmark/result-backed",
       "title": "GroundEval: A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation",
+      "note": "In a case study, two frontier LLM judges scored a plausible agent response 0.85 or higher while the recorded trajectory showed the agent never retrieved the artifact its answer depended on; GroundEval scored it 0.000. Replaces the judge with a deterministic scorer over grounded, time-bounded, access-controlled evidence on three tracks: Silence, Perspective, and Counterfactual. The authors' case studies suggest the failure is common, not exceptional.",
+      "added": "2026-07-10",
       "url": "https://arxiv.org/abs/2606.22737"
     },
     {
-      "added": "2026-06-28",
       "id": "babeljudge-2026-judge-bias",
       "kind": "benchmark-result",
-      "note": "Builds gold-labeled pairs by perturbing known-good answers (no human annotation) and measures position bias, verbosity bias, order inconsistency, and cross-lingual degradation in a Qwen2.5-7B-Instruct judge. Raw accuracy (0.835 Hindi vs. 0.660 Swahili) understates the gap: bias-penalized reliability falls from 0.714 to 0.550, and order consistency collapses to 0.480 under slot swaps, near random. One judge model tested.",
       "tier": "benchmark/result-backed",
       "title": "BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories",
+      "note": "Builds gold-labeled pairs by perturbing known-good answers (no human annotation) and measures position bias, verbosity bias, order inconsistency, and cross-lingual degradation in a Qwen2.5-7B-Instruct judge. Raw accuracy (0.835 Hindi vs. 0.660 Swahili) understates the gap: bias-penalized reliability falls from 0.714 to 0.550, and order consistency collapses to 0.480 under slot swaps, near random. One judge model tested.",
+      "added": "2026-06-28",
       "url": "http://arxiv.org/abs/2606.22329v1"
     },
     {
-      "added": "2026-06-28",
       "id": "encoder-decoder-safety-judges-2026",
       "kind": "benchmark-result",
-      "note": "Benchmarks fine-tuned encoder classifiers against LLM-based judges for detecting harmful outputs across several attack techniques, testing whether a much cheaper, lower-latency judge architecture can substitute for an LLM judge without a major accuracy loss. Safety-classification setting only; no headline figure is recorded here.",
       "tier": "benchmark/result-backed",
       "title": "Do Encoders Suffice? A Systematic Comparison of Encoder and Decoder Safety Judges for LLM Adversarial Evaluation",
+      "note": "Benchmarks fine-tuned encoder classifiers against LLM-based judges for detecting harmful outputs across several attack techniques, testing whether a much cheaper, lower-latency judge architecture can substitute for an LLM judge without a major accuracy loss. Safety-classification setting only; no headline figure is recorded here.",
+      "added": "2026-06-28",
       "url": "http://arxiv.org/abs/2606.25782v1"
     },
     {
-      "added": "2026-06-28",
       "id": "langchain-fireworks-trace-judge-2026",
       "kind": "production-field-report",
-      "note": "LangChain and Fireworks fine-tuned a small open model on production trace labels and matched frontier-judge performance at roughly 1/100th the cost. Vendor-reported, on their own narrow trace-grading task. Shows a judge's behavior can be distilled and re-validated rather than locked to whichever frontier model wrote the first version.",
       "tier": "production field-report-backed",
       "title": "Building a 100x Cheaper Trace Judge with Fireworks",
+      "note": "LangChain and Fireworks fine-tuned a small open model on production trace labels and matched frontier-judge performance at roughly 1/100th the cost. Vendor-reported, on their own narrow trace-grading task. Shows a judge's behavior can be distilled and re-validated rather than locked to whichever frontier model wrote the first version.",
+      "added": "2026-06-28",
       "url": "https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks"
     },
     {
-      "added": "2026-06-28",
       "id": "linear-sales-email-eval-miss-2026",
       "kind": "production-field-report",
-      "note": "Practitioner postmortem on a real production failure that a typical eval suite and judge would have scored as a pass. Single incident, no rates; shows judge accuracy on a benchmark does not guarantee the judge catches the failure that actually matters.",
       "tier": "production field-report-backed",
       "title": "Why most AI evals would miss the Linear sales email failure",
+      "note": "Practitioner postmortem on a real production failure that a typical eval suite and judge would have scored as a pass. Single incident, no rates; shows judge accuracy on a benchmark does not guarantee the judge catches the failure that actually matters.",
+      "added": "2026-06-28",
       "url": "https://tenureai.dev/writing/why-most-ai-evals-would-miss-the-linear-sales-email-failure"
     },
     {
-      "added": "2026-06-28",
       "id": "llm-judge-reliability-editorial-synthesis",
       "kind": "editorial-inference",
-      "note": "For agent builders, an LLM-as-judge score is an output of a measurement instrument with its own bias profile, not a ground-truth label, so the judge needs the same validation discipline as the agent it grades.",
       "tier": "editorial inference",
-      "title": "LLM Digest synthesis"
+      "title": "LLM Digest synthesis",
+      "note": "For agent builders, an LLM-as-judge score is an output of a measurement instrument with its own bias profile, not a ground-truth label, so the judge needs the same validation discipline as the agent it grades.",
+      "added": "2026-06-28"
     }
   ],
-  "latest_evidence_added": "2026-10-21",
-  "math_depth": "",
-  "question": "LLM-as-judge의 평가 점수를 믿을 수 있을까요?",
-  "related_playbook_cards": [
-    "pb-audit-llm-judges-for-position-and-language-bias"
-  ],
-  "related_storylines": [],
   "related_topics": [
     {
       "slug": "agent-evaluation",
@@ -100,39 +161,8 @@
       "title": "LLM-as-judge: model-graded evaluation of traces and outputs"
     }
   ],
-  "sections": [
-    {
-      "heading": "Builder consequence",
-      "html": "<p>LLM judge로 agent trace를 채점한다면 그 점수는 agent에 대한 사실이 아닙니다. 자체 실패 양상을 가진 두 번째 모델을 거친 agent의 모습입니다. judge를 CI 게이트나 대시보드에 연결하기 전에 특정 위치, 길이, 언어를 선호하지 않는지, 그리고 eval 세트에서의 정확도가 실제로 신경 쓰는 프로덕션 실패를 잡아낼지 예측하는지 확인하세요.</p>"
-    },
-    {
-      "heading": "Short answer",
-      "html": "<p>held-out 세트에서의 LLM-as-judge 정확도는 필요하지만 충분하지 않습니다. judge에는 정확도 숫자가 가리는 위치, 길이, 언어에 대한 체계적 편향이 있고, 벤치마크를 통과한 judge도 eval이 잡아야 할 실제 실패를 놓칠 수 있습니다.</p>\n<p>그 아래에는 더 깊은 빈틈이 있습니다. judge는 답이 그럴듯한지를 채점할 뿐, trajectory가 그 답에 정당하게 도달했는지는 보지 않습니다. GroundEval 사례 연구에서 두 frontier judge는 agent가 의존한 근거를 한 번도 검색하지 않았는데도 답에 0.85 이상을 줬습니다. judge를 테스트 대상 구성 요소로 다루고, trajectory에 확인 가능한 근거가 있는 경우에는 결정론적 scorer로 바꾸세요.</p>"
-    },
-    {
-      "heading": "Builder model",
-      "html": "<p>judge는 학습 루프 대신 프롬프트를 가진 분류기이고, 분류기는 하나의 종합 정확도로는 드러나지 않는 방식으로 실패합니다. judge 설계는 스펙트럼 위에 있습니다.</p>\n<ul><li><strong>프롬프트로 쓰는 frontier LLM:</strong> 유연하고, 비싸고, 미묘하게 편향되어 있습니다.</li><li>프로덕션 라벨로 학습한 <strong>작은 fine-tuned 분류기</strong>(encoder 또는 distilled LLM): 저렴하고 빠르고 범위가 좁으며, 라벨 품질만큼만 좋습니다.</li></ul>\n<p>둘 다 agent와 같은 것이 필요합니다. judge를 튜닝한 사례가 아니라 실제 실패로 만든 held-out 테스트 세트입니다.</p>\n<p>어느 설계든 agent가 말한 것을 채점할 뿐, trajectory가 증명할 수 있는 것을 채점하지 않습니다. 검색되어야 했던 문서, 추론해야 할 시간 범위, 사용해야 할 인과 메커니즘처럼 작업에 확인 가능한 근거 경로가 있다면, trajectory에 대한 결정론적 scorer가 어떤 judge 튜닝으로도 메울 수 없는 빈틈을 메웁니다.</p>"
-    },
-    {
-      "heading": "Mechanism",
-      "html": "<p>LLM judge는 응답, rubric, 그리고 흔히 비교할 두 번째 응답을 조건으로 판정을 냅니다. 판정이 모델 출력이므로 모델 수준의 부작용을 물려받습니다.</p>\n<ul><li><strong>위치 편향:</strong> 먼저 보여준 후보를 선호합니다.</li><li><strong>장황함 편향:</strong> 긴 텍스트를 충실함의 대리 지표로 선호합니다.</li><li><strong>분포 이동에 따른 저하:</strong> 튜닝된 언어나 도메인을 벗어나면 보정이 무너집니다.</li></ul>\n<p>비교 응답의 순서를 바꾸면 위치 편향을 직접 확인할 수 있습니다. 위치에 따라 판정이 뒤집힌다면 judge는 내용이 아니라 위치에 반응하는 것입니다. BabelJudge는 정확도 숫자가 여기서 얼마나 많은 것을 가리는지 보여줍니다. 스와힐리어에서 순서 일관성은 0.480으로 거의 무작위 수준까지 떨어졌습니다.</p>\n<p>agent trajectory는 편향이 숨을 곳을 늘립니다. judge는 도구 호출과 결정의 연속을 채점하며, 최종 답의 정답 여부에는 잘 보정되어 있어도 경로가 타당했는지에는 신뢰할 수 없을 수 있습니다. 더 저렴한 judge(fine-tuned encoder, distilled 소형 LLM)는 rubric 유연성을 비용과 속도와 맞바꾸며, 같은 요구 사항을 받습니다. 튜닝에 쓴 사례가 아니라 신경 쓰는 실패를 기준으로 측정해야 합니다.</p>\n<p>결정론적 trajectory 채점은 근거를 확인할 수 있는 곳에서 judge를 없앱니다. GroundEval은 도메인 설정에서 질문을 생성하고, agent가 자유롭게 답하게 한 뒤, 답과 기록된 trajectory를 세 가지 트랙으로 채점합니다.</p>\n<ul><li><strong>Silence:</strong> 무언가가 없다고 주장하기 전에 확인했는가?</li><li><strong>Perspective:</strong> 해당 시점에 얻을 수 있었던 근거만으로 추론했는가?</li><li><strong>Counterfactual:</strong> 그럴듯한 메커니즘이 아니라 실제 인과 메커니즘을 사용했는가?</li></ul>\n<p>각 트랙은 시스템이 이미 아는 정답, 즉 무엇을 언제 어떤 경로로 검색할 수 있었는지를 기준으로 채점하므로, 최종 텍스트만 읽는 judge로는 원리적으로 잡을 수 없는 유창하지만 근거 없는 답을 잡아냅니다.</p>"
-    },
-    {
-      "heading": "How to apply",
-      "html": "<p>judge의 판정을 신뢰하기 전에 다음을 확인하세요.</p>\n<ul><li><strong>순서 교체 테스트.</strong> 모든 쌍 비교를 양방향으로 실행하고 일치하는 판정만 세세요.</li><li><strong>장황함 검사.</strong> 응답 길이와 판정을 함께 추적하세요.</li><li><strong>구간별 신뢰도.</strong> 언어나 도메인별로 하나의 통합 숫자가 아니라 구간별 신뢰도를 보고하세요.</li><li><strong>실제 실패로 만든 held-out 세트.</strong> judge가 당연히 맞히는 합성 사례가 아니라 팀이 겪은 프로덕션 실패를 쓰세요. 쉬운 사례에서는 정확하고 어려운 사례에서는 침묵하는 judge는 실패한 것입니다.</li><li><strong>안정성과 사람과의 일치도 검사.</strong> 같은 입력을 여러 번 재채점해 분산을 추적하고, 우연을 보정한 지표로 사람 라벨과 비교하세요.</li><li><strong>더 저렴한 judge로 바꾸기 전에 다시 검증하세요.</strong> encoder, distilled 모델, decision model 모두 같은 held-out 세트로 테스트하고, 내 데이터로 임계값을 튜닝하고, 보정을 측정하고, 모델이나 프롬프트나 rubric이 바뀔 때마다 다시 실행하세요.</li><li><strong>trajectory는 그럴듯함이 아니라 근거를 확인하세요.</strong> 작업에 확인 가능한 근거 경로가 있다면 judge에게 답이 맞아 보이는지 묻는 대신 기록된 trajectory를 그 정답과 대조해 채점하세요.</li></ul>"
-    },
-    {
-      "heading": "Failure modes",
-      "html": "<ul><li><strong>종합 정확도 숭배:</strong> 하나의 통합 숫자가 특정 구간(언어, 위치, 길이대)의 붕괴를 가립니다.</li><li><strong>순서 무시:</strong> 위치를 바꿨을 때 쌍 비교 판정이 뒤집히는지 한 번도 테스트하지 않습니다.</li><li><strong>벤치마크로만 검증:</strong> 같은 종류의 사례로 튜닝하고 검증해서 judge가 eval이 잡아야 할 프로덕션 실패를 한 번도 보지 못합니다.</li><li><strong>설정 후 방치:</strong> agent, 프롬프트, judge 모델이 바뀐 뒤에도 다시 검증하지 않습니다.</li><li><strong>공짜 비용 절감:</strong> 같은 편향 및 정확도 검사를 다시 하지 않고 더 저렴한 judge로 바꿉니다.</li><li><strong>기본 임계값:</strong> 튜닝이나 보정 없이 0.50으로 decision model을 배포합니다.</li><li><strong>경로가 아니라 답을 채점:</strong> trajectory가 올바른 근거를 검색했는지, 시간 경계를 지켰는지, 올바른 메커니즘을 썼는지 확인하지 않고 유창한 답의 높은 점수를 믿습니다.</li></ul>"
-    },
-    {
-      "heading": "Related",
-      "html": "<p>agent trajectory 채점은 <a href=\"/topic/agent-evaluation\">agent evaluation</a>, 이 페이지가 따져 보는 모델 채점 패턴은 <a href=\"/topic/llm-as-judge\">LLM-as-judge</a>, 벤치마크 자체가 실제 동작을 예측하는지는 <a href=\"/foundations/benchmark-production-reliability-gap\">높은 벤치마크 점수가 프로덕션 신뢰성을 예측할까?</a>를 참고하세요.</p>"
-    }
+  "related_playbook_cards": [
+    "pb-audit-llm-judges-for-position-and-language-bias"
   ],
-  "slug": "llm-judge-reliability",
-  "status": "active",
-  "summary": "LLM judge는 정답이 아니라 자체 편향을 가진 측정 도구입니다. judge가 채점하는 agent를 검증하듯 judge도 검증하고, 확인 가능한 근거가 있는 agent trajectory에는 결정론적 scorer를 고려하세요.",
-  "title": "LLM-as-judge의 평가 점수를 믿을 수 있을까요?",
-  "updated": "2026-10-21"
+  "related_storylines": []
 }
