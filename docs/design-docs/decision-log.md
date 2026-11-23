@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-11-23 (Korean pages always link back to English; the desk links Korean pages)
+
+- **Decision:** (1) `site-chrome.js` always shows the language link to the default locale (`EN` on a `/ko/` page). Links to other languages still show only when the browser prefers that language. (2) `build_localized_updates.py` writes a `links` map into the desk store for every catalog item whose page exists under `web/<locale>/`. `/api/updates?locale=` returns it as `localized_href`, and `web/nav-updates.js` links the desk row there. `href` stays the item identity.
+- **Context / Problem:** A Korean reader whose browser lists only Korean saw no way back to English on `/ko/`. On `/ko/` the Editor's Desk opened English recaps, because every item links its English `href`.
+- **Rationale:** The gate on browser language keeps English pages uncluttered for English readers, but a reader on a translation has already chosen it and may want out. Page existence is known only to the build, which already walks the catalog. Read state keeps the English `href`: a localized page still does not mark the English version opened.
+- **Rollback:** Revert the PR. The `links` key in the store is ignored by the old API.
+
 ## 2026-11-23 (Card summaries are written by Claude Haiku in the build)
 
 - **Decision:** `pipeline/summaries.py` writes one English sentence into `summary_1line` for every edition card and every admitted Brief ledger card, with Claude Haiku 5.5 (surface `summary` in `config/translation.json`). It runs inside `build_digest.py`: the edition before `latest.json` is written, the ledger cards after admission. The replaced teaser moves to `source_summary_1line`. Summaries are cached by item URL in `data/processed/summaries.json` and redone only when the evidence grows by 20%. At most 80 calls per build, spend in the shared `translation_spend.json` ledger, and no new call when credentials, budget, or a persistable ledger are missing.

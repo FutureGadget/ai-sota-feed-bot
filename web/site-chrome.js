@@ -22,13 +22,19 @@
   const languageLinks = Array.from(actions?.querySelectorAll("[data-language-link]") || []);
   const visibleLanguageLinks = [];
 
+  // A link to another language shows when the browser prefers that language.
+  // The link back to the default language (EN on a /ko/ page) always shows, so a
+  // reader who landed on a translation can leave it whatever their browser says.
   if (languageLinks.length) {
+    const defaultLocale = String(globalThis.UI?.defaultLocale || "en").toLowerCase();
     const preferredLanguages = (navigator.languages?.length ? navigator.languages : [navigator.language])
       .filter(Boolean)
       .map((lang) => String(lang).toLowerCase());
     languageLinks.forEach((link) => {
       const locale = String(link.dataset.languageLocale || "").toLowerCase();
-      const matches = preferredLanguages.some((lang) => lang === locale || lang.startsWith(`${locale}-`));
+      const matches =
+        locale === defaultLocale ||
+        preferredLanguages.some((lang) => lang === locale || lang.startsWith(`${locale}-`));
       link.hidden = !matches;
       if (matches) visibleLanguageLinks.push(link);
     });

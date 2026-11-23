@@ -7,6 +7,10 @@ foundation and playbook items, each with a title and a one-line summary. The
 store, ``data/i18n/<locale>/updates/titles.json``, holds one entry per catalog
 item with both fields in the reader's language. ``/api/updates?locale=<l>``
 overlays an entry while its ``source_hash`` still equals the item's English text.
+The store's ``links`` map sends a desk link to the reader's language: catalog item
+id to the localized path of its page, for every item whose page exists in that
+language under ``web/``. It is independent of the text, so an item still shown
+in English links its Korean page when there is one.
 
 Each text comes from the first source that has it:
 
@@ -102,8 +106,30 @@ def load_store(path: Path) -> dict[str, Entry]:
     return items if isinstance(items, dict) else {}
 
 
-def save_store(path: Path, locale: str, items: dict[str, Entry], now: datetime) -> None:
-    out = {"locale": locale, "updated_at": now.isoformat(), "items": dict(sorted(items.items()))}
+def load_links(path: Path) -> dict[str, str]:
+    """The stored ``links`` map; empty when the file is missing or unreadable."""
+    try:
+        raw: Any = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    links = raw.get("links") if isinstance(raw, dict) else None
+    return links if isinstance(links, dict) else {}
+
+
+def localized_links(catalog: list[dict[str, Any]], locale: str, root: Path) -> dict[str, str]:
+    """Catalog item id -> the item's page in ``locale``, for the pages rendered there."""
+    prefix = locales.get(locale).path_prefix
+    web = root / "web" / prefix.strip("/")
+    links = {}
+    for item in catalog:
+        href = str(item.get("href") or "")
+        if href.startswith("/") and (web / f"{href.strip('/')}.html").is_file():
+            links[str(item["id"])] = f"{prefix}{href}"
+    return dict(sorted(links.items()))
+
+
+def save_store(path: Path, locale: str, items: dict[str, Entry], links: dict[str, str], now: datetime) -> None:
+    out = {"locale": locale, "updated_at": now.isoformat(), "items": dict(sorted(items.items())), "links": links}
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -326,10 +352,11 @@ def main(client=None):
             "summary": texts.get("summary", ""),
             "origin": origin,
         }
-    if items == stored:
+    links = localized_links(catalog, args.locale, ROOT)
+    if items == stored and links == load_links(path):
         print(f"{len(items)} desk items unchanged in {path.relative_to(ROOT)}")
         return
-    save_store(path, args.locale, items, now)
+    save_store(path, args.locale, items, links, now)
     print(f"Wrote {len(items)} of {len(catalog)} desk items to {path.relative_to(ROOT)}")
 
 

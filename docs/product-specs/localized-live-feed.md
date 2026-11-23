@@ -42,8 +42,8 @@ Behavior of a localized page.
   home page, `/daily`, `/weekly`, `/community`, `/playbook`, per-storyline pages,
   per-story links in the feed seed, and the Korean signup
   (`/subscribe?lang=ko`). A missing page would be a 404 with no fallback.
-- The language switch toggles `/` and `/ko/`. `site-chrome.js` shows it to
-  readers whose browser prefers the other language.
+- The language switch toggles `/` and `/ko/`. On `/` `site-chrome.js` shows `KO`
+  to readers whose browser prefers Korean. On `/ko/` it always shows `EN`.
 - Typography comes from the existing `html[lang="ko"]` rules in
   `web/site-chrome.css`.
 
@@ -135,8 +135,13 @@ keyed by the item id (`daily:2026-11-22`, `storylines:<slug>`):
 {"locale": "ko", "updated_at": "<iso>", "items": {"<item id>": {
   "source_hash": "<sha256 of the English title and summary>",
   "translated_at": "<iso>", "title": "", "summary": "",
-  "origin": {"title": "artifact | <translator model>", "summary": "artifact | <translator model>"}}}}
+  "origin": {"title": "artifact | <translator model>", "summary": "artifact | <translator model>"}}},
+ "links": {"<item id>": "/ko/daily/2026-11-22"}}
 ```
+
+`links` maps each item whose page exists in the locale (`web/ko/<href>.html`) to
+that page. It does not depend on the text, so an item still shown in English
+links its Korean page when there is one.
 
 An item is translated whole or not at all: an entry holds both fields, and the
 builder writes none while either is missing. The hash covers the title and the
@@ -146,7 +151,9 @@ stale until the next build.
 Overlay. `/api/updates?locale=ko` returns the normal catalog with each item whose
 stored `source_hash` equals `updateHash(item)` (`lib/update-translations.js`)
 given the stored `title` and `summary`. `id`, `href`, `version`, and the dates
-never change, so read state, links, and "new" dots behave as in English. Every
+never change, so read state and "new" dots behave as in English. An item in
+`links` also gets `localized_href`, accepted only as `/<locale>` plus its own
+`href`, and the desk links it there. Every
 item carries `i18n: {"locale": "ko", "translated": true|false}`. A stale or
 missing entry leaves the English text with `translated: false`. The default
 locale and unknown locales get no overlay and no `i18n` field.

@@ -26,7 +26,7 @@ const STEERING = item('storylines:activation-steering', 'Activation Steering', '
 const DEEPSEEK = item('storylines:deepseek-open-sources', 'DeepSeek Open-Sources', 'Zhang Bo open-sourced a personal agent.');
 const BARE = item('map:agent-cost', 'Agent token costs run away', '');
 
-function fixture(t, entries) {
+function fixture(t, entries, links) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'updates-i18n-'));
   const oldCwd = process.cwd();
   t.after(() => {
@@ -37,7 +37,7 @@ function fixture(t, entries) {
     catalog_version: 1, items: [STEERING, DEEPSEEK, BARE], daily: null,
   });
   if (entries) {
-    writeJson(path.join(tmp, 'data', 'i18n', 'ko', 'updates', 'titles.json'), { locale: 'ko', updated_at: 'x', items: entries });
+    writeJson(path.join(tmp, 'data', 'i18n', 'ko', 'updates', 'titles.json'), { locale: 'ko', updated_at: 'x', items: entries, ...(links ? { links } : {}) });
   }
   process.chdir(tmp);
 }
@@ -89,6 +89,37 @@ test('an item with no English summary stays without one', async (t) => {
   const got = byId((await invoke('?locale=ko')).body, BARE.id);
   assert.equal(got.title, 'KO Agent token costs run away');
   assert.equal(got.summary, '');
+});
+
+test('an item with a Korean page gets localized_href, translated or not, and its href stays the identity', async (t) => {
+  fixture(t, { [STEERING.id]: entry(STEERING) }, {
+    [STEERING.id]: '/ko/storyline/activation-steering',
+    [DEEPSEEK.id]: '/ko/storyline/deepseek-open-sources',
+  });
+  const { body } = await invoke('?locale=ko');
+  const steering = byId(body, STEERING.id);
+  assert.equal(steering.localized_href, '/ko/storyline/activation-steering');
+  assert.equal(steering.href, STEERING.href);
+  assert.equal(steering.i18n.translated, true);
+  const deepseek = byId(body, DEEPSEEK.id);
+  assert.equal(deepseek.localized_href, '/ko/storyline/deepseek-open-sources');
+  assert.equal(deepseek.i18n.translated, false);
+  assert.equal('localized_href' in byId(body, BARE.id), false);
+});
+
+test('a stored link that is not the locale form of the item href is ignored', async (t) => {
+  fixture(t, {}, {
+    [STEERING.id]: 'https://evil.example/ko/storyline/activation-steering',
+    [DEEPSEEK.id]: '/ko/storyline/something-else',
+    [BARE.id]: '/en/topic/agent-cost',
+  });
+  const { body } = await invoke('?locale=ko');
+  for (const source of [STEERING, DEEPSEEK, BARE]) assert.equal('localized_href' in byId(body, source.id), false, source.id);
+});
+
+test('the English catalog never carries localized_href', async (t) => {
+  fixture(t, {}, { [STEERING.id]: '/ko/storyline/activation-steering' });
+  assert.equal('localized_href' in byId((await invoke('')).body, STEERING.id), false);
 });
 
 test('the default locale, no locale and an unknown locale get the English catalog and no i18n field', async (t) => {
