@@ -3948,6 +3948,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11364v1"
  },
+ "213a3d94fcfe4f8e": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "0b4f3671c723296b",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T17:20:43+00:00",
+  "sid": "213a3d94fcfe4f8e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "In multi-agent systems (MAS) built on large language models (LLMs), errors can propagate through intermediate messages and compromise final answers. However, outcome-based evaluation obscures how agents amplify, attenuate, or correct these errors. We propose Response-Aware Error Propagation among Agents (REPA), a structural model that connects measured local responses to system-level error propagation. REPA separately estimates input assembly and agent processing across multiple error channels, while theoretical analysis relates local modeling errors to endpoint prediction error. Experiments span three Qwen base models, six MAS workflows, and ten knowledge and reasoning settings in ErrPropBench-10. REPA achieves a mean condition-level Spearman correlation of 0.84 across base models, compared with 0.47 for direct regression. Controlled experiments also demonstrate its utility for targeted recovery. REPA-guided retrieval-augmented generation (RAG) improves accuracy over no retrieval by an average of 19 percentage points with 16% additional tokens. By linking local agent behavior to system susceptibility, REPA provides an interpretable foundation for studying error propagation and developing targeted optimization in MAS.",
+  "summary_1line": "Introduces REPA, a structural model that links measured local agent responses to system-level error propagation in LLM multi-agent workflows, evaluated on ErrPropBench-10 with three Qwen base models.",
+  "title": "From Local Errors to System Failures: Modeling and Benchmarking Error Propagation in Multi-Agent LLM Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31063v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "215a2fdef8653151": {
   "first_seen": "2026-11-10T15:07:41.776935+00:00",
   "id": "9766534ede34a210",
@@ -5547,6 +5564,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08425v1"
  },
+ "2e47423187522c8b": {
+  "content_excerpt": "A full agent that lives in your Activity Bar . It reads your project, edits files, runs commands, searches the web and keeps one persistent conversation per folder — with tool calling and live streaming. Bring your own model. Cloud, or a model on your laptop. One protocol: the OpenAI Chat Completions API. “Harny creates its own website” — the session that produced this page, recorded end to end. Every design decision in Harny answers a failure mode of agents that write into your repo without asking. Here is what that buys you. In Analyze , every file-modifying tool runs in dry-run — it returns the exact diff and writes nothing. You see what would change before anything is touched. Switch to Build when you are happy. OpenAI, Anthropic, OpenRouter, or a model on your own machine with Ollama, LM Studio or llama.cpp. One dropdown, per session. Turn on Parallel and the agent becomes an orchestrator: it splits the task into independent sub-tasks and runs them as sub-agents — each with its own stream and its own stop button. Keep typing while it works. Enter queues, ⌘ / Ctrl + ↵ steers mid-flight. Esc stops everything. When the context fills, Harny compacts at turn boundaries , keeps the recent part verbatim and carries the state of the work forward. Every turn shows real token usage and timings. Every tool call shows its input, its output and its diff. Reasoning streams as it happens. Focus opens every section as the agent enters it and leaves it open — the run stays readable top t",
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "2f22b2ae8f3a864a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T08:26:49+00:00",
+  "sid": "2e47423187522c8b",
+  "source": "hackernews_ai",
+  "summary_1line": "Harny is an open-source AI coding agent for VSCodium and VS Code, built for small local models, that reads projects, edits files, runs commands and keeps a dry-run Analyze mode before changes are applied in Build mode.",
+  "title": "Show HN: Harny – AI coding agent for VSCodium/VS Code tuned for small/local LLMs",
+  "type": "news",
+  "url": "https://harny.dev",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2e4c5bdb80c6e509": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
   "id": "3de946f6301e6a3c",
@@ -6823,6 +6856,22 @@
   "title": "Agent Session Insights",
   "type": "news",
   "url": "https://github.com/markrussinovich/agent-session-insights",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "388bf86f443549e4": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "2625ae7b1df076d6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T14:24:36+00:00",
+  "sid": "388bf86f443549e4",
+  "source": "arxiv_cs_ai",
+  "summary": "The tools users approve for their AI agents keep changing their JSON input schemas. Of 8 surveyed MCP clients and scanners, none is observed or documented to re-approve a tool whose input schema widens (two not determinable). We define non-amplification over the coordinates visible in the schema (declared arguments and undeclared fields, on effective values) and a re-binding rule decided by subschema inclusion, trusting no field labels by default and conservative up to its checker and tested case analysis. Evidence: a Coq proof of composition; 48 regression tests; an exact-reference benchmark, where the reviewed version of the rule silently re-bound 27 amplifying changes, now fixed; and a pilot on 604 releases of 39 public MCP servers. There, 412 of 580 compatible schema changes widen some coordinate, yet compatibility re-binds them silently. The authors' adjudicated double annotation finds at least 76 that add or widen an authority-bearing argument (66 of the 84 a name-based labeller flags, plus 10 it misses). On existing tools, the rule asks 645 re-approvals, against 1,197 for pinning the input schema (2,004 with descriptions) and 617 for compatibility. Behaviour change behind an identical schema remains out of reach.",
+  "summary_1line": "Proposes a re-approval rule for AI agent tools that flags schema updates widening authority, with a Coq proof, 48 regression tests, and a pilot finding 412 of 580 compatible MCP schema changes silently widen some coordinate.",
+  "title": "SchemaCaps: When a Compatible Tool Update Silently Widens an AI Agent's Authority",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30750v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "389ca34384de6c96": {
@@ -9969,6 +10018,18 @@
   "url": "http://arxiv.org/abs/2611.24184v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "52d5d7bd61475dc8": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "002a786e91c400e8",
+  "published": "2026-11-24T08:56:00+00:00",
+  "sid": "52d5d7bd61475dc8",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Zhipu Launches GLM-5.4 Flagship Model, Outputs 70-80 Tokens/s During Peak Hours BigGo Finance",
+  "summary_1line": "Chinese AI lab Zhipu has released its GLM-5.4 flagship model, which a report says produces 70-80 tokens per second during peak hours; no benchmark, pricing or availability details are given.",
+  "title": "Zhipu Launches GLM-5.4 Flagship Model, Outputs 70-80 Tokens/s During Peak Hours",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBCOVg1MHVsUm8tUWJ3MzJxN0d3NUlueF9HZG4xSnJkS3d3VDgwVFpTRVJ5NlY2Uy1rTHRYVFYtdjBxT1VKaW1HcGY3X1B6NGp1S1Z2MGdLV3BkX0pka1gwYTRfWF9CLW1YR1FKUENMdGNZeHpVelE?oc=5"
+ },
  "52d7df25fcead567": {
   "content_excerpt": "One of the more interesting problems I’ve run into while developing PacketSnitch is figuring out how to let a user interact with the application using natural language, and then translate that request into an actual operation that the application knows how to perform. This sounds relatively straightforward at first. Give an AI model access to a collection of tools, describe what those tools do, an",
   "first_seen": "2026-11-20T07:10:33.054612+00:00",
@@ -11364,6 +11425,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09554v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "5f199d88ee238745": {
+  "content_excerpt": "Most evidence of self-preference in LLM-as-a-judge setups comes from open-ended tasks like chat, summarization, and creative writing. In those settings, a model favoring its own family is easy to explain away as stylistic taste or lower token perplexity. Standard evaluation guides offer a straightforward fix: use reference-based grading. Give the judge a verbatim quote from the source text, an explicit answer key, and an anonymized ID with no model metadata, and it ought to behave like a neutral referee. We tested whether that holds up in practice. Using a 123-question closed-book testbed built from technical standards, we ran three frontier model families (Claude Opus 5.5, GPT-6.2 Astra, and Gemini 4 Carbon) and had all three grade all 366 answers blind through the exact same single-shot API script. The results were not uniform across model families. Even with the literal spec text sitting inside the grading prompt and all model names stripped out, GPT-6.2 Astra still graded its own answers 5.8 to 7.0 points higher than its strictness on other models predicts ( p = 0.003 to 0.012). Meanwhile, Gemini 4 Carbon showed virtually zero self-preference (+0.2 to +0.8 points). That divergence is wide enough to flip #1 and #2 on the leaderboard depending on which family sits in the judge’s chair. To test whether reference-grounded grading eliminates bias, we needed questions with unambiguous ground truth that still push frontier models into borderline mistakes. Technical standards are",
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "35e083e64969cc14",
+  "published": "2026-11-24T06:38:53+00:00",
+  "sid": "5f199d88ee238745",
+  "source": "hackernews_ai",
+  "summary_1line": "Tests whether LLM judges grading factual answers against a verbatim spec and anonymized IDs still show self-preference, using 366 blind-graded answers across three frontier model families.",
+  "title": "Can an LLM Grade Objective Facts Without Favoring Itself?",
+  "type": "news",
+  "url": "https://blog.logcat.ai/2026/11/23/can-an-llm-grade-objective-facts-without-favoring-itself"
  },
  "5f3963726dbe36e6": {
   "content_excerpt": "Large Language Models (LLMs) are exceptionally good at generating text. We use them to answer questions, write code, reason about problems, and so much more. But not every problem requires generating text. The system needs to determine which team should handle the request, how urgent it is, and whether the customer is requesting a refund. But what if the model could directly evaluate the available options and return a probability distribution over them, without generating any text ? A decision model takes some input context (state), evaluates a question with a set of predefined possible answers (primitives), and returns a structured decision along with probabilities. Instead of asking a model to generate an answer token by token, we ask it to assign probabilities to the answers that our application already understands. TypeSafe AI introduced Jev , describing it as a System One model . The name draws inspiration from the distinction between fast, intuitive thinking (System 1) and slower, deliberative thinking (System 2). The community has converged to the term decision model , because it describes the model's computational role rather than invoking a particular theory of cognition. In the rest of the post we will refer to the models as \"decision models\" instead of \"system one models\". ( A poll on twitter deciding what we should be calling such models ) We could simply prompt an LLM to return a JSON object containing our decisions. In fact, this is how many applications already",
@@ -17225,6 +17298,24 @@
   "url": "http://arxiv.org/abs/2611.28787v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "9122cf3b8b0d232f": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "8d12916a2f8da56d",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-23T16:53:57+00:00",
+  "sid": "9122cf3b8b0d232f",
+  "source": "arxiv_cs_cl",
+  "summary": "Agentic Robotics, in which foundation models act as coding agents to control robots through executable programs, has emerged as a compelling paradigm for embodied intelligence. Yet unlike software engineering, where massive executable environments power post-training, robotics remains constrained by small, manual benchmarks and in-distribution evaluation. To bridge this gap, we introduce RoboUniverse-10K, 10,807 interactive, resettable, and verifiable physics environments built from real-world videos via an automated Real2Sim and quality assurance pipeline. Each runs in an isolated, Harbor-compatible harness that hides privileged states and grading logic to mirror real-world sensing. From the same pipeline, we hold out 500 unseen tasks to establish RoboUniverse-Verified, an expert-verified zero-shot benchmark. Evaluating 11 closed- and open-source models reveals a huge gap: frontier models reach 85.8\\% success, while open-source baselines lag at 2.6\\% to 10.0\\%, bottlenecked by low-level grasping, deformable-object manipulation, and post-contact physical control. Finally, we collect about 17K multi-turn trajectories totaling 0.79B tokens with GPT-6 Astra and perform full-parameter supervised fine-tuning on Qwen3.6-35B-A3B, yielding RoboUniverse-35B-A3B. Our model achieves substantial zero-shot gains on RoboUniverse-Verified, lifting the success rate from 0.8\\% to 21.2\\%, while achieving zero-shot task completions across LIBERO-MAX, RoboCasa, RoboTwin 2.0, and a real Franka ar",
+  "summary_1line": "Introduces 10,807 resettable physics environments built from real-world videos, plus a 500-task zero-shot benchmark where frontier models reach 85.8% success versus 2.6% to 10.0% for open-source baselines.",
+  "title": "RoboUniverse-10K: Toward the Scaling Era of Agentic Robotics via Real-to-Sim Environments",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31002v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "913cd197e9f52b0c": {
   "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. Agentic AI introduces a fundamentally different security model from traditional software. Unlike conventional services that execute predefined logic, agents dynamically reason over content from users, webpages, documents, tools, and other agents—and can translate that reasoning into real-world actions. This shifts part of the attack surface from traditional identity and API controls into the semantic layer, creating risks such as prompt injection, tool and memory poisoning, goal hijacking, behavioral drift, and hallucination-driven actions. Traditional authorization can determine who is allowed to act, but securing agentic systems requires answering a broader question: is the proposed action consistent with what the user requested, within the agent’s defined persona and intents, appropriate for the user’s role, and valid given the full session context—including the actions and decisions that preceded it? To address this challenge, we developed a defense-in-depth security framework spanning the full agent lifecycle: provisioning-time validation, runtime enforcement, and continuous assurance. The framework combines an agent registry, personas and explicit intents, constraints, tool and MCP validation, context-aware guardrails, and continuous red teaming with end-to-end observability and replay. At runtime, we introduced prompt provenance and evidence chaining to correlate privileged acti",
   "first_seen": "2026-11-07T18:03:37.622063+00:00",
@@ -18075,6 +18166,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26988v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "991a99f085089c64": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "d659de4aa0aa3a7f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T14:22:21+00:00",
+  "sid": "991a99f085089c64",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM agents turn a user's request and retrieved content into tool calls, and a call can reach the wrong recipient, endpoint, file or participant. Argument-level provenance blocks such values when they come from untrusted content, but accepts a trusted value that the user never requested. IntentFlow, a mediation layer between an unmodified planner and its tools, checks each authority-bearing argument against an intent contract and a provenance policy. On a synthetic benchmark of 200 attacks (oracle intent and injection labels, declared roles), attack success falls from 50.5% with provenance alone to 12.0% [8.2-17.2%]; every remaining success alters a content or payload field. IntentFlow wrongly blocks none of 200 paired benign tasks and 4 of 50 hard ones. On 50 trusted-but-unauthorized attacks, provenance-only mediation executes all 50 and IntentFlow none; a CaMeL-style check also blocks all 50 but rejects 16 of 50 benign tasks. On an offline AgentDojo-derived replay, IntentFlow blocks all 20 attacks at 75% benign success, as does a CaMeL-style check; a Progent-style allowlist blocks 19 and keeps all benign tasks. With one live planner and the same oracles, the mediator blocked all 17 corrupted calls proposed in 110 attacks.",
+  "summary_1line": "Introduces IntentFlow, a mediation layer that checks tool-call arguments against a user intent contract and provenance policy; on a synthetic benchmark it cut attack success from 50.5% to 12.0%, with no benign tasks wrongly blocked.",
+  "title": "Intent-Conditioned Argument Mediation for Tool-Using LLM Agents: Blocking Trusted-but-Unauthorized Arguments",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30745v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "991ad48e8559b2fe": {
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
@@ -20335,6 +20442,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.5",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "a9604be3fa41d6ac": {
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "91d616c4adffe50f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T18:48:02+00:00",
+  "sid": "a9604be3fa41d6ac",
+  "source": "arxiv_cs_cl",
+  "summary": "Recent multimodal search agents use reasoning, vision, and live web search across many turns to answer questions beyond parametric knowledge by orchestrating a small library of hand-crafted search and visual tools. However, the library is laborious to create and maintain, and frozen when new query types, evidence formats, and failure modes are encountered in the wild. Human practitioners, by contrast, cope with insufficient tools by fashioning new ones from familiar parts and reusing them across tasks. Inspired by this, we propose ToolSmith, an automatic tool-generation framework that grows and reuses modules on top of a lean base tool library. We evaluate ToolSmith on three in-domain multimodal search benchmarks and ten out-of-domain benchmarks under a VLM-as-a-Judge protocol. ToolSmith consistently improves over the base library across deployed agents of varying scales, with larger backbones reaping greater gains, demonstrating the scalability of the approach. Our code and data are available at https://threesr.github.io/toolsmith/.",
+  "summary_1line": "Introduces ToolSmith, a framework that automatically generates and reuses new tools on top of a lean base library for multimodal search agents, evaluated on 13 benchmarks with gains that grow with backbone size.",
+  "title": "ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31198v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "a96ec4940356d048": {
   "first_seen": "2026-11-20T00:12:03.741107+00:00",
@@ -25972,6 +26096,22 @@
   "title": "langgraph-cli==0.4.42",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42"
+ },
+ "da091c806052aac1": {
+  "content_excerpt": "Y Combinator defines a tarpit idea as a concept that sounds obvious, pulls in waves of founders with the same pitch, and repeatedly fails because nothing structural has changed. Classic examples are note-taking apps and “social networks for making plans”. Agent memory is the AI-era version, most visibly through Model Context Protocol (MCP) servers. I know this space from working on graphs and embeddings (an agent memory system was my starter project too). Most of those ~8,000 repos reuse the same three storage backends, sit at zero stars, and stall within a month. Building one is a great way to learn extraction and retrieval, but standalone consumer products lose to hosts that ship memory directly. On Nov 12, 2026, searching public non-fork GitHub repos with both mcp and memory in the name returned 1,530 repos . Broadening the search to names, descriptions, and topics returned 13,509 repos . Hand-labeling a random sample of 200 confirmed 118 primary agent-memory projects (59.0%), which puts the pool at roughly 7,970 agent memory MCPs (full sampling details are in the appendix ). That estimate is a floor. Requiring both keywords in repo metadata misses 9 of the 13 largest memory projects that ship an MCP server, including: Together, all 13 high-star MCP memory projects total 506,637 stars (full table in the appendix ). If we count only literal repo names, creation peaked in April 2026 at 132 repos. People kept writing memory MCPs and started naming them after neuroscience term",
+  "first_seen": "2026-11-24T09:06:27.239396+00:00",
+  "id": "143d72b663b8baf4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T06:26:24+00:00",
+  "sid": "da091c806052aac1",
+  "source": "hackernews_ai",
+  "summary_1line": "An analysis estimates about 7,970 agent memory MCP repos exist on GitHub, finds most sit at zero stars and stop receiving pushes within a month, and argues standalone memory products struggle against hosts that ship memory directly.",
+  "title": "The Agent Memory Tarpit: ~8k GitHub Repos and Counting",
+  "type": "news",
+  "url": "https://morethanamachine.com/posts/agent-memory-tarpit",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "da30645137037f00": {
   "first_seen": "2026-11-20T00:09:24.605000+00:00",
