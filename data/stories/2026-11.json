@@ -1227,6 +1227,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08487v1"
  },
+ "0a0ce400ec58ec0b": {
+  "content_excerpt": "The Baidu ERNIE team has worked with vLLM to bring day-0 support for ERNIE 5.5 Flash Preview to vLLM. ERNIE 5.5 Flash Preview is a sparse mixture-of-experts (MoE) model with 280B total parameters and 14B activated per token. It supports a 1M-token context, thinks before it answers, and uses tool calling to carry out long-horizon Agent tasks. vLLM supports the model on release day through the vLLM-ERNIE plugin, a standalone package that you install into the same environment as the official vllm==0.32.0 wheel. Install the released vLLM wheel and the plugin into the same environment. vLLM discovers the plugin automatically through its vllm.general_plugins entrypoint, so there is nothing to import or configure. The following command serves the default FP4 weights on a single 4-GPU node, with DSpark speculative decoding drafting 7 tokens per step: To turn off thinking for a request, pass \"chat_template_kwargs\": {\"enable_thinking\": false} . Launch commands for 1M context, attention TP and PD disaggregation are in the vLLM-ERNIE README and the vLLM recipe . ERNIE 5.5 Flash was designed with inference cost as a primary goal from the start, weighing activated compute, KV cache size and long-context overhead together. Every component, from the attention structure and residual connections to the MoE layers and the output head, was redesigned around that goal. For design and training details, see the ERNIE 5.5 Flash Preview blog . ERNIE 5.5 Flash introduces several new structures in atte",
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "3ec019997509614d",
+  "published": "2026-11-18T00:00:00+00:00",
+  "sid": "0a0ce400ec58ec0b",
+  "source": "vllm_blog",
+  "summary": "vLLM supports Baidu's ERNIE 5.5 Flash Preview on day 0 through the vLLM-ERNIE plugin on the released vllm==0.32.0 wheel, with structure-aware kernel fusion, FlashIndexer, W4A8 QAT and DSpark speculative decoding.",
+  "summary_1line": "Baidu's ERNIE team and vLLM add day-0 support for ERNIE 5.5 Flash Preview, a 280B-parameter MoE model with 14B activated per token, via the vllm-ERNIE plugin installed alongside vllm==0.32.0.",
+  "title": "vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-18-ernie-5-5-flash-preview"
+ },
  "0a29263254186c1e": {
   "content_excerpt": "Evaluate an agent harness or workflow with the model held fixed: use-case tasks, repeated trials, hard checks, paired comparisons. A small Python library for evaluating an agent harness or a workflow with the model held fixed. You describe your use case as tasks with checks, connect each harness through a short adapter, and get repeated-run metrics with intervals: success, reliability, cost, latency and model usage. It plots the designs on two metrics at once, marks the ones no other design beats on both, and decides whether to adopt, reject or keep investigating a change. It is the companion code for the article on evaluating agent harnesses in the Recursive Harness Engineering series. The agent-harness-lab installs it to evaluate five designs of one support assistant, from a plain agent to a workflow with no agent. Two figures answer the questions a table cannot: which harness gives the best trade-off, and where each one fails. The example runs offline in a second. It is in the repository, not in the installed package: It prints the table and the decision shown below , and saves the runs and both figures to out/ . Its \"agent\" is a simulated model with seeded mistakes, so the numbers describe the simulation only. The same results from the saved runs: A model benchmark keeps the harness fixed and changes the model. A harness evaluation does the opposite: the model, its endpoint and settings, the tasks and the checks stay fixed, and only the harness changes. Then a difference ",
   "first_seen": "2026-11-16T13:04:20.816459+00:00",
@@ -1425,6 +1438,23 @@
   "title": "Two RTX 3090s and a RAM Drive Push a 2.8-Trillion-Parameter Kimi K3 to 3.11 Tokens per Second on Optane",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQdXo3a3dKRVlneExCMzAwZ2JDSHlPUDVHelZrUTJfeXctcVI5ckRYRE8zWlRXR21ydldteWNIYVBRRzZ3YUc4dWplWWtqTFdpS3F6NnFLWTJ1ZlIzelVzNGtERHdsV2k3U2FMWGE5a0lnbms0S251MXZxTUNzX1c0eXlDWlJQZ3k3ZzB1UE5UMlo3Q0pKWC00NWZ0VnBjUmpnRTNid0FGVjlycWNFeHYwbmNHUUhKZEctOXpCX25GT0tYSWR2Q1dJUmlvNA?oc=5"
+ },
+ "0c2537d2a4651ab8": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "cf37be3e8755bf13",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-22T16:25:24+00:00",
+  "sid": "0c2537d2a4651ab8",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Efficient AI computation depends on hardware that evolves over time, shifting the strategies needed to implement performant code. For CPU kernels, a key evolving factor is the set of available architectural extensions, which expose specialized hardware instructions that change the techniques used to optimize kernels. We study how effectively coding agents use these new, potentially unfamiliar extensions to write fast code. We introduce KernelShift, a benchmarking pipeline and a set of environments for evaluating coding agents in kernel optimization across evolving CPU architectures. Its agent-assisted, human-verified pipeline turns code repositories into benchmark instances, and its environments let agents optimize code with feedback from the target hardware. Using this pipeline, we construct 99 kernels from real-world, actively developed repositories (ncnn, llama.cpp, Arm SIMD Loops, and KleidiAI), including inference workloads derived from real model executions. KernelShift supports incorporating new kernels and hardware configurations as libraries and processors evolve. We evaluate agents with proprietary and open-weight models across progressively newer architectural extensions (Arm Neon, SVE, SVE2, and SME2), examining how performance changes as hardware evolves. On established extensions, agents beat the auto-vectorized compiler everywhere (2.4-19.8x) and exceed general-purpose libraries such as ncnn (getting up to 2.74x over its Neon kernels), but fall behind Arm's han",
+  "summary_1line": "KernelShift is a benchmark that tests coding agents on CPU kernel optimization across Arm Neon, SVE, SVE2 and SME2, finding agents beat the compiler and some libraries but lag KleidiAI and struggle with SME2.",
+  "title": "KernelShift: Benchmarking Kernel Optimization Across Evolving Hardware",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29590v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "0c72e14fe97992c7": {
   "content_excerpt": "repobs Skip to content repobs Home Film Features Privacy Documentation Download Initializing search Download the repobs film (MP4, 25 seconds) Skip Home User guide Developer repobs Home Home Table of contents See every branch Follow every agent Review on your terms Local and read-only User guide User guide Getting started Using repobs Status semantics Integrations Privacy & security Limitations Developer Developer Architecture HTTP API Testing Progress Reference audit Product handoff (original) Decisions Decisions Product foundation Engineering choices Dashboard and commit graph Reference UI alignment Views and File menu Release packaging Documentation site style Automation rules and hiding Agent plans in checklists Interface size and wheel Folders without Git Codex compressed rollouts and state database Table of contents See every branch Follow every agent Review on your terms Local and read-only repobs ¶ every worktree and coding agent, on one local timeline. A read-only dashboard for developers who run many coding agents across Git worktrees and branches: each repository's branches on one timeline, with the Claude Code and Codex agents that worked on them, what they are doing now, and what you still need to review. Download Get started See every branch ¶ Your repositories, branches and worktrees on one timeline. Forks, merges, unpushed commits and uncommitted changes. Scratch branches, detached HEADs and missing worktrees. Commit order or calendar time; zoom, pan and fold ",
@@ -2004,6 +2034,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26444v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "105d2dd6f5d647be": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "2d005b3ce2137c28",
+  "image_url": "https://static.simonwillison.net/static/2026/glm-5.4-max.webp",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-23T23:40:49+00:00",
+  "sid": "105d2dd6f5d647be",
+  "source": "simon_willison",
+  "summary": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transformer, a group of weight-shared layers runs for multiple iterations, refining the hidden states from the previous pass. This gives us a deeper network without increasing the parameter count. This is the second mention of looped transformers I've seen in the past week - the first was Inkling 2 Mini from Thinking Machines Lab on November 20th, who said: Inkling 2 Mini is a looped transformer, running the middle layers of the model three times for every token. This allows the model to apply more reasoning and reach the right answer with fewer tokens, especially on tasks such as agentic coding that depend on reasoning quality. GLM 5.4 is not (yet?) available as open weights. I tried it out using the Z.ai API, for which I had to sign up for their Coding Plan subscription because 5.4 cannot currently be accessed through the regular API. It turns out both coding plan and regular API share the same OpenAI-compatible Responses API (at https://api.z.ai/api/v1 ), and the API key for the coding plan worked with that and gave me access to the new model. I built a llm-glm plugin , then realized that llm-zai by Tommy Hughes already exists! I've shipped mine purely because llm-zai doesn't yet support ",
+  "summary_1line": "Z.ai has released GLM-5.4, its first model using a looped transformer architecture, which runs weight-shared layers for multiple iterations; it is not yet available as open weights.",
+  "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Nov/23/glm-54",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "106e03d32f20d4dc": {
   "first_seen": "2026-11-21T01:05:12.104357+00:00",
@@ -4547,6 +4594,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.16591v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "271d24131ba5b79a": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "97d0a3642588cabb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-21T17:31:05+00:00",
+  "sid": "271d24131ba5b79a",
+  "source": "arxiv_cs_cl",
+  "summary": "Computer-use agents (CUAs) built on vision-language models are increasingly entrusted with long-horizon tasks in live desktop, web, and mobile environments, where the screen keeps changing on its own. However, current CUAs lack real-time situational awareness: they perceive the environment through discrete snapshots, and the substantial inference latency of VLMs, compounded by highly dynamic interfaces, opens a perception-action gap in which the observed state frequently becomes stale before the corresponding action is executed. To bridge this gap, we present NightWatch, a plug-and-play framework that endows any CUA with continuous, temporally grounded perception without changing the agent's model, prompt, or action space. NightWatch couples the VLM agent with NightWatch-0.8B, a lightweight System-1 model that performs streaming monitoring of the interface state and keeps the agent synchronized with the evolving environment at low computational cost and latency, thereby grounding each decision in the current state rather than an outdated snapshot and reducing both stale actions and idle waiting while preserving task success. Experiments on desktop and dynamic web environments (OSWorld-Verified and DynaCU-Bench) show that NightWatch, driven by a watcher of only 0.8B parameters, reduces non-reasoning wall-clock time by 33% and wasted time by 53% on OSWorld while keeping task success on par, raises success on DynaCU-Bench from 39.5% to 44.2% with the large VLM agent, and is more",
+  "summary_1line": "NightWatch is a plug-and-play framework pairing a computer-use VLM agent with a 0.8B-parameter monitoring model that streams interface state, cutting non-reasoning wall-clock time by 33% on OSWorld and lifting DynaCU-Bench success from 39.5% to 44.2%.",
+  "title": "Don't Sleep, Keep Watch: Proactive Perception for Computer-Use Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28947v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2776fbf561bb314e": {
   "first_seen": "2026-11-19T15:04:21.733916+00:00",
@@ -9429,6 +9492,23 @@
   "title": "RoSci: Exploring Robustness in Science VLMs",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.27750v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "4fae96f54c1517db": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "91b900623dd62216",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-22T02:24:08+00:00",
+  "sid": "4fae96f54c1517db",
+  "source": "arxiv_cs_ai",
+  "summary": "Multi-video understanding requires systems to combine evidence from different videos for cross-video reasoning. Answering such questions involves two kinds of decisions. Observation decisions must adapt to each video's content, whereas cross-video judgments require relating evidence from different videos based on the question. Most existing agents make both kinds of decisions in one controller, whose context accumulates observations from every video. We separate them in MVAgent, a training-free Multi-Video Understanding Agent framework with one LocalAgent per video. Each LocalAgent plans observations of its own video and keeps a private observation history. A GlobalAgent coordinates cross-video reasoning by instructing the LocalAgents and combining their reports with joint observation. We evaluate MVAgent on CVBench, MVU-Eval, and CrossVid, using three Qwen3.5 models of different sizes and GPT-6-sol. With Qwen3.5, our framework improves aggregate benchmark scores by 5.1 points on average over Single-pass inference with the same model and by 5.0 points over the strongest prior agent using the same model. With GPT-6-sol, the average gain over Single-pass inference with the same model is 4.3 points. On the same hardware, MVAgent also runs 1.8-2.7 times faster than prior agents of comparable size.",
+  "summary_1line": "Multi-video understanding requires systems to combine evidence from different videos for cross-video reasoning. Answering such questions involves two kinds of decisions. Observation decisions must adapt to each video'...",
+  "title": "MVAgent: Per-Video Agents under Global Coordination for Multi-Video Understanding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29154v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "4fdb2f753382ffc6": {
@@ -20215,6 +20295,23 @@
   "url": "https://github.com/axiom-csc/axiom-skill",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ab5bcea7ed94a195": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "c97444305f544234",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-22T05:25:28+00:00",
+  "sid": "ab5bcea7ed94a195",
+  "source": "arxiv_cs_cl",
+  "summary": "During iterative code modification, coding agents may continue to rely in subsequent reasoning on outdated dependency judgments whose text remains fixed in the context, leading to errors in subsequent reasoning and leaving consumer defects undetected by the original task evaluations, thereby exposing blind spots in the tested benchmarks. We study actual agent execution trajectories collected on benchmark tasks: deepseek-v4-flash runs on DeepSWE and SWE-bench Verified, supplemented by Qwen3.8-Flash cases on FeatureBench. Focusing on edit-induced consumer obligations, a full-corpus blinded human audit of the DeepSWE runs identifies terminal mismatches, including diagnoses whose task scope remains disputed. Following supplementary execution checks, all retained DeepSWE terminal events have execution support. The audit also shows that recovery within a trajectory can coexist with terminal omissions in the same run. The process analysis links the presentation of relevant consumer code to explicit dependency judgments and subsequent synchronization actions recorded in the trajectories. An explicit dependency-review prompt reduces terminal omissions under the tested conditions, supporting re-derivation of consumer obligations after edits. Local replays of selected DeepSWE cases show that synchronizing the diagnosed consumers restores the target behavior while the listed controls continue to pass. Cross-benchmark execution counterexamples show that the original task evaluations do no",
+  "summary_1line": "Studies coding-agent trajectories on DeepSWE, SWE-bench Verified and FeatureBench, finding that agents often leave consumer code defects after edits that original benchmark tests fail to detect.",
+  "title": "Edit-Induced Dependency Mismatch: Propagation Omissions, Recovery, and Evaluation Blind Spots in Coding Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29242v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "ab758b1d2464847a": {
   "first_seen": "2026-11-05T20:05:22.914023+00:00",
   "id": "b4b48b4a981cbefc",
@@ -23994,6 +24091,23 @@
   "url": "http://arxiv.org/abs/2611.25895v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "cc1d845dd86911fc": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "1164a3e022d09abb",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-21T19:50:24+00:00",
+  "sid": "cc1d845dd86911fc",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Reinforcement learning with verifiable rewards (RLVR) is one of the most popular post-training paradigms for large language models. RLVR typically trains a single model under hyperparameters chosen before training begins, while researchers tune hyperparameters across consecutive runs. We introduce Population-Based Post-Training (PBPT), which trains several models in parallel and lets the training process do the tuning through population-based training. PBPT periodically evaluates models on a validation set. High-performers are duplicated and their hyperparameters perturbed to explore new configurations. Low-performers stop training and are replaced by these copies. On reasoning benchmarks (Enigmata, Nemotron) and interactive tool-use environments (Gaia2, AppWorld), PBPT produces stronger agents than compute-matched groups of independent RLVR learners. Furthermore, PBPT is able to recover from poor initial hyperparameters, automatically discovering better settings over the course of training.",
+  "summary_1line": "Introduces Population-Based Post-Training (PBPT), which trains several RLVR models in parallel and uses population-based training to tune hyperparameters, reporting stronger agents than compute-matched independent runs on four benchmarks.",
+  "title": "Population-Based Post-Training for Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29014v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "ccd960ef2f93d6d8": {
   "first_seen": "2026-11-19T03:06:02.794167+00:00",
   "id": "77ba647bbf45c78b",
@@ -25081,6 +25195,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "d796ff4f9671b979": {
+  "first_seen": "2026-11-24T04:08:12.510864+00:00",
+  "id": "f9934e450d5fe7cf",
+  "published": "2026-11-23T02:01:51+00:00",
+  "sid": "d796ff4f9671b979",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 3, downloads: 0.",
+  "summary_1line": "Tencent's 2B-parameter image-text-to-text model WeMM-Ecom-2B-GGUF, in GGUF format, is now listed on Hugging Face with 3 likes and no recorded downloads.",
+  "title": "tencent/WeMM-Ecom-2B-GGUF released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/WeMM-Ecom-2B-GGUF"
  },
  "d79c2448816cd180": {
   "first_seen": "2026-11-09T00:08:10.338185+00:00",
@@ -27945,13 +28071,18 @@
  "efe8350e6f16937b": {
   "first_seen": "2026-11-24T01:09:20.623806+00:00",
   "id": "07010977badf2d13",
+  "matched_topics": [
+   "codex"
+  ],
   "published": "2026-11-24T00:48:55+00:00",
   "sid": "efe8350e6f16937b",
   "source": "openai_codex_releases",
+  "summary": "Release 0.174.0-alpha.1",
   "summary_1line": "Release 0.174.0-alpha.1",
   "title": "codex rust-v0.174.0-alpha.1",
   "type": "release",
-  "url": "https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.1"
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.1",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "efec5601b7d6ac88": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
@@ -29505,7 +29636,7 @@
   "sid": "fbec750b66013b55",
   "source": "google_cloud_blog",
   "summary": "When an Airflow pipeline fails in production, the hard part is rarely the fix. It's finding out what to fix. A task dies without a traceback. Is it the code, the data, or the environment? Hard to say, as clues are scattered across task logs, scheduler logs, and worker metrics. And once you know what the problem is, the question becomes whether to add memory, rewrite the DAG , or finally take on the major version upgrade you've been putting off. Answering these questions takes time and deep Airflow expertise, usually while you're on call in the middle of an incident. AI agents can increasingly do much of this legwork. Managed Service for Apache Airflow (formerly Cloud Composer) now offers agentic help across a pipeline's entire lifecycle. In the Google Cloud console, Managed Airflow Agent investigates failed tasks, recommends improvements to your environment, and checks whether your DAGs are ready for a newer Airflow version. In your IDE or coding agent, Data Agent Kit writes, migrates, and deploys DAGs. In this post, we take you on a tour of these features through a story of a fictional company, Cymbal Shops. Meet Cymbal Shops, where every click counts Amira is a data engineer at Cymbal Shops, an online retailer running cymbal-prod , a production Managed Airflow (Gen 3) environment whose workers have 2 vCPUs, 4 GB of memory, and that autoscale between 1 and 6. Every click, search, and add-to-cart on Cymbal's website and mobile app goes to a Pub/Sub topic. A Cloud Storage subs",
-  "summary_1line": "When an Airflow pipeline fails in production, the hard part is rarely the fix. It's finding out what to fix. A task dies without a traceback. Is it the code, the data, or the environment? Hard to say, as clues are sca...",
+  "summary_1line": "A Google Cloud blog post presents Managed Service for Apache Airflow's new agentic features, which investigate failed tasks, check DAG readiness for newer Airflow versions, and write or deploy DAGs, illustrated through a fictional retailer.",
   "title": "Drowning in clicks: Scaling Black Friday pipelines with Managed Airflow agents",
   "type": "news",
   "url": "https://cloud.google.com/blog/products/data-analytics/scaling-airflow-pipelines-with-ai-agents-on-managed-airflow",
