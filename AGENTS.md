@@ -173,6 +173,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     (`from_pool: true`, capped per `config/decks.yaml` `bundle`) and tags
     articles naming the same model+version with `event_group`. Adds
     candidates only; the recap agent still chooses
+  - `recap_mix.py` - source-role caps on the cards a published recap chose
+    (`config/decks.yaml` `decks.<deck>.recap`); both recap `validate_recap`s
+    call it, so the index builders reject a recap over the cap
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
   - `brief_ledger.py` - the served Brief's admission ledger: reads the day's
@@ -375,7 +378,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     `tests/test_brief_top_band.py`)
   - `decks.yaml` - deck selector weights, unjudged priors, release-tier
     scores, story-collapse switch, and per-deck budget/min_utility/source,
-    role and category caps (daily, weekly)
+    role and category caps (daily, weekly), plus the published recap's
+    per-role card caps (`recap`)
   - `brief.yaml` - served-Brief admission ledger: release/review/unjudged
     gates, utility weights (judge, platform, coverage, source tune, freshness,
     must-cover), and generous daily/per-source quotas

@@ -24,7 +24,9 @@ from typing import Any
 try:
     import deck_candidates
     import deck_select
-except Exception:  # pragma: no cover - package-style import
+except ModuleNotFoundError as exc:  # pragma: no cover - package-style import
+    if exc.name not in {"deck_candidates", "deck_select"}:
+        raise
     from pipeline import deck_candidates, deck_select
 
 

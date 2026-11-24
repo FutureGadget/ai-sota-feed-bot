@@ -38,7 +38,9 @@ try:
     import editorial
     import judged_pool
     from content_fetch import strip_leading_code
-except Exception:  # pragma: no cover - package-style import
+except ModuleNotFoundError as exc:  # pragma: no cover - package-style import
+    if exc.name not in {"deck_select", "editorial", "judged_pool", "content_fetch"}:
+        raise
     from pipeline import deck_select, editorial, judged_pool
     from pipeline.content_fetch import strip_leading_code
 

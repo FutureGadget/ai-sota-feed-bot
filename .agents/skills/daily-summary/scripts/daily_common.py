@@ -455,7 +455,16 @@ def validate_recap(data: Any) -> list[str]:
                 errors.append(f"categories[{ci}].articles[{ai}] missing 'title'")
             if not art.get("url"):
                 errors.append(f"categories[{ci}].articles[{ai}] missing 'url' (source link)")
+    errors.extend(recap_role_cap_errors(data))
     return errors
+
+
+def recap_role_cap_errors(data: dict[str, Any]) -> list[str]:
+    """Source-role caps on the chosen cards (``pipeline/recap_mix.py``)."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import recap_mix
+
+    return recap_mix.role_cap_errors("daily", data, str(data.get("date") or ""))
 
 
 def slugify(value: str) -> str:
@@ -504,5 +513,8 @@ def add_pool_articles(articles, start, end, include_types, exclude_urls, enabled
         merged.sort(key=lambda a: parse_ts(a.get("published")) or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
         diag["event_groups"] = deck_bundle.annotate_event_groups(merged)
         return merged, diag
+    except ImportError:
+        # A missing dependency must stop the routine, not empty the pool.
+        raise
     except Exception as exc:  # the recap must still get its bundle
         return articles, {"enabled": True, "added": 0, "error": f"{type(exc).__name__}: {exc}"}

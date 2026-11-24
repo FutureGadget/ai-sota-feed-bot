@@ -146,6 +146,10 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
   "Industry News".
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest ~5–10 articles. You need not include every article.
+- Use at most 12 cards whose `source_role` is `community` (Hacker News)
+  across the whole recap. Read every community article in the bundle, rank
+  them against each other, and keep the best 12. The index builder rejects
+  a recap over the cap (`config/decks.yaml` `recap.max_cards_by_role`).
 - `intro` is the editorial interpretation beside the week's signal list. Explain
   the dominant shift, connect the other major patterns, and end with the durable
   implication in 2–3 short paragraphs, ideally under 1,100 characters total.

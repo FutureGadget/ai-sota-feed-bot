@@ -165,6 +165,10 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest 2–5 items when possible. If an article does not strengthen a
   category's pattern, leave it out. You need not include every article.
+- Use at most 6 cards whose `source_role` is `community` (Hacker News)
+  across the whole recap. Read every community article in the bundle, rank
+  them against each other, and keep the best 6. The index builder rejects
+  a recap over the cap (`config/decks.yaml` `recap.max_cards_by_role`).
 - Order categories by reader value: agent/platform engineering practice first,
   then infra/model shifts, then security/policy, then business context. A major
   frontier-lab release can lead only when it is the day's dominant engineering

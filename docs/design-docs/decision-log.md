@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-25 (Recaps cap community cards after the editor picks; pool additions stop failing silently)
+
+- **Decision:** (1) `config/decks.yaml` `decks.<deck>.recap.max_cards_by_role` caps cards per source role in a published recap: community 6 per daily (from 2026-11-25), 12 per weekly (from 2026-W48). `pipeline/recap_mix.py` checks it inside both `validate_recap`s, so the index builders reject a recap over the cap. The input bundle stays uncapped. (2) The package-style import fallbacks in `deck_bundle`, `deck_candidates`, `brief_ledger` and `story_store` re-raise when the missing module is not their own. `add_pool_articles` re-raises `ImportError`, and the routine contract installs `requirements.txt`.
+- **Context / Problem:** Hacker News went from about 22% of daily recap cards (2026-09-01..10-24) to 71% in November, and weekly from about 3 of 40 to 23-28 of 35-40. Two causes: `community_signal.max_per_source` 1 -> 3 (2026-10-25) gives HN three seats in each of about 24 editions a day, and the bundle is their union; and pool additions add up to 40 judged keeps with no role cap, almost all HN. The recap agent mirrors its input mix. Separately, pool additions failed on 15 November days with `No module named 'pipeline'`: the routine environment lacked `python-dateutil`, and the fallback import hid the real error.
+- **Rationale:** A cap on the input must pick which HN stories to drop. By Jev score, a top-8 cut would have removed 202 of the 392 HN cards the agent chose (2026-10-26..11-23), and Jev is no ranking signal past the gate (AUC 0.53, 2026-10-29 entry). The agent reads every candidate and ranks them against each other, so the cap belongs on its output. `since` keeps the archive valid.
+- **Impact:** New `pipeline/recap_mix.py`, `tests/test_recap_mix.py`; daily and weekly SKILL.md state the cap. A recap over the cap fails `build_<kind>_index.py` and the agent swaps cards. A routine without its dependencies now stops at the bundle step instead of publishing without pool additions.
+- **Rollback:** Remove the `recap` keys from `config/decks.yaml` to turn the cap off; revert the PR for the rest.
+
 ## 2026-11-23 (Each Claude client in CI requests its own GitHub OIDC token)
 
 - **Decision:** `translator.make_client()` in GitHub Actions authenticates with `WorkloadIdentityCredentials` whose identity-token provider requests a new GitHub OIDC token for every exchange. The workflows drop the step that wrote one token to `/tmp/gha-jwt` and refreshed it every 240 seconds, and `ANTHROPIC_IDENTITY_TOKEN_FILE`.
