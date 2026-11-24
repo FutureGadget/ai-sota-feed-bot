@@ -30,6 +30,7 @@ After a successful upload and `attach_video.py`, stage:
 ```text
 data/weekly/
 web/weekly/
+web/ko/weekly/
 web/sitemap.xml
 web/robots.txt
 ```

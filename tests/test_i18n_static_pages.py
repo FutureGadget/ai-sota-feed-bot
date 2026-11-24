@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import html as html_lib
 import json
 import io
 import tempfile
@@ -12,6 +13,16 @@ from pipeline import render_static_pages as render
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.llm-digest.com"
+
+
+def committed_ko_title(rel: str) -> str:
+    """The committed Korean title for a page, as the renderer escapes it.
+
+    Topic and Foundations pages are re-translated whenever their English source
+    changes, so their expected heading comes from the artifact, not a literal.
+    """
+    artifact = json.loads((ROOT / "data" / "i18n" / "ko" / f"{rel}.json").read_text(encoding="utf-8"))
+    return html_lib.escape(artifact["title"])
 
 
 class I18nStaticPagesTest(unittest.TestCase):
@@ -168,14 +179,14 @@ class I18nStaticPagesTest(unittest.TestCase):
         html = (ROOT / "web" / "ko" / "topic" / "agent-cost.html").read_text(
             encoding="utf-8"
         )
-        self.assertIn("Agent 토큰 비용은 예측하기 어렵고 쉽게 폭증한다", html)
+        self.assertIn(committed_ko_title("topic/agent-cost"), html)
         self.assertNotIn("Agent token costs are unpredictable and easily run away", html)
 
     def test_korean_foundation_page_renders_translated_heading(self) -> None:
         html = (ROOT / "web" / "ko" / "foundations" / "context-compaction-safety.html").read_text(
             encoding="utf-8"
         )
-        self.assertIn("Agent의 context를 compact하면 safety rule이 위험해지는가?", html)
+        self.assertIn(committed_ko_title("foundations/context-compaction-safety"), html)
         self.assertNotIn("Does compacting an agent&#x27;s context put its safety rules at risk?", html)
         self.assertNotIn("Does compacting an agent's context put its safety rules at risk?", html)
 
