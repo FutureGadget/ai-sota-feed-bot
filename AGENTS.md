@@ -238,6 +238,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     arrive at "Points: 1") into `data/processed/hn_signal.json`; the recap bundle
     builders add them to HN articles as `hn_points`/`hn_comments`. Fail-open step
     in `run_full.sh`
+  - `setwise.py` - setwise comparison scoring: deterministic groups, ranked
+    groups to pairs, Bradley-Terry strengths, AUC. Offline only, used by
+    `scripts/setwise_eval.py`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)
@@ -408,6 +411,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `deck_replay.py` (deck selector
   replay against published recaps, label packets, labeled metrics),
+  `setwise_eval.py` (Claude ranks groups of owner-graded stories; Bradley-Terry
+  AUC next to Jev's on the same grades; runbook
+  `docs/how-to/deck-selector-benchmark.md`),
   `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the default
   share card, logo and icon PNGs; run only when the brand, title or tagline

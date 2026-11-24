@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-25 (Setwise comparison is measured against the owner grades before it ranks anything)
+
+- **Decision:** Add `pipeline/setwise.py` and `scripts/setwise_eval.py`, an offline evaluator. Claude ranks groups of about eight owner-graded stories, each story appears in about four groups, Bradley-Terry scores are fitted per day, and the script reports AUC (useful against not-for-the-recap) per day and pooled next to Jev's on the same stories. No pipeline, feed or recap reads the result.
+- **Context / Problem:** Jev's pointwise keep probability is a working gate but no ranking signal past it (AUC 0.53 on 70 graded stories, 2026-10-29 entry): most on-topic items score near 0.9. Pointwise LLM scores are known to inflate and bunch; comparing items against each other usually orders them better.
+- **Rationale:** Measure before wiring. The grades exist, and a run costs well under $1, so the question can be answered before any ranking change. The recap agent already ranks listwise and beat the min-cost-flow selector on the same grades, which is the same hypothesis from another angle.
+- **Impact:** Two new files and tests. Not run in this session (no Anthropic credentials here). Next step: run it, and wire setwise scores into the bundle order or the Brief only if they clear Jev clearly on the pooled AUC and on most days.
+- **Rollback:** Delete the two files.
+
 ## 2026-11-25 (The served Brief spreads repeated sources instead of stacking them)
 
 - **Decision:** `orderWithEditorialCaps` reorders the cap-compliant cards with `spreadRepeatedSources`: the k-th card already placed from one source ranks at `utility * ((1 - floor) * decay^k + floor)`, with `config/editorial.yaml` `source_decay: {decay: 0.7, floor: 0.3}` passed through `data/processed/editorial.json`. Caps, role totals, the fold and the top-band rules are unchanged and still apply.
