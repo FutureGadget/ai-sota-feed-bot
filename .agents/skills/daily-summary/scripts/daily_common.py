@@ -482,6 +482,14 @@ def deck_selection(deck: str, start, end, include_types, exclude_urls) -> dict[s
     return deck_select.build_selection(deck, start, end, types=include_types, exclude_urls=exclude_urls)
 
 
+def annotate_hn_signal(articles: list[dict[str, Any]]) -> int:
+    """Add stored Hacker News points/comments (``pipeline/hn_signal.py``)."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import hn_signal
+
+    return hn_signal.annotate(articles)
+
+
 def add_pool_articles(articles, start, end, include_types, exclude_urls, enabled=None):
     """Append judged keeps the bundle's feed editions did not include and tag
     same-release articles with ``event_group``.

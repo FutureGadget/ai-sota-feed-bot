@@ -59,6 +59,12 @@ available to each function.
   `judgment_store.ttl_days` (default 14) and `max_entries` (default 6000).
   Committed so CI reuses prior judgments and only calls Jev for missing,
   expired, or thin-evidence items.
+- `data/processed/hn_signal.json` — Hacker News votes for recent HN stories
+  (`pipeline/hn_signal.py`, run by `run_full.sh`): `{version, items}` keyed by HN
+  item id, each `{url, posted_at, points, comments, checked_at}`. Re-read every
+  4h while a story is under 72h old; entries older than 10 days are dropped. The
+  daily and weekly bundle builders copy `points`/`comments` onto HN articles as
+  `hn_points`/`hn_comments`. Not served by any API.
 - `data/processed/summaries.json` — durable cache of the Haiku card summaries
   (`pipeline/summaries.py`): `{version, updated_at, entries}` where `entries` is
   keyed by normalized item URL, each `{summary, evidence_hash, evidence_chars,

@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-11-25 (Recap bundles show how Hacker News voted)
+
+- **Decision:** `pipeline/hn_signal.py` re-reads points and comment counts from the HN Firebase API for every HN story under 72 hours old, every 4 hours, at most 150 reads per run, into `data/processed/hn_signal.json`. It runs as a fail-open step in `run_full.sh`. The daily and weekly bundle builders add `hn_points` and `hn_comments` to HN articles, and both SKILL.md files tell the agent to use them only to choose between community stories of similar substance.
+- **Context / Problem:** The HN source is `hnrss.org/newest?q=...`, so every item is collected minutes after submission with "Points: 1". HN's own vote, the community signal the source exists for, was never stored. Jev's score does not rank past the gate (AUC 0.53), so the recap agent had no evidence for choosing among 20-50 HN candidates a day.
+- **Rationale:** Re-reading young stories gives the signal without changing the live feed's freshness, which a `points=N` source filter would delay by hours. The recap routines cannot rely on reaching HN; the feed workflow already reaches hnrss, so the read lives there and the routines read a committed file.
+- **Impact:** At most 150 HTTP GETs to `hacker-news.firebaseio.com` per feed run (about 30 new HN stories a day, each read up to 18 times over 72 hours). No ranking or feed change. Not yet verified against the live API from this session; the first feed run after merge shows `hn_signal read=N` in its log.
+- **Rollback:** Revert the PR. Bundles lose the two fields; `data/processed/hn_signal.json` can be deleted.
 ## 2026-11-25 (Recaps cap community cards after the editor picks; pool additions stop failing silently)
 
 - **Decision:** (1) `config/decks.yaml` `decks.<deck>.recap.max_cards_by_role` caps cards per source role in a published recap: community 6 per daily (from 2026-11-25), 12 per weekly (from 2026-W48). `pipeline/recap_mix.py` checks it inside both `validate_recap`s, so the index builders reject a recap over the cap. The input bundle stays uncapped. (2) The package-style import fallbacks in `deck_bundle`, `deck_candidates`, `brief_ledger` and `story_store` re-raise when the missing module is not their own. `add_pool_articles` re-raises `ImportError`, and the routine contract installs `requirements.txt`.
