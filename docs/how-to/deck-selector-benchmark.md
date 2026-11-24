@@ -80,3 +80,27 @@ so a binding cap is visible without reading the solver.
 `selection` object (shortlist, bench, diagnostics) to the bundle. `articles`
 and every other field are unchanged, and the recap skills do not read
 `selection` yet.
+
+## Setwise comparison against the owner grades
+
+`scripts/setwise_eval.py` tests whether ranking stories against each other
+separates the graded stories better than Jev's pointwise `judge_score`. It
+puts each graded story in about four groups of eight, asks Claude to rank each
+group (`pipeline/setwise.py`), fits Bradley-Terry scores per day, and prints
+AUC for useful (grade 1-2) against not-for-the-recap (grade 0), per day and
+pooled, next to Jev's AUC on the same stories.
+
+```bash
+python3 scripts/setwise_eval.py                          # claude-sonnet-5-5
+python3 scripts/setwise_eval.py --model claude-haiku-5-5 --rounds 6
+```
+
+It needs the translator's Anthropic credentials and records spend in
+`data/i18n/translation_spend.json`. The 70 graded stories take 44 calls
+(well under $1 on Sonnet). The report goes to
+`data/quality/deck_benchmark/runs/setwise-<stamp>/report.json` (gitignored).
+
+Read the pooled line first. Jev scored AUC 0.53 on these grades
+(decision log, 2026-10-29). Wire setwise scores into anything only if they
+clear Jev clearly on the pooled AUC and on most days. With 12 grade-0 stories,
+a difference of a few points is noise.
