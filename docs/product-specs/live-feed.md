@@ -97,6 +97,13 @@ stories come first; over-cap stories continue below a "More from ..." fold and
 remain one click away. The default Brief is the cap-compliant mix with an
 explicit finish line; `All` and the section lenses show the full pool.
 
+Within the cap-compliant cards, repeated sources are spread out
+(`config/editorial.yaml` `source_decay`, `lib/editorial.js`
+`spreadRepeatedSources`): the k-th card already placed from one source ranks
+at `utility * ((1 - floor) * decay^k + floor)`, so a run of four cards from one
+source becomes cards spread through the list unless each is clearly stronger
+than its neighbours.
+
 The top five are rebalanced so one source cannot take more than three of the
 five front-page slots. The rest of the order is untouched by that pass.
 
