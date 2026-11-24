@@ -10858,7 +10858,7 @@
   "sid": "578b55b5828df605",
   "source": "arxiv_llm_reliability",
   "summary": "Developing reliable machine translation (MT) systems hinges on our ability to distinguish superior translations from inferior ones. However, existing evaluation paradigms, whether limited to coarse overall rankings or misaligned with human preferences, fail to deliver interpretable, fine-grained feedback in reference-free settings. We present a Fine-Grained Ranking Evaluation method (FiRE) that leverages off-the-shelf large language models to perform criterion-driven pairwise comparison across three complementary dimensions: faithfulness, fluency, and consistency of style, instead of producing a single holistic judgment. To enable rigorous meta-evaluation of evaluation paradigms in the absence of any suitable testbed, we construct the first human-annotated, reference-free benchmark for fine-grained ranking evaluation, achieving substantial inter-annotator agreement. Through meta-evaluation on this benchmark and existing MQM datasets, FiRE demonstrably outperforms regression-based and error-analysis metrics in aligning with human comparative judgments, while providing more informative insights into translation quality. Finally, our examination of LLM evaluator biases (position and self-enhancement) and their handling of tied cases offers guidance for more nuanced MT evaluation. Code and benchmark resources are available at https://github.com/wygao8/FiRE-MT.",
-  "summary_1line": "Developing reliable machine translation (MT) systems hinges on our ability to distinguish superior translations from inferior ones. However, existing evaluation paradigms, whether limited to coarse overall rankings or...",
+  "summary_1line": "Proposes FiRE, a reference-free machine translation evaluation method that uses off-the-shelf LLMs for criterion-driven pairwise comparisons on faithfulness, fluency, and style consistency, and releases a new human-annotated benchmark for it.",
   "title": "FiRE: Fine-grained Ranking Evaluation for Machine Translation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.30168v1",
@@ -22177,6 +22177,22 @@
   "url": "http://arxiv.org/abs/2611.03223v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
+ "b4725cc6585c5380": {
+  "first_seen": "2026-11-24T18:05:25.528689+00:00",
+  "id": "39535fff56f87783",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T13:48:19+00:00",
+  "sid": "b4725cc6585c5380",
+  "source": "arxiv_cs_cl",
+  "summary": "When RL learns from the reactions of many users, the policy usually cannot see what each user wants. We ask what it learns from users who privately want validation: to validate them alone (targeting), or to lower its bar for endorsing everyone (a threshold shift). We answer this in one setting, empathetic RL against LLM-simulated users (RLVER, GRPO, Qwen2.5-7B-Instruct): we vary only the share of validation-seeking users (0--50%; RLVER's default: 24.6%) and evaluate on 1,000 Reddit AITA posts with community fault verdicts. The policy shifts its threshold. Endorsement of at-fault posters rises by 3--4 percentage points per 10 points of share; without such users the Qwen model stays at base, and the effect persists at matched KL and under a goal-blind reward. Signal-detection analysis shows that the criterion for endorsing falls while discrimination between at-fault and not-at-fault posters does not decline. An explicit request to be told if one is wrong gives no measurable protection: at-fault posters who make it receive nearly the same rise as those who do not (+0.11 vs. +0.13). When the goal is stated during training, the policy instead largely targets, endorsing seekers regardless of fault. Standard sycophancy and empathy benchmarks miss the shift; five of six usable released empathetic-RL checkpoints also endorse at-fault posters who ask for honesty more than their base models, though a pre-registered prediction for two held for only one. The user mix is a training hyperpa",
+  "summary_1line": "Study of empathetic RL against simulated users finds that raising the share of validation-seeking users makes the policy lower its bar for endorsing at-fault posters, with an explicit honesty request giving little protection.",
+  "title": "Lowering the Bar for Everyone: Hidden Validation-Seeking Goals in Empathetic RL",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30702v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "b47584a6c89b5823": {
   "content_excerpt": "OpenFold3 on Amazon SageMaker JumpStart: Predict biomolecular structures | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlock ",
   "first_seen": "2026-11-13T22:07:05.703364+00:00",
@@ -23153,6 +23169,22 @@
   "type": "news",
   "url": "https://openai.com/index/cultfit-builds-with-codex",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "bbe6960ce28561b7": {
+  "first_seen": "2026-11-24T18:05:25.528689+00:00",
+  "id": "6829fd44831d7d93",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-24T17:00:00+00:00",
+  "sid": "bbe6960ce28561b7",
+  "source": "google_cloud_blog",
+  "summary": "For over 20 years, we have protected 4 billion users and 13 million organizations in Workspace, and critical enterprise and government systems on Google Cloud. From personal and financial records to board materials, regulated workloads, applications, and AI models, those safeguards protect what matters most. Blocking >99.9% of spam, phishing, and malware, alongside encryption and data residency, follows one principle: your data is yours, and you should always know and decide who can access it. That trust has powered one of the world’s largest developer ecosystems. Workspace APIs now handle more than 2.8 trillion calls a month, and public Google Drive API traffic alone is more than two-and-a-half times the volume of 2022. More than 18 billion reads from Drive each day come from API callers. Traditional REST APIs were built for human-paced apps where a valid OAuth token implied user intent. As AI agents shift from reading information to acting autonomously at machine speed across email, documents, datasets, and cloud infrastructure, a valid token is no longer enough. Policy checks, data boundaries, and human confirmation have to live in the request path. Today, Workspace MCP servers and the Workspace CLI are generally available alongside Google Cloud Agent Gateway and unified protections across Workspace and Google Cloud. Builders get modern, agent-ready interfaces, and organizations get the visibility and control to adopt AI agents with confidence. Purpose-built interfaces: Wo",
+  "summary_1line": "Google announces general availability of Workspace MCP servers and the Workspace CLI, plus Google Cloud Agent Gateway, designed to give AI agents permission checks, human confirmation for sensitive actions, and prompt screening.",
+  "title": "Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "bc181140a23e603b": {
   "content_excerpt": "CrowdGPT is focusing on creating the world's first 0$, datacenterless and 100% open AI. Run the app on your computer, and the AI gets better. A single company training a frontier model uses thousands of A100s in a datacenter. Most people don't have that hardware. But millions of people have gaming PCs with RTX cards sitting idle. CrowdGPT uses that compute, and the model that gets trained belongs",
@@ -25022,6 +25054,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.01966v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "cd6d8fb60633d48d": {
+  "first_seen": "2026-11-24T18:05:25.528689+00:00",
+  "id": "4cea1567ccfb55b1",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T04:03:18+00:00",
+  "sid": "cd6d8fb60633d48d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Reliable video deepfake detection requires generalization to unseen generators while limiting false alarms on authentic footage. Although existing detectors capture diverse visual cues, they may produce overconfident errors under generator shift, limiting the reliability of confidence-based fusion. Threshold calibration is further complicated by shifts in authentic capture domains and the lack of future-generator examples. To address these challenges, we present Antiphony, a framework that combines calibrated fusion of four visual experts with selective investigation. Authentic videos serve as a shared reference for score fusion and threshold calibration, enabling threshold updates without target deepfakes. For this expert-fusion stage, we establish finite-sample false-alarm control when the scoring procedure is fixed independently of calibration and authentic samples are exchangeable. To refine decisions near the calibrated threshold, a tool-using multimodal investigator examines these videos and contributes an additional fusion score. We train the investigator on generator-held-out predictions and counterfactual expert outputs, to improve robustness to unreliable expert evidence. Across six benchmark protocols, Antiphony achieves a mean benchmark score of 88.3%, exceeding the strongest evaluated MLLM and conventional detector baselines by 14.7 and 11.5 points, respectively. It also outperforms ARGUS by 20.2 points on average and by 3.6 balanced-accuracy points on FaceVid's ",
+  "summary_1line": "Antiphony is a video deepfake detector that fuses four visual experts with thresholds calibrated on authentic videos and adds a tool-using multimodal investigator; it reports a mean benchmark score of 88.3% across six protocols.",
+  "title": "Antiphony: A Dual-Process Agent for Deepfake Video Detection with Real-Video Calibration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29999v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "cd759e6684ea23fc": {
   "content_excerpt": "AI-agent security benchmarks decide whether an attack succeeded with an automated check, and those verdicts are used to rank models and are often read as proof that an attack worked. We audited AgentDojo's verdicts against the tool calls agents made and re-ran its attacks on 24 current models from eight developers, under protocols published before the runs. On its 19,381 published runs the benchmark and the audit agree on 97.7% of runs that did not crash, but the benchmark scored as no attack 433 runs in which the agent executed the attacker's decisive action, such as paying the attacker, 11.9% of the runs the audit counts as attacks; on new runs under benchmark v1.2.2 it missed 55 of 744. On current models, the reply-text check for one goal, reported publicly before, counts warnings as attacks: three blind model readers read all 219 Claude 5.x replies it scored as attacked as warnings (our frozen rule, 214), while Claude 4.5 models that ignore the injection score 0%. Of 240 recorded attacks re-run ten times each, 224 recurred in at least half of their runs, but only 201 could be shown at 95% confidence to do so. Most known attacks did not recur in three runs on an upgraded model, but 3 of 40 Grok 4.1 Fast attacks still worked on Grok 4.7. Rules declared in advance for which setup changes can stop an attack missed their preregistered test on the protocol's three models (gap 12.8 points, 95% interval 9.2-16.3, criterion 10), and met it over six models in an extension added aft",
