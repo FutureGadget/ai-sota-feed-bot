@@ -1,0 +1,119 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-11-24",
+  "source_hash": "eff75c61370ae08844b235b9df25851ff7ba97307e73dae87b5cdea43c21cf6a",
+  "translated_at": "2026-11-24T22:17:56Z",
+  "model": "claude-opus-5-5",
+  "review_status": "machine",
+  "title": "11월 24일 AI 데일리: 에이전트 앞에 관문이 섰다",
+  "intro": [
+    "오늘 에이전트 앞에 관문이 섰다. Google은 Workspace MCP 서버를 정식 출시(GA)하면서, 권한을 확인하고 민감한 작업 전에 사람에게 묻는 Cloud Agent Gateway를 함께 내놓았다. Postgres.ai는 에이전트가 쓴 SQL이 프로덕션 데이터베이스에서 안전한지 가리는 벤치마크를 공개했다.",
+    "코딩 에이전트의 근거는 이제 검증된 결과물이다. iFood는 15,000개 이상 저장소의 작업을 샌드박스 에이전트에 맡겨 머지 리퀘스트로 돌려받는다. 새 벤치마크에서는 Opus 5가 만든 추론 엔진이 71%의 실행에서 vLLM을 이겼다."
+  ],
+  "highlights": [
+    "Google, Workspace MCP 서버·CLI GA와 권한 확인·사람 승인용 Cloud Agent Gateway 공개",
+    "iFood, 원격 샌드박스로 15,000개 이상 저장소에 코딩 에이전트 운영, 보안 수정 2배 이상",
+    "Opus 5, 12시간 만에 처음부터 만든 추론 엔진이 71%의 실행에서 vLLM을 앞섰다",
+    "Google·Mandiant, 멀티 에이전트 프레임워크가 실제 공격에서 취약점을 자율적으로 악용한다고 보고",
+    "Google DeepMind, 일상 질문에 대한 일관성을 보는 Humanity's First Exam 출시",
+    "vLLM, ERNIE 5.5 Flash Preview(280B MoE, 1M 컨텍스트) day-0 지원"
+  ],
+  "categories": [
+    {
+      "name": "코딩·웹 에이전트: 샌드박스 실행과 검증된 동작",
+      "summary": "오늘 나온 에이전트 실무 사례는 단계마다 모델이 판단하던 자리를 검증 가능한 산출물로 바꾼다. 원격 샌드박스가 돌려준 머지 리퀘스트, 검증을 통과한 서버, 타입이 정해진 페이지 조작이 그것이다.",
+      "articles": [
+        {
+          "url": "https://openai.com/business/customer-stories/ifood",
+          "title": "iFood가 15,000개 저장소에 코딩 에이전트를 확장한 방법",
+          "summary": "iFood의 Remote Agents Platform은 15,000개 이상 저장소의 작업을 API 호출로 바꿔 원격 샌드박스에서 실행하고 머지 리퀘스트로 돌려준다. 보안 플랫폼에서 수정한 취약점 수는 2배 이상 늘었다."
+        },
+        {
+          "url": "https://github.com/humanityslastsystem/hls",
+          "title": "에이전트가 12시간 만에 추론 엔진을 처음부터 만들어 vLLM을 이길 수 있을까?",
+          "summary": "에이전트에게 12시간 안에 추론 엔진을 처음부터 만들게 하는 장기 과제 벤치마크다. Opus 5가 만든 서버는 검증을 통과했고 71%의 실행에서 vLLM 기준선을 이겼다."
+        },
+        {
+          "url": "https://protocolis.co/paper/",
+          "title": "웹 애플리케이션을 AI 에이전트용 검증된 조작으로 컴파일하기",
+          "summary": "Protocolis는 처음 보는 웹 페이지의 컨트롤을 모델 추론 없이 타입이 있는 조작으로 컴파일하고, 각 동작이 실제로 무엇을 바꿨는지 보고한다. 모델이 단계마다 페이지를 다시 읽을 필요가 없어진다."
+        }
+      ]
+    },
+    {
+      "name": "프로덕션 쓰기 전에 에이전트 권한부터",
+      "summary": "에이전트 접근에 컨트롤 플레인이 생기고 있다. 권한 확인, 사람 승인, 안전성 테스트가 에이전트와 그것이 바꾸는 시스템 사이에 놓인다. 공격자는 이미 자기 에이전트를 돌리고 있다.",
+      "articles": [
+        {
+          "url": "https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise/",
+          "title": "신뢰와 통제를 위한 설계: Google Workspace와 Google Cloud 전반의 차세대 AI 에이전트",
+          "summary": "Google이 Workspace MCP 서버와 Workspace CLI를 GA로 출시하고, 권한 확인·민감 작업의 사람 승인·프롬프트 검사를 맡는 Cloud Agent Gateway를 추가했다."
+        },
+        {
+          "url": "https://postgres.ai/blog/20261123-pgaibench",
+          "title": "PGAIBench와 AAA: AI가 프로덕션 Postgres를 안전하게 바꿀 수 있을까?",
+          "summary": "Postgres.ai의 PGAIBench는 AI 데이터베이스 운영의 진짜 걸림돌, 즉 에이전트가 쓴 SQL을 라이브 프로덕션 클러스터에서 실행해도 안전한지를 겨냥한다. 목표는 DBRE 한 명이 클러스터 1,000개를 관리하는 것이다."
+        },
+        {
+          "url": "https://mashable.com/tech/google-says-first-autonomous-ai-cyberattack-has-happened",
+          "title": "Google, 자율 AI 사이버 공격을 포착했다",
+          "summary": "Google Threat Intelligence Group과 Mandiant는 공격자가 취약점을 스스로 찾아 악용하는 멀티 에이전트 프레임워크를 이미 실제 공격 캠페인에 쓰고 있다고 보고했다."
+        }
+      ]
+    },
+    {
+      "name": "평가(eval): 일관성과 저지 편향",
+      "summary": "두 평가가 능력 리더보드가 놓치는 실패를 겨냥한다. 모델이 쉬운 질문에 매번 같은 답을 내는지, 그리고 LLM 저지가 자기 계열 모델을 편드는지다.",
+      "articles": [
+        {
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/humanitys-first-exam/",
+          "title": "Humanity's First Exam: LLM 신뢰성 테스트",
+          "summary": "Google DeepMind가 Kaggle에 낸 Humanity's First Exam은 어려운 과제를 한 번 푸는지가 아니라, 일상적인 쉬운 질문에 일관되게 답하는지를 측정한다."
+        },
+        {
+          "url": "https://blog.logcat.ai/2026/11/23/can-an-llm-grade-objective-facts-without-favoring-itself/",
+          "title": "LLM은 자기를 편들지 않고 객관적 사실을 채점할 수 있을까?",
+          "summary": "참조 기반 채점(원문 인용, 정답 키, 익명 ID)이 LLM 저지의 자기 선호를 없애는지 123문항 closed-book 테스트셋으로 검증한다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트가 읽을 수 있는 데이터 컨텍스트",
+      "summary": "Databricks가 두 방향에서 같은 주장을 한다. 에이전트의 결정은 그것이 닿을 수 있는 거버넌스된 비즈니스 컨텍스트만큼만 좋다.",
+      "articles": [
+        {
+          "url": "https://www.databricks.com/blog/sharing-catalog-metadata-across-data-platforms-engines-and-agents",
+          "title": "데이터 플랫폼·엔진·에이전트 간 카탈로그 메타데이터 공유",
+          "summary": "Apache Iceberg REST Catalog API의 카탈로그 라벨은 비즈니스 목적, 소유권, 데이터 분류를 특정 플랫폼이 아니라 호환되는 모든 엔진과 에이전트에 노출한다."
+        },
+        {
+          "url": "https://www.databricks.com/blog/agentic-cdp-data-modeling-data-foundation",
+          "title": "에이전틱 CDP 데이터 모델링 모범 사례 1부: 데이터 기반",
+          "summary": "에이전틱 CDP 데이터 모델링 시리즈 1부다. 가격 인하 알림 하나를 보낼지 정하려면 에이전트는 여섯 종류의 고객 데이터에서 답을 얻어야 한다."
+        }
+      ]
+    },
+    {
+      "name": "추론 서빙과 새 오픈 웨이트 모델",
+      "summary": "vLLM이 280B MoE의 day-0 지원과 추천 모델용 서빙 프레임워크를 내놓았다. Zhipu의 GLM-5.4는 아직 간접 보도뿐이다.",
+      "articles": [
+        {
+          "url": "https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview",
+          "title": "vLLM, ERNIE 5.5 Flash Preview day-0 지원: 플러그인 배포와 E2E 추론 가속",
+          "summary": "ERNIE 5.5 Flash Preview(총 280B, 활성 14B MoE, 1M 토큰 컨텍스트, 도구 호출)는 vllm==0.32.0 wheel 옆에 설치하는 vLLM-ERNIE 플러그인으로 출시 당일 실행된다."
+        },
+        {
+          "url": "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement",
+          "title": "vLLM-GR 공개: 생성형 추천을 위한 효율적 추론",
+          "summary": "vLLM-GR은 vLLM의 paged KV 캐시에 빔 서치를 더해, OneRec 같은 생성형 추천 모델이 한 요청에서 여러 후보 아이템 ID를 탐색하게 한다."
+        },
+        {
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5",
+          "title": "Zhipu, GLM-5.4 출시: 750B 베이스 모델로 2-3T급 성능, 플래그십에 Loop 아키텍처 첫 도입",
+          "summary": "보도에 따르면 Zhipu의 GLM-5.4는 Loop 아키텍처의 750B 베이스 모델로 2–3T급 성능을 주장한다. 오늘 보도에는 1차 벤치마크나 가격이 없다."
+        }
+      ]
+    }
+  ],
+  "description": "Google이 Workspace MCP 서버를 GA하고 Cloud Agent Gateway를 붙였고, iFood는 15,000개 이상 저장소에 코딩 에이전트를 돌린다."
+}
