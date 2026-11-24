@@ -264,7 +264,7 @@
   "sid": "024d4dfaa92472bb",
   "source": "arxiv_cs_lg",
   "summary": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We present TideCache, a serving system on CPU--GPU superchips with three components for allocating GPU memory among caches and managing their residency across GPU and host memory. The Transparent Cache Pool redistributes physical pages among cache components behind fixed virtual addresses, preserving cache layouts and backend interfaces. The Cache Streamer uses computation intervals provided by bounded-state layers to prefetch the next global-attention layer's prefix into GPU slots shared across global-attention layers, reducing GPU residency while overlapping layer-wise transfers with computation. Generated KV remains resident. The Request Scheduler selects resident or streamed execution and triggers capacity adjustments according to request size and queue state. Together, they let HBM released by streaming accommodate other cache components and additional requests. Implemented in SGLang and evaluated on GB300 and GH200 across seven model/platform configurations, TideCache completes up to 2.04x as many agent turns, reduces overall P50 per-token latency by 20--59%, and improves agent P50 TTFT by 1.40--3.05x compared with SGLang with HiCache.",
-  "summary_1line": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We p...",
+  "summary_1line": "TideCache is a serving system for hybrid LLMs on CPU-GPU superchips that reallocates GPU memory among cache types and streams KV prefixes layer by layer, implemented in SGLang and tested on GB300 and GH200.",
   "title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26619v1",
@@ -1099,7 +1099,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "09790aed202f0ba0": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jabez Eliezer Manuel discusses the 20-year evolution of Booking.com’s data management and ML platforms. He explains how they scaled MySQL topologies, sunset Hadoop for cloud architecture, and built high-throughput model serving and feature stores operating at 400B predictions per day. He also shares insights on personalization, interleaved experimentation, and their new agentic AI foundation. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to help",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jayesh Bhayani discusses Tesco’s decade-long enterprise transformation from fragmented legacy systems to a unified cloud-edge platform. He explains how aligning system, talent, and process modernizations allowed Tesco to scale mission-critical retail operations to millions of customers, while sharing practical lessons on build vs. buy, cloud cost management, and preparing for agentic commerce. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to hel",
   "first_seen": "2026-11-20T07:10:33.054612+00:00",
   "id": "29f5830db0338867",
   "image_url": "https://res.infoq.com/news/2026/11/aws-emulator-local-testing/en/headerimage/generatedHeaderImage-1795086946449.jpg",
@@ -1111,7 +1111,7 @@
   "sid": "09790aed202f0ba0",
   "source": "infoq_ai_ml",
   "summary": "AWS has released AWS Emulator, a free, CC0-licensed local stand-in for more than 200 of its services, generated from its public API models and aimed at the test loops of coding agents. AWS says agents wrote and maintain all of the code and publishes per-release fidelity scores. The docs say it does not evaluate IAM, and practitioners are split on trusting an emulator nobody reviewed. By Steef-Jan Wiggers",
-  "summary_1line": "AWS has released AWS Emulator, a free, CC0-licensed local stand-in for more than 200 of its services, generated from its public API models and aimed",
+  "summary_1line": "AWS has released AWS Emulator, a free, CC0-licensed local stand-in for more than 200 of its services, generated from its public API models and aimed at the test loops of coding agents. AWS says agents wrote and mainta...",
   "title": "AWS Releases a Free Local Emulator of AWS Built Entirely by Agents",
   "type": "release",
   "url": "https://www.infoq.com/news/2026/11/aws-emulator-local-testing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
@@ -3584,11 +3584,14 @@
  },
  "1e02ab9c34ce90d4": {
   "first_seen": "2026-11-20T00:09:24.605000+00:00",
-  "id": "d170a28f6ad4e904",
+  "id": "45ac59564bff9e96",
   "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
    "codex"
   ],
-  "published": "2026-11-19T23:07:37+00:00",
+  "published": "2026-11-20T00:47:14+00:00",
   "release_highlights": [
    "Added GPT-6.2 Sol and Astra to model catalogs, with Sol as the default catalog selection",
    "Enabled the TUI workspace by default, with searchable document previews, image previews, and subagent transcripts alongside the main conversation. ( #61352 ,...",
@@ -3597,11 +3600,11 @@
   "sid": "1e02ab9c34ce90d4",
   "source": "openai_codex_releases",
   "summary": "New Features Added GPT-6.2 Sol and Astra to model catalogs, with Sol as the default catalog selection. ( #62106 ) Enabled the TUI workspace by default, with searchable document previews, image previews, and subagent transcripts alongside the main conversation. ( #61352 , #61888 , #61889 , #61919 , #62157 ) Added configurable undo and redo shortcuts to the non-Vim prompt composer, including restoration of attachments and large pastes. ( #61954 ) Added codex exec --remote to start or resume noninteractive sessions on an existing app server. ( #61707 ) Added /rc and /remote to manage local remote control and display device pairing codes from the TUI. ( #62121 ) Added custom MCP status line selection and authoring through /statusline when tui_extensions_statusline is enabled. ( #61979 , #61988 , #62037 ) Bug Fixes Preserved drafts, queued follow-ups, and interrupted input with their original threads when switching or resuming sessions. ( #61216 ) Kept permission profiles intact when changing working directories. ( #61195 ) Prevented late completion events from cancelling approvals for a newer turn. ( #61801 ) Preserved earlier edits in aggregate diffs when steering an active turn. ( #61820 ) Fixed scrolling that inserted stray characters, composer caret jumps, and redraws using stale terminal dimensions. ( #62139 , #62174 , #62175 ) Fixed enterprise MCP sign-in for identity providers that issue ID tokens without refresh tokens. ( #62129 ) Chores Updated source builds and release ",
-  "summary_1line": "Release 0.171.0",
-  "title": "codex rust-v0.171.0",
+  "summary_1line": "Codex 0.171.0 release notes list new GPT-6.2 Sol and Astra models with Sol as default, an on-by-default TUI workspace, a codex exec --remote option, and several bug fixes.",
+  "title": "codex 0.171.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0",
-  "why_it_matters": "Matches feed focus: codex."
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "1e13d673398b4485": {
   "first_seen": "2026-11-17T13:05:17.629690+00:00",
@@ -3995,7 +3998,7 @@
   "sid": "227c0cb62bf0dc78",
   "source": "vllm_blog",
   "summary": "vLLM supports Thinking Machines' Inkling 2 Mini from day 0: a looped MoE that runs its middle layers three times, with per-pass KV caches, gated messages between passes, fused kernels and DSpark speculative decoding.",
-  "summary_1line": "vLLM supports Thinking Machines' Inkling 2 Mini from day 0: a looped MoE that runs its middle layers three times, with per-pass KV caches, gated messages between passes, fused kernels and DSpark speculative decoding.",
+  "summary_1line": "vLLM announces day-0 support for Thinking Machines' Inkling 2 Mini, a looped multimodal MoE with 26B total and 3.5B active parameters, on NVIDIA Blackwell, Hopper and DGX Spark, plus a Docker image.",
   "title": "Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model",
   "type": "news",
   "url": "https://vllm.ai/blog/2026-11-20-inkling2-mini"
@@ -5997,7 +6000,7 @@
   "sid": "32042958efa4e483",
   "source": "google_cloud_blog",
   "summary": "Most Gemini prototypes start the same way. You grab an API key from Google AI Studio , then paste it into your coding agent to start building a prototype. That speed is the point, and shouldn’t be slowed down. The trouble starts later, when the prototype gets real users and the key comes along unchanged. By then it usually isn't one key. Every developer has their own, often several, sitting in .env files, shell profiles and chat threads. The app has one more, baked into its config. For example, imagine an account that normally spends $180 a month. One of those keys ends up in a public repo, a Slack channel or a mobile app bundle. Automated scrapers find it within minutes and use it to run large workloads. By the time the first billing alert arrives, the bill is in the tens of thousands. Under the shared responsibility model , the customer pays for usage made with their own valid credentials. For a seed-stage company, that’s runway gone in a weekend. In our recent post, 10 questions every startup should answer before moving to production with their AI prototype , we covered the whole path from prototype to production. This post goes deeper on one part of it: getting off raw API keys entirely. Here is what this guide covers: Authorize your people. Give everyone on the team one login with Application Default Credentials and use it to call Gemini, Claude and open models. Steps 1 and 2 take about five minutes. Authorize your application. Run your app under its own service account ",
-  "summary_1line": "Most Gemini prototypes start the same way. You grab an API key from <span style=\"text-decoration: underline; vertical-alig",
+  "summary_1line": "Most Gemini prototypes start the same way. You grab an API key from Google AI Studio , then paste it into your coding agent to start building a prototype. That speed is the point, and shouldn’t be slowed down. The tro...",
   "title": "Ultimate guide for fixing your team’s API keys",
   "type": "news",
   "url": "https://cloud.google.com/blog/topics/developers-practitioners/how-to-fix-your-teams-api-keys",
@@ -8724,16 +8727,16 @@
  "496b86d93c453049": {
   "content_excerpt": "Firecracker microVMs for the code your agents write. Start one in a single call, pause and resume it, on one simple monthly plan. Sandboxes, workspaces, build machines and your own lab hardware behind one API. No servers to set up. Sandscale compute, US East. Sandboxes, workspaces and build hosts on our machines in N. Virginia, ready with one API call. Europe, in Frankfurt, is coming soon. Your lab, connected. Plug in your own Linux or macOS machines with real devices and claim them per run. Firecracker microVMs for agent code. Run commands, move files, stream logs, snapshot, pause and resume. A persistent cloud computer for your coding agent, with your repo, terminals and SSH. Keep working from any device. Lease a clean build machine for a set time, sync your tree and run over SSH with a short-lived certificate. Wiped on release. Connect your own Linux or macOS machines with security keys, TPMs, debug probes and boards, and claim them per run. Claude Code runs under your policy through its hooks: each tool call is allowed, blocked or sent to a person. Codex and Gemini CLI report every step over OpenTelemetry. Pause or stop any session from the dashboard. Decide which templates, sizes, run times and agents each project may use, and which calls need a person first. Every sandbox, workspace, lease and change lands in a hash-chained audit log you can export. Sandboxes, workspaces and build hosts all draw from your plan's monthly awake hours. A box counts only while it is awake: ",
   "first_seen": "2026-11-20T07:08:23.603728+00:00",
-  "id": "78725079d5d7d203",
+  "id": "83a7cc5864aeb2c0",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-20T06:17:14+00:00",
+  "published": "2026-11-20T15:29:29+00:00",
   "sid": "496b86d93c453049",
   "source": "hackernews_ai",
   "summary": "Sandscale is live! We’re building a platform that helps developers, AI creators and businesses create, experiment and execute AI-powered workflows. It provides secure isolated environments, cloud workspaces and infrastructure for AI-powered development. We’re excited to hear feedback from the developer community.",
-  "summary_1line": "Sandscale is live! We’re building a platform that helps developers, AI creators and businesses create, experiment and execute AI-powered workflows. It provides secure isolated environments, cloud workspaces and infras...",
-  "title": "Show HN: Sandscale – Cloud infrastructure for AI creators, agents and developers",
+  "summary_1line": "Show HN: Sandscale – Firecracker microVMs for AI coding agents",
+  "title": "Show HN: Sandscale – Firecracker microVMs for AI coding agents",
   "type": "news",
   "url": "https://sandscale.dev",
   "why_it_matters": "Matches feed focus: agent."
@@ -9548,7 +9551,7 @@
   "sid": "516cdff60d7f3f10",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 3, downloads: 102.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 0, downloads: 4.",
+  "summary_1line": "Tencent has posted the WeMM-Video-4B-NVFP4 model weights on Hugging Face for video-text-to-text tasks, with 3 likes and 102 downloads so far.",
   "title": "tencent/WeMM-Video-4B-NVFP4 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Video-4B-NVFP4"
@@ -9846,7 +9849,7 @@
   "sid": "535404a8a8839ca8",
   "source": "arxiv_cs_ai",
   "summary": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration difficult. We approach these challenges through a policy-induced capability region, the set of states from which the current policy can reliably complete a task. Near its boundary, an agent may need only a few actions to reach a more solvable state, even when the goal remains distant. This reduces long-horizon learning to two coupled subproblems of reaching that state and completing the task from there. We address them with paired advantages and a progressive reverse-to-forward curriculum. The advantages provide separate signals for reaching more solvable states and completing the task from them, while the curriculum expands the capability region backward along successful reference trajectories and then into off-reference states through on-policy exploration. On ALFWorld and WebShop, our method outperforms competitive agentic RL methods at both model scales, achieving success rates of 90.1%/96.1% and 80.2%/82.6% with Qwen2.5-1.5B/7B-Instruct, respectively.",
-  "summary_1line": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration difficult. We approach these challenges through a policy-induced c",
+  "summary_1line": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration dif...",
   "title": "Depth Before Breadth: Reverse-to-Forward Curriculum with Advantage Decomposition for LLM Agent",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24697v1",
@@ -10780,7 +10783,7 @@
   "sid": "5b1f005070cf37da",
   "source": "langgraph_releases",
   "summary": "Changes since 1.2.23 release(langgraph): 1.2.24 ( #9752 ) fix(langgraph): handle REMOVE_ALL_MESSAGES in _messages_delta_reducer and None checkpoints in DeltaChannel ( #9735 )",
-  "summary_1line": "release(langgraph): 1.2.24 · fix(langgraph): handle REMOVE_ALL_MESSAGES in _messages_delta_reducer and None checkpoints in DeltaChannel",
+  "summary_1line": "Release 1.2.24 of langgraph, following 1.2.23, includes fixes to handle REMOVE_ALL_MESSAGES in the messages delta reducer and None checkpoints in DeltaChannel.",
   "title": "langgraph==1.2.24",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.24"
@@ -11578,6 +11581,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17068v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "6225d33bb39d6222": {
+  "content_excerpt": "Sentry runs alongside your agent loop to detect failures, guide recovery, and learn reusable lessons from verified recoveries. Sentry is an external runtime failure management layer for LLM agents. It helps agents fix invalid actions and recover when they get stuck in loops, drift from the task, or make unsupported assumptions. Unlike typical runtime monitors with fixed advice, Sentry learns and evolves from recoveries that work. By detecting failures, guiding recovery, and checking that the repair worked, Sentry helps agents become more reliable across tasks without cluttering their context. In outputs/sentry.yaml , replace YOUR_DEPLOYMENT_MODEL_ID with the exact model ID available to your account. Then validate the configuration: Validation prints the resolved configuration as JSON without making a model request. For other providers or a local endpoint, see Model providers . Run this Python example from the repository root. It submits an intentionally malformed action and asks the configured model to rewrite it: The route is hard_repair ; the next action is model-generated and should follow the JSON schema. This example makes one model request and does not execute the returned action. For a real agent, submit each action-observation cycle to Sentry and include any returned guidance when generating the next action. Your application handles action generation, validation, execution, and task completion. Follow Agent integration for the full lifecycle and validity rules. The gu",
+  "first_seen": "2026-11-24T01:06:41.558416+00:00",
+  "id": "c471fc51a992a548",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T00:56:07+00:00",
+  "sid": "6225d33bb39d6222",
+  "source": "hackernews_ai",
+  "summary_1line": "Sentry is an external runtime layer that runs alongside an LLM agent loop to detect failures such as invalid actions, loops, and task drift, guide recovery, and learn lessons from verified repairs.",
+  "title": "Sentry: An external self-improving failure management layer for LLM agents",
+  "type": "news",
+  "url": "https://github.com/nuglifeleoji/Sentry",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "6227956d94e37099": {
   "first_seen": "2026-11-13T07:03:56.482557+00:00",
@@ -12957,7 +12976,7 @@
   "published": "2026-11-20T00:00:00+00:00",
   "sid": "701a571706ec6c00",
   "source": "huggingface_blog",
-  "summary_1line": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+  "summary_1line": "Hugging Face describes training a LoRA harness adapter with RL on Qwen3.8-27B, reporting Terminal-Bench 2.1 pass@1 rising from 39% to 55% with the Pi harness while average token use drops from 2.9K to 1.5K.",
   "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
   "type": "research",
   "url": "https://huggingface.co/blog/harness-adapters-at-scale",
@@ -13129,7 +13148,7 @@
   "sid": "7223e80c757f1f59",
   "source": "arxiv_llm_reliability",
   "summary": "Query-specific rubrics make LLM evaluation more fine-grained and transparent, and generating high-quality rubrics requires both identifying the target query's evaluation scope and specifying concrete checks. Historical rubrics provide reusable evaluation experiences, yet existing approaches reuse either complete query-rubric cases or aggregated criteria and dimensions without explicitly connecting recurring evaluation requirements to their criterion-level evidence and source-query context. This can preserve irrelevant task details or lose the broader evaluation structure. In this paper, we introduce RubricDuo, which organizes historical query-rubric pairs into a Rubric Knowledge Graph linking evaluation dimensions, shared concepts, local concepts, criteria, and queries, where reusable evaluation requirements across queries are abstracted by shared concepts. Given a target query, RubricDuo first combines concepts relevant to the target query with retrieved historical cases to draft a rubric with broad coverage. It then revisits each draft criterion, retrieves concept-linked historical criteria and their source queries, and adapts applicable evidence to refine the criterion. Experiments on RubricBench and HealthBench demonstrate that RubricDuo achieves the overall best performance among the evaluated automatic methods in both alignment with human-authored rubrics and downstream LLM judging.",
-  "summary_1line": "Query-specific rubrics make LLM evaluation more fine-grained and transparent, and generating high-quality rubrics requires both identifying the target query's evaluation scope and specifying concrete checks. Historical rubrics provide reusable evaluation experiences, yet existing",
+  "summary_1line": "Query-specific rubrics make LLM evaluation more fine-grained and transparent, and generating high-quality rubrics requires both identifying the target query's evaluation scope and specifying concrete checks. Historica...",
   "title": "From Cases to Criteria: Reusing Evaluation Knowledge for Task-Specific Rubric Generation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25903v1",
@@ -14115,7 +14134,7 @@
   "sid": "7ad44f990f0c53ef",
   "source": "openai_blog",
   "summary": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
-  "summary_1line": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+  "summary_1line": "OpenAI describes how it detects and disrupts adversarial distillation, the unauthorized use of model outputs to train models without safeguards, and reports cutting attack success on extracting protected reasoning from 54.0% to 0.2%.",
   "title": "Combatting adversarial distillation",
   "type": "news",
   "url": "https://openai.com/index/combatting-adversarial-distillation"
@@ -15069,20 +15088,20 @@
   "sid": "824283cf95f0a1c6",
   "source": "openai_codex_releases",
   "summary": "New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for supported slash commands. For example, /mcp lo completes to /mcp login . ( #62343 ) Jump between task groups in the agent command center with Shift+Up and Shift+Down . ( #62200 ) Optional stdio MCP servers with cached tool lists now start on their first tool call by default. ( #62366 ) Set an approval reviewer for individual connected app tools in config.toml . ( #62360 ) App-server clients can select Amazon Bedrock Runtime during setup or sign-in. ( #62222 ) Bug Fixes codex exec resume restores saved sandbox permissions, the working directory, and workspace roots unless explicitly overridden. ( #62194 ) Remote sessions preserve working directories, workspace roots, and writable paths when the client and server run on different operating systems. ( #62375 , #62376 , #62377 ) Codex reports provider errors as soon as they arrive in a response stream and identifies which API spend limit was reached. ( #62329 , #62356 ) Interrupting a parent turn preserves queued replies from child agents for the next turn. ( #62348 ) Use PageUp and PageDown to read and submit answer choices that are taller than the terminal’s answer area. ( #62209 ) Cloud replies that finish after history loads now update in place, keeping the terminal transcript in order. ( #62403 ) Documentation The bundled openai-docs skill now cover",
-  "summary_1line": "Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal · Press Tab to complete arguments for supported slash commands. For example, /mcp lo completes to /...",
+  "summary_1line": "Release notes list new terminal features, including Tab completion for slash commands and lazy-starting MCP servers, plus fixes to codex exec resume and remote sessions.",
   "title": "codex 0.172.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.172.0",
   "why_it_matters": "Matches feed focus: agent, eval, codex."
  },
  "824c03b970f1dc58": {
-  "content_excerpt": "TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixture-of-Experts with ~26B physical total and 3B active parameters per token. It uses a neat trick to increase capacity: some layers are visited in a loop that repeats three times, which makes it work like it had more parameters. It supports a 1M-token context size, accepts images and text inputs. Thinking Machines Lab ships the model in a mixed-precision format, with NVFP4 and MXFP8 expert weights. A DSpark drafter is also included for additional speed-up at a small memory cost. Inkling 2 Mini is much, much smaller than Inkling 2 Small, and is designed for local AI setups. We think this is a refreshingly new great local model. In our vibe tests, it's at least comparable with Qwen 3.8 27B. More validation is needed, but we are super excited about this release! We ship transformers, Llama App (llama.cpp), and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware. This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup. Inkling 2 Mini is a mixture-of-experts model with 24 decoder layers, but the 12 middle layers run three times in a loop. Therefore, the model acts as if it had 48 (6+ 3*12 + 6) logical layers with just 24 physical ones. Similar to Inkling 2 Small, Inkling 2 Mini executes 48 layer visits per token. The hidden size is 2,304 instead of 4,608. At each layer visit, both va",
+  "content_excerpt": "TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixture-of-Experts with ~26B physical total and 3B active parameters per token. It uses a neat trick to increase capacity: some layers are visited in a loop that repeats three times, which makes it work like it had more parameters. It supports a 1M-token context size, accepts images and text inputs. Thinking Machines Lab ships the model in a mixed-precision format, with NVFP4 and MXFP8 expert weights. A DSpark drafter is also included for additional speed-up at a small memory cost. Inkling 2 Mini is much, much smaller than Inkling 2 Small, and is designed for local AI setups. We think this is a refreshingly new great local model. In our vibe tests, it's at least comparable with Qwen 3.8 27B. More validation is needed, but we are super excited about this release! We ship transformers, llama.cpp, and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware. This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup. Inkling 2 Mini is a mixture-of-experts model with 24 decoder layers, but the 12 middle layers run three times in a loop. Therefore, the model acts as if it had 48 (6+ 3*12 + 6) logical layers with just 24 physical ones. Similar to Inkling 2 Small, Inkling 2 Mini executes 48 layer visits per token. The hidden size is 2,304 instead of 4,608. At each layer visit, both variants route",
   "first_seen": "2026-11-20T21:04:14.791782+00:00",
   "id": "3ba6de586294b51c",
   "published": "2026-11-20T00:00:00+00:00",
   "sid": "824c03b970f1dc58",
   "source": "huggingface_blog",
-  "summary_1line": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+  "summary_1line": "Thinking Machines Lab released Inkling 2 Mini, a multimodal mixture-of-experts model with about 26B total and 3B active parameters per token, using a looped transformer design and a 1M-token context.",
   "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
   "type": "research",
   "url": "https://huggingface.co/blog/inkling2mini"
@@ -15373,7 +15392,7 @@
   "sid": "848c6951c92f6819",
   "source": "arxiv_agent_systems_research",
   "summary": "Personalized LLM agents must act on a user's current preferences, which change across interactions and are rarely stated in full. Existing memory systems store and retrieve content from the interaction history and leave the agent to work out which preferences still hold and where they apply. Such content does not indicate whether a preference is still current or where it applies, so agents often act on outdated or misapplied preferences. We instead treat memory as the assistant's belief about the user. Following Bourdieu's account of habitus as durable but revisable dispositions, we model the user as a latent preference state that every interaction, including the current request, both reveals and updates. The belief summarizes what the history supports about this state, and memory consists of the individual beliefs that bear on the agent's current decision, each with its evidence, scope, and status. We implement this view in HabitusMem, a trained writer that states these beliefs as text records for a frozen agent. Across two agent families, HabitusMem achieves the best results among memory systems on both PersonaMem-v2 and VitaBench 2.0. Controlled analyses show that learned request conditioning drives the answering gain, while auxiliary training tasks improve tool use.",
-  "summary_1line": "Personalized LLM agents must act on a user's current preferences, which change across interactions and are rarely stated in full. Existing memory systems store and retrieve content from the interaction history and leave the agent to work out which preferences still hold and where",
+  "summary_1line": "HabitusMem is a trained memory writer that stores a personalized LLM agent's beliefs about a user's evolving preferences, each with evidence, scope, and status, and reports top results on PersonaMem-v2 and VitaBench 2.0.",
   "title": "HabitusMem: Belief Memory over Evolving User Preferences for LLM Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25855v1",
@@ -16353,7 +16372,7 @@
   "sid": "8d567d16e4f61b82",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 10, downloads: 609.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 5, downloads: 2.",
+  "summary_1line": "Tencent has published new model weights for Hy4-base on Hugging Face for image-text-to-text tasks, with 10 likes and 609 downloads so far.",
   "title": "tencent/Hy4-base released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy4-base"
@@ -16921,16 +16940,16 @@
  },
  "9291232aee048148": {
   "first_seen": "2026-11-20T20:05:12.769029+00:00",
-  "id": "5f37371cbde0bfef",
+  "id": "5a14dbea9c9fe405",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-20T19:29:56+00:00",
+  "published": "2026-11-20T20:50:10+00:00",
   "sid": "9291232aee048148",
   "source": "openai_codex_releases",
   "summary": "Release 0.173.0-alpha.2",
   "summary_1line": "Release 0.173.0-alpha.2",
-  "title": "codex rust-v0.173.0-alpha.2",
+  "title": "codex 0.173.0-alpha.2",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.2",
   "why_it_matters": "Matches feed focus: codex."
@@ -20395,7 +20414,7 @@
   "sid": "ae467cfd399481fc",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 16, downloads: 497.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 11.",
+  "summary_1line": "Tencent has posted the WeMM-Video-2B model weights on Hugging Face for video-text-to-text tasks, where it has 16 likes and 497 downloads.",
   "title": "tencent/WeMM-Video-2B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Video-2B"
@@ -20817,16 +20836,16 @@
  },
  "b208e8b7c7295106": {
   "first_seen": "2026-11-20T02:07:44.310203+00:00",
-  "id": "1d3c833c94345e09",
+  "id": "41a5ddce419409d3",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-20T01:44:36+00:00",
+  "published": "2026-11-20T02:54:54+00:00",
   "sid": "b208e8b7c7295106",
   "source": "openai_codex_releases",
   "summary": "Release 0.173.0-alpha.1",
   "summary_1line": "Release 0.173.0-alpha.1",
-  "title": "codex rust-v0.173.0-alpha.1",
+  "title": "codex 0.173.0-alpha.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -22183,7 +22202,7 @@
   "sid": "bd15814c3ca88c7e",
   "source": "latent_space",
   "summary": ">50% of tickets written by agents, the AI budgets behind $100M-in-months ARR, and selling without SDRs or FDEs",
-  "summary_1line": "50% of tickets written by agents, the AI budgets behind $100M-in-months ARR, and selling without SDRs or FDEs",
+  "summary_1line": "Latent Space podcast episode with Linear COO Cristina Cordova on scaling the company's go-to-market to over $100M ARR, including its no-SDR sales approach and the rise of agent-created work.",
   "title": "Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO",
   "type": "news",
   "url": "https://latent.space/p/linear-scaling",
@@ -22698,7 +22717,7 @@
   "sid": "c1196200a3737e18",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 16, downloads: 693.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 2.",
+  "summary_1line": "Tencent has posted FP8 model weights named Hy4-FP8 on Hugging Face for image-text-to-text tasks, with 16 likes and 693 downloads so far.",
   "title": "tencent/Hy4-FP8 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy4-FP8"
@@ -23510,7 +23529,7 @@
   "sid": "c9007427c31b4a2e",
   "source": "langchain_blog",
   "summary": "A strong AI agent governance strategy",
-  "summary_1line": "A strong AI agent governance strategy",
+  "summary_1line": "Argues that agent governance should begin with observability, citing two common strategies: centralized visibility across agents and per-agent trajectory analysis, since guardrails alone do not guarantee compliance.",
   "title": "Why agent governance starts with observability",
   "type": "news",
   "url": "https://www.langchain.com/blog/agent-governance-observability",
@@ -24677,7 +24696,7 @@
   "sid": "d59766235f01efbf",
   "source": "arxiv_llm_reliability",
   "summary": "Recent benchmark evaluations increasingly rely on Large Language Models (LLMs) as automatic judges. This paradigm assumes LLMs evaluate based on the rubric's semantic meaning rather than its numeric scale. We question this assumption by introducing semantic faithfulness: the principle that semantically equivalent rubrics must yield consistent scores. To quantify this, we propose a scale-reversal probe that inverts score anchors without altering evaluation criteria. Furthermore, we introduce floor normalization to calibrate reversal disagreement against intrinsic model variability, enabling fair cross-model comparisons. Experiments across five meta-evaluation benchmarks with seven diverse LLM judges spanning open-weight and proprietary models reveal widespread violations of semantic faithfulness, showing that raw reversal agreement alone is misleading. Finally, we demonstrate that bidirectional anchor averaging reduces dependence on any single anchor direction without compromising alignment with human judgments. Our findings emphasize that trustworthy LLM judges must reliably follow rubric semantics, not just correlate with human ratings.",
-  "summary_1line": "Recent benchmark evaluations increasingly rely on Large Language Models (LLMs) as automatic judges. This paradigm assumes LLMs evaluate based on the rubric's semantic meaning rather than its numeric scale. We question this assumption by introducing semantic faithfulness: the prin",
+  "summary_1line": "Recent benchmark evaluations increasingly rely on Large Language Models (LLMs) as automatic judges. This paradigm assumes LLMs evaluate based on the rubric's semantic meaning rather than its numeric scale. We question...",
   "title": "Rubric Semantics or Numerical Priors? Auditing Scale-Direction Bias in LLM Judges",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25588v1",
@@ -24691,7 +24710,7 @@
   "sid": "d5bec1fa3b07f617",
   "source": "aws_ml_blog",
   "summary": "Amazon SageMaker HyperPod introduces the Global Inference Gateway, one managed endpoint that routes inference requests across your HyperPod clusters in one Region or across Regions. It picks the best cluster, fails over automatically, and authenticates every request with SigV4 and IAM over AWS PrivateLink.",
-  "summary_1line": "Amazon SageMaker HyperPod introduces the Global Inference Gateway, one managed endpoint that routes inference requests across your HyperPod clusters in one Region or across Regions. It picks the best cluster, fails ov...",
+  "summary_1line": "An AWS Machine Learning Blog post announces a SageMaker HyperPod feature that routes inference requests through one endpoint spanning multiple AWS Regions and clusters.",
   "title": "Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters"
@@ -25601,7 +25620,7 @@
   "sid": "dbe8f9c3994a9119",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 7, downloads: 2138.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 22.",
+  "summary_1line": "Tencent has posted GGUF-format weights for WeMM-Video-4B on Hugging Face, a model listed for video-text-to-text tasks, with 7 likes and 2,138 downloads so far.",
   "title": "tencent/WeMM-Video-4B-GGUF released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Video-4B-GGUF"
@@ -25661,7 +25680,7 @@
   "sid": "dc1af94d5139a30b",
   "source": "arxiv_agent_systems_research",
   "summary": "Multimodal safety guards increasingly generate rationales alongside safety predictions, yet whether these rationales are reliable remains largely unexplored. We systematically study *rationale hallucination* from two perspectives: visual rationale hallucination, where rationales contain unsupported visual facts, and safety attribution hallucination, where grounded content is assigned an incorrect safety interpretation. Across rationale-generation methods, multiple vision-language backbones, and safety datasets, we find that rationale hallucination is widespread and does not consistently diminish with higher classification accuracy or increased model scale. Further analysis of the Think-with-Image paradigm shows that hallucination is concentrated in fine-grained attributes and relations, while visual tools are often invoked infrequently or without sufficient spatial focus. Based on these findings, we propose *Tool-Contrastive Grounding Reinforcement Learning* (TCG-RL), which rewards tool use only when it improves rationale grounding over a tool-free reference. TCG-RL substantially reduces rationale hallucination while maintaining competitive safety prediction performance. By revealing the gap between prediction correctness and rationale reliability, our study motivates a shift in multimodal safety guarding from outcome-only evaluation toward safety decisions that are both accurate and verifiably grounded.",
-  "summary_1line": "Multimodal safety guards increasingly generate rationales alongside safety predictions, yet whether these rationales are reliable remains largely unexplored. We systematically study *rationale hallucination* from two perspectives: visual rationale hallucination, where rationales",
+  "summary_1line": "Multimodal safety guards increasingly generate rationales alongside safety predictions, yet whether these rationales are reliable remains largely unexplored. We systematically study *rationale hallucination* from two...",
   "title": "When Safety Rationales Hallucinate: Diagnosing and Grounding Multimodal Safety Guards",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25793v1",
@@ -27733,6 +27752,17 @@
   "type": "news",
   "url": "https://antseed.com"
  },
+ "efe8350e6f16937b": {
+  "first_seen": "2026-11-24T01:09:20.623806+00:00",
+  "id": "07010977badf2d13",
+  "published": "2026-11-24T00:48:55+00:00",
+  "sid": "efe8350e6f16937b",
+  "source": "openai_codex_releases",
+  "summary_1line": "Release 0.174.0-alpha.1",
+  "title": "codex rust-v0.174.0-alpha.1",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.1"
+ },
  "efec5601b7d6ac88": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
   "id": "d4eaec59c7e8b857",
@@ -29084,16 +29114,16 @@
  },
  "faf08ecbdbee6dd2": {
   "first_seen": "2026-11-20T22:05:14.750261+00:00",
-  "id": "e27d857f657c8484",
+  "id": "b72f2a9c09c675d6",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-20T21:17:00+00:00",
+  "published": "2026-11-20T22:28:53+00:00",
   "sid": "faf08ecbdbee6dd2",
   "source": "openai_codex_releases",
   "summary": "Release 0.173.0-alpha.3",
   "summary_1line": "Release 0.173.0-alpha.3",
-  "title": "codex rust-v0.173.0-alpha.3",
+  "title": "codex 0.173.0-alpha.3",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
@@ -29538,7 +29568,7 @@
   "sid": "fdc4cffb6fa79465",
   "source": "claude_code_releases",
   "summary": "What's changed Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and uses its cloud provider or gateway Added easel, a built-in mod that draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise on macOS and Linux; turn automatic charts off in /config Added CLAUDE_CODE_FULL_SIGN_IN_LINK=1 to print the full sign-in link, if the short one shows an error or a script reads values from it Self-hosted runner: Added --start-dir / SELF_HOSTED_RUNNER_START_DIR to have Claude start its work in a folder of a repository, while settings and hooks load as without it Added a notice in cloud and self-hosted runner sessions when a plugin marketplace can't be fetched because its repository isn't one of the session's Self-hosted runner: Added a notice when Anthropic-managed git refuses a plugin's own repository, naming the plugin and what to do Added commandPrinted to claude plugin install --json results, true when the plugin's install command wrote to stderr, and commandFailed when it exited with an error, was killed or timed out Added claude_code_self_hosted_runner_order_to_registered_seconds to the self-hosted runner's /metrics : seconds from work order issued to registration accepted, on orchestrator-spawned runners Added claude_code_self_hosted_runner_order_to_first_session_seconds to the self-hosted runner's /metrics : seconds from work",
-  "summary_1line": "Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and... · Added easel, a built-in mod that draws charts when ask...",
+  "summary_1line": "Claude Code v2.1.330 adds sign-in to Enterprise Admin Console-managed organizations, a built-in easel chart mod, new self-hosted runner metrics and options, and fixes for freezes, settings loss and worktree deletion.",
   "title": "claude-code v2.1.330",
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
