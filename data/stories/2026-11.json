@@ -1322,7 +1322,7 @@
   "published": "2026-11-19T00:00:00+00:00",
   "sid": "0ada1934a0788fbd",
   "source": "eugene_yan",
-  "summary": "Some critiques and suggestions based on a teardown of 12 benchmarks.",
+  "summary": "Lessons from 12 benchmarks: grader bugs, not measuring what matters, etc.",
   "summary_1line": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
   "title": "How Public Evals Work and Fail, and What Should Change",
   "type": "news",
@@ -1442,6 +1442,17 @@
   "url": "https://chengxuan-li.github.io/repobs",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0c74688d767b0f43": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "974363206c353fb5",
+  "published": "2026-11-19T22:28:14+00:00",
+  "sid": "0c74688d767b0f43",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "A study finds that when post-training on knowledge tasks with reasoning-style RL, models memorize hallucinations they generated, recalling reinforced ones 4.83% more on average than unrewarded ones (0.17%).",
+  "title": "LLMs Memorize Their Own Hallucinations During Post-Training",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26863v1"
+ },
  "0c8fb121c8b50e33": {
   "content_excerpt": "What 125 insurance questions taught us about routing, business definitions, and documents Ask Finance and Underwriting whether the loss ratio improved from 2024 to 2025, and you will get two contradictory answers that are both correct. In a fictional commercial auto insurer we built for this test, Finance reported an 8.2 percentage-point deterioration, and Underwriting reported a 1.5 percentage-point improvement. Neither was wrong. Finance tracks the calendar year net of reinsurance, so an adverse reserve development on an older claim shows up in today's numbers. Underwriting looks strictly at the policy year, gross of reinsurance and excluding catastrophes, because that's the baseline used to set rates. Reserving, meanwhile, relies on a third metric entirely: the accident-year ultimate loss ratio. The SQL can be perfectly correct and still produce an answer that doesn't make sense for the person asking. The challenge is knowing which business definition to apply when the same term has several valid definitions, while keeping shared facts, such as total policies written, consistent. This is the problem we wanted to explore with Genie One. Genie One, powered by Genie Ontology (now Generally Available), brings this business context into the analytics experience. Genie Ontology learns from the work teams already do, automatically capturing business logic, calculations, and relationships from existing dashboards, queries, notebooks, and semantic models as Ontology Snippets. This ",
   "first_seen": "2026-11-19T21:10:43.269762+00:00",
@@ -1550,6 +1561,22 @@
   "title": "Stability-Compensated Threshold Calibration for Selection-Conditioned Risk Control in Large Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21384v1"
+ },
+ "0d293feddd39a486": {
+  "first_seen": "2026-11-24T02:06:38.319313+00:00",
+  "id": "d7d27a43e9cb50a0",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-21T05:43:32+00:00",
+  "sid": "0d293feddd39a486",
+  "source": "arxiv_llm_reliability",
+  "summary": "Vision-language models frequently describe objects absent from the image because of language priors. Yet the model itself is already a strong judge of its own output: asked separately whether an object is present, it rejects 44%-62% of its hallucinations, and its yes probability reaches an AUROC of 0.90-0.95 without training. This judgment, however, is not directly usable: (1) its probabilities lack a common scale across models; (2) for the remaining 38%-56%, the model still answers yes with probabilities that overlap those of real objects, so no threshold separates them. We therefore propose CLOSE, a Calibrated Label-free Online Self-Evaluating verifier that enforces this judgment during generation. Its threshold is a quantile of a memory rather than a probability and thus depends only on ranks; the memory is cold-started from unlabeled images and updated online. A scorer self-trained on pseudo-labels from four hidden-state signals is fused with self-asking by rank to separate what self-asking leaves mixed. Refused objects are rolled back and banned through a laddered back-off, and a recognition table intercepts their reappearance under other wordings. On COCO, refusing 20% and 40% of object mentions reduces the CHAIRs of LLaVA-1.5-7B by 42% and 87% (F1 +1.9 and -6.1 points); refusing 20% and 35% reduces the reachable hallucinations of Qwen3-VL-8B (official counts minus CHAIR-script miscounts) by 79% and 96% (F1 +0.5 and -5.3). An external vocabulary further extends the chec",
+  "summary_1line": "CLOSE is a label-free verifier that uses a vision-language model's own yes/no object-presence judgments, with a rank-based threshold, to refuse hallucinated objects during generation, cutting CHAIRs on COCO for LLaVA-1.5-7B and Qwen3-VL-8B.",
+  "title": "CLOSE: A Calibrated Label-free Online Self-Evaluating Verifier for Object Hallucination in Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28589v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "0d297090385ad5a7": {
   "first_seen": "2026-11-03T03:05:29.307677+00:00",
@@ -3146,6 +3173,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26776v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "1b1fe0a2e3897dc2": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "47954f436cda3984",
+  "published": "2026-11-20T21:51:44+00:00",
+  "sid": "1b1fe0a2e3897dc2",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Introduces two attacks on latent dynamic world models, state hallucination and dynamic shift, and finds that robust latent encoders are key, with adversarial encoder training improving robustness across four model families.",
+  "title": "Toward Adversarially Robust World Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28345v1"
  },
  "1b30e1b7d868884c": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
@@ -6409,6 +6447,17 @@
   "url": "http://arxiv.org/abs/2611.14432v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "355a69b6b1503312": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "e89e3908a0eb209a",
+  "published": "2026-11-21T02:36:49+00:00",
+  "sid": "355a69b6b1503312",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Presents Shoonya, a family of from-scratch small language models (16.8M to 1.07B parameters) for Python, Rust and OpenCypher, paired with a pure-Rust runtime embedded directly in a graph database to avoid external model-server overhead.",
+  "title": "Shoonya: Zero-Socket In-Process Small Language Models for Graph Databases with Schema-Epoch KV Caching, Live Catalog Logit Masking, and Verifier-Advantage Distillation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28502v1"
+ },
  "358a1c6bacebf96e": {
   "first_seen": "2026-11-10T16:04:52.810370+00:00",
   "id": "f522ef61c5748fbb",
@@ -7041,6 +7090,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.01976v1",
   "why_it_matters": "Matches feed focus: agentic, eval, codex."
+ },
+ "3b43d55ebb701383": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "9165776fe0406aaf",
+  "published": "2026-11-21T01:17:42+00:00",
+  "sid": "3b43d55ebb701383",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Proposes the Cumulative Consent Ledger, an approval interface that shows the cumulative consequences of an agent's action chain, and reports a study of 80 participants and a monitor that detected 89.2% of violating checkpoints.",
+  "title": "When a Permitted Action Completes a Forbidden Workflow: Designing Consequence-Oriented Approval for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28454v1"
  },
  "3b4f703ae0a8f385": {
   "first_seen": "2026-11-10T11:07:28.794290+00:00",
@@ -15852,6 +15912,17 @@
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/11/llm"
  },
+ "88d210fa1657c563": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "1a2e97a130e7f046",
+  "published": "2026-11-21T08:35:29+00:00",
+  "sid": "88d210fa1657c563",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Industrial anomaly inspection requires not only accurate anomaly discrimination but also trustworthy explanations for operators, while satisfying the strict latency constraints of online inspection. Existing methods, however, typically apply a fixed computational path to all samp",
+  "title": "UACR: Uncertainty-Aware Collaborative Routing for Explainable Industrial Anomaly Inspection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28655v1"
+ },
  "8915e46a098594e4": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 9, 2026 — Claude Fable 5.2 and Mythos 5.2 arrive on Anthropic’s IPO roadshow day. How much thinking is worth paying for? On Friday, we asked Jamin Ball what comes next for Anthropic’s IPO . On Monday the roadshow started and Anthropic shipped the long-anticipated next-version of Claude Fable and Mythos . Of course, it is the new top model in the world, taking back Opus 5.5’s #1 spot from Gemini 4 Carbon which had its brief moment in the sun (10 days). Fable comes with a 20% per token price cut… but is more token hungry, as both SemiAnalysis GDPx and Artificial Analysis agree: Fable 5.1 cost $10 per million input tokens and $50 per million output tokens. Fable 5.2 costs $8 and $40 . Yet on GDPx, a benchmark of professional tasks, SemiAnalysis paid $88.15 per task, up from $67.16 . The run logs give a clue. Where Opus 5.5 and Fable 5.1 would try about 20 test cases, 5.2 sometimes wrote hundreds or thousands and spun up subagents to check its work independently. All that checking helped Fable take first place at 16.4% . You pay for the checks either way. Which effort setting should you put in production? On FrontierCode 2.0, Anthropic reports that ",
   "first_seen": "2026-11-10T07:07:11.751086+00:00",
@@ -18426,6 +18497,23 @@
   "type": "news",
   "url": "https://github.com/ohhbeehave35-commits/adamanteum-community"
  },
+ "9ef53558a95bc11c": {
+  "first_seen": "2026-11-24T02:06:38.319313+00:00",
+  "id": "00e3142b713e871f",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-21T08:50:10+00:00",
+  "sid": "9ef53558a95bc11c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multi-agent systems (MAS) usually coordinate heterogeneous models and tools to solve complex tasks, creating a growing need for reliable evaluation. However, a multi-agent workflow that is fastest in one serving environment can lose its advantage in another, even when its models, prompts, and task remain fixed. This makes a benchmark result conditional on how the workflow is executed. We introduce MASSys, a benchmark for measuring this dependence in multi-agent large language model (LLM) systems. MASSys executes the same candidate-task pairs across serving substrates and load regimes, using five workload families spanning software repair, research synthesis, financial analysis, interactive control, and diagram generation. It records task quality alongside delivery, latency, cost, resource pressure, and failure evidence. In a controlled motivation diagnostic, the Star workflow falls from first to fourth in mean-latency rank under KV-cache pressure, while Chain rises from fourth to first. The substrate sweeps further show that increasing load creates long runtime tails and timeout pressure. In several task families, quality among evaluated outputs changes less than effective quality over submitted jobs: the system delivers fewer usable results even when the surviving outputs remain competitive. Tool and runtime traces reveal that these outcomes involve both model serving and non-model execution. Together, the results motivate evaluating MAS designs over explicit operating condi",
+  "summary_1line": "Introduces MASSys, a benchmark that runs the same multi-agent LLM workflows across different serving substrates and load levels, showing that rankings such as Star versus Chain shift with KV-cache pressure.",
+  "title": "The Evaluation Substrate Matters: Benchmarking Multi-Agent Serving Substrates",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28671v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "9f19fc4c652319fa": {
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
   "id": "3f69af9b6fb6f19e",
@@ -19975,6 +20063,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.23516v1"
  },
+ "aab56d32e7581342": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "54706d89678e2820",
+  "published": "2026-11-20T21:47:43+00:00",
+  "sid": "aab56d32e7581342",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Study of 2,100 fault-injected runs across four tool-using LLM agents finds recovery correct only 19-68% of the time, with 6-26% ending in confident fabrication, and a verification-first monitor cuts fabrication from 17.3% to 10.8%.",
+  "title": "When Tools Fail, Agents Fabricate: Silent Failure and Verification-First Oversight in Tool-Using LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28341v1"
+ },
  "aaeb7b15ed6fabde": {
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
   "id": "702dfaea64a695d8",
@@ -20805,6 +20904,23 @@
   "title": "Intent Contracts: Taking Tools Away from Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24025v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "b1a05a1f31944431": {
+  "first_seen": "2026-11-24T02:06:38.319313+00:00",
+  "id": "ff642d233913e8ca",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-21T08:41:43+00:00",
+  "sid": "b1a05a1f31944431",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models (LLMs) are increasingly deployed in multi-agent systems for collective decision-making, such as multi-agent debate and consensus games, in which agents exchange messages and update their answers over multiple rounds and a resolution mechanism aggregates them into a final outcome. Most multi-agent LLM frameworks assume that every participant shares the system objective. In practice, however, a malicious agent can join as a legitimate member of the group and persuade the other agents toward a hidden adversarial goal. We formalize such attacks as a sequential decision-making problem in which the insider seeks to degrade the utility of the collective outcome. We propose a model-based insider attack that learns to persuade a group of agents: the insider first learns a world model of the benign agents from offline trajectories and then uses it both to train a persuasion policy and to plan its messages. In two case studies involving a numerical consensus game and a multi-agent debate, the learned insider is the most effective and the stealthiest attack we evaluate, outperforming both prompt-based and trained LLM persuaders from prior work. The attack also transfers to other target models, larger groups, and unseen datasets, and remains effective under existing Byzantine-resilience defenses. The learned insider also enables a new defense: adversarially training benign agents on the attack data largely removes both our attack and the strongest prior persuasion at",
+  "summary_1line": "Proposes a model-based insider attack in which a malicious agent in a multi-agent LLM debate or consensus game learns a world model of benign agents and a persuasion policy to degrade collective outcomes.",
+  "title": "Persuasion from Within: Model-Based Insider Attacks in Multi-Agent LLM Debate and Consensus",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28660v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "b1fe23ae3d095dcc": {
@@ -28326,6 +28442,17 @@
   "url": "http://arxiv.org/abs/2611.22989v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "f424b012833cf66e": {
+  "first_seen": "2026-11-24T02:08:58.368651+00:00",
+  "id": "08f69983b9917ea5",
+  "published": "2026-11-21T04:24:24+00:00",
+  "sid": "f424b012833cf66e",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Proposes AOVO, a data-centric reinforcement learning framework that teaches multimodal LLMs when to use visual tools by reweighting training questions with perception attribution, without tool-specific rewards.",
+  "title": "From Reward Engineering to Data-Centric Reinforcement Learning for Effective Agentic Visual Tool Use",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28558v1"
+ },
  "f4370996081cdf2a": {
   "first_seen": "2026-11-19T00:09:50.610543+00:00",
   "id": "d16b7548553a9a70",
@@ -28673,6 +28800,23 @@
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "f6f6d5eb7a168030": {
+  "content_excerpt": "Make table and column context accessible for discovery, governance, and agentic workflows. We’re excited to announce support for catalog labels – a new capability in the Apache Iceberg™ REST Catalog API that enables platforms, engines, and agents to access context such as business purpose, ownership and data classifications maintained in Iceberg REST-compatible catalogs. This shared context supports discovery, governance, and agentic workflows across the data and AI ecosystem. We believe that catalog metadata should be as open and portable as the data it describes. As enterprises bring more tools into their open lakehouse architectures, they need a common way to share the context that makes their data understandable, useful, and secure for all teams, regardless of what tools they use. Today, that context often remains siloed in the source catalog. Data and AI teams must recreate classifications across platforms, maintain custom metadata synchronization pipelines, or work with agents that lack complete context. Databricks is joined by Google Cloud, Salesforce, ClickHouse, Atlan, Collibra, DataHub, Immuta, Trust3 AI, PhoenixAI, and Datastrato in advancing this shared vision of metadata interoperability. Catalog labels offer a path toward that vision, making catalog context portable while allowing each platform to retain its own capabilities and controls. Databricks worked with the Apache Iceberg community to add an optional labels field to the Iceberg REST LoadTable response. T",
+  "first_seen": "2026-11-24T02:06:38.319313+00:00",
+  "id": "872b1c3570d73f24",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T01:30:00+00:00",
+  "sid": "f6f6d5eb7a168030",
+  "source": "databricks_blog",
+  "summary": "We’re excited to announce support for catalog labels – a new capability in the Apache...",
+  "summary_1line": "Databricks and partners announce catalog labels, an optional labels field in the Apache Iceberg REST Catalog LoadTable response that exposes table and column context such as ownership and classifications to other platforms and agents.",
+  "title": "Sharing catalog metadata across data platforms, engines, and agents",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/sharing-catalog-metadata-across-data-platforms-engines-and-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f71afb7764f26157": {
   "first_seen": "2026-11-21T00:09:03.773639+00:00",
