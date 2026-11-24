@@ -1335,7 +1335,7 @@
   "published": "2026-11-19T00:00:00+00:00",
   "sid": "0ada1934a0788fbd",
   "source": "eugene_yan",
-  "summary": "Lessons from 12 benchmarks: grader bugs, not measuring what matters, etc.",
+  "summary": "How benchmarks are built, the bugs they have, and hot takes on what should change.",
   "summary_1line": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
   "title": "How Public Evals Work and Fail, and What Should Change",
   "type": "news",
@@ -4191,7 +4191,7 @@
   "sid": "23b31e845283d676",
   "source": "search_cn_open_weight_labs",
   "summary": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model BigGo Finance",
-  "summary_1line": "The source, BigGo Finance, reports that Chinese lab Zhipu released GLM-5.4, whose claimed performance is said to match 2-3T-class models, with the item not yet independently verified.",
+  "summary_1line": "Chinese lab Zhipu has released GLM-5.4, which BigGo Finance reports claims performance matching 2-3T-class models; the claim has not been independently verified.",
   "title": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5"
@@ -6451,7 +6451,7 @@
   "url": "http://arxiv.org/abs/2611.07134v1"
  },
  "34b252753273b01f": {
-  "content_excerpt": "VEKTOR is a memory system for AI agents. It keeps memories in a five-layer graph, decides what to save, change or drop, and checks every tool call for unsafe instructions before it runs. A set of small tools sits around it. We wrote all of it ourselves. Every question ran through the memory code with a fresh database per question. Answers came from GLM-5.3-Flash and were graded with the benchmark's own rules by two open-weight models, GLM-5.3-Flash and DeepSeek V4.1 Flash. The score is the average of the two. Memories were saved with gpt-oss:120b. This is the oracle variant of LongMemEval, so the score is not comparable with published results on the full variant. GLM-5.3-Flash judge 89.4% (447 of 500), DeepSeek V4.1 Flash judge 89.8% (449 of 500). One run. 440 of 500 questions were marked right by both judges. The judges disagreed on 16 questions, mostly preference. Same 500 questions, average of both judges: 88.5% with 12 memories per ordinary question, 89.6% with 30. Preference moved most, from 78.3% to 86.7%. What changed. A silent recall error on freshly made memory databases (a missing column) is fixed. Ordinary questions now get 30 memories instead of 12. Saving records actions and durations: bought, replaced, donated, started, and how long each lasted. Counting questions about friends and family now get the wide recall too. The Desk chat uses the same idea: it looks up more memories for questions about your own history, and the lookup takes about the same time. Limits.",
+  "content_excerpt": "VEKTOR is a memory system for AI agents. It keeps memories in a five-layer graph, decides what to save, change or drop, and checks every tool call for unsafe instructions before it runs. A set of small tools sits around it. We wrote all of it ourselves. Every question ran through the memory code with a fresh database per question. Answers came from GLM-5.3-Flash and were graded with the benchmark'",
   "first_seen": "2026-11-23T22:06:24.495357+00:00",
   "id": "e1794738720f217d",
   "published": "2026-11-23T21:36:49+00:00",
@@ -6505,6 +6505,17 @@
   "title": "How Cisco defends at machine speed with OpenAI",
   "type": "news",
   "url": "https://openai.com/index/cisco-cyber"
+ },
+ "3515c9dc9a088b85": {
+  "first_seen": "2026-11-24T06:08:39.308426+00:00",
+  "id": "2b8158a09d7cd09d",
+  "published": "2026-11-22T18:06:09+00:00",
+  "sid": "3515c9dc9a088b85",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Examines whether LLM serving optimizations such as prefix caching, chunked prefill and speculative decoding, which are documented as exact, change individual graded answers even when aggregate benchmark accuracy stays the same.",
+  "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29663v1"
  },
  "3538d600a000ec1b": {
   "first_seen": "2026-11-22T00:08:44.872902+00:00",
@@ -10077,6 +10088,18 @@
   "type": "news",
   "url": "https://playcode.io/blog/ai-labs-raise-prices-without-raising-prices"
  },
+ "53c219b3976d1fa6": {
+  "content_excerpt": "Modern engineering teams run far more Postgres clusters than human DBREs can watch by hand, leaving most databases underserved. Our goal is a new operating model where one experienced DBRE or SRE can reliably oversee 1,000 clusters, which requires safe, AI-driven database operations. Frontier AI models already write valid SQL, and an agent with shell access can run it. The hard part of AI-driven database operations is knowing whether that SQL is safe to run on a live production database. Ask any experienced database reliability engineer (DBRE) why they will not hand production Postgres to an AI agent, and the answer is rarely syntax. Databases are stateful, and real outages happen when valid SQL collides with real production state (often multi-terabyte) and live traffic. A schema change waits for a slow reporting query, and new queries on that table queue behind it. A config change pauses replica recovery, or an index that looks \"unused\" on the primary powers a critical query on a read replica. To measure that gap, we built PGAIBench [1] v0.2 and tested frontier models on live two-node Postgres 18.7 clusters under concurrent load. Below, we also propose AAA (Analyst, Auditor, Actor) , a clone-backed separation-of-duties architecture: Most coding-agent benchmarks assume a local, stateless verifier: apply a patch in a container, run unit tests, and read pass or fail ( SWE-bench [2] ). Production Postgres violates that assumption in four ways: Single-shot SQL trivia saturates fa",
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "0dbc4e664e86a5d4",
+  "published": "2026-11-24T05:26:59+00:00",
+  "sid": "53c219b3976d1fa6",
+  "source": "hackernews_ai",
+  "summary_1line": "Introduces PGAIBench v0.2, a benchmark testing frontier AI models on live two-node Postgres 18.7 clusters under load, and proposes the AAA separation-of-duties architecture for safe AI-driven database changes.",
+  "title": "PGAIBench and AAA: can AI safely change production Postgres?",
+  "type": "news",
+  "url": "https://postgres.ai/blog/20261123-pgaibench"
+ },
  "53c7f260bda35f14": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
   "id": "dcdeb2d0e2b14a39",
@@ -10509,6 +10532,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.22456v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "5660f3e41b5f8857": {
+  "content_excerpt": "Fast, token-efficient AI browser agent that sees, clicks, types, and completes real web tasks autonomously - with native MCP & CLI control. Fast, token-efficient autonomous browser control for AI agents. Accessibility-tree-first perception · LangGraph verification · Native zero-API MCP & CLI Most browser agents burn thousands of tokens per step on raw DOM dumps, sleep on fixed timers, or click stale coordinates behind overlays. Agent First Browse treats the browser as a structured, verifiable environment for AI agents: Drive real Chromium either autonomously through the LangGraph verification brain or directly from any AI coding agent (Antigravity, Claude Code, Cursor, VS Code, Gemini CLI) with zero external LLM API keys: Measured on live headed Chromium ( headless=False , zero external LLM API keys, AI agent acting directly as the decision-making brain across live websites and diagnostic stress scenarios): Want zero external API keys ? Connect Antigravity, Claude Code, Cursor, VS Code, or Gemini CLI directly via native MCP or the stateful CLI daemon: (Without pip install -e . , replace agent-eval with .venv/bin/python scripts/agent_eval.py .) Fast, token-efficient AI browser agent that sees, clicks, types, and completes real web tasks autonomously - with native MCP & CLI control.",
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "dd8f29dd073bdab2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T02:06:09+00:00",
+  "sid": "5660f3e41b5f8857",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent First Browse is an open-source tool that lets AI agents drive a real headed Chromium browser via accessibility-tree perception, LangGraph verification, and native MCP or CLI control, without external LLM API keys.",
+  "title": "Show HN: Agent-first-browse – Web automation with delta snapshots and LangGraph",
+  "type": "news",
+  "url": "https://github.com/SandeepAi369/Agent-first-browse",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "567d8273d9c1fb0d": {
   "first_seen": "2026-11-13T02:06:25.122605+00:00",
@@ -11042,6 +11081,23 @@
   "title": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
   "type": "research",
   "url": "https://huggingface.co/blog/rumble-2-flash"
+ },
+ "5b8b87d097096ea4": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "4d44d28898b15790",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T12:04:31+00:00",
+  "sid": "5b8b87d097096ea4",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Persistent tutoring agents do more than answer questions: they manage course files, practice records, and learner profiles that govern future lessons. In such stateful settings, knowing what to teach does not guarantee knowing what to change. We identify a pervasive failure mode, content-state decoupling, where agents deliver pedagogically sound responses while silently corrupting workspace state through unwarranted updates, missed prerequisites, or unintended side effects. Text-level judges overlook these state errors, whereas isolated tool-call checks break down because whether a write action is valid depends jointly on the learner request, prior state, and execution order. We propose State-Verified Reinforcement Learning, which supervises online policy optimization directly through verifiable workspace transitions. Within isolated sandboxes that snapshot state around every tool call, a deterministic verifier audits tool effects, workflow ordering, and native auto-sync side effects, pairing graded partial credit with a hard gate that zeroes episode reward upon any critical violation. Whenever no critical violation occurs, an evidence-grounded judge scores actual saved artifacts rather than agent claims. We pair 1,000 verifiable training instances with an independently authored, human-reviewed evaluation benchmark of 60 tasks spanning 11 educational categories and 16 native tools. After online GRPO training, Qwen3.8-27B raises category-weighted strict success on our benchmar",
+  "summary_1line": "Proposes State-Verified Reinforcement Learning, which trains tutoring agents using a deterministic verifier of workspace state changes; after training, Qwen3.8-27B's strict success on a 60-task benchmark rises from 51.47% to 80.74%.",
+  "title": "Learning What to Change: State-Verified Reinforcement Learning for Educational Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30559v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "5ba3c8a17a29551e": {
   "content_excerpt": "6.4 MB portable binary. Written in ANSI C and Lua. Runs on Linux, macOS, Windows, Haiku, and more. Auditable, MIT. A coding agent should be a tool you can understand, carry with you, and change. psi starts with a small C core and puts the high-level behavior in Lua. The agent loop, terminal interface, tools, and providers are all open to inspection. Keep the parts you need. Build the parts you’re missing. Anthropic, OpenAI Codex, OpenRouter, or local models with Ollama. Resume a session with a different provider. Branch a conversation, explore another approach, and return. Sessions are append-only JSONL with a full tree. An interactive TUI, a simple REPL, one-shot prompts, and Lua evaluation. At your keyboard or in your scripts. What stays with psi, and what builds it. Connections come from its software bills of materials. Select a package to follow its connections. Expand a package for its license and dependencies. Select a node to see its version, package license metadata, and shown connections. Nix runtime closure + direct build inputs for .#default at 646098f . Other platforms and static builds differ. The full build closure contains 918 packages; the diagram shows runtime relationships and direct build-input relationships. C89 and Lua are a deliberate choice. psi runs on familiar desktops and less-traveled systems, with a Cosmopolitan build that runs on Linux, macOS, and Windows. Across i686, x86_64, aarch64, and riscv64 where available. See the porting notes for build d",
@@ -13724,6 +13780,23 @@
   "url": "http://arxiv.org/abs/2611.18514v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "763ebcd0ec890b85": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "93ecd2fe2f6be318",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T07:41:50+00:00",
+  "sid": "763ebcd0ec890b85",
+  "source": "arxiv_cs_cl",
+  "summary": "Language agents have shown their practical value, particularly in software engineering, where abundant public code and executable tests support training and evaluation at scale. Extending this success to other professional domains, such as law and finance, is not straightforward: many agent tasks involve open-ended analysis, making outcomes hard to verify and, in turn, hard to use as scalable supervision. As a result, high-quality tasks in these domains are still largely expert-authored, making them expensive to scale and limiting their use for training. To address this bottleneck, we introduce VADE, a data engine that automatically constructs verifiable analysis tasks from public sources used in professional practice. VADE exploits a simple asymmetry: professional analyses are difficult to solve because the relevant evidence must first be found and interpreted, but much easier to verify once that evidence is fixed. During task synthesis, the engine constructs a reference analysis from source evidence and asks an independent agent to reproduce its conclusions from the same evidence without seeing it. Only after the analysis is verified is it compiled into an open-ended task with an item-level scoring contract, allowing the same task to support both evaluation and training. We apply VADE across four professional domains; in an independent expert review of 186 finance tasks, 93.5% meet a high bar for source fidelity, answer correctness, and evaluation fairness. In finance, thes",
+  "summary_1line": "Introduces VADE, a data engine that builds verifiable open-ended analysis tasks from public professional sources; expert review of 186 finance tasks found 93.5% met a high bar, and training on them improved held-out and Finance Agent Benchmark v2 results.",
+  "title": "VADE: A Verifiable Agent Data Engine from Professional Sources",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30202v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "7673c7bd721351c1": {
   "content_excerpt": "This post presents evidence from our capability evaluations of public models relevant to AI R&D acceleration, up to Opus 5.5 and GPT-6 Astra. We remain significantly uncertain about central questions, including (1) what capabilities are in practice necessary for drastic acceleration, and (2) how quickly relevant model capabilities are improving. We think that current public evidence is insufficient to rule out drastic AI R&D acceleration in the next couple of years. By drastic AI R&D acceleration we mean a situation where capabilities improve so quickly that humans are no longer able to meaningfully understand, assess, and react to catastrophic risks posed by new AI systems. This overview summarizes our main takeaways and their relevant sections within the post. 1 Background describes our motivation and aims, and how our thinking about capability evaluations has changed since the release of the original time horizons paper . 2 Methodology describes the different task sets used throughout the post, changes to human baselining methodology, and introduces our use of multiple score thresholds per task. 4 Robustness details various checks we did on our results, such as checking for reward hacking and refusals. We also investigate the effectiveness of agent swarms as an elicitation technique and find that they seem helpful on verifiable tasks with a clear metric and fast feedback (compared to best-of-k⁠ 5 ), and have unclear or negative effects on our other tasks. The appendices gi",
   "first_seen": "2026-11-21T08:06:54.516815+00:00",
@@ -15551,6 +15624,23 @@
   "type": "news",
   "url": "https://alphasignal.ai/news/anthropic-upgrades-claude-code-projects-to-run-parallel-ai-workers-hands-free"
  },
+ "846959515f07f1a4": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "1233132b4e1fb742",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T08:24:44+00:00",
+  "sid": "846959515f07f1a4",
+  "source": "arxiv_cs_lg",
+  "summary": "Security benchmarks for LLM agents record whether each attack succeeded and compare agents, attacks, and defenses by attack success rate (ASR). Such comparisons are valid only if the agent, the attack, and the defense cause each verdict. We show that verdicts also depend on content-free state: details of a run that carry no information about the system under test, such as the Python hash seed, the order of tools or evidence, and the scoring of failed runs. We require that this state influence no verdict (decision noninterference) and treat it as untrusted input, because evaluators and requesters of LLM-based gates can choose it. Our framework, TARE (Testing Attribution of Reported Effects), attributes a reported effect to the agent, attack, or defense only if it exceeds the measured influence of content-free state. On Agent Security Bench (ASB), runs with a fixed hash seed are identical for seven agents from four model families, yet changing the seed changes up to 17% of an agent's verdicts while the ASR moves by at most 5 points. The seed acts through the tool order: sorting the tool list instead of reverse-sorting it raises the ASR by up to 19 points, because ASB's naming convention places attacker tools first. When the same evidence is reordered, six of seven LLM judges change their decision on 17-91% of 98 proposed actions. Across eighteen agent-defense combinations, TARE's worst-case test attributes effects to two of three defenses, one of them in opposite directions on ",
+  "summary_1line": "Introduces TARE, a framework that attributes reported attack-success effects to the agent, attack, or defense only when they exceed the influence of content-free run state, such as hash seed and tool order, shown on the Agent Security Bench.",
+  "title": "Attributing Security Outcomes in LLM-Agent Evaluations: The Role of Content-Free State",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30259v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "8469e80d372681e4": {
   "first_seen": "2026-11-05T04:05:26.395389+00:00",
   "id": "2a6c9c0a745d7ee6",
@@ -15702,6 +15792,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "85960c4dae90d1b3": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "9ce5bbd209e4de50",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T03:20:12+00:00",
+  "sid": "85960c4dae90d1b3",
+  "source": "arxiv_cs_cl",
+  "summary": "Parallel-trainable recurrences such as Mamba, linear attention, and DeltaNet offer constant-cost streaming inference, but they suffer from two limitations: 1) they struggle to track discrete state, and 2) they read every parameter at every step, tying model capacity directly to CPU latency. We introduce Yggdrasil, a recurrent architecture that decouples capacity from per-step compute by looking up each layer's transition in a large, tree-routed bank of recurrent experts. Each router addresses its bank using the current token and the state of the layer below. We prove that this cross-layer context is necessary---a single token-indexed layer of non-expanding transitions with finitely many reachable states cannot perform conditional resets---while avoiding feedback from the layer's own past preserves parallel-scan training. Because each step traverses one tree path and reads a single expert per layer, active weights stay within a few hundred kilobytes in CPU L2 cache while the full bank resides in RAM. Among the parallel-trainable models we evaluate, Yggdrasil is the only one to solve all five state-tracking tasks. At matched active parameter counts, it achieves the lowest test bits on enwik8 (1.540 bpb) and the human genome hg38 (1.567 bpb), while stepping $3.0\\times$ and $3.3\\times$ faster on a single CPU core ($6.7\\,μ\\mathrm{s}$ and $5.8\\,μ\\mathrm{s}$) than the fastest streaming baseline, and delivering the highest GPU throughput of all models at batch 1024. On the Genomic Be",
+  "summary_1line": "Introduces Yggdrasil, a recurrent architecture that routes each layer's transition through a tree-indexed bank of experts, reporting it solves all five state-tracking tasks and runs faster on CPU than streaming baselines.",
+  "title": "Yggdrasil: Tree-Routed Recurrent Experts for State Tracking and Fast CPU Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29954v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "862132c08e0ff8e1": {
   "first_seen": "2026-11-20T14:06:17.814834+00:00",
@@ -16792,6 +16898,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17294v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "8f51180f74ef58bd": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "0c4b497831d8c854",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-24T05:04:41+00:00",
+  "sid": "8f51180f74ef58bd",
+  "source": "hackernews_ai",
+  "summary": "When agent ships code faster and faster, human review is no longer possible. Which brings 2 problems, at least for me: 1. I need to understand what my agent changes as quickly and easily as possible, cuz I don't wanna lose track of the current status of my product, or be the main bottleneck in shipping code. 2. I don't trust what my agent tells me. Many times, I've been suffered from agent telling me \"all is well\", then say \"you are right, sorry, I missed...\" after code failed on production. To mitigate those problems, I made Genesis, a skill for coding agent to generate a beautiful flow chart to understand all the business flows, flag all risk changes and untested code between commits. It worked very well on me, so I benchmarked it against vanilla Claude code and Codex: Vanilla → With Genesis 1. Test gaps caught: Claude Code 8% → 38% · Codex 4% → 23% 2. False alarms per review: Claude Code 2.1 → 0.7 · Codex 1.4 → 0.5 3. Real risks found per review: Claude Code 2.9 → 2.8 · Codex 2.4 → 2.4",
+  "summary_1line": "Genesis is a skill for coding agents that generates a flow chart of business flows and flags risky changes and untested code between commits; benchmarks show test gaps caught rising for Claude Code and Codex, with fewer false alarms.",
+  "title": "Show HN: Genesis Map – Visualize your agent's changes. See where they can break",
+  "type": "news",
+  "url": "https://github.com/GenesisAgentInfra/genesis",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
  "8f6af8c44a4a1bfb": {
   "also_covered": [
@@ -27028,6 +27152,23 @@
   "url": "http://arxiv.org/abs/2611.09715v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "e5715f39ebf46303": {
+  "first_seen": "2026-11-24T06:06:28.117290+00:00",
+  "id": "cd029d33ad98b0e3",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T08:01:29+00:00",
+  "sid": "e5715f39ebf46303",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Long-lived Web assistants require effective memory and retrieval mechanisms to access information from past user interactions. While these capabilities can be learned through specialized policies, it remains unclear whether specialists trained independently in different environments can be effectively composed without joint optimization. This paper investigates compositional transfer through policy distillation. Memory-writing and sequential retrieval policies are independently distilled from frontier-model action trajectories into 3B models and combined with a fixed answer generator without downstream training. On a LongMemEval-based benchmark, the distilled composition achieves 73.1% accuracy, compared with 36.2% for a composition of existing RL-trained specialists, and also outperforms the evaluated RL-trained compositions on PersonaMem-v2. Component ablations reveal that improvements in individual policies depend on their composition, highlighting the importance of cross-specialist compatibility. Further task-specific adaptation improves accuracy to 75.2% on LongMemEval through RL and 48.9% on PersonaMem-v2 through supervised distillation. These findings demonstrate the effectiveness of independent specialist distillation for modular multi-agent systems. Source code and datasets of teacher-generated memory-editing and retrieval trajectories are released to facilitate reproducibility and further research.",
+  "summary_1line": "Independently distilled 3B memory-writing and retrieval policies, combined with a fixed answer generator without joint training, reach 73.1% on a LongMemEval-based benchmark versus 36.2% for existing RL-trained specialists.",
+  "title": "Composing Independently Distilled Memory and Retrieval Policies for Long-Term Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30230v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "e572010b9c959715": {
   "content_excerpt": "Last month, we showed that rollout and training can agree exactly. On DeepSeek-V4-Flash, vLLM and the trainer produced the same logprob for every sampled token, bit for bit, on the fast kernels, with an 8.7% reduction in rollout throughput. An agent skill now does the alignment for each new model. That post was about synchronous RL, which has no weight lag, so zero mismatch removes the only gap between rollout and training. This post is about asynchronous RL, which is faster but off-policy by design. Does zero mismatch still matter there? We answer with a new paper from NVIDIA Research and Inferact (Jian Hu et al.): REINFORCE Zero: Kernel Alignment Unlocks Stable Asynchronous RL with Importance Sampling . All numbers in sections 2 to 4 come from it. In synchronous RL, rollout and training take turns, and each waits for the other. Asynchronous RL runs them at the same time: rollout keeps generating while the learner updates. The price is weight lag . A sample generated with weights version v is trained at version k > v. The gap k − v is not small: REINFORCE Zero runs at lag 2 and 8 on math reasoning, and at lag 64 on agentic tool use. So the learner always trains on samples from an older policy. The standard correction is importance sampling (IS): reweight each token by π / μ, the learner's probability for it divided by the probability the rollout recorded when it sampled it. The question is whether that correction covers the whole gap. π is the learner's computation and μ is ",
   "first_seen": "2026-11-06T15:05:35.908503+00:00",
@@ -29217,7 +29358,7 @@
   "published": "2026-11-24T03:16:57+00:00",
   "sid": "f8bbbb480f3e1fbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 1, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 3, downloads: 0.",
   "summary_1line": "Tencent has posted the OmniEVIE-4B model weights on Hugging Face, tagged for feature-extraction tasks, with one like and no recorded downloads so far.",
   "title": "tencent/OmniEVIE-4B released on Hugging Face",
   "type": "release",
