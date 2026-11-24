@@ -19,6 +19,12 @@ otherwise.
    git switch main
    git pull --rebase origin main
    ```
+6. Install the Python dependencies:
+
+   ```bash
+   python3 -m pip install -q -r requirements.txt \
+     || python3 -m pip install -q --break-system-packages -r requirements.txt
+   ```
 
 ## Validation and output ownership
 

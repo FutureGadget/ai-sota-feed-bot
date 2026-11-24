@@ -504,5 +504,8 @@ def add_pool_articles(articles, start, end, include_types, exclude_urls, enabled
         merged.sort(key=lambda a: parse_ts(a.get("published")) or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
         diag["event_groups"] = deck_bundle.annotate_event_groups(merged)
         return merged, diag
+    except ImportError:
+        # A missing dependency must stop the routine, not empty the pool.
+        raise
     except Exception as exc:  # the recap must still get its bundle
         return articles, {"enabled": True, "added": 0, "error": f"{type(exc).__name__}: {exc}"}

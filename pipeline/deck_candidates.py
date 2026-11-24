@@ -31,7 +31,9 @@ from dateutil import parser as dt_parser
 try:
     import deck_quality
     import judged_pool
-except Exception:  # pragma: no cover - package-style import
+except ModuleNotFoundError as exc:  # pragma: no cover - package-style import
+    if exc.name not in {"deck_quality", "judged_pool"}:
+        raise
     from pipeline import deck_quality, judged_pool
 
 ROOT = Path(__file__).resolve().parents[1]
