@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-25 (The served Brief spreads repeated sources instead of stacking them)
+
+- **Decision:** `orderWithEditorialCaps` reorders the cap-compliant cards with `spreadRepeatedSources`: the k-th card already placed from one source ranks at `utility * ((1 - floor) * decay^k + floor)`, with `config/editorial.yaml` `source_decay: {decay: 0.7, floor: 0.3}` passed through `data/processed/editorial.json`. Caps, role totals, the fold and the top-band rules are unchanged and still apply.
+- **Context / Problem:** The four community seats in the Brief land as one block, because HN cards score alike: `HHHH......` at the top on 2026-11-21 and 11-22, `.....HHHH.` on 11-23. The 11-10 review measured the top five at 56% Hacker News.
+- **Rationale:** This is the author-diversity multiplier in X's open-sourced For You ranker. A soft penalty keeps a clearly stronger repeat above a weak card, which a hard cap cannot. Replay of the four retained ledgers (`node` harness over `data/brief/*.json`): Hacker News cards in the top ten 4 -> 1-3, distinct sources in the top ten 4-6 -> 6-9, mean top-ten utility 1.5-10% lower. Past the gate, Jev score, the main part of utility, does not rank (AUC 0.53), so the utility given up is mostly noise. At 0.8/0.3 the spread was smaller (6-7 sources) for 0-6% utility.
+- **Impact:** API ordering only; no pipeline or data change beyond the new key in `editorial.json`, which the next feed run writes. Takes effect on the first deploy after that run.
+- **Rollback:** Remove `source_decay` from `config/editorial.yaml`; with no key the order is the old one.
+
 ## 2026-11-25 (Recap bundles show how Hacker News voted)
 
 - **Decision:** `pipeline/hn_signal.py` re-reads points and comment counts from the HN Firebase API for every HN story under 72 hours old, every 4 hours, at most 150 reads per run, into `data/processed/hn_signal.json`. It runs as a fail-open step in `run_full.sh`. The daily and weekly bundle builders add `hn_points` and `hn_comments` to HN articles, and both SKILL.md files tell the agent to use them only to choose between community stories of similar substance.

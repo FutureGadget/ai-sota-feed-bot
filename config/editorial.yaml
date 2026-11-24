@@ -105,6 +105,14 @@ role_totals:
   release: 6
   research: 6
 
+# Spread repeated sources through the served Brief. Within the cap-compliant
+# cards, the k-th card already placed from one source ranks at
+# utility * ((1 - floor) * decay^k + floor) (lib/editorial.js
+# spreadRepeatedSources). Replay of the 2026-11-21..24 ledgers at 0.7/0.3:
+# Hacker News cards in the top ten 4 -> 1-3 and distinct sources 4-6 -> 6-9,
+# for 1-10% lower mean top-ten utility. Remove the key to turn it off.
+source_decay: {decay: 0.7, floor: 0.3}
+
 search_quarantine:
   enabled: true
   # Keep at most this many candidates per search query, newest first. The
