@@ -2,16 +2,16 @@
  "date": "2026-11-24",
  "diagnostics": {
   "admitted": 1,
-  "candidates": 791,
+  "candidates": 793,
   "duplicate_url": 6,
-  "items": 62,
-  "keeps": 477,
+  "items": 63,
+  "keeps": 478,
   "new": 1,
   "off_topic": 77,
   "prior_story": 31,
   "rejected_gate": {
    "insufficient_evidence": 16,
-   "judge_drop": 32,
+   "judge_drop": 33,
    "off_topic": 77,
    "score_low": 154
   },
@@ -22,13 +22,13 @@
   "releases": 39,
   "reviews": 180,
   "role_counts": {
-   "community": 1
+   "first_party": 1
   },
   "run_candidates": 140,
   "stale_story": 53,
-  "stories": 511,
+  "stories": 512,
   "unjudged": 16,
-  "updated": 4,
+  "updated": 5,
   "written": true
  },
  "items": {
@@ -259,7 +259,7 @@
     "release_lane": 0.96
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-24T15:07:03.620769+00:00",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.987,
@@ -267,7 +267,7 @@
    "rank_at_first_seen": 61,
    "release_tier": "minor",
    "score_at_first_seen": 0.6311,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "agent_tooling_releases",
    "source": "openai_codex_releases",
    "source_count": 1,
@@ -308,7 +308,7 @@
     "release_lane": 0.24
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T15:07:03.620769+00:00",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -318,7 +318,7 @@
    "rank_at_first_seen": 40,
    "release_tier": null,
    "score_at_first_seen": 1.2244,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "practitioner_analysis",
    "source": "simon_willison",
    "source_count": 1,
@@ -436,6 +436,55 @@
    "utility_basis": "judge",
    "v2_slot": "community_signal",
    "why_it_matters": "Matches feed focus: agent."
+  },
+  "model:vllm|title:announcing vllm gr efficient inference for generative recommendation": {
+   "admission_rank": 63,
+   "admitted_at": "2026-11-24T16:09:03.044337+00:00",
+   "also_covered": [],
+   "content_excerpt": "Today we’re introducing vLLM-GR , an open-source inference and serving framework built on vLLM for generative recommendation models. Consider a video feed. Given a viewer’s history, a model such as OneRec can generate a semantic ID (SID) for a video the viewer might watch next. To assemble a feed, the application needs a set of candidates. vLLM-GR extends vLLM’s model execution and paged key-value (KV) cache with beam search that explores multiple candidate IDs in one request. The overview shows how recommendation models generate item IDs or score supplied candidates. The OneRec-1.7B example below follows the generation path, from a viewer’s history to 128 candidate SIDs. A recommendation service has to turn a long interaction history into a set of candidates within a single request’s latency budget. Generating each item ID may take only a few tokens, yet the engine must explore many paths and return items the application can serve. vLLM-GR builds its recommendation search into the vLLM engine. vLLM supplies the scheduler, model execution, and paged KV cache. vLLM-GR adds a beam session that spans the whole search and keeps track of how candidate paths branch. EngineCore owns each beam session from admission to completion. The scheduler dispatches prefill and decode stages to a worker. At each stage, the model runner scores the next token and beam selection records the score and parent of each surviving path. The next decode uses those parent indices to read the right KV state. One request returns two candidates with beam widths of 2 → 3 → 2. The catalog filters out A1 · B1 because no item starts with that prefix. A full-vocabulary search skips this filter. The SIDs and scores are illustrative. In the prefill–decode–decode (PDD) pipeline, the scheduler admits a BeamSearch() request and dispatches its prefill stage to the worker. Prefill scores the first SID component while the host prepares decode 1. During decode 1, the host prepares decode 2. The second decode inherits the selected parents’ suffix KV and completes two SIDs. Green marks the component selected at each stage. The benchmarks measure P99 latency to show how beam width and batch size affect tail latency for generative recommendation. The two overview charts hold the input length at 1,024 tokens and compare beam widths of 256 and 128 at batch sizes 1, 4, and 8 across four NVIDIA GPUs and two Ascend NPUs. The figures summarize separate benchmark runs with different timing definitions, sample cou",
+   "first_seen": "2026-11-24T16:09:03.044337+00:00",
+   "freshness_at_admission": 0.7327,
+   "id": "fa5b1fbec6936130",
+   "image_url": null,
+   "judge_category": "frontier_product",
+   "judge_category_confidence": 0.44,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-24T16:08:41.161654+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.86,
+   "judge_signals": {
+    "corporate_marketing": 0.05,
+    "keep": 0.86,
+    "platform_relevant": 0.97,
+    "release_lane": 0.22
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
+   "llm_category": "platform",
+   "matched_topics": [],
+   "prefilter_score": 1.817,
+   "published": "Tue, 24 Nov 2026 00:00:00 GMT",
+   "rank_at_first_seen": 63,
+   "release_tier": null,
+   "score_at_first_seen": 1.2575,
+   "seen_count": 1,
+   "slot": "practitioner_analysis",
+   "source": "vllm_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": -0.15,
+   "story_cluster_id": "3f5935c26ba6f6a3",
+   "story_key": "model:vllm|title:announcing vllm gr efficient inference for generative recommendation",
+   "summary_1line": "vLLM-GR is an open-source inference and serving framework built on vLLM that adds beam search over semantic item IDs to generate candidate sets for recommendation models such as OneRec.",
+   "time_decay_factor": 0.854,
+   "title": "Announcing vLLM-GR: Efficient Inference for Generative Recommendation",
+   "type": "news",
+   "url": "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement",
+   "utility": 1.2575,
+   "utility_basis": "judge",
+   "v2_slot": "practitioner_analysis",
+   "why_it_matters": ""
   },
   "model:vllm|ver:5.5|variant:flash,preview|title:vllm day 0 support for ernie 5 5 flash preview plugin deployment and e2e inferen": {
    "admission_rank": 39,
@@ -1767,7 +1816,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T15:07:03.620769+00:00",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1777,7 +1826,7 @@
    "rank_at_first_seen": 55,
    "release_tier": null,
    "score_at_first_seen": 0.8504,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2173,7 +2222,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T14:08:26.635908+00:00",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent",
@@ -2184,7 +2233,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 1.2716,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -3132,7 +3181,7 @@
     "release_lane": 0.88
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-24T14:08:26.635908+00:00",
+   "last_seen": "2026-11-24T16:09:03.044337+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.639,
@@ -3140,7 +3189,7 @@
    "rank_at_first_seen": 36,
    "release_tier": "major",
    "score_at_first_seen": 1.7813,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "open_weight_releases",
    "source": "hf_tencent_hunyuan_releases",
    "source_count": 1,
@@ -3162,5 +3211,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-24T15:07:03.620769+00:00"
+ "updated_at": "2026-11-24T16:09:03.044337+00:00"
 }

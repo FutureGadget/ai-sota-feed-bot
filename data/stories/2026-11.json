@@ -21236,7 +21236,7 @@
   "sid": "ad5b9db8ae2b02cb",
   "source": "langchain_blog",
   "summary": "Proactive agents work toward goals in the background and check in when they need you. What we've learned about memory and UX from building GTM Agent and Robin.",
-  "summary_1line": "Proactive agents work toward goals in the background and check in when they need you. What we've learned about memory and UX from building GTM Agent and Robin.",
+  "summary_1line": "A LangChain blog post describes lessons from building proactive agents that run in the background toward larger goals, arguing that memory and UX are essential, using two internal LangChain agents as examples.",
   "title": "What We’ve Learned Building Proactive Agents",
   "type": "news",
   "url": "https://www.langchain.com/blog/what-weve-learned-building-proactive-agents",
@@ -27665,6 +27665,19 @@
   "title": "Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26603v1"
+ },
+ "e51f1d2a874386b9": {
+  "content_excerpt": "Today we’re introducing vLLM-GR , an open-source inference and serving framework built on vLLM for generative recommendation models. Consider a video feed. Given a viewer’s history, a model such as OneRec can generate a semantic ID (SID) for a video the viewer might watch next. To assemble a feed, the application needs a set of candidates. vLLM-GR extends vLLM’s model execution and paged key-value (KV) cache with beam search that explores multiple candidate IDs in one request. The overview shows how recommendation models generate item IDs or score supplied candidates. The OneRec-1.7B example below follows the generation path, from a viewer’s history to 128 candidate SIDs. A recommendation service has to turn a long interaction history into a set of candidates within a single request’s latency budget. Generating each item ID may take only a few tokens, yet the engine must explore many paths and return items the application can serve. vLLM-GR builds its recommendation search into the vLLM engine. vLLM supplies the scheduler, model execution, and paged KV cache. vLLM-GR adds a beam session that spans the whole search and keeps track of how candidate paths branch. EngineCore owns each beam session from admission to completion. The scheduler dispatches prefill and decode stages to a worker. At each stage, the model runner scores the next token and beam selection records the score and parent of each surviving path. The next decode uses those parent indices to read the right KV stat",
+  "first_seen": "2026-11-24T16:06:30.478855+00:00",
+  "id": "fa5b1fbec6936130",
+  "published": "2026-11-24T00:00:00+00:00",
+  "sid": "e51f1d2a874386b9",
+  "source": "vllm_blog",
+  "summary": "vLLM-GR extends vLLM to serve generative recommendation models with accelerator-side beam search, catalog constraints, and shared KV caching across candidate paths.",
+  "summary_1line": "vLLM-GR is an open-source inference and serving framework built on vLLM that adds beam search over semantic item IDs to generate candidate sets for recommendation models such as OneRec.",
+  "title": "Announcing vLLM-GR: Efficient Inference for Generative Recommendation",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement"
  },
  "e520883df7aedc67": {
   "first_seen": "2026-11-11T08:04:45.810095+00:00",
