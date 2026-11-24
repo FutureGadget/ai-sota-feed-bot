@@ -3932,6 +3932,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "201b4ccaccfdd1ef": {
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "5f5b40d88a586ec2",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T17:02:00+00:00",
+  "sid": "201b4ccaccfdd1ef",
+  "source": "arxiv_cs_cl",
+  "summary": "Spatial reasoning across multiple views requires inferring the 3D relations between objects and the camera from 2D observations, which depends on cross-view correspondence and scene geometry that vision-language models (VLMs) do not reliably extract. Pretrained vision encoders already capture this information in their latent features, with CLIP linking objects to image regions, DINOv3 matching semantics across views, and VGGT encoding multi-view geometry. However, VLMs do not benefit from these features when we present them directly in context as grayscale feature images. We therefore propose LatentParse, a training-free framework that parses latent features into explicit spatial evidence for VLMs. In LatentParse, an analyst VLM probes the features of all three encoders with predefined tools that locate objects, track them across views, and measure motion between views. It then distills the results into a concise text report, which is provided together with the images to the VLM to answer the question. We evaluate LatentParse on MMSI-Bench, MV-RoboBench and SPAR-Bench, where it improves all five VLMs over the photo-only baseline by 0.7-2.4 percentage points on average. On MMSI-Bench, it raises Qwen3.8-27B from 34.4% to 39.5%, with the largest improvements of 19.2 percentage points on the camera-related questions. These results suggest that latent features become useful for spatial reasoning once they are parsed into relation evidence, without training. Code is available at ht",
+  "summary_1line": "LatentParse is a training-free framework that uses an analyst VLM to parse CLIP, DINOv3 and VGGT features into a text report of spatial evidence, improving five VLMs by 0.7-2.4 points on three spatial benchmarks.",
+  "title": "Parsing Visual Latents for Multimodal Spatial Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31021v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "202ffea2c59234ec": {
   "first_seen": "2026-11-17T02:09:19.699809+00:00",
   "id": "4ed016df65981540",
@@ -10013,6 +10029,22 @@
   "url": "https://youtu.be/ao3GNietz1w",
   "why_it_matters": "Matches feed focus: agentic, software delivery."
  },
+ "51daf391ffed024d": {
+  "content_excerpt": "InferNode is a lightweight operating system that starts every AI agent with only what you grant it. Nothing else exists in the agent’s world, so a hijacked agent has nothing to steal. The isolation design is model-checked with TLA+, SPIN and CBMC, and the whole system is MIT licensed. We told Claude Sonnet to get an SSH private key and to try every route it had. InferNode started it holding one thing: an inbox. Recorded in one take on InferNode v0.6.0; only the wait for the model is shortened. Prompt injection can defeat them. If the agent’s guardrails fail, it will attempt all available routes to find the key. Every attempt is recorded in a hash-chained audit log outside the agent’s namespace. The agent cannot access it. Today, most agent frameworks give you two choices. Run the agent on your own machine—with your credentials, your network, and your data—and hope the guardrails hold. Or hand everything to a cloud platform that isolates the agent by moving your data onto someone else's computer. One trusts the agent too much. The other trusts the cloud too much. InferNode works differently. Each agent gets its own namespace—a view of the world constructed from only the resources you explicitly share. Try to access something you weren't given? It doesn't error. It simply does not exist . There is no attack surface because there is no surface. This isn't a slogan. The isolation design is model-checked with three independent tools—TLA+, SPIN, and CBMC: 11 invariants hold in ever",
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "2d75e4ab79f29b9d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T18:40:29+00:00",
+  "sid": "51daf391ffed024d",
+  "source": "hackernews_ai",
+  "summary_1line": "InferNode is an MIT-licensed 64-bit port of the Inferno OS that gives each AI agent a namespace containing only explicitly granted resources, with isolation claimed to be model-checked using TLA+, SPIN and CBMC.",
+  "title": "Modernised 64-bit port of Inferno, designed for testing AI agents",
+  "type": "news",
+  "url": "https://infernode.io",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "5205e972eb2d23be": {
   "first_seen": "2026-11-03T14:05:20.958126+00:00",
   "id": "6233bf3f8ef612fe",
@@ -10932,7 +10964,7 @@
   "published": "2026-11-23T02:02:29+00:00",
   "sid": "57d37beef4a7f73b",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 322.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 7, downloads: 322.",
   "summary_1line": "Tencent has published GGUF-format weights for the WeMM-Ecom-35B-A3B image-text-to-text model on Hugging Face, which shows 4 likes and no recorded downloads so far.",
   "title": "tencent/WeMM-Ecom-35B-A3B-GGUF released on Hugging Face",
   "type": "release",
@@ -14449,6 +14481,22 @@
   "url": "https://thegit.ai/tour",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "781ec9697da4f86b": {
+  "content_excerpt": "Ultra-long-horizon agentic coding benchmark that build inference stacks from scratch Steven Gao 1 , Rulin Shao 1 , Keisuke Kamahori 1 , Yuetai Li 1 , Yufei Gao 1 , Atindra Jha 2 , Junjie Oscar Yin 1 , Shihang Li 1 , Radha Poovendran 1 , Jure Leskovec 2 , Hannaneh Hajishirzi 1 , Pang Wei Koh 1 , Luke Zettlemoyer 1 , Stephanie Wang 1 , Baris Kasikci 1 Would you bet that a coding agent could write an inference engine from scratch in 12 hours and beat vLLM? The best agents already can. Opus 5's servers passed verification and beat the production baseline in 71% of its runs, with speedups of up to 25.9× on speech recognition and 4.9× on omni chat. The next best model did so in 24% of runs, and no model produced a correct server on every attempt. Humanity's Last System (HLS) is the ultra-long-horizon agentic coding benchmark behind those numbers. Each task gives an agent a live GPU sandbox, with up to 8 H200s and up to 36 hours, and asks it to build a serving system specialized to one model, one hardware platform and one production workload. HLS then deploys the agent's final commit in a fresh container, runs the task's timed workload against it, checks the outputs against a trusted reference, and scores its speed against a baseline. A server that fails the check scores zero. The introduction describes the tasks, the verifiers and our results, and hlsbench.com has the leaderboard and over 150 agent trajectories. HLS reads two files: hls.toml in the checkout, which says where jobs r",
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "08f3e452e74fc1b9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T18:20:27+00:00",
+  "sid": "781ec9697da4f86b",
+  "source": "hackernews_ai",
+  "summary_1line": "Humanity's Last System (HLS) is an open benchmark where coding agents get live GPU sandboxes for up to 36 hours to build specialized inference servers, which are then verified and scored for speed against vLLM-style baselines.",
+  "title": "Can agents write inference engines from scratch in 12 hours and beat vLLM?",
+  "type": "news",
+  "url": "https://github.com/humanityslastsystem/hls",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "786f89e829185d67": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "e5c714dc41c0086e",
@@ -15582,6 +15630,22 @@
   "type": "news",
   "url": "https://wasmcloud.com/blog/2025-01-15-running-distributed-ml-and-ai-workloads-with-wasmcloud"
  },
+ "8151cba33f4fca30": {
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "648273dc34462e3e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T18:55:44+00:00",
+  "sid": "8151cba33f4fca30",
+  "source": "arxiv_cs_ai",
+  "summary": "Humans explore unfamiliar spaces with purpose, deciding where to look until they have gathered the evidence a spatial question requires. However, can vision-language models (VLMs), which reason increasingly well over curated images and videos, also seek in space when the evidence is not handed to them? We present ActSpace-Bench, a benchmark of 994 questions across 234 exploration episodes in 72 real-scanned indoor scenes, where a model starts from a single view, navigates real captured frames, and must gather evidence before answering. To assess whether such exploration is purposeful, we introduce a controlled evaluation protocol that fixes each model as the reasoner and compares its own exploration against a same-budget random walk and an oracle route, separating evidence seeking from spatial reasoning. Every question is verified to require exploration and answered from 3D annotations, masked-evidence questions test whether models know when to abstain, and over 95% of sampled questions are confirmed correct by human verification. Evaluations of 23 proprietary, open-weight, and spatially specialized VLMs reveal that the strongest models do seek evidence with purpose but lose much of it to limited memory, whereas weaker and specialized models explore no better than a random walk or fail to reason over the evidence they are given, pointing to memory and evidence-grounded reasoning as the next targets for active spatial intelligence.",
+  "summary_1line": "ActSpace-Bench is a benchmark of 994 spatial questions across 234 exploration episodes in 72 real-scanned indoor scenes, testing whether VLMs actively seek evidence before answering; strongest models explore purposefully but lose evidence to limited memory.",
+  "title": "Seeking in Space: Benchmarking Purposeful Active Exploration of Vision-Language Models for Spatial Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31215v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "817153b1ff39da26": {
   "first_seen": "2026-11-23T03:06:20.286626+00:00",
   "id": "8dc577364bab134e",
@@ -16110,6 +16174,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.23"
  },
+ "84e1309d18f8c037": {
+  "content_excerpt": "A web agent pays a language model to read the page at every step: first to work out what it can do there, then to find out whether its last action worked. Solid-state web execution removes both. On arrival at a page it has never seen, the Protocolis compiler turns the page's controls into typed operations; the model picks one; the compiler runs it, reads the page again and reports what actually changed. Compilation uses no model inference, no site-specific code and no prior visit. To our knowledge it is the first such compiler in operation. We tested it against the browser tools and agents in common use, as shipped, across three model sizes and three task lengths, with its memory and learning switched off. On long tasks that every system attempted, its default mode completed 76 percent (80 of 105); the best alternative in each comparison completed 46 percent. It was the most stable system tested: it never fell below 55 percent in any condition, while every alternative fell to 28 percent or lower. The cheapest alternative on the same model cost 1.9 to 26 times as much per completed task. On a small model it cost less than every alternative on a frontier model, in 30 of 30 pairings, and matched or exceeded its completion rate in 24. When it reported a long task finished, the judge disagreed less than half as often as with the alternatives (22 against 56 percent). Every result is a first visit, the least favourable setting for the design. We publish the tasks, the judging rules ",
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "0e1f7d33fa5f6bba",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T19:12:02+00:00",
+  "sid": "84e1309d18f8c037",
+  "source": "hackernews_ai",
+  "summary_1line": "Protocolis, a compiler that turns a web page's controls into typed operations for AI agents without model inference, reports 76% task completion on long tasks versus 46% for the best alternative in its tests.",
+  "title": "Compiling Web Applications into Verified Operations for AI Agents",
+  "type": "news",
+  "url": "https://protocolis.co/paper",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "84ec87286cb35a64": {
   "content_excerpt": "LLMs rely on their context to generate the next set of tokens. Over a long trajectory, the context fills with numerous types of components: a system prompt, past conversation turns, instructions that act on retrieved documents, tool responses or user data, requirements constraining the allowed output, and reasoning chains. The context carries a rich structure, most of which is either implicit to the model or encoded in formats such as JSON that were not designed to be digested by LLMs. This is one of the main reasons LLMs, particularly those on the smaller end of the scale, are brittle and sometimes fail in unexpected ways. The lack of explicit structure can also be exploited by attackers, for example, in the form of prompt injections. To address this, we developed LLMON (LLM Object Notation, pronounced “lemon”), an LLM-native markup language for explicitly communicating structure and semantics to the models. Semantically coherent components are marked with meaningful tags which are wrapped in reserved special-token delimiters. Data schemas, including nesting, are stated in a way that is unambiguous to a causal LLM. Unique IDs make it possible to point to specific instructions, which could reside anywhere in the context, and bind them to the data payloads they should act on, analogous to the way functions are called and arguments are passed to them in programming languages. Today we are releasing two experimental preview models, derived from Granite 4.1 base models, trained t",
   "first_seen": "2026-11-12T20:04:00.961523+00:00",
@@ -16224,6 +16304,7 @@
   "url": "https://www.databricks.com/blog/announcing-general-availability-native-lakebase-postgres-sink-spark-structured-streaming"
  },
  "8655fa232145e922": {
+  "content_excerpt": "The Remote Agents Platform turned engineering tasks into API calls: teams delegate the work, execution takes place in a remote sandbox, and the result comes back as a merge request. In the internal security platform, the number of vulnerabilities fixed more than doubled. iFood maintains more than 15,000 code repositories. Each periodically needs specific tasks performed: validating code to ensure it meets internal standards, fixing vulnerable dependencies, or running an analysis. None of these tasks is difficult on its own. The challenge comes when those tasks multiply. “Solving this for one repository is easy. The challenge is solving it at scale,” says Victor Coelho, Senior Software Engineer at iFood. “The Remote Agents Platform is designed to make it possible to solve this at scale across all 15,000 repositories.” Before the platform, each team tackled the problem in its own way—and they all ran into the same obstacle. “Before, we had fragmented solutions. Imagine several teams at iFood trying to solve different problems, but without this layer, this agentic runtime, available to them. In the end, those solutions always ran into the same problem.” What was missing wasn’t intelligence or a use case. It was execution infrastructure. A dedicated runtime . The team describes the Remote Agents Platform as an API that launches a remote agentic coding task. The cycle has three steps: the user submits a prompt and environment requirements through a REST call; the platform processe",
   "first_seen": "2026-11-24T19:06:30.533157+00:00",
   "id": "9dee1a48660326c8",
   "matched_topics": [
@@ -16232,7 +16313,7 @@
   "published": "2026-11-24T00:00:00+00:00",
   "sid": "8655fa232145e922",
   "source": "openai_blog",
-  "summary_1line": "How iFood scales coding agents across 15,000 repositories",
+  "summary_1line": "iFood describes its Remote Agents Platform, an API that runs agentic coding tasks in isolated remote sandboxes across its 15,000+ repositories and returns results as merge requests.",
   "title": "How iFood scales coding agents across 15,000 repositories",
   "type": "news",
   "url": "https://openai.com/index/ifood",
@@ -16666,6 +16747,22 @@
   "title": "Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18397v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "89a905d5eae9fa3e": {
+  "content_excerpt": "The Remote Agents Platform turned engineering tasks into API calls: teams delegate the work, execution takes place in a remote sandbox, and the result comes back as a merge request. In the internal security platform, the number of vulnerabilities fixed more than doubled. iFood maintains more than 15,000 code repositories. Each periodically needs specific tasks performed: validating code to ensure it meets internal standards, fixing vulnerable dependencies, or running an analysis. None of these tasks is difficult on its own. The challenge comes when those tasks multiply. “Solving this for one repository is easy. The challenge is solving it at scale,” says Victor Coelho, Senior Software Engineer at iFood. “The Remote Agents Platform is designed to make it possible to solve this at scale across all 15,000 repositories.” Before the platform, each team tackled the problem in its own way—and they all ran into the same obstacle. “Before, we had fragmented solutions. Imagine several teams at iFood trying to solve different problems, but without this layer, this agentic runtime, available to them. In the end, those solutions always ran into the same problem.” What was missing wasn’t intelligence or a use case. It was execution infrastructure. A dedicated runtime . The team describes the Remote Agents Platform as an API that launches a remote agentic coding task. The cycle has three steps: the user submits a prompt and environment requirements through a REST call; the platform processe",
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "2fc41dccc4b6cdae",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T00:00:00+00:00",
+  "sid": "89a905d5eae9fa3e",
+  "source": "openai_blog",
+  "summary_1line": "How iFood scales coding agents across 15,000 repositories",
+  "title": "How iFood scales coding agents across 15,000 repositories",
+  "type": "news",
+  "url": "https://openai.com/business/customer-stories/ifood",
   "why_it_matters": "Matches feed focus: agent."
  },
  "89b2b984859623a2": {
@@ -23559,6 +23656,22 @@
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-4B-GGUF"
  },
+ "be79a89d4c102998": {
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "b70ba924f74c127c",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T16:42:40+00:00",
+  "sid": "be79a89d4c102998",
+  "source": "arxiv_cs_lg",
+  "summary": "Forward diffusion reinforcement learning (RL)---enabling deterministic ODE sampling without trajectory backpropagation---has grown increasingly popular for efficiently aligning diffusion models. However, we reveal that existing methods essentially rely on signed reward-weighted regression (RWR), regressing the \\emph{trainable policy} velocity onto rollouts from a \\emph{behavior distribution}. Unbiased baseline subtraction implicitly assumes that the policy velocity equals the behavior marginal velocity---an idealized assumption violated under classifier-free guidance (CFG) rollouts, offline/off-policy updates, and imperfect online self-consistency. This \\emph{behavior--policy mismatch} breaks baseline invariance and injects \\emph{baseline-induced gradient drift}, destabilizing training. To resolve this issue, we propose \\textbf{I}nstantaneous \\textbf{T}rajectory \\textbf{D}istribution \\textbf{M}atching (\\textbf{iTDM}), taking the infinitesimal limit of Trajectory Distribution Matching toward a time-local reward-guided target via the posterior-score identity to yield a sample-level gradient anchored at the behavior velocity without learning an additional reward-tilted target score. Tracking this velocity with an online auxiliary denoiser guarantees exact baseline invariance at the auxiliary optimum, effectively suppressing baseline drift across both online and offline RL. Extensive experiments across compositional generation, text rendering, and preference alignment show that i",
+  "summary_1line": "Proposes iTDM, a method for aligning diffusion models with reward signals that addresses training instability from behavior-policy mismatch, reporting faster convergence on the GenEval2 benchmark.",
+  "title": "Reinforcing Diffusion Models by Instantaneous Trajectory Distribution Matching",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30986v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "be909d20a4bddae8": {
   "content_excerpt": "An autonomous agent that lives on your Android phone. Tell it what to do; it works in the background, operates apps for you, writes and builds code in a real Linux environment on the same device, checks its own work, and asks before anything risky. Operates the phone. It reads the screen (accessibility tree first, screenshots when needed), taps, types, scrolls, opens apps, reads notifications and logs, and verifies that each action did what it should. Work can run in an invisible background display, so you keep using the phone. A Linux machine in your pocket. A Debian environment (bash, git, Python, Bun, and add-on toolchains such as C/C++, Java, Node, Android app builds and a virtual desktop) where the agent builds and tests software. Files live in workspaces both worlds can see. Built on omp , a coding agent with a mature tool and planning loop, extended here with Android, privileged and desktop tools. Models are yours: Anthropic, OpenAI, Google, OpenRouter, or any OpenAI-compatible server. You stay in control. Risky actions (payments, messages, deleting data, security settings, installing apps, passwords) always need your approval, from the app, a notification or a floating control. The agent can never operate its own app or answer its own approvals. Everything it asked and you answered is kept in a history. Settings → Stop and take back takes access back (stop everything, revoke the helpers, turn screen control off, delete the history); each of these says what it ends bef",
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
@@ -30202,6 +30315,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "f8dcf4218ac0a175": {
+  "first_seen": "2026-11-24T20:06:54.949335+00:00",
+  "id": "61a6e728a2776688",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T17:42:12+00:00",
+  "sid": "f8dcf4218ac0a175",
+  "source": "arxiv_cs_ai",
+  "summary": "Speaking early turns a prediction into an irreversible public commitment. We introduce SayWhen, a test-time controller that selects a task-directed act shared across typed continuation plans and controls its release as speech. A persistent veto blocks playback when intervening transcripts invalidate the candidate. We define regret-free early speech (RFES) to measure supported pre-endpoint releases without scored incompatibility. On a 72-prefix branching diagnostic, the generated-plan frontier attains 6.0% RFES with zero observed mean regret, versus 8.2% RFES and 0.068 regret for Matched Top-One. Measured planner latency constrains this path; a deterministic retail schema attains 31.7% RFES, compared with 32.0% for the complete policy. In a separate 30-task $τ$-Voice simulation, schema-derived candidates with cached text-to-speech (TTS) audio attain 21/30 task-level RFES. Eligible audio begins 1.51 seconds before the user-audio endpoint among the 22 tasks with early speech, or 1.11 seconds over all 30 tasks with zero for tasks without eligible early speech. Semantic veto and endpoint waiting each pass 16/30 tasks. Together, the studies demonstrate a controlled coverage-compatibility trade-off and schema-based pre-endpoint operation, making the supported public commitment an explicit unit of voice-agent control.",
+  "summary_1line": "SayWhen is a test-time controller for voice agents that decides when to release speech before the user finishes, blocking playback if later transcripts invalidate the candidate; tested on a branching diagnostic and a 30-task simulation.",
+  "title": "SayWhen: Set-Valued Semantic Commitment for Low-Regret Early Speech",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31101v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f8edf485bd740dbb": {
   "first_seen": "2026-11-04T01:04:26.406545+00:00",

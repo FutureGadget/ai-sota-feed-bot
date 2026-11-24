@@ -1,35 +1,31 @@
 {
  "date": "2026-11-24",
  "diagnostics": {
-  "admitted": 3,
-  "candidates": 831,
+  "admitted": 0,
+  "candidates": 864,
   "duplicate_url": 8,
   "items": 67,
-  "keeps": 495,
-  "new": 3,
-  "off_topic": 86,
-  "prior_story": 30,
+  "keeps": 511,
+  "new": 0,
+  "off_topic": 93,
+  "prior_story": 31,
   "rejected_gate": {
-   "insufficient_evidence": 18,
-   "judge_drop": 33,
-   "off_topic": 86,
-   "score_low": 160
+   "insufficient_evidence": 21,
+   "judge_drop": 37,
+   "off_topic": 93,
+   "score_low": 162
   },
   "rejected_quota": {
-   "role_quota": 374
+   "role_quota": 389
   },
-  "releases": 42,
-  "reviews": 189,
-  "role_counts": {
-   "community": 1,
-   "first_party": 1,
-   "release": 1
-  },
+  "releases": 43,
+  "reviews": 195,
+  "role_counts": {},
   "run_candidates": 140,
   "stale_story": 57,
-  "stories": 533,
-  "unjudged": 19,
-  "updated": 4,
+  "stories": 549,
+  "unjudged": 22,
+  "updated": 5,
   "written": true
  },
  "items": {
@@ -309,7 +305,7 @@
     "release_lane": 0.96
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-24T19:09:05.801879+00:00",
+   "last_seen": "2026-11-24T20:10:13.674662+00:00",
    "llm_category": "release",
    "matched_topics": [
     "codex"
@@ -319,7 +315,7 @@
    "rank_at_first_seen": 67,
    "release_tier": "minor",
    "score_at_first_seen": 0.6027,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "agent_tooling_releases",
    "source": "openai_codex_releases",
    "source_count": 1,
@@ -512,7 +508,7 @@
     "release_lane": 0.22
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T19:09:05.801879+00:00",
+   "last_seen": "2026-11-24T20:10:13.674662+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.817,
@@ -520,7 +516,7 @@
    "rank_at_first_seen": 63,
    "release_tier": null,
    "score_at_first_seen": 1.2575,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "practitioner_analysis",
    "source": "vllm_blog",
    "source_count": 1,
@@ -962,7 +958,7 @@
     "release_lane": 0.18
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T19:09:05.801879+00:00",
+   "last_seen": "2026-11-24T20:10:13.674662+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -972,7 +968,7 @@
    "rank_at_first_seen": 64,
    "release_tier": null,
    "score_at_first_seen": 1.3742,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "cloud_platform_updates",
    "source": "google_cloud_blog",
    "source_count": 1,
@@ -1396,15 +1392,26 @@
    "admission_rank": 66,
    "admitted_at": "2026-11-24T19:09:05.801879+00:00",
    "also_covered": [],
-   "content_excerpt": "",
+   "content_excerpt": "The Remote Agents Platform turned engineering tasks into API calls: teams delegate the work, execution takes place in a remote sandbox, and the result comes back as a merge request. In the internal security platform, the number of vulnerabilities fixed more than doubled. iFood maintains more than 15,000 code repositories. Each periodically needs specific tasks performed: validating code to ensure it meets internal standards, fixing vulnerable dependencies, or running an analysis. None of these tasks is difficult on its own. The challenge comes when those tasks multiply. “Solving this for one repository is easy. The challenge is solving it at scale,” says Victor Coelho, Senior Software Engineer at iFood. “The Remote Agents Platform is designed to make it possible to solve this at scale across all 15,000 repositories.” Before the platform, each team tackled the problem in its own way—and they all ran into the same obstacle. “Before, we had fragmented solutions. Imagine several teams at iFood trying to solve different problems, but without this layer, this agentic runtime, available to them. In the end, those solutions always ran into the same problem.” What was missing wasn’t intelligence or a use case. It was execution infrastructure. A dedicated runtime . The team describes the Remote Agents Platform as an API that launches a remote agentic coding task. The cycle has three steps: the user submits a prompt and environment requirements through a REST call; the platform processes the task on a dedicated remote runner inside an isolated sandbox; and the result is retrieved later. “The platform’s entry point, its interface, is a simple REST API. Users can use this API to create the runs they need. Internally, we handle and manage the entire lifecycle and delegate execution to isolated sandboxes,” he explains. Task progress can be monitored in real time. The runner’s internal design alternates between two different types of steps—and that combination makes the overall workflow predictable. Deterministic steps bookend the workflow: cloning the repository, importing the skills the agent can use, and setting up the working branch at the start; publishing the merge request and making the generated artifacts available at the end. In between is the agentic execution itself, running GPT‑5.6 Luna inside the sandbox. “It’s a combination of those two things: deterministic steps and agentic execution within the workflow.” The sandbox runs Ubuntu and includes the toolchains",
    "first_seen": "2026-11-24T19:09:05.801879+00:00",
    "freshness_at_admission": 0.6916,
    "id": "9dee1a48660326c8",
    "image_url": null,
-   "judge_error": "insufficient_evidence",
-   "judge_evidence_chars": 0,
-   "judge_verdict": "unjudged",
-   "last_seen": "2026-11-24T19:09:05.801879+00:00",
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.99,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-24T20:09:46.006292+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.72,
+   "judge_signals": {
+    "corporate_marketing": 0.61,
+    "keep": 0.72,
+    "platform_relevant": 0.94,
+    "release_lane": 0.05
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-24T20:10:13.674662+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1419,10 +1426,11 @@
    "source": "openai_blog",
    "source_count": 1,
    "source_role": "first_party",
+   "source_summary_1line": "How iFood scales coding agents across 15,000 repositories",
    "source_tune": -0.144,
    "story_cluster_id": "ceece8e090386421",
    "story_key": "story|title:how ifood scales coding agents across 15 000 repositories",
-   "summary_1line": "How iFood scales coding agents across 15,000 repositories",
+   "summary_1line": "iFood describes its Remote Agents Platform, an API that runs agentic coding tasks in isolated remote sandboxes across its 15,000+ repositories and returns results as merge requests.",
    "time_decay_factor": 0.891,
    "title": "How iFood scales coding agents across 15,000 repositories",
    "type": "news",
@@ -2365,7 +2373,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T19:09:05.801879+00:00",
+   "last_seen": "2026-11-24T20:10:13.674662+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent",
@@ -2376,7 +2384,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 1.2716,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -3403,5 +3411,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-24T19:09:05.801879+00:00"
+ "updated_at": "2026-11-24T20:10:13.674662+00:00"
 }
