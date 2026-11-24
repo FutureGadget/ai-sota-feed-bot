@@ -36,6 +36,9 @@ fi
 COLLECT_BYPASS_COOLDOWN=${FULL_RUN_BYPASS_COOLDOWN:-0} python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
+# Hacker News votes for the last three days of HN stories
+# (data/processed/hn_signal.json), read by the recap bundles. Never blocks the feed.
+python pipeline/hn_signal.py refresh || echo "hn_signal_step_failed=1"
 
 # One edition builder. The collector writes raw, the builder applies the
 # deterministic editorial policy + Jev gate, then ranks and publishes.

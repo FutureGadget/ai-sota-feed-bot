@@ -20,6 +20,7 @@ from datetime import date, datetime, time, timedelta, timezone
 
 from weekly_common import (
     add_pool_articles,
+    annotate_hn_signal,
     deck_selection,
     ROOT,
     WEEKLY_DIR,
@@ -118,6 +119,7 @@ def main() -> None:
     articles, pool_diag = add_pool_articles(
         articles, start_d, end_d, include_types, exclude_urls, enabled=False if args.no_pool else None
     )
+    hn_annotated = annotate_hn_signal(articles)
     playbook_index = load_json(ROOT / "data" / "playbook" / "source-index.json", {})
     if not isinstance(playbook_index, dict):
         playbook_index = {}
@@ -144,6 +146,7 @@ def main() -> None:
         "judge_category_hint": judge_category_hint(articles),
         "quality": deck_quality_summary(articles),
         "judge_drop_filter": not args.include_dropped,
+        "hn_signal_annotated": hn_annotated,
         "articles": articles,
     }
     if pool_diag is not None:

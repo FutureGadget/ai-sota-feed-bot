@@ -233,6 +233,11 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     in `data/i18n/<locale>/updates/titles.json`) and `scripts/translate.py`
     (static pages, one job per page) share it; see
     `docs/how-to/translation-budget-and-quota.md`
+  - `hn_signal.py` - re-reads points and comment counts for the last three days
+    of HN stories from the HN API (the collector's `hnrss.org/newest` items all
+    arrive at "Points: 1") into `data/processed/hn_signal.json`; the recap bundle
+    builders add them to HN articles as `hn_points`/`hn_comments`. Fail-open step
+    in `run_full.sh`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)

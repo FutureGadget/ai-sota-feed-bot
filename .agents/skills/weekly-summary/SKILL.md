@@ -86,7 +86,10 @@ Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
 did not include; treat it like any other article. Articles that share an
 `event_group` (e.g. `kimi|3.1`) name the same model release: do not write two
 cards that repeat the same announcement, but keep separate cards for separate
-news about it (a launch and a later follow-up). The bundle also carries
+news about it (a launch and a later follow-up). Hacker News articles may
+carry `hn_points` and `hn_comments`, read from HN within three days of
+posting: use them to choose between community stories of similar
+substance, never to pick a story on points alone. The bundle also carries
 `week`, `start`, `end`, `range_label`, `article_count`, `category_hint`,
 `judge_category_hint`, `quality` (judged coverage and verdict mix), and,
 when additions ran, `pool_additions` (`pool_additions.added` counts the
