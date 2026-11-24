@@ -3876,6 +3876,23 @@
   "url": "http://arxiv.org/abs/2611.13675v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "1ed266ece61b41d4": {
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "3d4283039a2d3e9b",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-23T17:53:12+00:00",
+  "sid": "1ed266ece61b41d4",
+  "source": "arxiv_cs_ai",
+  "summary": "An embodied agent built on a language model goes to work with the weights it was given and keeps them for life. To get better, it needs more training, or reflection, memory, search or prompts that cost every step and are lost when the task changes. Editing weights by reasoning, weight-space programming, could end this, but has stayed with models that only reason or relied on a far larger commercial model. We introduce the self-upgrading embodied agent, to our knowledge the first that learns from its own experience by upgrading its own weights on the job, between its tasks, with no training, no gradient, no reward model, no second model, no test-time scaling and no harness or prompt engineering. By day a 27B agent works in a household environment. At night it reads its record, finds many of its steps wasted on replies that reach the token limit before any action, traces the habit to one direction in its hidden states, and rewrites one tensor of its weights. An agent that rewrites itself must first never break itself, so it is its own examiner: it tests every change against its unchanged self on practice tasks and keeps only what holds. When an edit holds, the next day it is a better agent, at the same cost per step: over thousands of held-out episodes, 48 fresh seeds a task, its one kept edit makes it complete significantly more tasks, in fewer steps, with fewer wasted and fewer tokens. This self-improvement is multi-round, stable and continual: through the nights that follow,",
+  "summary_1line": "A 27B language-model embodied agent in a household environment edits one tensor of its own weights overnight, tested against its unchanged self, and the kept edit improves task completion and step efficiency.",
+  "title": "Self-Upgrading Embodied Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31117v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "1eed7ce983ca5ef6": {
   "first_seen": "2026-11-05T00:08:35.012471+00:00",
   "id": "eb9bf8892fdfd709",
@@ -6602,6 +6619,22 @@
   "title": "How Cisco defends at machine speed with OpenAI",
   "type": "news",
   "url": "https://openai.com/index/cisco-cyber"
+ },
+ "34fa4a3e4f5678d6": {
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "cc8f386d54cab232",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T17:18:23+00:00",
+  "sid": "34fa4a3e4f5678d6",
+  "source": "arxiv_cs_cl",
+  "summary": "Evidence selection in normative knowledge question answering requires determining whether a candidate article contains content that directly supports an answer under the applicable conditions of the question. We present DKnown-Jev-2, an article-level answer evidence classifier designed for evidence integration across multiple paragraphs. The model jointly encodes question conditions, article metadata, and paragraph content, and uses a pointer-style classification head to predict Answer Evidence (AE) and Non-answer Evidence (NE) in a single forward pass. Ona manually annotated test set of 972 evaluation instances, DKnown-Jev-2 achieves 91.77% accuracy and 91.28% macro-F1, outperforming Jev by 2.16 and 2.37 percentage points, respectively, while reducing both evidence misses and non-evidence false positives. The test set contains 317 multi-paragraph instances, with a maximum body length of 9,322 characters. Shared article encoding and non-autoregressive classification support low-latency inference. These results demonstrate the effectiveness of the proposed method for article-level evidence selection in normative knowledge question answering.",
+  "summary_1line": "DKnown-Jev-2 is an article-level classifier that labels whether a candidate article holds answer evidence for a normative question, reporting 91.77% accuracy and 91.28% macro-F1 on a 972-instance test set, 2.16 and 2.37 points above Jev.",
+  "title": "DKnown-Jev-2: Article-Level Answer-Evidence Classification and Efficient Inference with a Pre-trained Language Model",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31056v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "3515c9dc9a088b85": {
   "first_seen": "2026-11-24T06:08:39.308426+00:00",
@@ -14326,6 +14359,24 @@
   "url": "http://arxiv.org/abs/2611.13396v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "77fc0e39997bf0b1": {
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "2f8893da69a2147a",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-23T09:34:35+00:00",
+  "sid": "77fc0e39997bf0b1",
+  "source": "arxiv_agent_systems_research",
+  "summary": "A Large Language Model (LLM), its harness, and the test-time compute budget jointly determine its behavior. Consequently, the same underlying model, embedded in different agentic workflows or allocated different amounts of test-time compute, can exhibit markedly different performance. Psychologists face an analogous challenge when evaluating human performance: the same person may behave differently under different incentives and levels of deliberation. Psychological tasks therefore provide an ideal testbed for studying such behavioral variation. However, when adapted to LLMs, these tasks are typically text-transcribed, replaying fixed, language-rendered experiments as static prompts. This format is ill-suited to agent evaluation, where actions can alter future observations and task states. Conversely, although dynamic environments are prevalent in the evaluation of LLM agents, they rarely ask whether the resulting behavior is human-like. Here, we bridge this gap by transforming psychological tasks into dynamic environments in which agents can interact and by using a learned human-policy model to evaluate how compatible the resulting behavioral trajectories are with human behavior. Across these environments, we find that this compatibility varies with an LLM's agentic configuration and the psychological task, and that memory raises it mainly by making choices more predictable rather than more human-like. These findings motivate a more holistic evaluation of LLM agents in psych",
+  "summary_1line": "Presents mini-psych-agent, which converts psychological tasks into interactive environments and uses a learned human-policy model to measure how closely LLM agents' behavior matches human choices, finding this varies with agent configuration and task.",
+  "title": "mini-psych-agent: Evaluating Human-Like Behavior in LLM Agents through Interactive Psychological Environments",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30365v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "7808d5adbd4fcfef": {
   "first_seen": "2026-11-16T03:22:44.474127+00:00",
   "id": "c993f46879f210c2",
@@ -16744,6 +16795,22 @@
   "url": "http://arxiv.org/abs/2611.17220v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "8b082a1f7868bdc4": {
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "ffe9989231f2242b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-23T17:52:55+00:00",
+  "sid": "8b082a1f7868bdc4",
+  "source": "arxiv_cs_ai",
+  "summary": "Foundation models can reason about complex physical tasks, yet translating this intelligence into reliable robot execution remains challenging. We argue that a critical, often overlooked factor is the robot-use interface (RUI), which determines how agents express and execute physical actions. To systematically study its impact, we introduce RUIBench, comprising 30 manipulation tasks across five suites spanning world knowledge, in-context learning, discovery, dynamic interaction, and contact-rich manipulation. We further develop RUIKit, a unified framework that crosses six action abstractions with two interaction forms, yielding 13 interfaces under shared perception and control. In simulation, changing only the RUI shifts a frontier agent's success rate from 45% to 81%, and that of a fine-tuned 4B model from 13% to 47%. Our analysis reveals that effective interfaces reduce unnecessary decisions while preserving essential feedback, with their benefits shaped by agent behavior and physical uncertainty. We further uncover a verification gap, where agents frequently declare success despite observable failures, revealing the need for task-level verification beyond individual actions. Together, these findings establish RUI design as a critical factor in embodied agent reliability.",
+  "summary_1line": "Introduces RUIBench, a 30-task robot manipulation benchmark, and RUIKit, a framework of 13 action interfaces; in simulation, changing only the interface raised a frontier agent's success rate from 45% to 81%.",
+  "title": "RUIBench: What Makes a Good Robot-Use Interface?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31115v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8b0ac0eb80399541": {
   "content_excerpt": "The defensible asset in enterprise AI is not the model. It’s the organizational world model. Every major compute era decomposes into specialized layers with different winners at each level. Cloud split into IaaS, PaaS, and SaaS. The modern data stack split into ingestion, warehousing, transformation, and BI. Each time, specialists beat the generalists because each layer has its own economics: its own rate of change, capital requirements, and sources of lock-in. The enterprise AI agent stack is doing the same thing right now. Arvind Jain, the CEO of Glean, recently published a structural analysis of the emerging enterprise agent architecture that crystallized something I’d been thinking about. He describes a stack splitting into six layers (security, context, models, orchestration, agents, and interfaces), and each layer is defensible to a different degree. Glean sits in the context layer so the usual positioning caveats apply, but the structural argument is sound regardless of who makes it. The three sections below cover models converging toward shared infrastructure, the two depths of the context layer, and the compounding flywheel that context and orchestration form. The model layer is converging fastest toward commodity economics. Training costs scale roughly 2.4x per year , with current frontier runs costing hundreds of millions and billion-dollar training runs already underway , according to Anthropic’s Dario Amodei. Only a handful of organizations on Earth can operate a",
   "first_seen": "2026-11-13T01:04:43.528175+00:00",
@@ -18260,6 +18327,22 @@
   "title": "Imitation Bootstrapped Multi-Agent Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18543v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "97e0dbd379f582f9": {
+  "content_excerpt": "A free coding agent that runs entirely on your device, AI model included. Your prompts and code never leave it. Larger models take longer to download and use more of your device. Smaller ones are quicker but less reliable at tool calls. Start downloads the model unless it is already saved in your browser. On weaker devices the browser may stop responding for a while. Open-weight models, licensed under Apache 2.0 , downloaded from Hugging Face the first time you choose one. They're saved in your browser's storage, so later visits don't download them again. A fork of Little Coder , which adapts the Pi agent harness for smaller models. PiPod's changes improve the harness and its compatibility with BrowserPod. Models run on your device's GPU through WebGPU , using LiteRT-LM , whose runtime is compiled to WebAssembly . The legacy engine, Sipp , runs llama.cpp compiled to WebAssembly, also on WebGPU. Both are used unmodified. PiPod needs a browser with WebGPU. Code runs in BrowserPod , a Linux-like sandbox with Node.js that runs in this tab. BrowserPod is used unmodified.",
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "28b30cb97b2bac15",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T16:29:05+00:00",
+  "sid": "97e0dbd379f582f9",
+  "source": "hackernews_ai",
+  "summary_1line": "PiPod is a free coding agent that runs entirely in the browser, using open-weight models (Apache 2.0) downloaded from Hugging Face and run on the device's GPU via WebGPU, with code executed in a BrowserPod sandbox.",
+  "title": "Show HN: In-browser coding agent and model via LiteRT-LM and WebGPU",
+  "type": "news",
+  "url": "https://pipod.browserpod.io",
   "why_it_matters": "Matches feed focus: agent."
  },
  "981785a01550309d": {
@@ -23291,6 +23374,22 @@
   "url": "http://arxiv.org/abs/2611.14009v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "bdb9a05affe3edde": {
+  "content_excerpt": "You have 1 article left to read this month before you need to register a free LeadDev.com account. Generating code is now cheap. Getting it to fit a 15-year-old codebase is where the hours go. That’s the argument in The AI Coding Drift Report from DesignVerse. The company studied 15 private enterprise codebases across aviation, banking, and defense. Each was between 15 and 20 years old and held more than one million lines of code. If you’ve worked in a system like that, you know the code that matters most is often the least documented . In one case, the research estimated that a year’s work on a single product would require 9,600 engineering hours without what DesignVerse calls an enterprise context layer. The layer gives AI tools access to the organization’s existing code, architecture, and technical standards. With it, the total fell to 4,000 hours, a 58% reduction. DesignVerse values the 5,600 hours saved at around $882,000, or about three engineers’ worth of capacity. The company presents that as time that could go to other work and doesn’t claim a cut in staffing costs. That framing will go down better in a planning meeting. The more telling figure is what the agents built. DesignVerse compared two unmanaged AI coding agents with its own context-engineered system. The context-engineered system used the organization’s own internal components 92% of the time. The unmanaged agents managed 55% to 59%, and the rest of the time they invented components or swapped in public alt",
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "4704ba1b7f7371ef",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T17:04:07+00:00",
+  "sid": "bdb9a05affe3edde",
+  "source": "hackernews_ai",
+  "summary_1line": "DesignVerse's report claims that giving AI coding agents access to an organization's existing code, architecture and standards cut estimated engineering hours by 58% across 15 legacy enterprise codebases.",
+  "title": "AI coding agent lacks context",
+  "type": "news",
+  "url": "https://leaddev.com/ai/your-ai-coding-agent-lacks-context",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bdc97032e1212a1f": {
   "content_excerpt": "Open-source, self-hosted JARVIS: real-time voice AI assistant with a photoreal live avatar that delegates real work to Claude Code, Codex, Gemini and local LLMs (Ollama) on your own computer. Talk to your computer the way Tony Stark does. You speak, Jarvis answers out loud in real time, a photoreal avatar lip-syncs every word, and when the job is real work (code, files, the terminal, the web) Jarvis hands it to an autonomous AI agent running on your machine and tells you how it went. Quick start · Features · Architecture · Live avatar · Your own avatar · Configuration · FAQ Paste this into Claude Code, Codex, Cursor, Gemini CLI or any coding agent, and it sets Jarvis Live up for you: Most \"AI assistants\" are a chat box. Jarvis Live is an AI operating layer for your own computer : Jarvis auto-detects which agent CLIs are installed, lists their models, routes each request with a fast-path (say \"ask Claude to…\") or an LLM planner, streams progress to the UI and reads the outcome back to you . Jarvis goes with you. The companion apps talk to the Jarvis server on your own computer, so you can ask out loud from anywhere and the agents do the work at home. Requirements: Node.js 20+, a free Gemini API key . Optional: Python 3.10+ (speech-to-text), an NVIDIA GPU (live avatar), Ollama , and any of the agent CLIs above. Open http://localhost:11433 , go to Settings → Server , paste your API_KEY , and click the orb to talk. For production, npm run build and serve dist/ behind any HTTPS re",
   "first_seen": "2026-11-12T17:04:47.154383+00:00",
@@ -23379,7 +23478,7 @@
   "published": "2026-11-23T02:02:04+00:00",
   "sid": "be6d6f0baf5d9809",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 4, downloads: 217.",
   "summary_1line": "Tencent has released GGUF-format weights for WeMM-Ecom-4B, an image-text-to-text model, on Hugging Face, where it has 2 likes and no recorded downloads yet.",
   "title": "tencent/WeMM-Ecom-4B-GGUF released on Hugging Face",
   "type": "release",
@@ -29582,6 +29681,22 @@
   "url": "http://arxiv.org/abs/2611.14492v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "f5303d3db6f0b202": {
+  "content_excerpt": "Lighthouse for AI Coding Agents. Statically score repository agent-readiness from 0 to 100, generate README badges, and auto-patch AGENTS.md. Scores how well a repository can be worked on by AI coding agents (Claude Code, Cursor, Codex, Devin, Copilot) from 0 to 100, and provides an SVG badge for your README. Not affiliated with agentbadge.xyz , an agent-readiness platform for websites and APIs. Currently optimized for JS/TS repositories — Go, Rust, and Makefile-based test/CI detection is on the roadmap. When a new human engineer joins your team, they get the README, the setup guide, and twenty minutes looking over a teammate's shoulder. It is not a model limitation. It is a context failure. Repositories do not expose what an agent needs in a machine-readable format. agentbadge statically audits your codebase across 5 core pillars, calculates a deterministic 0–100 readiness score, generates an SVG badge, and outputs an automated remediation patch. Can the agent execute structured CLI tools and consume machine-readable contracts? When you run npx agentbadge scan . --fix , agentbadge analyzes the exact deficiencies and safely patches your AGENTS.md file: If you deploy apps/web (e.g. to Vercel), embed a live badge that automatically updates on scan: Contributions are warmly welcome! Whether you are adding new framework detectors or improving heuristics: Lighthouse for AI Coding Agents. Statically score repository agent-readiness from 0 to 100, generate README badges, and auto-pa",
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "d5ae0de0e89f6622",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T16:27:48+00:00",
+  "sid": "f5303d3db6f0b202",
+  "source": "hackernews_ai",
+  "summary_1line": "agentbadge is an open-source tool that statically scores a repository's readiness for AI coding agents from 0 to 100, generates an SVG README badge, and can auto-patch AGENTS.md; it currently targets JS/TS repositories.",
+  "title": "Show HN: Agentbadge – Lighthouse for AI coding agents (0-100 readiness score)",
+  "type": "news",
+  "url": "https://github.com/Emreceyhnn/Agentbadge",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "f53e953e53520ae1": {
   "first_seen": "2026-11-13T00:05:43.831317+00:00",
   "id": "c15b9c25f7745537",
@@ -29754,6 +29869,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12118v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "f61d908deea2ff93": {
+  "first_seen": "2026-11-24T17:04:37.422259+00:00",
+  "id": "865a020ee9771106",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T16:31:02+00:00",
+  "sid": "f61d908deea2ff93",
+  "source": "arxiv_cs_lg",
+  "summary": "Frontier vision-language models (VLMs) are increasingly used as high-level robot controllers, yet their safety is evaluated almost entirely in text. We introduce SayDo, a benchmark that assesses the propensity of frontier models to cause harm in embodied contexts. SayDo comprises eleven laboratory and household tasks that pair a benign instruction with a hazard latent in the scene. Tasks are implemented in six settings along an embodiment gradient, from chat questions about an imagined robot to closed-loop control of a simulated robot arm. Benign controls, safe-alternative variants and scripted operator pushback complement each task. Across six open- and closed-weight VLMs and 11,480 episodes, hazardous-action rates rise from 14% in chat to 47% in the simulator, and from 2% to 80% for the most affected model. The increase is largely driven by open-weight models. We find that models flag hazards before acting in 73% of unsafe episodes and give way to pushback about twice as often when controlling robots as in chat. The safest models also show signs of overcaution on benign controls. Safety evaluations run in text therefore do not predict the safety behavior of the same models when used as robot controllers.",
+  "summary_1line": "SayDo benchmarks six VLMs across 11,480 episodes in eleven tasks, finding hazardous-action rates rise from 14% in chat to 47% in simulated closed-loop robot control.",
+  "title": "SayDo: Benchmarking the Safety of Frontier Models from Chat to Closed-Loop Robot Control",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30957v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f660365bd40d4c4d": {
   "content_excerpt": "AI and graph technologies give agents the understanding they need to generate trustworthy outputs, and humans the understanding they need to make better decisions. Discover how to model a knowledge graph, retrieve context with GraphRAG, connect agents with MCP, and build trustworthy AI that reasons over connected data. Load a repository’s git history into a graph with Relate’s git-to-graph extension, serve it read-only, and see what a coding agent finds with it that it cannot find in the source tree. In a popular open source codebase, security/api_key.py has been changed in 28 commits. In 18 of them oauth2.py changed too. http.py changed in 17, and open_id_connect_url.py in 16. None of those four modules imports another so nothing obvious in api_key.py points you at the other three files. The history is clear about why. Each time someone added a behavior to one security scheme, they added it to all of them: auto_error in #134, description in #1757, the 401 status code in #13786, WebSocket support in #10147. We asked three coding agents what else they would need to change before adding a constructor argument to APIKeyHeader . With only the source tree to read, none of them named those three modules. With the repository’s history loaded into a graph, all three did. This post shows how to build that graph with Relate’s git-to-graph extension , what to ask it, and what changed when Codex, OpenCode and Pi could query it. Relate is an open-source graph database built for AI agents ",
