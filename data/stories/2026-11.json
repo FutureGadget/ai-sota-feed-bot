@@ -2223,6 +2223,22 @@
   "url": "http://arxiv.org/abs/2611.15262v1",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
  },
+ "1228f7b37e09621f": {
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "7546edcd1eee418d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T18:27:57+00:00",
+  "sid": "1228f7b37e09621f",
+  "source": "arxiv_cs_cl",
+  "summary": "The post-training of pretrained large language models, including supervised finetuning (SFT), direct preference optimization (DPO), and reinforcement learning with verifiable reward (RLVR), is very sensitive to the learning rate, and tuning it through grid search is costly in both computation and memory. In this work, we propose \\textbf{TipSweep}, a method to transfer the learning rate across the number of trainable transformer blocks. To do so efficiently, we search for the best learning rate by training only the last $k_0$ blocks (in our experiments, typically $k_0=1$), and provide scaling rules that predict the optimal learning rate when training any set of $k$ blocks, including when $k=L$ (the full transformer). Across experiments with models ranging from 1 to 7 billion parameters, we observe that the optimal learning rate follows precision-dependent scaling rules: the optimal rate scales approximately as $k^{-1}$ with float32 (FP32) master weights, but as $k^{-1/2}$ when updates are applied directly to bfloat16 (BF16) weights without a master copy. We explain both rules using an analytical model that accounts for update rounding, under assumptions supported by profiling experiments. Finally, we develop two prototypes of the learning rate search for a 6.7-billion-parameter model. The first fits the search on a single consumer GPU with 16 GiB of memory. The second speeds up the search on a high-end GPU by evaluating all candidate learning rates in a single pass over the da",
+  "summary_1line": "Proposes TipSweep, which searches the learning rate by training only the last block(s) of an LLM and predicts the optimal rate for full-depth post-training, with the scaling exponent depending on FP32 or BF16 weight precision.",
+  "title": "Precision-Aware Learning Rate Transfer Across Block Count in LLM Post-Training",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31166v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "1237561784e37c61": {
   "content_excerpt": "Courio (sendcourio.com) is a REST API and MCP server that prints a PDF and mails it as a real letter, from a standard letter to registered mail with proof of delivery, sent as the destination country’s own postal product. You do not need an account, an API key or an installed plugin. You get a quote, your user approves and pays, the letter is mailed, and you can follow it. Ask for a generic level; Courio maps it to the legal product of the destination country (FR “Lettre recommandée avec AR”, DE “Einschreiben Rückschein”, US “Certified Mail”…). The quote returns the exact product in legal_product . If the user asks for “a registered letter” for a legal matter (termination, formal notice, dispute), registered_ar is almost always what they mean. Hosted, stateless, streamable HTTP at https://api.sendcourio.com/mcp . No local install, no key. Add it as a remote MCP server or custom connector: POST /v1/letters/quote . The document is exactly one of { \"pdf_base64\": \"…\" } , { \"pdf_url\": \"https://…\" } or { \"text\": \"…\", \"format\": \"plain\" | \"markdown\" } . PDF up to 15 MB and 20 pages. Addresses: name (≤ 80), optional company , 1–3 address_lines , postal_code , city , country (ISO alpha-2). Put the sender’s email in sender . Optional options : color (default false), duplex (default true); currency : EUR or USD . No need to place the address in an envelope window: Courio adds an address page when needed (it is counted in the price). Show price , legal_product.local_name and the delivery ",
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
@@ -15977,6 +15993,23 @@
   "url": "https://magertron.com/#install",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "83adcbb6f5538bbd": {
+  "content_excerpt": "A customer saved a jacket to their wishlist on your site 9 days ago. This morning its price dropped 30%. Should you let them know? That depends on your goal. If you want first-time buyers to come back for a second purchase, the alert could help. If you're growing lifetime value and this customer usually pays full price, the discount may cost more than it earns. Whatever the goal, an agent needs six answers about this one person before it makes the call (Figure 1). Figure 1. The goal frames one price-drop decision, and the decision needs answers from six kinds of data. If you're getting customer data ready for an Agentic CDP, start here. At Databricks, we work with many brands on this, and the data model is usually the hardest part. This post is for the data architect who designs the stack that marketers, and now agents, build on. This is Part 1 of a two-part series. Part 1: the modeling steps, from raw data to omnichannel activation. Part 2: mapping B2C and B2B datasets, attributes and use cases onto the model. An Agentic CDP needs everything a traditional CDP needs: the right sources, clean data, one identity per customer and golden profiles marketers trust. If you've built a CDP before, that work carries over. If you haven't, it's the place to start. What changes is who does the work and how fast the data has to be right. Agents take on more of the work, such as matching records and drafting audiences, while people choose the sources, review the matches and approve what goe",
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "fe06760faf6cdaa4",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-24T19:36:52+00:00",
+  "sid": "83adcbb6f5538bbd",
+  "source": "databricks_blog",
+  "summary": "A customer saved a jacket to their wishlist on your site 9 days ago. This morning...",
+  "summary_1line": "A Databricks blog post, Part 1 of a two-part series, lays out a recommended data modeling flow for an Agentic CDP, using a medallion architecture with identity resolution after the silver layer.",
+  "title": "Data Modeling Best Practices for an Agentic CDP, Part 1: The Data Foundation",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/agentic-cdp-data-modeling-data-foundation",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "83cce543d6fb49b7": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to help senior",
   "first_seen": "2026-11-24T07:06:25.210585+00:00",
@@ -16141,6 +16174,22 @@
   "url": "http://arxiv.org/abs/2611.25855v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "849440de0b308dcc": {
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "18931edf74074674",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T18:01:58+00:00",
+  "sid": "849440de0b308dcc",
+  "source": "arxiv_cs_ai",
+  "summary": "Model alignment is the primary safety and security mechanism for enforcing refusal of malicious prompts in modern foundation models; yet, existing adversarial evaluations implicitly assume underlying hardware integrity. In this paper, we present FATCAT, the first physical fault-injection attacks capable of eliminating refusal in modern large language and vision-language models. Specifically, we present a non-invasive electromagnetic (EM) fault injection attack targeting GPU-accelerated Systems-on-Chip with physical access, requiring neither software execution privileges nor model-layer access. By leveraging an autonomous Radio Frequency (RF) side-channel trigger to synchronize EM faults to the prompt prefill phase, the attack corrupts safety-critical memory transactions across off-chip LPDDR5 DRAM and on-chip LPDDR physical interfaces without crashing the system while preserving model coherence. Evaluated on an NVIDIA Jetson Orin Nano and AGX Thor running Llama 3.2 1B and Gemma 3 1B, localized physical faults reliably force models to fulfill restricted requests, demonstrating that model-level alignment provides no robust security guarantees without hardware-level fault tolerance. Finally, we demonstrate the physical-world consequences of this vulnerability on an active 6-DoF robotic manipulator controlled by a SmolVLA vision-language-action policy. Our attack silently corrupts the model forcing the arm into abrupt, hazardous lunges; in two instances the robotic arm attempted ",
+  "summary_1line": "Presents FATCAT, a non-invasive electromagnetic fault-injection attack on GPU-based SoCs that uses an RF side-channel trigger to make Llama 3.2 1B and Gemma 3 1B fulfill refused requests, and shows it can drive a robotic arm into hazardous motions.",
+  "title": "FATCAT: Fault Injection Attacks Targeting Chip-level Alignment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31129v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "8497bc1e7a354a4d": {
   "content_excerpt": "An AI coding agent for DOS. It runs on an IBM PC XT: an 8088 at 4.77 MHz, 640K of RAM, a CGA card. Backstory: The IBM PC was my first computer. Rather, it was my parents’ first personal computer that I got to use at a very early age. It was already obsolete by the time I was old enough to use it, but at 5 years old it was a magical device that I could make do different things depending on what I typed. I learned how to type and use DOS so that I could launch some early “Learn the Alphabet” games that my mom had bought me. I learned some elementary-level use of BASIC, but at the time that didn’t progress much further than making some number guessing games and other small projects. From there, many years passed but I still have some of the original parts of that PC. I have a collection of vintage machines that mean something to me, with my fully maxed-out IBM PC 5160 being the centerpiece of my collection. It still has a working 20 MB hard drive, but that’s disconnected in favor of a PicoMEM that lets me emulate a hard drive off of an SD card, making experimentation and play much easier. Old, meet new. New, meet old: I love intersections of old and new technology. What better way to cross the two than building an AI coding agent to run on DOS on original hardware? I (read: Claude) built this for my own entertainment. I wanted to see how far I could push an AI coding agent to build something given out of the (modern) norm of constraints. Also, can that something it built then bu",
   "first_seen": "2026-11-21T08:04:53.678047+00:00",
@@ -16177,7 +16226,7 @@
  "84e1309d18f8c037": {
   "content_excerpt": "A web agent pays a language model to read the page at every step: first to work out what it can do there, then to find out whether its last action worked. Solid-state web execution removes both. On arrival at a page it has never seen, the Protocolis compiler turns the page's controls into typed operations; the model picks one; the compiler runs it, reads the page again and reports what actually changed. Compilation uses no model inference, no site-specific code and no prior visit. To our knowledge it is the first such compiler in operation. We tested it against the browser tools and agents in common use, as shipped, across three model sizes and three task lengths, with its memory and learning switched off. On long tasks that every system attempted, its default mode completed 76 percent (80 of 105); the best alternative in each comparison completed 46 percent. It was the most stable system tested: it never fell below 55 percent in any condition, while every alternative fell to 28 percent or lower. The cheapest alternative on the same model cost 1.9 to 26 times as much per completed task. On a small model it cost less than every alternative on a frontier model, in 30 of 30 pairings, and matched or exceeded its completion rate in 24. When it reported a long task finished, the judge disagreed less than half as often as with the alternatives (22 against 56 percent). Every result is a first visit, the least favourable setting for the design. We publish the tasks, the judging rules ",
   "first_seen": "2026-11-24T20:06:54.949335+00:00",
-  "id": "0e1f7d33fa5f6bba",
+  "id": "8937b96d6fecf02e",
   "matched_topics": [
    "agent"
   ],
@@ -16185,7 +16234,7 @@
   "sid": "84e1309d18f8c037",
   "source": "hackernews_ai",
   "summary_1line": "Protocolis, a compiler that turns a web page's controls into typed operations for AI agents without model inference, reports 76% task completion on long tasks versus 46% for the best alternative in its tests.",
-  "title": "Compiling Web Applications into Verified Operations for AI Agents",
+  "title": "Compiling web applications into verified operations for AI agents",
   "type": "news",
   "url": "https://protocolis.co/paper",
   "why_it_matters": "Matches feed focus: agent."
@@ -16827,6 +16876,22 @@
   "url": "https://glthr.com/transitive-policies-for-ai-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "8a0352ebb97fbd88": {
+  "content_excerpt": "Mirage brings a unified virtual filesystem, virtual CLIs, virtual machines and policies. Each virtual terminal starts with only KBs of memory. Virtual Filesystem . Cloud search, built into the Unix tools an agent already uses. Virtual CLIs . Services as command lines Mirage answers itself, with nothing to install. Policies . Two agents share one workspace. Each profile decides what its agent sees and runs. An open spec, VFS.md, and its benchmark, VFS-Bench 1.0. A fraction of MCP's tokens, and more tasks done.",
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "dc616dc044dfb685",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T20:40:19+00:00",
+  "sid": "8a0352ebb97fbd88",
+  "source": "hackernews_ai",
+  "summary_1line": "Mirage is a virtual terminal for AI agents that combines a unified virtual filesystem, virtual CLIs, virtual machines and per-agent policies, with each terminal starting at only KBs of memory.",
+  "title": "Strukto: First Virtual Terminal for AI Agents",
+  "type": "news",
+  "url": "https://www.strukto.ai",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8a1cf35e4c1e866a": {
   "content_excerpt": "ripgrep is one of the most popular command-line search tools, with over 57,000 stars on GitHub. Despite its popularity and rich feature set, the documentation consisted of just two files: a feature-focused README and a tutorial-style GUIDE. While these files were well-written, they left gaps: Using an evolved version of my documentation automation workflow (originally built for Prodigy’s documentation ), I generated 50+ pages of enhanced documentation, now live at https://iepathos.github.io/ripgrep . The original workflow used mdBook, a simple static site generator popular in the Rust ecosystem. MkDocs Material offers significantly more features: The ripgrep workflow introduced critical improvements over previous iterations. The complete flow: The breakthrough feature: automatic page splitting based on structural analysis. The original GUIDE.md was over 1,400 lines—a monolithic wall of text. The workflow now analyzes page structure before processing and automatically splits oversized pages into focused subpages based on: After page splitting creates new files, we ensure every page gets processed with direct filesystem scanning : After drift is fixed, each page gets enhanced in the map phase (not reduce), meaning each agent has full context about what the page covers: The AI attempts context-aware decisions: “Pattern matching is decision-heavy, add a decision tree. Installation varies by platform, use tabbed content.” When you generate dozens of Mermaid diagrams automatically,",
   "first_seen": "2026-11-14T07:05:52.296320+00:00",
@@ -17289,6 +17354,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeWV0ejczRXVkZVBGRXptQXVYWktKRHg1SUg3RVY4UkVqYWZfWUxCdEhRU2J2RFppUkpVM01rZFozY1NsclItbTBEY1BuNnY4Vk4tMkpyaWpqR0tPbTY1Y3FoZTRzOGZPRW5CUWRXUnMxcEJOeExZSnpUMG92Z3N3YVdnTXAyQUR5OW85TnBwZXBPNGlWVnFhNHdSODFYX1U0?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8e5e963571859903": {
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "794400cdac5b9bd9",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T18:23:16+00:00",
+  "sid": "8e5e963571859903",
+  "source": "arxiv_cs_ai",
+  "summary": "Designing what an agent should optimize can be as difficult as optimizing the agent itself. Existing language-model-based reward-generation methods typically refine objectives for predefined tasks and couple the decision of what to explore with the synthesis of how to implement it, potentially narrowing the resulting behavioral repertoire. We introduce Habitats, a framework for open-ended evolution of executable agent objectives. Habitats maintains a population of reward-policy pairs and evaluates every policy under every population reward, producing a cross-fitness matrix that exposes self-mastery, transfer, and functional diversity. A population-level Planner uses this information to select parent rewards and issue targeted mutation directives, while a separate Mutator translates those directives into validated reward programs. We evaluate Habitats in a discrete Card Sandbox and three continuous-control environments (Cart-Pole, Hopper, and Cheetah) against Independent Generation and Direct Mutation baselines. Across four environments and three random seeds, Habitats achieves the highest macro-averaged final Specialist Quality and Behavioral Diversity, with final diversity reaching 1.8x that of Direct Mutation and 2.5x that of Independent Generation. Finally, across ten downstream objectives unseen during evolution, frozen Habitats policy libraries achieve higher paired win rates than size-matched Direct Mutation and Independent Generation libraries at 10,000 adaptation epis",
+  "summary_1line": "Introduces Habitats, a framework that evolves populations of reward-policy pairs using a Planner that directs a separate Mutator to write reward programs, tested on a Card Sandbox and three control tasks against two baselines.",
+  "title": "Habitats: A Framework for Open-Ended Evolution of Agent Objectives",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31160v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "8eec2e0e61665676": {
   "content_excerpt": "Kubernetes, the open source system that manages how applications run across thousands of AI factories, has become the foundation for AI, and the demands on it are only growing. To help meet them, NVIDIA is deepening its commitment to open source at KubeCon + CloudNativeCon , the flagship conference for the Kubernetes and cloud-native communities. NVIDIA is contributing NVIDIA OpenShell , an open source runtime for securing and governing autonomous agents, to the Cloud Native Computing Foundation (CNCF), a nonprofit that is part of the Linux Foundation and the host of KubeCon. As a CNCF Sandbox project, OpenShell will be governed by the organizations building it into their products and strengthened by the expertise of security professionals worldwide. NVIDIA is also contributing to Agent Substrate , an open source Google-led framework for operating long-running agent workloads at scale on Kubernetes that has been accepted into the CNCF Sandbox. Additionally, NVIDIA announced new components of the NVIDIA DSX AI Factory Platform : NVIDIA Kubernetes Engine , NVIDIA Kubernetes Recipes and NVIDIA Snapshot . These tools help teams deploy, manage and scale GPU infrastructure on Kubernetes for AI factories. Together, these advancements mark a step forward in making Kubernetes the leading foundation for AI workloads at scale — empowering developers to build safer, more efficient AI infrastructure for the future. NVIDIA’s contribution of OpenShell to CNCF puts security infrastructure fo",
@@ -29625,6 +29707,22 @@
   "title": "Tensorized Automata: Algebraically Informed Representation Learning for Sequential Decision Making",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21514v1"
+ },
+ "f378fea92addc171": {
+  "first_seen": "2026-11-24T21:06:37.223062+00:00",
+  "id": "489bbd95171662bd",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T10:51:35+00:00",
+  "sid": "f378fea92addc171",
+  "source": "arxiv_llm_reliability",
+  "summary": "Contrastive decoding (CD) mitigates object hallucination in multimodal large language models (MLLMs) by contrasting token distributions under different conditions to adjust token scores. However, existing generative and discriminative benchmarks primarily measure final task scores, which can be confounded by candidate filtering, changes in generation trajectories, and response biases, making it difficult to isolate the effects of the underlying contrastive adjustments. To address these limitations while complementing existing evaluations, we introduce CONCOR (Contrastive Correction Evaluation), a controlled benchmark that directly evaluates the competition between ground-truth and different types of hallucinated candidates using the Contrastive Grounding Margin (CGM). CGM also enables analysis of directional consistency, composition, and reliability of contrastive corrections. Our evaluation reveals that existing CD methods exhibit distinct correction behaviors: some consistently favor ground-truth candidates, whereas others produce strong corrections but also introduce more errors. Crucially, these differences help explain their contrasting responses to increased contrast strength, which improves some methods while degrading others. These findings highlight the importance of evaluating the contrastive correction itself, rather than relying solely on final-output performance, and CONCOR provides a controlled and interpretable framework for understanding and improving CD metho",
+  "summary_1line": "Introduces CONCOR, a controlled benchmark that scores how contrastive decoding methods rank ground-truth objects against hallucinated candidates in multimodal LLMs, using a Contrastive Grounding Margin metric.",
+  "title": "Rethinking the Evaluation of Contrastive Decoding for Hallucination Mitigation in Multimodal Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30460v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f3876a1daa7ca3fd": {
   "first_seen": "2026-11-08T00:09:03.194953+00:00",

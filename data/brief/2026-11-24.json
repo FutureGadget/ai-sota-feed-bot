@@ -1,31 +1,33 @@
 {
  "date": "2026-11-24",
  "diagnostics": {
-  "admitted": 0,
-  "candidates": 864,
-  "duplicate_url": 8,
-  "items": 67,
-  "keeps": 511,
-  "new": 0,
+  "admitted": 1,
+  "candidates": 874,
+  "duplicate_url": 9,
+  "items": 68,
+  "keeps": 513,
+  "new": 1,
   "off_topic": 93,
   "prior_story": 31,
   "rejected_gate": {
-   "insufficient_evidence": 21,
-   "judge_drop": 37,
+   "insufficient_evidence": 24,
+   "judge_drop": 38,
    "off_topic": 93,
-   "score_low": 162
+   "score_low": 166
   },
   "rejected_quota": {
-   "role_quota": 389
+   "role_quota": 390
   },
   "releases": 43,
-  "reviews": 195,
-  "role_counts": {},
+  "reviews": 199,
+  "role_counts": {
+   "first_party": 1
+  },
   "run_candidates": 140,
   "stale_story": 57,
-  "stories": 549,
-  "unjudged": 22,
-  "updated": 5,
+  "stories": 551,
+  "unjudged": 25,
+  "updated": 2,
   "written": true
  },
  "items": {
@@ -508,7 +510,7 @@
     "release_lane": 0.22
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T20:10:13.674662+00:00",
+   "last_seen": "2026-11-24T21:08:58.106577+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.817,
@@ -516,7 +518,7 @@
    "rank_at_first_seen": 63,
    "release_tier": null,
    "score_at_first_seen": 1.2575,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "practitioner_analysis",
    "source": "vllm_blog",
    "source_count": 1,
@@ -958,7 +960,7 @@
     "release_lane": 0.18
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-24T20:10:13.674662+00:00",
+   "last_seen": "2026-11-24T21:08:58.106577+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -968,7 +970,7 @@
    "rank_at_first_seen": 64,
    "release_tier": null,
    "score_at_first_seen": 1.3742,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "cloud_platform_updates",
    "source": "google_cloud_blog",
    "source_count": 1,
@@ -1034,6 +1036,57 @@
    "utility_basis": "judge",
    "v2_slot": "community_signal",
    "why_it_matters": ""
+  },
+  "story|title:data modeling best practices for an agentic cdp part 1 the data foundation": {
+   "admission_rank": 68,
+   "admitted_at": "2026-11-24T21:08:58.106577+00:00",
+   "also_covered": [],
+   "content_excerpt": "A customer saved a jacket to their wishlist on your site 9 days ago. This morning its price dropped 30%. Should you let them know? That depends on your goal. If you want first-time buyers to come back for a second purchase, the alert could help. If you're growing lifetime value and this customer usually pays full price, the discount may cost more than it earns. Whatever the goal, an agent needs six answers about this one person before it makes the call (Figure 1). Figure 1. The goal frames one price-drop decision, and the decision needs answers from six kinds of data. If you're getting customer data ready for an Agentic CDP, start here. At Databricks, we work with many brands on this, and the data model is usually the hardest part. This post is for the data architect who designs the stack that marketers, and now agents, build on. This is Part 1 of a two-part series. Part 1: the modeling steps, from raw data to omnichannel activation. Part 2: mapping B2C and B2B datasets, attributes and use cases onto the model. An Agentic CDP needs everything a traditional CDP needs: the right sources, clean data, one identity per customer and golden profiles marketers trust. If you've built a CDP before, that work carries over. If you haven't, it's the place to start. What changes is who does the work and how fast the data has to be right. Agents take on more of the work, such as matching records and drafting audiences, while people choose the sources, review the matches and approve what goes out. And because an agent decides for one person in seconds, a gap in the data turns into a bad decision just as fast. Databricks built CustomerLake around the same idea. Data teams can define trusted datasets and models once through Databricks and Unity Catalog. Marketers can then use purpose-built interfaces to ask questions, build segments, and activate audiences faster without working around IT or exporting data into unmanaged tools. Here's the flow we recommend. It's a medallion architecture with one important rule: identity resolution runs after silver, and the canonical ID it creates becomes the join key for gold. You build the layers with Spark Declarative Pipelines , keep them on schedule with Lakeflow Jobs and govern every layer in Unity Catalog . Figure 2. One governed path from raw data to connected channels, keyed by one canonical ID. Brands have asked for years why they can't own their identity graph and run deterministic matching on their own data. The usual answer was",
+   "first_seen": "2026-11-24T21:08:58.106577+00:00",
+   "freshness_at_admission": 0.9709,
+   "id": "fe06760faf6cdaa4",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.9,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-24T21:08:32.963770+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.62,
+   "judge_signals": {
+    "corporate_marketing": 0.14,
+    "keep": 0.62,
+    "platform_relevant": 0.89,
+    "release_lane": 0.02
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-24T21:08:58.106577+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agentic"
+   ],
+   "prefilter_score": 1.953,
+   "published": "Tue, 24 Nov 2026 19:36:52 GMT",
+   "rank_at_first_seen": 68,
+   "release_tier": null,
+   "score_at_first_seen": 1.0242,
+   "seen_count": 1,
+   "slot": "cloud_platform_updates",
+   "source": "databricks_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": -0.13,
+   "story_cluster_id": "fafa78e73995ed52",
+   "story_key": "story|title:data modeling best practices for an agentic cdp part 1 the data foundation",
+   "summary_1line": "A Databricks blog post, Part 1 of a two-part series, lays out a recommended data modeling flow for an Agentic CDP, using a medallion architecture with identity resolution after the silver layer.",
+   "time_decay_factor": 0.978,
+   "title": "Data Modeling Best Practices for an Agentic CDP, Part 1: The Data Foundation",
+   "type": "news",
+   "url": "https://www.databricks.com/blog/agentic-cdp-data-modeling-data-foundation",
+   "utility": 1.0242,
+   "utility_basis": "judge",
+   "v2_slot": "cloud_platform_updates",
+   "why_it_matters": "Matches feed focus: agentic."
   },
   "story|title:distdna language model fingerprinting under stochastic decoding": {
    "admission_rank": 11,
@@ -3411,5 +3464,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-24T20:10:13.674662+00:00"
+ "updated_at": "2026-11-24T21:08:58.106577+00:00"
 }
