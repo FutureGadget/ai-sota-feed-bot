@@ -8,7 +8,7 @@ solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-24
 themes:
   - key: injection-paths
     title: New paths for injected instructions
@@ -54,7 +54,10 @@ defense numbers run optimistic.
 
 **The consensus control is authorization, not detection.** Treat each agent as
 a non-human identity with scoped, delegated credentials. Authorize per action
-and, increasingly, per sequence of actions. Cap the blast radius with OS
+and, increasingly, per sequence of actions. The newest check binds each
+proposed call and its arguments to what the user actually asked for: in one
+vendor's AgentDojo test, intent matching cut hijack success from 48.7% to
+0.9%. Cap the blast radius with OS
 sandboxes, network perimeters, and egress controls. Coding-agent harnesses now
 ship this as defaults: manual approval, per-argument permission rules, and
 sandboxes that cut prompt volume. Every layer, classifier-gated auto modes

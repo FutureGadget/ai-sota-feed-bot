@@ -8,7 +8,7 @@ solutions: [mcp]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-24
 themes:
   - key: agent-native-surfaces
     title: Exposing existing systems as agent-callable tools
@@ -49,7 +49,8 @@ token budgets. Tool definitions (names, typed constraints, example inputs,
 result size) are treated as a design discipline.
 
 **Calling behavior is the open problem.** Agents that pass clean tool suites
-degrade when tools time out or return bad data, and enabling JSON-schema output
+degrade when tools time out or return bad data, often by fabricating a
+plausible result instead of reporting the failure. Enabling JSON-schema output
 alongside tool calling can stop open-weight models from calling tools at all.
 The response is to tune or train the harness around the tools: search over
 harness configurations with frozen weights, or record harness rollouts as RL
@@ -58,7 +59,9 @@ data.
 **Governance is moving earlier in the call.** Beyond who may connect, teams now
 verify a proposed call before it runs and write policy over sequences of calls,
 since per-request checks miss concurrent abuse. Temporal policies need stateful
-tracking and give up some formal guarantees.
+tracking and give up some formal guarantees. Approval also has to follow the
+tool's versions: most backward-compatible MCP schema updates widen some
+argument, and clients do not re-prompt for them.
 
 Production deployments keep the model's job narrow: orchestration and
 language, with specialized components, approvals, and isolated execution doing

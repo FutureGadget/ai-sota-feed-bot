@@ -6,7 +6,7 @@ status: active
 obstacles: [agent-evaluation]
 related_storylines: []
 evidence: []
-updated: 2026-11-20
+updated: 2026-11-24
 themes:
   - key: structured-verdicts
     title: From a 1-5 score to structured, trace-level verdicts
@@ -20,6 +20,9 @@ themes:
   - key: scoring-design
     title: "The rubric and scale are part of the judge"
     summary: Flipping score anchors, narrowing or shifting the scale, or small prompt edits move verdicts on unchanged criteria, and LLM-written rubrics can be wrong; fix the scheme and average both anchor directions.
+  - key: correcting-judge-error
+    title: Measuring judge error and correcting scores for it
+    summary: One global judge accuracy does not transfer across agents, languages, or traffic slices; replay labeled decisions per slice and keep a small random human audit to correct scores.
 ---
 
 ## TL;DR
@@ -41,11 +44,17 @@ too expensive, so teams fine-tune small open judges on their own failure
 clusters (about 1/100th the cost) or swap the generative judge for encoder
 classifiers that score many signals in one pass.
 
-**Trust is the open problem.** Judges show position, verbosity, and language
-bias that raw accuracy hides, and zero-temperature judges still flip verdicts.
-The working practice: validate the judge against held-out human labels,
-ensemble cheap judges to cut false positives, and use a deterministic check
-instead of a judge whenever the task allows one.
+**Trust is the open problem.** Judges show position, verbosity, language, and
+self-preference bias that raw accuracy hides, even when grading against an
+answer key, and zero-temperature judges still flip verdicts. The working
+practice: validate the judge against held-out human labels, ensemble cheap
+judges to cut false positives, and use a deterministic check instead of a
+judge whenever the task allows one.
+
+**One error rate does not transfer.** A judge threshold validated in one
+language or on one agent can exceed its error target on another, and a single
+global correction can reorder agent rankings. Re-validate per slice and keep a
+small random human audit to correct the scores.
 
 **The scoring scheme is part of the judge.** Reversing a rubric's anchors, or
 narrowing or shifting its scale, moves verdicts on unchanged criteria, and an
