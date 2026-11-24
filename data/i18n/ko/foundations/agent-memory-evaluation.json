@@ -1,0 +1,118 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-memory-evaluation",
+  "source_hash": "eaeac092fdaf10385ee737a5c0cf054b3b38ac8925e9463495a99768b8e6ce19",
+  "translated_at": "2026-11-24T07:24:10.290772+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-memory-evaluation",
+  "title": "에이전트에 메모리를 추가하면 정말 더 나아질까?",
+  "question": "Does adding memory to an agent actually make it better?",
+  "summary": "2026년 독립 평가들은 에이전트 메모리가 모든 경우에 이득은 아니라는 데 의견이 일치한다. 같은 기법이 한 모델에서는 16포인트를 올리고 다른 모델에서는 0을 기록했으며, 올바른 메모리가 메모리 없음보다 낮은 점수를 받기도 했다. 교훈을 원본 트래젝토리와 연결하고 기록 전에 각 쓰기를 테스트하면 피해를 줄일 수 있다.",
+  "status": "active",
+  "cluster": "evaluation",
+  "cluster_label": "Evals and reliability",
+  "updated": "2026-11-11",
+  "latest_evidence_added": "2026-11-11",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>도움이 될 것이라는 이유로 메모리 시스템을 출시하는 것은 확립된 이득이 아니라 베팅이다. 2026년의 독립 평가 세 건이 메모리가 작업 성능에 미치는 실제 효과를 측정했고, 어느 것도 일관된 이득을 찾지 못했다. 같은 가이드라인 추출 기법이 한 모델에서는 작업 완료율을 16포인트 올렸고 다른 모델에서는 전혀 올리지 못했다. 자신의 모델과 작업에서 메모리 없는 대조군과 비교해 측정하지 않았다면, 어느 결과를 출시했는지 알 수 없다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>아니다, 자동으로 좋아지지는 않는다. 메모리의 효과는 이 평가들이 드러낸 세 가지에 좌우된다.</p>\n<ul><li><strong>검색은 아직 해결되지 않았다.</strong> Agent Memory Leaderboard의 최고 점수는 100점 만점에 58.02점이다.</li><li><strong>올바른 메모리도 추론을 왜곡할 수 있다.</strong> MemTrapBench에서 테스트된 모든 프레임워크가 메모리 없음보다 낮은 성능을 보였고, 가장 나은 경우도 10% 넘게 뒤처졌다.</li><li><strong>이득은 모델이 결정한다.</strong> ALTK-Evolve는 같은 벤치마크에서 모델 8개에 걸쳐 +16.1포인트에서 +0.0포인트까지 측정했다.</li></ul>\n<p>메모리는 한 번 설치하는 구성 요소가 아니라 모델과 작업별로 A/B 테스트해야 하는 개입으로 다뤄야 한다. 무엇을 기록할지 걸러내고, 각 교훈의 근거를 보관해야 한다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>메모리 시스템의 결과는 세 가지 중 하나이며, 각각 다른 검증이 필요하다.</p>\n<ul><li><strong>도움이 되지만 정도는 모델이 정한다.</strong> 같은 가이드라인 메모리가 gpt-oss-120b에서는 +16.1pp를 올렸지만 Claude Opus 4.6에서는 +4.1pp에 그쳤다. 해당 작업에 이미 강한 모델은 메모리가 채울 여지가 적다.</li><li><strong>측정 가능한 효과가 없다.</strong> GLM-5의 0.0pp는 포화된 사례다. 모델이 이미 그 능력을 갖고 있어서 메모리는 얻는 것 없이 토큰 오버헤드와 복잡성만 더했다.</li><li><strong>오히려 해가 된다.</strong> 완벽하게 저장하고 검색한 메모리도 현재 작업의 추론을 왜곡할 수 있으며, MemTrapBench가 테스트한 모든 프레임워크가 메모리 없음 기준선보다 낮은 점수를 받았다.</li></ul>\n<p>회상 정확도 검사(\"올바른 사실을 검색했는가?\")는 메커니즘만 확인한다. 검색된 메모리가 정확히 맞아도 모델을 더 나쁘게 만들 수 있으므로, 세 번째 경우는 이 검사로 잡아낼 수 없다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>표준화된 측정이 한계를 보여준다.</strong> Agent Memory Leaderboard는 메모리 시스템에 Add와 Search만 맡기고 Answer와 Eval은 플랫폼이 담당하므로, 어떤 제출물도 채점을 통제해 점수를 조정할 수 없다. 이 경계 아래에서 회상, 멀티홉, 시간, 거버넌스, 개인화, 규칙 실행, 안전, 프라이버시 작업을 평가했을 때, 완료된 제출물 69건 중 최고점은 100점 만점에 58.02점이었다. 목적에 맞춰 만든 상용 메모리도 스스로 설계한 벤치마크를 통과하기에는 아직 멀었다.</p>\n<p><strong>검색된 내용이 무관한 추론을 편향시킬 수 있다.</strong> MemTrapBench는 올바른 메모리의 내용이 현재 작업을 왜곡하는지 테스트한다. 두 가지 함정은 다음과 같다.</p>\n<ul><li><strong>추론 고착:</strong> 모델이 검색된 이전 접근법에 과도하게 매달린다.</li><li><strong>믿음 왜곡:</strong> 검색된 사실이 모델의 믿음을 바꿔 무관한 추론에까지 영향을 준다.</li></ul>\n<p>두 함정 모두 시스템이 \"올바른 사실을 검색했는가\" 검사는 통과하면서도 실패하도록 설계되었다. 효과가 있었던 완화책인 AdaptiveMem은 추론 시점에 작동한다. 모델이 편향을 일으키는 메모리를 알아보고 가중치를 낮추도록 지시받는다. 무엇을 저장하느냐가 아니라 메모리를 어떻게 쓰느냐를 바꾼다.</p>\n<p><strong>검증할 수 없는 교훈이 피해를 일으킨다.</strong> 경험 메모리는 성공 또는 실패로만 표시된 트래젝토리에서 교훈을 추출한 뒤, 트래젝토리 없이 교훈만 제공한다. 에이전트는 잘못된 교훈을 검증할 수 없으므로 그대로 따른다. 이 간극을 겨냥한 해결책이 두 가지 있다.</p>\n<ul><li><strong>읽기 시점:</strong> WikiTrace는 각 교훈을 해당 트래젝토리에 연결하고, 교훈이 모호하거나 상충하거나 실패에서 나온 경우 에이전트가 원본을 다시 읽는다.</li><li><strong>쓰기 시점:</strong> Falsification-Gated Self-Evolution은 교훈이 전이, 반증, 회귀 프로브를 통과한 뒤에만 기록하며, 기록된 업데이트 중 해로운 비율을 3.6%로 억제한다.</li></ul>\n<p><strong>가이드라인은 해당 행동이 부족한 모델에만 도움이 된다.</strong> ALTK-Evolve는 자기 증류 루프다. 에이전트 자신의 성공 및 실패 트래젝토리에서 행동 가이드라인을 추출해 통합하고, 이후 실행에 다시 주입한다. 효과가 모델마다 다른 것은 방법의 결함이 아니라 개선 여지 때문이다. 실제 능력 격차가 있는 강한 모델은 전체 가이드라인 세트에서 이득을 봤고, 다른 모델은 토큰 오버헤드를 줄이기 위해 간결한 핵심 세트에 작업별 검색을 더했을 때 가장 좋았다. 이미 한계에 도달한 모델은 가이드라인을 어떻게 투입해도 이득이 없었다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>자신의 모델과 작업에서 메모리 없는 대조군과 비교해 측정한다.</strong> 하나의 메커니즘에서 +16.1pp부터 0.0pp까지 편차가 나오므로, 다른 사람의 결과는 자신의 결과를 거의 말해주지 않는다.</li><li><strong>회상 정확도에서 멈추지 않는다.</strong> 검색된 메모리가 무관한 작업에서 행동을 바꾸는지 확인하는 검사를 추가한다. 올바르게 검색해도 에이전트가 더 나빠질 수 있다.</li><li><strong>메모리 페이로드 크기를 모델에 맞춘다.</strong> 일부 모델에서는 간결한 핵심 세트에 목표 검색을 더한 구성이 전체 가이드라인 세트보다 나았다. 메모리가 도움이 되는 경우에도 \"메모리를 더 많이\"가 안전한 기본값은 아니다.</li><li><strong>리더보드 순위는 출발점으로 본다.</strong> 공개된 최고 점수는 58.02/100이고 트랙 간 비교는 명시적으로 무효이므로, 상위 순위가 자신의 작업에 그대로 적용되지 않는다.</li><li><strong>모델을 바꾼 뒤에는 다시 테스트한다.</strong> 메모리 효과는 모델마다 다르므로, 모델을 업그레이드하거나 교체하면 이전 메모리 A/B 결과는 무효가 된다.</li><li><strong>각 교훈의 출처를 보관한다.</strong> 에이전트나 사람이 검증할 수 있도록 트래젝토리 ID와 결과를 교훈 옆에 저장한다.</li><li><strong>회귀 프로브로 메모리 쓰기를 걸러낸다.</strong> 후보 교훈을 기록하기 전에 임시 상태에 넣고 보관된 작업을 재실행한다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li><strong>남의 수치로 출시하기:</strong> 자신의 모델과 작업에서 메모리 없는 대조군 없이, 벤더의 순위나 논문의 종합 주장만 믿고 메모리 레이어를 도입하는 것.</li><li><strong>회상만 검증하기:</strong> 올바른 사실이 반환됐는지만 확인하고, 올바른 내용도 추론을 왜곡해 작업 성능을 떨어뜨릴 수 있다는 점을 놓치는 것.</li><li><strong>이득이 업그레이드 후에도 유지된다고 가정하기:</strong> 한 모델에서 얻은 메모리 이득이 모델을 바꿔도 유지되리라 기대하는 것. 포화된 모델은 같은 메커니즘에서 아무 이득도 얻지 못할 수 있다.</li><li><strong>성공 시 바로 기록하는 메모리:</strong> 회귀 검사나 트래젝토리로의 연결 없이, 한 에피소드의 성공/실패 라벨만으로 교훈을 곧바로 기록하는 것.</li><li><strong>모든 모델에 같은 투입량:</strong> 모든 모델에 전체 가이드라인이나 메모리 페이로드를 주어, 얻는 것 없이 토큰 오버헤드만 더하는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>무엇을 저장하고 어떻게 회상할지는 <a href=\"/topic/agent-memory\">agent memory</a>, 에이전트의 최종 답변만이 아니라 트래젝토리가 제대로 작동했는지 측정하는 방법은 <a href=\"/topic/agent-evaluation\">agent evaluation</a>을 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "wikitrace-2026-evidence-linked-memory",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
+      "note": "Names memory-induced degradation: an agent fails a task it solves without memory because it follows a wrong lesson or misapplies a valid one. Cause: lessons are inferred from pass/fail labels and served without their source trajectory. WikiTrace links each lesson to a success/failure summary and the raw trajectory, and the agent descends those links when a lesson is underspecified, conflicts, or came from a failed task. Outperforms prior memory methods and insights-alone on five agentic benchmarks.",
+      "added": "2026-11-11",
+      "url": "http://arxiv.org/abs/2611.14320",
+      "sid": "6b202536a684fb26"
+    },
+    {
+      "id": "fgse-2026-falsification-gated-memory",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents",
+      "note": "Treats each candidate lesson as a hypothesis with a precondition, behavior change, expected effect, and verifier. It is applied only in temporary state and tested on target-transfer, falsification, and archived-regression probes before being committed, refined, or rejected. Reports 39.8 WebArena success and 78.8 AppWorld completion, with regression damage at 1.3% and harmful committed updates at 3.6%.",
+      "added": "2026-11-11",
+      "url": "http://arxiv.org/abs/2611.14326",
+      "sid": "99e35db5c56c4bd6"
+    },
+    {
+      "id": "aml-2026-first-cycle-results",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Agent Memory Leaderboard — first public results (Text Memory)",
+      "note": "First cycle: 136 registered teams, 69 memory frameworks completed evaluation across Open-Source and Commercial Products tracks. Fixed boundary: the memory system implements Add/Search, the platform runs Answer/Eval. Text Memory spans fact recall, multi-hop, temporal, governance, personalization, rule execution, safety, and privacy. Top Commercial entry MemoraX scored 58.02; MemOS 45.89 and NTES-MEMORY-SMART 44.21. Scores are not comparable across tracks. A second cycle was scheduled for September 20, 2026.",
+      "added": "2026-08-26",
+      "url": "https://agentmemoryleaderboard.ai/leaderboard/academic/textual"
+    },
+    {
+      "id": "memtrapbench-2026-cognitive-traps",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use",
+      "note": "Tests reasoning fixation and belief distortion: a memory stored and retrieved correctly still reshapes the model's reasoning on the current task and lowers performance. Across two model families and five memory frameworks, every memory strategy underperformed a no-memory baseline, the strongest still dropping more than 10%. The authors' inference-time fix, AdaptiveMem, tells the model to recognize and avoid the trap, mitigating the drop while holding or improving standard memory-benchmark scores.",
+      "added": "2026-08-26",
+      "url": "https://arxiv.org/abs/2608.20202"
+    },
+    {
+      "id": "ibm-2026-altk-evolve-memory-dosing",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "How Much Memory Does Your Agent Actually Need? (ALTK-Evolve)",
+      "note": "IBM Research extracts behavioral guidelines from an agent's own successful and failed trajectories and reinjects them at inference, measured on AppWorld (585 tasks, 9 apps) across eight models. Task Goal Completion gains vary by model: gpt-oss-120b +16.1pp from a curated subset at +5% tokens; DeepSeek-V3.2 +9.5pp (+16.1pp Scenario Goal Completion) from the full set; Claude Opus 4.6 +4.1pp; GLM-5 0.0pp, already saturated. Research blog post from the method's authors.",
+      "added": "2026-08-26",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm"
+    },
+    {
+      "id": "agent-memory-evaluation-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "Three independently run 2026 evaluations, none citing the others, attack the same assumption from different angles: the best system on a standardized leaderboard scores under 60/100; correctly retrieved memory can make a model worse than no memory; and one mechanism's gain swings from 16 points to zero by model. The shared conclusion — measure memory's effect per model and task, never assume it — is LLM Digest's synthesis.",
+      "added": "2026-08-26"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-memory",
+      "title": "Agents forget across steps and sessions"
+    },
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

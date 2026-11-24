@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까? | LLM Digest</title>
+  <meta name="description" content="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/foundations/agent-model-routing" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/foundations/agent-model-routing" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/foundations/agent-model-routing" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/foundations/agent-model-routing" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?" />
+  <meta property="og:description" content="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/foundations/agent-model-routing" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/foundations-agent-model-routing-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/foundations-agent-model-routing-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?" />
+  <meta name="twitter:description" content="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?", "description": "Production routers converge on one shape: classify each call or thread cheaply, default to a smaller model, and escalate to frontier only on a specific signal. Reported cost cuts run 30-74%, but the classifier's own cost can eat a fifth of the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/agent-model-routing", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?", "item": "https://www.llm-digest.com/foundations/agent-model-routing"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-readable" />
+  <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
+  <script defer src="/site-chrome.js?v=20261119-readable"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-readable"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    body { font-family:var(--font-sans); }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:var(--font-display);
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:var(--font-mono);
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:var(--font-display);
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:var(--font-display);
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .foundation-xlabel { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul, .foundation-prose ol:not(.foundation-new-list) { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:var(--font-mono);
+      font-size: 0.78rem; color:var(--accent); letter-spacing: 0; text-transform: none; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:var(--font-mono);
+      font-size:.7rem; margin-left:.35rem; }
+    .foundation-evidence-list li { scroll-margin-top:5rem; padding:.2rem 0; }
+    .foundation-evidence-list li:target { background:var(--brief-wash);
+      box-shadow:-.7rem 0 0 var(--brief-wash), .7rem 0 0 var(--brief-wash); }
+    .foundation-evidence-list p { margin:.3rem 0 0; color:var(--fg); font-size:.9rem; line-height:1.55; }
+    .foundation-evidence-meta { display:block; margin:.15rem 0 0; font-family:var(--font-mono);
+      font-size:.68rem; color:var(--muted); }
+    .foundation-evidence-meta a { font-weight:400; color:var(--muted); text-decoration:underline; }
+    .foundation-new-list, .foundations-recent ol { margin:0; padding:0; list-style:none;
+      display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-new-list li, .foundations-recent li { display:grid; grid-template-columns:6.6rem minmax(0,1fr);
+      gap:.8rem; font-size:.94rem; line-height:1.4; }
+    .foundation-new-list time, .foundations-recent time { font-family:var(--font-mono);
+      font-size:.7rem; color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .foundation-new-list a, .foundations-recent a { font-weight:600; text-decoration:none; }
+    .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
+    .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border);
+      background:var(--brief-wash); border-radius: 12px; }
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:var(--font-display);
+      font-size:1.3rem; line-height:1.1; }
+    .fr-concept { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      letter-spacing: 0; text-transform: none; color:var(--warm); margin:0 0 .1rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-new-list li, .foundations-recent li { grid-template-columns:1fr; gap:.1rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/foundations">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Builder Foundations</h1>
+        <p id="meta" class="muted">Evidence-tiered mechanisms for agent builders</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/community" data-site-destination="/community">Community</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations" aria-current="page">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/foundations?slug=agent-model-routing">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/foundations/agent-model-routing" data-share-title="에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?">Share this page</button>
+        <a class="site-language-action" href="/foundations/agent-model-routing" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Cost, latency, and operations<span class="sep">·</span>6 sources<span class="sep">·</span>updated 2026-10-06</p></section>
+      <!-- range is included in the custom hero -->
+      <!-- intro is inside the foundation concept hero -->
+      <div class="foundation-concept"><div class="foundation-lead"><p>If every agent call goes to a frontier model, you are overpaying for capability most calls don&#x27;t need. In LangChain&#x27;s Switchyard benchmark only <strong>7% of calls</strong> needed the frontier model. Gartner forecasts per-workflow inference cost to rise more than fivefold by 2028, so routing decides whether your unit economics improve or degrade as usage grows.</p></div>
+<aside class="foundation-xlinks"><div><span class="foundation-xlabel">Related map topics</span><ul><li><a href="/topic/agent-cost">Agent token costs are unpredictable and easily run away</a></li><li><a href="/topic/cost-controls">Cost controls: budgets, metering, and per-task attribution</a></li></ul></div></aside>
+<section class="foundation-section foundation-new"><div class="foundation-rail">What's new in the evidence</div><div class="foundation-prose"><ol class="foundation-new-list"><li><time datetime="2026-10-02">Oct 2, 2026</time><a href="#ev-langchain-2026-open-swe-model-router">How to Build a Model Router in the Harness</a></li><li><time datetime="2026-08-19">Aug 19, 2026</time><a href="#ev-langchain-2026-switchyard-agent-routing-benchmark">Agent routing benchmark: NVIDIA NeMo Switchyard</a></li><li><time datetime="2026-08-19">Aug 19, 2026</time><a href="#ev-databricks-2026-unity-ai-gateway-smart-routing">Smart Routing in Unity AI Gateway</a></li></ol></div></section>
+<section class="foundation-section"><div class="foundation-rail">Short answer</div><div class="foundation-prose"><p>Route per call or per thread on a live signal, not per task category. Default to a cheap or mid-tier model and escalate to frontier only when a cheap-to-compute signal says the work needs it. Independent routers at LangChain, Databricks, and Glean use this shape and report <strong>30-74% cost cuts</strong>. The shared catch: the classifier or judge that decides escalation has its own cost, and in one benchmark it took 21.2% of routed spend.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Builder model</div><div class="foundation-prose"><p>Routing is not &quot;pick a cheaper model for this kind of task.&quot; Production systems compute a fresh signal and differ mainly in where they compute it:</p>
+<ul><li><strong>Escalation</strong> (NeMo Switchyard) — start on the cheap model; escalate to frontier after two consecutive negative judge verdicts.</li><li><strong>Session classification</strong> (Databricks Unity AI Gateway) — a small extractor labels the task once at session start; labels move it up or down from a medium default.</li><li><strong>Thread classification</strong> (LangChain Open SWE) — one classifier decision per thread picks a fast, balanced, or performance tier.</li><li><strong>Decomposition</strong> (Glean Waldo) — a pre-filter breaks the query down and picks tools before any frontier call.</li></ul>
+<p>Cost lives on the whole escalation path, not only at the model swap.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Mechanism</div><div class="foundation-prose"><p>Routing works because difficulty is unevenly distributed inside a task. A coding or support task mixes trivial reads with a few hard planning steps, so most calls clear on a small model and cost concentrates in a small share of calls. Switchyard&#x27;s 93/7 split shows this; the frontier model still took 68.4% of spend on its 7% of calls.</p>
+<p>Where the signal is computed sets the tradeoff:</p>
+<ul><li><strong>Per-call judging</strong> is most precise but runs the judge every turn. Requiring two consecutive negative verdicts filters noisy single failures, at the price of that recurring judge cost.</li><li><strong>One-time classification</strong> (per session or per thread) is cheap but blind to drift. Open SWE&#x27;s router does not re-route when a thread changes topic.</li><li><strong>Pre-generation decomposition</strong> cuts tokens and latency before any model choice, independent of which model handles each step.</li></ul>
+<p>Quality has to be measured on an outcome. Open SWE&#x27;s live A/B showed a <strong>64% lower median thread cost</strong> with merged-PR rate statistically unchanged; a fast-only arm was pulled after a day of user complaints. Its tiers came from the cost-versus-capability frontier and its criteria from its own traces, so neither transfers unchanged to another agent.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">How to apply</div><div class="foundation-prose"><ul><li><strong>Route on a live signal, not a static rule.</strong> Use judge verdicts, complexity labels, or a decomposition step; not task category, user tier, or time of day.</li><li><strong>Budget the classifier&#x27;s cost.</strong> Measure judge or classifier spend as a line item; if it approaches the savings, move to one-time classification or a smaller judge.</li><li><strong>A/B the router on an outcome metric.</strong> Compare merged PRs, resolved tickets, or task success between routed and control traffic; cost alone hides quality loss.</li><li><strong>Derive tiers and criteria from your own traces.</strong> Copying another team&#x27;s thresholds skips the step that makes routing work.</li><li><strong>Decide the accuracy trade explicitly.</strong> Switchyard traded 6 points of accuracy for 74% lower cost; write down whether your workload tolerates that before shipping.</li><li><strong>Re-classify on drift</strong> if one-time classification is used and threads change scope mid-run.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Failure modes</div><div class="foundation-prose"><ul><li>Treating routing as a one-time swap to a cheaper model, with no escalation path back to frontier.</li><li>Ignoring the judge&#x27;s own cost, which can consume a fifth of routed spend.</li><li>Routing on task category or user tier and missing that cost concentrates in a few hard calls.</li><li>Classifying once per thread and assuming the label holds after the topic changes.</li><li>Reporting cost savings without an outcome comparison, and shipping a router that loses more quality than the use case allows.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Related</div><div class="foundation-prose"><p>See <a href="/topic/agent-cost">agent cost</a>, <a href="/topic/cost-controls">cost controls</a> for budgeting that pairs with routing, and <a href="/foundations/model-switching-replay-gap">replay versus live evaluation of routers</a> for why router accuracy needs live-rollout evidence.</p></div></section>
+<section class="foundation-section foundation-evidence" id="evidence"><div class="foundation-rail">Evidence · 6 sources<br>newest first</div><ol class="foundation-evidence-list"><li id="ev-langchain-2026-open-swe-model-router"><span class="foundation-evidence-kind">Field report</span><a href="https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness" target="_blank" rel="noopener">How to Build a Model Router in the Harness</a><span class="foundation-evidence-tier">production field-report-backed</span><span class="foundation-evidence-meta"><time datetime="2026-10-02">added Oct 2, 2026</time> · <a href="/story/378de5b0a4ef1ffb">in the feed</a></span><p>Live A/B of a harness-middleware router in Open SWE: one classifier decision per thread into fast, balanced, or performance tiers. Across 973 threads, median cost fell 64% ($0.94 vs $2.61); merged-PR rate held (29.2% vs 27.3%, p = 0.49). A fast-only arm was stopped after a day over quality complaints. Caveats: no mid-thread re-routing, sparse user feedback, criteria tied to Open SWE&#x27;s task mix.</p></li><li id="ev-langchain-2026-switchyard-agent-routing-benchmark"><span class="foundation-evidence-kind">Benchmark</span><a href="https://www.langchain.com/blog/switchyard-agent-routing-benchmark" target="_blank" rel="noopener">Agent routing benchmark: NVIDIA NeMo Switchyard</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-08-19">added Aug 19, 2026</time></span><p>145 multi-step agentic tasks (tau-squared-bench airline, BFCL; 6.3 calls each) under escalation-mode routing. A 30B model handled 93% of calls; Claude Opus 4.8 handled 7%. Cost fell 74% versus Opus-only ($0.026 vs $0.092 per task) for a 6-point accuracy drop (86.0% to 80.0%). The frontier model still took 68.4% of spend, and the escalation judge alone was 21.2% of routed spend.</p></li><li id="ev-databricks-2026-unity-ai-gateway-smart-routing"><span class="foundation-evidence-kind">Primary doc</span><a href="https://www.databricks.com/blog/smart-routing-unity-ai-gateway-match-frontier-quality-30-lower-cost-task" target="_blank" rel="noopener">Smart Routing in Unity AI Gateway</a><span class="foundation-evidence-tier">primary-doc-backed</span><span class="foundation-evidence-meta"><time datetime="2026-08-19">added Aug 19, 2026</time></span><p>A small extractor model labels task complexity once at session start; the session defaults to a medium model and escalates only when labels call for frontier capability. Vendor-reported: 35% savings on internal benchmarks, 56% on public benchmarks, Opus 5 quality at under half the cost.</p></li><li id="ev-story-b6461cff58b0d468-glean-model-routing"><span class="foundation-evidence-kind">Source story</span><a href="/story/b6461cff58b0d468">Frontier Model Cost and Open-Weights Popularity is Driving Demand for Model Routing</a><span class="foundation-evidence-tier">source story</span><span class="foundation-evidence-meta"><time datetime="2026-08-19">added Aug 19, 2026</time></span><p>Glean CEO interview: frontier prices rose 2-4x release over release. Glean&#x27;s Waldo pre-filter decomposes a query and picks tools before any frontier call, cutting latency 50% and tokens 25%; Glean reports $0.45 per task versus $1.84 for a baseline. Company-reported, no published method.</p></li><li id="ev-story-c26d5834adc52fbd-gartner-inference-cost-forecast"><span class="foundation-evidence-kind">Source story</span><a href="/story/c26d5834adc52fbd">Inference Costs per Agentic Workflow to Increase More Than Fivefold Through 2028</a><span class="foundation-evidence-tier">source story</span><span class="foundation-evidence-meta"><time datetime="2026-08-19">added Aug 19, 2026</time></span><p>Analyst forecast: per-workflow inference cost for agentic AI rises more than 5x by 2028. A projection, not a measurement; it explains why routing is becoming a standing architecture decision.</p></li><li id="ev-agent-model-routing-editorial-synthesis"><span class="foundation-evidence-kind">Editorial</span>LLM Digest synthesis<span class="foundation-evidence-tier">editorial inference</span><span class="foundation-evidence-meta"><time datetime="2026-08-19">added Aug 19, 2026</time></span><p>LangChain, Databricks, and Glean built routers independently and converge on one shape: classify cheaply before generation, default to a smaller model, escalate on a specific cheap signal rather than task type or user tier. They differ on the trigger&#x27;s own cost; LangChain&#x27;s judge alone took over a fifth of routed spend, so routing can move cost into the classifier instead of removing it.</p></li></ol></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

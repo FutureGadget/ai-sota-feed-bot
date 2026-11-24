@@ -1,0 +1,125 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/benchmark-production-reliability-gap",
+  "source_hash": "e773e96782df7baa8919e6021cd6d1f5ef820ce3a008ef68688cb444c2cf3c64",
+  "translated_at": "2026-11-24T07:26:16.708155+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "benchmark-production-reliability-gap",
+  "title": "벤치마크 점수가 높으면 프로덕션 신뢰성도 높다고 볼 수 있을까?",
+  "question": "Does a high benchmark score predict production reliability?",
+  "summary": "벤치마크 통과율은 고정된 태스크를 짧은 구간 동안 하나의 인프라 환경에서 한 차례 채점한 결과일 뿐이다. 최적화로 얻은 이득은 다음 라운드에서 후퇴할 수 있고, 긴 세션에서는 짧은 태스크가 드러내지 못하는 실패가 나타나며, 리소스 구성만으로도 점수가 6점 달라질 수 있다.",
+  "status": "active",
+  "cluster": "evaluation",
+  "cluster_label": "Evals and reliability",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-09-02",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>높은 벤치마크 통과율은 고정된 태스크 세트를 하나의 인프라 환경에서 한 차례 채점한 결과를 보여줄 뿐이다. 그 이득이 다음 재최적화 이후에도 유지되는지, 검증하지 않은 가정, 미뤄 둔 수정, 자신 있게 내놓은 틀린 주장 같은 작은 프로세스 실패가 수백 턴에 걸쳐 누적되는지는 알려주지 않는다. 벤치마크 점수는 프로덕션 신뢰성에 대한 출발 가설로 다뤄야 하며, 신뢰성의 측정값으로 받아들여서는 안 된다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>아니다. 점수만으로는 충분하지 않다. 점수와 프로덕션 동작 사이에는 세 가지 간극이 있다.</p>\n<ul><li><strong>최적화 라운드.</strong> Terminal-Bench 2.0에서 한 옵티마이저는 새 태스크에서 최적화 이전 베이스라인보다 성능이 떨어졌고 다른 하나는 정체했다. 회귀를 통제한 방식만 계속 개선됐다.</li><li><strong>호라이즌.</strong> 실제 241턴짜리 코딩 세션에서는 짧은 태스크로는 만들어낼 수 없는 누적 실패가 나타났다.</li><li><strong>인프라.</strong> 에이전트를 고정하고 리소스 구성만 바꿨을 때 Terminal-Bench 2.0 점수가 6점 움직였다. 이는 리더보드 상위 모델 간 격차와 비슷한 수준이다.</li></ul>\n<p>벤치마크는 &quot;이 세트를 이 환경에서 한 번 통과했는가&quot;에 답한다. 프로덕션에서는 태스크, 최적화 라운드, 세션 길이, 인프라가 바뀌어도 계속 동작하는지가 문제가 된다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>벤치마크 실행은 영상의 한 프레임과 같다. 그 프레임에 대해서는 정확하지만 다음 프레임에 대해서는 말해주지 않는다. 영상을 앞으로 움직이는 힘은 세 가지다.</p>\n<ol><li><strong>재최적화 드리프트.</strong> 새로운 하네스 설정, 프롬프트, 파인튜닝은 모두 또 한 번의 최적화 단계다. 한 번 측정한 이득은 다음 라운드에서 이전에 보지 못한 태스크를 만나면 줄어들거나 마이너스로 돌아설 수 있다.</li><li><strong>호라이즌 누적.</strong> 벤치마크 태스크는 몇 분이면 끝나지만 프로덕션 세션은 수백 턴 동안 이어진다. 잘못된 가정 하나는 체크포인트 없이 50턴이 더 쌓이기 전까지는 비용이 작다.</li><li><strong>인프라 교란.</strong> CPU, RAM, 종료 임계값이 점수를 움직인다. 이를 통제하지 않는 리더보드는 역량만큼이나 컴퓨트 여유를 비교하게 된다.</li></ol>\n<p>세 가지에 대한 대응은 같다. 자체 트레이스를 사용해 여러 라운드, 긴 세션, 실제 배포할 인프라에 걸쳐 자신의 에이전트를 측정하는 것이다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>벤치마크 점수는 (선택적으로 최적화 단계를 한 번 거친 뒤) 에이전트를 고정된 태스크 세트에 한 번 돌려 집계한 통과율을 보고한다. 이 숫자와 프로덕션 신뢰성 사이에는 세 가지 구조적 간극이 있다.</p>\n<p><strong>최적화 이득이 전이되지 않을 수 있다.</strong> 배포된 에이전트를 새 실패가 드러날 때마다 재최적화하면, 이전 라운드의 이득은 본 적 없는 태스크와 마주한다. Terminal-Bench 2.0 지속 학습 연구에서는 루프 안에 회귀 검사를 둔 방식만 계속 개선됐다(76.4%, 베이스라인은 58.7%). 나머지는 후퇴하거나 정체했다. 세 방식 모두 첫 라운드에서는 비슷한 숫자를 보고할 수 있었다.</p>\n<p><strong>짧은 태스크로는 장기 호라이즌 실패를 만들 수 없다.</strong> 수백 턴 규모에서 중요한 실패는 에이전트가 검증되지 않은 믿음을 채택하고 그 위에 빠르게 쌓아 올리는 약속(commitment)에서 비롯된다. 틀린 사실 주장, 미뤄 둔 수정, 테스트하지 않은 가정은 이후 작업이 거기에 의존할 때에야 비용이 커진다. 짧은 단일 태스크에는 이를 만들어낼 만큼의 길이도, 잡아낼 구조도 없다.</p>\n<p><strong>점수에는 인프라가 섞여 있다.</strong> 리소스 한도가 어떤 실행이 종료되거나 자원을 못 받을지 결정하므로, 점수에는 역량과 구성이 함께 반영된다. Anthropic은 리소스만으로 6점의 변동을 측정했다. 약 3배 여유를 넘어서도 추가 리소스는 성공률을 계속 높였지만 인프라 오류는 거의 줄이지 못했다. 크래시가 대부분 사라진 뒤에도 리소스 예산이 점수를 움직이므로, 그 정도의 리더보드 격차는 역량이 아니라 컴퓨트를 측정한 것일 수 있다.</p>\n<p><strong>해법은 자체 지속 평가다.</strong> 프로덕션 트레이스에서 실제로 마주치는 실패 범주를 찾아내 이를 중심으로 eval을 만든다. LangChain의 IssueBench는 일반적인 통과/실패에 의존하는 대신 15개 범주를 정의했고, 트레이스 마이닝 루프로 하네스 성능을 13.7% 끌어올렸다. 다음 최적화 라운드 이후에는 모든 이득을 다시 확인하고, 점수를 비교할 때는 인프라를 동일하게 유지해야 한다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>벤치마크 수치를 영구적인 값으로 인용하지 말 것.</strong> 최적화 이득이 이후 재최적화 뒤에도 다시 확인됐는지 물어야 한다. 후퇴한 이득도 단일 전후 비교에서는 진짜 이득과 똑같아 보인다.</li><li><strong>최적화 루프에 회귀 통제를 넣을 것.</strong> 하네스, 프롬프트, 파인튜닝을 조정할 때마다 이전 eval 세트를 새 세트와 함께 다시 실행한다.</li><li><strong>자체 프로덕션 트레이스를 분석할 것.</strong> 공개 벤치마크는 내 에이전트와 사용자에게 고유한 실패 범주를 볼 수 없다.</li><li><strong>이름을 붙일 수 있는 실패 범주별로 eval을 만들 것.</strong> IssueBench를 따라 구체적인 범주를 정의하고, 에이전트가 여러 도메인에 걸쳐 있다면 여러 도메인을 포함한다.</li><li><strong>실제 긴 세션을 최소 하나는 감사할 것.</strong> 수백 턴을 읽으며 미뤄진 수정, 검증되지 않은 가정, 자신 있게 내놓은 틀린 주장을 찾는다. 짧은 태스크로는 구조적으로 이런 실패를 만들 수 없다.</li><li><strong>점수를 비교하기 전에 인프라를 통제할 것.</strong> 비교 대상 간에 CPU, RAM, 종료 임계값을 고정하고, 통제되지 않은 환경 사이의 약 6점 미만 격차는 노이즈일 수 있다고 본다. 하네스는 엄격한 종료 임계값과 함께 약 3배 여유에 맞춰 보정한다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li><strong>영구적인 점수:</strong> 한 라운드의 통과율을 다음 재최적화 이후에도 유지되는 것처럼 인용한다.</li><li><strong>회귀 통제 부재:</strong> 이전 세트를 다시 실행하지 않고 새 태스크로만 튜닝하기 때문에 GEPA식 회귀를 알아채지 못한다.</li><li><strong>벤치마크만 보는 신호:</strong> 배포 환경에 실제로 있는 실패 범주를 찾으려고 프로덕션 트레이스를 분석하지 않는다.</li><li><strong>짧은 태스크만 테스트:</strong> 누적 실패가 나타나는 긴 세션을 감사하지 않는다.</li><li><strong>좁은 도구에 일반 eval 적용:</strong> 트레이스 분석 시스템을 목적에 맞춘 eval 대신 범용 에이전트 벤치마크로 평가한다.</li><li><strong>통제되지 않은 인프라:</strong> 리소스 구성이 원인인지 확인하지 않고 리더보드나 전후 격차를 역량 차이로 해석한다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p><a href=\"/topic/agent-evaluation\">에이전트 평가</a>, 고정 태스크 벤치마크가 어떻게 만들어지는지 다루는 <a href=\"/topic/agent-benchmarks\">에이전트 벤치마크</a>, 루프의 트레이스 마이닝 절반을 다루는 <a href=\"/topic/agent-tracing\">에이전트 트레이싱</a>, 채점기 자체를 신뢰할 수 있는지 다루는 <a href=\"/foundations/llm-judge-reliability\">LLM-as-judge 점수를 신뢰할 수 있을까?</a>를 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "anthropic-2026-infrastructure-noise",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "Quantifying infrastructure noise in agentic coding evals",
+      "note": "Anthropic ran Terminal-Bench 2.0 on six resource configurations with identical models and tasks. Most- and least-resourced setups differed by 6 percentage points (p < 0.01), comparable to gaps between top leaderboard models. Infrastructure error rates ran from 5.8% (strict limits) to 0.5% (uncapped); past 3x headroom, success rose nearly 4 points while infra errors fell only 1.6. RAM alone moved SWE-bench 1.54 points. Recommends a guaranteed allocation plus hard kill threshold near 3x headroom.",
+      "added": "2026-09-02",
+      "url": "https://www.anthropic.com/engineering/infrastructure-noise",
+      "sid": "c78d84ac1a7e3d92"
+    },
+    {
+      "id": "terminal-bench-2-continual-learning-2026",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Do Agent Optimizers Compound? A Continual-Learning Evaluation on Terminal-Bench 2.0",
+      "note": "Runs three agent-optimization methods through a two-phase continual-learning evaluation on hard Terminal-Bench 2.0 tasks with identical budgets, simulating re-optimization as new failures appear. GEPA's optimized agent falls below the unoptimized baseline on the new-task phase; Meta Harness transfers but stops improving with a second budget. Only RELAI-VCL, which builds regression control into optimization, keeps improving: 76.4% lifelong pass rate vs. 58.7% baseline. Argues most reported optimization gains are one-shot numbers on a static benchmark.",
+      "added": "2026-07-22",
+      "url": "http://arxiv.org/abs/2607.14004v1",
+      "sid": "8605a4348aa09d77"
+    },
+    {
+      "id": "langchain-2026-agent-trace-data-mining",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "Improving Agents is a Data Mining Problem",
+      "note": "LangChain mines production agent traces for failure signals, curates them into an eval and training set, and loops between harness engineering and fine-tuning. Harness changes driven by mined traces gave a 13.7% lift over the base harness on Terminal-Bench 2.0, and a judge fine-tuned on production trace labels beat closed frontier models on its narrow task at far lower cost. Vendor-reported; both gains came from the team's own traces, not a public score.",
+      "added": "2026-07-22",
+      "url": "https://www.langchain.com/blog/improving-agents-is-a-data-mining-problem",
+      "sid": "4a0a79e7203bae64"
+    },
+    {
+      "id": "kurrent-2026-241-turn-claude-session",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "When your coding agent doesn't listen: evaluating a 241-turn Claude session",
+      "note": "A practitioner audits one real 241-turn Claude coding session and finds three failures a short benchmark task would not surface: a confident, wrong claim that only two lifecycle hooks existed; code-review findings quietly deferred until a human pushed back; and a six-phase feature built on an unverified assumption that forced a full redesign. Single session, no rates reported; each failure cost tokens and time before a human caught it.",
+      "added": "2026-07-22",
+      "url": "https://www.kurrent.io/blog/when-your-coding-agent-doesnt-listen",
+      "sid": "f174897519ebc366"
+    },
+    {
+      "id": "langchain-2026-issuebench-methodology",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "IssueBench - How We Evaluate Engine",
+      "note": "LangChain's IssueBench grades a trace-analysis tool on 15 synthetic tasks across three domains (SRE logs, software engineering, customer support), each a batch of clean and labeled-failure traces. It scores whether the tool finds issues, assigns one of 15 failure categories (hallucination, PII leak, context explosion, others), attaches failures to existing issue cards, and groups genuinely new ones. A vendor's methodology for its own product, built because a generic agent benchmark could not grade that job.",
+      "added": "2026-07-22",
+      "url": "https://www.langchain.com/blog/issuebench-how-we-evaluate-engine",
+      "sid": "99b0480e54f4644d"
+    },
+    {
+      "id": "benchmark-production-reliability-gap-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "A benchmark score is one measurement under one task distribution, one optimization round, one short horizon, and one resource configuration. Production reliability is a claim about repeated re-optimization, long sessions, and the infrastructure actually deployed. Only the team's own continual evaluation measures that gap: mine traces for real failure categories, re-check gains after each optimization round, audit long sessions, and control infrastructure as a variable.",
+      "added": "2026-07-22"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+      "slug": "agent-benchmarks",
+      "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+      "slug": "agent-tracing",
+      "title": "Tracing and trace analysis for agent runs"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

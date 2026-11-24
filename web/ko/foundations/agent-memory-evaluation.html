@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>에이전트에 메모리를 추가하면 정말 더 나아질까? | LLM Digest</title>
+  <meta name="description" content="에이전트에 메모리를 추가하면 정말 더 나아질까?" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/foundations/agent-memory-evaluation" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/foundations/agent-memory-evaluation" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/foundations/agent-memory-evaluation" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/foundations/agent-memory-evaluation" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="에이전트에 메모리를 추가하면 정말 더 나아질까?" />
+  <meta property="og:description" content="에이전트에 메모리를 추가하면 정말 더 나아질까?" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/foundations/agent-memory-evaluation" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/foundations-agent-memory-evaluation-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/foundations-agent-memory-evaluation-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="에이전트에 메모리를 추가하면 정말 더 나아질까?" />
+  <meta name="twitter:description" content="에이전트에 메모리를 추가하면 정말 더 나아질까?" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트에 메모리를 추가하면 정말 더 나아질까?", "description": "Independent 2026 evaluations agree agent memory is not a universal win: one technique gains one model 16 points and another zero, and correct memory can score below no memory. Linking lessons to their source trajectories and testing each write…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/agent-memory-evaluation", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "에이전트에 메모리를 추가하면 정말 더 나아질까?", "item": "https://www.llm-digest.com/foundations/agent-memory-evaluation"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-readable" />
+  <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
+  <script defer src="/site-chrome.js?v=20261119-readable"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-readable"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    body { font-family:var(--font-sans); }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:var(--font-display);
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:var(--font-mono);
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:var(--font-display);
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:var(--font-display);
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .foundation-xlabel { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul, .foundation-prose ol:not(.foundation-new-list) { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:var(--font-mono);
+      font-size: 0.78rem; color:var(--accent); letter-spacing: 0; text-transform: none; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:var(--font-mono);
+      font-size:.7rem; margin-left:.35rem; }
+    .foundation-evidence-list li { scroll-margin-top:5rem; padding:.2rem 0; }
+    .foundation-evidence-list li:target { background:var(--brief-wash);
+      box-shadow:-.7rem 0 0 var(--brief-wash), .7rem 0 0 var(--brief-wash); }
+    .foundation-evidence-list p { margin:.3rem 0 0; color:var(--fg); font-size:.9rem; line-height:1.55; }
+    .foundation-evidence-meta { display:block; margin:.15rem 0 0; font-family:var(--font-mono);
+      font-size:.68rem; color:var(--muted); }
+    .foundation-evidence-meta a { font-weight:400; color:var(--muted); text-decoration:underline; }
+    .foundation-new-list, .foundations-recent ol { margin:0; padding:0; list-style:none;
+      display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-new-list li, .foundations-recent li { display:grid; grid-template-columns:6.6rem minmax(0,1fr);
+      gap:.8rem; font-size:.94rem; line-height:1.4; }
+    .foundation-new-list time, .foundations-recent time { font-family:var(--font-mono);
+      font-size:.7rem; color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .foundation-new-list a, .foundations-recent a { font-weight:600; text-decoration:none; }
+    .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
+    .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border: 1px solid var(--border);
+      background:var(--brief-wash); border-radius: 12px; }
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:var(--font-display);
+      font-size:1.3rem; line-height:1.1; }
+    .fr-concept { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      letter-spacing: 0; text-transform: none; color:var(--warm); margin:0 0 .1rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-new-list li, .foundations-recent li { grid-template-columns:1fr; gap:.1rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/foundations">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Builder Foundations</h1>
+        <p id="meta" class="muted">Evidence-tiered mechanisms for agent builders</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/community" data-site-destination="/community">Community</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations" aria-current="page">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/foundations?slug=agent-memory-evaluation">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/foundations/agent-memory-evaluation" data-share-title="에이전트에 메모리를 추가하면 정말 더 나아질까?">Share this page</button>
+        <a class="site-language-action" href="/foundations/agent-memory-evaluation" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">에이전트에 메모리를 추가하면 정말 더 나아질까?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Evals and reliability<span class="sep">·</span>6 sources<span class="sep">·</span>updated 2026-11-11</p></section>
+      <!-- range is included in the custom hero -->
+      <!-- intro is inside the foundation concept hero -->
+      <div class="foundation-concept"><div class="foundation-lead"><p>Shipping a memory system because it should help is a bet, not an established win. Three independent 2026 evaluations measured memory&#x27;s actual effect on task performance, and none found a uniform gain. The same guideline-extraction technique gained one model 16 points of task completion and another nothing. If you haven&#x27;t measured your memory system on your model and task against a no-memory control, you don&#x27;t know which outcome you shipped.</p></div>
+<aside class="foundation-xlinks"><div><span class="foundation-xlabel">Related map topics</span><ul><li><a href="/topic/agent-memory">Agents forget across steps and sessions</a></li><li><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></li></ul></div></aside>
+<section class="foundation-section foundation-new"><div class="foundation-rail">What's new in the evidence</div><div class="foundation-prose"><ol class="foundation-new-list"><li><time datetime="2026-11-11">Nov 11, 2026</time><a href="#ev-wikitrace-2026-evidence-linked-memory">Don&#x27;t Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents</a></li><li><time datetime="2026-11-11">Nov 11, 2026</time><a href="#ev-fgse-2026-falsification-gated-memory">When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents</a></li><li><time datetime="2026-08-26">Aug 26, 2026</time><a href="#ev-aml-2026-first-cycle-results">Agent Memory Leaderboard — first public results (Text Memory)</a></li></ol></div></section>
+<section class="foundation-section"><div class="foundation-rail">Short answer</div><div class="foundation-prose"><p>No, not automatically. Memory&#x27;s payoff depends on three things these evaluations expose:</p>
+<ul><li><strong>Retrieval is still unsolved.</strong> The Agent Memory Leaderboard&#x27;s top score is 58.02 out of 100.</li><li><strong>Correct memory can distort reasoning.</strong> On MemTrapBench, every tested framework underperformed no memory, the best by more than 10%.</li><li><strong>The model decides the gain.</strong> ALTK-Evolve measured +16.1 to +0.0 points across eight models on the same benchmark.</li></ul>
+<p>Treat memory as an intervention you A/B test per model and task, not a component you install once. Gate what gets written, and keep each lesson&#x27;s evidence.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Builder model</div><div class="foundation-prose"><p>A memory system lands in one of three ways, and each needs a different check:</p>
+<ul><li><strong>It helps, by an amount the model decides.</strong> The same guideline memory gained gpt-oss-120b +16.1pp but Claude Opus 4.6 only +4.1pp. A model already strong on the task has less headroom for memory to fill.</li><li><strong>It does nothing measurable.</strong> GLM-5&#x27;s 0.0pp is the saturated case: the model already had the capability, so memory added token overhead and complexity for no return.</li><li><strong>It actively hurts.</strong> Memory stored and retrieved perfectly can still distort reasoning on the current task, and every framework MemTrapBench tested landed below the no-memory baseline.</li></ul>
+<p>A recall-accuracy check (&quot;did it retrieve the right fact?&quot;) covers only the mechanics. It cannot catch the third case, because the retrieved memory can be exactly right and still make the model worse.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Mechanism</div><div class="foundation-prose"><p><strong>Standardized measurement shows the ceiling.</strong> The Agent Memory Leaderboard gives the memory system only Add and Search while the platform owns Answer and Eval, so no submission can tune its score by controlling grading. Under that boundary, across recall, multi-hop, temporal, governance, personalization, rule-execution, safety, and privacy tasks, the best of 69 completed submissions scored 58.02 out of 100. Purpose-built commercial memory is still far from passing its own designed benchmark.</p>
+<p><strong>Retrieved content can bias unrelated reasoning.</strong> MemTrapBench tests whether the content of a correct memory distorts the current task. Its two traps:</p>
+<ul><li><strong>Reasoning fixation:</strong> the model over-anchors on a retrieved prior approach.</li><li><strong>Belief distortion:</strong> a retrieved fact shifts the model&#x27;s beliefs in ways that leak into unrelated reasoning.</li></ul>
+<p>Both are built so a system passes a &quot;did it retrieve the right fact&quot; check and still fails. The mitigation that worked, AdaptiveMem, acts at inference time: the model is told to recognize a biasing memory and discount it. It changes how memory is used, not what gets stored.</p>
+<p><strong>Unverifiable lessons cause the harm.</strong> Experience memory distills lessons from trajectories labeled only pass or fail, then serves the lesson without the trajectory. The agent cannot check a wrong lesson, so it follows it. Two fixes act on that gap:</p>
+<ul><li><strong>At read time:</strong> WikiTrace links each lesson to its trajectory, and the agent re-reads the source when a lesson is vague, conflicting, or came from a failure.</li><li><strong>At write time:</strong> Falsification-Gated Self-Evolution commits a lesson only after it survives transfer, falsification, and regression probes, holding harmful committed updates to 3.6%.</li></ul>
+<p><strong>A guideline only helps a model that lacks the behavior.</strong> ALTK-Evolve is a self-distillation loop: mine the agent&#x27;s own successful and failed trajectories for behavioral guidelines, consolidate them, and reinject them into later runs. Its effect varies by model because of headroom, not a flaw in the method. Strong models with a real capability gap gained from the full guideline set; others did best with a compact core plus task-specific retrieval to limit token overhead; a model already at ceiling gained nothing however the guidelines were dosed.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">How to apply</div><div class="foundation-prose"><ul><li><strong>Measure against a no-memory control on your own model and task.</strong> A +16.1pp-to-0.0pp spread on one mechanism means someone else&#x27;s result tells you little about yours.</li><li><strong>Don&#x27;t stop at recall accuracy.</strong> Add a check for whether retrieved memory changes behavior on tasks it is otherwise unrelated to; correct retrieval can still make the agent worse.</li><li><strong>Size the memory payload to the model.</strong> A compact core plus targeted retrieval beat the full guideline set for some models; &quot;more memory&quot; is not a safe default even when memory helps.</li><li><strong>Treat a leaderboard rank as a starting point.</strong> The best public score is 58.02/100, and cross-track comparisons are explicitly invalid, so a top rank doesn&#x27;t transfer to your task.</li><li><strong>Re-test after a model swap.</strong> Memory payoff is model-specific, so upgrading or switching the model invalidates a prior memory A/B result.</li><li><strong>Keep each lesson&#x27;s provenance.</strong> Store the trajectory ID and outcome next to the lesson so the agent, or you, can check it.</li><li><strong>Gate memory writes with a regression probe.</strong> Replay archived tasks with the candidate lesson in temporary state before committing it.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Failure modes</div><div class="foundation-prose"><ul><li><strong>Shipping on someone else&#x27;s number:</strong> adopting a memory layer on a vendor&#x27;s rank or a paper&#x27;s aggregate claim without a no-memory control on your own model and task.</li><li><strong>Recall-only validation:</strong> checking that the right fact came back and missing that correct content can still distort reasoning and lower task performance.</li><li><strong>Assuming wins survive upgrades:</strong> expecting a memory gain on one model to hold after a switch, when a saturated model can gain nothing from the same mechanism.</li><li><strong>Write-on-success memory:</strong> committing lessons straight from one episode&#x27;s pass/fail label, with no regression check or link back to the trajectory.</li><li><strong>One dose for every model:</strong> giving every model the full guideline or memory payload, adding token overhead where it buys nothing.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Related</div><div class="foundation-prose"><p>See <a href="/topic/agent-memory">agent memory</a> for what to persist and how to recall it, and <a href="/topic/agent-evaluation">agent evaluation</a> for measuring whether an agent&#x27;s trajectory, not just its final answer, worked.</p></div></section>
+<section class="foundation-section foundation-evidence" id="evidence"><div class="foundation-rail">Evidence · 6 sources<br>newest first</div><ol class="foundation-evidence-list"><li id="ev-wikitrace-2026-evidence-linked-memory"><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2611.14320" target="_blank" rel="noopener">Don&#x27;t Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-11-11">added Nov 11, 2026</time> · <a href="/story/6b202536a684fb26">in the feed</a></span><p>Names memory-induced degradation: an agent fails a task it solves without memory because it follows a wrong lesson or misapplies a valid one. Cause: lessons are inferred from pass/fail labels and served without their source trajectory. WikiTrace links each lesson to a success/failure summary and the raw trajectory, and the agent descends those links when a lesson is underspecified, conflicts, or came from a failed task. Outperforms prior memory methods and insights-alone on five agentic benchmarks.</p></li><li id="ev-fgse-2026-falsification-gated-memory"><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2611.14326" target="_blank" rel="noopener">When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-11-11">added Nov 11, 2026</time> · <a href="/story/99e35db5c56c4bd6">in the feed</a></span><p>Treats each candidate lesson as a hypothesis with a precondition, behavior change, expected effect, and verifier. It is applied only in temporary state and tested on target-transfer, falsification, and archived-regression probes before being committed, refined, or rejected. Reports 39.8 WebArena success and 78.8 AppWorld completion, with regression damage at 1.3% and harmful committed updates at 3.6%.</p></li><li id="ev-aml-2026-first-cycle-results"><span class="foundation-evidence-kind">Benchmark</span><a href="https://agentmemoryleaderboard.ai/leaderboard/academic/textual" target="_blank" rel="noopener">Agent Memory Leaderboard — first public results (Text Memory)</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-08-26">added Aug 26, 2026</time></span><p>First cycle: 136 registered teams, 69 memory frameworks completed evaluation across Open-Source and Commercial Products tracks. Fixed boundary: the memory system implements Add/Search, the platform runs Answer/Eval. Text Memory spans fact recall, multi-hop, temporal, governance, personalization, rule execution, safety, and privacy. Top Commercial entry MemoraX scored 58.02; MemOS 45.89 and NTES-MEMORY-SMART 44.21. Scores are not comparable across tracks. A second cycle was scheduled for September 20, 2026.</p></li><li id="ev-memtrapbench-2026-cognitive-traps"><span class="foundation-evidence-kind">Benchmark</span><a href="https://arxiv.org/abs/2608.20202" target="_blank" rel="noopener">MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-08-26">added Aug 26, 2026</time></span><p>Tests reasoning fixation and belief distortion: a memory stored and retrieved correctly still reshapes the model&#x27;s reasoning on the current task and lowers performance. Across two model families and five memory frameworks, every memory strategy underperformed a no-memory baseline, the strongest still dropping more than 10%. The authors&#x27; inference-time fix, AdaptiveMem, tells the model to recognize and avoid the trap, mitigating the drop while holding or improving standard memory-benchmark scores.</p></li><li id="ev-ibm-2026-altk-evolve-memory-dosing"><span class="foundation-evidence-kind">Benchmark</span><a href="https://huggingface.co/blog/ibm-research/altk-evolve-hmm" target="_blank" rel="noopener">How Much Memory Does Your Agent Actually Need? (ALTK-Evolve)</a><span class="foundation-evidence-tier">benchmark/result-backed</span><span class="foundation-evidence-meta"><time datetime="2026-08-26">added Aug 26, 2026</time></span><p>IBM Research extracts behavioral guidelines from an agent&#x27;s own successful and failed trajectories and reinjects them at inference, measured on AppWorld (585 tasks, 9 apps) across eight models. Task Goal Completion gains vary by model: gpt-oss-120b +16.1pp from a curated subset at +5% tokens; DeepSeek-V3.2 +9.5pp (+16.1pp Scenario Goal Completion) from the full set; Claude Opus 4.6 +4.1pp; GLM-5 0.0pp, already saturated. Research blog post from the method&#x27;s authors.</p></li><li id="ev-agent-memory-evaluation-editorial-synthesis"><span class="foundation-evidence-kind">Editorial</span>LLM Digest synthesis<span class="foundation-evidence-tier">editorial inference</span><span class="foundation-evidence-meta"><time datetime="2026-08-26">added Aug 26, 2026</time></span><p>Three independently run 2026 evaluations, none citing the others, attack the same assumption from different angles: the best system on a standardized leaderboard scores under 60/100; correctly retrieved memory can make a model worse than no memory; and one mechanism&#x27;s gain swings from 16 points to zero by model. The shared conclusion — measure memory&#x27;s effect per model and task, never assume it — is LLM Digest&#x27;s synthesis.</p></li></ol></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

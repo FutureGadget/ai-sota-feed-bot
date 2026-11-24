@@ -1,0 +1,104 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-instruction-file-growth",
+  "source_hash": "ff19117977a6f9e84150ac901c24b4a1a482c964b78c6a03a92ce9047397f10e",
+  "translated_at": "2026-11-24T07:23:45.248696+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-instruction-file-growth",
+  "title": "CLAUDE.md(또는 AGENTS.md)는 왜 늘어나기만 하고 줄어들지 않을까?",
+  "question": "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?",
+  "summary": "에이전트 지침 파일이 커지는 이유는 규칙을 추가하는 비용은 작은 반면, 근거가 사라진 규칙을 안전하게 삭제함을 증명하려면 조합 폭발이 일어나기 때문이다. 남은 규칙은 시간이 지나 낡아지고, 에이전트는 오래된 지침을 따르며 도구 호출을 추가로 소모하지만 파일은 고치지 않는다.",
+  "status": "active",
+  "cluster": "memory",
+  "cluster_label": "Memory and context",
+  "updated": "2026-11-11",
+  "latest_evidence_added": "2026-11-11",
+  "audience": "strong-software-engineer",
+  "math_depth": "intuition",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>CLAUDE.md, AGENTS.md, 시스템 프롬프트에 규칙이 늘어나기만 한다면, 더 열심히 정리하려는 노력으로는 해결되지 않는다. 규칙이 왜 추가됐는지 아무도 기억하지 못하면, 삭제해도 안전함을 증명하는 일은 아무도 실행하지 않는 조합 검사가 된다. 살아남은 규칙은 낡아가고, 에이전트는 그 규칙을 그대로 따르지만 작업 성공이라는 결과에 가려 비용이 드러나지 않는다. 규칙마다 이유를 함께 적고, 파일이 코드와 여전히 일치하는지 테스트해야 한다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>지침을 추가하는 데는 한 줄이면 충분하다. 반면 안전하게 삭제하려면 그 지침이 막으려던 실패가 다시 발생하지 않는다는 점을 증명해야 한다. 이유가 잊히고 나면 이 증명은 해당 지침이 파일 내 다른 모든 지침과 어떻게 상호작용하는지 따져 보는 일이 되고, 그 비용은 파일 크기에 따라 지수적으로 늘어난다. 아무도 이 비용을 치르지 않으니 파일은 커지기만 한다. 각 규칙 옆에 근거를 주석으로 적는 것이 이 흐름을 되돌리는 것으로 확인된 유일한 개입이다. 남은 규칙도 낡는다. 에이전트는 오래된 경로나 명령을 그대로 실행하면서도 파일은 고치지 않는다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>지침 파일은 가끔 정돈하는 문서가 아니라, 숨은 부채를 안은 추가 전용(append-only) 로그로 모델링해야 한다. *이유* 없이 추가된 규칙은 모두 훗날의 삭제 결정이 되며, 파일이 커질수록 그 결정은 더 비싸진다. &quot;싹 정리&quot;하는 재작성은 크기만 초기화할 뿐 비대칭은 그대로여서, 다음 커밋부터 다시 커진다. 해법은 현재 크기가 아니라 삭제 비용을 바꾸는 것이어야 한다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>추가는 저렴하고, 검증된 삭제는 지수적이다.</strong> <code>|D|+1</code>번째 지침을 추가하는 데는 O(1)이 든다. 목적이 잊힌 기존 지침을 제거하려면 나머지 지침의 어떤 부분집합이 그 지침에 의존하는지 확인해야 하며, 최악의 경우 O(2^|D|)다. 그러면 합리적인 기본 선택은 &quot;그냥 둔다&quot;가 된다.</p>\n<p><strong>실제 저장소에서도 같은 양상이 나타난다.</strong> catastrophic-remembering 연구는 지침 수명 247,694건을 추적해, 파일이 수명 동안 +226% 커졌고 커밋당 순증가가 +4.9개 지침이었음을 확인했다. 지침이 오래될수록 누군가 제거할 가능성은 낮아진다.</p>\n<p><strong>병목은 개수가 아니라 근거의 부재다.</strong> 지침이 무엇을 막기 위한 것인지 적은 주석이 있으면, &quot;이게 왜 여기 있지&quot;라는 문제가 테스트로 역추적해야 하는 문제에서 읽고 다시 확인할 수 있는 사실로 바뀐다. 이 논문의 통제 실험에서 근거 주석은 알려진 최적 집합 대비 초과 지침을 +211.3%에서 +1.4%로 줄였고, 실제 지침 수행 성능을 최대 23.1% 높였다. 주석은 파일 크기뿐 아니라 에이전트가 지침을 올바르게 따르는지도 바꾼다.</p>\n<p><strong>남겨진 규칙은 낡고, 에이전트는 그 규칙을 따른다.</strong> 732개 궤적을 분석한 연구에서 에이전트는 낡은 지침이 작업과 관련 있을 때마다 이를 따랐고, 다른 곳에 올바른 경로가 보이는 경우에도 그런 일이 있었다. 대개 당장의 실패는 복구해 작업은 통과했지만, 파일을 고친 에이전트는 없었다. 낡은 테스트 명령 하나가 매 실행마다 도구 호출을 약 3분의 1 더 소모하게 했다.</p>\n<p><strong>CLAUDE.md에만 해당하는 이야기가 아니다.</strong> 시스템 프롬프트, 런북, 리뷰 체크리스트처럼 에이전트나 팀이 권위 있는 것으로 취급하며 계속 쌓이는 지침 문서에는 모두 같은 비대칭이 있다.</p>"
+    },
+    {
+      "heading": "Math intuition",
+      "html": "<p>&quot;삭제해도 안전하다&quot;는 것은 남아 있는 나머지 지침의 모든 조합에서 지침 A의 영향을 확인한다는 뜻이다. 지침 B는 A가 있기 때문에 의미를 가질 수도 있기 때문이다. 크기가 <code>n</code>인 집합에는 부분집합이 <code>2^n</code>개 있으므로, 이 검사는 지수적으로 늘어난다.</p>\n<ul><li>지침 10개: 1,024개 조합.</li><li>지침 30개: 10억 개 이상.</li></ul>\n<p>사람이든 에이전트든 각 지침에 명시된 이유가 없으면 이 검사를 실행할 수 없다. 근거 주석은 숨은 상호작용에 대한 지수적 탐색을, 명시된 의존 관계를 선형으로 읽는 작업으로 바꾼다. 각 규칙에 대해 추가된 이유가 지금도 사실인지만 보면 된다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>새 규칙마다 이유를 옆에 적는다.</strong> CLAUDE.md, AGENTS.md, 시스템 프롬프트에서 해당 규칙이 막는 실패나 강제하는 제약을 적는다. 효과가 측정된 해법은 간결화나 더 나은 구성이 아니라 근거 주석이었다.</li><li><strong>명시된 이유가 낡은 규칙부터 삭제한다.</strong> 근거가 문서화돼 있으면 조합 문제에 대한 추측이 한 번의 사실 확인으로 바뀐다.</li><li><strong>에이전트가 지침으로 읽는 파일마다 커밋당 순증가 지침 수를 추적한다.</strong> 삭제 없이 꾸준히 우상향하는 추이가 비대화의 신호다.</li><li><strong>오래되고 문서화되지 않은 규칙을 가장 위험한 부채로 취급한다.</strong> 삭제 가능성은 나이가 들수록 낮아지므로, 설명 없는 규칙이 오래 살아남을수록 다시 검토될 가능성은 줄어든다.</li><li><strong>CI에서 지침 파일을 코드와 대조해 검사한다.</strong> 파일에 언급된 모든 경로와 명령이 여전히 존재하거나 실행되는지 확인한다. 낡은 규칙은 이후 모든 세션에 비용을 부과한다.</li><li><strong>바로 고칠 수 없는 낡은 규칙은 삭제한다.</strong> 제거는 대부분의 구식 경로 작업을 막았고, 모든 작업을 막은 것은 수정뿐이었다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>오래되고 문서화되지 않은 규칙을 감으로 삭제했다가, 그 규칙이 조용히 막아 주던 회귀가 발생하고 팀이 다시는 아무것도 삭제하지 않으려 하게 되는 경우.</li><li>문서화된 이유 대신 더 짧은 지침을 목표로 고치는 경우.</li><li>작업 성공 여부만으로 지침 파일을 평가해, 낡은 규칙이 추가하는 도구 호출 비용을 놓치는 경우.</li><li>에이전트가 걸려 넘어진 낡은 규칙을 직접 고쳐 주기를 기대하는 경우. 그렇게 한 에이전트는 없었다.</li><li>99.3% 비대화 감소나 23.1% 향상을 재현된 결과가 아니라 한 프리프린트의 수치로 인용하는 경우.</li><li>이를 세션 컨텍스트 비대화와 혼동하는 경우. 이 글의 대상은 대화가 턴마다 길어지는 것이 아니라, 커밋을 거치며 커지는 영속적인 파일이다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>에이전트가 정보를 유지하고 잃는 방식은 <a href=\"/topic/agent-memory\">agent memory</a>, 중요한 내용을 잃지 않고 컨텍스트를 줄이는 방법은 <a href=\"/topic/context-compaction\">context compaction</a>을 참고. <code>agent-context-lifecycle</code>은 단일 세션의 컨텍스트 비용이 제곱으로 늘어나는 관련 문제를 다룬다.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "stale-instruction-files-2026-documentation-debt",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents",
+      "note": "Three real stale AGENTS.md/CLAUDE.md instructions (a test command, a code location, an add-a-component procedure), each left stale, corrected, or removed, over 22 maintenance tasks and 732 trajectories from two models. Agents followed stale guidance when it was task-relevant, sometimes despite correct information elsewhere. The stale test command cost Claude Sonnet 5.5 about two extra tool calls per run, a third more; other cases showed no detectable difference. No agent repaired the file. Correcting removed all obsolete-path operations; removing prevented most.",
+      "added": "2026-11-11",
+      "url": "http://arxiv.org/abs/2611.09802",
+      "sid": "569b9613f4d348fe"
+    },
+    {
+      "id": "chakrabarti-2026-catastrophic-remembering-theory",
+      "kind": "theory-paper",
+      "tier": "theory/paper-backed",
+      "title": "Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding",
+      "note": "Names 'catastrophic remembering', the inverse of catastrophic forgetting, and traces it to a cost asymmetry. Appending an instruction to a prompt of |D| instructions is O(1). Once the rationale is lost, proving a deletion causes no regression costs O(2^|D|) in the worst case, because the instruction can interact with any subset of the others. Single-author preprint (submitted 2026-08-11), not yet independently replicated.",
+      "added": "2026-08-15",
+      "url": "http://arxiv.org/abs/2608.11095"
+    },
+    {
+      "id": "chakrabarti-2026-catastrophic-remembering-benchmark",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding",
+      "note": "Tracks 247,694 instruction lifetimes in 1,867 repositories: instruction files grow +226% over their lifetime, +4.9 net instructions per commit, and deletion hazard falls with age (log-hazard -0.032/commit). In synthetic 'verifiable worlds' built by inverting IFEval, rationale comments cut excess instructions from +211.3% to +1.4% (a 99.3% reduction) and improved WildIFEval instruction-following by up to 23.1%. Single-author preprint; numbers not yet independently replicated.",
+      "added": "2026-08-15",
+      "url": "http://arxiv.org/abs/2608.11095",
+      "sid": "ffff9fe41413e4ac"
+    },
+    {
+      "id": "agent-instruction-file-growth-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "Single-paper caveat and relation to session context growth",
+      "note": "Editorial synthesis: the cost-asymmetry mechanism and the direction of the fix are worth acting on before replication; treat the exact percentages as one paper's figures. This differs from agent-context-lifecycle, which covers a live session's context cost growing turn by turn. Here a persistent instruction file grows across commit history because deletions become unverifiable once a rule's reason is lost.",
+      "added": "2026-08-15"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-memory",
+      "title": "Agents forget across steps and sessions"
+    },
+    {
+      "slug": "context-compaction",
+      "title": "Context compaction: summarize, compress, and curate the working set"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

@@ -1,0 +1,113 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-stateful-permissions",
+  "source_hash": "de7ce47b283e62f621b7983b91bab345b365674eda8a0123c169e330e5aead84",
+  "translated_at": "2026-11-24T07:25:20.251922+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-stateful-permissions",
+  "title": "단일 도구 호출에는 올바른 권한 검사가 왜 여러 호출에 걸친 에이전트의 규칙 위반을 막지 못할까?",
+  "question": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
+  "summary": "도구 호출을 개별적으로 검사하는 정책은 매번 옳게 동작하더라도 일련의 호출에 걸친 한도 위반은 막지 못할 수 있다. AWS의 Dogwood는 발행된 요청이 아니라 정산된 응답을 집계하면 $5,000 한도가 동시에 실행된 $2,000 이체 3건에 뚫리는 사례를 보여 준다.",
+  "status": "active",
+  "cluster": "safety",
+  "cluster_label": "Safety and control",
+  "updated": "2026-10-28",
+  "latest_evidence_added": "2026-10-28",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>도구 호출 인가가 각 요청을 독립적으로 검사한다면(고전적 RBAC, Cedar의 기본 방식), 정책이 모든 개별 호출에는 올바르더라도 에이전트가 막으려던 행동을 그대로 하게 둘 수 있다. AWS의 예시는 이렇다. 요청마다 제대로 검사한 <strong>$5,000</strong> 이체 한도가 동시에 실행된 <strong>$2,000</strong> 이체 3건에 무너진다. 한도 로직에는 문제가 없다. 상태가 있는 규칙을 상태 없는 검사로 강제한 것이 버그다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>에이전트가 이미 한 일에 관한 규칙(행동 전 승인, 호출 횟수나 지출 한도, \"기밀 데이터를 건드린 뒤에는 중단\")에는 현재 요청뿐 아니라 에이전트의 이벤트 이력이 필요하다. AWS의 Dogwood는 Cedar에 이력 연산자 4개를 갖춘 <code>when temporal</code> 절을 추가한다. 연산자만큼 중요한 것은 규칙이 무엇을 집계하느냐다. *정산된 응답*을 집계하면 *처리 중인 요청* 여러 건이 합계가 갱신되기 전에 각각 통과한다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>인가를 서로 다른 메커니즘이 필요한 두 가지 질문으로 나눠야 한다.</p>\n<ul><li><strong>이 요청은 그 자체로 허용되는가?</strong> 호출자, 액션, 리소스를 보는 상태 없는 검사로 답할 수 있다. 대부분의 도구 호출은 이것만 있으면 된다.</li><li><strong>에이전트가 이미 한 일을 고려해도 허용되는가?</strong> 승인 워크플로, 호출 횟수나 지출 한도, 순서 규칙에는 이력이 필요하다. 상태 없는 검사는 아무리 조정해도 이 질문에 답할 수 없다.</li></ul>\n<p>이력을 보는 검사도 잘못된 이벤트를 집계하면 실패한다. 발행된 액션 대신 완료된 액션을 세는 경우다.</p>\n<p>장시간 실행되는 에이전트에는 세 번째 질문이 있다. <strong>이 실행이 시작될 때 받은 권한이 지금도 유효한가?</strong> 요청이 도착한 시점의 검사는 계속 작업하거나, 승인을 기다리거나, 사용자 상태가 바뀐 뒤 재시도하는 실행을 다루지 못한다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>상태 없는 방식이 기본인 이유.</strong> Cedar는 요청 자체의 컨텍스트(principal, action, resource, 속성)만으로 요청을 평가한다. 이 제약 덕분에 Cedar는 모든 호출 순서를 시뮬레이션하지 않고도 정책 집합을 형식적으로 검증할 수 있다. 예를 들어 어떤 요청도 허용과 거부가 동시에 되지 않음을 확인한다.</p>\n<p><strong>Dogwood가 이력을 추가하는 방법.</strong> <code>when temporal</code> 절은 상태 없는 평가기가 실행되기 전에 이벤트 이력으로 채워지는 일반 Cedar 컨텍스트 필드로 변환된다. 시간에 따른 추론은 맨 앞에서 한 번만 일어난다. 연산자 4개가 흔한 형태를 모두 다룬다.</p>\n<ul><li><code>formerly</code>: 구간 안에 X가 발생했는가?</li><li><code>count_within</code>: 몇 번 발생했는가?</li><li><code>count_distinct_within</code>: 서로 다른 값이 몇 개인가?</li><li><code>sum_within</code>: 누적 합계가 얼마인가?</li></ul>\n<p>대가로 시간 조건은 Cedar의 자동화된 형식 분석 보장을 포기한다.</p>\n<p><strong>동시성의 함정.</strong> <code>sum_within(response.amount, 1h) &lt;= 5000</code>은 순차 테스트를 모두 통과한다. 동시 실행에서는 $2,000 요청 3건이 정산 합계가 아직 $0일 때 각각 평가되므로 셋 다 통과한다. 규칙을 요청 이벤트 기준으로 작성하면 요청이 발행되는 즉시 집계되므로 이 틈이 닫힌다.</p>\n<p><strong>서버 간 일관성.</strong> 서버마다 \"위험한 쓰기\"를 다르게 정의하면 MCP 서버 하나에서 올바른 정책은 도움이 되지 않는다. Cloudflare의 WriteGuard는 이를 읽기 전용부터 치명적 수준까지 위험 등급 4단계를 갖춘 단일 계층으로 중앙화한다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>규칙에 이력이 필요한지 먼저 정한다.</strong> 승인 워크플로, 호출 횟수나 지출 한도, 행동 후 순서 규칙에는 이력이 필요하다. 나머지 대부분은 필요 없다.</li><li><strong>이벤트는 정산 시점이 아니라 발행 시점에 센다.</strong> Dogwood 사용 여부와 상관없이 직접 작성하는 모든 예산·호출 한도에 해당한다.</li><li><strong>연산자 4가지 형태를 용어로 활용한다.</strong> Dogwood를 도입하지 않더라도 규칙에 어떤 이력이 필요한지 말하는 데 쓸 수 있다.</li><li><strong>상태가 있는 규칙은 순차 호출만이 아니라 동시 호출로도 테스트한다.</strong></li><li><strong>실행 시작 시점만이 아니라 쓰기마다 권한을 다시 확인한다.</strong> 실행 도중 사용자를 정지시켜 테스트한다. Scopehaven의 파일럿에서는 이런 실행 14건 중 2건이 여전히 파일을 썼다.</li><li><strong>레퍼런스 인터프리터나 비공개 베타를 유일한 통제 수단으로 삼지 않는다.</strong> AWS는 Dogwood의 인터프리터가 프로덕션용이 아니라고 밝혔고, WriteGuard에는 프로덕션 운영 실적이 없다.</li><li><strong>MCP 서버를 많이 운영한다면 위험 등급 분류를 중앙화한다.</strong> 서버마다 자체 정의하게 두지 않는다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>지출 한도나 호출 횟수 한도를 순차 트래픽으로만 테스트한 뒤 배포하는 것.</li><li>요청이 아니라 응답을 합산해, 처리 중인 호출이 올바르게 보이는 규칙을 빠져나가게 하는 것.</li><li>상태 없는 시스템(고전적 RBAC, 기본 Cedar)이 \"에이전트가 X를 한 뒤에는 중단\"을 표현해 줄 것으로 기대하는 것.</li><li>제작사 스스로 단서를 달았음에도 레퍼런스 구현이나 베타를 프로덕션 통제 수단으로 배포하는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>두 도구가 다루는 프로토콜은 <a href=\"/topic/mcp\">MCP</a>, 다른 계층의 격리 통제는 <a href=\"/topic/agent-sandboxing\">에이전트 샌드박싱</a>, 이 틈이 나타나는 에이전트-도구 통합은 <a href=\"/topic/tool-use\">도구 사용</a> 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "story-400904d310baccd7-scopehaven-suspended-user",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "A suspended user's agent run still wrote a file: an internal pilot",
+      "note": "Vendor internal pilot on a pinned open-source AI workspace with synthetic data. After a test user was suspended, new requests were refused, but in 2 of 14 test cases a run started before the suspension still wrote a file. Small, vendor-run sample, so treat the rate as illustrative, not a prevalence estimate.",
+      "added": "2026-10-28",
+      "url": "https://scopehaven.dev/ai-agent-suspended-user-finding",
+      "sid": "400904d310baccd7"
+    },
+    {
+      "id": "story-7e505f680072dedd-permission-to-retry",
+      "kind": "theory-paper",
+      "tier": "theory/paper-backed",
+      "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows",
+      "note": "Frames the gap: a durable agent can resume a consequential action while its authority has changed and the action's external outcome is uncertain. The study isolates recovery decisions in tool-using agents. Only the abstract was reviewed; no numbers are cited here.",
+      "added": "2026-10-28",
+      "url": "http://arxiv.org/abs/2610.31916v1",
+      "sid": "7e505f680072dedd"
+    },
+    {
+      "id": "story-410ca031ddd240de-aws-dogwood",
+      "kind": "story",
+      "tier": "source story",
+      "title": "AWS Open-Sources Dogwood, Extending Cedar to Govern Sequences of Agent Tool Calls",
+      "note": "AWS open-sourced Dogwood (Apache 2.0), a Cedar extension adding a `when temporal` clause that reads agent event history. Four operators, macros over Metric First-Order Temporal Logic: formerly, count_within, count_distinct_within, sum_within. Worked example: a $5,000 cap summing settled responses is beaten by three concurrent $2,000 transfers; count requests as issued instead. Caveats: the reference interpreter is not for production, and temporal conditions give up Cedar's automated formal-analysis guarantees.",
+      "added": "2026-08-22",
+      "sid": "410ca031ddd240de"
+    },
+    {
+      "id": "story-e3560887ce822a61-cloudflare-writeguard",
+      "kind": "story",
+      "tier": "source story",
+      "title": "Cloudflare WriteGuard Brings Fine-Grained Security Controls for MCP Servers",
+      "note": "Cloudflare WriteGuard, in private beta with no production results reported, sits behind Cloudflare's MCP server portal as a shared policy and audit layer. It intercepts MCP tool calls and assigns each operation a risk tier: read-only, minimal impact, contained write, or critical. Stated rationale: reimplementing controls in each server 'would take more work and produce inconsistent behavior.'",
+      "added": "2026-08-22",
+      "sid": "e3560887ce822a61"
+    },
+    {
+      "id": "agent-stateful-permissions-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "Dogwood and WriteGuard attack the same gap from different sides. Dogwood puts cross-call state into the policy language; WriteGuard centralizes per-operation risk tiering so many MCP servers share one enforcement point. Neither is a proven production control yet, but both are independent 2026 evidence that per-request authorization is no longer treated as enough for agents acting in sequences.",
+      "added": "2026-08-22"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "mcp",
+      "title": "Model Context Protocol: a standard interface for agent tools"
+    },
+    {
+      "slug": "agent-sandboxing",
+      "title": "Sandboxing, scoped credentials, and guardrails"
+    },
+    {
+      "slug": "tool-use",
+      "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

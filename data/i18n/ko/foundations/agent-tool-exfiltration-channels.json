@@ -1,0 +1,83 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-tool-exfiltration-channels",
+  "source_hash": "9c8ed6f09af592e9bb5234bcc9be73fa118a8d4a42eb44842fe1c01bc8c0aa48",
+  "translated_at": "2026-11-24T07:25:36.421722+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-tool-exfiltration-channels",
+  "title": "데이터 유출을 막도록 설계된 도구가 여전히 데이터를 유출할 수 있는 이유",
+  "question": "Why can a tool designed to block exfiltration still leak your data?",
+  "summary": "모델이 가져오는 URL에 비밀 정보를 인코딩하는 뻔한 경로를 막는 것만으로는 충분하지 않다. Claude의 web_fetch는 그 경로를 차단했지만, 한 연구자는 허용된 기능인 가져온 페이지 안의 링크 따라가기를 연쇄적으로 이용해 사용자의 이름, 거주 도시, 직장을 유출했다.",
+  "status": "active",
+  "cluster": "safety",
+  "cluster_label": "Safety and control",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-07-17",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>에이전트 도구가 신뢰할 수 없는 콘텐츠(웹 페이지, 이메일, 공유 파일)를 읽고 그에 따라 추가 동작을 수행할 수 있다면, 뻔한 공격을 막은 뒤에도 유출 채널이 남을 수 있다. 모델이 URL에 비밀 정보를 넣지 못하게 하는 것은 필요조건이지만 충분조건은 아니다. 공격자는 각각은 정당한 동작들을 모델이 차례로 수행하게 만들어, 작은 조각씩 쌓아 같은 유출을 일으킬 수 있다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>가장 직접적인 유출 경로를 막아도 채널이 닫히는 것은 아니다. Claude의 <code>web_fetch</code>는 이미 개인 데이터를 인코딩해 만든 URL을 모델이 가져오지 못하게 막고 있었다. Ayush Paul은 두 번째 경로를 찾았다. <code>web_fetch</code>가 *이미 가져온 페이지 안에 있는* 링크를 따라갈 수 있다는 점이다. 허니팟이 글자 인덱스가 붙은 링크의 연쇄로 Claude를 유도해 사용자의 <strong>이름, 거주 도시, 직장</strong>을 유출했다. Anthropic은 가져온 콘텐츠에서 링크 따라가기 기능을 제거하는 방식으로 수정했다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>콘텐츠를 읽는 모든 도구에 두 가지 질문을 던져 보자.</p>\n<ul><li><strong>모델이 비밀 정보를 인코딩한 외부 요청을 만들 수 있는가?</strong> 가장 뻔한 공격이다. 대부분의 설계는 자유 형식 URL을 금지하는 등의 방식으로 이를 막는다.</li><li><strong>도구가 읽는 콘텐츠가 도구를 유도해, 경로 자체가 비밀을 드러내는 정당한 동작의 연속을 수행하게 할 수 있는가?</strong> 이 공격은 첫 번째 수정 이후에도 살아남는다. 각 단계(&quot;이 링크를 따라가라&quot;)는 평범해 보이고, 신뢰할 수 없는 페이지가 고른 순서만이 유출을 인코딩한다.</li></ul>\n<p>원문은 이 근본 패턴을 <strong>치명적 삼중 조건(lethal trifecta)</strong>이라 부른다. 개인 데이터, 지시를 담을 수 있는 신뢰할 수 없는 콘텐츠, 그리고 아무 유출 경로가 모두 갖춰진 상태다. 한 경로를 막아도 다른 경로가 있으면 삼중 조건은 그대로 남는다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>신호는 순서에 있다.</strong> 신뢰할 수 없는 콘텐츠가 에이전트가 다음에 따라갈 링크를 정하고, 그 선택이 에이전트가 아는 비밀에 좌우된다면, 서버의 액세스 로그가 곧 비밀을 그대로 드러낸다. 개별 요청에는 데이터가 담기지 않는다. Paul의 공격에서는 Cloudflare 봇 검사를 가장한 페이지가 Claude에게 사용자의 프로필을 찾으려면 &quot;글자 단위로 이동하라&quot;고 지시했다. 예측 가능한 경로로 반복된 fetch가 세 가지 비밀을 한 글자씩 복원했다.</p>\n<p><strong>허용된 기능은 공격과 구분되지 않을 수 있다.</strong> <code>web_fetch</code>는 가져오기를 사용자가 입력한 URL이나 <code>web_search</code> 결과로 제한해 URL을 직접 구성하는 것을 막았다. 가져온 페이지 안의 링크를 따라가는 동작은 평범한 브라우징으로 보인다. 도구는 &quot;페이지가 유출 프로토콜을 실행하려고 이 링크를 만들었다&quot;와 &quot;이것이 자연스러운 다음 단계다&quot;를 구분하지 못한다. Anthropic은 링크를 분류하려 하지 않고 해당 기능을 제거했다.</p>\n<p><strong>선별적 표적화는 일반적인 스캐닝을 피한다.</strong> 허니팟은 <code>Claude-User</code> user-agent에게만 작동했다. 스캐너와 사람 방문자는 이상한 점을 보지 못했으므로, 일괄적인 콘텐츠 필터링으로는 잡아내지 못했을 것이다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li>대표 기능만이 아니라 신뢰할 수 없는 콘텐츠를 다루는 도구가 가진 <strong>모든 자유도를 나열한다.</strong> 여기서 악용된 기능은 부수적인 것처럼 보였다.</li><li><strong>신뢰할 수 없는 콘텐츠 속 링크, 파일명, 레코드 ID를 데이터가 아니라 지시로 취급한다.</strong></li><li><strong>탐색을 사용자가 요청한 URL이나 명시적 허용 목록으로 제한하고,</strong> 추가 이동에는 별도의 승인을 요구한다.</li><li>user-agent, referrer, 요청 패턴 이상 징후 등 <strong>선별적 표적화가 없는지 로그를 감시한다.</strong></li><li>콘텐츠를 읽는 도구에 후속 동작(링크 따라가기, 첨부 파일 열기, 관련 레코드 조회)을 추가할 때마다 <strong>다시 감사한다.</strong></li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>URL 직접 구성만 막고 도구가 안전하다고 선언했는데, 부차적인 기능이 채널을 다시 여는 경우.</li><li>브라우징 순서 자체가 유출 메커니즘인데도 &quot;모델은 그냥 탐색하는 것일 뿐&quot;이라며 무해하게 보는 경우.</li><li>일반 스캐너나 단발성 시도만으로 테스트해, 표적화된 다단계 공격을 놓치는 경우.</li><li>한 채널에 대한 벤더의 수정이 같은 도구의 모든 채널을 포괄한다고 가정하는 경우.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>이 공격이 속한 위협 모델은 <a href=\"/topic/prompt-injection\">프롬프트 인젝션</a>, 임시방편식 도구 통합이 검토되지 않은 자유도를 만드는 과정은 <a href=\"/topic/tool-use\">도구 사용</a> 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "paul-willison-2026-claude-web-fetch-exfiltration",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "How I tricked Claude into leaking your deepest, darkest secrets",
+      "note": "Ayush Paul's attack on Claude's web_fetch, which already limited fetches to user-entered URLs or web_search results. web_fetch could still follow links inside fetched pages. A honeypot posing as a Cloudflare check had Claude walk alphabetically ordered nested links, leaking name, home city, and employer one hop at a time, and targeted only Claude-User user-agents. Anthropic removed link-following from fetched content and paid no bounty, saying it had found the issue internally.",
+      "added": "2026-07-17",
+      "url": "https://simonwillison.net/2026/Jul/15/claude-web-fetch-exfiltration/#atom-everything",
+      "sid": "5201cdda51e234b5"
+    },
+    {
+      "id": "agent-tool-exfiltration-channels-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "This is the 'lethal trifecta' the source names: private data access, exposure to untrusted content, and any exfiltration vector together are exploitable whichever single vector you close first. Any tool that reads untrusted content and can act on what it read is a potential exfiltration channel, even after the obvious exploit is blocked; the channel just moves slower through a legitimate-looking capability such as link-following.",
+      "added": "2026-07-17"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "prompt-injection",
+      "title": "Untrusted input and tools can hijack an agent"
+    },
+    {
+      "slug": "tool-use",
+      "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    }
+  ],
+  "related_playbook_cards": [
+    "pb-restrict-web-fetch-link-following"
+  ],
+  "related_storylines": []
+}

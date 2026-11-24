@@ -1,0 +1,117 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agent-model-routing",
+  "source_hash": "37bf6fe077ab3bee78d6369889a5aa9480f16f3f7ade108077e8b402eb53afd0",
+  "translated_at": "2026-11-24T07:24:27.794186+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agent-model-routing",
+  "title": "에이전트는 언제 호출을 프런티어 모델 대신 더 저렴한 모델로 라우팅해야 할까?",
+  "question": "When should an agent route a call to a cheaper model instead of the frontier model?",
+  "summary": "프로덕션 라우터는 하나의 구조로 수렴한다. 각 호출이나 스레드를 저비용으로 분류하고, 기본값으로 더 작은 모델을 쓰며, 특정 신호가 있을 때만 프런티어 모델로 에스컬레이션한다. 보고된 비용 절감폭은 30-74%이지만, 분류기 자체의 비용이 절감액의 5분의 1을 잠식할 수 있다.",
+  "status": "active",
+  "cluster": "operations",
+  "cluster_label": "Cost, latency, and operations",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-10-02",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>모든 에이전트 호출을 프런티어 모델로 보내면 대부분의 호출에 필요 없는 성능에 비용을 더 내는 셈이다. LangChain의 Switchyard 벤치마크에서 프런티어 모델이 필요했던 호출은 <strong>7%</strong>뿐이었다. Gartner는 워크플로당 추론 비용이 2028년까지 5배 넘게 오를 것으로 전망하며, 사용량이 늘 때 단위 경제성이 나아질지 나빠질지는 라우팅이 좌우한다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>작업 카테고리별이 아니라 실시간 신호를 기준으로 호출 또는 스레드 단위로 라우팅한다. 기본값은 저가 또는 중간 등급 모델로 두고, 계산 비용이 낮은 신호가 필요하다고 알릴 때만 프런티어 모델로 에스컬레이션한다. LangChain, Databricks, Glean의 독립적인 라우터가 이 구조를 쓰며 <strong>30-74%의 비용 절감</strong>을 보고했다. 공통된 문제는 에스컬레이션을 결정하는 분류기나 judge에도 자체 비용이 든다는 점이다. 한 벤치마크에서는 라우팅된 지출의 21.2%를 차지했다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>라우팅은 \"이런 종류의 작업에는 더 저렴한 모델을 고른다\"는 방식이 아니다. 프로덕션 시스템은 매번 새 신호를 계산하며, 주로 그 신호를 어디서 계산하느냐에서 차이가 난다.</p>\n<ul><li><strong>에스컬레이션</strong>(NeMo Switchyard) — 저가 모델로 시작하고, judge가 연속 두 번 부정 판정을 내리면 프런티어 모델로 올린다.</li><li><strong>세션 분류</strong>(Databricks Unity AI Gateway) — 작은 추출기가 세션 시작 시 작업에 레이블을 한 번 붙이고, 레이블에 따라 중간 등급 기본값에서 위나 아래로 이동한다.</li><li><strong>스레드 분류</strong>(LangChain Open SWE) — 스레드당 분류기 결정 한 번으로 fast, balanced, performance 등급 중 하나를 고른다.</li><li><strong>분해</strong>(Glean Waldo) — 프런티어 호출 전에 사전 필터가 쿼리를 분해하고 도구를 고른다.</li></ul>\n<p>비용은 모델을 바꾸는 지점만이 아니라 에스컬레이션 경로 전체에서 발생한다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>라우팅이 통하는 이유는 하나의 작업 안에서도 난이도가 고르게 분포하지 않기 때문이다. 코딩이나 지원 작업에는 단순한 읽기와 소수의 어려운 계획 단계가 섞여 있어, 대부분의 호출은 작은 모델로 처리되고 비용은 일부 호출에 집중된다. Switchyard의 93/7 분할이 이를 보여준다. 프런티어 모델은 전체 호출의 7%만 처리하고도 지출의 68.4%를 차지했다.</p>\n<p>신호를 어디서 계산하느냐에 따라 트레이드오프가 달라진다.</p>\n<ul><li><strong>호출별 judge</strong>는 가장 정밀하지만 매 턴마다 judge를 실행해야 한다. 연속 두 번의 부정 판정을 요구하면 단발성 실패의 노이즈를 걸러내지만, 그만큼 judge 비용이 반복해서 든다.</li><li><strong>일회성 분류</strong>(세션별 또는 스레드별)는 저렴하지만 드리프트를 감지하지 못한다. Open SWE의 라우터는 스레드의 주제가 바뀌어도 다시 라우팅하지 않는다.</li><li><strong>생성 전 분해</strong>는 어떤 모델이 각 단계를 처리하는지와 무관하게, 모델을 고르기 전에 토큰과 레이턴시를 줄인다.</li></ul>\n<p>품질은 결과 기준으로 측정해야 한다. Open SWE의 라이브 A/B 테스트에서는 병합된 PR 비율이 통계적으로 변하지 않은 채 스레드 비용 중앙값이 <strong>64% 낮아졌다</strong>. fast 전용 그룹은 하루 만에 사용자 불만이 나와 중단됐다. 이 등급은 비용 대비 성능 프런티어에서, 기준은 자체 트레이스에서 도출했으므로 다른 에이전트에 그대로 옮길 수 없다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>정적 규칙이 아니라 실시간 신호로 라우팅한다.</strong> judge 판정, 복잡도 레이블, 분해 단계를 사용하고, 작업 카테고리, 사용자 등급, 시간대는 쓰지 않는다.</li><li><strong>분류기 비용을 예산에 넣는다.</strong> judge나 분류기 지출을 별도 항목으로 측정하고, 절감액에 근접하면 일회성 분류나 더 작은 judge로 옮긴다.</li><li><strong>라우터를 결과 지표로 A/B 테스트한다.</strong> 라우팅된 트래픽과 대조군의 병합된 PR, 해결된 티켓, 작업 성공률을 비교한다. 비용만 보면 품질 저하가 가려진다.</li><li><strong>등급과 기준은 자체 트레이스에서 도출한다.</strong> 다른 팀의 임계값을 그대로 가져오면 라우팅을 작동하게 하는 단계를 건너뛰게 된다.</li><li><strong>정확도 트레이드오프를 명시적으로 정한다.</strong> Switchyard는 정확도 6포인트를 내주고 비용을 74% 낮췄다. 배포 전에 자사 워크로드가 이를 감내할 수 있는지 문서로 남긴다.</li><li><strong>드리프트 시 다시 분류한다.</strong> 일회성 분류를 쓰는데 실행 도중 스레드의 범위가 바뀌는 경우에 해당한다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>라우팅을 더 저렴한 모델로의 일회성 교체로 보고, 프런티어 모델로 되돌아가는 에스컬레이션 경로를 두지 않는 것.</li><li>라우팅된 지출의 5분의 1까지 차지할 수 있는 judge 자체의 비용을 무시하는 것.</li><li>작업 카테고리나 사용자 등급으로 라우팅해, 비용이 소수의 어려운 호출에 집중된다는 점을 놓치는 것.</li><li>스레드당 한 번만 분류하고 주제가 바뀐 뒤에도 레이블이 유효하다고 가정하는 것.</li><li>결과 비교 없이 비용 절감만 보고하고, 사용 사례가 허용하는 수준보다 품질을 더 떨어뜨리는 라우터를 배포하는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>라우팅과 함께 쓰는 예산 관리는 <a href=\"/topic/agent-cost\">에이전트 비용</a>, <a href=\"/topic/cost-controls\">비용 통제</a>를, 라우터 정확도에 라이브 롤아웃 근거가 필요한 이유는 <a href=\"/foundations/model-switching-replay-gap\">라우터의 리플레이 평가와 라이브 평가 비교</a>를 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "langchain-2026-open-swe-model-router",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "How to Build a Model Router in the Harness",
+      "note": "Live A/B of a harness-middleware router in Open SWE: one classifier decision per thread into fast, balanced, or performance tiers. Across 973 threads, median cost fell 64% ($0.94 vs $2.61); merged-PR rate held (29.2% vs 27.3%, p = 0.49). A fast-only arm was stopped after a day over quality complaints. Caveats: no mid-thread re-routing, sparse user feedback, criteria tied to Open SWE's task mix.",
+      "added": "2026-10-02",
+      "url": "https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness",
+      "sid": "378de5b0a4ef1ffb"
+    },
+    {
+      "id": "langchain-2026-switchyard-agent-routing-benchmark",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Agent routing benchmark: NVIDIA NeMo Switchyard",
+      "note": "145 multi-step agentic tasks (tau-squared-bench airline, BFCL; 6.3 calls each) under escalation-mode routing. A 30B model handled 93% of calls; Claude Opus 4.8 handled 7%. Cost fell 74% versus Opus-only ($0.026 vs $0.092 per task) for a 6-point accuracy drop (86.0% to 80.0%). The frontier model still took 68.4% of spend, and the escalation judge alone was 21.2% of routed spend.",
+      "added": "2026-08-19",
+      "url": "https://www.langchain.com/blog/switchyard-agent-routing-benchmark"
+    },
+    {
+      "id": "databricks-2026-unity-ai-gateway-smart-routing",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "Smart Routing in Unity AI Gateway",
+      "note": "A small extractor model labels task complexity once at session start; the session defaults to a medium model and escalates only when labels call for frontier capability. Vendor-reported: 35% savings on internal benchmarks, 56% on public benchmarks, Opus 5 quality at under half the cost.",
+      "added": "2026-08-19",
+      "url": "https://www.databricks.com/blog/smart-routing-unity-ai-gateway-match-frontier-quality-30-lower-cost-task"
+    },
+    {
+      "id": "story-b6461cff58b0d468-glean-model-routing",
+      "kind": "story",
+      "tier": "source story",
+      "title": "Frontier Model Cost and Open-Weights Popularity is Driving Demand for Model Routing",
+      "note": "Glean CEO interview: frontier prices rose 2-4x release over release. Glean's Waldo pre-filter decomposes a query and picks tools before any frontier call, cutting latency 50% and tokens 25%; Glean reports $0.45 per task versus $1.84 for a baseline. Company-reported, no published method.",
+      "added": "2026-08-19",
+      "sid": "b6461cff58b0d468"
+    },
+    {
+      "id": "story-c26d5834adc52fbd-gartner-inference-cost-forecast",
+      "kind": "story",
+      "tier": "source story",
+      "title": "Inference Costs per Agentic Workflow to Increase More Than Fivefold Through 2028",
+      "note": "Analyst forecast: per-workflow inference cost for agentic AI rises more than 5x by 2028. A projection, not a measurement; it explains why routing is becoming a standing architecture decision.",
+      "added": "2026-08-19",
+      "sid": "c26d5834adc52fbd"
+    },
+    {
+      "id": "agent-model-routing-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "LangChain, Databricks, and Glean built routers independently and converge on one shape: classify cheaply before generation, default to a smaller model, escalate on a specific cheap signal rather than task type or user tier. They differ on the trigger's own cost; LangChain's judge alone took over a fifth of routed spend, so routing can move cost into the classifier instead of removing it.",
+      "added": "2026-08-19"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
+      "slug": "cost-controls",
+      "title": "Cost controls: budgets, metering, and per-task attribution"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

@@ -1,0 +1,85 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/agentic-code-ci-scaling",
+  "source_hash": "908595e4f158da7815fb013d5ee1042af345197315ba35da2056459f335397b3",
+  "translated_at": "2026-11-24T07:25:53.433152+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "agentic-code-ci-scaling",
+  "title": "AI가 생성한 코드는 왜 CI 시스템을 압도하며, 실제로 무엇이 이를 해결하는가?",
+  "question": "Why does AI-generated code overwhelm your CI system, and what actually fixes it?",
+  "summary": "Claude가 코드 변경의 80%를 작성하면서 Anthropic의 CI 작업량이 6개월 만에 25배 늘었다. 병목은 단일 라이터(single-writer) 테스트 선택 서비스였다. 용량 패치 세 번으로 확보한 여유 기간은 70일, 29일, 하루 미만으로 줄었고, 결국 상태를 두지 않는 저널 기반 재설계로 문제를 해결했다.",
+  "status": "active",
+  "cluster": "operations",
+  "cluster_label": "Cost, latency, and operations",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-09-16",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>에이전트가 코드나 파이프라인 산출물의 점점 더 큰 비중을 작성한다면, 인프라는 그 증가에 비례해 선형으로 확장되지 않는다. Claude가 코드 변경의 80%를 작성하자 Anthropic의 <strong>CI 작업량은 6개월 만에 25배 증가</strong>했다. 파이프라인을 거의 무너뜨릴 뻔한 것은 컴퓨팅이 아니라 단일 라이터 서비스 하나였고, 용량 패치를 거듭할수록 확보되는 시간은 더 짧아졌다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>에이전트 주도 부하는 복리로 늘어난다. 엔지니어가 더 많은 변경을 올리고, 변경 하나하나가 더 많은 후속 작업을 만든다. 사람의 속도에 맞춰 설계된 서비스, 특히 라이터가 하나뿐인 서비스는 여유 용량이 바닥났다는 사실을 누구도 알아채기 전에 느려지는 단계를 지나 조용히 틀린 결과를 내는 단계로 넘어간다. 이런 증가 곡선 앞에서 용량 패치로 버는 여유 기간은 갈수록 줄어든다. 결국 효과가 있었던 해법은 구조적인 것이었다. 상태를 두지 않는 append-only 수집 계층을 두고, 집계는 수평 확장이 가능한 별도 계층으로 분리했다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<ul><li><strong>샤딩할 수 없는 컴포넌트 하나가 병목이다.</strong> Anthropic의 테스트 선택 서비스에서는 단일 라이터 리스너만 바꾸면 됐다. 셀렉터와 나머지 CI는 문제가 없었다.</li><li><strong>처리량이 높으면 지연이 데이터 손실로 이어진다.</strong> 20분 뒤처졌다는 것은 수만 건의 결과가 빠졌다는 뜻이었고, 그 결과 실제 실패가 머지되고 관련 없는 테스트가 불안정(flaky)해 보였다.</li><li><strong>여유 기간이 줄어드는 것이 신호다.</strong> 더 큰 머신, 샤딩, 강제 재시작 순으로 대응했고 확보한 기간은 약 70일, 29일, 하루 미만이었다. 패치마다 병목은 옮겨갔을 뿐 사라지지 않았다.</li><li><strong>수집과 집계를 분리한다.</strong> 상태 없는 워커가 결과를 저널에 기록하고, 별도의 컨슈머가 저널을 취합해 이력으로 만든다. 라이터 하나보다 운영 비용은 더 들지만, 확장이 재구축이 아닌 조절 가능한 설정이 된다.</li></ul>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>테스트 영향도 분석에는 어떤 테스트가 어떤 코드를 실행했는지에 대한 이력과, 변경에 필요한 최소 테스트 집합을 빠르게 고르는 방법이 필요하다. 실패는 선택이 아니라 이력을 기록하는 단계에서 일어났다. 라이터 하나가 모든 결과를 반영하는 방식은 처리량이 낮을 때는 단순하고 정확하지만, 다른 곳의 하드웨어와 무관하게 상한이 프로세스 하나의 쓰기 속도에 묶인다. 입력이 늘수록 '결과가 발생한 시점'과 '결과가 기록된 시점'의 간격이 벌어지고, 기록을 읽는 모든 쪽은 단순히 느린 데이터가 아니라 점점 더 틀린 데이터로 작업하게 된다.</p>\n<p>이 재설계는 범용적인 패턴이다. 이벤트 기록은 append-only이면서 샤딩 가능하게 만든다. 어떤 워커든 어떤 결과든 받아서 저널에 기록하며 상태를 갖지 않는다. 이벤트를 조회 가능한 이력으로 집계하는 일은 별도의 컨슈머가 맡아 몇 초마다 저널을 앞으로 굴려 반영한다. 수집은 단일 프로세스라는 상한에서 벗어나고, 집계 지연은 끝없이 쌓이는 백로그가 아니라 조절 가능한 허용 지연 한도가 된다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>입력량이 에이전트 산출물에 따라 늘어나는 단일 라이터 컴포넌트를 찾는다.</strong> 결과 리스너, 벡터 인덱스 라이터, 평가(eval) 집계기, 피드백 라벨 저장소 등이 해당한다.</li><li><strong>v0는 예상 규모의 10~20배를 기준으로 설계한다.</strong> Anthropic이 내놓은 교훈으로, 에이전트가 만든 산출물은 인원 증가보다 빠르게 복리로 늘어나기 때문이다.</li><li><strong>지연을 정확성 버그로 취급한다.</strong> 오래된 데이터를 읽어 잘못된 결정(실행해야 할 테스트를 건너뛰는 것 등)이 나올 수 있다면, 엄격한 허용 지연 한도를 기준으로 알림을 건다.</li><li><strong>같은 병목에 대한 두 번째나 세 번째 용량 패치에서 멈춘다.</strong> 여유 기간이 줄어든다는 것은 아키텍처 자체가 제약이라는 뜻이다.</li><li><strong>에이전트 주도 이벤트 양을 따라가야 하는 서비스는 append-only 수집과 별도 집계를 기본으로 삼는다.</strong></li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>같은 설계에 용량만 추가하면서 매번 더 짧은 여유 기간만 얻는 것.</li><li>집계 지연을 성능 지표로만 보고, 하위 소비자가 오래된 데이터로 잘못된 결정을 내리는 상황을 방치하는 것.</li><li>용량 계획을 에이전트 산출물이 아닌 인원이나 기능 개발 속도에 맞춰 세우는 것.</li><li>에이전트가 코드를 많이 쓰기 전에 잘 돌던 서비스가 그 비중이 커져도 계속 잘 돌 것이라고 가정하는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>에이전트 주도 파이프라인을 대규모로 운영하는 방법은 <a href=\"/topic/agent-cost\">에이전트 비용</a>과 <a href=\"/topic/agent-reliability\">에이전트 신뢰성</a>, 지연이 커져 감지되지 않는 실패로 이어지기 전에 이를 드러내는 관측성은 <a href=\"/topic/agent-tracing\">에이전트 트레이싱</a> 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "anthropic-2026-ci-test-impact-analysis",
+      "kind": "primary-doc",
+      "tier": "primary-doc-backed",
+      "title": "Agentic coding is straining CI. Here's how we scaled test impact analysis at Anthropic",
+      "note": "Anthropic's account of its own CI: job volume up 25x in six months, Claude writing 80% of changes, 8x more code per quarter. A single-writer test-selection listener fell behind; 20 minutes of lag left tens of thousands of results unapplied, letting failures merge. Patches lasted about 70 days, 29 days, then under a day. A stateless, journal-based redesign, built by one engineer in three weeks, flattened the backlog. First-party, single-company report.",
+      "added": "2026-09-16",
+      "url": "https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic",
+      "sid": "86abcc6f17fc520e"
+    },
+    {
+      "id": "agentic-code-ci-scaling-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "The numbers are Anthropic's own pipeline. The lesson extends to any stateful aggregation service in an agent-driven critical path, such as a vector-index writer, feedback-label store, or eval-result aggregator: a single-writer or unshardable component whose input rate scales with agent output, not headcount.",
+      "added": "2026-09-16"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
+      "slug": "agent-reliability",
+      "title": "Agents give fluent, confident-looking output even when it's wrong"
+    },
+    {
+      "slug": "agent-tracing",
+      "title": "Tracing and trace analysis for agent runs"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}
