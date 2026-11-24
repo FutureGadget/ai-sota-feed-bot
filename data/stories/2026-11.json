@@ -8357,6 +8357,23 @@
   "type": "news",
   "url": "https://www.tbc.co/press-releases/neuron-derived-ai-video-model"
  },
+ "442791943ea0bb14": {
+  "first_seen": "2026-11-24T10:06:49.274820+00:00",
+  "id": "3ba44cca644c6d83",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T18:59:13+00:00",
+  "sid": "442791943ea0bb14",
+  "source": "arxiv_cs_lg",
+  "summary": "CLIP-style dual encoders map images and text through two separate towers into a shared embedding space, where the two modalities occupy distinct regions separated by a modality gap. Retrieval fails when wrong matches, or hard negatives, outrank the correct one, and the gap is the usual suspect. Yet removing it post hoc degrades retrieval on every CLIP checkpoint we test. We introduce a paired statistic that identifies directions where the two towers agree more on hard negatives than on matched pairs. Mildly attenuating these directions improves retrieval while largely preserving the gap. We arrive at this correction through weight-space programming: guided by the statistic, an LLM agent inspects both towers and writes closed-form weight edits without backpropagation. Free to edit any component, the agent improves COCO test retrieval on all 13 CLIP checkpoints and edits an output projection in 12 of the 13. We distill and refine its recurring correction into TowerBridge, a closed-form recipe motivated by a first-order analysis of the hard-negative margin. Computed in seconds from 25,000 labelled pairs, it requires no model-specific tuning and leaves the architecture and inference cost unchanged. TowerBridge improves COCO test retrieval by 16.8 RSUM and Flickr30k test retrieval by 6.6 on average across all 21 evaluated CLIP checkpoints, including 8 unseen by the agent, while limiting any drop in ImageNet zero-shot accuracy to 0.5 points. It also reduces hubness on all 21 checkp",
+  "summary_1line": "TowerBridge is a closed-form weight-editing recipe for CLIP-style dual encoders that attenuates directions where the image and text towers agree on hard negatives, raising COCO and Flickr30k retrieval across 21 checkpoints.",
+  "title": "TowerBridge: Bridging the Dual-Encoder Modality Gap via Weight-Space Programming",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31233v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "4442b0633dd9bf83": {
   "first_seen": "2026-11-23T05:05:24.046838+00:00",
   "id": "fa2e2b088ea3f39d",
@@ -12377,6 +12394,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03309v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "65ec3990fe35471d": {
+  "first_seen": "2026-11-24T10:06:49.274820+00:00",
+  "id": "73019b4ab2d9cb3b",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-23T17:06:25+00:00",
+  "sid": "65ec3990fe35471d",
+  "source": "arxiv_cs_ai",
+  "summary": "AI agents are given GPUs to do AI research on their own. Do they use those GPUs well? A busy GPU does not tell us, because it can be busy with work the answer did not need. This matters, because the tokens the agent spends cost almost nothing next to the GPUs its experiments run on, so using those GPUs better has a huge impact. So we built ComputeWise, an open benchmark of research tasks on which this waste can be measured and reduced. For it we developed our own simulated GPU, which replays recorded runs to the agent's code. With no real GPU needed, we ran hundreds of experiments, far more than would be reasonable on real GPUs. With no help, the agents put only 52% of their GPU time into work the answer needed. Another 22% went to work it did not need, and 26% sat idle. Asking the agent to finish the work faster, telling it to keep every GPU busy, or giving it a job scheduler does not fix this. So we built an open-source harness, part prompting and part deterministic code. Across five models, it removed over 80% of the extra time to the answer.",
+  "summary_1line": "Introduces ComputeWise, an open benchmark and simulated GPU for measuring wasted GPU time by AI research agents; unaided agents spent 52% of GPU time on needed work, and an open-source harness removed over 80% of extra time across five models.",
+  "title": "ComputeWise: Measuring and Fixing GPU Waste by AI Research Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31027v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "66554ba00af6e4cb": {
   "content_excerpt": "We brought MiniMax H3-Image to NVIDIA Vera Rubin with vLLM-Omni. On four GPUs, native 4096×4096 generation reaches 0.87 seconds median in our short-prompt serving benchmark. A separate throughput configuration delivers 6,115 images/hour , projecting to 146,755 images/day . At USD 0.06879 per image , using MiniMax's official Standard 4K API pricing example before launch discounts as an assumed sale price, peak throughput projects to USD 105.16/GPU/hour in gross revenue at full billable utilization, or USD 78.87/GPU/hour at 75%. These estimates are before operating costs; the daily capacity is an extrapolation of the measured rate. H3-Image is an open-weight model for text-to-image generation and image editing. One checkpoint handles both tasks in six sampling steps, generates native high-resolution images without an upscaler, and supports up to 16 reference images. We bring H3-Image to consumer and data-center GPUs , spanning NVIDIA, AMD, Intel and Moore Threads (MUSA) , as well as Huawei Ascend NPUs . Oil-paint strokes, a multi-view camera drawing, Japanese poster lettering and tiny words on a rice grain reveal what a smaller image can lose. A game environment adds weathered stone and reflected light. Each uses one H3-Image-generated 4K image, resized to 1K and 2K with its aspect ratio preserved, so composition stays fixed. The two API modes are straightforward: Text-to-Image takes a prompt; Image Edit takes a prompt and one or more reference images. Our main comparisons use ",
@@ -18273,6 +18307,25 @@
   "url": "http://arxiv.org/abs/2611.16123v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "99a60318eef0360f": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Moving GenAI into high-stakes production requires treating non-determinism as an engineering problem. This architectural blueprint shows engineering leaders and architects how to build trustworthy agentic workflows using knowledge graphs, dual-layer eval judges, CI/CD release gates, and regression testing against golden datasets to automate drafting while maintaining zero-hallucination compliance. Henry Wilson shares actionable tools from the BBC Sounds re-architec",
+  "first_seen": "2026-11-24T10:06:49.274820+00:00",
+  "id": "598851a0e8b45012",
+  "image_url": "https://res.infoq.com/articles/llm-agent-architecture-evals-grounding/en/headerimage/llm-agent-architecture-evals-grounding-header-1795173682566.jpg",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-24T09:30:00+00:00",
+  "sid": "99a60318eef0360f",
+  "source": "infoq_ai_ml",
+  "summary": "Moving GenAI into high-stakes production requires treating non-determinism as an engineering problem. This architectural blueprint shows engineering leaders and architects how to build trustworthy agentic workflows using knowledge graphs, dual-layer eval judges, CI/CD release gates, and regression testing against golden datasets to automate drafting while maintaining zero-hallucination compliance. By Ritesh Modi, Sasidhar Gudala",
+  "summary_1line": "An InfoQ architecture blueprint describes how to build trustworthy agentic AI workflows for drafting suspicious reports, using knowledge graphs, dual-layer eval judges, CI/CD release gates, and golden-dataset regression testing.",
+  "title": "Article: Engineering Around Non-Determinism: Evals, Grounding, and Release Gates for AI-Drafted Suspicious Reports",
+  "type": "release",
+  "url": "https://www.infoq.com/articles/llm-agent-architecture-evals-grounding/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "99be0c0a7e074380": {
   "also_covered": [
    {
@@ -20410,6 +20463,23 @@
   "title": "The new Azure Databricks on Azure Government is now in Beta",
   "type": "news",
   "url": "https://www.databricks.com/blog/new-azure-databricks-azure-government-now-beta"
+ },
+ "a906191009e1abf8": {
+  "first_seen": "2026-11-24T10:06:49.274820+00:00",
+  "id": "cf6ee8911e7cc20e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T17:43:16+00:00",
+  "sid": "a906191009e1abf8",
+  "source": "arxiv_cs_ai",
+  "summary": "Updating an LLM adapter should not require replaying the full interaction history of every active session. Yet reusing key-value (KV) cache entries computed under an earlier version mixes model versions, while full-history re-prefill becomes increasingly costly as histories and session fleets grow. We introduce LiveLora, a model-runtime co-design for exact final-block KV cache migration. Frozen lower decoder blocks and fixed K/V adapter down-projections preserve each token's base projections and low-rank coordinates across adapter versions. The runtime reconstructs candidate K/V, reevaluates the latest token through the final block, and commits the adapter, cache, and next-token logits together. We prove continuation equivalence to full-history re-prefill in exact arithmetic under the stated model assumptions. On Qwen2.5-3B-Instruct, median paired publication speedups over full-history re-prefill average $68.98\\times$ across five runs for 32 active sessions with 8K tokens each. Serving benchmarks show approximately 4.8% decoding overhead relative to native cached decoding. Compared with retained-boundary replay, compact retention gives a $3.42\\times$ reduction in additional session storage at 8K, with similar measured publication-plus-decoding cost. LiveLora allows persistent LLM agents to adopt new adapter versions without replaying their full interaction histories.",
+  "summary_1line": "LiveLoRA is a runtime method that migrates a session's final-block KV cache to a new LoRA adapter version without full-history re-prefill, reporting about 69x median speedup on Qwen2.5-3B-Instruct with 32 sessions of 8K tokens.",
+  "title": "LiveLoRA: Exact KV Cache Migration Across LoRA Updates for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31105v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "a9318ac3b70fd9e3": {
   "first_seen": "2026-11-24T05:05:20.006751+00:00",
@@ -29508,6 +29578,22 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/sharing-catalog-metadata-across-data-platforms-engines-and-agents",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f71af688b338f44d": {
+  "first_seen": "2026-11-24T10:06:49.274820+00:00",
+  "id": "23f43743239dc906",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-23T17:52:33+00:00",
+  "sid": "f71af688b338f44d",
+  "source": "arxiv_cs_cl",
+  "summary": "Parallel speculative decoders propose an entire token block at once, yet one early inconsistency can cause the target to reject its remaining suffix. We introduce Corrective Prefix Attention (CPA), which combines prefix-aware selection with autoregressive supervision to improve these parallel drafts. CPA lets each candidate attend to earlier choices within the block. Fixed candidate shortlists allow all pairwise interactions to be computed before selection, reducing the sequential walk to table lookups, accumulation and lightweight scoring rather than repeated neural evaluations. An auxiliary autoregressive loss trains the shared backbone on clean prefixes without adding an inference pass. Across eight math, code and dialogue benchmarks with Qwen3-4B and Qwen3-8B targets on Ascend NPUs, CPA commits 13--15\\% more tokens per verification round than DSpark and 25--26\\% more than DFlash. Its mean speedups reach $3.35\\times$ and $3.37\\times$ under greedy decoding and $2.86\\times$ under sampling for both targets. Ablations support both components, while capacity sweeps demonstrate that greater acceptance alone does not guarantee faster decoding. These results motivate correcting parallel proposals with causal information while keeping sequential computation inexpensive.",
+  "summary_1line": "Introduces Corrective Prefix Attention, a parallel speculative decoding method that lets draft tokens attend to earlier choices in the block, reporting 13–15% more committed tokens per round than DSpark and up to 3.37× mean speedup on Qwen3 targets.",
+  "title": "Look Back, Draft Ahead: Corrective Prefix Attention for Parallel Speculative Decoding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31112v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f71afb7764f26157": {
   "first_seen": "2026-11-21T00:09:03.773639+00:00",
