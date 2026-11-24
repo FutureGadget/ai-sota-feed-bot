@@ -367,7 +367,16 @@ def validate_recap(data: Any) -> list[str]:
                 errors.append(f"categories[{ci}].articles[{ai}] missing 'title'")
             if not art.get("url"):
                 errors.append(f"categories[{ci}].articles[{ai}] missing 'url' (source link)")
+    errors.extend(recap_role_cap_errors(data))
     return errors
+
+
+def recap_role_cap_errors(data: dict[str, Any]) -> list[str]:
+    """Source-role caps on the chosen cards (``pipeline/recap_mix.py``)."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import recap_mix
+
+    return recap_mix.role_cap_errors("weekly", data, str(data.get("week") or ""))
 
 
 def slugify(value: str) -> str:

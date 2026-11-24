@@ -70,6 +70,10 @@ decks:
     # include (pipeline/deck_bundle.py). The caps bound input size; when they
     # bind, higher Jev score wins, then newer.
     bundle: {pool_additions: true, verdicts: [keep], max_additions: 40}
+    # Caps on the cards the recap agent chooses, checked by the index builder
+    # (pipeline/recap_mix.py). The bundle stays uncapped so the agent ranks
+    # every candidate; recaps dated before `since` are not checked.
+    recap: {max_cards_by_role: {community: 6}, since: "2026-11-25"}
     # Published daily recaps carry 11-21 cards (median 14).
     budget: 15
     bench: 12
@@ -94,6 +98,7 @@ decks:
     # Published weeklies carry 34-42 cards; keep the reading material close to
     # that so added papers do not swamp it.
     bundle: {pool_additions: true, verdicts: [keep], max_additions: 40, max_by_type: {paper: 15, research: 5}}
+    recap: {max_cards_by_role: {community: 12}, since: "2026-W48"}
     # Published weekly recaps carry 34-42 cards.
     budget: 40
     bench: 20
