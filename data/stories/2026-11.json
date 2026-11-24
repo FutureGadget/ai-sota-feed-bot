@@ -4137,6 +4137,18 @@
   "url": "https://github.com/nicoconvoz/Janax",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "23b31e845283d676": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "f2eddc7c839b7df5",
+  "published": "2026-11-24T02:35:00+00:00",
+  "sid": "23b31e845283d676",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model BigGo Finance",
+  "summary_1line": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model BigGo Finance",
+  "title": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5"
+ },
  "23bba579983f1c82": {
   "content_excerpt": "AI agents going wrong, each case graded with cause of failure, confidence score and sources cited. Updated every morning. Every incident is scored against the same eight guardrails. Select one to see the incidents where it failed. Self-reported figures from organisations deploying agents. They frame the register; they are not part of its scores. How an incident gets in, how it is scored, and how t",
   "first_seen": "2026-11-19T08:11:34.416969+00:00",
@@ -4384,6 +4396,18 @@
   "title": "MamaReason: Unfinished Reasoning and Answer Recovery in Clinical Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18264v1"
+ },
+ "25b4eea501a6e6c1": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "6e0080dd2cc2864a",
+  "published": "2026-11-21T03:18:37+00:00",
+  "sid": "25b4eea501a6e6c1",
+  "source": "arxiv_cs_cl",
+  "summary": "Long-context LLM inference is bottlenecked by the memory demands of the key-value (KV) cache, whose size scales linearly with context length. Dynamic sparse attention reduces this bottleneck by fetching and attending only to a critical subset of tokens. The dominant primitive in dynamic sparse attention research and deployment is fixed-budget top-$k$ selection, which is favored because its deterministic block count aligns with the static memory allocation that systems like vLLM rely on. Top-$k$ uses a fixed budget regardless of how attention mass is distributed across heads, layers, and decode steps, leading to either wasted bandwidth on heads with peaky attention or dropped context on heads with diffuse attention. Top-$p$ (nucleus) selection adapts naturally to this variation but has seen limited adoption in production serving systems due to two system-level challenges: variable block counts that break deterministic block allocation and computationally expensive selection kernels that exceed the cost of attention itself. We present DisSparse, a serving system that integrates top-$p$ sparse attention into vLLM end-to-end. DisSparse decouples block selection from the scheduler's critical path, hides selection latency behind layer computation via a two-stream pipeline, and introduces a single-pass histogram-based top-$p$ kernel. We further observe intra-block sparsity, the inflation of selection budgets caused by mixing high- and low-importance tokens within fixed-size KV cache",
+  "summary_1line": "DisSparse integrates top-p sparse attention into vLLM, using a two-stream pipeline and histogram-based kernel to reduce block-selection latency, reporting 1.17x to 1.80x selection speedup and up to 8x larger batches.",
+  "title": "DisSparse: Pipelined Top-$p$ Sparse Attention for Long-Context LLM Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28522v1"
  },
  "25f35e84750dc38e": {
   "first_seen": "2026-11-19T16:06:21.033634+00:00",
@@ -6038,7 +6062,7 @@
   "sid": "32042958efa4e483",
   "source": "google_cloud_blog",
   "summary": "Most Gemini prototypes start the same way. You grab an API key from Google AI Studio , then paste it into your coding agent to start building a prototype. That speed is the point, and shouldn’t be slowed down. The trouble starts later, when the prototype gets real users and the key comes along unchanged. By then it usually isn't one key. Every developer has their own, often several, sitting in .env files, shell profiles and chat threads. The app has one more, baked into its config. For example, imagine an account that normally spends $180 a month. One of those keys ends up in a public repo, a Slack channel or a mobile app bundle. Automated scrapers find it within minutes and use it to run large workloads. By the time the first billing alert arrives, the bill is in the tens of thousands. Under the shared responsibility model , the customer pays for usage made with their own valid credentials. For a seed-stage company, that’s runway gone in a weekend. In our recent post, 10 questions every startup should answer before moving to production with their AI prototype , we covered the whole path from prototype to production. This post goes deeper on one part of it: getting off raw API keys entirely. Here is what this guide covers: Authorize your people. Give everyone on the team one login with Application Default Credentials and use it to call Gemini, Claude and open models. Steps 1 and 2 take about five minutes. Authorize your application. Run your app under its own service account ",
-  "summary_1line": "Most Gemini prototypes start the same way. You grab an API key from Google AI Studio , then paste it into your coding agent to start building a prototype. That speed is the point, and shouldn’t be slowed down. The tro...",
+  "summary_1line": "A Google Cloud blog guide explains why raw Gemini API keys are risky for teams and outlines a five-step move to individual logins, service accounts and Secret Manager, with a companion repo of code samples.",
   "title": "Ultimate guide for fixing your team’s API keys",
   "type": "news",
   "url": "https://cloud.google.com/blog/topics/developers-practitioners/how-to-fix-your-teams-api-keys",
@@ -13346,6 +13370,23 @@
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints"
  },
+ "736e4617ac537ebf": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "e64d528284faa18e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-21T06:43:13+00:00",
+  "sid": "736e4617ac537ebf",
+  "source": "arxiv_cs_ai",
+  "summary": "Giving an AI agent a wallet lets it buy data and services on a client's behalf. Trust then depends on how it spends money and what that spending achieves. We introduce Agent Money Benchmark (AMB) to test whether agents spend a client's money well, starting with purchases of information for financial decisions. We link seller quotes and payments to final answers, evaluating 12 models on 80 payment tasks with simulated sellers and 76 research questions using live data. Purchases settled in USDC on Solana mainnet via x402, a protocol for paying per web request. Three of the 12 models passed 79 of 80 payment tasks without payment or budget errors. Nine fell for a seller's trap at least once; repeat charges and above-list quotes accounted for 79% of scam events. We estimate waste from data and inference costs, counting failed payment tasks in full and research answers in proportion to missed points. With spending split equally between tracks, estimated waste ranged from \\$21.0 per \\$100 for Claude Fable 5.2 to \\$70.8 for GPT-6 Luna.",
+  "summary_1line": "Introduces a benchmark testing whether AI agents spend money well when buying information via USDC payments on Solana; three of 12 models passed 79 of 80 payment tasks, and estimated waste ranged from $21.0 to $70.8 per $100 spent.",
+  "title": "Agent Money Benchmark: Can AI Agents Be Trusted to Spend Money?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28610v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "739956a7c1e931b4": {
   "first_seen": "2026-11-03T02:08:20.145019+00:00",
   "id": "373b4ab570c39963",
@@ -16873,6 +16914,23 @@
   "title": "Faithful in Steps: Improving Generalization and Citation in RAG via Query Decomposition",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15538v1"
+ },
+ "91120fa44ea37f9b": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "57bb24f56cc6bbfb",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-21T13:01:14+00:00",
+  "sid": "91120fa44ea37f9b",
+  "source": "arxiv_llm_reliability",
+  "summary": "The deployment of large language models in operational settings demands evaluation of judgment under institutional constraint. We introduce DiscernBench, a benchmark for evaluating cooperative discernment: the ability of an agent to determine whether to comply with, refuse, or escalate a request in an institutional setting. DiscernBench comprises scenarios derived from real-world incident reports across domains such as aviation, law enforcement, and emergency management. We evaluate eight LLMs across three decision-making configurations and analyze both final decisions and the intermediate judgments produced during multi-agent deliberation. Under disagreement, Final Responders exhibit model- and role-dependent aggregation patterns in which a lone specialist recommendation can disproportionately influence the collective decision, a phenomenon we term Minority-Signal Override. Role-specialized multi-agent deliberation raises average over-escalation from 3.79% under direct single-agent judgment to 28.27%, with the direction and magnitude of minority-signal influence varying substantially across models and specialist roles. These results reveal distinct collective decision behaviors that are not captured by final-answer accuracy alone. Trustworthy multi-agent systems therefore require evaluating not only individual specialist reasoning, but also how conflicting judgments are transformed into collective decisions. Code and data are available at https://github.com/Disha1001/Discern",
+  "summary_1line": "DiscernBench is a benchmark of incident-report-based scenarios that tests whether LLM agents comply, refuse, or escalate in institutional settings; it finds role-specialized multi-agent deliberation raises average over-escalation from 3.79% to 28.27%.",
+  "title": "DiscernBench: Evaluating Cooperative Discernment of LLM Agents in Institutional Settings",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28787v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "913cd197e9f52b0c": {
   "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. Agentic AI introduces a fundamentally different security model from traditional software. Unlike conventional services that execute predefined logic, agents dynamically reason over content from users, webpages, documents, tools, and other agents—and can translate that reasoning into real-world actions. This shifts part of the attack surface from traditional identity and API controls into the semantic layer, creating risks such as prompt injection, tool and memory poisoning, goal hijacking, behavioral drift, and hallucination-driven actions. Traditional authorization can determine who is allowed to act, but securing agentic systems requires answering a broader question: is the proposed action consistent with what the user requested, within the agent’s defined persona and intents, appropriate for the user’s role, and valid given the full session context—including the actions and decisions that preceded it? To address this challenge, we developed a defense-in-depth security framework spanning the full agent lifecycle: provisioning-time validation, runtime enforcement, and continuous assurance. The framework combines an agent registry, personas and explicit intents, constraints, tool and MCP validation, context-aware guardrails, and continuous red teaming with end-to-end observability and replay. At runtime, we introduced prompt provenance and evidence chaining to correlate privileged acti",
@@ -21520,6 +21578,22 @@
   "type": "news",
   "url": "https://github.com/founder-ship-it/Slipmark",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "b6559df505fa2a9e": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "6982c8c1d15e6ccf",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-20T22:00:38+00:00",
+  "sid": "b6559df505fa2a9e",
+  "source": "arxiv_cs_cl",
+  "summary": "Under structured outputs (JSON schemas, regexes, tool calls), speculative drafters do not see the grammar constraint and repeatedly propose invalid keys, delimiters, and indentation, while the grammar engine already knows which tokens must come next. We present Grammar-as-a-Draft (GaaD), which treats the grammar as a second drafter. Before each verify step, the scheduler merges the drafter's proposal with grammar-forced tokens into one draft row: matching tokens stay as GRAMMAR, the proposal is cut where it leaves the forced path, and forced tokens fill the rest of a row wider than the drafter's proposal. The verify step accepts GRAMMAR drafts without computing their logits, composing with any drafter with no new kernels or compilation on the critical path. Because grammars fix text rather than tokens, committing canonical forced tokens changes the output distribution relative to grammar-masked target decoding. We implement GaaD in vllm-torchtpu and an independent Rust serving runtime, evaluating on TPU v7x with MTP, DFlash, and n-gram drafters on a JSON character-profile benchmark. GaaD raises average acceptance length from 2.06 to 5.43 (MTP, Qwen3.5-0.8B), 1.99 to 5.31 (MTP, Qwen3.5-35B-A3B), 1.57 to 4.13 (DFlash, Qwen3-4B), and 1.30 to 3.64 (n-gram, Qwen3-4B), decoding 2.66-2.81x faster at batch size 1 and 1.14-1.70x at batch size 64. In Rust, MTP+GaaD is 2.23x faster on Qwen3.5-0.8B, 2.02x on Qwen3.5-397B-A17B-FP8, and 1.22x at 128 concurrent requests. Under mixed traffic",
+  "summary_1line": "Introduces Grammar-as-a-Draft (GaaD), which merges grammar-forced tokens into speculative decoding draft rows for JSON, regex, and tool-call outputs, raising acceptance length and decoding speed in vLLM and Rust runtimes on TPU v7x.",
+  "title": "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.28349v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "b6805052b5174dca": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
@@ -28073,6 +28147,18 @@
   "url": "https://www.infoq.com/presentations/canvas-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "f1bdf424ec342f08": {
+  "first_seen": "2026-11-24T03:06:32.074912+00:00",
+  "id": "a653311b5444a9b3",
+  "published": "2026-11-23T02:02:17+00:00",
+  "sid": "f1bdf424ec342f08",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 3, downloads: 0.",
+  "summary_1line": "Tencent has published GGUF-format weights for the 9B-parameter WeMM-Ecom model on Hugging Face for image-text-to-text tasks, which currently show 3 likes and no recorded downloads.",
+  "title": "tencent/WeMM-Ecom-9B-GGUF released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/WeMM-Ecom-9B-GGUF"
+ },
  "f1c00e19e15c137a": {
   "first_seen": "2026-11-19T04:06:03.259632+00:00",
   "id": "04f28b356e195693",
@@ -28445,13 +28531,18 @@
  "f424b012833cf66e": {
   "first_seen": "2026-11-24T02:08:58.368651+00:00",
   "id": "08f69983b9917ea5",
+  "matched_topics": [
+   "agentic"
+  ],
   "published": "2026-11-21T04:24:24+00:00",
   "sid": "f424b012833cf66e",
   "source": "arxiv_agent_systems_research",
+  "summary": "Multimodal large language models (MLLMs) increasingly use external visual tools to acquire evidence during reasoning, yet learning when to invoke these tools remains challenging. Existing tool-use reinforcement learning (RL) methods often rely on call-contingent rewards to encourage beneficial tool use, but such reward engineering can distort the task objective and lead to degenerate calling behaviors. We argue that effective tool-use learning requires identifying not merely which questions are difficult, but which failures are attributable to missing visual evidence and can therefore be corrected through tool observations. We propose AOVO, a data-centric framework that enables MLLMs to learn effective tool use through perception attribution and policy-adaptive data sampling (PADS), without introducing tool-specific rewards. It counterfactually probes the model's reasoning states to identify observation-sensitive questions, distinguishing them from reasoning-dominated ones. PADS then periodically estimates category-level observation effects from recent policy rollouts and dynamically reallocates the training distribution toward questions where visual observations provide informative learning signals, while optimizing solely for final-answer correctness. Experiments across diverse visual perception and multimodal reasoning benchmarks demonstrate consistent improvements over competitive tool-use MLLMs, with causal analysis further validating the data-centric perspective for lea",
   "summary_1line": "Proposes AOVO, a data-centric reinforcement learning framework that teaches multimodal LLMs when to use visual tools by reweighting training questions with perception attribution, without tool-specific rewards.",
   "title": "From Reward Engineering to Data-Centric Reinforcement Learning for Effective Agentic Visual Tool Use",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.28558v1"
+  "url": "http://arxiv.org/abs/2611.28558v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "f4370996081cdf2a": {
   "first_seen": "2026-11-19T00:09:50.610543+00:00",
