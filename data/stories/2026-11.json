@@ -4191,7 +4191,7 @@
   "sid": "23b31e845283d676",
   "source": "search_cn_open_weight_labs",
   "summary": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model BigGo Finance",
-  "summary_1line": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model BigGo Finance",
+  "summary_1line": "The source, BigGo Finance, reports that Chinese lab Zhipu released GLM-5.4, whose claimed performance is said to match 2-3T-class models, with the item not yet independently verified.",
   "title": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5"
@@ -8006,6 +8006,24 @@
   "type": "news",
   "url": "https://github.com/janestreet/agent_skills"
  },
+ "419b5ceb1222af76": {
+  "first_seen": "2026-11-24T05:05:20.006751+00:00",
+  "id": "f770619d5b6d0aa3",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-22T14:40:14+00:00",
+  "sid": "419b5ceb1222af76",
+  "source": "arxiv_cs_ai",
+  "summary": "Agent frameworks typically orchestrate language models through prompt-and-response interfaces. We propose a harness design that exposes intermediate model states and layer-level execution controls to the agent runtime. By connecting state collection, policy fitting, and execution, the design enables policies to allocate computation within and across models based on intermediate states. We demonstrate the approach with a prototype that learns stitching bridges and state-conditioned execution policies from paired model states, then applies them during inference to select among continue, exit, and stitch. For dispatcher supervision, we select the least-computation action whose full-vocabulary next-token prediction matches the source model's full-depth prediction, using continue when neither early action matches. We train these components on a frozen proxy corpus of 5,000 typed-decision items authored using source texts sampled from WildChat conversations, then evaluate the prototype on JevBench measuring task accuracy, agreement with full-model predictions, and end-to-end latency including runtime overhead. Preliminary results show an approximately 15% reduction in mean latency while maintaining task accuracy comparable to full-model inference.",
+  "summary_1line": "Proposes an agent harness exposing intermediate model states and layer-level execution controls, with a prototype that chooses continue, exit, or stitch during inference; preliminary results report about 15% lower mean latency.",
+  "title": "Layer-Level Control of Language Model Execution in Agent Frameworks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29519v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "41c382765d1235cd": {
   "content_excerpt": "Picos starts with a custom 32-bit CPU ( smol32 ), fixed RAM, raw storage, and a 256 × 192 pixel display. There is no guest OS, filesystem, shell, allocator, programming language, or window system. Everything has to be built from machine instructions. The goal is to see what different models do when given tight constraints. From the CLI or the web UI, you can cap the number of turns, hide or show the remaining turn budget, and limit the CPU clock, RAM, disk, and total cycle allowance. With only bare machine instructions and fixed capacity, models have to figure out their own ways to fit code, data, stack, and graphics into memory. The entire CPU supports just 32 instructions ( 0x00 – 0x1f ). There are no floating-point ops, SIMD instructions, hardware interrupts, memory protection rings, or graphics syscalls. The idea is to keep the primitives as small and transparent as possible, then see how much complexity an agent can build on top of them, from drawing bitmap fonts pixel-by-pixel in VIDEO_BASE to building shells, file structures, or self-hosted compilers in flat RAM. Assembler directives are equally minimal: .equ , .byte , .word , .ascii , .asciz , and .space , along with built-in constants ( RAM_BYTES , DISK_BYTES , VIDEO_BASE , VIDEO_WIDTH , VIDEO_HEIGHT ). See docs/ISA.md for exact binary encodings and per-instruction cycle costs. The agent interacts with the machine exclusively through 9 narrow tools defined in src/mcp.rs : (Alternatively, run picos login or picos logi",
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
@@ -11424,13 +11442,18 @@
  "5fdd743e62a38dec": {
   "first_seen": "2026-11-24T00:05:52.121748+00:00",
   "id": "c7d527b9606c8ecf",
+  "matched_topics": [
+   "codex"
+  ],
   "published": "2026-11-23T23:10:34+00:00",
   "sid": "5fdd743e62a38dec",
   "source": "openai_codex_releases",
+  "summary": "Release 0.173.0-alpha.5",
   "summary_1line": "Release 0.173.0-alpha.5",
   "title": "codex rust-v0.173.0-alpha.5",
   "type": "release",
-  "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.5"
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.5",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "5fe57efbe7c6f87e": {
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
@@ -18140,6 +18163,22 @@
   "url": "http://arxiv.org/abs/2611.18359v1",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
  },
+ "9aba4bf153849718": {
+  "first_seen": "2026-11-24T05:05:20.006751+00:00",
+  "id": "8ce0fa2a356e134c",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-22T20:03:21+00:00",
+  "sid": "9aba4bf153849718",
+  "source": "arxiv_cs_lg",
+  "summary": "Backdoor attacks pose a significant security threat to deep neural networks (DNNs) deployed on AI inference engines and hardware accelerators. By embedding hidden triggers during training, these attacks induce malicious behavior while maintaining high accuracy on benign inputs. Multi-trigger backdoor attacks are particularly challenging to detect and mitigate because of the distributed and stealthy nature of their effects. To address this challenge, this paper proposes a training-free Spectral Subspace Filtering framework that detects and suppresses backdoor-induced activations by analyzing latent feature representations. Exploiting the geometric separation between benign and malicious feature distributions, the framework employs Singular Value Decomposition (SVD) to identify the dominant malicious subspace and performs inference-time spectral scrubbing through activation projection. This approach suppresses backdoor effects without model retraining, requiring only a small set of triggered samples collected offline. Experimental evaluation across CNN and transformer architectures, including AlexNet, ResNet18, VGG16, MobileNetV2, and Vision Transformer (ViT), demonstrates that the proposed method reduces the attack success rate (ASR) from 94.2-99.8% to an average of 2.07%, while preserving clean accuracy of up to 98.54% with low inference overhead. The framework also demonstrates robustness across varying poisoning rates and multiple concurrent triggers, highlighting its poten",
+  "summary_1line": "Proposes a training-free method that uses SVD to find the malicious subspace in latent activations and projects it out at inference, reducing backdoor attack success to an average of 2.07% across five CNN and ViT models.",
+  "title": "Lightweight Spectral Subspace Filtering for Trojan-Resilient AI Inference Engines",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29734v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "9ae868216f30b30e": {
   "content_excerpt": "Local proxy that keeps personal data out of LLM prompts: swaps names, emails, phones and keys for placeholders, restores them byte-exact in replies, streams and tool calls. Fails closed. Your data stays yours. A local proxy that swaps names, emails, phones and keys for placeholders before a prompt reaches an LLM provider, and puts them back in the reply. Python 3.11 or newer. swapback demo runs a fake model with made-up data: no key, no network. The proxy listens on 127.0.0.1:8787 ; point your client at it and change nothing else: swapback init writes swapback.yaml and known.yaml . Put the names, emails, phones and IDs that must never reach a provider in known.yaml (or build it from a contacts export with swapback known init --vcf contacts.vcf ), set upstream: in swapback.yaml , run swapback check-config , then start swapback-proxy . The full steps, including OpenRouter and Anthropic base URLs, are in the guide . No model to download and nothing probabilistic: exact matching plus patterns, about 5,900 lines of Python, 3 dependencies. Re-run the leak test yourself with swapback selftest (made-up data, 7 request paths, about 12 s). Project facts: Python 3.11+, about 5,900 lines (302 KB), 3 dependencies (PyYAML, phonenumbers, pyahocorasick), stdlib HTTP server, MIT. The vendored rule sets live in swapback/vendor (see THIRD_PARTY_NOTICES.md ); tools/build_vendor.py regenerates the Presidio patterns. MIT, see LICENSE . Bundled rule data: gitleaks (MIT) and Microsoft Presidio (MIT)",
   "first_seen": "2026-11-12T02:07:17.303486+00:00",
@@ -20056,6 +20095,22 @@
   "title": "The new Azure Databricks on Azure Government is now in Beta",
   "type": "news",
   "url": "https://www.databricks.com/blog/new-azure-databricks-azure-government-now-beta"
+ },
+ "a9318ac3b70fd9e3": {
+  "first_seen": "2026-11-24T05:05:20.006751+00:00",
+  "id": "4b65b5a9635012b3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-22T21:08:30+00:00",
+  "sid": "a9318ac3b70fd9e3",
+  "source": "arxiv_cs_lg",
+  "summary": "Perception systems often make discrete decisions: flag a hateful meme, predict whether a pedestrian will cross, detect a spoofed voice, or select the next move in a game. System-1 models, such as OneJev and Jev-Omni, read the media and return probabilities over the options in a single forward pass, while multimodal large language models (MLLMs) generate text. Which multimodal decisions can System-1 models handle, and where do MLLMs perform better? We introduce S1Arena-MM, a benchmark that gives every model the same decision requests and scores the probabilities it returns. It contains 51,060 questions across 94 tasks with image, video, and audio input, drawn from 94 public datasets and three program-generated ones. It also includes 102 closed-loop game environments that a model plays from screenshots; in real-time mode, the game continues while the model decides. We evaluate 33 open models: 12 System-1 models and 21 MLLMs read at the answer token. On static decisions, the best System-1 model leads the best MLLM by 4.9 percentage points on images and is within one point of it on video and audio. Post-training for decisions mainly improves the probabilities: on video, a System-1 model has a lower Brier score than the MLLM that it is post-trained from in 10 of 12 pairs. With up to 2,048 thought tokens per question, the most accurate MLLMs pass the best System-1 models only slightly, and thinking raises the Brier score of most MLLMs. Closed loops separate the models: three System",
+  "summary_1line": "Introduces S1Arena-MM, a benchmark of 51,060 multimodal questions across 94 tasks and 102 game environments that compares 12 System-1 probability models with 21 MLLMs on the same decision requests.",
+  "title": "S1Arena-MM: Which Multimodal Decisions Can Be Left to System 1?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29773v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "a95aed98fb931451": {
   "first_seen": "2026-11-09T08:03:47.149427+00:00",
@@ -28285,7 +28340,7 @@
   "sid": "f1bdf424ec342f08",
   "source": "hf_tencent_hunyuan_releases",
   "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 3, downloads: 0.",
-  "summary_1line": "Tencent has published GGUF-format weights for the 9B-parameter WeMM-Ecom model on Hugging Face for image-text-to-text tasks, which currently show 3 likes and no recorded downloads.",
+  "summary_1line": "Tencent has posted GGUF-format weights for its 9B-parameter WeMM-Ecom model on Hugging Face for image-text-to-text tasks; the listing shows 3 likes and no recorded downloads so far.",
   "title": "tencent/WeMM-Ecom-9B-GGUF released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeMM-Ecom-9B-GGUF"
@@ -29156,6 +29211,18 @@
   "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "f8bbbb480f3e1fbb": {
+  "first_seen": "2026-11-24T05:05:20.006751+00:00",
+  "id": "a4b51c43d2c5c2a6",
+  "published": "2026-11-24T03:16:57+00:00",
+  "sid": "f8bbbb480f3e1fbb",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 1, downloads: 0.",
+  "summary_1line": "Tencent has posted the OmniEVIE-4B model weights on Hugging Face, tagged for feature-extraction tasks, with one like and no recorded downloads so far.",
+  "title": "tencent/OmniEVIE-4B released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/OmniEVIE-4B"
+ },
  "f8cd0bc0f3bed02d": {
   "first_seen": "2026-11-04T19:05:25.405489+00:00",
   "id": "3f43360f796cc2f0",
@@ -29838,6 +29905,23 @@
   "title": "Can Decision Models Replace LLMs in Real-World Contact Center Classification and Judging Tasks?",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.22949v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "fd55de624a3dfa6c": {
+  "first_seen": "2026-11-24T05:05:20.006751+00:00",
+  "id": "3570a07ad56b5c25",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-22T18:58:15+00:00",
+  "sid": "fd55de624a3dfa6c",
+  "source": "arxiv_cs_cl",
+  "summary": "An evidence-grounded fact-checker can fail because it does not find the evidence or because it does not use it; end-to-end accuracy does not tell the two apart. We present a protocol that follows the reference evidence from the store to the verdict and separates retrieval, search control, judgement and verdict validation. We assess 293 claims from FEVER, FEVER 2.0 and AVeriTeC with one open-weights 9B model under two evidence conditions: small stores of annotated evidence, where discovery is easy, and the full source collections. In the control condition a single hybrid retrieval pass delivers complete reference evidence for 226 of 228 evidence-bearing claims, and adaptive controllers and a tool agent spend two to nine times as many model calls without a consistent gain. Of 34 decisive claims labelled as lacking evidence, 33 have the complete evidence in the packet: in 15 the judge abstains, and in 18 validation rules overturn a decisive verdict. On AVeriTeC these rules lower single-pass accuracy by six points, to 65.0% (balanced accuracy 57.6%). Ten judges from eight model families also show abstentions and validation conversions on fixed packets. Against the full stores hybrid single-pass accuracy falls by 17 to 29 points. Wikipedia evidence recovery declines; AVeriTeC recovery changes from annotated answers to cited pages and is measured separately. No controller recovers the accuracy loss. The agent also shows no resolved gain on 714 further Wikipedia claims. Evidence rec",
+  "summary_1line": "A protocol splits evidence-grounded fact-checking errors into retrieval, search control, judgement and verdict validation, finding that a single hybrid retrieval pass recovers complete evidence for 226 of 228 claims.",
+  "title": "Where Do Fact-Checking Errors Arise? Separating Retrieval, Search Control and Judgement in Evidence-Grounded Verification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.29697v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "fd75b8db67a35aca": {
