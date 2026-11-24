@@ -2142,6 +2142,19 @@
   "type": "research",
   "url": "https://huggingface.co/blog/token-pooling"
  },
+ "1173301e4bceb248": {
+  "content_excerpt": "The Baidu ERNIE team has worked with vLLM to bring day-0 support for ERNIE 5.5 Flash Preview to vLLM. ERNIE 5.5 Flash Preview is a sparse mixture-of-experts (MoE) model with 280B total parameters and 14B activated per token. It supports a 1M-token context, thinks before it answers, and uses tool calling to carry out long-horizon Agent tasks. vLLM supports the model on release day through the vLLM-ERNIE plugin, a standalone package that you install into the same environment as the official vllm==0.32.0 wheel. Install the released vLLM wheel and the plugin into the same environment. vLLM discovers the plugin automatically through its vllm.general_plugins entrypoint, so there is nothing to import or configure. The following command serves the default FP4 weights on a single 4-GPU node, with DSpark speculative decoding drafting 7 tokens per step: To turn off thinking for a request, pass \"chat_template_kwargs\": {\"enable_thinking\": false} . Launch commands for 1M context, attention TP and PD disaggregation are in the vLLM-ERNIE README and the vLLM recipe . ERNIE 5.5 Flash was designed with inference cost as a primary goal from the start, weighing activated compute, KV cache size and long-context overhead together. Every component, from the attention structure and residual connections to the MoE layers and the output head, was redesigned around that goal. For design and training details, see the ERNIE 5.5 Flash Preview blog . ERNIE 5.5 Flash introduces several new structures in atte",
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "69dcf53d13d6f62a",
+  "published": "2026-11-24T00:00:00+00:00",
+  "sid": "1173301e4bceb248",
+  "source": "vllm_blog",
+  "summary": "vLLM supports Baidu's ERNIE 5.5 Flash Preview on day 0 through the vLLM-ERNIE plugin on the released vllm==0.32.0 wheel, with structure-aware kernel fusion, FlashIndexer, W4A8 QAT and DSpark speculative decoding.",
+  "summary_1line": "Baidu's ERNIE team and vLLM add day-0 support for ERNIE 5.5 Flash Preview, a 280B-parameter MoE model with 14B active per token, via the vLLM-ERNIE plugin that installs alongside vllm==0.32.0.",
+  "title": "vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview"
+ },
  "1199f9e6988fa345": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
   "id": "7b5edd062b00778c",
@@ -12120,6 +12133,23 @@
   "url": "https://widefleet.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "65021a141fd5a47d": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "6c0a9424fd44ac1a",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T14:19:52+00:00",
+  "sid": "65021a141fd5a47d",
+  "source": "arxiv_cs_ai",
+  "summary": "Large language model (LLM) agents are often ranked by an LLM judge whose error rates are measured once and reused for every agent. The corrected success rates can then be biased when the judge's errors depend on the trajectory and agents differ in the trajectories they produce for successes or failures. We derive the exact asymptotic bias and give a chain of checks from identification to simultaneous ranks. On a four-agent semi-synthetic benchmark, a scalar correction with oracle calibration has maximum bias 0.245 and mean pointwise coverage 0.016, and never recovers the full ranking (0/250 replications). Augmented inverse-probability weighting (AIPW) with a uniform or a design-aware random audit keeps the maximum bias below 0.003, with mean pointwise coverage of 0.939 and 0.950. In a 48-cell stress test, effective target support rises only from 0.209 to 0.805 as calibration grows from 600 to 4,800 labels, while audited AIPW keeps a mean absolute error of 0.018-0.020. Without calibration support, or with judge dependence within an externally justified bound, we report valid bounds or sensitivity sets and carry them into rank sets. An e-process confidence sequence stays valid, for a stable target, under predictable adaptive auditing and arbitrary stopping.",
+  "summary_1line": "The paper shows that a single LLM-judge error correction can bias agent success rankings when judge errors depend on trajectories, and proposes AIPW with audit sampling that keeps bias and coverage errors small on a semi-synthetic benchmark.",
+  "title": "Transport-Safe Evaluation of LLM Agents: Trajectory-Dependent Judge Error and Anytime-Valid Auditing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30742v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "655235a8f0a36432": {
   "content_excerpt": "How the BMW Group governs hundreds of agents across thousands of developers | Artificial Intelligence Skip to Main Content Filter: All <ul data-rg-list-dir=\"h\" class=\"rggn_3da1576c rggn_1035c2c9",
   "first_seen": "2026-11-20T04:09:36.012602+00:00",
@@ -14732,6 +14762,23 @@
   "url": "https://openai.com/index/introducing-chatgpt-wallet",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "7d52596a358127f6": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "54c9e2d250084baa",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T14:07:46+00:00",
+  "sid": "7d52596a358127f6",
+  "source": "arxiv_cs_cl",
+  "summary": "Multilingual search agents can access the global Web, yet may remain trapped in a language environment with insufficient evidence; we refer to this failure as a language information cocoon. However, existing search benchmarks largely operate within a single language, especially English, overlooking entity connections across multiple languages. We introduce CocoonBench, a benchmark that evaluates whether multilingual search agents can escape such language information cocoons. CocoonBench mines answer-centered relational paths from a frozen Wikidata-derived graph and selects clue sets that are individually necessary and jointly identify a unique answer. Using language-specific entity names, it records each task's minimum language cover, removes direct identifiers, and renders each task as matched prompts in three languages together with its construction certificate and provenance. Across 10 state-of-the-art models, mean accuracy on CocoonBench ranges from 33.8% (DeepSeek-V4-Flash) to 69.7% (Claude-Opus-4.8), leaving even the strongest system below 70%. The same construction certificates support path-aligned trajectory analysis, enabling diagnosis of model failures in language routing, evidence-path recovery, and answer use. The result shows that escaping a language cocoon requires more than switching languages: successful cross-lingual search depends on both covering the correct languages and connecting the evidence found across them.",
+  "summary_1line": "CocoonBench is a benchmark of multilingual search tasks, rendered in three languages, that tests whether agents can find cross-lingual evidence; across 10 models, mean accuracy ranges from 33.8% to 69.7%.",
+  "title": "CocoonBench: Can Multilingual Search Agents Escape Language Information Cocoons?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30727v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "7d644d42014500f2": {
   "first_seen": "2026-11-05T07:07:24.638359+00:00",
   "id": "3da64813dfb16894",
@@ -15546,6 +15593,25 @@
   "type": "news",
   "url": "https://magertron.com/#install",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "83cce543d6fb49b7": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to help senior",
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "ba95718fb6b5a11b",
+  "image_url": "https://res.infoq.com/news/2026/11/qcon-sf-openai-lessons/en/headerimage/generatedHeaderImage-1795453078651.jpg",
+  "matched_topics": [
+   "agent",
+   "codex"
+  ],
+  "published": "2026-11-24T06:32:00+00:00",
+  "sid": "83cce543d6fb49b7",
+  "source": "infoq_ai_ml",
+  "summary": "At QCon San Francisco 2026, OpenAI's Brian Yang described building the ChatGPT ads product with Codex agents and no human-written code. He outlined layered testing, sandboxes, and batched pull request reviews, and noted failure modes such as code \"slop\" and unsafe agent actions. He advised gradual adoption and framed engineers as managers of agents. By Daniel Curtis",
+  "summary_1line": "At QCon San Francisco 2026, OpenAI's Brian Yang described building the ChatGPT ads product with Codex agents and no human-written code. He outlined layered testing, sandboxes, and batched pull request reviews, and not...",
+  "title": "QCon San Francisco 2026: Lessons from Building a $100M Product in Six Weeks at OpenAI",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/qcon-sf-openai-lessons/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent, codex."
  },
  "83e0f7acb9556e17": {
   "first_seen": "2026-11-23T09:05:48.697788+00:00",
@@ -19284,6 +19350,24 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/genie-slack-now-generally-available-governed-ai-cowork-right-where-work-happens"
  },
+ "a25e7412cb5335ed": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "18f9d1acaec8407f",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-23T14:41:27+00:00",
+  "sid": "a25e7412cb5335ed",
+  "source": "arxiv_cs_ai",
+  "summary": "Interactive intelligence requires agents to act on observations and adapt to the consequences of actions. Studying these abilities calls for diverse, challenging tasks under controlled conditions. We introduce GameDojo, a controllable interactive gameplay benchmark of 120 boss encounters across 20 games for evaluating model capabilities, learning algorithms, and agent harnesses. Coding agents reconstruct the environments and write gameplay scripts, producing GameDojo-Data with 600 hours of gameplay trajectories. Experiments reveal substantial challenges for frontier models, especially in real-time interaction. Training on GameDojo-Data brings GameDojo-4B to frontier performance, with the strongest real-time performance. We also find joint training improves individual tasks, and learned policies transfer across bosses. Together, these findings establish GameDojo as a challenging and valuable interactive gameplay benchmark for the community. Our project page is at https://gamedojo-benchmark.github.io/ , and our code is at https://github.com/THUSI-Lab/GameDojo .",
+  "summary_1line": "GameDojo is a benchmark of 120 boss encounters across 20 video games for testing real-time interactive agents, with coding agents building environments and gameplay scripts that produced 600 hours of trajectories.",
+  "title": "GameDojo: Benchmarking Real-Time Interactive Agents in Video Games",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30771v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "a2659e184be00153": {
   "first_seen": "2026-11-05T09:05:17.469685+00:00",
   "id": "d6b3594ce6e22ced",
@@ -20568,6 +20652,22 @@
   "url": "https://epyhia.com/meta-launches-muse-ai-spaces-former-security-chief-calls-password",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ac4aaaaf975b0c5c": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "9640cbaaa393afa9",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-23T13:41:25+00:00",
+  "sid": "ac4aaaaf975b0c5c",
+  "source": "arxiv_cs_cl",
+  "summary": "In-context learning (ICL) enables language models to adapt to new tasks from demonstrations, but repeatedly including multiple examples increases context length and inference cost. Many existing implicit ICL methods encode demonstrations as fixed vectors, limiting adaptation of the intervention to individual queries and token positions. We propose Attention-Patching, an implicit ICL method that models contextual changes in self-attention outputs through task-specific updates to attention output projections. Using query-answer pairs processed with and without a fixed demonstration set, Attention-Patching fits layer-wise affine transformations from non-contextual attention representations to the demonstration-induced output changes. Across 12 classification benchmarks and four model families, Attention-Patching achieves higher average accuracy than the evaluated implicit ICL baselines while maintaining performance comparable to explicit ICL at near zero-shot inference cost. Further experiments on diverse generation tasks demonstrate its applicability to autoregressive multi-token generation.",
+  "summary_1line": "Proposes Attention-Patching, an implicit in-context learning method that fits layer-wise affine updates to attention output projections so it matches explicit ICL on 12 classification benchmarks at near zero-shot cost.",
+  "title": "Learn the Effects, Not the Examples: Implicit ICL via Attention Patching",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30690v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "ac4e5e06e79adb8f": {
   "first_seen": "2026-11-04T01:07:16.353037+00:00",
   "id": "cb42f4e1656c6e49",
@@ -20731,6 +20831,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "ad1191547e34793f": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "d389af9b84d40ae2",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-23T05:51:19+00:00",
+  "sid": "ad1191547e34793f",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Professional documents are a long-context workload that retrieval-style benchmarks do not capture. In a ten-domain enterprise collection, a task's evidence is spread across a source document of median length 27 pages (mean 48.8, maximum 873); a third of tasks rest mainly on charts, drawings, and maps; and 70.9% require two or more reasoning hops. We post-train Kimi-K2.7, an open-weight foundation model, at its full context window on 1,465 expert-authored tasks with atomic rubrics from that collection, training rank-32 adapters with one round of privileged-context on-policy self-distillation followed by two rounds of rubric-reward reinforcement learning. We render each PDF as text for training and as extracted text plus selected page images at evaluation. The smoothed RL training reward rises from 0.37 in the first tenth of the run to 0.67 in the last. On the 100-task GDP.pdf holdout, served in a 262,144-token window, strict pass (all rubric criteria met) more than doubles after the second round, from 11.0% to 24.5%, with gains across input lengths up to 240K tokens. Mean tokens generated stay flat (9,803 to 9,733), so the gain does not come from longer outputs. GPT-5.6 Sol's leaderboard strict pass is 30.7% at a measured 3,422 tokens. On 220 out-of-domain GDPval tasks, where the model runs as a long-horizon tool-using agent, mean rubric reward rises from 0.571 to 0.746 after the third round and zero-credit tasks fall from 54 to 10, while messages per task fall 18%, from 70.9 ",
+  "summary_1line": "Reports post-training an open-weight model, Kimi-K2.7, on 1,465 expert-authored long-document tasks, raising strict pass on a 100-task holdout from 11.0% to 24.5% without longer outputs.",
+  "title": "Post-Training Agents for Long-Document Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30090v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "ad5b9db8ae2b02cb": {
   "content_excerpt": "Think about how you work with a new hire. In their first week, you give them small, well-scoped tasks, like triaging a bug report or updating a doc. Soon you're giving them bigger tasks, and eventually you're handing them a lofty goal and letting them figure out how to tackle it. They still come to you with clarifying questions or review requests, just less often over time. Agents have gotten good enough that you can onboard them the same way, and like a good new hire, they're turning into proactive problem solvers. Personal agents like Muse, Instinct, and OpenAI's dots popularized proactive agents, which run in the background and work toward larger goals instead of waiting for a prompt. Hone puts it most directly, describing its Engines as AI that is \"assigned goals rather than tasks.\" Goals let these agents take on harder problems that play out over days or weeks. A proactive agent still checks in with you when it's unsure what you want or needs your sign-off before something goes out. When your direct reports get really good at their jobs, you might find that you've become the bottleneck, and the same is true for agents. As they take on more goals, your attention becomes the scarce resource. We think two things are essential to building proactive agents that use it well: memory and UX. A proactive agent responds to events in its environment, which come from three places: The examples throughout come from two proactive agents we run internally at LangChain: These agents ope",
   "first_seen": "2026-11-17T17:05:24.301989+00:00",
@@ -20878,6 +20995,22 @@
   "title": "Learning and Steering in Incomplete-Information Games",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07589v1"
+ },
+ "ae836c648768a523": {
+  "first_seen": "2026-11-24T07:06:25.210585+00:00",
+  "id": "25a814079aefcd94",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T06:01:41+00:00",
+  "sid": "ae836c648768a523",
+  "source": "vllm_releases",
+  "summary": "Signed-off-by: Johnsonms lizhaofu@gmail.com Co-authored-by: vllm-agent claw@inferact.ai",
+  "summary_1line": "A vLLM v0.34.1rc0 release candidate that adds SM100 skinny GEMM tuning plans for tensor parallelism of size 2 and 8 for the Qwen4Exp model, via PR #69529.",
+  "title": "v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)",
+  "type": "release",
+  "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.1rc0",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "aeee01f562824dca": {
   "first_seen": "2026-11-13T01:04:43.528175+00:00",
