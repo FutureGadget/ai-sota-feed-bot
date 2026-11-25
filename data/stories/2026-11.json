@@ -61,6 +61,22 @@
   "url": "http://arxiv.org/abs/2611.23068v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "0077e07924e43bf7": {
+  "content_excerpt": "Most useful knowledge is written and digitized in English. Most of the people who need it speak, and think, in their own regional languages like Hindi, Tamil, Telugu, Gujarati, Marathi and many others. Many would rather talk than type. We built a small voice agent to close that gap, using CUGA as the agent harness. This post explains the use case and what we learned. You can try it yourself in CUGA Apps . A farmer asks a question aloud, in their own language: how do I tell good seed from bad? The agent: If someone asks about cricket or coding, it politely steers them back to farming instead of making something up. CUGA (ConfigUrable Generalist Agent) is IBM Research's open-source agent harness. It handles the model wiring, tool management, state and guardrails, so you write tools and a prompt instead of the agent loop. Here we use it as an embedded SDK inside a small web app, for three things: The key design idea is simple: CUGA is a text-in, text-out brain. Voice is two thin layers around it. Because the agent only ever sees text, you can build and test it with plain text first, then add the ears and the mouth. You can also swap speech providers without touching the agent. We support two: Sarvam AI's cloud speech APIs, called directly from the user's browser, and open-source models (SraVaani for speech-to-text, Svara for text-to-speech) running on your own server. Adding speech is the easy part. The hard part is cross-lingual retrieval : a Hindi question has to find an Engli",
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "b95c4fcb79067744",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T10:22:09+00:00",
+  "sid": "0077e07924e43bf7",
+  "source": "huggingface_blog",
+  "summary_1line": "A blog post describing a small voice agent built with IBM Research's open-source CUGA harness that answers spoken questions in Indian languages, and the cross-lingual retrieval fix it needed.",
+  "title": "An Indic Voice Agent with CUGA",
+  "type": "research",
+  "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "00c51435deb4a7b9": {
   "content_excerpt": "Three events in October 2026 involving Trajectory Labs, PBC, and our recommendations for evaluators In late October, three events occurred during alignment evals run by Trajectory Labs, PBC (Trajectory) in which AI agents — identified by Trajectory as publicly available frontier models — interacted with Epoch employees and the Epoch website. Trajectory is an organization that builds safety evals and conducts red-teaming of frontier models. To avoid misattributing behavior, this report does not name any AI models or developers, as Epoch AI has not independently verified which were involved. The first event, which occurred without Epoch’s approval or prior notice from Trajectory, involved agents attempting multiple exploits, including an SQL injection, and contacting Epoch employees under false identities to try to obtain proprietary Epoch benchmark information. This behavior appears to have resulted, at least in part, from Trajectory giving the agents an intentionally impossible task and instructions not to give up or conclude the task was impossible. The second event involved renewed agent activity on our public website, which Trajectory attributed to agents getting past a DNS redirect that Trajectory had set up to keep them on a local copy of Epoch’s site. In the third event, Epoch collaborated with Trajectory on an alignment experiment similar to the first event. Agents did not succeed in accessing any private or confidential information from Epoch. On the evening of Octobe",
   "first_seen": "2026-11-16T13:04:20.816459+00:00",
@@ -6445,6 +6461,22 @@
   "type": "news",
   "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026"
  },
+ "31eff569e0a28590": {
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "64e315f185cd8e33",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-24T17:48:54+00:00",
+  "sid": "31eff569e0a28590",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language models (LLMs) provide a flexible interface for recommendation systems. However, their issued rankings require reliable instance-level uncertainty monitoring. In this scenario, comparing uncertainty quantification (UQ) methods becomes challenging because LLM rankers lack a standard item-classification head. Their scores may depend on option labels, prompts, generation procedures, and the available user and item evidence. Existing methods derive uncertainty from different sources and apply it at different stages of the recommendation process. Some methods evaluate an issued ranking, whereas others use uncertainty to change the ranking itself, making direct comparison difficult. Here we introduce a fixed-ranking benchmark which evaluates eight heterogeneous UQ signals as record-level monitors under a shared output contract. We evaluate these signals across four recommendation datasets and two LLM backbones under a shared fixed-ranking protocol. From the results, we draw three main observations. First, UQ method ordering changes across backbones even on the same reference instances. Second, ranking-aligned Top10Mass provides the strongest scalar Error@10 detection in several evaluation conditions, reflecting effective cutoff-aligned monitoring, while its advantage narrows for popularity-tail targets. Third, scalar UQ signals are weak at identifying which control has the larger clipped NDCG@10 difference, whereas source-specific signals, including Perturbation Rank ",
+  "summary_1line": "Introduces a fixed-ranking benchmark that tests eight uncertainty quantification signals as monitors of LLM-based recommendation rankings across four datasets and two LLM backbones, reporting that method rankings shift between backbones.",
+  "title": "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33036v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "31fa9cd8fb58d57c": {
   "first_seen": "2026-11-19T11:06:25.197218+00:00",
   "id": "b4a43e338368f530",
@@ -8608,6 +8640,18 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/ai-architecture-patterns-regulated-industries"
  },
+ "420b2dee4fa3c677": {
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "25e4725680bdf960",
+  "published": "2026-11-24T18:41:59+00:00",
+  "sid": "420b2dee4fa3c677",
+  "source": "arxiv_cs_lg",
+  "summary": "Speculative decoding accelerates large language model (LLM) inference by employing a lightweight draft model to propose draft tokens and allowing the target model to verify the new tokens in parallel to improve inference-time compute utilization. The speedup relies on the acceptance probability of draft tokens in target verification, which is directly related to the gap $\\|p-q\\|_1$ between the target distribution $p$ and the draft distribution $q$. In this paper, we study draft calibration of speculative decoding to improve the speedup of speculative decoding, where we employ post-hoc methods to calibrate the draft distribution to mitigate the distribution gap. We observe that though current community open-source draft models may learn the top candidate token correctly, they are generally underconfident compared to the target model, suggesting a consistent distribution mismatch. To mitigate the effect of this mismatch on the acceptance rate of the draft models, we try various post-hoc calibration methods, including standard temperature scaling and token-wise calibration. Our results suggest that a standard temperature scaling applied to the draft distribution improves the acceptance length by up to approximately 10\\% with almost no additional cost across different tasks. Throughput analysis further verifies that this improvement in serving efficiency. Analysis of more general calibration methods reveals further potential room for improvement.",
+  "summary_1line": "The paper applies post-hoc calibration, mainly standard temperature scaling, to the draft model in speculative decoding, reporting acceptance length gains of up to about 10% with almost no added cost across tasks.",
+  "title": "Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33111v1"
+ },
  "423cb63904240d83": {
   "first_seen": "2026-11-09T07:06:12.542504+00:00",
   "id": "288f980963cc92c4",
@@ -9355,6 +9399,22 @@
   "title": "New in AWS Quick: More capable flows, an updated web experience, and agents that work together",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "4880c03c9a1c87c2": {
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "63bd8b10bb4a9b96",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T18:58:53+00:00",
+  "sid": "4880c03c9a1c87c2",
+  "source": "arxiv_cs_cl",
+  "summary": "Reasoning models become long-horizon agents through reinforcement learning or, more cheaply, through fine-tuning on a stronger teacher's trajectories, which contain the teacher's chain-of-thought as well as its actions. The standard fine-tuning approach imitates both, yet the strongest teachers are closed models whose chain-of-thought is hidden behind an API. We show that the chain-of-thought can be left out altogether and that the long-horizon policy can be distilled from the teacher's actions alone. The student is trained on these trajectories with its reasoning block left empty, while a KL loss on a replay buffer of its own generations limits drift from its initial model. Surprisingly, the policy learned from these trajectories with an empty reasoning block carries over to inference with thinking enabled, where the student reasons in its own style while acting like the teacher, an effect we call cross-format transfer. Distilling the actions of Qwen3.6-27B raises the task success of Qwen3-4B on AppWorld from 7% to 18% and that of Qwen3-32B from 12% to 25%. We further introduce CoT-proxies, short summaries of the teacher's reasoning placed after the empty reasoning block, which raise Qwen3-4B further, to 35%. Since neither actions nor CoT-proxies need the hidden chain-of-thought, the recipe applies unchanged to closed teachers. Distilling GPT-5.6 Luna from its visible outputs and the reasoning summaries its API returns raises Qwen3-4B from 7% to 48% on AppWorld and from 3% t",
+  "summary_1line": "Proposes distilling long-horizon agent policies from teacher actions alone, with chain-of-thought left empty, reporting gains for Qwen3-4B and Qwen3-32B on AppWorld and for Qwen3-4B on AppWorld and SWE-bench Verified.",
+  "title": "CoT-Proxy: Cross-Format Transfer for Distilling Long-Horizon Policies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33148v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "48876521f905326d": {
@@ -11941,6 +12001,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24887v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "5cffff09f594c953": {
+  "content_excerpt": "Local-first failure debugger for AI agents - replay failed traces into evidence, hypotheses, and a debugger handoff. Agent Debugger is a local-first developer tool for investigating failed agent runs. It does not try to replace observability platforms such as Langfuse, Phoenix, or LangSmith. Instead, it takes a trace you already have and builds a Cause Package : Cause candidates are hypotheses derived from rules , not verified root causes. The UI keeps observed facts, rule flags, hypotheses, reproduction steps, and handoff suggestions in separate sections. Most agent observability tools answer what happened . Agent Debugger answers the narrower question a developer has when a run fails: what should I inspect next, and how can I prove that hypothesis wrong? If you need dashboards, evaluation suites, or team-wide trace retention, use an observability platform. Agent Debugger is the local step you take before or after that platform. For a one-command app-style launch, use the browser-based desktop shell instead: It starts the local API and serves the built UI from one loopback origin, then opens your default browser. See docs/DESKTOP_SHELL.md . The demo emits a fake failed checkout trace. Select it in the trace list and inspect its Cause Package, or switch to the Replay tab for the original timeline view. A checked-in version of the same failure is available at docs/examples/failed-trace.ndjson for repeatable procedure checks. It is synthetic and contains no real customer data. ",
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "c4d37395d7c39daa",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T10:00:11+00:00",
+  "sid": "5cffff09f594c953",
+  "source": "hackernews_ai",
+  "summary_1line": "A local-first developer tool that builds a Cause Package from a failed AI agent trace, listing rule-derived hypotheses and next debugging steps, and is meant to complement rather than replace observability platforms like Langfuse, Phoenix, or LangSmith.",
+  "title": "Show HN: Agent Debugger – local-first failure debugger for AI agents",
+  "type": "news",
+  "url": "https://github.com/woxlo1/agent-debugger",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "5d33ed0c66ace544": {
   "first_seen": "2026-11-02T16:03:35.608305+00:00",
@@ -14562,6 +14638,22 @@
   "title": "MAI Licensed Weights: Frontier Performance You Control – Microsoft AI",
   "type": "news",
   "url": "https://microsoft.ai/news/introducing-mai-licensed-weights"
+ },
+ "74e9c46d81579286": {
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "6a35cb7b6f03f3f0",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-24T18:56:04+00:00",
+  "sid": "74e9c46d81579286",
+  "source": "arxiv_cs_lg",
+  "summary": "World-action models (WAMs) build policies on pretrained video-generation models, on the premise that predicting how a scene evolves helps determine how to act. However, generating future scenes is expensive for real-time control. This motivates efficient proxies for future imagination, but how to train such proxies without sacrificing action-prediction quality remains unclear. An effective proxy need not generate a high-resolution frame; it only needs to provide enough information to distinguish between possible futures. This leads to the design principle behind iWAM: rather than denoising an entire future frame, can we condition the action policy on intermediate features from a single video-model evaluation? We show that the answer is yes. Exploiting the reversible dynamics of flow-matching models, we invert each training future into the corresponding latent noise vector. However, a single velocity evaluation at this latent does not necessarily yield informative features for action prediction. We therefore learn a bidirectional flow map that amortizes future-generation computation, enabling a single model evaluation to provide effective conditioning features. At inference, we sample a latent noise vector from the prior and condition the policy using just one video-backbone forward pass. Across simulated benchmarks and real robots, iWAM recovers the generalization benefits of WAMs while substantially reducing its inference cost.",
+  "summary_1line": "iWAM is a robot action-prediction method that conditions its policy on features from a single forward pass of a flow-matching video model, instead of generating future frames, and reports reduced inference cost on simulated and real-robot tasks.",
+  "title": "iWAM: Efficient Action Prediction from World Models without Explicit Future Prediction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33141v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "755c036c2660e343": {
   "first_seen": "2026-11-18T17:05:31.138353+00:00",
@@ -23238,6 +23330,22 @@
   "title": "Show HN: I measured what each agent-built pull request costs (~$2.42)",
   "type": "news",
   "url": "https://github.com/sebwilgosz/agent-executor",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "b562a177bdf228c5": {
+  "content_excerpt": "Publish HTML from any agent and decide exactly who sees it. Claude Code, Codex, Cursor or any MCP client publishes with one tool call. Hosted, local, Cloudflare or Docker. MIT. The reports, dashboards and prototypes your agents make are your work. Plinth gives them a home: send a link, choose exactly who can open it, and keep every version. The people you share with can comment, and your agent picks up the comments and makes the change. Recorded on a local instance ( npx @mr0b0t0/plinth ). Claude Code published v1, the comment went to Codex, and Codex published v2 and replied, both through Plinth's MCP server. Nothing is staged. Take the one-minute tour → No sign-in needed. It links a live example of every artifact type, each published to Plinth by an agent. Beta. Plinth is before 1.0: the MCP tools and the REST API may still change between minor versions, and every change is listed in the changelog . Many coding agents can write a page but have nowhere to put it, and the ones that can keep it inside their own product, under the account and the plan that made it. Plinth is a neutral place for pages from any of them: The page is private until you share it; the response has its link. PUT /api/v1/artifacts/{id} publishes the next run as a new version at the same link (add base_version to refuse a stale write). Every endpoint is in docs/openapi.json . Publish a build on every run as the next version of one artifact, with a token that can only read that artifact and publish new ve",
+  "first_seen": "2026-11-25T11:05:27.389785+00:00",
+  "id": "c49f4c54862365d3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T10:38:44+00:00",
+  "sid": "b562a177bdf228c5",
+  "source": "hackernews_ai",
+  "summary_1line": "Plinth is an MIT-licensed, self-hostable beta service that lets coding agents such as Claude Code, Codex and Cursor publish HTML pages through an MCP tool, with the publisher choosing who can view each link and keeping every version.",
+  "title": "Show HN: Plinth – Publish HTML from any coding agent and choose who can see it",
+  "type": "news",
+  "url": "https://github.com/mr0b0t0/plinth",
   "why_it_matters": "Matches feed focus: agent."
  },
  "b567dafa4beaa81d": {
