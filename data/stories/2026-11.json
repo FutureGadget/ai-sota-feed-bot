@@ -1360,16 +1360,16 @@
  "0ada1934a0788fbd": {
   "content_excerpt": "As models ship faster, eval scores are often the first thing we learn about a new model. But how much weight should we put in them? In eight of twelve public evals studied, there’s evidence the grader failed work that should have passed. And even when the grader gets it right, many benchmarks measure what’s easy rather than what matters, and should instead focus on reliability, work velocity, multi-turn collaboration, etc. Here, we’ll cover the common patterns and principles, the errors models make, and where current benchmarks fall short. I’ll also share what we’re getting wrong and what should change, including why average pass rate isn’t enough and why dollars are the wrong measure of cost. Finally, we’ll walk through twelve evals: four on coding and science, six on knowledge work, and two on browsing and computer use. By the end, you’ll know what to trust in a benchmark and what to question. In addition, eval benchmarks are increasingly maintained like software. They ship versioned releases and accept fixes through issues and pull requests. Agents’ Last Exam v1.1 retired 30 tasks and revised 57 others, and Harvey LAB’s public set has grown from about 1,250 tasks to 2,010 since launching in May 2026. Like software, these releases can also introduce breaking changes—Terminal Bench can drop saturated tasks with each version, making scores hard to compare across releases. Deterministic checks over LLM judges. Code-based checks are reproducible and won’t shift rankings when a ",
   "first_seen": "2026-11-21T05:05:05.042971+00:00",
-  "id": "225ef9dc242821db",
+  "id": "e05993355f362e99",
   "matched_topics": [
    "eval"
   ],
-  "published": "2026-11-19T00:00:00+00:00",
+  "published": "2026-11-22T00:00:00+00:00",
   "sid": "0ada1934a0788fbd",
   "source": "eugene_yan",
   "summary": "How benchmarks are built, the bugs they have, and hot takes on what should change.",
-  "summary_1line": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
-  "title": "How Public Evals Work and Fail, and What Should Change",
+  "summary_1line": "Eugene Yan's essay examines how public AI model evals work and fail, reporting that a grader wrongly failed passing work in eight of twelve evals studied, and covers grading and scoring design choices.",
+  "title": "Lessons from 12 Evals: Where They Break and What to Measure Instead",
   "type": "news",
   "url": "https://eugeneyan.com/writing/public-evals",
   "why_it_matters": "Matches feed focus: eval."
@@ -2040,10 +2040,10 @@
    "agent",
    "eval"
   ],
-  "published": "2026-11-21T13:49:40+00:00",
+  "published": "2026-11-24T00:51:32+00:00",
   "sid": "0fd95d308fe40417",
   "source": "hackernews_ai",
-  "summary_1line": "Stripe evals: Measuring real-world coding agent performance",
+  "summary_1line": "Stripe released an evaluation suite of 69 scenarios measuring how well coding agents build Stripe integrations, finding all 14 agent-and-harness pairs scored higher with its agent plugin, and publishing the benchmark and framework.",
   "title": "Stripe evals: Measuring real-world coding agent performance",
   "type": "news",
   "url": "https://stripe.dev/blog/stripe-integration-evals-methodology",
@@ -3730,7 +3730,7 @@
   "sid": "1db1e39e61712ba4",
   "source": "arxiv_cs_lg",
   "summary": "Multimodal image generation systems have made rapid progress and increasingly emphasize content safety. However, their safety mechanisms tend to rely on a single modality and lack joint consideration of both visual content and text prompts, particularly in instruction-guided image editing, where the uploaded image may itself carry risk. We thus introduce EditSafetyBench, a benchmark that measures system-level safety awareness of advanced image editing systems, containing 5,940 image-instruction pairs, covering safe and unsafe images across 11 risk categories and three edit intents. We then probe the benchmark dataset on four systems, including Gemini, GPT, Qwen API, and Qwen Local. Based on our evaluation, we observe a systematic text-vision safety mismatch: Gemini and GPT refuse 87.1\\% and 81.6\\% cases containing unsafe-intent editing prompts, while only refusing 24.2\\% and 22.4\\% cases with both unsafe images and neutral instructions. At the category level, most risks are considered inconsistently by different systems, e.g., GPT allows 70.4\\% editing attempts of unsafe political content while Gemini only allows 34.8\\%. Notably, sexual content shows the strongest visual sensitivity, likely benefiting from mature NSFW identification works. Our findings highlight the need for safety guardrails that jointly reason over both visual and textual modalities in image editing systems.",
-  "summary_1line": "Multimodal image generation systems have made rapid progress and increasingly emphasize content safety. However, their safety mechanisms tend to rely on a single modality and lack joint consideration of both visual co...",
+  "summary_1line": "Introduces EditSafetyBench, a 5,940-pair image-instruction benchmark, and finds that Gemini, GPT, and Qwen refuse far more unsafe text prompts than unsafe images paired with neutral instructions.",
   "title": "Text-Aware, Vision-Blind: How Multimodal Image Editing Systems Handle Unsafe Inputs",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26569v1",
@@ -3988,6 +3988,7 @@
   "published": "2026-11-23T15:13:50+00:00",
   "sid": "1f4e7a80335d2cf1",
   "source": "arxiv_llm_reliability",
+  "summary": "Doc-to-LoRA (D2L) compiles documents into low-rank adapters, allowing language models to use their contents without repeatedly processing the original text. We investigate its suitability for internalizing user memories through factual question answering, controlled interventions, and a production MidBrain memory pipeline. Across Gemma-2-2B and Qwen3-4B, D2L loses accuracy relative to in-context learning, with additional documents introducing substantial interference. Single-document errors frequently match answers to other questions about the same passage, suggesting unreliable question-answer attribution. Layer-wise interventions show that interference accumulates across depth, with more concentrated early damage at larger bank sizes on Gemma. With eight documents, applying the full bank in the initial layers gives similar accuracy to withholding all document contributions there. Source membership is detectable in intermediate states, but trained readers do not reliably resolve the interference. On PersonaMem-v2, joint compilation and normalized adapter composition achieve accuracy close to consolidated text memory when retrieved episodes remain text, but the resulting token savings are modest. Measured throughput gains also depend on model and batch size despite substantial reductions in analytical compute. Together, these findings limit the practical case for D2L as a replacement for text-based memory and motivate investigating online-learning methods that acquire persona",
   "summary_1line": "Analyzes Doc-to-LoRA, which compiles documents into low-rank adapters, finding it loses accuracy versus in-context learning on Gemma-2-2B and Qwen3-4B, with multi-document interference and limited token savings.",
   "title": "Doc-to-LoRA Analysis: Query Conditioning, Wrong Facts, and Distractor Interference",
   "type": "paper",
@@ -4510,7 +4511,7 @@
   "sid": "24a3a35b947b3236",
   "source": "aws_ml_blog",
   "summary": "Amazon SageMaker HyperPod now offers managed cluster extensions for observability and user management, bringing declarative, API- and console-driven configuration to the software running on Slurm cluster nodes. This post explains how the extensions work and follows a platform team through a quarter of running a shared Slurm cluster with them.",
-  "summary_1line": "Amazon SageMaker HyperPod now offers managed cluster extensions for observability and user management, bringing declarative, API- and console-driven configuration to the software running on Slurm cluster nodes. This p...",
+  "summary_1line": "Amazon SageMaker HyperPod adds managed cluster extensions for observability and user management on Slurm clusters, configurable through declarative, API, and console methods, and the post follows a platform team running one for a quarter.",
   "title": "Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm"
@@ -6348,7 +6349,7 @@
   "sid": "32373812989fabcd",
   "source": "arxiv_cs_ai",
   "summary": "LLM agents on long-horizon tasks fail in recurring, procedural ways. They mis-paginate an API, resolve the wrong entity, or answer when no answer was asked. We built a pipeline that lets an agent learn from its own history. It first mines short \\emph{lessons} from the agent's own trajectories, one to three per episode. It then consolidates those lessons into a smaller set of \\emph{guidelines}, where each guideline records how many lessons it merged. At inference the agent receives either all guidelines or a selected subset. The pipeline ships in the open-source altk-evolve library and is deployed in IBM's CUGA agent and watsonx Orchestrate platform. We report what we learned building, measuring, and productizing it. Our primary instrument is the AppWorld benchmark, across models spanning 40--92\\% baseline task completion. The central finding is that the right amount of memory is a property of the model, not the memory. A strong model keeps improving as guidelines are added. DeepSeek-V3.2 gains +9.5 points of task completion and +16.1 points of scenario completion with its full 191-guideline set. A weak model gains less from the same full set than from a small selected subset. gpt-oss-120b starts at 39.9\\% task completion. It reaches 51.2\\% with all 199 of its guidelines but 55.4\\% (mean of two runs) with a selected subset of about 29. Around that result we report what went wrong: a high-support guideline that backfired, provenance silently dropped during consolidation, a swal",
-  "summary_1line": "LLM agents on long-horizon tasks fail in recurring, procedural ways. They mis-paginate an API, resolve the wrong entity, or answer when no answer was asked. We built a pipeline that lets an agent learn from its own history. It first mines short \\emph{lessons} from the agent's own",
+  "summary_1line": "LLM agents on long-horizon tasks fail in recurring, procedural ways. They mis-paginate an API, resolve the wrong entity, or answer when no answer was asked. We built a pipeline that lets an agent learn from its own hi...",
   "title": "How Much Should an Agent Remember? Deployment Lessons from Self-Distilled Memory for LLM Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26361v1",
@@ -6651,7 +6652,7 @@
   "sid": "349b1438d7013255",
   "source": "arxiv_agent_systems_research",
   "summary": "Large Language Models show great potential for automated Register-Transfer Level repair, yet they struggle with non-local faults where root causes and failing outputs reside far apart in source code. Treating RTL as a flat token sequence obscures hardware dataflows, whereas exposing complete synthesized graphs overwhelms the model with fine-grained metadata. To resolve this representation dilemma, we propose GRODE-RTL, an anchor-centric representation that extracts the single-clock-stage fan-in cone of a suspect register from the netlist, maps netlist nodes back to editable source lines, and organizes them into a compact hop-partitioned dependency view. By prioritizing direct drivers and folding distant hops, GRODE-RTL guides standard tool-using agents without exposing ground-truth hints or oracle feedback. We evaluate GRODE-RTL across 30 formally validated non-local faults using three LLMs (DeepSeek-V4-Flash, GLM-5.2, and MiniMax-M3) alongside a controlled six-configuration ablation study. GRODE-RTL improves pass@1 over source-level exploration by 16.7% on DeepSeek, by 26.7% on GLM-5.2, and by 20.0% on MiniMax-M3, with consistent gains on the hard-to-retrieve far-distance and indirect-anchor subsets of all three models. Our controls isolate structural relevance from generic context expansion, proving that selective dependency organization rather than full graph exposure is key to effective RTL repair.",
-  "summary_1line": "Large Language Models show great potential for automated Register-Transfer Level repair, yet they struggle with non-local faults where root causes and failing outputs reside far apart in source code. Treating RTL as a flat token sequence obscures hardware dataflows, whereas expos",
+  "summary_1line": "Large Language Models show great potential for automated Register-Transfer Level repair, yet they struggle with non-local faults where root causes and failing outputs reside far apart in source code. Treating RTL as a...",
   "title": "GRODE-RTL: Source-Mapped Dependency Views for LLM-Based RTL Repair",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25661v1",
@@ -6820,16 +6821,16 @@
  },
  "35bb80cc66121b0f": {
   "first_seen": "2026-11-21T00:06:26.844629+00:00",
-  "id": "e77543098aacc33c",
+  "id": "2caac11f144dd5c1",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-20T23:29:38+00:00",
+  "published": "2026-11-21T00:40:17+00:00",
   "sid": "35bb80cc66121b0f",
   "source": "openai_codex_releases",
   "summary": "Release 0.173.0-alpha.4",
   "summary_1line": "Release 0.173.0-alpha.4",
-  "title": "codex rust-v0.173.0-alpha.4",
+  "title": "codex 0.173.0-alpha.4",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
@@ -7500,6 +7501,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06687v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "3bda66928f8e54bd": {
+  "first_seen": "2026-11-25T01:05:35.899622+00:00",
+  "id": "d8d90b8562eb8e17",
+  "matched_topics": [
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-23T14:41:32+00:00",
+  "sid": "3bda66928f8e54bd",
+  "source": "arxiv_cs_cl",
+  "summary": "Trallie is an open-source framework that leverages large language models (LLMs) to perform information extraction (IE) from natural language sources with or without user guidance. Unlike conventional approaches that rely on extensive labeled datasets or domain-specific training, Trallie enables the conversion of unstructured data into structured formats with minimal or no representative examples. The framework is designed with three key objectives: (i) reducing manual annotation by harnessing prompt-based zero-shot and few-shot capabilities of modern LLMs, (ii) flexibly parsing diverse document formats (i.e., HTML, PDF, TXT, and JSON), and (iii) improving accessibility for non-expert users by automatically inducing schemas from document collections, which can then be refined for extraction. We evaluate Trallie with open-weight LLMs on FDA 510(k) documents and on movie and university websites from SWDE. It outperforms previously reported systems when the target attributes are provided for text extraction and is competitive when it must discover attributes for the schema automatically. The project is available at https://github.com/PiSchool/trallie",
+  "summary_1line": "Trallie is an open-source framework that uses LLMs for zero- or few-shot information extraction from HTML, PDF, TXT and JSON, and reportedly outperforms prior systems when target attributes are given.",
+  "title": "Trallie: from Free-Form Text to Structured Data with LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.30773v1",
+  "why_it_matters": "Matches feed focus: harness, eval."
  },
  "3be6797ec1d79375": {
   "first_seen": "2026-11-18T07:05:07.242320+00:00",
@@ -8667,9 +8685,9 @@
   ],
   "published": "2026-11-19T18:12:04+00:00",
   "sid": "448f3844d5358398",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_agent_systems_research",
   "summary": "Large Web platforms operate large fleets of ranking models, each selecting features from a shared pool of tens of thousands. We present an end-to-end agentic system that optimizes features across the fleet under resource constraints shared across models and those set per model, such as feature pipeline cost and serving throughput (QPS), respectively. In this system, LLM agents propose hypotheses, and deterministic tools execute experiments and verify them. For each model, an LLM generates and shortlists cross features from a combinatorial candidate space, and all features are then ranked by several importance methods. Feature blending mixes these rankings into a single selection, using Pareto fronts across tasks for multi-task models. An LLM Researcher agent then tunes the feature selection in 10--25 asynchronous trials under resource caps, and a trimming step keeps the pipeline cost within budget. Across production models, the system improves normalized entropy by 0.31% on average within each model's budget, and the trimming step cuts pipeline cost by 2.3% with no regression beyond measurement noise. The optimized models were launched, and in online A/B tests they improved a primary online metric by 0.20%.",
-  "summary_1line": "Large Web platforms operate large fleets of ranking models, each selecting features from a shared pool of tens of thousands. We present an end-to-end agentic system that optimizes features across the fleet under resou...",
+  "summary_1line": "An arXiv paper presents an agentic system where LLM agents and deterministic tools optimize ranking-model features across a fleet under cost and QPS limits, improving normalized entropy by 0.31% on average.",
   "title": "Cost-Aware Agentic Feature Optimization System for Fleet-Scale Ranking Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26531v1",
@@ -9143,7 +9161,7 @@
   "sid": "4867bfdeb843196c",
   "source": "aws_ml_blog",
   "summary": "AWS Quick is the AI workspace built only for work. Today we're releasing updates that help your team get more done: build and run business-process flows in chat, triage your day in the updated web app, get more complete answers from multiple agents at once, and connect new data sources like Meta ads and Amplitude.",
-  "summary_1line": "AWS Quick is the AI workspace built only for work. Today we're releasing updates that help your team get more done: build and run business-process flows in chat, triage your day in the updated web app, get more comple...",
+  "summary_1line": "AWS Quick releases updates including chat-built business-process flows, an updated web app, multi-agent answers, and new data connectors for Meta ads and Amplitude.",
   "title": "New in AWS Quick: More capable flows, an updated web experience, and agents that work together",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together",
@@ -9890,7 +9908,7 @@
   "sid": "4fdb2f753382ffc6",
   "source": "arxiv_cs_ai",
   "summary": "Large language models increasingly rely on extended reasoning traces, yet the training signals used to shape this behavior remain coarse. Supervised fine-tuning on full trajectories forces the model to imitate an entire demonstration, overconstraining its output distribution, while trajectory-level reinforcement learning provides only weak credit assignment, rewarding or penalizing whole completions without identifying where they succeed or fail. We propose edit-based training, a general framework for learning from a model's own trajectories via localized textual corrections. Given a sampled completion, an editor identifies the first point of failure under a specified criterion and proposes a minimal replacement span. The model is then supervised only on these edited spans. By design, this concentrates supervision where the model's reasoning first breaks down and aims to preserve its existing reasoning patterns elsewhere. The method applies both offline and online, with the latter continually adapting supervision to the model's evolving failure modes. We instantiate this approach on reasoning instruction following with Qwen3-32B on the ReasonIF benchmark. Compared to full-trajectory imitation and trajectory-level reinforcement learning baselines, edit-based training substantially improves compliance with the reasoning instruction while largely preserving the model's skills on untargeted tasks. These results suggest that localized correction is an effective complement to these",
-  "summary_1line": "Large language models increasingly rely on extended reasoning traces, yet the training signals used to shape this behavior remain coarse. Supervised fine-tuning on full trajectories forces the model to imitate an entire demonstration, overconstraining its output distribution, whi",
+  "summary_1line": "Large language models increasingly rely on extended reasoning traces, yet the training signals used to shape this behavior remain coarse. Supervised fine-tuning on full trajectories forces the model to imitate an enti...",
   "title": "Training LLMs to Follow Reasoning Instructions with Minimal Edits",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26342v1"
@@ -11072,7 +11090,7 @@
   "sid": "579c684a9536437f",
   "source": "langchain_blog",
   "summary": "The knowledge factory is how LangChain keeps its agents' company knowledge current: agents flag what's missing, and a curator agent fixes it in the background.",
-  "summary_1line": "The knowledge factory is how LangChain keeps its agents' company knowledge current: agents flag what's missing, and a curator agent fixes it in the background.",
+  "summary_1line": "LangChain's blog post argues that companies need a 'knowledge factory' to collect, curate and maintain tacit company knowledge for AI agents, and describes how its own GTM and content studio agents and LangSmith Engine use one.",
   "title": "How to build a knowledge factory for AI agents",
   "type": "news",
   "url": "https://www.langchain.com/blog/knowledge-factory",
@@ -11752,6 +11770,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "5e8eba5b15ac6044": {
+  "content_excerpt": "I gave a keynote at the AI Engineer Code Summit a couple of weeks ago, constructed around the idea that there have been three significant inflection points in the abilities of LLMs and coding agents in the past twelve months. Here’s the video of the talk. In this post I’m going to pull out the major inflection point theme and interrogate it more deeply. Today, November 24th 2026, is the one year anniversary of the release of Claude Opus 4.5 . With hindsight, this was a consequential model. Testers noted that Claude Opus 4.5 handles ambiguity and reasons about tradeoffs without hand-holding. They told us that, when pointed at a complex, multi-system bug, Opus 4.5 figures out the fix. They said that tasks that were near-impossible for Sonnet 4.5 just a few weeks ago are now within reach. Claude Code was 9 months old at that point, having been introduced alongside Claude 3.7 Sonnet on February 24th, 2025. Opus 4.5 was the first model I had used with Claude Code where the default result was generally the right thing. I hadn’t been using Claude Code as a daily driver because it didn’t feel reliable enough—I had to correct it often enough that it didn’t feel like a clear accelerant. The new Opus changed that. For most of the coding problems I faced on a daily basis, Opus would get them right . It was clearly faster than working through the problems myself. Also in November, OpenAI released GPT-5.1 Instant, GPT-5.1 Thinking, GPT-5.1-Codex, and GPT-5.1-Codex-Max. These had a similar ",
   "first_seen": "2026-11-25T00:06:24.609818+00:00",
   "id": "99b066d48b303584",
   "image_url": "https://static.simonwillison.net/static/2026/fable-class.webp",
@@ -12091,7 +12110,7 @@
   "sid": "6088bb75f10ad273",
   "source": "arxiv_cs_cl",
   "summary": "Post-training low-rank compression of neural networks must not only approximate the original weights but also preserve the model's input-output behavior. Recent output-aware methods measure the compression error beyond the compressed layer, at the model output, weighting logit changes by the observed next token or by the model's predicted probabilities. We propose Complete-SVD, a method for large language models that minimizes the $L_2$ distance between the logits of the original and compressed models, weighting all logit changes equally. Linearizing the network around the original weights, together with a Kronecker-factored approximation, reduces this objective to a weighted SVD with a closed-form solution. Its output-side factor is intractable to compute; we estimate it without bias from random probes, at a cost of $K$ backward passes per sequence, independent of vocabulary size and sequence length. At matched settings with uniform ranks and WikiText-2 calibration, Complete-SVD achieves the lowest C4 and PTB perplexity in every setting, and at ratio 0.7 under LEMS rank allocation. Replacing the $L_2$ distance by the Kullback-Leibler divergence (KL-SVD), with the same estimation framework, lowers calibration perplexity in most settings and raises downstream accuracy, but raises cross-corpus perplexity. Complete-SVD also improves IFEval instruction-following accuracy over the strongest prior output-aware methods throughout.",
-  "summary_1line": "Post-training low-rank compression of neural networks must not only approximate the original weights but also preserve the model's input-output behavior. Recent output-aware methods measure the compression error beyond the compressed layer, at the model output, weighting logit ch",
+  "summary_1line": "Post-training low-rank compression of neural networks must not only approximate the original weights but also preserve the model's input-output behavior. Recent output-aware methods measure the compression error beyon...",
   "title": "Complete-SVD: A Functional Norm Approach to Low-Rank LLM Compression",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26059v1",
@@ -14181,7 +14200,7 @@
   "sid": "74c0682eceea721e",
   "source": "arxiv_llm_reliability",
   "summary": "Mobile agents on personal smartphones can affect private data, payments, settings, and the foreground screen. We present MATE (Mobile Agent Trustworthy Execution), an execution-layer system that controls the boundary between agent action proposals and device effects without modifying the underlying model. MATE represents each UI primitive as a structured action record that combines the instruction, target app, screen context, primitive, and action fields. Runtime Guardrail (RG) maps this record to an allow, block, or user-approval decision; Predefined Task Routing (PTR) serves recurring requests through verified routes with post-execution screen checks; and a floating interface keeps execution in a compact overlay. On MobileSafetyBench, MATE raises high-risk blocking from 29.7% to 97.0% under GPT-4o. On AndroidWorld, it reduces LLM calls by up to 6x and raises recurring-use task success to 95.7%.",
-  "summary_1line": "Mobile agents on personal smartphones can affect private data, payments, settings, and the foreground screen. We present MATE (Mobile Agent Trustworthy Execution), an execution-layer system that controls the boundary between agent action proposals and device effects without modif",
+  "summary_1line": "Mobile agents on personal smartphones can affect private data, payments, settings, and the foreground screen. We present MATE (Mobile Agent Trustworthy Execution), an execution-layer system that controls the boundary...",
   "title": "MATE: Mobile Agent Trustworthy Execution for Safe and Efficient Mobile Control",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25526v1",
@@ -15525,7 +15544,7 @@
   "sid": "7ebbec301149b2cc",
   "source": "arxiv_cs_cl",
   "summary": "Large language models (LLMs) are increasingly used as judges and graders to replace human annotators, raising the question of when such replacement is statistically justified. To support such decisions, the Alternative Annotator Test (Alt-Test) was introduced for dense settings where all items are annotated by the same annotators. However, in many large-scale annotation settings, items are annotated by different subsets of annotators. We therefore propose the Alternative Annotator Test with Resampled Annotations (AltRA-Test), a statistical test that does not require that all items are annotated by the same annotators. AltRA-Test uses a bootstrap that resamples items, draws k human annotations for each item, and substitutes one of them with an LLM annotation. This produces paired all-human and mixed human-LLM panels. A replacement is supported when the inter-annotator agreement (IAA) of the mixed panel is statistically non-inferior to the IAA of the all-human panel, i.e., when the LLM preserves the signal that the human annotators share. We establish that AltRA-Test is a consistent test of asymptotic level alpha. We then evaluate it through simulations and real-world experiments in which we test 18 LLMs and 5 prompting techniques on 20 datasets across text, image, audio, and video. Across these evaluations, about 100 items often suffice for the test. In simulations, where we know whether the LLM is a better or a worse annotator than the humans, AltRA-Test makes more correct re",
-  "summary_1line": "Large language models (LLMs) are increasingly used as judges and graders to replace human annotators, raising the question of when such replacement is statistically justified. To support such decisions, the Alternative Annotator Test (Alt-Test) was introduced for dense settings w",
+  "summary_1line": "Large language models (LLMs) are increasingly used as judges and graders to replace human annotators, raising the question of when such replacement is statistically justified. To support such decisions, the Alternativ...",
   "title": "AltRA-Test: An Alternative Annotator Test for LLM Judges Without Shared Annotators",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26073v1",
@@ -16495,7 +16514,7 @@
   "sid": "862132c08e0ff8e1",
   "source": "arxiv_cs_cl",
   "summary": "Spreadsheets are widely used for data analysis and supporting decision-making. Automating spreadsheet analysis while protecting sensitive data and controlling deployment costs motivates locally deployed open-weight large language models (LLMs). Meanwhile, complex spreadsheet tasks require both task reasoning and workbook understanding, while predefined operation interfaces impose additional tool-selection and invocation demands. We introduce SheetAlign, a spreadsheet manipulation framework with stage-isolated policy learning, organized around where to operate, what to change, and how to implement transformations. Task-guided inspection and API grounding anchor code generation in workbook observations and available operations, while stage-isolated learning optimizes program generation and review using edit-progress rewards. At inference, execution consistency selects programs through agreement among workbook states. On SpreadsheetBench, our grounded task interface improves Qwen3-4B's accuracy from 13.5% to 29.2% on average without training. With learning and execution consistency, SheetAlign achieves 32.8% accuracy on average on SpreadsheetBench and 30.1% on Domain-Spreadsheet, outperforming comparable baselines. The code will be made publicly available upon publication.",
-  "summary_1line": "Spreadsheets are widely used for data analysis and supporting decision-making. Automating spreadsheet analysis while protecting sensitive data and controlling deployment costs motivates locally deployed open-weight large language models (LLMs). Meanwhile, complex spreadsheet task",
+  "summary_1line": "Spreadsheets are widely used for data analysis and supporting decision-making. Automating spreadsheet analysis while protecting sensitive data and controlling deployment costs motivates locally deployed open-weight la...",
   "title": "SheetAlign: Grounded Interaction and Stage-Isolated Learning for Spreadsheet Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26069v1",
@@ -18055,6 +18074,18 @@
   "url": "https://news.ycombinator.com/item?id=50426070",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "925d484a6a3e5e81": {
+  "content_excerpt": "Mankeerat Sidhu 1* , Gangmuk Lim 2* , Hetarth Chopra 1 , Maximillian Eisenberg 1 , Quan Hao Ng 1 , Aryan Gosaliya 1 , Shu Liu 3 , Luka Govedič 4 , Jiaxin Shan 5 , Hongkuan Zhou 6 , Vikram Sharma Mailthody 6 , P. Brighten Godfrey 2 , Ion Stoica 3 1 Tandemn · 2 UIUC · 3 UC Berkeley · 4 NYU · 5 ByteDance · 6 NVIDIA · *co-first authors Planning LLM inference across clouds and GPU types means choosing deployments no one has run before. Koi treats every deployment it runs as an experiment that explains why it performed as it did, and uses that answer for every job it plans next. H100, A100 and RTX PRO 6000 GPUs in three Google Cloud regions; 25 online and batch workloads over ten models. Every planner gets the same snapshots, catalog, checks and language model. 1.18× the goodput of the strongest baseline (OpenEvolve) at 20% lower cost per token. Goodput counts only output that meets its SLO. The ablation is a 3-hour simulation: a GPT-5.6 planner with no tools and no memory across ticks gets 71% less goodput than Koi. Koi loses 44% when it stops learning from new runs, and 39% without its causal graph. In 400- and 800-GPU simulations, Koi improves goodput by up to 45% and lowers cost per token by up to 31%. A fixed rule repeats its mistakes. Koi learns from every job, acts on rising SLO risk, and tries what it is unsure about. How a job is deployed decides its throughput and cost, for a given workload (here, 2,048-token prompts and 512-token outputs). A planner must choose this for ",
+  "first_seen": "2026-11-25T01:07:25.787223+00:00",
+  "id": "167c6f59544a94d6",
+  "published": "2026-11-25T00:11:16+00:00",
+  "sid": "925d484a6a3e5e81",
+  "source": "hackernews_ai",
+  "summary_1line": "Koi is a planning system for deploying LLM inference across multiple clouds and GPU types, which learns from each run's results and reports 1.18× the goodput of OpenEvolve at 20% lower cost per token in Google Cloud tests.",
+  "title": "Koi: Evidence-Guided, Self-Calibrating Planning for Multi-Cloud LLM Inference",
+  "type": "news",
+  "url": "https://gangmuk.github.io/koi"
+ },
  "9275031f37b65387": {
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "69f92e36e1ae1bcc",
@@ -19126,7 +19157,7 @@
   "sid": "9a9ba67f1c94ec7d",
   "source": "arxiv_cs_ai",
   "summary": "Deep-research agents repeatedly decide what to search, read, and verify, often using large cloud-hosted language models for action proposal. However, privacy and local control motivate running agents on users' devices, where limited memory and compute favor smaller models and complicate on-device training. Yet inference-time guidance faces three obstacles: exploring alternatives through real execution adds tool calls, prompted self-evaluation is bounded by the agent's judgment, and model-specific guidance risks repeated adaptation costs. We introduce Seer, an inference-time framework providing local guidance that separates the agent's action proposal from learned consequence prediction and value estimation. From a shared corpus of real research trajectories, we train two models: a tool-response simulator on observed call--response pairs and a value estimator on histories labeled with discounted terminal correctness. The simulator and estimator are trained offline and reused across agents without further training. Moreover, Seer executes only the selected action and adds only real tool responses to the committed history, avoiding tool calls on discarded candidates at additional inference cost. Across multiple deep-research benchmarks, Seer substantially improves agent performance for different language models. For instance, GAIA accuracy rises from 13.6% to 41.7% for Qwen3.5-4B and from 22.3% to 50.5% for Qwen3.5-9B. Furthermore, our analyses suggest that broader candidate cov",
-  "summary_1line": "Deep-research agents repeatedly decide what to search, read, and verify, often using large cloud-hosted language models for action proposal. However, privacy and local control motivate running agents on users' devices...",
+  "summary_1line": "Seer is an inference-time framework that guides small local deep-research agents by using offline-trained tool-response and value models, raising GAIA accuracy for Qwen3.5-4B and 9B models.",
   "title": "Seer: Guiding Small Deep-Research Agents with Shared Decision Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26423v1",
@@ -20285,7 +20316,7 @@
   "sid": "a32a5b4640c52e6d",
   "source": "arxiv_agent_systems_research",
   "summary": "Thinking with images (TwI) empowers vision-language models (VLMs) to overcome perceptual bottlenecks by actively cropping and zooming into fine-grained visual details, promising both higher accuracy and interpretable, region-grounded reasoning. However, our analysis shows that the improved accuracy of TwI models does not guarantee faithful tool use; they frequently invoke tools without actually relying on the zoomed region, undermining the reliability of tool-assisted reasoning. We trace this unfaithful behaviour to the training data: when questions are answerable without zooming, the model can answer correctly while ignoring the returned evidence, and this problem is exacerbated during training as the model becomes better at answering without tools. To keep zooming useful throughout training, we adapt the training data to the model's evolving capability and train on questions where correct zoomed evidence can still help the model answer correctly. This selection is supported by a data synthesis pipeline that localises small objects and constructs verifiable questions about their fine details, and complemented by an adaptiveness reward that favours tool-free answers when zooming is unnecessary. The experimental results show that our method substantially improves reasoning faithfulness and achieves state-of-the-art performance on visual search benchmarks (+11.6% on V*, +7.9% on HR-Bench 4K, and +9.4% on HR-Bench 8K). On multimodal hallucination benchmarks, our model also outpe",
-  "summary_1line": "Thinking with images (TwI) empowers vision-language models (VLMs) to overcome perceptual bottlenecks by actively cropping and zooming into fine-grained visual details, promising both higher accuracy and interpretable, region-grounded reasoning. However, our analysis shows that th",
+  "summary_1line": "Thinking with images (TwI) empowers vision-language models (VLMs) to overcome perceptual bottlenecks by actively cropping and zooming into fine-grained visual details, promising both higher accuracy and interpretable,...",
   "title": "Learning to Think with Images Faithfully via Adaptive Data Selection",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26199v1"
@@ -23232,6 +23263,22 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/polyai-dialog-rsn-1-is-now-on-amazon-sagemaker-jumpstart",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "b9654f0ddc93d52c": {
+  "content_excerpt": "Your coding agent starts every session knowing nothing you have not pasted in. The decision you wrote up last month, the fix you found in yesterday's session, the paper in your Downloads folder: it can use none of them unless you find them and hand them over. rhebok hands them over. It is local, semantic search over your own knowledge base (notes, papers, web clippings and past agent sessions), and it adds what is relevant to your coding agent's prompts automatically. rhebok indexes the folders you point it at, embeds them with a small model running on your own machine through Ollama , and serves the results two ways: It works with Claude Code, Codex, Gemini CLI, Cursor and Claude Desktop. It also keeps durable memories (lessons and facts that carry across sessions) and has a local web dashboard for searching, exploring and configuring everything. Nothing leaves your machine unless you set it up to: embeddings run locally and there is no telemetry. rhebok itself goes online only to check daily for a newer release, to download its vector-search extension the first time it builds an index, to fetch the OCR model the first time it reads a scanned PDF, and to fetch pages you add with rhebok add . If you turn them on, it also sends text to an embedding endpoint you choose and backs up to your own S3 bucket or Google Drive. The others do things rhebok does not. claude-mem writes summaries of what your agent did. mem0 can keep your memory in the cloud. basic-memory lets the AI write",
+  "first_seen": "2026-11-25T01:05:35.899622+00:00",
+  "id": "45c87858d6683615",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T22:49:01+00:00",
+  "sid": "b9654f0ddc93d52c",
+  "source": "hackernews_ai",
+  "summary_1line": "Rhebok is a free, local semantic search tool that indexes your notes, papers, clippings and past agent sessions and automatically adds relevant results to prompts for coding agents such as Claude Code and Cursor.",
+  "title": "Show HN: Rhebok – free local RAG for your coding agent",
+  "type": "news",
+  "url": "https://github.com/Stellenbosch-Technologies/rhebok",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b975584dde073c98": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "8212ed969349e813",
@@ -24054,7 +24101,7 @@
   "sid": "bf33ba82211829ad",
   "source": "arxiv_cs_cl",
   "summary": "Attention in large language models (LLMs) scores every query against every key with a full dot product. We investigate whether this dot product must be computed completely for attention to be effective. We propose Hidden Sparse Attention (HiSA), which keeps the query and key projections intact but only computes a partial dot product, following a static, parameter-free rule set by the token positions: attention becomes sparse in the hidden (feature) dimension, an axis much less explored than token sparsity, rather than over tokens as in almost all sparse attention methods. Based on the structure of rotary position embeddings (RoPE), we decompose keys and queries into parts which can be omitted when computing attention. By training LLMs from scratch with HiSA, we find that this partial dot product does not hurt but improves performance compared with the complete product while computing only about a third of the query-key products. During inference HiSA improves decoding speed and shrinks memory footprint. We also extend HiSA to FlashAttention-3 kernels for training and inference. Finally, we motivate our approach by showing that dense attention learns to suppress the attention score parts that HiSA drops. Code is available at https://github.com/ambroise-b/hisa.",
-  "summary_1line": "Attention in large language models (LLMs) scores every query against every key with a full dot product. We investigate whether this dot product must be computed completely for attention to be effective. We propose Hidden Sparse Attention (HiSA), which keeps the query and key proj",
+  "summary_1line": "Attention in large language models (LLMs) scores every query against every key with a full dot product. We investigate whether this dot product must be computed completely for attention to be effective. We propose Hid...",
   "title": "HiSA: Sparsifying the Hidden Dimension of RoPE Attention in LLMs",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26363v1"
@@ -24716,7 +24763,7 @@
   "sid": "c56412d8f0fe51bf",
   "source": "claude_agent_sdk_python_releases",
   "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.187/ pip install claude-agent-sdk==0.2.187",
-  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.187/ pip install claude-agent-sdk==0.2.187",
+  "summary_1line": "Version 0.2.187 of the claude-agent-sdk Python package is published on PyPI and can be installed with pip; the evidence provides no release notes or change details.",
   "title": "claude-agent-sdk-python v0.2.187",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.187",
@@ -24842,6 +24889,22 @@
   "title": "Who Owns DeepSeek, The Chinese AI Company?",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5"
+ },
+ "c6fb797fc3de32cb": {
+  "content_excerpt": "TL;DR: AI agents often work inside a sandbox, an isolated environment that limits the files, tools, and networks they can reach. But sandboxes are sometimes insecure in ways that are hard to anticipate, and an agent that finds a way out can reach the public internet or data it wasn’t meant to see. This matters more as models become more capable, because they get better at finding ways out and can take more serious actions once outside. To understand what models do when they escape a sandbox and why, we built Siren, a new evaluation that gives them routine tasks in intentionally weakened sandboxes, with something outside the sandbox that would help them finish the task. In these deliberately tempting scenarios, recent Claude models reach outside in a fifth to a third of cases, but go on to behave in misaligned ways far less often than earlier models. We now run Siren on new Claude models before deployment, to help us identify potentially concerning behaviors and decide what to address. In this post, we explain how Siren works, report results across Claude models, and share simple deployment-time mitigations that reduce how often models reach outside by up to 96%. We also used Siren to test and tune another mitigation, auto mode, which checks agents’ actions before they run in many of our products. AI agents now routinely operate with substantial access to real software systems, running commands, editing code, and calling APIs. Each permission we give an agent makes it more use",
+  "first_seen": "2026-11-25T01:05:35.899622+00:00",
+  "id": "b585dc2da01be9a0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T21:36:43+00:00",
+  "sid": "c6fb797fc3de32cb",
+  "source": "hackernews_ai",
+  "summary_1line": "Introduces Siren, an evaluation that gives AI models routine tasks in deliberately weakened sandboxes with an outside resource that could help, finding recent Claude models reach outside in 20–33% of cases.",
+  "title": "Measuring and mitigating agent sandbox escape with Siren",
+  "type": "news",
+  "url": "https://safeguards.anthropic.com/2026/siren",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c6ff682be23f5497": {
   "first_seen": "2026-11-18T00:07:17.220601+00:00",
@@ -26087,6 +26150,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14311v1"
  },
+ "d3da790f2a7b8ed1": {
+  "content_excerpt": "One run measures how many simultaneous callers it holds, where it starts to slip, where it breaks, and what to fix first, with a notebook of code to try. Works today with an HTTPS endpoint that takes a JSON question and returns the answer. A run takes a bit over an hour. The free plan includes 10 credits a month. If a test fails, the run stops there, so you never pay for load your app can’t take. 20 built-in questions, 4 at a time. At least 19 must come back with an answer, or the run stops in minutes. Users double, 1, 2, 4 and on, until more than 5% of requests fail. DSL narrows to stable, slip and break, then holds stable for 35 minutes. Under load, an LLM judge grades 100 sampled answers per load: relevant, coherent, not an error. It does not check facts. Start with a URL today. The Python package and the MCP server are built and on the way. Endpoint, pip and MCP runs are 5 credits. Results from runs on your machine are marked unverified. For the developers shipping an AI feature, where one bad launch day is expensive. Stable is the highest load that stayed within your limits for a 2-minute step. Plan the launch around it, not a guess. Fix first names the limit that tripped first. The notebook gives you reviewed code to try against it. A step table and soak drift you can share, so the plan rests on measured load rather than hope. Model calls use your key and bill to you. DSL never proxies inference. The judge runs on DSL’s key and sees sampled answers. Scripts and CI use d",
+  "first_seen": "2026-11-25T01:07:25.787223+00:00",
+  "id": "d338e87f682c6b6d",
+  "published": "2026-11-24T22:08:24+00:00",
+  "sid": "d3da790f2a7b8ed1",
+  "source": "hackernews_ai",
+  "summary_1line": "Dimensional is a load-testing service for AI features that ramps simultaneous callers against an HTTPS JSON endpoint, grades sampled answers for relevance and coherence (not facts), and reports a stable load level and first limit to fix.",
+  "title": "Dimensional – Load testing for AI features that measures answer quality",
+  "type": "news",
+  "url": "https://www.usedimensional.com"
+ },
  "d3e21fefc8efd238": {
   "first_seen": "2026-11-21T00:09:03.773639+00:00",
   "id": "2d6222b6be1472e4",
@@ -26581,7 +26656,7 @@
   "sid": "d7d5c4aa6a0ad972",
   "source": "arxiv_cs_cl",
   "summary": "Conversational AI assistants are now used for personal and emotional support. Developers report improvements in how new models respond to sensitive conversations, yet users and civil society continue to raise concerns about their behaviour in real-world, repeated interactions that safety evaluations rarely capture. Often, evaluations present signs of distress clearly and in a single message, even though people may reveal their struggles gradually in otherwise ordinary conversations. We worked with three community mental health support workers to test if models provide the same level of safeguarding when cues are shared all at once or gradually over time. We designed nine scenarios in which a user shares cues related to depression, psychosis, or domestic abuse. For each scenario, the support workers established a gold standard response, ranging from signposting support to pausing the everyday task to address safeguarding. We presented five cues either together in one message or dispersed across a conversation. Across more than 7,400 conversations, we evaluated six widely used models from five developers. GPT-5.5, Grok 4.3, DeepSeek V4, and Llama 4 Maverick met the support workers' standards in just 26-59% of conversations when cues were concentrated, and only 3-6% when dispersed. Claude Sonnet 5 and Claude Opus 5 showed a smaller gap, meeting the standards in 68-97% of concentrated conversations and 59-87% of dispersed conversations. Even the best-performing model, Claude Opus",
-  "summary_1line": "Conversational AI assistants are now used for personal and emotional support. Developers report improvements in how new models respond to sensitive conversations, yet users and civil society continue to raise concerns about their behaviour in real-world, repeated interactions tha",
+  "summary_1line": "Conversational AI assistants are now used for personal and emotional support. Developers report improvements in how new models respond to sensitive conversations, yet users and civil society continue to raise concerns...",
   "title": "Evaluating safeguarding in multi-turn conversations with AI assistants",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26009v1",
@@ -27807,7 +27882,7 @@
   "sid": "dffd3c74b5465cdc",
   "source": "arxiv_llm_reliability",
   "summary": "Preference training is the standard recipe for reducing object hallucination in vision-language models, and each new method reports a lower CHAIR score. We ask what that reduction consists of. Every trained system is compared with its base model's caption truncated to the same object recall, which removes the part of the gain that comes from saying less; the remainder is compared with what a deliberately weak, frozen, eleven-feature post-hoc probe fitted on 500 annotated images can reproduce. All criteria were specified in the analysis code and frozen before the outputs they judge existed. For eight public methods on LLaVA-1.5-7B, the probe reproduces at least two thirds of what training removes beyond saying less for 7 of 8 methods on COCO, 8 of 8 on AMBER and 6 of 8 on Object HalBench, with RLAIF-V the consistent exception; a later public method released for both LLaVA-1.5 and Qwen2.5-VL (SENTINEL) meets the same bar on both. On our own DPO checkpoints the accounting holds on Qwen2.5-VL but fails on InternVL2.5 on COCO (2 of 4 training designs). At matched recall, the base model plus the probe beats truncation for 8 of 9 LLaVA-1.5 systems on COCO and 9 of 9 on AMBER, on the two newer backbones, and when realized as actual sentence deletion. The same measure prices training signals: DPO on the model's own samples labelled by the probe or by an object-level CLIP score recovers 0.70 and 0.87 of the beyond-brevity gain of ground-truth-labelled DPO on Qwen2.5-VL (the probe 0.73 ",
-  "summary_1line": "Preference training is the standard recipe for reducing object hallucination in vision-language models, and each new method reports a lower CHAIR score. We ask what that reduction consists of. Every trained system is compared with its base model's caption truncated to the same ob",
+  "summary_1line": "Preference training is the standard recipe for reducing object hallucination in vision-language models, and each new method reports a lower CHAIR score. We ask what that reduction consists of. Every trained system is...",
   "title": "What Does Anti-Hallucination Training Buy? Saying Less, Cheap Pruning, and the Rest",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25814v1",
@@ -27883,6 +27958,22 @@
   "title": "Sub-30s LLM Pretraining on 8×H100? Modded-NanoGPT World Record Attempt (29.90 S)",
   "type": "news",
   "url": "https://amund.blog/modded-nanogpt-sub-30s-record-attempt"
+ },
+ "e0edcb85572a93e4": {
+  "content_excerpt": "Every agent you add is one more thing that can stop you in the middle of a thought. Managing multiple AI coding agents comes down to deciding, before the work starts, what is allowed to stop you. Name the few moments that need a person. Everything else the agent settles alone, or it writes down what it needs and waits for you. Then what waits sits in one list, and you read it when you choose. Addy Osmani put the limit in one sentence in 2026. \"What scales is your throughput of supervision, not your throughput of understanding.\" He gives his own number too. \"My ceiling for a typical session is somewhere around three to four threads depending on complexity.\" His advice is to narrow each agent's task before you cut the count. We agree. He also writes that an agent's judgment calls cannot queue up like email, and there we part. They cannot queue when any agent may ask anything at any time. They can when the flow says in advance which questions exist. Tillerly runs AI coding agents on your team's machines, sandboxed, from ticket to pull request. Every ticket takes the same seven Steps, plan, publish, resolve, pull request, CI, QA and merge, and each Step blocks the next. One agent, the planner, designs the change. Another, the resolver, implements it. A person is needed at a short, fixed list of moments. Outside that list an agent has two choices. Settle it, or write down what it needs and wait. The Builder and its seven Steps says what each Step does. The resolver implements the ",
+  "first_seen": "2026-11-25T01:05:35.899622+00:00",
+  "id": "3688fae731cada0e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T23:33:45+00:00",
+  "sid": "e0edcb85572a93e4",
+  "source": "hackernews_ai",
+  "summary_1line": "Argues that supervising multiple AI coding agents scales only if a fixed set of human-decision moments is defined in advance, and describes Tillerly's seven-step ticket-to-merge flow that queues agent requests on one dashboard list.",
+  "title": "Why supervision does not scale with the AI coding agents",
+  "type": "news",
+  "url": "https://tillerly.dev/blog/managing-multiple-ai-coding-agents-from-one-list",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e1150fe2f9e639ca": {
   "content_excerpt": "Small-business owners never opened the page where our AI's memory suggestions waited for approval, so it remembered almost nothing. We let it save on its own, then watched it remember a one-off request as a rule, a test question as a business plan and its own option list as a fact about the owner. The plain rules that fixed each one, and why every save now shows up under the answer with an Undo button. NEXUPIRA gives small-business owners a few AI coworkers: one drafts replies to customers and writes quotes, one keeps the books, one keeps the calendar. Like most assistants, they are much more useful when they remember things: what the shop sells, what it charges, when it opens, how the owner likes replies written. This post is about how we made that memory save itself, what went wrong in the two days of testing on our production site before we opened it to everyone, and the rules we added for each failure. Most of the rules are regular expressions and a word-overlap count. That is the point of the post. Our first design was careful. After a conversation, a background reader picked out facts worth remembering, and each one waited on a Memory page until the owner pressed Keep or Drop. Nothing reached the AI's memory without consent. It did not work, and not for a technical reason. Our users run nail salons, repair shops and one-person studios. They open the chat, ask for a quote, and leave. A queue on a settings page is invisible to them, so the AI kept asking for the same pric",
@@ -29750,7 +29841,7 @@
   "sid": "f1e32dd0ad4b585e",
   "source": "arxiv_agent_systems_research",
   "summary": "Medical vision-language agents increasingly rely on segmentation tools, and recent work has focused on acquiring the right mask, often treating a good mask as the end point of tool use. But do these agents use the resulting evidence effectively? To answer this question, we need a benchmark that separates evidence use from segmentation quality, spans multiple medical image types, and allows the same mask to be presented in different ways. Existing medical VQA datasets do not jointly provide these properties. We therefore construct Mask-Evidence MedVQA, a 2.5K-example benchmark spanning four image types, where each question is paired with an answer-relevant ground-truth mask and multiple possible renderings. Our study reveals two limitations of direct tool use. First, evidence presentation matters. Different renderings of the same fixed mask can substantially change model behavior. Second, masks introduce an evidence trade-off. Highlighting a relevant region can expose diagnostic evidence the model previously missed, but the added visual cue can also induce incorrect associations. As a result, even a ground-truth mask can correct some answers while turning initially correct ones into incorrect ones. Together, these findings show that acquiring the right mask is not enough. An agent must also decide how to present the evidence and whether it should change the answer. We therefore introduce TUNE (Tool Use is Not Enough), an evidence-management harness that explicitly manages what",
-  "summary_1line": "Medical vision-language agents increasingly rely on segmentation tools, and recent work has focused on acquiring the right mask, often treating a good mask as the end point of tool use. But do these agents use the resulting evidence effectively? To answer this question, we need a",
+  "summary_1line": "Medical vision-language agents increasingly rely on segmentation tools, and recent work has focused on acquiring the right mask, often treating a good mask as the end point of tool use. But do these agents use the res...",
   "title": "Harnessing Medical Visual-Language Models with Agentic Evidence Management",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25840v1",
@@ -30464,7 +30555,7 @@
   "sid": "f6e744ab21c05ceb",
   "source": "aws_ml_blog",
   "summary": "Self-hosting LLMs on GPUs means paying to recompute the same context on every turn. Distributed KV caching with Amazon ElastiCache can cut inference cost by up to 40% and time to first token by up to 80%. This post walks through the distributed KV caching skill in the Agent Toolkit for AWS, which evaluates and sets up the cache from your coding agent.",
-  "summary_1line": "Self-hosting LLMs on GPUs means paying to recompute the same context on every turn. Distributed KV caching with Amazon ElastiCache can cut inference cost by up to 40% and time to first token by up to 80%. This post wa...",
+  "summary_1line": "An AWS ML blog post describes a distributed KV caching skill in the Agent Toolkit for AWS that uses Amazon ElastiCache to cut self-hosted LLM inference cost by up to 40% and time to first token by up to 80%.",
   "title": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill",
@@ -30513,7 +30604,7 @@
   "sid": "f71afb7764f26157",
   "source": "arxiv_llm_reliability",
   "summary": "Large language models (LLMs) support scientific research, but some of that assistance can also undermine research integrity. Existing safety evaluations in science often measure whether models refuse misconduct requests, but rarely explain whether they even recognize the problem or why they comply. We investigate this gap across 8 LLMs using SciIntBench, an existing benchmark of 1,350 prompts about scientific research integrity. We examine the reasons behind compliance in four steps. First, when asked directly whether fulfilling a request would involve misconduct, models overwhelmingly identify such requests, even in the Most Covert cases (91%), while they refuse to carry out the request in only 34% of cases. Second, we examine which request characteristics are associated with refusal using features that capture how the request is framed, how much the assistant has been told about what it is helping to hide, and how the goal and the user's stake are stated, among others. Third, we estimate that the most significant effect was to rephrase requests as questions about permissibility rather than instructions, which increased refusal from 52% to 88%. Finally, we test two system-prompt fixes: asking models to assess the request before responding and reminding them of responsible conduct of research principles. These changes increase refusal rates on adversarial requests from 58% to 87% and 86%, respectively. Our findings show that models recognize wrongful requests but still help u",
-  "summary_1line": "Large language models (LLMs) support scientific research, but some of that assistance can also undermine research integrity. Existing safety evaluations in science often measure whether models refuse misconduct requests, but rarely explain whether they even recognize the problem",
+  "summary_1line": "Large language models (LLMs) support scientific research, but some of that assistance can also undermine research integrity. Existing safety evaluations in science often measure whether models refuse misconduct reques...",
   "title": "Why Do LLMs Help with Scientific Misconduct Requests and What to Do About It?: Increasing the Trustworthiness of AI for Science",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25492v1",
