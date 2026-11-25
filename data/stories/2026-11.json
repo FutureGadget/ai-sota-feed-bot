@@ -840,6 +840,22 @@
   "url": "http://arxiv.org/abs/2611.09634v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "06ffd4e36d917758": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "2b286a3d6301ef7f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T02:22:26+00:00",
+  "sid": "06ffd4e36d917758",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.189/ pip install claude-agent-sdk==0.2.189",
+  "summary_1line": "Version 0.2.189 of the claude-agent-sdk Python package is published on PyPI and can be installed with pip install claude-agent-sdk==0.2.189.",
+  "title": "claude-agent-sdk-python v0.2.189",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.189",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "072a2ee0757ea55d": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Nimisha Asthagiri shares how applying proven product engineering and architecture principles creates a bounded canvas for AI agents. She explains how this model provides agents with bounded autonomy, continuous drift detection, and decision records to scale software development resiliently. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervision paradox,\" where reliance on AI tools disrupts junior skill development, ",
   "first_seen": "2026-11-02T14:05:26.620352+00:00",
@@ -2215,6 +2231,22 @@
   "title": "vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration",
   "type": "news",
   "url": "https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview"
+ },
+ "11920e09b3795c97": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "7d198a7d53a4c458",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T00:33:20+00:00",
+  "sid": "11920e09b3795c97",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM-based agents typically execute tool calls synchronously and discard completed work upon failure. Subgraph-selective recovery, re-executing only a failed node's transitive descendants, is a well-established pattern in distributed systems (Spark, Erlang/OTP, Dryad), and recent agent runtimes (Sherlock, AgentGit, Atomix) preserve completed work through verifiers, version control, or transactional tool boundaries. We present \\textbf{Agent-Kernel}, a non-blocking runtime that ports this pattern to the LLM \\emph{content plane}: its primitive, \\textbf{Sub-Graph Recovery (SGR)}, fires on a raw exception with no trained verifier or planner, resets a failed node's descendants while preserving completed siblings, and composes each parent's text into its children's prompts (context inheritance), all on a durable substrate with a formal state-preservation guarantee. Across 14{,}434 runs on synthetic and standard benchmarks (tau-bench, Gaia2, AutomationBench, InterruptBench), SGR reaches full recovery within budget=3 where whole-trajectory replay exhausts (100\\% vs.\\ 55\\%), and is roughly 10$\\times$ faster than an adapted Sherlock rollback that also recovers. It matches ReAct-serial accuracy within noise on linear workloads while adding recovery and parallelism (up to 12.7$\\times$ speedup) where structure permits. Ablation isolates SGR: removing it collapses success to 39.4\\%.",
+  "summary_1line": "Introduces Agent-Kernel, a non-blocking LLM agent runtime whose Sub-Graph Recovery primitive re-executes only a failed node's descendants, reporting 100% recovery versus 55% for whole-trajectory replay across 14,434 runs.",
+  "title": "fork() for Agents: Agent Kernel for Non-blocking LLM Orchestration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31727v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1199f9e6988fa345": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
@@ -13314,6 +13346,23 @@
   "url": "http://arxiv.org/abs/2611.26346v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "6a7266b9b0e3ac22": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "facd11fd5800ccad",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T04:43:02+00:00",
+  "sid": "6a7266b9b0e3ac22",
+  "source": "arxiv_agent_systems_research",
+  "summary": "A tool call can fail even when the operation behind it is correct, because the receiving tool parses delimiters, dates or record layouts under a configuration the agent cannot inspect. Compiling a tool-use policy for such a tool requires both calibration, which evaluates candidate calls on candidate configurations, and search over the evaluated calls. The two share one compilation budget: calibrating everything first postpones any improved policy until the end, while re-solving every partially known model delays the next useful query. A call becomes usable as soon as its effects are known on the configurations that reach it. We present CAPE, a training-free compiler built on this observation. It maintains an executable policy at all times, directs calibration to the calls that can improve this policy, and tightens bounds only where doing so ends calibration early. Returned policies preserve every configuration the initial policy completes, and CAPE certifies optimality when its executable and optimistic values meet. On CSV and JSON workflows built from 64 requests, CAPE reaches the independently computed optimum in 502 of 504 compilations while taking 22.0% less compilation time than eager exact search. On larger CSV families it returns policies with higher completion at similar compilation time, and it raises completion by 15.38 to 34.66 percentage points over an LLM that revises its serialization from error feedback.",
+  "summary_1line": "CAPE is a training-free compiler that builds tool-use policies for tools whose hidden configuration can make correct calls fail, interleaving calibration and search under one budget and reaching the optimum in 502 of 504 compilations.",
+  "title": "CAPE: Coordinating Calibration and Search for Tool-Use Policies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31938v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "6ab13780de8d735f": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
   "id": "ea5eb477d64dfaea",
@@ -13500,6 +13549,24 @@
   "title": "Show HN: Smart Node, a self-hosted crew of AI agents for a small business",
   "type": "news",
   "url": "https://github.com/dklymentiev/smart-node"
+ },
+ "6bdcd0c1ace0da2f": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "bd45f6fa3850e613",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-24T08:44:22+00:00",
+  "sid": "6bdcd0c1ace0da2f",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Coding agents let plugins and remote services answer permission prompts, and Claude Code documents that such an answer cannot override the operator's deny rules. However, we show that this guarantee, checked one decision at a time, fails over a whole run, because an answer to one permission prompt can rewrite the policy that every later answer is checked against. For example, a remote service with no access to the operator's files approves an unrelated command and attaches an update that deletes the deny rule protecting the project's secrets. The agent then reads the secrets in that session and the next, even inside the vendor's strict sandbox. The root cause is that Claude Code checks only updates that add or replace allow rules. Relays that forward such deletions already exist, including the vendor's own Remote Control. In effect, the right to answer a prompt has become the right to administer the policy. Worse, the deletion leaves the same records as a local edit by the operator, so Claude Code cannot tell who wrote a rule. More generally, what a runtime records decides what it can safely delegate. A runtime that cannot tell who wrote a rule can accept only updates that keep every currently denied call denied, whereas, to protect every party's restrictions, a runtime that records who wrote each rule can let each party remove only the restrictions proven to be its own. We prove that these two bounds are tight. They correctly predict whether the operator's restrictions survi",
+  "summary_1line": "Shows that Claude Code's per-prompt check on permission answers misses policy updates that delete deny rules, letting a remote service unlock protected files, and proves tight bounds on safe delegation.",
+  "title": "When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32195v1",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
  "6c4aeadbb63ee69f": {
   "first_seen": "2026-11-18T15:04:12.182610+00:00",
@@ -16630,6 +16697,23 @@
   "url": "https://openai.com/index/ifood",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "869d4548532b98e2": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "959a879d1f9d7a29",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-23T23:35:32+00:00",
+  "sid": "869d4548532b98e2",
+  "source": "arxiv_cs_cl",
+  "summary": "A language-model robot agent must decide whether to execute, question or refuse an instruction, and an unsafe execution costs far more than an unneeded question. No prior robot gate derives all its thresholds from error costs or acts on calibrated probabilities, and none was fitted in one domain and evaluated unchanged in another. We propose CATWAY, a cost-sensitive three-way decision gate: a loss matrix over four instruction conditions (clear, ambiguous, infeasible, unsafe) fixes execute, ask and refuse regions on the probability simplex, the question being the information-gathering step. Its probabilities fuse a ten-sample vote with graded scores of ambiguity, infeasibility and risk by logistic regression. Fitted on household instructions and frozen, CATWAY was tested on text-level decisions of three small models in-domain, in two new robot domains and on the external TRUST-NAV benchmark. At eleven generations per decision against one, it was significantly cheaper than a direct prompt, a cost-aware prompt and an unguarded agent in all 18 household comparisons (mean loss per item 0.28 against 0.57-0.83), in 9 of 18 in the new domains and in 10 of 18 on TRUST-NAV (Holm per set), and never significantly costlier. It executed none of the 142 unsafe test instructions. On a unanimous vote, the minimum-expected-loss rule reduces calibration to one loss-derived threshold, so for two of six model configurations a gate on the vote alone never executed a clear instruction, costing 0.4",
+  "summary_1line": "Proposes CATWAY, a cost-sensitive gate that lets a language-model robot agent execute, ask or refuse instructions using a loss matrix and fused calibrated probabilities, fitted on household instructions and tested in new domains and TRUST-NAV.",
+  "title": "CATWAY: Cost-sensitive agentic three-way robot decisions with calibrated language-model confidence",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31694v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "86b481fec78194a4": {
   "first_seen": "2026-11-18T05:05:12.923622+00:00",
   "id": "703db28d9cbdf867",
@@ -16995,6 +17079,7 @@
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "895b540db6a8889e": {
+  "content_excerpt": "How using agent teams and formal verification can improve quantum algorithms for modelling fusion energy, chemistry and enzymes Quantum computers could soon solve problems beyond the reach of classical supercomputers. However, there is a catch: even when using the best quantum algorithms, some important applications still require more resources than early quantum hardware will be able to support. In a new paper , we used teams of Gemini 4 agents to improve well-known quantum algorithms, creating highly efficient quantum circuits. These optimized circuits, which are instructions for how a quantum computer should carry out an algorithm, could one day help us run simulations that solve complex scientific challenges, from fusion energy to drug design. To help the community build on this work, we are open-sourcing our Lean library , problem specifications, and verified solutions on GitHub. Because we cannot test resource-intensive quantum circuits on classical computers or today's small quantum processors, we have to prove that they work mathematically. Our agent teams proved each result using Lean, a formal theorem prover. Improving quantum algorithms using agentic teams For each problem, we tasked separate, independent agent teams with finding algorithmic improvements. These ideas were then verified with Lean, before entering a shared notebook. Every four hours, agents from each team met at a virtual conference to trade, debate and compare ideas. As teams produced more effective",
   "first_seen": "2026-11-23T22:06:24.495357+00:00",
   "id": "34d52c24a2616f8e",
   "image_url": "https://lh3.googleusercontent.com/jIoM2lo98EDqLMQjIaXBlXPmXgPbUPpM2GgtXcDsGekZBOPUY41IjBsnuZIhLac7MSOuRkklNBsp20a5M25oDz-xTIY0BIqoBxUqmmXvEHwlM3MJJw=w528-h297-n-nu-rw-lo",
@@ -20753,6 +20838,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.27919v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "a4ca14fa7f75f3f5": {
+  "first_seen": "2026-11-25T03:06:26.514593+00:00",
+  "id": "35ae9b4a12b4635c",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T02:33:36+00:00",
+  "sid": "a4ca14fa7f75f3f5",
+  "source": "arxiv_cs_lg",
+  "summary": "SWE-bench-style benchmarks, such as SWE-bench Verified (Verified) and SWE-bench Pro (Pro), evaluate coding agents with tests taken from the change that originally fixed each issue. However, these tests can enforce details the task never states, causing correct alternative fixes to fail. Such overspecified tests have so far been found mainly through expensive expert review. To address this, we define the Spec-Test Coverage Gap (STCG), a 1-4 scale measuring overspecification, and score it with two LLM judges, Claude Opus 5.5 and GPT-6.1 Sol, which are given the specification and the test patch. A task is flagged as overspecified when both judges score it 3 or higher. Our study has three parts. First, we validate the judges on 206 tasks that earlier human audits and agent results label as overspecified or fine. Second, we apply STCG to all 500 Verified and 731 public Pro tasks and compare the flags with the results of the top 30 Verified submissions. Third, we verify the flags by asking Claude Opus 5.5 to loosen the overspecified requirements of flagged tasks, and regrade 2,186 failed patches from those submissions. Our main findings are: (1) Overspecified tests are detectable: on the validation tasks, the judges correctly flag 89% of the tasks that human audits identify as overspecified and wrongly flag only 4% of the tasks known to be fine. (2) Overspecified tests are common: applied to whole benchmarks, the judges flag 23% of Verified and 35% of Pro tasks. (3) Flagged tasks a",
+  "summary_1line": "SWE-bench-style benchmarks, such as SWE-bench Verified (Verified) and SWE-bench Pro (Pro), evaluate coding agents with tests taken from the change that originally fixed each issue. However, these tests can enforce det...",
+  "title": "Spec-Test Coverage Gap: Detecting Overspecified Tests in SWE-Bench-Style Benchmarks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31839v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "a4e942d0f147f07c": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
@@ -27417,7 +27519,7 @@
   "published": "2026-11-23T17:22:47+00:00",
   "sid": "db68a7b8e354aade",
   "source": "arxiv_agent_systems_research",
-  "summary_1line": "Runtime controls for tool-using agents depend on manifests that state what each tool may read and where its output may go. Evaluations of these controls, including ChainCaps, report per-attack blocking: the share of attacks a set of manifests stops. We show that this is the wrong",
+  "summary_1line": "Argues that per-attack blocking rates, as used in evaluations such as ChainCaps, can hide vulnerabilities across a tool catalog, and proposes a weakest-link analysis of tool manifests for runtime agent controls.",
   "title": "Per-Attack Blocking Hides Catalog Vulnerability: A Weakest-Link Analysis of Tool Manifests",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.31338v1"
