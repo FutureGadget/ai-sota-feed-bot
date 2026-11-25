@@ -2194,7 +2194,7 @@
   "published": "2026-11-23T23:40:49+00:00",
   "sid": "105d2dd6f5d647be",
   "source": "simon_willison",
-  "summary": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transformer, a group of weight-shared layers runs for multiple iterations, refining the hidden states from the previous pass. This gives us a deeper network without increasing the parameter count. This is the second mention of looped transformers I've seen in the past week - the first was Inkling 2 Mini from Thinking Machines Lab on November 20th, who said: Inkling 2 Mini is a looped transformer, running the middle layers of the model three times for every token. This allows the model to apply more reasoning and reach the right answer with fewer tokens, especially on tasks such as agentic coding that depend on reasoning quality. GLM 5.4 is not (yet?) available as open weights. I tried it out using the Z.ai API, for which I had to sign up for their Coding Plan subscription because 5.4 cannot currently be accessed through the regular API. It turns out both coding plan and regular API share the same OpenAI-compatible Responses API (at https://api.z.ai/api/v1 ), and the API key for the coding plan worked with that and gave me access to the new model. I built a llm-glm plugin , then realized that llm-zai by Tommy Hughes already exists! I've shipped mine purely because llm-zai doesn't yet support ",
+  "summary": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transformer, a group of weight-shared layers runs for multiple iterations, refining the hidden states from the previous pass. This gives us a deeper network without increasing the parameter count. This is the second mention of looped transformers I've seen in the past week - the first was Inkling 2 Mini from Thinking Machines Lab on November 20th, who said: Inkling 2 Mini is a looped transformer, running the middle layers of the model three times for every token. This allows the model to apply more reasoning and reach the right answer with fewer tokens, especially on tasks such as agentic coding that depend on reasoning quality. GLM 5.4 is not yet available as open weights: We plan to open-source the model weights responsibly after completing necessary safety hardening. I tried it out using the Z.ai API, for which I had to sign up for their Coding Plan subscription because 5.4 cannot currently be accessed through the regular API. It turns out both coding plan and regular API share the same OpenAI-compatible Responses API (at https://api.z.ai/api/v1 ), and the API key for the coding plan worked with that and gave me access to the new model. I built a llm-glm plugin , then realized that llm-za",
   "summary_1line": "Z.ai has released GLM-5.4, its first model using a looped transformer architecture, which runs weight-shared layers for multiple iterations; it is not yet available as open weights.",
   "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
   "type": "news",
@@ -13698,6 +13698,23 @@
   "title": "Severe but Harmless: Stress-Testing Shift Severity for Frozen Time-Series Forecasters",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21562v1"
+ },
+ "69fbec9981f84b43": {
+  "content_excerpt": "Many problems have a generator–verifier gap: it’s often far easier to verify that a solution is correct than to come up with one. Sudoku is a classic example. It’s simple to check the solution (just count the numbers in each row, column, and box), but finding that solution can take a long time. Many ambitious Claude projects have relied on this gap: formalizing proofs in mathematics or migrating large, well-tested codebases are tasks Claude can take on as long as it has a reliable way to verify its work. But as Claude has become more capable, it’s begun to take on projects in live systems, where generating the work is easier than verifying it. In these systems, users often rely on edge cases and quirks that fall outside the test suite , and it’s hard to write a definition of “correct” that covers everything . Without a reliable way to check Claude’s work, the migration of a live system is hard to trust—however quickly Claude can generate the code for it. We ran into this problem when we migrated our Messages API from Python to Rust. This API is the primary way that customers—as well as our own apps, like Claude Code and Cowork—reach Claude. From early 2024 to fall 2026, API traffic grew roughly 1,800 times. Rust would allow us to use far less CPU per request. Claude wrote a first version of the API’s core request path in about a week. But building trust in the migration required us to find a way to verify that our Rust API was at parity with our production API. This proved ha",
+  "first_seen": "2026-11-25T17:07:13.136218+00:00",
+  "id": "886c305b0041711e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T00:00:00+00:00",
+  "sid": "69fbec9981f84b43",
+  "source": "anthropic_research",
+  "summary": "How we used the existing Messages API to verify the new one, with teams of Claude agents tracking down and fixing differences between the Python and Rust versions.",
+  "summary_1line": "Anthropic describes how it migrated its production Messages API from Python to Rust by using the live API as a verifier against production traffic, reporting about 70% less CPU per request and about 20% lower median time to first token.",
+  "title": "Migrating our Messages API to Rust",
+  "type": "research",
+  "url": "https://www.anthropic.com/research/migrating-api-to-rust",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "6a4c327df6a7d614": {
   "content_excerpt": "Agent skills for scientists: one experiment at a time, each result deciding the next, every step tracked. Agent skills for reproducible scientific experiments with any coding agent. Agree on one experiment at a time, record the expected result before running it, and use the evidence to choose what to run next. Every run leaves a Git-tracked lab notebook and rerunnable files. Matt's engineering flow plans the whole route first: /to-spec writes down the goal, /to-tickets splits it into tickets, and /implement-spec builds them, many in parallel. That works because software is predictable once you agree on what to build. Research and scientific exploration aren't. A plan is a map, and in research nobody has mapped the territory yet. You learn what's relevant by running something and looking at the result: each result shows you more of the territory, and it often shows that the route you planned goes nowhere. So the science flow plans one experiment, called a probe, at a time, and you choose each next probe after seeing the last result. The study's notebook is the map of your scientific question, redrawn after every probe. Ask a language model a question without steering it, and it gives you the most common answer, the middle of everything it has read. New findings sit away from that middle, and only a clear intention moves the work away from it, away from what you could call AI slop. So before each run the agent writes down the standard answer, and the result shows how far from i",
@@ -31765,7 +31782,7 @@
   "published": "2026-11-24T03:16:57+00:00",
   "sid": "f8bbbb480f3e1fbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 5, downloads: 7.",
+  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 20, downloads: 399.",
   "summary_1line": "Tencent has posted the OmniEVIE-4B model weights on Hugging Face, tagged for feature-extraction tasks, with one like and no recorded downloads so far.",
   "title": "tencent/OmniEVIE-4B released on Hugging Face",
   "type": "release",

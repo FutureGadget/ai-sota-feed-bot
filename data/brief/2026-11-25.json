@@ -1,14 +1,14 @@
 {
  "date": "2026-11-25",
  "diagnostics": {
-  "admitted": 0,
-  "candidates": 601,
+  "admitted": 1,
+  "candidates": 605,
   "duplicate_url": 9,
-  "items": 56,
-  "keeps": 353,
-  "new": 0,
+  "items": 57,
+  "keeps": 355,
+  "new": 1,
   "off_topic": 65,
-  "prior_story": 24,
+  "prior_story": 25,
   "rejected_gate": {
    "insufficient_evidence": 22,
    "judge_drop": 22,
@@ -16,17 +16,19 @@
    "score_low": 109
   },
   "rejected_quota": {
-   "role_quota": 243,
+   "role_quota": 244,
    "source_quota": 30
   },
-  "releases": 32,
+  "releases": 34,
   "reviews": 128,
-  "role_counts": {},
+  "role_counts": {
+   "first_party": 1
+  },
   "run_candidates": 140,
-  "stale_story": 23,
-  "stories": 383,
+  "stale_story": 24,
+  "stories": 387,
   "unjudged": 23,
-  "updated": 4,
+  "updated": 5,
   "written": true
  },
  "items": {
@@ -53,7 +55,7 @@
     "release_lane": 0.46
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T15:09:33.398257+00:00",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.937,
@@ -61,7 +63,7 @@
    "rank_at_first_seen": 56,
    "release_tier": null,
    "score_at_first_seen": 1.064,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "search_cn_open_weight_labs",
    "source_count": 1,
@@ -964,7 +966,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-25T16:07:46.724384+00:00",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -974,7 +976,7 @@
    "rank_at_first_seen": 36,
    "release_tier": null,
    "score_at_first_seen": 0.4626,
-   "seen_count": 14,
+   "seen_count": 15,
    "slot": "frontier_official",
    "source": "google_deepmind_blog",
    "source_count": 1,
@@ -1168,7 +1170,7 @@
     "release_lane": 0.25
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T16:07:46.724384+00:00",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1178,7 +1180,7 @@
    "rank_at_first_seen": 55,
    "release_tier": null,
    "score_at_first_seen": 1.2161,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "cloud_platform_updates",
    "source": "cloudflare_blog",
    "source_count": 1,
@@ -1369,7 +1371,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T15:09:33.398257+00:00",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.889,
@@ -1377,7 +1379,7 @@
    "rank_at_first_seen": 40,
    "release_tier": null,
    "score_at_first_seen": 1.419,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "research_watch",
    "source": "arxiv_cs_ai",
    "source_count": 1,
@@ -1496,6 +1498,57 @@
    "utility_basis": "judge",
    "v2_slot": "research_watch",
    "why_it_matters": ""
+  },
+  "story|title:migrating our messages api to rust": {
+   "admission_rank": 57,
+   "admitted_at": "2026-11-25T17:09:11.521168+00:00",
+   "also_covered": [],
+   "content_excerpt": "Many problems have a generator–verifier gap: it’s often far easier to verify that a solution is correct than to come up with one. Sudoku is a classic example. It’s simple to check the solution (just count the numbers in each row, column, and box), but finding that solution can take a long time. Many ambitious Claude projects have relied on this gap: formalizing proofs in mathematics or migrating large, well-tested codebases are tasks Claude can take on as long as it has a reliable way to verify its work. But as Claude has become more capable, it’s begun to take on projects in live systems, where generating the work is easier than verifying it. In these systems, users often rely on edge cases and quirks that fall outside the test suite , and it’s hard to write a definition of “correct” that covers everything . Without a reliable way to check Claude’s work, the migration of a live system is hard to trust—however quickly Claude can generate the code for it. We ran into this problem when we migrated our Messages API from Python to Rust. This API is the primary way that customers—as well as our own apps, like Claude Code and Cowork—reach Claude. From early 2024 to fall 2026, API traffic grew roughly 1,800 times. Rust would allow us to use far less CPU per request. Claude wrote a first version of the API’s core request path in about a week. But building trust in the migration required us to find a way to verify that our Rust API was at parity with our production API. This proved hard for several reasons, including that the Python API continued changing throughout the migration, so parity was a moving target; Claude can reply nondeterministically to the same request, so a difference between two outputs didn’t necessarily mean a bug; and we couldn't read customer requests, so we weren't able to easily see where the two versions diverged. In this post, we share how we turned the production Messages API itself into a verifier—and how that helped us test the new Rust version on production traffic, find where it differed, and automatically dispatch agents to fix those differences. This allowed us to ship an API on Rust that uses about 70% less CPU per request and cuts median time to first token by about 20% without ever taking the service offline or freezing feature development. We built the Messages API in 2023 and wrote it in Python, which was widely used internally for much of our research code. At first, it was simple. The Messages API passed requests to the model",
+   "first_seen": "2026-11-25T17:09:11.521168+00:00",
+   "freshness_at_admission": 0.7187,
+   "id": "886c305b0041711e",
+   "image_url": null,
+   "judge_category": "inference_serving",
+   "judge_category_confidence": 0.63,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-25T17:08:48.427572+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.92,
+   "judge_signals": {
+    "corporate_marketing": 0.04,
+    "keep": 0.92,
+    "platform_relevant": 0.98,
+    "release_lane": 0.06
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
+   "llm_category": "research",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.858,
+   "published": "2026-11-25T00:00:00+00:00",
+   "rank_at_first_seen": 57,
+   "release_tier": null,
+   "score_at_first_seen": 1.3957,
+   "seen_count": 1,
+   "slot": "research_watch",
+   "source": "anthropic_research",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": 0.0,
+   "story_cluster_id": "5c6870beb13e290f",
+   "story_key": "story|title:migrating our messages api to rust",
+   "summary_1line": "Anthropic describes how it migrated its production Messages API from Python to Rust by using the live API as a verifier against production traffic, reporting about 70% less CPU per request and about 20% lower median time to first token.",
+   "time_decay_factor": 0.901,
+   "title": "Migrating our Messages API to Rust",
+   "type": "research",
+   "url": "https://www.anthropic.com/research/migrating-api-to-rust",
+   "utility": 1.3957,
+   "utility_basis": "judge",
+   "v2_slot": "research_watch",
+   "why_it_matters": "Matches feed focus: agent."
   },
   "story|title:noveltygate novelty not error decides which vla prefix tokens to compute exactly": {
    "admission_rank": 3,
@@ -1619,7 +1672,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T15:09:33.398257+00:00",
+   "last_seen": "2026-11-25T17:09:11.521168+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.746,
@@ -1627,7 +1680,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 1.3314,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -2852,5 +2905,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-25T16:07:46.724384+00:00"
+ "updated_at": "2026-11-25T17:09:11.521168+00:00"
 }
