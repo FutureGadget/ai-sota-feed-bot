@@ -2,98 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Attestation is All You Need: Toward a Zero-Trust Architecture for HPC AI Agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.32958v1
-- Score: 3.392 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 2. Why Your Agent Needs Ambient Context, Not Just Skills | Birgitta Boeckeler, Unblocked
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/NxypyNu1944
-- Score: 2.469 | Reliability: 0.806
-- Why it matters: Matches feed focus: agent, eval.
-
-## 3. AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.33093v1
-- Score: 3.355 | Reliability: 1.0
+## 1. Stop paying an LLM to re-plan the same agent task every day
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/hotpath-run/hotpath/blob/main/docs/HOTPATH-EXPLAINED.md
+- Score: 4.08 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. FOL-Proof: Verifying LLM Text-to-Logic Translations via Deterministic Semantics
+## 2. Do inconsistent docs hurt AI coding agents?
+- Type: news | Source: hackernews_ai
+- URL: https://developer.microsoft.com/blog/do-inconsistent-docs-hurt-ai-coding-agents/
+- Score: 3.967 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Show HN: Belay – deterministic semantic diffs of what a coding agent changed
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/Allexsen/belay
+- Score: 3.845 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. ShellBench: What Matters More for AI Agents, Models, or Harness for Everyday Tasks
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.33078v1
-- Score: 3.214 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+- URL: http://arxiv.org/abs/2611.32946v1
+- Score: 3.14 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, eval.
 
-## 5. vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview
-- Score: 2.437 | Reliability: 1.0
-- Why it matters: 
-
-## 6. tencent/WePocketModel1.0-2B-MLX released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WePocketModel1.0-2B-MLX
-- Score: 2.428 | Reliability: 1.0
-- Why it matters: 
-
-## 7. Lessons from 12 Evals: Where They Break and What to Measure Instead
-- Type: news | Source: eugene_yan
-- URL: https://eugeneyan.com/writing/public-evals
-- Score: 2.254 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 8. Data + AI Anywhere: AlloyDB Omni integration with local models
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models/
-- Score: 1.652 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 9. claude-code v2.1.331
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.331
-- Score: 1.627 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 10. codex 0.174.0-alpha.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.1
-- Score: 1.5 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. An Indic Voice Agent with CUGA
+## 5. An Indic Voice Agent with CUGA
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga
-- Score: 3.149 | Reliability: 1.0
+- Score: 3.026 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.32195v1
-- Score: 3.136 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex, claude code.
+## 6. Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.33031v1
+- Score: 2.992 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 13. claude-agent-sdk-python v0.2.188
+## 7. vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview
+- Score: 2.425 | Reliability: 1.0
+- Why it matters: 
+
+## 8. tencent/WePocketModel1.0-4B-MLX released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WePocketModel1.0-4B-MLX
+- Score: 2.327 | Reliability: 1.0
+- Why it matters: 
+
+## 9. The Agent Lake
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/the-agent-lake
+- Score: 2.215 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Data + AI Anywhere: AlloyDB Omni integration with local models
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models/
+- Score: 1.634 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 11. Measurement Artifacts in Trustworthiness Evaluations of Quantized Small Language Models
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.32848v1
+- Score: 2.92 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. MXFP4 for LLM Inference: Complementary Post-Training Quantization Techniques and Their Interactions
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.32873v1
+- Score: 2.915 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 13. claude-code v2.1.331
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.331
+- Score: 1.558 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 14. codex 0.174.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.1
+- Score: 1.488 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. claude-agent-sdk-python v0.2.188
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.188
-- Score: 1.292 | Reliability: 1.0
+- Score: 1.224 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
-- Type: video | Source: lennys_podcast
-- URL: https://youtu.be/WY0cdD4gNoQ
-- Score: 1.004 | Reliability: 0.806
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 15. v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)
+## 16. v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.1rc0
-- Score: 0.976 | Reliability: 1.0
+- Score: 0.964 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. langgraph==1.2.23
+## 17. langgraph-prebuilt==1.1.3
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 0.841 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 0.833 | Reliability: 1.0
 - Why it matters:

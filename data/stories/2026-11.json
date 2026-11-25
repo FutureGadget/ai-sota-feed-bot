@@ -1859,6 +1859,22 @@
   "url": "http://arxiv.org/abs/2611.06674v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "0e4b41be257d1582": {
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "2164085f672bf85e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-24T15:54:46+00:00",
+  "sid": "0e4b41be257d1582",
+  "source": "arxiv_cs_ai",
+  "summary": "Evaluations of quantized language models attribute the change in a benchmark score to quantization. We write the measured change as the true change plus a term contributed by the instrument. Instrument error that is the same at every precision can shrink a paired comparison but cannot create or reverse an effect. Error that interacts with quantization can do both, and it is reported as an effect of quantization. We estimate this interaction for four measurement choices in 8 instruction-tuned models below two billion parameters, at float16, LLM.int8() and NF4, on identical items. Measured against labels from two human annotators, the 4-bit rise in harmful compliance is about half to two-thirds of the rise in non-refusal that a corrected key word detector records. Cloze and lettered multiple-choice scoring disagree about the effect of quantization far more than their noise allows: their estimates correlate at \\r{ho} = 0.10, against a ceiling of about 0.77. LLM.int8() answers and generations depend on which items share a batch, and padding alone changes its answers. Rounding activations to 8 bits is enough to produce this dependence. NF4 is batch-invariant. The two largest reported calibration losses are response-bias shifts. We release item-level predictions, option scores and human annotations, and give recommendations for evaluating compressed small models.",
+  "summary_1line": "Evaluations of quantized language models attribute the change in a benchmark score to quantization. We write the measured change as the true change plus a term contributed by the instrument. Instrument error that is t...",
+  "title": "Measurement Artifacts in Trustworthiness Evaluations of Quantized Small Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32848v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0e7f690aa4ff229b": {
   "first_seen": "2026-11-17T08:06:55.339329+00:00",
   "id": "3048869c76c26eea",
@@ -4102,6 +4118,22 @@
   "title": "Doc-to-LoRA Analysis: Query Conditioning, Wrong Facts, and Distractor Interference",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.30825v1"
+ },
+ "1f50f266f8a0f266": {
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "dde34f543580d3ac",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T16:06:53+00:00",
+  "sid": "1f50f266f8a0f266",
+  "source": "arxiv_cs_lg",
+  "summary": "Recent advances in low-precision representation have introduced several microscaling numerical formats for LLM quantization. By sharing a scale factor across groups of 16 or 32 elements, these formats enable aggressive low-precision quantization with minimal accuracy degradation, particularly when combined with modern PTQ algorithms. Their accuracy depends on how the numerical format interacts with rotation, PTQ, and scale selection. We study the composability of PTQ configurations across six LLMs and three microscaling formats: MXFP6, MXFP4, and NVFP4, systematically varying Hadamard rotation granularity, PTQ algorithm, and scale-selection strategy. Our central finding is that effective quantization recipes are format dependent: both MXFP4 and NVFP4 support accurate 4-bit inference, but techniques that benefit one do not necessarily transfer to the other. MXFP4 benefits substantially from rotation and error-correcting PTQ, whereas NVFP4 gains less from rotation, consistent with its finer-grained scales capturing more within-block variation. Building on these findings, we introduce Midmax, a calibration-free scale-selection strategy that mitigates clipping error in power-of-two block scales and improves accuracy across a majority of the evaluated MXFP4 configurations. We show that pairing MXFP6 activations with MXFP4 weights recovers most of the accuracy lost at 4-bit and, on Llama-3.1-8B, matches or exceeds our in-house BF16 baseline. An additional study finds that augmentin",
+  "summary_1line": "Study of post-training quantization recipes for six LLMs across MXFP6, MXFP4 and NVFP4 formats, varying rotation, PTQ algorithm and scale selection, and introducing Midmax, a calibration-free scale-selection method.",
+  "title": "MXFP4 for LLM Inference: Complementary Post-Training Quantization Techniques and Their Interactions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32873v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "1f5946529a21c625": {
   "first_seen": "2026-11-10T23:04:50.256417+00:00",
@@ -14560,7 +14592,7 @@
   "published": "2026-11-25T06:25:21+00:00",
   "sid": "743432370bbdf4d7",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 5.",
   "summary_1line": "Tencent has posted the WePocketModel1.0-4B-MLX model weights on Hugging Face for image-text-to-text tasks, with 1 like and no recorded downloads so far.",
   "title": "tencent/WePocketModel1.0-4B-MLX released on Hugging Face",
   "type": "release",
@@ -18070,6 +18102,25 @@
   "url": "http://arxiv.org/abs/2611.31160v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "8e681754c00e3bfc": {
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "5ffd96731d48686a",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-11-24T16:48:06+00:00",
+  "sid": "8e681754c00e3bfc",
+  "source": "arxiv_cs_cl",
+  "summary": "The use of AI agents among the general public has been increasing exponentially throughout 2026, though it is often hard for users to determine which configuration is most effective for their personal use. To help provide clarity here we introduce ShellBench, 100 day-to-day tasks based on more than 10 million user requests, each set in a realistic workspace with messy files and competing data sources, and graded for both correctness and safety. We evaluate 12 models across 5 agent harnesses at 3 reasoning levels for a total of 53,100 rollouts, 20% of which are on tasks designated for public release. We find that model choice impacts performance more than harness choice, but the three leading models differ by only 1.1 percentage points. GPT-6.1 Sol passed 61.4% of attempts at about one-sixth of GPT-6 Astra's estimated token cost per attempt, while GPT-6 Astra led at 62.5%. We also found that harness choice had little effect on either performance or safety with all harnesses scoring between 42.9 (Claude Code) and 45.2 (OpenClaw) for pass@1.",
+  "summary_1line": "The use of AI agents among the general public has been increasing exponentially throughout 2026, though it is often hard for users to determine which configuration is most effective for their personal use. To help pro...",
+  "title": "ShellBench: What Matters More for AI Agents, Models, or Harness for Everyday Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32946v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "8eec2e0e61665676": {
   "content_excerpt": "Kubernetes, the open source system that manages how applications run across thousands of AI factories, has become the foundation for AI, and the demands on it are only growing. To help meet them, NVIDIA is deepening its commitment to open source at KubeCon + CloudNativeCon , the flagship conference for the Kubernetes and cloud-native communities. NVIDIA is contributing NVIDIA OpenShell , an open source runtime for securing and governing autonomous agents, to the Cloud Native Computing Foundation (CNCF), a nonprofit that is part of the Linux Foundation and the host of KubeCon. As a CNCF Sandbox project, OpenShell will be governed by the organizations building it into their products and strengthened by the expertise of security professionals worldwide. NVIDIA is also contributing to Agent Substrate , an open source Google-led framework for operating long-running agent workloads at scale on Kubernetes that has been accepted into the CNCF Sandbox. Additionally, NVIDIA announced new components of the NVIDIA DSX AI Factory Platform : NVIDIA Kubernetes Engine , NVIDIA Kubernetes Recipes and NVIDIA Snapshot . These tools help teams deploy, manage and scale GPU infrastructure on Kubernetes for AI factories. Together, these advancements mark a step forward in making Kubernetes the leading foundation for AI workloads at scale — empowering developers to build safer, more efficient AI infrastructure for the future. NVIDIA’s contribution of OpenShell to CNCF puts security infrastructure fo",
   "first_seen": "2026-11-10T16:04:52.810370+00:00",
@@ -20343,6 +20394,22 @@
   "type": "news",
   "url": "https://openai.com/index/our-first-phase-of-embedded-assessments",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "9ff473bf95fb89a0": {
+  "content_excerpt": "Every product’s docs drift out of step with the product. A product that’s been around for years has pages written against features that have since changed, and each change reaches only the pages someone remembers to update. A product that’s moving fast, as many are today with AI, drifts even sooner. An endpoint gets renamed or a setting moves, and the reference gets updated while a how-to or a sample keeps the old value. Before long, two of your pages tell the reader two different things. When developers hit two pages that disagree, they usually find out which one is right the hard way. They copy the code from one page, run it and watch it fail. Every minute they then put into working out which page to trust goes into debugging your docs. Coding agents read the same pages, so we wanted to know how they handle a contradiction. Does an agent notice that two pages disagree? If it follows the wrong one, does it recover and pay for the detour in tokens, or does it get stuck and hand back something that doesn’t work? And if the result is broken, does the agent tell you? We tested three contradictions that had been live in a product’s docs, with three models and about 140 agent runs. Agents often noticed that two pages disagreed, and still followed the wrong page first. When the mistake broke something the agent could see, like an API call that returned a 404, every agent recovered, but the detour added as much as 38% to the tokens it used. When the mistake stayed silent until CI, a",
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "bb5647b7fb8cbff2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T11:57:30+00:00",
+  "sid": "9ff473bf95fb89a0",
+  "source": "hackernews_ai",
+  "summary_1line": "A test of how AI coding agents handle contradictory pages in Dev Proxy's documentation, using three live contradictions and about 140 agent runs across three models.",
+  "title": "Do inconsistent docs hurt AI coding agents?",
+  "type": "news",
+  "url": "https://developer.microsoft.com/blog/do-inconsistent-docs-hurt-ai-coding-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a01687f339ae56f1": {
   "first_seen": "2026-11-10T13:05:59.025979+00:00",
@@ -23413,6 +23480,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.19982v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "b5bbb28b9ab5357e": {
+  "content_excerpt": "Your AI agent does a job once. Hotpath runs it every day after, as checked code, for a fraction of the model cost. This page is for everyone: the first half is plain English, the second half is for developers. Hotpath is free and open source (Apache-2.0), runs on your own machine, and needs no account. More and more teams use AI agents for jobs they do every day: writing the morning report, sorting the support inbox, checking invoices against payments, posting the weekly numbers. The agent does these jobs well. But it does them from scratch every time . Every morning it thinks again about which tools to call, in which order, and what to do with the results, even though the answer is the same as yesterday. You pay a frontier model for that thinking on every single run. Think of a new employee doing a task for the first time. They work it out, then write down the steps. From then on they follow the checklist, use their judgment only where it is needed, and ask their manager when something unusual happens. Measured on our own benchmark tasks (synthetic data, small samples; every run and every failure is published in BENCHMARK.md ): What that means for a bill: if a job runs 1,000 times a day, the Sonnet agent costs about $537 a month and the replay about $18 (or about $71 if one run in ten has to go back to the agent). Your jobs will differ: measure one before you trust any number, including ours. Where it does not help: jobs that are different every time (open research, one-off ",
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "d61458949a41816e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T11:46:09+00:00",
+  "sid": "b5bbb28b9ab5357e",
+  "source": "hackernews_ai",
+  "summary_1line": "Hotpath is a free, open-source Apache-2.0 tool that records an AI agent's repeated daily job once and replays it as checked code, which the page says can cut model costs for the repeating part of the work.",
+  "title": "Stop paying an LLM to re-plan the same agent task every day",
+  "type": "news",
+  "url": "https://github.com/hotpath-run/hotpath/blob/main/docs/HOTPATH-EXPLAINED.md",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "b5bf234c229cd676": {
   "first_seen": "2026-11-17T10:05:08.266967+00:00",
@@ -26782,6 +26865,22 @@
   "title": "Multimodal Abstention That Preserves Acquired Correct Answers",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14311v1"
+ },
+ "d342a12713de08ee": {
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "5700f731070c0e4a",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-24T17:43:09+00:00",
+  "sid": "d342a12713de08ee",
+  "source": "arxiv_cs_cl",
+  "summary": "We give four large language models (LLMs) of the Claude family the complete weights of a 20k-parameter CIFAR-10 CNN as text and ask them to produce a 4-bit network without tools, data or the ability to run inference. Standard round-to-nearest (RTN) quantization to 4 bit lowers the test accuracy from 81.4% to 60.4%. We design four evaluation protocols that differ in the input and task description given to the LLMs and analyze their responses. In the first two protocols the LLMs are given the float and the 4-bit RTN network and are told that the accuracy has dropped significantly. In the last two they receive only the float network and the task to quantize it, which tests whether they apply an optimization on their own or fall back to plain RTN. Our analysis shows that a frontier LLM can recover most of the lost accuracy. Given one answer per layer, Opus 5.5 raises the accuracy of the 4-bit network to 77.95% by balancing the rounding errors within each 3x3 kernel, reasoning over the integer weights without tools. This is 3.5 pp below the float network and 2.8 pp below AdaRound, which learns the rounding from calibration data. Given only the float network, the LLMs name error-cancelling corrections but do not apply them and fall back to plain RTN, at most with mildly clipped scales, which still lifts Fable 5.2's quantized network to 70.0%. We analyze in detail what the LLMs did and why it works. Code and prompts can be found at https://github.com/urbste/weight-space-programming-",
+  "summary_1line": "Tests whether Claude-family LLMs, given only the text weights of a 20k-parameter CIFAR-10 CNN and no tools or data, can produce a 4-bit version; the best model raises accuracy from 60.4% to 77.95%, versus 81.4% for the float network.",
+  "title": "Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33031v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "d3da790f2a7b8ed1": {
   "content_excerpt": "One run measures how many simultaneous callers it holds, where it starts to slip, where it breaks, and what to fix first, with a notebook of code to try. Works today with an HTTPS endpoint that takes a JSON question and returns the answer. A run takes a bit over an hour. The free plan includes 10 credits a month. If a test fails, the run stops there, so you never pay for load your app can’t take. 20 built-in questions, 4 at a time. At least 19 must come back with an answer, or the run stops in minutes. Users double, 1, 2, 4 and on, until more than 5% of requests fail. DSL narrows to stable, slip and break, then holds stable for 35 minutes. Under load, an LLM judge grades 100 sampled answers per load: relevant, coherent, not an error. It does not check facts. Start with a URL today. The Python package and the MCP server are built and on the way. Endpoint, pip and MCP runs are 5 credits. Results from runs on your machine are marked unverified. For the developers shipping an AI feature, where one bad launch day is expensive. Stable is the highest load that stayed within your limits for a 2-minute step. Plan the launch around it, not a guess. Fix first names the limit that tripped first. The notebook gives you reviewed code to try against it. A step table and soak drift you can share, so the plan rests on measured load rather than hope. Model calls use your key and bill to you. DSL never proxies inference. The judge runs on DSL’s key and sees sampled answers. Scripts and CI use d",
@@ -32127,6 +32226,22 @@
   "title": "Show HN: 100ms copy-on-write workspaces for AI agents on macOS",
   "type": "news",
   "url": "https://github.com/gabrielvfonseca/replica",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "fcf80baefbe9a22c": {
+  "content_excerpt": "Semantic diffs, integrity checks and receipts for what agents change on a system. Pre-alpha. Intent: record what changed on a system, explain it in semantic terms rather than as a path list, and make it reversible. Status: pre-alpha. The checkpoint and diff engine runs (below); the formats it writes are drafts that may still change, and the latest pre-release is v0.1.0-alpha.11. Nothing that changes your files exists yet. Pre-alpha. The most useful contribution right now is real-world use. Run belay around something you actually do (an agent session, a build, an install) and compare its report with what really happened. If it missed a change, invented one, or buried the real change in noise, open an issue with the receipt. That's the data I need the most. No commit , discard , restore or undo: belay records and explains, and changes nothing. The session engine under src/session/ (namespaces and overlays) is not part of the belay binary. No stable release. Today belay only records and reports; it contains nothing. The session engine, when it ships, is meant as a safety boundary, not a security boundary — built for accidents, not for hostile code; it will not contain a process that is actively trying to escape. See SECURITY.md . What a checkpoint does not see: anything outside the scope, anything below a mount point inside it, belay's own state directory and the paths you exclude (left out, and named in every manifest), and network effects (pushes, API calls, emails). On filesy",
+  "first_seen": "2026-11-25T13:04:22.796755+00:00",
+  "id": "40370e6a2a0141b4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T12:54:02+00:00",
+  "sid": "fcf80baefbe9a22c",
+  "source": "hackernews_ai",
+  "summary_1line": "Belay is a pre-alpha, Apache-2.0 tool that records what changed on a system and explains it in semantic terms, but does not yet change or revert any files; its latest pre-release is v0.1.0-alpha.11.",
+  "title": "Show HN: Belay – deterministic semantic diffs of what a coding agent changed",
+  "type": "news",
+  "url": "https://github.com/Allexsen/belay",
   "why_it_matters": "Matches feed focus: agent."
  },
  "fd0e38b70a90d204": {
