@@ -1,0 +1,418 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/routing-inference",
+  "source_hash": "308e1cd01d80a34daafa00ee6e756dcfebb90904a9de61105730b4282621609a",
+  "translated_at": "2026-11-25T05:43:00.867472+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "routing-inference",
+  "label": "Efficient Inference",
+  "item_count": 22,
+  "day_count": 13,
+  "source_count": 7,
+  "first_seen": "2026-11-06T15:21:03+00:00",
+  "last_updated": "2026-11-24T00:00:00+00:00",
+  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "sources": [
+    "arxiv_agent_systems_research",
+    "arxiv_cs_ai",
+    "arxiv_cs_cl",
+    "arxiv_cs_lg",
+    "aws_ml_blog",
+    "hackernews_ai",
+    "vllm_blog"
+  ],
+  "days": [
+    {
+      "date": "2026-11-06",
+      "items": [
+        {
+          "title": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+          "url": "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+          "sid": "9b6ce22e2f29b264",
+          "published": "2026-11-06T15:21:03+00:00",
+          "editor_note": "Google이 XLA 기반 서빙 엔진을 오픈소스로 공개했다. 이번 묶음에 포함된 두 가지 신규 서빙 제품 중 하나다."
+        },
+        {
+          "title": "Intent-Aware Caching for Efficient LLM Serving",
+          "url": "http://arxiv.org/abs/2611.09715v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Modern LLM serving systems use prefix caching to accelerate multi-turn conversational workloads. They cache the key-value states of previous conversation prefixes and reuse them when subsequent requests share the same...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "e5680f897e15540f",
+          "published": "2026-11-06T16:56:48+00:00",
+          "editor_note": "첫 번째 KV 캐시 논문. 정확한 프리픽스 일치가 아니라 대화 의도를 기준으로 프리픽스를 캐싱한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-08",
+      "items": [
+        {
+          "title": "Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference",
+          "url": "http://arxiv.org/abs/2611.11319v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "Long-context applications, long-lived agents, and multi-agent systems require large language models (LLMs) to process and retain extensive information. In these settings, the KV cache can exceed GPU high-bandwidth mem...",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "5bfc543d91bf8d2a",
+          "published": "2026-11-08T11:43:34+00:00",
+          "editor_note": "장시간 실행되는 에이전트에서 GPU 메모리를 넘치는 KV 캐시를 다루며, 오프로드된 항목을 가져오기 전에 먼저 검증한다."
+        },
+        {
+          "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
+          "url": "http://arxiv.org/abs/2611.11371v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
+          "sid": "a4e942d0f147f07c",
+          "published": "2026-11-08T13:29:14+00:00",
+          "editor_note": "추측 디코딩: 블록 디퓨전 드래프트 트리를 가지치기하는 방법을 학습해, 동시 요청 환경에서 검증 비용을 줄인다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "BridgeKV: Large-Model Prefill and Small-Model Decoding for LLM Inference via KV Cache Translation",
+          "url": "http://arxiv.org/abs/2611.11761v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "LLM inference has two phases with different bottlenecks: LLM prefill runs once per request and is compute-intensive. Decoding repeats for every output token and is limited by memory bandwidth. To address the challenge...",
+          "sid": "adc7ff27af4b9288",
+          "published": "2026-11-09T02:03:03+00:00",
+          "editor_note": "단계를 모델별로 나눈다. 큰 모델이 프리필을, 작은 모델이 디코딩을 맡고 KV 변환으로 둘을 연결한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "items": [
+        {
+          "title": "Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.14387v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing c...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "ca0cd6bcfdb70098",
+          "published": "2026-11-10T17:40:24+00:00",
+          "editor_note": "디퓨전 LM: 디노이징 중 블록 경계를 겹쳐 생성 속도를 높인다."
+        },
+        {
+          "title": "C$^2$-Routing: Complementary Cropping and Compression for Efficient Vision-Language Inference",
+          "url": "http://arxiv.org/abs/2611.14469v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "d7a4f91e59e352a3",
+          "published": "2026-11-10T18:32:28+00:00",
+          "editor_note": "VLM용 입력 축소: 시각 질의응답을 위해 상호 보완적인 크롭과 압축을 적용한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "items": [
+        {
+          "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
+          "url": "http://arxiv.org/abs/2611.17041v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "e267de687efb45c3",
+          "published": "2026-11-12T16:26:27+00:00",
+          "editor_note": "에이전트 계층: 작업 할당을 조율해 멀티 에이전트 딥 리서치를 단순 위임보다 저렴하게 만든다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "items": [
+        {
+          "title": "The efficient frontier of LLM inference",
+          "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
+          "source": "hackernews_ai",
+          "type": "news",
+          "sid": "018ac20c79d4eeba",
+          "published": "2026-11-15T23:55:50+00:00",
+          "editor_note": "Baseten이 양자화를 포함한 추론 트레이드오프를 실무자 관점에서 정리한 개요."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-16",
+      "items": [
+        {
+          "title": "Nemotron 3.5 Bolt E4B 4GB: An Open and Efficient Small Language Model for Fast Conversational Agents",
+          "url": "http://arxiv.org/abs/2611.20771v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "We introduce Nemotron 3.5 Bolt E4B 4GB, an open and efficient small language model further post-trained from Gemma-4-E4B-it and optimized for speed and intelligence per GB of memory used for fast conversational agents...",
+          "why_it_matters": "Matches feed focus: agentic.",
+          "sid": "15de4f547fb7e7f3",
+          "published": "2026-11-16T09:21:45+00:00",
+          "editor_note": "Gemma-4-E4B-it를 후속 학습한 4GB 소형 모델. 대화형 에이전트에서 GB당 지능을 높이는 데 맞춰 튜닝했다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "items": [
+        {
+          "title": "Communicate the Change: Efficient Expert Parallelism via Activation Compression",
+          "url": "http://arxiv.org/abs/2611.22215v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, Mo...",
+          "sid": "dec4d075135f7b7e",
+          "published": "2026-11-17T04:52:41+00:00",
+          "editor_note": "전체 활성화 대신 활성화 변화량만 전송해 MoE 전문가 병렬 통신을 줄인다."
+        },
+        {
+          "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+          "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "60d6d445e0dacc9d",
+          "published": "2026-11-17T06:53:51+00:00",
+          "editor_note": "Microsoft Research가 과거 실행 기록에서 학습해 토큰을 덜 쓰는 코딩 에이전트를 다뤘다."
+        },
+        {
+          "title": "Storing the Gemma 4 K=V Cache Once: Exact Global-KV Memory Savings in a Paged Serving Engine with Unchanged Attention Kernels",
+          "url": "http://arxiv.org/abs/2611.23035v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "In the global attention layers of Gemma 4 31B, the value is the normalized key projection, and the key is the value scaled by a fixed weight, with rotary position encoding on one quarter of its dimensions. The Gemma 4 report states that this design reduces the global KV cache by",
+          "sid": "a2babe4c488b1701",
+          "published": "2026-11-17T16:36:28+00:00",
+          "editor_note": "Gemma 4의 key/value 공유 설계를 활용해 어텐션 커널을 바꾸지 않고 전역 KV 캐시를 한 번만 저장한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+          "url": "https://syfi.cs.washington.edu/blog/2026-11-13-murmur",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+          "sid": "dc09546d23d7229e",
+          "published": "2026-11-18T06:40:34+00:00",
+          "editor_note": "입력 축소를 음성으로 확장했다. 긴 컨텍스트 ASR 추론을 위한 계층적 청킹을 제안한다."
+        },
+        {
+          "title": "LEDGE: An Efficient Simulator for Distributed LLM Serving on Heterogeneous Edge Devices",
+          "url": "http://arxiv.org/abs/2611.24085v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Evaluating distributed large language model (LLM) serving on heterogeneous edge devices requires exploring diverse model partitions, device placements, and network conditions, making repeated physical experiments cost...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "791a1b16a3fdcbe1",
+          "published": "2026-11-18T09:11:43+00:00",
+          "editor_note": "실제 테스트 실행 없이 이기종 엣지 디바이스에 걸친 분산 LLM 서빙을 계획할 수 있는 시뮬레이터."
+        },
+        {
+          "title": "How Salesforce is advancing global-scale model serving with cross-Region inference routing in Amazon SageMaker AI",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai",
+          "source": "aws_ml_blog",
+          "type": "news",
+          "summary_1line": "Learn how Salesforce uses the cross-Region inference router in Amazon SageMaker AI to turn fragmented Regional capacity into reliable model serving. Salesforce adds capacity securely across Regions and accounts while...",
+          "sid": "a272cda257e80f9a",
+          "published": "2026-11-18T20:13:18+00:00",
+          "editor_note": "AWS 사례 연구: Salesforce가 SageMaker AI 교차 리전 라우팅으로 리전별로 분산된 용량을 풀링한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "items": [
+        {
+          "title": "RoCoKV: Accelerating LLM Inference Serving through Uncertainty and Redundancy Aware KV Cache Compression",
+          "url": "http://arxiv.org/abs/2611.25433v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "KV cache compression is critical for large reasoning models, where most of the cost comes from long generated reasoning traces rather than the input prompt. These traces often contain redundant and low-utility tokens...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "a20d3952433df237",
+          "published": "2026-11-19T03:16:18+00:00",
+          "editor_note": "긴 추론 과정을 겨냥한 KV 압축으로, 중복되고 효용이 낮은 생성 토큰을 제거한다."
+        },
+        {
+          "title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
+          "url": "http://arxiv.org/abs/2611.26619v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "TideCache is a serving system for hybrid LLMs on CPU-GPU superchips that reallocates GPU memory among cache types and streams KV prefixes layer by layer, implemented in SGLang and tested on GB300 and GH200.",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "024d4dfaa92472bb",
+          "published": "2026-11-19T18:58:31+00:00",
+          "editor_note": "CPU-GPU 슈퍼칩에서의 하이브리드 어텐션 캐시 관리. SGLang에 구현했고 GB300과 GH200에서 테스트했다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "items": [
+        {
+          "title": "Efficient VLA Reinforcement Learning via Subchunk Rollouts in Latent World Models",
+          "url": "http://arxiv.org/abs/2611.27645v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Proposes LS-MBPO, a lightweight residual reinforcement learning framework that uses latent world models instead of large image or video generators to improve pretrained vision-language-action robot policies, tested on LIBERO, RoboTwin, and a real ALOHA robot.",
+          "sid": "f51ccad0f77a0a72",
+          "published": "2026-11-20T14:09:06+00:00",
+          "editor_note": "주제 외: 추론 서빙이 아니라 잠재 월드 모델을 통해 로봇 VLA 정책의 학습 효율을 다룬다."
+        },
+        {
+          "title": "Abstract What Varies, Reuse Longer Patterns: Efficient Offline Chain-of-Thought Compression",
+          "url": "http://arxiv.org/abs/2611.27710v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "CRAFT is an offline method that abstracts problem-specific details into slots, compresses shared expression templates once, and applies the edits to build shorter chain-of-thought training targets, cutting compressor budget by a median 90.7%.",
+          "sid": "1e9cd14ce7d752e8",
+          "published": "2026-11-20T15:13:43+00:00",
+          "editor_note": "출력 측 축소: 더 짧은 chain-of-thought 학습 타깃을 만들어 압축기 예산을 중앙값 기준 90.7% 줄인다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "title": "DKnown-Jev-2: Article-Level Answer-Evidence Classification and Efficient Inference with a Pre-trained Language Model",
+          "url": "http://arxiv.org/abs/2611.31056v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "DKnown-Jev-2 is an article-level classifier that labels whether a candidate article holds answer evidence for a normative question, reporting 91.77% accuracy and 91.28% macro-F1 on a 972-instance test set, 2.16 and 2.37 points above Jev.",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "34fa4a3e4f5678d6",
+          "published": "2026-11-23T17:18:23+00:00",
+          "editor_note": "주제 외: 효율적 추론은 지나가듯 언급할 뿐인 답변 근거 분류기."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "Announcing vLLM-GR: Efficient Inference for Generative Recommendation",
+          "url": "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement",
+          "source": "vllm_blog",
+          "type": "news",
+          "summary_1line": "vLLM-GR is an open-source inference and serving framework built on vLLM that adds beam search over semantic item IDs to generate candidate sets for recommendation models such as OneRec.",
+          "sid": "e51f1d2a874386b9",
+          "published": "2026-11-24T00:00:00+00:00",
+          "editor_note": "최신 항목: vLLM이 직접 생성형 추천 서빙 영역으로 확장했다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose theme thread, not one event: 22 independent items from Nov 6 to Nov 24 that each cut inference or agent cost at a different layer, mostly arXiv papers plus posts from Google, Baseten, Microsoft Research, UW, AWS and vLLM. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
+    "stale": false,
+    "whats_new": "vLLM shipped vLLM-GR on Nov 24, an open-source serving framework that adds beam search over semantic item IDs so generative recommendation models such as OneRec can run on the vLLM stack.",
+    "why_it_matters": "KV-cache memory is still the most-attacked bottleneck here (6 of 22 items), and vLLM-GR shows mainstream serving engines now stretching to non-chat workloads, so one serving stack may soon cover both LLM and recommendation traffic.",
+    "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; if you run generative recommendation on a separate stack, test vLLM-GR before building custom beam-search serving.",
+    "beats": [
+      {
+        "kicker": "SERVING",
+        "tone": "neutral",
+        "headline": "Serving stacks: XLA Serving Engine, edge simulation, cross-Region routing",
+        "summary": "Infrastructure that decides where and on what hardware requests run.",
+        "sids": [
+          "9b6ce22e2f29b264",
+          "791a1b16a3fdcbe1",
+          "a272cda257e80f9a"
+        ]
+      },
+      {
+        "kicker": "MODEL",
+        "tone": "neutral",
+        "headline": "Cheaper decoding: draft pruning, diffusion blocks, MoE traffic, small models",
+        "summary": "Efficiency inside the model and decode loop: cheaper draft verification, overlapping diffusion blocks, less all-to-all traffic, quantization and a 4GB agent model.",
+        "sids": [
+          "a4e942d0f147f07c",
+          "ca0cd6bcfdb70098",
+          "018ac20c79d4eeba",
+          "15de4f547fb7e7f3",
+          "dec4d075135f7b7e"
+        ]
+      },
+      {
+        "kicker": "TOKENS",
+        "tone": "neutral",
+        "headline": "Shrink what the model reads and writes: images, audio, chain-of-thought",
+        "summary": "Token reduction on input (VLM cropping, chunked long-audio ASR) and on output (shorter chain-of-thought training targets).",
+        "sids": [
+          "d7a4f91e59e352a3",
+          "dc09546d23d7229e",
+          "1e9cd14ce7d752e8"
+        ]
+      },
+      {
+        "kicker": "AGENTS",
+        "tone": "neutral",
+        "headline": "Agent-level efficiency: coordinated delegation and learned token budgets",
+        "summary": "Cost cuts at the agent layer rather than the serving stack.",
+        "sids": [
+          "e267de687efb45c3",
+          "60d6d445e0dacc9d"
+        ]
+      },
+      {
+        "kicker": "KV CACHE",
+        "tone": "rising",
+        "headline": "The KV cache becomes the main target",
+        "summary": "Six papers attack cache memory: intent-aware prefix reuse, verified compression, prefill/decode KV translation, Gemma 4 shared K=V storage, reasoning-trace compression, and hybrid-model cache streaming in SGLang.",
+        "sids": [
+          "e5680f897e15540f",
+          "5bfc543d91bf8d2a",
+          "adc7ff27af4b9288",
+          "a2babe4c488b1701",
+          "a20d3952433df237",
+          "024d4dfaa92472bb"
+        ]
+      },
+      {
+        "kicker": "OFF-THREAD",
+        "tone": "neutral",
+        "headline": "Keyword matches outside LLM serving",
+        "summary": "Two papers share the word \"efficient\" but address robot-policy RL training and an answer-evidence classifier, not inference serving.",
+        "sids": [
+          "f51ccad0f77a0a72",
+          "34fa4a3e4f5678d6"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "vLLM extends to generative recommendation with vLLM-GR",
+        "summary": "A mainstream serving engine adds a non-chat decoding mode: beam search over semantic item IDs.",
+        "sids": [
+          "e51f1d2a874386b9"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV) land in vLLM, SGLang or another mainstream serving engine?",
+      "Does TideCache's SGLang implementation get merged upstream or released as code?",
+      "Does the Gemma 4 store-K=V-once trick ship in a paged serving engine release, and with what measured memory savings?",
+      "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
+      "Does vLLM-GR report throughput numbers against existing recommendation serving stacks?",
+      "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
+    ],
+    "generated_at": "2026-11-25T00:30:00Z"
+  }
+}

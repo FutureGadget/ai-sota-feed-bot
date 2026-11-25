@@ -1,0 +1,107 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/spatial-reasoning",
+  "source_hash": "931a0fee124a714c9f14a423ac3ad71379df4f91f536eccc2d288c8a8e79060d",
+  "translated_at": "2026-11-25T05:43:03.482201+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "spatial-reasoning",
+  "label": "Spatial Reasoning",
+  "item_count": 3,
+  "day_count": 2,
+  "source_count": 2,
+  "first_seen": "2026-11-20T17:52:02+00:00",
+  "last_updated": "2026-11-23T18:55:44+00:00",
+  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "arxiv_cs_cl"
+  ],
+  "days": [
+    {
+      "date": "2026-11-20",
+      "items": [
+        {
+          "title": "StereoVLM: Binocular Vision-Language Models for Metric 3D Spatial Reasoning",
+          "url": "http://arxiv.org/abs/2611.27915v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Introduces StereoVLM, a binocular vision-language model trained hierarchically on calibrated stereo images, reporting 95.17% depth accuracy and a 66.98 object-level score on its new Stereo3D-Bench.",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "416b7269a8b3e488",
+          "published": "2026-11-20T17:52:02+00:00",
+          "editor_note": "입력을 바꾸는 것으로 스레드를 연다. 스테레오 쌍과 메트릭 3D 추론용 새 벤치마크를 제시한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "title": "Parsing Visual Latents for Multimodal Spatial Reasoning",
+          "url": "http://arxiv.org/abs/2611.31021v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "LatentParse is a training-free framework that uses an analyst VLM to parse CLIP, DINOv3 and VGGT features into a text report of spatial evidence, improving five VLMs by 0.7-2.4 points on three spatial benchmarks.",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "201b4ccaccfdd1ef",
+          "published": "2026-11-23T17:02:00+00:00",
+          "editor_note": "새 모델을 학습하는 대신 기존 VLM을 개선하는 학습이 필요 없는(training-free) 방식을 더한다."
+        },
+        {
+          "title": "Seeking in Space: Benchmarking Purposeful Active Exploration of Vision-Language Models for Spatial Reasoning",
+          "url": "http://arxiv.org/abs/2611.31215v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "ActSpace-Bench is a benchmark of 994 spatial questions across 234 exploration episodes in 72 real-scanned indoor scenes, testing whether VLMs actively seek evidence before answering; strongest models explore purposefully but lose evidence to limited memory.",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "8151cba33f4fca30",
+          "published": "2026-11-23T18:55:44+00:00",
+          "editor_note": "정적 이미지에서 능동적 탐색으로 넘어가며, 제한된 메모리를 병목으로 지목한다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "Three arXiv papers in four days attack the same weakness: vision-language models that misjudge depth, distance, and layout. They share a theme rather than one event, starting with StereoVLM, which feeds calibrated stereo image pairs to a VLM for metric 3D reasoning.",
+    "stale": false,
+    "whats_new": "ActSpace-Bench tests whether VLMs explore a scene before answering 994 spatial questions; the strongest models explore purposefully but lose gathered evidence to limited memory.",
+    "why_it_matters": "For agents that act on camera input, the papers point at three levers outside the base model: richer sensor input, extra vision encoders, and memory across exploration steps.",
+    "take_for_builders": "If an agent answers spatial questions from images, log what it saw at each step and check whether the final answer uses it; ActSpace-Bench points at memory, not perception, as the failure point.",
+    "beats": [
+      {
+        "kicker": "INPUT",
+        "tone": "launch",
+        "headline": "StereoVLM adds binocular input for metric depth",
+        "summary": "Trains on calibrated stereo pairs and reports 95.17% depth accuracy on its own Stereo3D-Bench.",
+        "sids": [
+          "416b7269a8b3e488"
+        ]
+      },
+      {
+        "kicker": "INFERENCE",
+        "tone": "rising",
+        "headline": "LatentParse turns vision-encoder features into a text report",
+        "summary": "Training-free: an analyst VLM reads CLIP, DINOv3 and VGGT features, lifting five VLMs by 0.7-2.4 points.",
+        "sids": [
+          "201b4ccaccfdd1ef"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "ActSpace-Bench measures active exploration and finds a memory bottleneck",
+        "summary": "234 episodes in 72 real-scanned indoor scenes; evidence gathered while exploring is lost before the answer.",
+        "sids": [
+          "8151cba33f4fca30"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does StereoVLM's depth accuracy hold on a benchmark its authors did not build?",
+      "Do LatentParse's 0.7-2.4 point gains justify running an extra analyst VLM and three encoders per query?",
+      "Does adding explicit scene memory close the evidence-loss gap ActSpace-Bench reports?"
+    ],
+    "generated_at": "2026-11-25T00:30:00+00:00"
+  }
+}

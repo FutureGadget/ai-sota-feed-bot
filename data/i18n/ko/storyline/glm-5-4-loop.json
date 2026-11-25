@@ -1,0 +1,104 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/glm-5-4-loop",
+  "source_hash": "2b411d3bbcbbce7f14d19f21ec377625c06ec52f98636f1dab5ae6c63ecadf37",
+  "translated_at": "2026-11-25T05:42:13.631254+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "glm-5-4-loop",
+  "label": "GLM-5.4 Loop",
+  "item_count": 3,
+  "day_count": 2,
+  "source_count": 2,
+  "first_seen": "2026-11-23T19:11:40+00:00",
+  "last_updated": "2026-11-24T02:35:00+00:00",
+  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "sources": [
+    "search_cn_open_weight_labs",
+    "simon_willison"
+  ],
+  "days": [
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "title": "Z AI Releases GLM-5.4: A 750B Loop Transformer That Runs 28 Layers Twice",
+          "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBqeDNOWG90U1haTnBtcnRwU2hPTXNLSjJreWU3b2ljdUI0Qmg0eW5EUXVTblVqQmp3WV80RmhjQnJZVGFrMnFfSVFwMDVOLWtPNGxrc3NmSzk2V00yOEttakZtQ1FiWlhZdDJ1Sk90bkNZZnI4NkhRetIBeEFVX3lxTFBqeDNOWG90U1haTnBtcnRwU2hPTXNLSjJreWU3b2ljdUI0Qmg0eW5EUXVTblVqQmp3WV80RmhjQnJZVGFrMnFfSVFwMDVOLWtPNGxrc3NmSzk2V00yOEttakZtQ1FiWlhZdDJ1Sk90bkNZZnI4NkhReg?oc=5",
+          "source": "search_cn_open_weight_labs",
+          "type": "release",
+          "summary_1line": "Z AI has released GLM-5.4, a 750B-parameter loop transformer whose 28 layers are each passed through twice, per a MarkTechPost report.",
+          "sid": "8328dbcf64c7a708",
+          "published": "2026-11-23T19:11:40+00:00",
+          "editor_note": "릴리스에 대한 첫 보도로, 750B 규모와 28개 레이어를 두 번 실행하는 설계를 다룬다."
+        },
+        {
+          "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+          "url": "https://simonwillison.net/2026/Nov/23/glm-54",
+          "source": "simon_willison",
+          "type": "news",
+          "summary_1line": "Z.ai has released GLM-5.4, its first model using a looped transformer architecture, which runs weight-shared layers for multiple iterations; it is not yet available as open weights.",
+          "why_it_matters": "Matches feed focus: agentic.",
+          "sid": "105d2dd6f5d647be",
+          "published": "2026-11-23T23:40:49+00:00",
+          "editor_note": "범용 코딩이라는 관점을 추가하고, 가중치는 아직 공개되지 않았다고 짚는다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5",
+          "source": "search_cn_open_weight_labs",
+          "type": "news",
+          "summary_1line": "Chinese lab Zhipu has released GLM-5.4, which BigGo Finance reports claims performance matching 2-3T-class models; the claim has not been independently verified.",
+          "sid": "23b31e845283d676",
+          "published": "2026-11-24T02:35:00+00:00",
+          "editor_note": "Zhipu가 주장한 2~3T급 성능을 추가하되, 검증되지 않은 내용으로 표시한다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "Z.ai (Zhipu) released GLM-5.4 on Nov 23, a 750B loop transformer that passes its 28 weight-shared layers twice instead of stacking more unique layers. It is the lab's first looped flagship, pitched at generalized coding, and launched without open weights.",
+    "stale": false,
+    "whats_new": "Zhipu now claims the 750B GLM-5.4 matches 2-3T-class models, but that claim comes from Chinese financial press and has no independent benchmark behind it yet.",
+    "why_it_matters": "Looping shared layers trades parameter count for repeated compute per token, so GLM-5.4's memory footprint and its latency and cost per token may not scale the way a plain 750B model's would.",
+    "take_for_builders": "Do not swap GLM-5.4 into a coding-agent stack on the 2-3T claim; wait for weights or API pricing, then rerun your own coding evals and measure latency per token.",
+    "status": {
+      "state": "Released · weights not yet open",
+      "tone": "launch",
+      "changed": "2026-11-23",
+      "detail": "The model is announced and described, but open weights and independent evaluations are both still missing."
+    },
+    "beats": [
+      {
+        "kicker": "LAUNCH",
+        "tone": "launch",
+        "headline": "GLM-5.4 ships as a 750B loop transformer that runs 28 layers twice",
+        "summary": "Z.ai frames it as its first looped model, aimed at generalized coding.",
+        "sids": [
+          "8328dbcf64c7a708",
+          "105d2dd6f5d647be"
+        ]
+      },
+      {
+        "kicker": "THE CLAIM",
+        "tone": "now",
+        "headline": "Zhipu claims 2-3T-class performance from a 750B base",
+        "summary": "The headline efficiency claim is reported, not independently verified.",
+        "sids": [
+          "23b31e845283d676"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Will Z.ai publish GLM-5.4 open weights, and under what license?",
+      "Does an independent benchmark confirm 2-3T-class performance from the 750B model?",
+      "What do per-token latency and price look like when every token runs the 28 layers twice?",
+      "Do other labs adopt looped layers in flagship models after GLM-5.4?"
+    ],
+    "generated_at": "2026-11-25T00:20:00+00:00"
+  }
+}

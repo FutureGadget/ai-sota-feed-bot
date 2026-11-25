@@ -1,217 +1,40 @@
 {
   "locale": "ko",
   "source_path": "/storyline/reinforcement-learning",
-  "source_hash": "78105d401423215711449d5106e028bf3ed23b2a2483d69dfc9a53a1854b9bcd",
-  "translated_at": "2026-11-22T12:44:49.030771+00:00",
+  "source_hash": "979a21d67a77b5988c909dd15ff3263a77b50b8f44d2553c008cae15292c7942",
+  "translated_at": "2026-11-25T05:42:04.775420+00:00",
   "model": "claude-sonnet-5-5",
   "review_status": "machine",
   "slug": "reinforcement-learning",
-  "label": "Knowledge Context",
-  "item_count": 44,
-  "day_count": 15,
-  "source_count": 7,
-  "first_seen": "2026-10-30T02:44:51+00:00",
-  "last_updated": "2026-11-18T14:53:42+00:00",
-  "generated_at": "2026-11-20T00:13:34.686460+00:00",
+  "label": "Reinforcement Learning",
+  "item_count": 22,
+  "day_count": 14,
+  "source_count": 6,
+  "first_seen": "2026-11-04T13:24:54+00:00",
+  "last_updated": "2026-11-23T18:38:53+00:00",
+  "generated_at": "2026-11-25T00:14:27.939533+00:00",
   "sources": [
     "arxiv_agent_systems_research",
     "arxiv_cs_ai",
     "arxiv_cs_cl",
     "arxiv_cs_lg",
     "arxiv_llm_reliability",
-    "hackernews_ai",
-    "infoq_ai_ml"
+    "vllm_blog"
   ],
   "days": [
-    {
-      "date": "2026-10-30",
-      "items": [
-        {
-          "title": "ImplicitHop: Evaluating knowledge integration across context and memory",
-          "url": "http://arxiv.org/abs/2610.41169v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "The ability to integrate new information and deduce its consequences is central to learning, understanding, and reasoning in large language models (LLMs). Whether information arrives during training or in-context, mod...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "1d7852cb09b3031f",
-          "published": "2026-10-30T02:44:51+00:00",
-          "editor_note": "가장 이른 시기의 지식 항목: 모델이 컨텍스트의 사실과 메모리의 사실을 결합하는지 검증하는 테스트."
-        },
-        {
-          "title": "Context as Infrastructure: Knowledge Compilation for Retrieval in Agentic Systems with Harnesses",
-          "url": "http://arxiv.org/abs/2610.41172v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Retrieval-augmented generation is becoming agentic. A search harness writes queries, reads results, reformulates, and decides when to stop. This largely solves accuracy: a harness with only BM25/grep and MiniMax M3 an...",
-          "why_it_matters": "Matches feed focus: agentic, harness, eval.",
-          "sid": "ce941c554e9fce8e",
-          "published": "2026-10-30T02:48:37+00:00",
-          "editor_note": "단순 BM25/grep만 쓰는 검색 하네스로도 정확도 문제는 해결된다고 주장하며, 남은 과제는 이를 위해 지식을 컴파일하는 일이라고 본다."
-        },
-        {
-          "title": "TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents",
-          "url": "http://arxiv.org/abs/2610.41697v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Training interactive language agents from terminal outcomes poses three coupled problems: which task and state continuations to sample, how to assign delayed feedback to decisions, and how to aggregate token losses fo...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "3e4010b903d1d7e9",
-          "published": "2026-10-30T13:04:05+00:00",
-          "editor_note": "에이전트 RL을 위해 연속 샘플링, 지연 크레딧, 토큰 손실 집계를 하나로 묶은 레시피."
-        },
-        {
-          "title": "Optimizing Stochastic Policy Geometry for Few-Step Flow Reinforcement Learning",
-          "url": "http://arxiv.org/abs/2610.41949v1",
-          "source": "arxiv_cs_lg",
-          "type": "paper",
-          "summary_1line": "Few-step flow models generate samples through a handful of large denoising transitions. Applying GRPO to such models requires introducing stochasticity into the denoising transitions, and when a single transition span...",
-          "sid": "65dc6916d3b352f1",
-          "published": "2026-10-30T16:05:17+00:00",
-          "editor_note": "인접 방법론 연구: few-step 플로 모델에서 GRPO가 동작하도록 확률성을 주입하는 방법."
-        },
-        {
-          "title": "DAMI: Dual-Axis Memory Initialization for Enhanced Long-Context Retrieval in Gated Linear Attention",
-          "url": "http://arxiv.org/abs/2610.41994v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gat...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "35220abd16206ae7",
-          "published": "2026-10-30T16:39:37+00:00",
-          "editor_note": "아키텍처 관점: gated linear attention에서 장문 컨텍스트 recall을 높이기 위한 메모리 초기화."
-        },
-        {
-          "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
-          "url": "http://arxiv.org/abs/2610.42149v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Unified Multimodal Models (UMMs) achieve remarkable success on diverse multimodal understanding and generation tasks, yet they still struggle to effectively leverage language-based chain-of-thought reasoning for image...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "282f057baf2d5931",
-          "published": "2026-10-30T17:59:43+00:00",
-          "editor_note": "첫 비전 추론 논문: 통합 멀티모달 모델을 위한 연속 잠재 공간의 chain-of-thought."
-        },
-        {
-          "title": "From Lookups to Lessons: Turning Retrieved Knowledge into Parametric Memory",
-          "url": "http://arxiv.org/abs/2611.00450v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Retrieval-augmented generation (RAG) helps large language models (LLMs) answer factual questions beyond their training data, but it adds storage and inference costs. Distilling previously retrieved information into pa...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "0f8439521ab02185",
-          "published": "2026-10-30T23:05:50+00:00",
-          "editor_note": "RAG의 저장 비용과 추론 비용을 줄이기 위해 과거 검색 결과를 가중치로 증류하는 방식을 제안한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-02",
-      "items": [
-        {
-          "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
-          "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "source": "infoq_ai_ml",
-          "type": "news",
-          "summary_1line": "The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge,...",
-          "why_it_matters": "Matches feed focus: agentic.",
-          "sid": "744a7a52285cfa40",
-          "published": "2026-11-02T11:00:00+00:00",
-          "editor_note": "실무자 관점: 정보를 선택, 압축, 만료시키며 컨텍스트, 메모리, 지식을 구분하는 컨텍스트 엔진."
-        },
-        {
-          "title": "MIRA: Reinforcing Multimodal Reasoning via Deceptive Contextual Augmentation",
-          "url": "http://arxiv.org/abs/2611.03087v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "While Reinforcement Learning with Verifiable Rewards (RLVR) has significantly advanced multimodal reasoning, existing frameworks suffer from a critical \"perception-reasoning gap.\" Due to an over-reliance on seemingly relevant visual tokens, even minor perceptual perturbations can",
-          "sid": "526c07c3667e6cf7",
-          "published": "2026-11-02T13:09:45+00:00",
-          "editor_note": "RLVR의 인식-추론 격차를 규명하고, 기만적인 시각 컨텍스트에 맞서도록 학습시킨다."
-        },
-        {
-          "title": "Ask, Don't Equip: Question-Driven Coding Agents for Deep Kernel Optimization",
-          "url": "http://arxiv.org/abs/2611.03517v1",
-          "source": "arxiv_cs_lg",
-          "type": "paper",
-          "summary_1line": "LLM agents for GPU kernel optimization sit at two ends of a structure-freedom tradeoff. Scripted agents fix what the model does at each step, via a learned policy, an optimization menu, or fixed roles, and are sample-...",
-          "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-          "sid": "8b24b2aa117fb77b",
-          "published": "2026-11-02T17:51:58+00:00",
-          "editor_note": "첫 커널 에이전트 항목: 스크립트 기반이나 완전 자유 형식 에이전트보다 질문 기반 에이전트가 낫다고 주장한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-03",
-      "items": [
-        {
-          "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
-          "url": "http://arxiv.org/abs/2611.05066v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
-          "sid": "57b08f9866a26766",
-          "published": "2026-11-03T15:28:11+00:00",
-          "editor_note": "환각 완화 기법을 멀티모달 이산 확산 언어 모델로 확장한다."
-        },
-        {
-          "title": "Aligning Language Models with General Preferences: An Empirical Study of Direct Nash Optimization",
-          "url": "http://arxiv.org/abs/2611.05373v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampli...",
-          "why_it_matters": "Matches feed focus: evaluation.",
-          "sid": "5ab1b6ecf4ca3e7a",
-          "published": "2026-11-03T18:59:15+00:00",
-          "editor_note": "일반 선호 정렬을 위한 Direct Nash Optimization의 실용적 변형을 실증적으로 분석한다."
-        }
-      ]
-    },
     {
       "date": "2026-11-04",
       "items": [
         {
-          "title": "Reasoning-Aware Cross-Modal Association Unlearning in Multimodal Large Reasoning Models",
-          "url": "http://arxiv.org/abs/2611.06168v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Multimodal large reasoning models (MLRMs) integrate visual inputs with textual and parametric knowledge, allowing sensitive information to be accessed through cross-modal associations during reasoning. This raises privacy concerns when a visual input should no longer provide acce",
-          "sid": "c43d3ff3aa20c41c",
-          "published": "2026-11-04T08:48:07+00:00",
-          "editor_note": "프라이버시 관점: 추론 모델이 민감한 사실에 도달하는 데 쓰는 교차 모달 연관을 언러닝한다."
-        },
-        {
-          "title": "ArcRAG: Agentic Compositional Retrieval over Knowledge Graphs",
-          "url": "http://arxiv.org/abs/2611.06481v1",
+          "title": "What Does Multi-Turn Reinforcement Learning Really Improve in LLM Agents?",
+          "url": "http://arxiv.org/abs/2611.06483v1",
           "source": "arxiv_cs_cl",
           "type": "paper",
-          "summary_1line": "Graph-based retrieval-augmented generation (GraphRAG) answers questions by retrieving over a knowledge graph built from a corpus. Yet retrieval strategies are designed around the structure their own construction pipel...",
+          "summary_1line": "While multi-turn agentic reinforcement learning (RL) excels on long-horizon tasks, its performance gains remain highly sensitive to interaction constraints. Evaluating across sampling breadth $K$ and interaction depth...",
           "why_it_matters": "Matches feed focus: agentic, eval.",
-          "sid": "d4ec23da5e445584",
-          "published": "2026-11-04T13:20:51+00:00",
-          "editor_note": "그래프 구축마다 검색 전략 하나를 고정하지 않고 여러 전략을 조합하는 GraphRAG 변형."
-        },
-        {
-          "title": "CRESiST: Self-Enhancing Explorative Policy Learning for Simultaneous Speech Translation",
-          "url": "http://arxiv.org/abs/2611.06501v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Simultaneous Speech Translation (SimulST) requires balancing translation quality and latency. While Large Language Models (LLMs) excel in offline translation, current LLM-based SimulST systems predominantly rely on pr...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "7ae1983bc20b4540",
-          "published": "2026-11-04T13:32:57+00:00",
-          "editor_note": "동시 음성 번역의 품질-레이턴시 트레이드오프에 탐색적 정책 학습을 적용한다."
-        },
-        {
-          "title": "Reasoning over Non-Parametric Memory in Multilingual LLMs: A Cognitive-Based Analysis of Relational Knowledge",
-          "url": "http://arxiv.org/abs/2611.06715v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Retrieval-augmented generation (RAG) assumes that language models can reason over relations stated in their context rather than fall back on associations memorized during pretraining. We study this evidence-conditione...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "63ff637171c98d2c",
-          "published": "2026-11-04T16:11:26+00:00",
-          "editor_note": "다국어 모델이 컨텍스트에 제시된 관계를 추론하는지, 아니면 암기된 연관에 의존하는지 검증한다."
+          "sid": "4553deeec0e06574",
+          "published": "2026-11-04T13:24:54+00:00",
+          "editor_note": "가장 이른 항목: 멀티턴 에이전트 RL의 성능 향상은 샘플링 폭과 상호작용 깊이에 좌우된다."
         }
       ]
     },
@@ -219,26 +42,14 @@
       "date": "2026-11-05",
       "items": [
         {
-          "title": "Learning Multi-Agent Orchestration:Higher-Order Interactions in Policy Improvement",
-          "url": "http://arxiv.org/abs/2611.07495v1",
-          "source": "arxiv_agent_systems_research",
+          "title": "FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.08240v1",
+          "source": "arxiv_cs_lg",
           "type": "paper",
-          "summary_1line": "Learned orchestration has emerged as a promising paradigm for large language model (LLM)-based multi-agent systems, in which a central orchestrator selects agents and controls the information they receive throughout a...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "4e7cf2bff5db16a6",
-          "published": "2026-11-05T05:58:30+00:00",
-          "editor_note": "멀티 에이전트 시스템에 RL을 도입해 중앙 오케스트레이터가 에이전트를 고르고 정보를 라우팅하는 방법을 학습시킨다."
-        },
-        {
-          "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
-          "url": "https://thinker.sh/how-it-works",
-          "source": "hackernews_ai",
-          "type": "news",
-          "summary_1line": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bi...",
-          "why_it_matters": "Matches feed focus: agent, harness, codex.",
-          "sid": "464b347f5551c3b2",
-          "published": "2026-11-05T19:22:23+00:00",
-          "editor_note": "컨텍스트를 줄이고 지식을 캐싱해 코딩 에이전트의 사용량 한도를 늘려 주는 Show HN 도구."
+          "summary_1line": "Reinforcement learning (RL) has become a standard post-training method for diffusion models, but most RL objectives roll out the current policy at every iteration, and with a many-step sampler these rollouts typically dominate the cost of training. Few-step models cut this cost,",
+          "sid": "4e9768611cda6532",
+          "published": "2026-11-05T16:19:52+00:00",
+          "editor_note": "비용 측면: few-step 디퓨전 모델을 RL로 파인튜닝해 롤아웃 비용을 줄인다."
         }
       ]
     },
@@ -246,52 +57,25 @@
       "date": "2026-11-06",
       "items": [
         {
-          "title": "Alignment by Confident Debate: Preference Learning from Multi-Agent Debate",
-          "url": "http://arxiv.org/abs/2611.09568v1",
-          "source": "arxiv_cs_ai",
+          "title": "Adaptive Scheduling Pipeline for Multi-Instance Asynchronous Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.08864v1",
+          "source": "arxiv_cs_lg",
           "type": "paper",
-          "summary_1line": "Post-training language models for reasoning typically rely on gold answers, task-specific verifiers, or learned reward models, limiting scalability when such signals are scarce. Multi-agent debate offers a self-superv...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "2e4c5bdb80c6e509",
-          "published": "2026-11-06T15:08:58+00:00",
-          "editor_note": "정답이나 검증기가 없을 때 멀티 에이전트 토론을 선호 신호로 활용한다."
+          "summary_1line": "We present the Adaptive Scheduling Pipeline (ASP), an offline rollout scheduler for multi-instance asynchronous reinforcement learning (RL) of large language models (LLMs). ASP jointly reduces three sources of rollout underutilization - padding bubbles from intra-minibatch length",
+          "sid": "4f75e58fea1157aa",
+          "published": "2026-11-06T01:47:52+00:00",
+          "editor_note": "인프라 측면: 비동기 LLM RL에서 패딩 등 유휴 자원 낭비를 없애는 롤아웃 스케줄러."
         },
         {
-          "title": "Steerable Multi-Objective Group-Relative Preference Optimization with Jointly Trained Low-Rank Adapters",
-          "url": "http://arxiv.org/abs/2611.09634v1",
-          "source": "arxiv_cs_cl",
+          "title": "Encoding Memory in World Models with Test-Time Model-Based Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.09625v1",
+          "source": "arxiv_cs_lg",
           "type": "paper",
-          "summary_1line": "Language model deployment often requires different trade-offs between competing objectives as user preferences change, yet standard post-training methods typically produce a single policy for a fixed objective weighti...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "06c2c68bc425da7f",
-          "published": "2026-11-06T15:50:32+00:00",
-          "editor_note": "공동 학습한 저랭크 어댑터로 목표 간 트레이드오프 전반에 걸쳐 조정 가능한 단일 정책을 학습시킨다."
-        },
-        {
-          "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
-          "url": "http://arxiv.org/abs/2611.09770v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Multimodal Large Language Models (MLLMs) require continuous factual updates to stay current, yet lifelong knowledge editing remains a daunting challenge. The primary obstacle is the severe Locality Erosion and Catastr...",
-          "sid": "5606760643e4651e",
-          "published": "2026-11-06T17:32:49+00:00",
-          "editor_note": "관련 없는 사실을 훼손하지 않으면서 멀티모달 모델의 지식을 평생 편집한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-07",
-      "items": [
-        {
-          "title": "TransMem: Transition-Aware Retrieval for Evolving Personal Memory",
-          "url": "http://arxiv.org/abs/2611.10683v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Long-term personalized agents are increasingly expected to answer queries over user histories in which preferences, goals, and constraints evolve across interleaved conversations. Existing retrieval-based and structur...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "6c6377dea1cd8cea",
-          "published": "2026-11-07T12:07:01+00:00",
-          "editor_note": "대화마다 사용자 선호와 목표가 바뀌는 개인 에이전트를 위한 검색."
+          "summary_1line": "Model-based reinforcement learning (MBRL) approaches have demonstrated strong performance across diverse domains in recent years, learning accurate world models from agent trajectories. However, despite this progress,...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "6fd3ac39e855936d",
+          "published": "2026-11-06T15:45:54+00:00",
+          "editor_note": "테스트 시점 모델 기반 RL로 메모리를 월드 모델에 인코딩한다."
         }
       ]
     },
@@ -299,46 +83,15 @@
       "date": "2026-11-09",
       "items": [
         {
-          "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
-          "url": "http://arxiv.org/abs/2611.11995v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "23c0753cd928bfa7",
-          "published": "2026-11-09T07:24:54+00:00",
-          "editor_note": "Infrathon은 최첨단 에이전트가 실제 AI 인프라를 장기간에 걸쳐 계속 개선할 수 있는지 묻는다."
-        },
-        {
-          "title": "Correct First, Fast Second: What a Local 7B Code Model Can and Cannot Do for GPU Kernel Optimization",
-          "url": "http://arxiv.org/abs/2611.12079v1",
+          "title": "MaxIM: Maximally Informative Incremental Summarization via Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.12825v1",
           "source": "arxiv_llm_reliability",
           "type": "paper",
-          "summary_1line": "We study how much the interaction strategy around a fixed, locally hosted 7B-parameter code model (Qwen2.5-Coder-7B-Instruct) affects its ability to replace PyTorch operators with custom CUDA kernels. On 30 KernelBenc...",
-          "why_it_matters": "Matches feed focus: agentic, evaluation.",
-          "sid": "b76cb948754a8e57",
-          "published": "2026-11-09T08:56:29+00:00",
-          "editor_note": "KernelBench 과제 30개에서 Qwen2.5-Coder-7B가 CUDA 커널을 작성할 때 상호작용 전략이 얼마나 중요한지 측정한다."
-        },
-        {
-          "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
-          "url": "http://arxiv.org/abs/2611.12727v1",
-          "source": "arxiv_cs_lg",
-          "type": "paper",
-          "summary_1line": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo th",
-          "sid": "e07cc0f8ad9bbda1",
-          "published": "2026-11-09T17:12:09+00:00",
-          "editor_note": "주제에서 벗어난 이상치: 공통 어휘 때문에 포함된 Airbnb 숙소의 콜드 스타트 커버 사진 최적화."
-        },
-        {
-          "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
-          "url": "http://arxiv.org/abs/2611.12763v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing",
-          "sid": "1c564d62e97c9758",
-          "published": "2026-11-09T17:38:16+00:00",
-          "editor_note": "노이즈가 있는 어노테이션에도 선호 최적화가 견고하도록 하는 토큰 단위 재가중."
+          "summary_1line": "AI systems must often maintain bounded memory of unbounded interaction histories. However, optimizing the memory representation, and its updates, for downstream task utility is difficult for standard reinforcement lea...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "84ecbe8e1def5e6c",
+          "published": "2026-11-09T18:25:42+00:00",
+          "editor_note": "RL을 사용해 무한히 길어지는 이력에 대한 제한된 메모리로서 점진적 요약을 학습한다."
         }
       ]
     },
@@ -346,36 +99,30 @@
       "date": "2026-11-10",
       "items": [
         {
-          "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
-          "url": "http://arxiv.org/abs/2611.13696v1",
-          "source": "arxiv_agent_systems_research",
+          "title": "AutoScaffold: AI-Guided Scaffolding for Reinforcement Learning of Language Models",
+          "url": "http://arxiv.org/abs/2611.14515v1",
+          "source": "arxiv_cs_cl",
           "type": "paper",
-          "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform...",
-          "why_it_matters": "Matches feed focus: agentic, eval.",
-          "sid": "a34f1fafb710e628",
-          "published": "2026-11-10T07:43:02+00:00",
-          "editor_note": "보안 관점: 멀티 에이전트 시스템을 위한 비공개 지식 검색과 비공개 추론."
-        },
+          "summary_1line": "Reinforcement learning with verifiable rewards (RLVR) produces rich training experience, yet outcome rewards reduce each attempt to a single number and leave most of this information unused. Training-time scaffolds, s...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "283f892f9c4f657a",
+          "published": "2026-11-10T18:58:46+00:00",
+          "editor_note": "단일 결과 보상보다 RLVR 경험을 더 많이 활용하도록 AI가 생성한 스캐폴드."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-11",
+      "items": [
         {
-          "title": "The Multimodal Knowledge Agent Benchmark",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
-          "source": "hackernews_ai",
-          "type": "news",
-          "summary_1line": "The Multimodal Knowledge Agent Benchmark",
-          "why_it_matters": "Matches feed focus: agent.",
-          "sid": "2ffd7e8cb1f550c6",
-          "published": "2026-11-10T16:12:21+00:00",
-          "editor_note": "Google의 Multimodal Knowledge Agent Benchmark로, 이 클러스터에서 유일한 1차 랩 항목."
-        },
-        {
-          "title": "PSL-RGHA: Parallel Split Learning with Reference Gradient Half-Space Alignment for Mitigating Gradient Divergence",
-          "url": "http://arxiv.org/abs/2611.14312v1",
-          "source": "arxiv_cs_lg",
+          "title": "ReShap: Interpretable Reinforcement Learning for High-Dimensional Multi-Action Settings",
+          "url": "http://arxiv.org/abs/2611.15507v1",
+          "source": "arxiv_llm_reliability",
           "type": "paper",
-          "summary_1line": "The escalating complexity of deep neural networks hinders the deployment of federated learning (FL) on resource-constrained devices, especially for multimedia applications such as on-device image classification and speech recognition. Parallel split learning (PSL) has emerged as",
-          "sid": "69a7c1548b162d4e",
-          "published": "2026-11-10T16:42:30+00:00",
-          "editor_note": "주제에서 벗어난 항목: 제한된 기기에서의 병렬 분할 학습을 위한 그래디언트 정렬."
+          "summary_1line": "Deep Reinforcement Learning (RL) plays a crucial role in tackling complex tasks, yet its reliance on deep neural networks makes the learned policies opaque. To enhance the trustworthiness of RL policies, existing work (e.g., the SILVER framework [Li et al., 2025]) has focused on",
+          "sid": "a7b79c5f448ee3b6",
+          "published": "2026-11-11T14:02:55+00:00",
+          "editor_note": "여러 행동을 동시에 수행하는 심층 RL 정책을 위한 해석 가능성 연구."
         }
       ]
     },
@@ -383,25 +130,25 @@
       "date": "2026-11-12",
       "items": [
         {
-          "title": "Small Language Models for Inference-Capability Routing: Effects of Model Capacity and Prompt Optimization on Downstream Quality and Efficiency",
-          "url": "http://arxiv.org/abs/2611.16414v1",
-          "source": "arxiv_agent_systems_research",
-          "type": "paper",
-          "summary_1line": "Optional reasoning, retrieval, web search, and tool use can improve large language model responses but incur unnecessary computation when activated indiscriminately. This study investigates whether prompt optimization...",
-          "why_it_matters": "Matches feed focus: evaluation.",
-          "sid": "151cc2392264c544",
-          "published": "2026-11-12T07:25:46+00:00",
-          "editor_note": "소형 모델과 프롬프트 최적화로 요청을 선택적 추론, 검색, 도구로 라우팅할 수 있는지 검증한다."
+          "title": "Reinforcement Learning: Optimizing 0.6B Dense Models on TPU v7 via vLLM",
+          "url": "https://vllm.ai/blog/2026-11-12-rl-small-dense-tpu-v7",
+          "source": "vllm_blog",
+          "type": "news",
+          "summary_1line": "Co-designing RL for a Qwen3-0.6B dense policy on Google Cloud TPU v7 across vLLM, Tunix, MaxText, and Pallas, with a 107x end-to-end speedup from ~100 minutes to ~56 seconds per true-8K RL cycle.",
+          "sid": "8ccdea5bc171877c",
+          "published": "2026-11-12T00:00:00+00:00",
+          "editor_note": "유일한 실무자 항목: vLLM은 TPU v7에서 Qwen3-0.6B의 8K RL 사이클당 소요 시간이 약 100분에서 약 56초로 줄었다고 보고했다."
         },
         {
-          "title": "Negative-Only Policy Optimization for One-Sided Verifiable Rewards",
-          "url": "http://arxiv.org/abs/2611.17287v1",
-          "source": "arxiv_cs_cl",
+          "title": "StateAlign: Internalizing State-Aware Decision-Making for Reliable Multi-Turn Tool Agents via Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.16304v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Reinforcement learning with verifiable rewards (RLVR) typically relies on a verifier that can reliably judge whether sampled solutions are correct. However, in many realistic settings, complete verification is general...",
-          "sid": "2b4992932ff2ee7d",
-          "published": "2026-11-12T18:52:33+00:00",
-          "editor_note": "검증기가 실패만 확인할 수 있는 환경으로 검증 가능한 보상 기반 RL을 확장한다."
+          "summary_1line": "Reinforcement learning has improved the tool-use capabilities of large language models. However, better task performance can coincide with increased tool hallucination. Reliable tool use requires decisions to follow t...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "335ccd3caa00e6d5",
+          "published": "2026-11-12T05:04:43+00:00",
+          "editor_note": "실패 유형 지목: RL 도구 사용 성능이 향상되는 대신 도구 환각이 늘어날 수 있으며, 상태 인지형 의사결정을 학습시킨다."
         }
       ]
     },
@@ -409,73 +156,36 @@
       "date": "2026-11-13",
       "items": [
         {
-          "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
-          "url": "http://arxiv.org/abs/2611.17621v1",
+          "title": "Learn then Bet: Learning Interpretable Rules for Reliable Agent Intervention",
+          "url": "http://arxiv.org/abs/2611.17662v1",
           "source": "arxiv_cs_lg",
           "type": "paper",
-          "summary_1line": "Kernel optimization is essential for efficient large language model (LLM) training and inference on Ascend NPUs. Existing Ascend kernel benchmarks primarily focus on kernel generation, with less emphasis on the abilit...",
-          "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-          "sid": "7b04b19e28032924",
-          "published": "2026-11-13T00:45:36+00:00",
-          "editor_note": "AscendGYM은 커널 벤치마킹을 Ascend NPU에서의 비용 인식 최적화로 확장한다."
+          "summary_1line": "Autonomous agents now run for hundreds of steps with little or no human supervision. In practice, practitioners use runtime monitors such as turn limits and keyword filters to decide when a run should be stopped, upgraded, or assisted. However, these heuristics may stop runs that",
+          "sid": "7d287f2835ce9649",
+          "published": "2026-11-13T02:14:55+00:00",
+          "editor_note": "턴 제한과 키워드 필터를 대신해, 에이전트 실행을 언제 중단하거나 지원할지에 대한 해석 가능한 규칙을 학습한다."
         },
         {
-          "title": "Knowledge After Collapse: Context and Wording Shape Factual Accessibility in Language Models",
-          "url": "http://arxiv.org/abs/2611.17763v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "When a language model accepts a false correction in a factual discussion, its next answer can depend on how the conversation continues. We introduce Knowledge Answer Divergence (KAD), an event-conditioned evaluation protocol that distinguishes initial false-answer adoption from s",
-          "sid": "590316d609c0ce23",
-          "published": "2026-11-13T05:19:42+00:00",
-          "editor_note": "실패 유형: 잘못된 정정을 받아들인 뒤 모델의 이후 답변이 컨텍스트와 표현에 좌우된다."
-        },
-        {
-          "title": "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding",
-          "url": "http://arxiv.org/abs/2611.17797v1",
+          "title": "AutoRL: A Multi-Agent System towards Autonomous Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.17790v1",
           "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their intrinsic vision to execute visually grounded tasks. However, this",
-          "why_it_matters": "Matches feed focus: agentic, harness, eval.",
-          "sid": "0fe69ec1eb1a4f14",
-          "published": "2026-11-13T06:23:19+00:00",
-          "editor_note": "코딩 에이전트는 내장 비전에 의존하지 말고 외부 비전 도구를 호출해야 한다고 주장한다."
+          "summary_1line": "Recursive self-improvement (RSI) is one of the most promising paths toward an AI singularity for superintelligence. Achieving this vision requires AI systems to undertake the full training pipeline for iterative impro...",
+          "why_it_matters": "Matches feed focus: agentic, evaluation.",
+          "sid": "ea7e5e3ff883dd79",
+          "published": "2026-11-13T06:06:36+00:00",
+          "editor_note": "RL 학습 파이프라인 자체를 실행하려는 멀티 에이전트 시스템."
         },
         {
-          "title": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
-          "url": "http://arxiv.org/abs/2611.17955v1",
-          "source": "arxiv_cs_cl",
+          "title": "Imitation Bootstrapped Multi-Agent Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.18543v1",
+          "source": "arxiv_cs_ai",
           "type": "paper",
-          "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing reproducible web-agent benchmarks cover only a small number of w",
-          "why_it_matters": "Matches feed focus: agent, evaluation, codex.",
-          "sid": "f90b714a57ce9fe0",
-          "published": "2026-11-13T09:44:48+00:00",
-          "editor_note": "WebArena-Pro는 재현 가능한 웹 에이전트 테스트를 이질적이고 멀티모달이며 상태를 가진 앱으로 넓힌다."
-        },
-        {
-          "title": "VEPO: Mitigating Multilingual Hallucinations in LVLMs via Visual Evidence-guided Preference Optimization",
-          "url": "http://arxiv.org/abs/2611.18096v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Large vision-language models (LVLMs) achieve strong multimodal performance, yet they remain prone to object hallucination---generating answers that are linguistically fluent but visually ungrounded. This issue is especially severe in low-resource languages, where weaker cross-mod",
-          "sid": "c9c6bd7b30cb6c70",
-          "published": "2026-11-13T12:23:14+00:00",
-          "editor_note": "VEPO는 선호 최적화를 비전-언어 모델의 다국어 객체 환각에 적용한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-15",
-      "items": [
-        {
-          "title": "GEM-MM: Reducing VLM Hallucination with Entropy-Guided Preference Alignment",
-          "url": "http://arxiv.org/abs/2611.20016v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budg...",
-          "why_it_matters": "Matches feed focus: harness, evaluation.",
-          "sid": "8138237fac2e053c",
-          "published": "2026-11-15T13:55:51+00:00",
-          "editor_note": "엔트로피 기반 가중치로 적은 멀티모달 선호 데이터 예산을 최대한 활용해 환각에 대응한다."
+          "summary_1line": "Demonstrations are an effective way to accelerate single-agent reinforcement learning (RL), but extending this idea to multi-agent reinforcement learning (MARL) is non-trivial as it is difficult and often impossible f...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "97cfb937ffa2810c",
+          "published": "2026-11-13T18:50:05+00:00",
+          "editor_note": "데모 부트스트래핑을 단일 에이전트 RL에서 멀티 에이전트 RL로 확장한다."
         }
       ]
     },
@@ -483,47 +193,15 @@
       "date": "2026-11-16",
       "items": [
         {
-          "title": "Explainable Federated Learning via Global-Local Attribution Alignment",
-          "url": "http://arxiv.org/abs/2611.20445v1",
-          "source": "arxiv_llm_reliability",
+          "title": "Algorithm Distillation for Safe In-Context Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.21524v1",
+          "source": "arxiv_cs_lg",
           "type": "paper",
-          "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and bandwidth constraints. Prior approaches either keep explanations si",
+          "summary_1line": "Safe in-context reinforcement learning (Safe ICRL) asks a policy with fixed parameters to improve on an unseen constrained task from its interaction history while aiming to keep its cost within a budget. Prior work st...",
           "why_it_matters": "Matches feed focus: evaluation.",
-          "sid": "81c44c827e9a0e1d",
-          "published": "2026-11-16T03:15:02+00:00",
-          "editor_note": "주제에서 벗어난 항목: 설명 가능한 연합 학습을 위한 어트리뷰션 정렬."
-        },
-        {
-          "title": "Beyond Seeing: Fine-Grained Preference Validation and Severity-Aware Alignment for Mitigating Visual Hallucinations in Vision-Language Models",
-          "url": "http://arxiv.org/abs/2611.20478v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Large vision-language models can produce fluent responses containing objects, attributes, or relations unsupported by the image. We study an implemented alignment pipeline that normalizes released fine-grained hallucination supervision, validates chosen-rejected preference pairs",
-          "sid": "d495f69216affbb3",
-          "published": "2026-11-16T03:42:49+00:00",
-          "editor_note": "정렬 전에 chosen-rejected 쌍을 검증하고 환각을 심각도에 따라 가중한다."
-        },
-        {
-          "title": "Jetriever: Shifting Agent Memory Retrieval from Similarity to Utility",
-          "url": "http://arxiv.org/abs/2611.21478v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "A useful memory need not resemble the question it helps answer. Jetriever ranks each stored memory by Jev's decision score for its usefulness to the current question, replacing similarity search with full-pool utility...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "b5bf234c229cd676",
-          "published": "2026-11-16T17:50:53+00:00",
-          "editor_note": "에이전트 메모리 순위를 매길 때 유사도 검색 대신 유용성 점수를 사용한다."
-        },
-        {
-          "title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
-          "url": "http://arxiv.org/abs/2611.21605v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from common sense instead of reading the evidence. Reinforcement learning (...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "51009fb859c1b51e",
-          "published": "2026-11-16T18:59:04+00:00",
-          "editor_note": "입력 간 상대적 정책 최적화로 줌 기능을 쓰는 시각 에이전트가 이미지에 근거해 답하도록 만든다."
+          "sid": "a0ffcbab57857e23",
+          "published": "2026-11-16T18:16:28+00:00",
+          "editor_note": "안전성 측면: 비용 예산 안에서 새로운 작업의 성능을 높이는 인컨텍스트 RL."
         }
       ]
     },
@@ -531,170 +209,217 @@
       "date": "2026-11-17",
       "items": [
         {
-          "title": "MM-ReportBench: A Comprehensive Benchmark for Multimodal Report Generation from Tables",
-          "url": "http://arxiv.org/abs/2611.22514v1",
-          "source": "arxiv_llm_reliability",
+          "title": "RLDE: A Reinforcement Learning Framework for Interpretable Iterative Document Editing",
+          "url": "http://arxiv.org/abs/2611.22039v1",
+          "source": "arxiv_cs_cl",
           "type": "paper",
-          "summary_1line": "The ability to generate multimodal reports integrating fluent narratives with faithful visualizations from tabular data, has become a cornerstone capability for modern vision-language models in practical domains such...",
-          "why_it_matters": "Matches feed focus: evaluation.",
-          "sid": "871015d49de97b4a",
-          "published": "2026-11-17T10:06:56+00:00",
-          "editor_note": "표에서 충실한 차트를 포함한 보고서를 생성하는 벤치마크."
-        },
-        {
-          "title": "PhysScope: Agentic Multimodal Physics Reasoning with Grounded Visual Memory",
-          "url": "http://arxiv.org/abs/2611.23010v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "Vision-language models (VLMs) can correctly interpret physics diagrams yet apply constraints outside the states or conditions in which they hold, causing premise errors to propagate through subsequent calculations. We...",
-          "why_it_matters": "Matches feed focus: agentic, harness, eval.",
-          "sid": "3be6797ec1d79375",
-          "published": "2026-11-17T16:22:21+00:00",
-          "editor_note": "제약 조건이 성립하지 않는 상황에서 제약을 적용하는 물리 도식 에이전트를 겨냥한다."
+          "summary_1line": "Improving the quality, clarity, and flow of long documents remains a challenging problem in NLP, as human editing typically occurs through iterative refinement rather than a single-pass rewrite. Most existing automate...",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "ab31cf7efa665033",
+          "published": "2026-11-17T01:00:24+00:00",
+          "editor_note": "응용 RL: 한 번에 다시 쓰는 방식 대신 반복적이고 해석 가능한 문서 편집."
         }
       ]
     },
     {
-      "date": "2026-11-18",
+      "date": "2026-11-19",
       "items": [
         {
-          "title": "NaviGATE: Noise-Aware Dual-View Generation for Multimodal Knowledge Graph Reasoning",
-          "url": "http://arxiv.org/abs/2611.24552v1",
+          "title": "Policy Improvement-Guided Replay for Continual Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.25989v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Continual reinforcement learning (CRL) requires models to acquire new capabilities while retaining performance on previous tasks. A stability-oriented perspective common in conventional continual learning emphasizes knowledge preservation and interference mitigation. Complementin",
+          "sid": "3e8eb23833610c66",
+          "published": "2026-11-19T12:12:19+00:00",
+          "editor_note": "지식 보존만이 아니라 정책 개선을 기준으로 리플레이를 유도하는 연속 RL."
+        },
+        {
+          "title": "Grid Cells as Spectral Successor Features: A Reusable Basis for Continual Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.26504v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Continual reinforcement learning requires agents to adapt when the task changes while reusing what they know about the environment. Successor features separate dynamics from task-specific reward, but their effectiveness depends on the choice of base features. Taking the identific",
+          "sid": "4554d13ae5865101",
+          "published": "2026-11-19T17:54:04+00:00",
+          "editor_note": "작업이 바뀔 때 재사용할 수 있는 기저로서, 그리드 셀에서 착안한 successor features."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "items": [
+        {
+          "title": "CTRL: Concurrent Training and Rollout for LLM Reinforcement Learning via GPU Co-Residency",
+          "url": "http://arxiv.org/abs/2611.27119v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "CTRL is a system that runs an RL learner and a persistent rollout engine on every GPU under CUDA MPS, reporting 1.11-2.24× the throughput of verl's asynchronous baselines across 24 Qwen3 workload settings.",
+          "sid": "24ed891a976fe11b",
+          "published": "2026-11-20T04:42:26+00:00",
+          "editor_note": "시스템 측면: CUDA MPS에서 학습기와 롤아웃 엔진이 각 GPU를 공유하며, verl 비동기 대비 처리량 1.11~2.24배를 보고했다."
+        },
+        {
+          "title": "Efficient VLA Reinforcement Learning via Subchunk Rollouts in Latent World Models",
+          "url": "http://arxiv.org/abs/2611.27645v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Proposes LS-MBPO, a lightweight residual reinforcement learning framework that uses latent world models instead of large image or video generators to improve pretrained vision-language-action robot policies, tested on LIBERO, RoboTwin, and a real ALOHA robot.",
+          "sid": "f51ccad0f77a0a72",
+          "published": "2026-11-20T14:09:06+00:00",
+          "editor_note": "이미지/비디오 생성기를 잠재 월드 모델로 대체해 로봇 정책 RL의 롤아웃 비용을 낮춘다."
+        },
+        {
+          "title": "SLICR: Strategy Logic-Guided Multi-Agent Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.27865v1",
           "source": "arxiv_cs_ai",
           "type": "paper",
-          "summary_1line": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture grap...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "c259fdb087f2c077",
-          "published": "2026-11-18T14:53:42+00:00",
-          "editor_note": "최신 항목: 구조, 텍스트, 이미지를 결합하면서 노이즈가 있는 모달리티는 걸러내는 지식 그래프 추론."
+          "summary_1line": "Specification-guided reinforcement learning (RL) translates formal specifications of desired behavior of agents into shaped rewards. This paper introduces SLICR, a significant paradigm shift that advances the state of...",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "bac47501e3966159",
+          "published": "2026-11-20T17:13:50+00:00",
+          "editor_note": "형식적 전략 로직 명세를 멀티 에이전트 RL용 shaped reward로 변환한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "items": [
+        {
+          "title": "From Reward Engineering to Data-Centric Reinforcement Learning for Effective Agentic Visual Tool Use",
+          "url": "http://arxiv.org/abs/2611.28558v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "Proposes AOVO, a data-centric reinforcement learning framework that teaches multimodal LLMs when to use visual tools by reweighting training questions with perception attribution, without tool-specific rewards.",
+          "why_it_matters": "Matches feed focus: agentic.",
+          "sid": "f424b012833cf66e",
+          "published": "2026-11-21T04:24:24+00:00",
+          "editor_note": "도구별 보상을 설계하는 대신 학습 질문의 가중치를 재조정해 시각 도구 사용을 가르친다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "title": "Learning What to Change: State-Verified Reinforcement Learning for Educational Agents",
+          "url": "http://arxiv.org/abs/2611.30559v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "Proposes State-Verified Reinforcement Learning, which trains tutoring agents using a deterministic verifier of workspace state changes; after training, Qwen3.8-27B's strict success on a 60-task benchmark rises from 51.47% to 80.74%.",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "5b8b87d097096ea4",
+          "published": "2026-11-23T12:04:31+00:00",
+          "editor_note": "워크스페이스 상태 변화를 결정론적으로 검증하는 검증기에서 보상을 얻으며, strict 성공률이 51.47%에서 80.74%로 올랐다고 보고했다."
+        },
+        {
+          "title": "CO-GRAFT: Attributing Reinforcement Learning Gains in Search Agents via Role-Level Policy Grafting",
+          "url": "http://arxiv.org/abs/2611.31185v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "CO-GRAFT is a framework that attributes RL gains in Search-R1 search agents to four functional roles by mixing RL-trained and pre-RL policies, finding query generation contributes at most 15% of the gain.",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "567190b13cf55806",
+          "published": "2026-11-23T18:38:53+00:00",
+          "editor_note": "최신 항목: RL 성능 향상을 에이전트 역할별로 귀속하고, 쿼리 생성의 기여가 최대 15%에 그친다는 점을 확인했다."
         }
       ]
     }
   ],
   "editorial": {
-    "tldr": "This is a loose cluster of mostly arXiv papers on agent training, alignment and knowledge handling, not one developing story. It started with RL recipes, preference-optimization variants and kernel-tuning agents, then widened to retrieval, agent memory and vision-language grounding work.",
+    "tldr": "This is a theme thread of mostly arXiv papers, not one developing story. Since Nov 4 it has tracked RL for agents: multi-turn and multi-agent training, RL-learned memory, rollout cost, and the finding that RL tool-use gains can raise tool hallucination.",
     "stale": false,
-    "whats_new": "Nov 18: NaviGATE proposes noise-aware reasoning over multimodal knowledge graphs, after a week where Jetriever ranked agent memories by usefulness instead of similarity and PhysScope targeted physics-diagram agents.",
-    "why_it_matters": "If you run RAG or agent memory, these papers name concrete failure modes (models answering from pretraining instead of retrieved context, similarity search returning unhelpful memories, stale personal facts), but every result is author-reported on the papers' own benchmarks.",
-    "take_for_builders": "Add eval cases where the retrieved context or image contradicts the model's prior (altered facts, decoy diagrams) and check the agent follows the evidence before adopting any new retrieval, memory or alignment recipe from this cluster.",
+    "whats_new": "Nov 23: CO-GRAFT finds query generation explains at most 15% of RL gains in Search-R1 agents, and a state-verified RL paper lifts a 27B tutoring agent from 51.47% to 80.74% strict success.",
+    "why_it_matters": "If you post-train or operate tool-using agents, this cluster names where RL pays off and what it costs: rollout throughput, tool hallucination, and which agent role actually improved, though nearly every result is author-reported.",
+    "take_for_builders": "When evaluating an RL-tuned agent, score tool-hallucination rate and per-role behavior (query, read, answer) next to task success, since the headline gain can hide regressions or come from one role.",
     "beats": [
       {
         "kicker": "AGENT RL",
         "tone": "launch",
-        "headline": "RL recipes target the hard parts of training agents: delayed credit, orchestration and partial verifiers",
-        "summary": "TSBPO, few-step flow RL, CRESiST for speech translation, learned multi-agent orchestration, and negative-only policy optimization.",
+        "headline": "RL methods aim at multi-turn and multi-agent systems",
+        "summary": "A study of what multi-turn RL improves, AutoRL running the training pipeline, imitation-bootstrapped MARL, and SLICR's logic-shaped rewards.",
         "sids": [
-          "3e4010b903d1d7e9",
-          "65dc6916d3b352f1",
-          "7ae1983bc20b4540",
-          "4e7cf2bff5db16a6",
-          "2b4992932ff2ee7d"
+          "4553deeec0e06574",
+          "ea7e5e3ff883dd79",
+          "97cfb937ffa2810c",
+          "bac47501e3966159"
         ]
       },
       {
-        "kicker": "PREFERENCE OPTIMIZATION",
+        "kicker": "RL FOR MEMORY",
         "tone": "rising",
-        "headline": "Preference-optimization papers target general preferences, shifting objectives, noisy labels and missing gold answers",
-        "summary": "DNO empirical study, preference learning from multi-agent debate, steerable multi-objective GRPO with LoRA adapters, and PORT token reweighting.",
+        "headline": "RL is used to learn what to keep in bounded memory",
+        "summary": "Test-time model-based RL for world-model memory and MaxIM incremental summaries.",
         "sids": [
-          "5ab1b6ecf4ca3e7a",
-          "2e4c5bdb80c6e509",
-          "06c2c68bc425da7f",
-          "1c564d62e97c9758"
+          "6fd3ac39e855936d",
+          "84ecbe8e1def5e6c"
         ]
       },
       {
-        "kicker": "KERNEL & INFRA AGENTS",
+        "kicker": "TRAINING COST",
         "tone": "rising",
-        "headline": "Agents that tune GPU kernels and AI infrastructure get methods and benchmarks",
-        "summary": "Question-driven kernel agents, a local 7B CUDA study, Infrathon, and the Ascend NPU benchmark AscendGYM.",
+        "headline": "Rollout cost gets attacked from sampler, scheduler and GPU placement",
+        "summary": "FewStepRL, the ASP rollout scheduler, vLLM's 107x TPU v7 cycle speedup, CTRL's learner/rollout co-residency, and latent world-model rollouts for VLA policies.",
         "sids": [
-          "8b24b2aa117fb77b",
-          "b76cb948754a8e57",
-          "23c0753cd928bfa7",
-          "7b04b19e28032924"
+          "4e9768611cda6532",
+          "4f75e58fea1157aa",
+          "8ccdea5bc171877c",
+          "24ed891a976fe11b",
+          "f51ccad0f77a0a72"
         ]
       },
       {
-        "kicker": "CONTEXT & RETRIEVAL",
-        "tone": "rising",
-        "headline": "Retrieval becomes an agent harness problem: context engines, compiled knowledge and graph retrieval",
-        "summary": "Knowledge compilation for search harnesses, InfoQ's context-engine architecture, ArcRAG, distilling lookups into weights, private retrieval, and the Thinker context-trimming tool.",
-        "sids": [
-          "ce941c554e9fce8e",
-          "0f8439521ab02185",
-          "744a7a52285cfa40",
-          "d4ec23da5e445584",
-          "464b347f5551c3b2",
-          "a34f1fafb710e628"
-        ]
-      },
-      {
-        "kicker": "MEMORY & KNOWLEDGE",
-        "tone": "rising",
-        "headline": "Papers probe whether models actually use the knowledge in context and memory",
-        "summary": "ImplicitHop, DAMI for linear-attention recall, relational reasoning over RAG context, ROSE knowledge editing, TransMem, Knowledge Answer Divergence and Jetriever.",
-        "sids": [
-          "1d7852cb09b3031f",
-          "35220abd16206ae7",
-          "63ff637171c98d2c",
-          "5606760643e4651e",
-          "6c6377dea1cd8cea",
-          "590316d609c0ce23",
-          "b5bf234c229cd676"
-        ]
-      },
-      {
-        "kicker": "VISION GROUNDING",
+        "kicker": "RELIABILITY",
         "tone": "turn",
-        "headline": "Vision-language models that hallucinate objects or reason past what they see get alignment fixes",
-        "summary": "MIRA, latent multimodal reasoning, VIGOR, cross-modal unlearning, VEPO, GEM-MM and severity-aware preference validation.",
+        "headline": "Better task scores can mean more tool hallucination, so papers add state-awareness, scaffolds and stop rules",
+        "summary": "AutoScaffold, StateAlign, Learn then Bet intervention rules, and safe in-context RL under a cost budget.",
         "sids": [
-          "282f057baf2d5931",
-          "526c07c3667e6cf7",
-          "57b08f9866a26766",
-          "c43d3ff3aa20c41c",
-          "c9c6bd7b30cb6c70",
-          "8138237fac2e053c",
-          "d495f69216affbb3"
+          "283f892f9c4f657a",
+          "335ccd3caa00e6d5",
+          "7d287f2835ce9649",
+          "a0ffcbab57857e23"
         ]
       },
       {
-        "kicker": "OFF-LENS",
+        "kicker": "APPLIED",
         "tone": "neutral",
-        "headline": "Optimization papers on routing, merchandising and federated learning ride along on shared vocabulary",
-        "summary": "Small-model capability routing, cold-start cover-photo selection, parallel split learning, and explainable federated learning.",
+        "headline": "Applied RL papers ride along on shared vocabulary",
+        "summary": "ReShap interpretability for multi-action policies and RLDE iterative document editing.",
         "sids": [
-          "e07cc0f8ad9bbda1",
-          "69a7c1548b162d4e",
-          "151cc2392264c544",
-          "81c44c827e9a0e1d"
+          "a7b79c5f448ee3b6",
+          "ab31cf7efa665033"
+        ]
+      },
+      {
+        "kicker": "CONTINUAL RL",
+        "tone": "rising",
+        "headline": "Continual RL: learning new tasks without losing old ones",
+        "summary": "Policy-improvement-guided replay and grid cells as spectral successor features.",
+        "sids": [
+          "3e8eb23833610c66",
+          "4554d13ae5865101"
         ]
       },
       {
         "kicker": "NOW",
         "tone": "now",
-        "headline": "Multimodal agents get grounding benchmarks, and knowledge-graph reasoning goes multimodal",
-        "summary": "Google's Multimodal Knowledge Agent Benchmark, Vision-as-a-Tool, WebArena-Pro, ViRA, MM-ReportBench, PhysScope and NaviGATE.",
+        "headline": "Where RL gains come from in tool-using agents: verified state, data reweighting, role attribution",
+        "summary": "AOVO drops tool-specific rewards, state-verified RL trains tutoring agents against a deterministic checker, and CO-GRAFT splits Search-R1 gains by role.",
         "sids": [
-          "2ffd7e8cb1f550c6",
-          "0fe69ec1eb1a4f14",
-          "f90b714a57ce9fe0",
-          "51009fb859c1b51e",
-          "871015d49de97b4a",
-          "3be6797ec1d79375",
-          "c259fdb087f2c077"
+          "f424b012833cf66e",
+          "5b8b87d097096ea4",
+          "567190b13cf55806"
         ]
       }
     ],
     "open_questions": [
-      "Does any independent group reproduce TSBPO's gains on long-horizon agent tasks outside the paper's own environments?",
-      "Does negative-only policy optimization train useful agents when the verifier can only reject wrong answers in real tool-use settings?",
-      "Do kernel-optimization agents beat vendor libraries and hand-tuned kernels on Infrathon or AscendGYM workloads under their cost accounting?",
-      "Does utility-based memory ranking like Jetriever beat embedding similarity on production agent memory without a large cost increase?",
-      "Do the VLM hallucination fixes (VEPO, GEM-MM, severity-aware alignment) hold up on screenshots and documents rather than natural photos?",
-      "Does external visual tooling (Vision-as-a-Tool, zooming in ViRA) beat a stronger base model's own vision on WebArena-Pro-style tasks?"
+      "Does StateAlign's reduction in tool hallucination hold on tool APIs outside the paper's own benchmarks?",
+      "Does vLLM's 107x RL cycle speedup on TPU v7 carry over to policies larger than Qwen3-0.6B?",
+      "Does CTRL's 1.11-2.24x throughput over verl's async baselines show up in an independent reproduction?",
+      "Do learned intervention rules like Learn then Bet beat turn limits on production agent runs without stopping good runs early?",
+      "If query generation explains at most 15% of Search-R1's RL gain, which role carries the rest, and does the split hold for other search agents?",
+      "Does state-verified RL transfer beyond tutoring workspaces to agents whose state has no deterministic verifier?"
     ],
-    "generated_at": "2026-11-20T00:13:25Z"
+    "generated_at": "2026-11-25T00:30:00Z"
   }
 }

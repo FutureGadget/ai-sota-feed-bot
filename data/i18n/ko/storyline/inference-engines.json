@@ -1,0 +1,112 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/inference-engines",
+  "source_hash": "645ee0c7dc0b14ce34334de1f7df44642f787fb304e40c94980d8d06f3e0e2c3",
+  "translated_at": "2026-11-25T05:42:16.446509+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "inference-engines",
+  "label": "Inference Engines",
+  "item_count": 3,
+  "day_count": 3,
+  "source_count": 3,
+  "first_seen": "2026-11-10T17:16:47+00:00",
+  "last_updated": "2026-11-24T18:20:27+00:00",
+  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "sources": [
+    "arxiv_agent_systems_research",
+    "arxiv_cs_lg",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-11-10",
+      "items": [
+        {
+          "title": "EngineAgent: Agentizing On-Device LLM Inference Engines with Inference Stack Hierarchy Awareness and Hardware Abilities",
+          "url": "http://arxiv.org/abs/2611.14356v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "Rapidly evolving LLM architectures and heterogeneous mobile hardware make supporting new models in on-device inference engines a recurring and costly system challenge. Each model may require coordinated changes across...",
+          "why_it_matters": "Matches feed focus: agentic.",
+          "sid": "f9d81d0a259ab7bb",
+          "published": "2026-11-10T17:16:47+00:00",
+          "editor_note": "엔진 포팅을 에이전트 과제로 처음 규정하고, 범위를 온디바이스 추론으로 한정했다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-22",
+      "items": [
+        {
+          "title": "Lightweight Spectral Subspace Filtering for Trojan-Resilient AI Inference Engines",
+          "url": "http://arxiv.org/abs/2611.29734v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Proposes a training-free method that uses SVD to find the malicious subspace in latent activations and projects it out at inference, reducing backdoor attack success to an average of 2.07% across five CNN and ViT models.",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "9aba4bf153849718",
+          "published": "2026-11-22T20:03:21+00:00",
+          "editor_note": "추론 시점 방어라는 관점을 더했다. 백도어 공격 성공률은 5개 모델 평균 2.07%였다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "Can agents write inference engines from scratch in 12 hours and beat vLLM?",
+          "url": "https://github.com/humanityslastsystem/hls",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Humanity's Last System (HLS) is an open benchmark where coding agents get live GPU sandboxes for up to 36 hours to build specialized inference servers, which are then verified and scored for speed against vLLM-style baselines.",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "781ec9697da4f86b",
+          "published": "2026-11-24T18:20:27+00:00",
+          "editor_note": "에이전트가 만든 엔진을 vLLM 방식의 베이스라인을 갖춘, 점수를 매기는 공개 벤치마크로 만들었다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose theme thread, not one event: three unrelated sources over two weeks treated the inference engine itself as the object of work. It opened with EngineAgent, a paper on using agents to port new LLM architectures into on-device engines, and a Nov 22 paper on stripping backdoor activations at inference time.",
+    "stale": false,
+    "whats_new": "Humanity's Last System (HLS), an open benchmark, gives coding agents live GPU sandboxes for up to 36 hours to build inference servers that are verified and scored for speed against vLLM-style baselines.",
+    "why_it_matters": "Agent-written serving code is moving from research prototype to scored benchmark, so the speed claims around custom inference engines will soon come with a public yardstick against vLLM.",
+    "take_for_builders": "Treat agent-built inference servers as unproven until HLS publishes verified scores; keep vLLM as the serving baseline and rerun your own latency evals before swapping engines.",
+    "beats": [
+      {
+        "kicker": "AGENTS PORT ENGINES",
+        "tone": "launch",
+        "headline": "EngineAgent proposes agents that adapt on-device engines to new LLM architectures",
+        "summary": "Frames per-model engine support across heterogeneous mobile hardware as recurring, costly work worth automating.",
+        "sids": [
+          "f9d81d0a259ab7bb"
+        ]
+      },
+      {
+        "kicker": "SIDE THREAD",
+        "tone": "neutral",
+        "headline": "Training-free SVD filter cuts backdoor attack success to about 2% at inference",
+        "summary": "A security result on CNN and ViT models; it shares the inference-time framing, not the agent theme.",
+        "sids": [
+          "9aba4bf153849718"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "HLS benchmark asks whether agents can build an inference server that beats vLLM",
+        "sids": [
+          "781ec9697da4f86b"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does any agent-built server in HLS beat the vLLM baseline on published results?",
+      "Which models and GPUs does HLS score on, and does the verification step check output correctness as well as speed?",
+      "Does EngineAgent release code or results for a named on-device engine?"
+    ],
+    "generated_at": "2026-11-25T00:30:00+00:00"
+  }
+}
