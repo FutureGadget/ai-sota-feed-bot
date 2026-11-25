@@ -4042,6 +4042,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "2014efafd28906ec": {
+  "first_seen": "2026-11-25T04:07:22.100231+00:00",
+  "id": "7f46416e9b830d82",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-24T13:00:42+00:00",
+  "sid": "2014efafd28906ec",
+  "source": "arxiv_cs_cl",
+  "summary": "We introduce reinforcement learning from collective rewards (RLCR), a recipe for jointly training language models to act as agent organisations under latency constraints. A CEO and up to eight specialists share one policy, co-ordinate through a message board and workspace, and are trained with a common outcome-derived advantage. The deadline makes parallel work valuable when it increases the return earned before the cap. We train Avalon-M1-Mini (120B) across 147 environments. For the trained model, eight-hire organisational execution raises IMO-ProofBench-Advanced scores from 23.8% to 39.0% relative to single-agent execution. Across 12 benchmarks, organisations achieve similar average scores at approximately one-third the derived latency of token-matched single-agent execution and just over half that of eight independent attempts followed by selection. The trained model also outperforms Nemotron 3 Super, post-trained from the same base model, across all evaluations when comparing each model's best tested configuration. On EdgeBench, organisations overtake the single agent after approximately 0.4 derived hours. Over the course of training, organisations develop hierarchies to manage communication costs, invest more in peer review, and alter how work is divided. Safety evaluations find near-universal refusal of harmful actions but sustained declines in external reporting in two of three oversight scenarios. These results establish a shared-advantage baseline for studying organi",
+  "summary_1line": "Introduces RLCR, a training method where a CEO model and up to eight specialists share one policy and are trained on a common outcome-based advantage, with results reported across 12 benchmarks and safety tests on the 120B Avalon-M1-Mini.",
+  "title": "Avalon-M1: Reinforcement Learning from Collective Rewards",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32539v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "201b4ccaccfdd1ef": {
   "first_seen": "2026-11-24T20:06:54.949335+00:00",
   "id": "5f5b40d88a586ec2",
@@ -6431,6 +6448,23 @@
   "type": "news",
   "url": "https://github.com/grainulation/papers",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "32c3fead4c4d14a7": {
+  "first_seen": "2026-11-25T04:07:22.100231+00:00",
+  "id": "efdd0b6c59c6143c",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T12:38:22+00:00",
+  "sid": "32c3fead4c4d14a7",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language model (LLM)-based agents are advancing the automation of data-driven scientific research. Recent advances in recursive self-improvement (RSI) offer the potential for these agents to continuously improve through experience, but evaluating transfer across scientific tasks requires executable, scientifically verifiable tasks and independent assessment of self-improvement gains. We introduce RecurSciBench, a scalable benchmark for evaluating RSI in data-driven scientific research. Its RecurSciPipe framework automatically constructs scientific modeling and data analysis tasks from raw datasets, with execution-based verification and scientific validity checks. RecurSciBench spans four scientific domains, multiple data modalities, and varied scientific objectives. We evaluate four RSI systems by comparing their initial and evolved states on independent tasks after evolution on source tasks, covering within-type, cross-type, and cross-domain transfer. Experiments show that the benefits of self-improvement vary across agent systems and scientific domains. Positive overall gains can coexist with regressions on individual tasks. Experience can transfer across task types and benefit other domains even without measurable gains in the source domain.",
+  "summary_1line": "Introduces RecurSciBench, a benchmark that auto-builds executable scientific modeling and data analysis tasks across four domains to test whether AI agents improve through recursive self-improvement and transfer that gain to new tasks.",
+  "title": "RecurSciBench: Benchmarking Recursive Self-Improvement in Data-Driven Scientific Research",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32508v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "32d2e12cf12a622f": {
   "content_excerpt": "trace2rules is a local-first CLI. It ingests agent trajectories, mines recurring friction, audits existing AGENTS.md / CLAUDE.md rules against real sessions, and identifies whether each rule is observed, compliant, violated, unobserved, or already enforced by CI/pre-commit. Small local corpus? Results are most useful with about 10+ local sessions. With fewer, ingest a public dataset first; see Public datasets . trace2rules audit is deterministic: it prints counts, coverage, verdicts, enforcement status, and deterministic suggestions. Give audit.txt to your agent. The LLM receives the audit table but not the deterministic suggestions. --proposal parses the proposed Markdown, audits it against sessions, and prints verdicts before you apply it. On the Open-SWE swc-project/swc split (188 sessions), the current AGENTS.md audit finds 65 rules: 10 measured, 0 partial, and 55 unmeasured. The review proposed three new rules: no package-scoped test commands in root AGENTS.md , every AGENTS path must exist at HEAD , and CI must run with UPDATE unset. MSRV is not measured yet, so the review does not propose a separate MSRV enforcement rule. audit prints the audited/total session count and audits all sessions by default. Pass --latest-commit to use the latest AGENTS.md commit as a cutoff; use --since / --until for explicit dates. By default, audit output shows measured and partial rules only; pass --all-rules to include unmeasured rules. Mining produces evidence, not rules. trace2rules mi",
@@ -16185,6 +16219,23 @@
   "type": "news",
   "url": "https://getagentmall.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "82a0baeb46b1f0c0": {
+  "first_seen": "2026-11-25T04:07:22.100231+00:00",
+  "id": "acdbf3e5c3d286bd",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-24T16:32:43+00:00",
+  "sid": "82a0baeb46b1f0c0",
+  "source": "arxiv_cs_cl",
+  "summary": "Deep search agents address complex information needs through iterative retrieval and reasoning, where the relevance of retrieved evidence influences downstream performance. Existing rerankers improve retrieval effectiveness but introduce substantial latency and cost when invoked throughout the search trajectory. We introduce SOARS, a training-free framework leveraging a System One model for fast, calibrated relevance estimation. At each search step, SOARS selects query-relevant passages from long documents and reranks candidates in a single call, jointly considering the original question and agent-generated sub-query. Across six LLM backbones on BrowseComp-Plus and WebShaper, SOARS consistently improves answer accuracy and evidence recall while reducing search calls, end-to-end latency, and inference cost. On BrowseComp-Plus, it improves GPT-5.4 Mini's accuracy from 73.9% to 84.7% while reducing search calls from 23 to 14, demonstrating the potential of System One reranking for more effective and efficient deep search.",
+  "summary_1line": "SOARS is a training-free reranking method for deep search agents that uses a fast System One model to rank passages at each search step, raising GPT-5.4 Mini's BrowseComp-Plus accuracy from 73.9% to 84.7%.",
+  "title": "SOARS: System One Assisted Reranking for Agentic Search",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32917v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "82c898dd3f78c28e": {
   "first_seen": "2026-11-13T09:05:11.726662+00:00",
@@ -27472,6 +27523,22 @@
   "url": "http://arxiv.org/abs/2611.24867v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "dafb31bbf3b4b283": {
+  "first_seen": "2026-11-25T04:07:22.100231+00:00",
+  "id": "7dface12ad1e95de",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T15:03:47+00:00",
+  "sid": "dafb31bbf3b4b283",
+  "source": "arxiv_agent_systems_research",
+  "summary": "In Minecraft, a common testbed for embodied agents, semantic tools such as mineBlock pick targets from the simulator's loaded world state without a visibility test, so a buried ore the agent has never seen is one call away, and scores cannot show whether the agent searched. We formalize the missing requirement as evidence closure: every decision of an agent system, including those inside its tools, may depend on the world only through facts for which the agent holds evidence. EviCraft is a runtime and benchmark that enforces closure below the agent and makes the admission rule an experimental variable: a perception-grounded regime (G) admits only what is in line of sight or returned by the agent's own actions, and a loaded-state regime (L) reproduces standard tool stacks, with agents, tools, and worlds held fixed. On Survival, the regime effect exceeds the strongest agent's lead: under G, three mid-sized agents reach the diamond in 32%-40% of runs, against 76%-94% under L, and the strongest agent under G scores below each of them under L. In two models, removing only the line-of-sight test closes 93%-96% of the score gap, and loading state only inside tools recovers 70%-98%, so safeguards on observations and queries leave most of the leak open. In open-ended acquisition, the gain from L concentrates in items that depend on buried resources or mobs. Code and benchmark are available at https://github.com/AllenReder/EviCraft",
+  "summary_1line": "EviCraft is a Minecraft runtime and benchmark that restricts agents and their tools to facts they have observed, and finds that agents score far lower under this perception-grounded regime than when tools can read the full loaded world state.",
+  "title": "EviCraft: Can Minecraft Agents Find What They Cannot See?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32765v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "db061f7ddeb2135d": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
   "id": "d5f3a07b6e76f5a5",
@@ -30704,6 +30771,22 @@
   "title": "langgraph-prebuilt==1.1.3",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3"
+ },
+ "f5c599840c08b8e9": {
+  "first_seen": "2026-11-25T04:07:22.100231+00:00",
+  "id": "05d5817cf14a8711",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T09:39:12+00:00",
+  "sid": "f5c599840c08b8e9",
+  "source": "arxiv_cs_lg",
+  "summary": "Autoregressive (AR) decoding emits one token per forward pass, reloading the full model each time, so LLM inference on edge devices is memory-bound while the compute units sit idle. Speculative decoding puts that idle compute to work by verifying several drafted tokens in a single pass. State-of-the-art parallel drafters such as DFlash and DSpark propose an entire block of draft tokens in one forward pass, which makes drafting compute-efficient. However, they are deployed with draft chains whose length is capped by the block size they are trained for, leaving most of the computational budget for verification unused. To tackle this problem, we propose Pando, which builds dynamic draft trees on top of a parallel drafter and thereby removes this cap. Pando employs noise-coupled pruning, which draws the target model's sampling noise before drafting and ranks candidate branches under that noise, so the tree retains the branches the target will actually sample. Noise coupling is lossless and requires no retraining or additional model pass, yet increases acceptance length by up to $8.4\\%$ on Qwen3-8B. To optimize and evaluate Pando configurations across hardware, we normalize an operator-level roofline to AR decoding, reducing every platform to its ridge point. On a representative edge device, a 16-node Pando tree attains $5.3\\times$ speedup and $4.2\\times$ energy reduction over AR decoding: $25\\%$ faster than DSpark's released chain, and $27\\%$ faster and $72\\%$ more energy-efficie",
+  "summary_1line": "Pando is a speculative decoding method that builds dynamic draft trees on a parallel drafter using noise-coupled pruning, reporting 5.3x speedup and 4.2x energy reduction over autoregressive decoding for a 16-node tree on an edge device.",
+  "title": "Pando: Noise-Coupled Parallel Draft Trees for Efficient Edge Speculative Decoding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32269v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "f5efa1f91d2ffd55": {
   "content_excerpt": "It feels like everyone is converging on the same agent architecture: an LLM, running in a loop, calling tools, running in a sandbox. Claude Code - perhaps the first high profile manifestation of this - came out over a year and a half ago. Deep Agents , our agent harness, launched over a year ago. This pattern has been building for a while. There’s nothing bad with that convergence per se, but it has led to a sentiment among some AI engineers that I’ve talked to recently that “all the hard problems are solved” or “there’s no new AI engineering problems to solve”. When people express this sentiment, I think they are largely talking about the context engineering practices we do to make agents work. And to some extent they are right - there are a lot of standard-ish context engineering solutions we’ve all arrived at: The good news (for context engineering aficionados like myself) is that I think we’re seeing a step function change in agent capabilities, or at least how they are being used. Specifically, over the past few months every agent builder I’ve chatted with has been thinking about proactive, always on, goal-oriented agents . The core of this agent shares a lot of similarities with coding agents, but there are a set of new challenges as well. I highlight a few below. We (at LangChain, and in the industry) don’t necessarily have solutions (or at least, general solutions) for these, so thinking about these has been the most fun I’ve had in a while! How to be proactive withou",
