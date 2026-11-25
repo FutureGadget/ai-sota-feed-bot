@@ -1,14 +1,14 @@
 {
  "date": "2026-11-25",
  "diagnostics": {
-  "admitted": 2,
-  "candidates": 642,
+  "admitted": 1,
+  "candidates": 643,
   "duplicate_url": 10,
-  "items": 63,
+  "items": 64,
   "keeps": 370,
-  "new": 2,
+  "new": 1,
   "off_topic": 72,
-  "prior_story": 27,
+  "prior_story": 28,
   "rejected_gate": {
    "insufficient_evidence": 26,
    "judge_drop": 22,
@@ -16,20 +16,18 @@
    "score_low": 116
   },
   "rejected_quota": {
-   "role_quota": 244,
-   "source_quota": 41
+   "role_quota": 284
   },
-  "releases": 38,
+  "releases": 39,
   "reviews": 135,
   "role_counts": {
-   "practitioner": 1,
-   "release": 1
+   "community": 1
   },
   "run_candidates": 140,
   "stale_story": 25,
-  "stories": 406,
+  "stories": 407,
   "unjudged": 27,
-  "updated": 7,
+  "updated": 12,
   "written": true
  },
  "items": {
@@ -311,7 +309,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.996,
@@ -319,7 +317,7 @@
    "rank_at_first_seen": 62,
    "release_tier": "major",
    "score_at_first_seen": 2.0091,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "agent_tooling_releases",
    "source": "langgraph_releases",
    "source_count": 1,
@@ -410,7 +408,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -420,7 +418,7 @@
    "rank_at_first_seen": 59,
    "release_tier": null,
    "score_at_first_seen": 0.7924,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "practitioner_analysis",
    "source": "github_blog_ai_ml",
    "source_count": 1,
@@ -512,7 +510,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T14:08:48.906055+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent"
@@ -522,7 +520,7 @@
    "rank_at_first_seen": 49,
    "release_tier": null,
    "score_at_first_seen": 1.2075,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -868,7 +866,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.712,
@@ -876,7 +874,7 @@
    "rank_at_first_seen": 22,
    "release_tier": null,
    "score_at_first_seen": 0.92,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -1118,7 +1116,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1128,7 +1126,7 @@
    "rank_at_first_seen": 36,
    "release_tier": null,
    "score_at_first_seen": 0.4626,
-   "seen_count": 19,
+   "seen_count": 20,
    "slot": "frontier_official",
    "source": "google_deepmind_blog",
    "source_count": 1,
@@ -1196,6 +1194,57 @@
    "v2_slot": "community_signal",
    "why_it_matters": ""
   },
+  "story|title:fork linux desktops in 139ms for computer use agent training": {
+   "admission_rank": 64,
+   "admitted_at": "2026-11-25T22:07:05.485316+00:00",
+   "also_covered": [],
+   "content_excerpt": "Host daemon for the Drums shared runtime: many isolated Linux desktops per server, with CRIU restore, fork and reset, for computer-use RL The host daemon of the Drums shared runtime: hundreds of isolated Linux desktops on one server, restored from CRIU checkpoints, forked and reset without a reboot, with a gate report and a reward audit on every episode. Training a computer-use agent needs thousands of isolated desktops, and the usual answer is one virtual machine per desktop, each booting its own kernel, operating system and applications. Drums takes a different route: one Linux host runs one booted desktop image, and every environment is a private copy-on-write state on top of it (its own overlay root, its own pid, mount, network, ipc, uts and user namespaces, its own cgroup). An environment is not booted; it is restored from a CRIU checkpoint of a running desktop, so a reset or a fork brings up Chrome, LibreOffice or GIMP where they were, in seconds, and many environments share the image's pages. drumsd is the daemon that owns those environments on a host. It creates, resets, saves (captures), forks (branches), quarantines and destroys them; drives the Drums fork of CRIU ( drums-criu , one template server per checkpoint); runs every episode behind a set of gates (restore fidelity, isolation, cgroup limits, OOM kills, application crashes) so a trainer never sees a reward from a broken desktop; and audits each reward (a second checker run, a redundant checker, a file-scope scan). It serves an HTTP API on the host that the Python SDK ( drums-sdk ), the Drums gateway and the MCP server talk to. One host serves one tenant. Environments on a host are separated from each other by namespaces, cgroups and per-env uid ranges; customers are separated from each other by virtual machines. See Security . A fresh Ubuntu 24.04 x86_64 machine with cgroup v2 (the default), 16 vCPU, 32 GiB of RAM and a 150 GiB disk, with outbound HTTPS during the install. Every release is tested on an AWS c8i.4xlarge. Details, the list of hosts the installer downloads from, and how many environments fit: docs/host-requirements.md . A release is one self-contained tarball, drums-release-<commit>.tar.gz , from the releases page . Every input it needs (apt snapshot, the OSWorld image, the drums-criu and SDK commits, the Rust toolchain, a hashed Python lock) is pinned in install/lock.json and verified; the first mismatch stops the install. It takes 7 to 15 minutes on a 16-vCPU host and prints",
+   "first_seen": "2026-11-25T22:07:05.485316+00:00",
+   "freshness_at_admission": 0.9756,
+   "id": "026915e3a95fcba7",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.84,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-25T18:08:42.133615+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.95,
+   "judge_signals": {
+    "corporate_marketing": 0.03,
+    "keep": 0.95,
+    "platform_relevant": 0.98,
+    "release_lane": 0.14
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-25T18:09:11.546487+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.923,
+   "published": "Wed, 25 Nov 2026 16:52:14 +0000",
+   "rank_at_first_seen": 64,
+   "release_tier": null,
+   "score_at_first_seen": 1.4801,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "495560898961406a",
+   "story_key": "story|title:fork linux desktops in 139ms for computer use agent training",
+   "summary_1line": "drumsd is a host daemon for the Drums runtime that runs many isolated Linux desktops on one server, restoring them from CRIU checkpoints and gating each episode's reward for computer-use agent training.",
+   "time_decay_factor": 0.982,
+   "title": "Show HN: Fork Linux desktops in 139ms for computer-use agent training",
+   "type": "news",
+   "url": "https://github.com/Drums-Labs/drumsd",
+   "utility": 1.4801,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:from spectrum to structure identifying molecules with mass spec skills for googl": {
    "admission_rank": 60,
    "admitted_at": "2026-11-25T18:09:11.546487+00:00",
@@ -1219,7 +1268,7 @@
     "release_lane": 0.07
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.696,
@@ -1227,7 +1276,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 0.7504,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "frontier_official",
    "source": "google_deepmind_blog",
    "source_count": 1,
@@ -1372,7 +1421,7 @@
     "release_lane": 0.25
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1382,7 +1431,7 @@
    "rank_at_first_seen": 55,
    "release_tier": null,
    "score_at_first_seen": 1.2161,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "cloud_platform_updates",
    "source": "cloudflare_blog",
    "source_count": 1,
@@ -1573,7 +1622,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.889,
@@ -1581,7 +1630,7 @@
    "rank_at_first_seen": 40,
    "release_tier": null,
    "score_at_first_seen": 1.419,
-   "seen_count": 10,
+   "seen_count": 11,
    "slot": "research_watch",
    "source": "arxiv_cs_ai",
    "source_count": 1,
@@ -1724,7 +1773,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T21:07:20.266910+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent"
@@ -1734,7 +1783,7 @@
    "rank_at_first_seen": 57,
    "release_tier": null,
    "score_at_first_seen": 1.3957,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "research_watch",
    "source": "anthropic_research",
    "source_count": 1,
@@ -2381,7 +2430,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent",
@@ -2392,7 +2441,7 @@
    "rank_at_first_seen": 30,
    "release_tier": null,
    "score_at_first_seen": 1.3598,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -2792,7 +2841,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T07:07:00.768969+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.718,
@@ -2800,7 +2849,7 @@
    "rank_at_first_seen": 17,
    "release_tier": null,
    "score_at_first_seen": 1.101,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2892,7 +2941,7 @@
     "release_lane": 0.07
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T20:08:45.503812+00:00",
+   "last_seen": "2026-11-25T22:07:05.485316+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.85,
@@ -2900,7 +2949,7 @@
    "rank_at_first_seen": 58,
    "release_tier": null,
    "score_at_first_seen": 1.3905,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -3208,5 +3257,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-25T21:07:20.266910+00:00"
+ "updated_at": "2026-11-25T22:07:05.485316+00:00"
 }
