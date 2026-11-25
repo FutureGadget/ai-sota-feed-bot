@@ -418,6 +418,18 @@
   "type": "news",
   "url": "https://worldfoundry-demo.vercel.app"
  },
+ "03799036154b0251": {
+  "content_excerpt": "Apargon runs .papp files: personal apps your AI writes, double-click & it works. Create desktop apps with any AI, for macOS, Windows, and Linux. Each app opens in its own window, with its own icon, menus, and menu bar or tray icon. It can ask for notifications, global shortcuts, and always-on-top windows. No account, no cloud. Each app is one .papp file on your disk: plain HTML, with tags that ask for any extra permissions. No installer, no server, no build step. Double-click it to run it. Send it to share it. Apargon is a reverse browser. A browser gets all of the internet and none of your computer. Apargon flips it: an app reads your local disks, writes only its own folder, and reaches no site unless you say yes. It runs in a sandboxed window. Any coding agent can write one from a prompt: Claude Code, Codex, Cursor, or a local model. Because every app is an HTML file on your disk, it's malleable software too: open it, change anything you want, save, and the window reloads. Installers for macOS ( .dmg ), Ubuntu 24.04 ( .deb ), and Windows ( .exe ) are on the latest release . Double-click a .papp file to open it, or run open notes.papp (macOS) or apargon notes.papp (Linux). Apargon offers to install the agent skill ( skills/papp/SKILL.md ) on first run. To install it manually: Without permission tags, a .papp file opens immediately. It can read your local disks, write to its own folder, open file pickers, store OS-sealed secrets, set a custom icon, native menus, and tray icon",
+  "first_seen": "2026-11-25T16:05:53.113630+00:00",
+  "id": "4373f8200ae01a2a",
+  "published": "2026-11-25T15:49:30+00:00",
+  "sid": "03799036154b0251",
+  "source": "hackernews_ai",
+  "summary_1line": "Apargon is an open-source tool for turning prompts into desktop apps stored as single .papp HTML files that run without an account, server, or build step, with extra permissions requested through approval popups.",
+  "title": "Show HN: Apargon – Open-Source Claude \"Install as App\" for Any AI",
+  "type": "news",
+  "url": "https://github.com/Orcaryn/Apargon"
+ },
  "03d552b29a70ea20": {
   "first_seen": "2026-11-16T21:05:25.746783+00:00",
   "id": "12c8490f02639804",
@@ -4939,6 +4951,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.16591v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "2714f44b3c3e9482": {
+  "content_excerpt": "Artificial Intelligence (AI) has become increasingly pervasive in the data centre. While many documented architectures cover large-scale inference and training, there is something to be said for what happens when you need only a few Graphics Processing Unit (GPU) nodes. This smaller scale can be the right fit when each request is served by one replica, the user count is internal, and the priority is latency or privacy rather than training throughput. A few examples of when a few nodes are enough (there are others beyond these three): Now, this is where designing for some of these models gets tricky. The network problem is not how the GPUs talk to each other. It is how requests, long-lived streams, and occasional bulk transfers behave on the network that’s already in place. Consider a basic setup of 4 servers × 8 GPUs, running a Llama 3.3 70B model with vLLM for an internal application like those described above. The model file is about 141 GB, too large for a single 48 GB or 80 GB GPU, so each server spreads that file across the GPUs in its own chassis. One server holds the whole model and can answer a request without help from the others. GPUs in the same server talk over NVLink or Peripheral Component Interconnect Express (PCIe), and none of that traffic needs to leave the chassis. What crosses a Network Interface Card (NIC) is ordinary traffic. Requests come in, and token streams go out. Weights and container images move when a node is built, a process starts cold, or a mo",
+  "first_seen": "2026-11-25T16:05:53.113630+00:00",
+  "id": "46aed0ebcff1beb0",
+  "published": "2026-11-25T15:08:38+00:00",
+  "sid": "2714f44b3c3e9482",
+  "source": "hackernews_ai",
+  "summary_1line": "Explains network design for inference on a few GPU nodes, using a 4-server, 8-GPU example running Llama 3.3 70B with vLLM, and argues that request handling and session count matter more than GPU-to-GPU bandwidth.",
+  "title": "The model inside the server: Network design for inference on a few GPU nodes",
+  "type": "news",
+  "url": "https://blog.apnic.net/2026/11/25/the-model-inside-the-server-network-design-for-inference-on-a-few-gpu-nodes"
  },
  "271d24131ba5b79a": {
   "first_seen": "2026-11-24T04:08:12.510864+00:00",
@@ -9935,6 +9959,22 @@
   "title": "How AUMOVIO centralized AI access with Databricks Unity Gateway",
   "type": "news",
   "url": "https://www.databricks.com/blog/how-aumovio-centralized-ai-access-databricks-unity-gateway"
+ },
+ "4da8cc028866d9c2": {
+  "first_seen": "2026-11-25T16:05:53.113630+00:00",
+  "id": "ba52df3a36441eec",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-24T13:48:19+00:00",
+  "sid": "4da8cc028866d9c2",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Collecting diverse real-world manipulation demonstrations is costly, motivating the use of simulation to augment existing demonstrations for robot policy learning. When objects, layouts, or robots change, transferring motions from a source demonstration can produce behavior that is semantically implausible or physically infeasible in the new setting. We introduce RoboRecast, an agentic optimization framework that preserves the interactions required by the source task while jointly optimizing the simulated scene and robot motion to make those interactions executable in the target setting. When an interaction fails, the agent uses simulation feedback to diagnose the cause, revise the relevant scene or motion parameters, and test whether the revision resolves the failure. This flexibility allows RoboRecast to generate synthetic data from both human and robot demonstrations and to adapt them to new layouts, objects, and robot embodiments. When target demonstrations are available, adding RoboRecast data improves policy success on both real-world single-arm and simulated bimanual tasks. Even without demonstrations in the target configuration, RoboRecast adapts source demonstrations to support policy learning with new objects or robot embodiments.",
+  "summary_1line": "RoboRecast is an agentic framework that adapts robot manipulation demonstrations to new objects, layouts, and robot embodiments by optimizing simulated scenes and motions, improving policy success on real and simulated tasks.",
+  "title": "RoboRecast: Intent-Preserving Demonstration Augmentation via Diagnosis-Driven Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32622v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "4da96d8d7e14ecca": {
   "content_excerpt": "This whole proof travelled in the link — your browser is re-checking its hash and signature right now. Nothing here trusts a server. Edit the action below and watch it break. Type one action your agent took. It gets signed into a tamper-evident record right here in your browser — one that anyone can verify for themselves. Then try to break it. That demo signed by hand. For a real agent, the library signs every tool call automatically — two commands if you're on Claude Code: Running an agent in production? A 2-week founding pilot wires AgentProof into one of your real workflows and gives you a hosted verify page your customers and auditors check themselves — $490.",
@@ -24417,6 +24457,22 @@
   "type": "video",
   "url": "https://youtu.be/0cySwRF7oJI",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "bba0851afc6567fe": {
+  "first_seen": "2026-11-25T16:05:53.113630+00:00",
+  "id": "40a55b544d4ee7b9",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T17:57:00+00:00",
+  "sid": "bba0851afc6567fe",
+  "source": "arxiv_cs_cl",
+  "summary": "Answers from generative AI chatbots built on large language models (LLMs) now arrive at very different speeds: reasoning models deliberate before replying, while response caches can return a stored answer at once. Blind preference votes, which rank these models, are read as judgments of their text, and if delivery matters, faster answers are expected to gain. Research on the labor illusion and on how text appears on screen suggests instead that an answer which unfolds as it is written is credited over the same answer shown at once. We test these accounts with three sources of variation in natural use. First, compar:IA, a French government chatbot arena, answered repeated prompts, by a random draw, either with a fresh answer streamed as it was written or with a stored earlier answer from the same model, shown at once. Within the same prompt, a replay lowered an answer's chance of winning a decisive blind vote by 25.8 percentage points. The same stored text won 57% of its decisive votes when streamed and 29% when replayed, and voters called it less complete, more superficial and more often incorrect when replayed. Second, provider congestion slowed streamed answers. In 324,029 conversations, slower answers earned no detectable net credit in the vote, but a slower first exchange made visitors less likely to ask a follow-up question. Third, in 4,378,514 WildChat replies from everyday ChatGPT use, replies slowed by congestion made users less likely to continue. Delivery moved blin",
+  "summary_1line": "A study of French government chatbot arena compar:IA and WildChat logs finds that replaying stored answers instead of streaming fresh ones lowered blind-vote wins, while slow replies reduced follow-up questions.",
+  "title": "Worth the Wait? How Response Time and Streaming Shape Judgments of Generative AI Answers and Chatbot Engagement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33050v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "bbd492caba72ca54": {
   "first_seen": "2026-11-06T01:05:02.835983+00:00",
