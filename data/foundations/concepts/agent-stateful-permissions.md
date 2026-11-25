@@ -5,7 +5,7 @@ question: "Why can a permission check that's correct for a single tool call stil
 summary: "A policy that checks each tool call in isolation can be right every time and still let an agent break a limit across a sequence. AWS's Dogwood shows a $5,000 cap beaten by three concurrent $2,000 transfers when it counts settled responses, not issued requests."
 status: active
 cluster: safety
-updated: 2026-10-28
+updated: 2026-11-25
 audience: "strong-software-engineer"
 related_topics: [mcp, agent-sandboxing, tool-use]
 related_playbook_cards: []
@@ -37,6 +37,20 @@ evidence:
     url: "http://arxiv.org/abs/2610.31916v1"
     added: 2026-10-28
     note: "Frames the gap: a durable agent can resume a consequential action while its authority has changed and the action's external outcome is uncertain. The study isolates recovery decisions in tool-using agents. Only the abstract was reviewed; no numbers are cited here."
+  - id: permission-replies-rewrite-policy-2026
+    kind: theory-paper
+    sid: "6bdcd0c1ace0da2f"
+    title: "When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy"
+    url: "http://arxiv.org/abs/2611.32195"
+    added: 2026-11-25
+    note: "Claude Code checks each permission answer, but only updates that add or replace allow rules. A remote service approves an unrelated command, attaches an update deleting the deny rule on project secrets, and the agent reads them in that session and the next. Proves tight bounds on safe delegation: without rule authorship, accept only updates that keep every denied call denied. The bounds predicted the outcome in all 13 permission designs across 10 agent systems."
+  - id: schemacaps-tool-schema-widening-2026
+    kind: benchmark-result
+    sid: "388bf86f443549e4"
+    title: "SchemaCaps: When a Compatible Tool Update Silently Widens an AI Agent's Authority"
+    url: "http://arxiv.org/abs/2611.30750"
+    added: 2026-11-25
+    note: "None of 8 surveyed MCP clients and scanners is documented to re-approve a tool whose input schema widens. In 604 releases of 39 public MCP servers, 412 of 580 backward-compatible schema changes widen some argument, and at least 76 add or widen an authority-bearing one. A subschema-inclusion re-approval rule asks 645 re-approvals, against 1,197 for pinning the schema. Behavior changes behind an unchanged schema stay out of reach."
   - id: agent-stateful-permissions-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -58,7 +72,10 @@ Split authorization into two questions that need different mechanisms:
 
 Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.
 
-A third question applies to long-running agents: **is the authority this run started with still valid now?** A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user's status changed.
+Two more questions apply to long-running agents:
+
+- **Is the authority this run started with still valid now?** A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user's status changed.
+- **Has the rulebook itself moved?** Every check compares against a policy and a tool's approved shape. If a permission reply can edit the policy, or a tool update can widen its arguments, each check stays correct against a rulebook that is no longer the one you approved.
 
 ## Mechanism
 **Why stateless is the default.** Cedar evaluates a request using only its own context: principal, action, resource, and attributes. That restriction is what lets Cedar formally verify a policy set, for example that no request is both permitted and denied, without simulating every call sequence.
@@ -74,7 +91,12 @@ The cost is that temporal conditions give up Cedar's automated formal-analysis g
 
 **The concurrency trap.** `sum_within(response.amount, 1h) <= 5000` passes every sequential test. Under concurrency, three $2,000 requests are each evaluated while the settled total is still $0, so all three pass. Writing the rule against request events closes the gap, because a request counts the moment it is issued.
 
-**Consistency across servers.** A correct policy on one MCP server does not help if every server defines "risky write" differently. Cloudflare's WriteGuard centralizes that into one layer with four risk tiers, from read-only to critical.
+**Rules that move mid-run.** Two 2026 papers show the reference point drifting:
+
+- **Policy edits through answers.** Claude Code lets a plugin or remote service answer a permission prompt, and the answer can carry a policy update. Only added allow rules were checked, so an answer could delete a deny rule. The deletion looked like a local operator edit.
+- **Tool schemas that widen.** In a pilot on 39 public MCP servers, 412 of 580 backward-compatible schema changes widened some argument. No surveyed client re-approved them.
+
+**Consistency across servers.** Cloudflare's WriteGuard gives many MCP servers one shared risk-tier layer instead of per-server definitions of "risky write".
 
 ## How to apply
 - **Decide up front whether a rule needs history.** Approval workflows, rate or spend limits, and post-action sequencing rules do. Most others do not.
@@ -83,13 +105,17 @@ The cost is that temporal conditions give up Cedar's automated formal-analysis g
 - **Test stateful rules with concurrent calls,** not only sequential ones.
 - **Re-check authority at each write,** not only at run start. Test by suspending a user mid-run; Scopehaven's pilot saw 2 of 14 such runs still write a file.
 - **Do not make a reference interpreter or private beta your only control.** AWS says Dogwood's interpreter is not for production; WriteGuard has no production track record.
-- **Centralize risk tiering** if you run many MCP servers, instead of letting each server define its own.
+- **Treat a policy update as an admin action.** Accept one from a delegated answerer only if every denied call stays denied, and record who wrote each rule.
+- **Re-approve a tool when its input schema widens,** not only when it breaks compatibility.
+- **Centralize risk tiering** if you run many MCP servers.
 
 ## Failure modes
 - Testing a spend cap or rate limit only with sequential traffic, then shipping it.
 - Summing responses instead of requests, so in-flight calls slip past a rule that looks correct.
 - Expecting a stateless system (classic RBAC, plain Cedar) to express "stop after the agent did X".
-- Deploying a reference implementation or beta as a production control despite the maker's own caveats.
+- Letting whoever answers a permission prompt also delete deny rules.
+- Auto-accepting "compatible" tool updates that add or widen authority-bearing arguments.
+- Deploying a reference implementation or beta as a production control.
 
 ## Related
 See [MCP](/topic/mcp) for the protocol both tools govern, [agent sandboxing](/topic/agent-sandboxing) for isolation controls at a different layer, and [tool use](/topic/tool-use) for the agent-tool integrations where this gap appears.

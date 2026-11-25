@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T18:04:41.269673+00:00",
+  "generated_at": "2026-11-25T10:09:21.180228+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -73,6 +73,42 @@
   ],
   "recent_evidence": [
     {
+      "concept": "speculative-decoding",
+      "concept_title": "How does speculative decoding speed up LLM inference?",
+      "id": "grammar-as-a-draft-2026",
+      "title": "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-25"
+    },
+    {
+      "concept": "speculative-decoding",
+      "concept_title": "How does speculative decoding speed up LLM inference?",
+      "id": "exact-on-paper-serving-flips-2026",
+      "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-25"
+    },
+    {
+      "concept": "agent-stateful-permissions",
+      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
+      "id": "schemacaps-tool-schema-widening-2026",
+      "title": "SchemaCaps: When a Compatible Tool Update Silently Widens an AI Agent's Authority",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-25"
+    },
+    {
+      "concept": "agent-stateful-permissions",
+      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
+      "id": "permission-replies-rewrite-policy-2026",
+      "title": "When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy",
+      "tier": "theory/paper-backed",
+      "kind": "theory-paper",
+      "added": "2026-11-25"
+    },
+    {
       "concept": "llm-judge-reliability",
       "concept_title": "Can you trust an LLM-as-judge score?",
       "id": "verification-transport-2026",
@@ -104,42 +140,6 @@
       "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
       "id": "zhang-2026-task-tampering-ipi",
       "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-18"
-    },
-    {
-      "concept": "prompt-injection-enforcement",
-      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
-      "id": "xu-2026-caplite-write-integrity",
-      "title": "CapLite: Prompt-Injection Defense for Small Language Model Agents without Model-Written Security Artifacts",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-18"
-    },
-    {
-      "concept": "prompt-injection-enforcement",
-      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
-      "id": "xiao-2026-text-similarity-guardrail-limits",
-      "title": "Safe Resemblance, Silent Propagation: Limits of Text-Similarity Guardrails for AI Agent Safety",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-18"
-    },
-    {
-      "concept": "prompt-injection-enforcement",
-      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
-      "id": "lim-2026-spillway-target-admission",
-      "title": "SPILLWAY: Separating Target Admission from Sanitization to Defend Tool-Using Agents against Prompt Injection",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-18"
-    },
-    {
-      "concept": "prompt-injection-enforcement",
-      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
-      "id": "aljumaily-2026-model-as-untrusted-component",
-      "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents",
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-18"
@@ -1198,8 +1198,8 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-28",
-      "latest_evidence_added": "2026-10-28",
+      "updated": "2026-11-25",
+      "latest_evidence_added": "2026-11-25",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1213,19 +1213,19 @@
         },
         {
           "heading": "Builder model",
-          "html": "<p>Split authorization into two questions that need different mechanisms:</p>\n<ul><li><strong>Is this request allowed on its own?</strong> A stateless check of caller, action, and resource answers it. Most tool calls only need this.</li><li><strong>Is it allowed given what the agent already did?</strong> Approval workflows, rate or spend limits, and sequencing rules need history. A stateless check cannot answer this however you tune it.</li></ul>\n<p>Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.</p>\n<p>A third question applies to long-running agents: <strong>is the authority this run started with still valid now?</strong> A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user&#x27;s status changed.</p>"
+          "html": "<p>Split authorization into two questions that need different mechanisms:</p>\n<ul><li><strong>Is this request allowed on its own?</strong> A stateless check of caller, action, and resource answers it. Most tool calls only need this.</li><li><strong>Is it allowed given what the agent already did?</strong> Approval workflows, rate or spend limits, and sequencing rules need history. A stateless check cannot answer this however you tune it.</li></ul>\n<p>Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.</p>\n<p>Two more questions apply to long-running agents:</p>\n<ul><li><strong>Is the authority this run started with still valid now?</strong> A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user&#x27;s status changed.</li><li><strong>Has the rulebook itself moved?</strong> Every check compares against a policy and a tool&#x27;s approved shape. If a permission reply can edit the policy, or a tool update can widen its arguments, each check stays correct against a rulebook that is no longer the one you approved.</li></ul>"
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Why stateless is the default.</strong> Cedar evaluates a request using only its own context: principal, action, resource, and attributes. That restriction is what lets Cedar formally verify a policy set, for example that no request is both permitted and denied, without simulating every call sequence.</p>\n<p><strong>How Dogwood adds history.</strong> A <code>when temporal</code> clause is translated into ordinary Cedar context fields, filled from the event history, before the stateless evaluator runs. Temporal reasoning happens once, up front. Four operators cover the common shapes:</p>\n<ul><li><code>formerly</code>: did X happen in a window?</li><li><code>count_within</code>: how many times?</li><li><code>count_distinct_within</code>: how many distinct values?</li><li><code>sum_within</code>: what is the running total?</li></ul>\n<p>The cost is that temporal conditions give up Cedar&#x27;s automated formal-analysis guarantees.</p>\n<p><strong>The concurrency trap.</strong> <code>sum_within(response.amount, 1h) &lt;= 5000</code> passes every sequential test. Under concurrency, three $2,000 requests are each evaluated while the settled total is still $0, so all three pass. Writing the rule against request events closes the gap, because a request counts the moment it is issued.</p>\n<p><strong>Consistency across servers.</strong> A correct policy on one MCP server does not help if every server defines &quot;risky write&quot; differently. Cloudflare&#x27;s WriteGuard centralizes that into one layer with four risk tiers, from read-only to critical.</p>"
+          "html": "<p><strong>Why stateless is the default.</strong> Cedar evaluates a request using only its own context: principal, action, resource, and attributes. That restriction is what lets Cedar formally verify a policy set, for example that no request is both permitted and denied, without simulating every call sequence.</p>\n<p><strong>How Dogwood adds history.</strong> A <code>when temporal</code> clause is translated into ordinary Cedar context fields, filled from the event history, before the stateless evaluator runs. Temporal reasoning happens once, up front. Four operators cover the common shapes:</p>\n<ul><li><code>formerly</code>: did X happen in a window?</li><li><code>count_within</code>: how many times?</li><li><code>count_distinct_within</code>: how many distinct values?</li><li><code>sum_within</code>: what is the running total?</li></ul>\n<p>The cost is that temporal conditions give up Cedar&#x27;s automated formal-analysis guarantees.</p>\n<p><strong>The concurrency trap.</strong> <code>sum_within(response.amount, 1h) &lt;= 5000</code> passes every sequential test. Under concurrency, three $2,000 requests are each evaluated while the settled total is still $0, so all three pass. Writing the rule against request events closes the gap, because a request counts the moment it is issued.</p>\n<p><strong>Rules that move mid-run.</strong> Two 2026 papers show the reference point drifting:</p>\n<ul><li><strong>Policy edits through answers.</strong> Claude Code lets a plugin or remote service answer a permission prompt, and the answer can carry a policy update. Only added allow rules were checked, so an answer could delete a deny rule. The deletion looked like a local operator edit.</li><li><strong>Tool schemas that widen.</strong> In a pilot on 39 public MCP servers, 412 of 580 backward-compatible schema changes widened some argument. No surveyed client re-approved them.</li></ul>\n<p><strong>Consistency across servers.</strong> Cloudflare&#x27;s WriteGuard gives many MCP servers one shared risk-tier layer instead of per-server definitions of &quot;risky write&quot;.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Decide up front whether a rule needs history.</strong> Approval workflows, rate or spend limits, and post-action sequencing rules do. Most others do not.</li><li><strong>Count events when they are issued, not when they settle.</strong> This applies to any budget or rate limit you write, with or without Dogwood.</li><li><strong>Use the four operator shapes as vocabulary</strong> to name which kind of history a rule needs, even without adopting Dogwood.</li><li><strong>Test stateful rules with concurrent calls,</strong> not only sequential ones.</li><li><strong>Re-check authority at each write,</strong> not only at run start. Test by suspending a user mid-run; Scopehaven&#x27;s pilot saw 2 of 14 such runs still write a file.</li><li><strong>Do not make a reference interpreter or private beta your only control.</strong> AWS says Dogwood&#x27;s interpreter is not for production; WriteGuard has no production track record.</li><li><strong>Centralize risk tiering</strong> if you run many MCP servers, instead of letting each server define its own.</li></ul>"
+          "html": "<ul><li><strong>Decide up front whether a rule needs history.</strong> Approval workflows, rate or spend limits, and post-action sequencing rules do. Most others do not.</li><li><strong>Count events when they are issued, not when they settle.</strong> This applies to any budget or rate limit you write, with or without Dogwood.</li><li><strong>Use the four operator shapes as vocabulary</strong> to name which kind of history a rule needs, even without adopting Dogwood.</li><li><strong>Test stateful rules with concurrent calls,</strong> not only sequential ones.</li><li><strong>Re-check authority at each write,</strong> not only at run start. Test by suspending a user mid-run; Scopehaven&#x27;s pilot saw 2 of 14 such runs still write a file.</li><li><strong>Do not make a reference interpreter or private beta your only control.</strong> AWS says Dogwood&#x27;s interpreter is not for production; WriteGuard has no production track record.</li><li><strong>Treat a policy update as an admin action.</strong> Accept one from a delegated answerer only if every denied call stays denied, and record who wrote each rule.</li><li><strong>Re-approve a tool when its input schema widens,</strong> not only when it breaks compatibility.</li><li><strong>Centralize risk tiering</strong> if you run many MCP servers.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Testing a spend cap or rate limit only with sequential traffic, then shipping it.</li><li>Summing responses instead of requests, so in-flight calls slip past a rule that looks correct.</li><li>Expecting a stateless system (classic RBAC, plain Cedar) to express &quot;stop after the agent did X&quot;.</li><li>Deploying a reference implementation or beta as a production control despite the maker&#x27;s own caveats.</li></ul>"
+          "html": "<ul><li>Testing a spend cap or rate limit only with sequential traffic, then shipping it.</li><li>Summing responses instead of requests, so in-flight calls slip past a rule that looks correct.</li><li>Expecting a stateless system (classic RBAC, plain Cedar) to express &quot;stop after the agent did X&quot;.</li><li>Letting whoever answers a permission prompt also delete deny rules.</li><li>Auto-accepting &quot;compatible&quot; tool updates that add or widen authority-bearing arguments.</li><li>Deploying a reference implementation or beta as a production control.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1233,6 +1233,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "permission-replies-rewrite-policy-2026",
+          "kind": "theory-paper",
+          "tier": "theory/paper-backed",
+          "title": "When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy",
+          "note": "Claude Code checks each permission answer, but only updates that add or replace allow rules. A remote service approves an unrelated command, attaches an update deleting the deny rule on project secrets, and the agent reads them in that session and the next. Proves tight bounds on safe delegation: without rule authorship, accept only updates that keep every denied call denied. The bounds predicted the outcome in all 13 permission designs across 10 agent systems.",
+          "added": "2026-11-25",
+          "url": "http://arxiv.org/abs/2611.32195",
+          "sid": "6bdcd0c1ace0da2f"
+        },
+        {
+          "id": "schemacaps-tool-schema-widening-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "SchemaCaps: When a Compatible Tool Update Silently Widens an AI Agent's Authority",
+          "note": "None of 8 surveyed MCP clients and scanners is documented to re-approve a tool whose input schema widens. In 604 releases of 39 public MCP servers, 412 of 580 backward-compatible schema changes widen some argument, and at least 76 add or widen an authority-bearing one. A subschema-inclusion re-approval rule asks 645 re-approvals, against 1,197 for pinning the schema. Behavior changes behind an unchanged schema stay out of reach.",
+          "added": "2026-11-25",
+          "url": "http://arxiv.org/abs/2611.30750",
+          "sid": "388bf86f443549e4"
+        },
         {
           "id": "story-400904d310baccd7-scopehaven-suspended-user",
           "kind": "production-field-report",
@@ -2833,8 +2853,8 @@
       "status": "active",
       "cluster": "operations",
       "cluster_label": "Cost, latency, and operations",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-07-15",
+      "updated": "2026-11-25",
+      "latest_evidence_added": "2026-11-25",
       "audience": "strong-software-engineer",
       "math_depth": "intuition",
       "sections": [
@@ -2860,11 +2880,11 @@
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li>Measure acceptance rate on your own traffic before trusting any vendor&#x27;s throughput multiplier. Low-entropy, structured output — code, JSON, repetitive tool-call arguments — accepts at much higher rates than open-ended creative text, so the same technique can be a large win for one agent and a marginal one for another.</li><li>Prefer a feature-level draft head trained alongside the target model (the EAGLE approach) over an off-the-shelf small model as the draft; acceptance rate is the entire economics of the technique.</li><li>Benchmark end-to-end latency and cost per token at your real concurrency, not tokens/sec at one batch size — the win shrinks as concurrency rises and the GPU shifts from memory-bound to compute-bound.</li><li>Treat vendor multipliers (2x, 15x) as workload- and hardware-specific ceilings, not a number you inherit automatically; validate against your own agent&#x27;s decode traffic.</li><li>Because the technique is lossless by construction, it is safe to roll out broadly once tuned — there is no accuracy eval cycle to run, only a latency/cost one.</li></ul>"
+          "html": "<ul><li>Measure acceptance rate on your own traffic before trusting any vendor&#x27;s throughput multiplier. Structured output (code, JSON, tool-call arguments) accepts far more often than open-ended text.</li><li>For grammar-constrained output, let the grammar draft the forced tokens. Grammar-as-a-Draft raised mean acceptance length from 2.06 to 5.43 on JSON; run an output-quality eval first, because it is not strictly lossless.</li><li>Prefer a feature-level draft head trained alongside the target model (the EAGLE approach) over an off-the-shelf small model as the draft; acceptance rate is the entire economics of the technique.</li><li>Benchmark end-to-end latency and cost per token at your real concurrency, not tokens/sec at one batch size — the win shrinks as concurrency rises and the GPU shifts from memory-bound to compute-bound.</li><li>Treat vendor multipliers (2x, 15x) as workload- and hardware-specific ceilings, not a number you inherit automatically; validate against your own agent&#x27;s decode traffic.</li><li>Certify a rollout per request, not by aggregate accuracy. Compare under batch-invariant kernels, where any diff is real, or against a reordering floor measured from at least three replicas.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Assuming the speedup is free at any batch size.</strong> At high concurrency, verify compute competes with the batch; the benefit shrinks or vanishes once decode is compute-bound.</li><li><strong>Mismatched draft and target.</strong> Swapping in an unrelated small model, or reusing a draft head trained against a different target checkpoint, tanks the acceptance rate and can make decode slower than not speculating at all, since you still pay the draft cost with little payoff.</li><li><strong>Treating headline multipliers as guaranteed.</strong> A hardware-co-designed benchmark number reflects a specific model, batch size, and accelerator; a different production workload will see a different number, often much smaller.</li><li><strong>Believing it changes output quality.</strong> It is lossless by construction; a quality change after enabling it means a bug in the accept/reject implementation.</li></ul>"
+          "html": "<ul><li><strong>Assuming the speedup is free at any batch size.</strong> At high concurrency, verify compute competes with the batch; the benefit shrinks or vanishes once decode is compute-bound.</li><li><strong>Mismatched draft and target.</strong> An unrelated small model, or a draft head trained against a different target checkpoint, tanks acceptance and can make decode slower than not speculating.</li><li><strong>Treating headline multipliers as guaranteed.</strong> A hardware-co-designed benchmark number reflects a specific model, batch size, and accelerator; a different production workload will see a different number, often much smaller.</li><li><strong>Blaming speculation for batch noise.</strong> In one vLLM study it flipped about 1.5-1.8% of graded answers, no more than reordering the same requests did. Under batch-invariant kernels it reproduced the reference text exactly. A larger diff there is an accept/reject bug.</li><li><strong>Calling every variant lossless.</strong> Grammar drafts accepted with probability 1 can shift the output distribution.</li></ul>"
         },
         {
           "heading": "Related",
@@ -2872,6 +2892,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "grammar-as-a-draft-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs",
+          "note": "Merges grammar-forced tokens (the only legal next token) into the draft row and accepts them without computing logits. On a JSON benchmark on TPU v7x, mean acceptance length rises from 2.06 to 5.43 with an MTP drafter, decoding 2.66-2.81x faster at batch 1 and 1.14-1.70x at batch 64. Caveat from the authors: accepting grammar drafts with probability 1 can shift the output distribution relative to grammar-masked decoding.",
+          "added": "2026-11-25",
+          "url": "http://arxiv.org/abs/2611.28349",
+          "sid": "b6559df505fa2a9e"
+        },
+        {
+          "id": "exact-on-paper-serving-flips-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests",
+          "note": "Serves one 4B model in vLLM and grades 3,380 requests per configuration. With default kernels, exact features including speculative decoding flip 1.47-1.78% of graded outcomes, none above the 1.72% floor from merely reordering requests. With batch-invariant kernels, speculative decoding reproduces the reference text on every request. A gate comparing a single replica pair rejected an unchanged configuration.",
+          "added": "2026-11-25",
+          "url": "http://arxiv.org/abs/2611.29663",
+          "sid": "3515c9dc9a088b85"
+        },
         {
           "id": "leviathan-2023-speculative-decoding",
           "kind": "theory-paper",

@@ -5,7 +5,7 @@ question: "How does speculative decoding speed up LLM inference?"
 summary: "Speculative decoding drafts several tokens cheaply, then verifies them in one parallel pass through the target model — cutting decode latency without changing the output distribution, as long as the draft's guesses are good enough to pay for themselves."
 status: active
 cluster: operations
-updated: 2026-10-06
+updated: 2026-11-25
 audience: "strong-software-engineer"
 math_depth: intuition
 related_topics: [speculative-decoding, agent-latency, agent-cost]
@@ -36,6 +36,20 @@ evidence:
     title: "EAGLE-3 Speculative Decoding on AMD Instinct GPUs: Training and Serving with vLLM and AMD Quark"
     added: 2026-07-15
     note: "EAGLE-3 in a real vLLM serving stack on AMD Instinct GPUs: 2.00x throughput on Kimi-K2.5 and 1.79x on MiniMax-M2.5. Shows the pattern ships across accelerator vendors. Vendor-reported."
+  - id: grammar-as-a-draft-2026
+    kind: benchmark-result
+    sid: "b6559df505fa2a9e"
+    title: "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs"
+    url: "http://arxiv.org/abs/2611.28349"
+    added: 2026-11-25
+    note: "Merges grammar-forced tokens (the only legal next token) into the draft row and accepts them without computing logits. On a JSON benchmark on TPU v7x, mean acceptance length rises from 2.06 to 5.43 with an MTP drafter, decoding 2.66-2.81x faster at batch 1 and 1.14-1.70x at batch 64. Caveat from the authors: accepting grammar drafts with probability 1 can shift the output distribution relative to grammar-masked decoding."
+  - id: exact-on-paper-serving-flips-2026
+    kind: benchmark-result
+    sid: "3515c9dc9a088b85"
+    title: "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests"
+    url: "http://arxiv.org/abs/2611.29663"
+    added: 2026-11-25
+    note: "Serves one 4B model in vLLM and grades 3,380 requests per configuration. With default kernels, exact features including speculative decoding flip 1.47-1.78% of graded outcomes, none above the 1.72% floor from merely reordering requests. With batch-invariant kernels, speculative decoding reproduces the reference text on every request. A gate comparing a single replica pair rejected an unchanged configuration."
   - id: modal-decagon-specdec-2026
     kind: story
     sid: 62173e9d865bdec2
@@ -74,17 +88,19 @@ The correctness argument is a modified rejection sampling scheme. For a draft di
 The speed argument follows from the memory-bound builder model above. If one decode step costs time `T` largely independent of small compute increases, then verifying `k` draft tokens in one step still costs roughly `T`, not `k · T`. Accepting an average of `α · k` tokens per verify step (`α` = acceptance rate) turns `α · k` sequential steps into one, so the achievable speedup tracks `1 + α · k` — until batch size grows enough that the GPU becomes compute-bound and the "`T` regardless of `k`" assumption stops holding.
 
 ## How to apply
-- Measure acceptance rate on your own traffic before trusting any vendor's throughput multiplier. Low-entropy, structured output — code, JSON, repetitive tool-call arguments — accepts at much higher rates than open-ended creative text, so the same technique can be a large win for one agent and a marginal one for another.
+- Measure acceptance rate on your own traffic before trusting any vendor's throughput multiplier. Structured output (code, JSON, tool-call arguments) accepts far more often than open-ended text.
+- For grammar-constrained output, let the grammar draft the forced tokens. Grammar-as-a-Draft raised mean acceptance length from 2.06 to 5.43 on JSON; run an output-quality eval first, because it is not strictly lossless.
 - Prefer a feature-level draft head trained alongside the target model (the EAGLE approach) over an off-the-shelf small model as the draft; acceptance rate is the entire economics of the technique.
 - Benchmark end-to-end latency and cost per token at your real concurrency, not tokens/sec at one batch size — the win shrinks as concurrency rises and the GPU shifts from memory-bound to compute-bound.
 - Treat vendor multipliers (2x, 15x) as workload- and hardware-specific ceilings, not a number you inherit automatically; validate against your own agent's decode traffic.
-- Because the technique is lossless by construction, it is safe to roll out broadly once tuned — there is no accuracy eval cycle to run, only a latency/cost one.
+- Certify a rollout per request, not by aggregate accuracy. Compare under batch-invariant kernels, where any diff is real, or against a reordering floor measured from at least three replicas.
 
 ## Failure modes
 - **Assuming the speedup is free at any batch size.** At high concurrency, verify compute competes with the batch; the benefit shrinks or vanishes once decode is compute-bound.
-- **Mismatched draft and target.** Swapping in an unrelated small model, or reusing a draft head trained against a different target checkpoint, tanks the acceptance rate and can make decode slower than not speculating at all, since you still pay the draft cost with little payoff.
+- **Mismatched draft and target.** An unrelated small model, or a draft head trained against a different target checkpoint, tanks acceptance and can make decode slower than not speculating.
 - **Treating headline multipliers as guaranteed.** A hardware-co-designed benchmark number reflects a specific model, batch size, and accelerator; a different production workload will see a different number, often much smaller.
-- **Believing it changes output quality.** It is lossless by construction; a quality change after enabling it means a bug in the accept/reject implementation.
+- **Blaming speculation for batch noise.** In one vLLM study it flipped about 1.5-1.8% of graded answers, no more than reordering the same requests did. Under batch-invariant kernels it reproduced the reference text exactly. A larger diff there is an accept/reject bug.
+- **Calling every variant lossless.** Grammar drafts accepted with probability 1 can shift the output distribution.
 
 ## Related
 See [speculative decoding](/topic/speculative-decoding) for current vendor and hardware coverage, and [agent latency](/topic/agent-latency) for why the strictly sequential decode loop this technique attacks dominates an agent's wall-clock in the first place.
