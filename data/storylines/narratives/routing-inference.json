@@ -1,18 +1,18 @@
 {
   "slug": "routing-inference",
-  "generated_at": "2026-11-23T00:12:25Z",
-  "covers_last_updated": "2026-11-19T18:58:31+00:00",
+  "generated_at": "2026-11-25T00:30:00Z",
+  "covers_last_updated": "2026-11-24T00:00:00+00:00",
   "covers_member_sids": [
-    "473a95cd7c540d1a",
-    "219537f3fa2b3690",
     "9b6ce22e2f29b264",
     "e5680f897e15540f",
     "5bfc543d91bf8d2a",
     "a4e942d0f147f07c",
     "adc7ff27af4b9288",
+    "ca0cd6bcfdb70098",
     "d7a4f91e59e352a3",
     "e267de687efb45c3",
     "018ac20c79d4eeba",
+    "15de4f547fb7e7f3",
     "dec4d075135f7b7e",
     "60d6d445e0dacc9d",
     "a2babe4c488b1701",
@@ -20,89 +20,86 @@
     "791a1b16a3fdcbe1",
     "a272cda257e80f9a",
     "a20d3952433df237",
-    "024d4dfaa92472bb"
+    "024d4dfaa92472bb",
+    "f51ccad0f77a0a72",
+    "1e9cd14ce7d752e8",
+    "34fa4a3e4f5678d6",
+    "e51f1d2a874386b9"
   ],
-  "tldr": "This is a loose topical cluster, not one event: 18 independent items from Nov 2 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
-  "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
-  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 18 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
+  "tldr": "This is a loose theme thread, not one event: 22 independent items from Nov 6 to Nov 24 that each cut inference or agent cost at a different layer, mostly arXiv papers plus posts from Google, Baseten, Microsoft Research, UW, AWS and vLLM. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
+  "whats_new": "vLLM shipped vLLM-GR on Nov 24, an open-source serving framework that adds beam search over semantic item IDs so generative recommendation models such as OneRec can run on the vLLM stack.",
+  "why_it_matters": "KV-cache memory is still the most-attacked bottleneck here (6 of 22 items), and vLLM-GR shows mainstream serving engines now stretching to non-chat workloads, so one serving stack may soon cover both LLM and recommendation traffic.",
   "beats": [
-    {
-      "kicker": "MODEL",
-      "tone": "neutral",
-      "headline": "Expert-parallel compression, speculative decoding and quantization trade-offs",
-      "summary": "Efficiency inside the model and decode loop: less all-to-all traffic, cheaper draft verification, fewer bits.",
-      "sids": [
-        "a4e942d0f147f07c",
-        "018ac20c79d4eeba",
-        "dec4d075135f7b7e"
-      ]
-    },
-    {
-      "kicker": "INPUT",
-      "tone": "neutral",
-      "headline": "Shrink what reaches the model: prompts, images and audio",
-      "summary": "Input reduction across three modalities: prompt compression, VLM cropping plus compression, and chunked long-audio ASR.",
-      "sids": [
-        "473a95cd7c540d1a",
-        "d7a4f91e59e352a3",
-        "dc09546d23d7229e"
-      ]
-    },
-    {
-      "kicker": "AGENTS",
-      "tone": "neutral",
-      "headline": "Agent-level efficiency: distilled skills, coordinated delegation, token budgets",
-      "summary": "Cost cuts at the agent layer rather than the serving stack.",
-      "sids": [
-        "219537f3fa2b3690",
-        "e267de687efb45c3",
-        "60d6d445e0dacc9d"
-      ]
-    },
     {
       "kicker": "SERVING",
       "tone": "neutral",
       "headline": "Serving stacks: XLA Serving Engine, edge simulation, cross-Region routing",
       "summary": "Infrastructure that decides where and on what hardware requests run.",
-      "sids": [
-        "9b6ce22e2f29b264",
-        "791a1b16a3fdcbe1",
-        "a272cda257e80f9a"
-      ]
+      "sids": ["9b6ce22e2f29b264", "791a1b16a3fdcbe1", "a272cda257e80f9a"]
+    },
+    {
+      "kicker": "MODEL",
+      "tone": "neutral",
+      "headline": "Cheaper decoding: draft pruning, diffusion blocks, MoE traffic, small models",
+      "summary": "Efficiency inside the model and decode loop: cheaper draft verification, overlapping diffusion blocks, less all-to-all traffic, quantization and a 4GB agent model.",
+      "sids": ["a4e942d0f147f07c", "ca0cd6bcfdb70098", "018ac20c79d4eeba", "15de4f547fb7e7f3", "dec4d075135f7b7e"]
+    },
+    {
+      "kicker": "TOKENS",
+      "tone": "neutral",
+      "headline": "Shrink what the model reads and writes: images, audio, chain-of-thought",
+      "summary": "Token reduction on input (VLM cropping, chunked long-audio ASR) and on output (shorter chain-of-thought training targets).",
+      "sids": ["d7a4f91e59e352a3", "dc09546d23d7229e", "1e9cd14ce7d752e8"]
+    },
+    {
+      "kicker": "AGENTS",
+      "tone": "neutral",
+      "headline": "Agent-level efficiency: coordinated delegation and learned token budgets",
+      "summary": "Cost cuts at the agent layer rather than the serving stack.",
+      "sids": ["e267de687efb45c3", "60d6d445e0dacc9d"]
     },
     {
       "kicker": "KV CACHE",
-      "tone": "now",
+      "tone": "rising",
       "headline": "The KV cache becomes the main target",
-      "summary": "Six papers attack cache memory: intent-aware prefix reuse, verified compression, prefill/decode KV translation, Gemma 4 shared K=V storage, reasoning-trace compression, and hybrid-model cache streaming.",
-      "sids": [
-        "e5680f897e15540f",
-        "5bfc543d91bf8d2a",
-        "adc7ff27af4b9288",
-        "a2babe4c488b1701",
-        "a20d3952433df237",
-        "024d4dfaa92472bb"
-      ]
+      "summary": "Six papers attack cache memory: intent-aware prefix reuse, verified compression, prefill/decode KV translation, Gemma 4 shared K=V storage, reasoning-trace compression, and hybrid-model cache streaming in SGLang.",
+      "sids": ["e5680f897e15540f", "5bfc543d91bf8d2a", "adc7ff27af4b9288", "a2babe4c488b1701", "a20d3952433df237", "024d4dfaa92472bb"]
+    },
+    {
+      "kicker": "OFF-THREAD",
+      "tone": "neutral",
+      "headline": "Keyword matches outside LLM serving",
+      "summary": "Two papers share the word \"efficient\" but address robot-policy RL training and an answer-evidence classifier, not inference serving.",
+      "sids": ["f51ccad0f77a0a72", "34fa4a3e4f5678d6"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "vLLM extends to generative recommendation with vLLM-GR",
+      "summary": "A mainstream serving engine adds a non-chat decoding mode: beam search over semantic item IDs.",
+      "sids": ["e51f1d2a874386b9"]
     }
   ],
   "open_questions": [
-    "Do any of the KV-cache methods (RoCoKV, TideCache, Verify Before You Fetch) land in vLLM, SGLang or another mainstream serving engine?",
+    "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV) land in vLLM, SGLang or another mainstream serving engine?",
+    "Does TideCache's SGLang implementation get merged upstream or released as code?",
     "Does the Gemma 4 store-K=V-once trick ship in a paged serving engine release, and with what measured memory savings?",
     "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
+    "Does vLLM-GR report throughput numbers against existing recommendation serving stacks?",
     "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
   ],
-  "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure.",
+  "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; if you run generative recommendation on a separate stack, test vLLM-GR before building custom beam-search serving.",
   "day_captions": {
-    "473a95cd7c540d1a": "Opens the cluster on the input side: prompt compression trained with mixed RL and supervised learning.",
-    "219537f3fa2b3690": "First agent-layer item: distills textual skill memory into weights for self-evolving agents.",
-    "9b6ce22e2f29b264": "Google's open-source launch of an XLA-based serving engine, the one new serving product in the set.",
+    "9b6ce22e2f29b264": "Google's open-source launch of an XLA-based serving engine, one of two new serving products in the set.",
     "e5680f897e15540f": "First KV-cache paper: caches prefixes by conversational intent rather than exact prefix match.",
     "5bfc543d91bf8d2a": "Targets KV caches that overflow GPU memory in long-lived agents, verifying before fetching offloaded entries.",
     "a4e942d0f147f07c": "Speculative decoding: learns to prune block-diffusion draft trees so verification costs less under concurrency.",
     "adc7ff27af4b9288": "Splits phases across models: a large model prefills, a small one decodes, bridged by KV translation.",
+    "ca0cd6bcfdb70098": "Diffusion LMs: overlaps block boundaries during denoising for faster generation.",
     "d7a4f91e59e352a3": "Input reduction for VLMs: complementary cropping and compression for visual question answering.",
     "e267de687efb45c3": "Agent-layer: coordinated task allocation to make multi-agent deep research cheaper than naive delegation.",
     "018ac20c79d4eeba": "Baseten's practitioner overview of inference trade-offs, including quantization.",
+    "15de4f547fb7e7f3": "A 4GB small model post-trained from Gemma-4-E4B-it, tuned for intelligence per GB in conversational agents.",
     "dec4d075135f7b7e": "Cuts MoE expert-parallel communication by sending activation changes instead of full activations.",
     "60d6d445e0dacc9d": "Microsoft Research on coding agents that learn from past runs to spend fewer tokens.",
     "a2babe4c488b1701": "Exploits Gemma 4's tied key/value design to store the global KV cache once without changing attention kernels.",
@@ -110,6 +107,10 @@
     "791a1b16a3fdcbe1": "A simulator for planning distributed LLM serving across heterogeneous edge devices without physical test runs.",
     "a272cda257e80f9a": "AWS case study: Salesforce pools fragmented Regional capacity with SageMaker AI cross-Region routing.",
     "a20d3952433df237": "KV compression aimed at long reasoning traces, pruning redundant, low-utility generated tokens.",
-    "024d4dfaa92472bb": "Latest item: transparent cache management and layer-wise streaming for hybrid-attention models."
+    "024d4dfaa92472bb": "Hybrid-attention cache management on CPU-GPU superchips, implemented in SGLang and tested on GB300 and GH200.",
+    "f51ccad0f77a0a72": "Off-thread: training efficiency for robot VLA policies via latent world models, not inference serving.",
+    "1e9cd14ce7d752e8": "Output-side reduction: builds shorter chain-of-thought training targets, cutting compressor budget by a median 90.7%.",
+    "34fa4a3e4f5678d6": "Off-thread: an answer-evidence classifier that mentions efficient inference only in passing.",
+    "e51f1d2a874386b9": "Latest item: vLLM's own extension into generative recommendation serving."
   }
 }

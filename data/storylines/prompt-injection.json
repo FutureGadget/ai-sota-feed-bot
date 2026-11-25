@@ -1,14 +1,15 @@
 {
  "slug": "prompt-injection",
  "label": "Prompt Injection",
- "item_count": 5,
- "day_count": 5,
- "source_count": 2,
+ "item_count": 8,
+ "day_count": 7,
+ "source_count": 3,
  "first_seen": "2026-11-04T23:18:10+00:00",
- "last_updated": "2026-11-19T21:55:07+00:00",
- "generated_at": "2026-11-23T00:13:28.700650+00:00",
+ "last_updated": "2026-11-23T18:01:58+00:00",
+ "generated_at": "2026-11-25T00:14:27.939533+00:00",
  "sources": [
   "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
   "hackernews_ai"
  ],
  "days": [
@@ -41,6 +42,22 @@
      "sid": "8cb3780368901295",
      "published": "2026-11-05T08:25:27+00:00",
      "editor_note": "Benchmark for attacks that tamper with task outcomes rather than override instructions."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "I Think, Therefore I Attack: Evaluating Thought Injection Attacks on Reasoning Agents",
+     "url": "http://arxiv.org/abs/2611.08811v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Large Reasoning Models (LRMs) are one of the key components of current agentic systems. LRMs augment their output with an explicit chain-of-thought reasoning stage, introducing a new attack surface for thought injecti...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "83722b13b6167c53",
+     "published": "2026-11-06T00:06:13+00:00",
+     "editor_note": "Extends the attack surface to the reasoning stage of reasoning models."
     }
    ]
   },
@@ -86,17 +103,44 @@
      "type": "news",
      "sid": "08a0e8fcc9a87a88",
      "published": "2026-11-19T21:55:07+00:00",
-     "editor_note": "Newest item: a practitioner case for authorization scoping as damage containment."
+     "editor_note": "A practitioner case for authorization scoping as damage containment."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-23",
+   "items": [
+    {
+     "title": "Conartist: Adaptive Agentic Red-Teaming of Computer-Using Agents against Multi-Step Prompt Injection",
+     "url": "http://arxiv.org/abs/2611.29977v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Introduces Conartist, a two-stage adaptive prompt injection framework that reports 32.12% attack success on a 576-instance tool-use benchmark and 66.67% on a Reddit GUI benchmark across five backbone models.",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "8f913d3c64972156",
+     "published": "2026-11-23T03:41:22+00:00",
+     "editor_note": "Newest attack evidence: adaptive multi-step injection with measured success rates on computer-using agents."
+    },
+    {
+     "title": "FATCAT: Fault Injection Attacks Targeting Chip-level Alignment",
+     "url": "http://arxiv.org/abs/2611.31129v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Presents FATCAT, a non-invasive electromagnetic fault-injection attack on GPU-based SoCs that uses an RF side-channel trigger to make Llama 3.2 1B and Gemma 3 1B fulfill refused requests, and shows it can drive a robotic arm into hazardous motions.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "849440de0b308dcc",
+     "published": "2026-11-23T18:01:58+00:00",
+     "editor_note": "Off-topic neighbor: physical fault injection against on-device alignment, not a prompt attack."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a topic cluster, not one event: early-November papers proposed a runtime defense for tool-using agents and widened injection testing to task tampering. A Nov 8 paper then argued for treating the model as untrusted, and a Nov 11 practitioner post showed agent guardrails bypassed with legal-style phrasing.",
+  "tldr": "This is a topic cluster, not one event: early-November papers proposed a runtime defense for tool-using agents and widened injection testing to task tampering and injected reasoning. A Nov 8 paper argued for treating the model as untrusted, and practitioner posts followed with a lawyerspeak guardrail bypass and a case for authorization scoping.",
   "stale": false,
-  "whats_new": "A Nov 19 Stack Builders post takes the same containment line from the practitioner side: scope agent authorization so a successful prompt injection can do limited damage, rather than trying to block the injection itself.",
-  "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the permission boundary enforced in code around the tool call.",
-  "take_for_builders": "Give each agent task the narrowest credentials it needs and gate high-impact tool calls with deterministic policy or human approval, then add legal-register and task-tampering cases to your red-team suite.",
+  "whats_new": "A Nov 23 paper, Conartist, reports adaptive multi-step injection succeeding 32.12% of the time on a 576-instance tool-use benchmark and 66.67% on a Reddit GUI benchmark across five backbone models.",
+  "why_it_matters": "Adaptive, multi-step attacks against computer-using agents land often enough that a text-reading guardrail cannot be the last line; the control that holds is the permission boundary enforced in code around each tool call.",
+  "take_for_builders": "Give each agent task the narrowest credentials it needs and gate high-impact tool calls with deterministic policy or human approval, then add adaptive multi-step, task-tampering, and legal-register cases to your red-team suite.",
   "beats": [
    {
     "kicker": "RUNTIME DEFENSE",
@@ -110,10 +154,11 @@
    {
     "kicker": "WIDER ATTACKS",
     "tone": "rising",
-    "headline": "Benchmark adds task-tampering attacks beyond instruction override",
-    "summary": "Attacker-controlled content can quietly change the outcome of the user's own task instead of redirecting the agent to a new one.",
+    "headline": "Benchmarks add task tampering and thought injection",
+    "summary": "Attacks move past instruction override: attacker content can alter the outcome of the user's own task, or target a reasoning model's chain-of-thought stage.",
     "sids": [
-     "8cb3780368901295"
+     "8cb3780368901295",
+     "83722b13b6167c53"
     ]
    },
    {
@@ -135,12 +180,30 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "CONTAINMENT",
+    "tone": "rising",
     "headline": "Practitioner guidance: scope agent authorization to limit injection damage",
     "summary": "Stack Builders frames authorization, not detection, as the control that caps what an injected agent can do.",
     "sids": [
      "08a0e8fcc9a87a88"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Conartist automates adaptive multi-step injection against computer-using agents",
+    "summary": "A two-stage adaptive red-teaming framework reports 32.12% attack success on tool use and 66.67% on a Reddit GUI benchmark.",
+    "sids": [
+     "8f913d3c64972156"
+    ]
+   },
+   {
+    "kicker": "ADJACENT",
+    "tone": "neutral",
+    "headline": "FATCAT: hardware fault injection bypasses on-device alignment",
+    "summary": "Not prompt injection: an electromagnetic fault-injection attack on GPU SoCs makes Llama 3.2 1B and Gemma 3 1B fulfill refused requests, clustered here by shared vocabulary.",
+    "sids": [
+     "849440de0b308dcc"
     ]
    }
   ],
@@ -148,8 +211,9 @@
    "Does SPILLWAY's admission/sanitization split keep its robustness in independent evaluation on real agent frameworks?",
    "Which guardrail products does the lawyerspeak bypass work against, and do their vendors confirm or patch it?",
    "Do deterministic policy enforcement and taint tracking hold on closed frontier models, beyond the open-weights models the paper validated on?",
+   "How far does Conartist's attack success rate fall against agents that run under deterministic policy enforcement or scoped credentials?",
    "Do agent frameworks ship per-tool, per-task scoped credentials by default, or is authorization scoping still left to each team?"
   ],
-  "generated_at": "2026-11-23T00:12:32Z"
+  "generated_at": "2026-11-25T00:30:00Z"
  }
 }

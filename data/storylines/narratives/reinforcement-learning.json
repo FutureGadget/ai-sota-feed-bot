@@ -1,21 +1,13 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-23T00:12:38Z",
-  "covers_last_updated": "2026-11-19T17:54:04+00:00",
+  "generated_at": "2026-11-25T00:30:00Z",
+  "covers_last_updated": "2026-11-23T18:38:53+00:00",
   "covers_member_sids": [
-    "473a95cd7c540d1a",
-    "bce25dc1c825a3e7",
-    "3ac08f6799c57341",
-    "08c314bb237b4b82",
-    "d97ee2168f669bce",
-    "981c5fba5d1f60bf",
-    "fb3e45410f2c29fc",
     "4553deeec0e06574",
     "4e9768611cda6532",
     "4f75e58fea1157aa",
     "6fd3ac39e855936d",
     "84ecbe8e1def5e6c",
-    "c4a35e75b732ef4a",
     "283f892f9c4f657a",
     "a7b79c5f448ee3b6",
     "8ccdea5bc171877c",
@@ -26,109 +18,112 @@
     "a0ffcbab57857e23",
     "ab31cf7efa665033",
     "3e8eb23833610c66",
-    "3538d600a000ec1b",
-    "4554d13ae5865101"
+    "4554d13ae5865101",
+    "24ed891a976fe11b",
+    "f51ccad0f77a0a72",
+    "bac47501e3966159",
+    "f424b012833cf66e",
+    "5b8b87d097096ea4",
+    "567190b13cf55806"
   ],
-  "tldr": "This is a loose cluster of mostly arXiv papers, not one developing story. It began as broad agent training, retrieval and alignment work, then re-centered in November on RL itself: agent and multi-agent RL, RL-learned memory, training cost, and tool-use reliability.",
-  "whats_new": "Nov 19: two continual-RL papers (policy-improvement-guided replay, grid-cell successor features) target learning new tasks without losing old ones, after StateAlign showed RL tool-use gains can raise tool hallucination.",
-  "why_it_matters": "If you post-train or operate tool-using agents, this cluster names concrete costs of RL: rollout underutilization, tool hallucination that rises with task score, and crude stop rules, but nearly every result is author-reported.",
+  "tldr": "This is a theme thread of mostly arXiv papers, not one developing story. Since Nov 4 it has tracked RL for agents: multi-turn and multi-agent training, RL-learned memory, rollout cost, and the finding that RL tool-use gains can raise tool hallucination.",
+  "whats_new": "Nov 23: CO-GRAFT finds query generation explains at most 15% of RL gains in Search-R1 agents, and a state-verified RL paper lifts a 27B tutoring agent from 51.47% to 80.74% strict success.",
+  "why_it_matters": "If you post-train or operate tool-using agents, this cluster names where RL pays off and what it costs: rollout throughput, tool hallucination, and which agent role actually improved, though nearly every result is author-reported.",
   "beats": [
     {
       "kicker": "AGENT RL",
       "tone": "launch",
-      "headline": "RL methods aim at multi-turn, multi-agent and tool-using agents",
-      "summary": "Open multi-agent foundations, JHiMA-WebRL, targeted guidance, Octopus latent-KV sub-agents, and a study of what multi-turn RL actually improves.",
+      "headline": "RL methods aim at multi-turn and multi-agent systems",
+      "summary": "A study of what multi-turn RL improves, AutoRL running the training pipeline, imitation-bootstrapped MARL, and SLICR's logic-shaped rewards.",
       "sids": [
-        "bce25dc1c825a3e7",
-        "08c314bb237b4b82",
-        "d97ee2168f669bce",
-        "981c5fba5d1f60bf",
-        "4553deeec0e06574"
+        "4553deeec0e06574",
+        "ea7e5e3ff883dd79",
+        "97cfb937ffa2810c",
+        "bac47501e3966159"
       ]
     },
     {
       "kicker": "RL FOR MEMORY",
       "tone": "rising",
-      "headline": "RL is used to learn what to keep: prompt compression, incremental summaries and world-model memory",
-      "summary": "EffComp, the Twists and Turns long-term memory benchmark, MaxIM, and test-time model-based RL for memory.",
+      "headline": "RL is used to learn what to keep in bounded memory",
+      "summary": "Test-time model-based RL for world-model memory and MaxIM incremental summaries.",
       "sids": [
-        "473a95cd7c540d1a",
-        "fb3e45410f2c29fc",
-        "84ecbe8e1def5e6c",
-        "6fd3ac39e855936d"
+        "6fd3ac39e855936d",
+        "84ecbe8e1def5e6c"
       ]
     },
     {
       "kicker": "TRAINING COST",
       "tone": "rising",
-      "headline": "RL training cost gets attacked from sampler, scheduler and serving stack",
-      "summary": "FewStepRL, the ASP rollout scheduler, LM-SimBench for parallelism choices, and vLLM's TPU v7 co-design reporting a 107x cycle speedup.",
+      "headline": "Rollout cost gets attacked from sampler, scheduler and GPU placement",
+      "summary": "FewStepRL, the ASP rollout scheduler, vLLM's 107x TPU v7 cycle speedup, CTRL's learner/rollout co-residency, and latent world-model rollouts for VLA policies.",
       "sids": [
         "4e9768611cda6532",
         "4f75e58fea1157aa",
-        "c4a35e75b732ef4a",
-        "8ccdea5bc171877c"
+        "8ccdea5bc171877c",
+        "24ed891a976fe11b",
+        "f51ccad0f77a0a72"
       ]
     },
     {
       "kicker": "RELIABILITY",
       "tone": "turn",
       "headline": "Better task scores can mean more tool hallucination, so papers add state-awareness, scaffolds and stop rules",
-      "summary": "AutoScaffold, StateAlign, Learn then Bet intervention rules, AutoRL, imitation-bootstrapped MARL, and safe in-context RL under a cost budget.",
+      "summary": "AutoScaffold, StateAlign, Learn then Bet intervention rules, and safe in-context RL under a cost budget.",
       "sids": [
         "283f892f9c4f657a",
         "335ccd3caa00e6d5",
         "7d287f2835ce9649",
-        "ea7e5e3ff883dd79",
-        "97cfb937ffa2810c",
         "a0ffcbab57857e23"
       ]
     },
     {
-      "kicker": "APPLIED & OFF-LENS",
+      "kicker": "APPLIED",
       "tone": "neutral",
-      "headline": "Applied RL papers and an unrelated hallucination benchmark ride along on shared vocabulary",
-      "summary": "Interactive HTML generation, ReShap interpretability, RLDE document editing, and a Bengali hallucination benchmark.",
+      "headline": "Applied RL papers ride along on shared vocabulary",
+      "summary": "ReShap interpretability for multi-action policies and RLDE iterative document editing.",
       "sids": [
-        "3ac08f6799c57341",
         "a7b79c5f448ee3b6",
-        "ab31cf7efa665033",
-        "3538d600a000ec1b"
+        "ab31cf7efa665033"
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "CONTINUAL RL",
+      "tone": "rising",
       "headline": "Continual RL: learning new tasks without losing old ones",
       "summary": "Policy-improvement-guided replay and grid cells as spectral successor features.",
       "sids": [
         "3e8eb23833610c66",
         "4554d13ae5865101"
       ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Where RL gains come from in tool-using agents: verified state, data reweighting, role attribution",
+      "summary": "AOVO drops tool-specific rewards, state-verified RL trains tutoring agents against a deterministic checker, and CO-GRAFT splits Search-R1 gains by role.",
+      "sids": [
+        "f424b012833cf66e",
+        "5b8b87d097096ea4",
+        "567190b13cf55806"
+      ]
     }
   ],
   "open_questions": [
     "Does StateAlign's reduction in tool hallucination hold on tool APIs outside the paper's own benchmarks?",
     "Does vLLM's 107x RL cycle speedup on TPU v7 carry over to policies larger than Qwen3-0.6B?",
+    "Does CTRL's 1.11-2.24x throughput over verl's async baselines show up in an independent reproduction?",
     "Do learned intervention rules like Learn then Bet beat turn limits on production agent runs without stopping good runs early?",
-    "Does RL-learned memory (MaxIM, EffComp) beat plain summarization or truncation once training cost is counted?",
-    "Do the continual-RL methods keep old skills when applied to LLM post-training rather than control tasks?"
+    "If query generation explains at most 15% of Search-R1's RL gain, which role carries the rest, and does the split hold for other search agents?",
+    "Does state-verified RL transfer beyond tutoring workspaces to agents whose state has no deterministic verifier?"
   ],
-  "take_for_builders": "Before adopting an RL-tuned tool-use model, track tool-hallucination rate (calls to tools that do not fit the state) alongside task success in your evals, since the two can move in opposite directions.",
+  "take_for_builders": "When evaluating an RL-tuned agent, score tool-hallucination rate and per-role behavior (query, read, answer) next to task success, since the headline gain can hide regressions or come from one role.",
   "day_captions": {
-    "473a95cd7c540d1a": "Earliest item: hybrid RL plus supervised training to compress prompts for cheaper calls.",
-    "bce25dc1c825a3e7": "Theory angle: an axiomatic basis for RL when only some agents in the system are controllable.",
-    "3ac08f6799c57341": "Applied RL: rewards from interaction, not just renderability, for generated HTML pages.",
-    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon GUI web tasks.",
-    "d97ee2168f669bce": "Tackles base-model coverage limits by stabilizing on-policy guidance from rich textual rewards like judge models.",
-    "981c5fba5d1f60bf": "Multi-agent RL where sub-agents share latent KV state instead of isolated context windows.",
-    "fb3e45410f2c29fc": "Graph-based benchmark for long-term memory in trial-and-error tasks like research and software work.",
-    "4553deeec0e06574": "Diagnostic study: multi-turn agent RL gains depend on sampling breadth and interaction depth.",
+    "4553deeec0e06574": "Earliest item: multi-turn agent RL gains depend on sampling breadth and interaction depth.",
     "4e9768611cda6532": "Cost angle: RL fine-tuning of few-step diffusion models to cut rollout cost.",
     "4f75e58fea1157aa": "Infra angle: a rollout scheduler that removes padding and other underutilization in asynchronous LLM RL.",
     "6fd3ac39e855936d": "Encodes memory into world models with test-time model-based RL.",
     "84ecbe8e1def5e6c": "Uses RL to learn incremental summaries as bounded memory of unbounded histories.",
-    "c4a35e75b732ef4a": "Benchmark for simulating training parallelism strategies instead of paying for real runs.",
     "283f892f9c4f657a": "AI-generated scaffolds to use more of RLVR experience than a single outcome reward.",
     "a7b79c5f448ee3b6": "Interpretability for deep RL policies with many simultaneous actions.",
     "8ccdea5bc171877c": "Only practitioner item: vLLM reports ~100 min to ~56 s per 8K RL cycle for Qwen3-0.6B on TPU v7.",
@@ -139,7 +134,12 @@
     "a0ffcbab57857e23": "Safety angle: in-context RL that improves on new tasks while staying within a cost budget.",
     "ab31cf7efa665033": "Applied RL: iterative, interpretable document editing instead of one-pass rewrites.",
     "3e8eb23833610c66": "Continual RL via replay guided by policy improvement, not only knowledge preservation.",
-    "3538d600a000ec1b": "Off-lens: a Bengali hallucination-detection benchmark pulled in by shared vocabulary.",
-    "4554d13ae5865101": "Newest: grid-cell-inspired successor features as a reusable basis when tasks change."
+    "4554d13ae5865101": "Grid-cell-inspired successor features as a reusable basis when tasks change.",
+    "24ed891a976fe11b": "Systems angle: learner and rollout engine share each GPU under CUDA MPS, reporting 1.11-2.24x verl async throughput.",
+    "f51ccad0f77a0a72": "Swaps image/video generators for latent world models to make robot-policy RL rollouts cheaper.",
+    "bac47501e3966159": "Turns formal strategy-logic specifications into shaped rewards for multi-agent RL.",
+    "f424b012833cf66e": "Teaches visual tool use by reweighting training questions instead of engineering tool-specific rewards.",
+    "5b8b87d097096ea4": "Reward from a deterministic verifier of workspace state changes; reports 51.47% to 80.74% strict success.",
+    "567190b13cf55806": "Newest: attributes RL gains to agent roles and finds query generation contributes at most 15%."
   }
 }

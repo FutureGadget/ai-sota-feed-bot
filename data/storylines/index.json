@@ -1,270 +1,220 @@
 {
- "generated_at": "2026-11-23T00:13:28.700650+00:00",
+ "generated_at": "2026-11-25T00:14:27.939533+00:00",
  "window_days": 21,
  "storylines": [
   {
-   "slug": "inference-gpu",
-   "label": "Inference GPU",
+   "slug": "inference-engines",
+   "label": "Inference Engines",
    "item_count": 3,
    "day_count": 3,
    "source_count": 3,
-   "first_seen": "2026-11-06T18:01:00+00:00",
-   "last_updated": "2026-11-22T06:27:00+00:00",
-   "latest_title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU",
-   "days": [
-    "2026-11-06",
-    "2026-11-08",
-    "2026-11-22"
-   ],
-   "member_sids": [
-    "819549b983fd9118",
-    "cd44a088d357479c",
-    "9e6bd2a43844cbfa"
-   ],
-   "member_urls": [
-    "https://aws.amazon.com/blogs/machine-learning/sagemaker-inference-now-supports-multi-instance-gpu-to-maximize-gpu-utilization-for-model-endpoints",
-    "https://github.com/tinyBigGAMES/VindexLLM",
-    "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
-   ],
-   "editorial": {
-    "tldr": "This is a loose topic cluster, not one event: three unrelated items about running inference on GPUs. Its main thread is AWS adding ways to share one GPU, starting with NVIDIA Multi-Instance GPU partitions for SageMaker endpoints on Nov 6.",
-    "stale": false,
-    "whats_new": "AWS Lambda now runs GPU inference on EC2 G-series instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU and vLLM/SGLang base images.",
-    "why_it_matters": "Two AWS launches in three weeks move GPU sharing into managed services, so small or bursty models no longer need a dedicated, mostly idle GPU endpoint.",
-    "take_for_builders": "If you run small or bursty models on dedicated GPU endpoints, benchmark the same model on a SageMaker MIG partition and on Lambda GPU before your next capacity renewal."
-   }
-  },
-  {
-   "slug": "loom-memory",
-   "label": "LooM Memory",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-11-04T17:52:11+00:00",
-   "last_updated": "2026-11-21T18:14:29+00:00",
-   "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
-   "days": [
-    "2026-11-04",
-    "2026-11-17",
-    "2026-11-21"
-   ],
-   "member_sids": [
-    "9883de882015971a",
-    "63559c70c4da4388",
-    "e76fa817c2806f1f"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.06835v1",
-    "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
-    "https://github.com/ClickHouse/loom"
-   ],
-   "editorial": {
-    "tldr": "The thread opened Nov 4 with LooM, an arXiv method that stops memory growing with loop count in looped transformers; it shares only a name with the agent tool. On Nov 17 a Loom agent-memory project reached Hacker News, pitched as memory that keeps up with your code.",
-    "stale": false,
-    "whats_new": "A Nov 21 Hacker News post pitches Loom as one layer for shared agent memory, document search and code indexing, four days after a Loom post on agent memory that tracks code changes.",
-    "why_it_matters": "Loom bundles three things agent stacks usually run separately (memory store, doc retrieval, code index), so adopting it means trusting one tool to keep all three in sync with a changing repo.",
-    "take_for_builders": "Before wiring Loom into an agent stack, test it on a repo mid-refactor: check that the code index and stored memories drop references to deleted or moved code."
-   }
-  },
-  {
-   "slug": "shared-memory",
-   "label": "Shared Memory",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-11-09T13:43:52+00:00",
-   "last_updated": "2026-11-21T18:14:29+00:00",
-   "latest_title": "Loom: Shared memory, document search, and code indexing for AI agents",
-   "days": [
-    "2026-11-09",
-    "2026-11-18",
-    "2026-11-21"
-   ],
-   "member_sids": [
-    "29f0e99816524f78",
-    "c16327a14472b017",
-    "e76fa817c2806f1f"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.12412v1",
-    "https://github.com/adityadebnath009/Project-M",
-    "https://github.com/ClickHouse/loom"
-   ],
-   "editorial": {
-    "tldr": "In September MemHub, Motif and a kernel-managed-memory paper pitched shared memory so context one agent learns stays usable by its teammates. The thread restarted Nov 9 with a replication study showing LLM agents coordinate unprompted through shared memory, then Project-M posted a local shared memory for coding agents on Nov 18.",
-    "stale": false,
-    "whats_new": "Loom reached Hacker News on Nov 21 as shared memory, document search and code indexing for AI agents, the second shared-memory tool for coding agents posted there in four days.",
-    "why_it_matters": "Shared memory is now a research finding as well as a product category: agents that share a store can coordinate without being told to, so the store's write and visibility rules shape agent behavior, not just recall.",
-    "take_for_builders": "Before adopting Project-M, Loom or any shared store for a multi-agent team, test concurrent writes and stale reads, and log which agent read what so unprompted coordination is visible."
-   }
-  },
-  {
-   "slug": "inference-across",
-   "label": "Inference Across",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-11-17T23:56:20+00:00",
-   "last_updated": "2026-11-20T22:35:24+00:00",
-   "latest_title": "Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters",
-   "days": [
-    "2026-11-17",
-    "2026-11-18",
-    "2026-11-20"
-   ],
-   "member_sids": [
-    "7f9324af008a569c",
-    "369674385192a647",
-    "d5bec1fa3b07f617"
-   ],
-   "member_urls": [
-    "https://github.com/avelone123123/shard",
-    "http://arxiv.org/abs/2611.24891v1",
-    "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters"
-   ],
-   "editorial": {
-    "tldr": "This is a loose grouping, not one event: three unrelated items from a hobby project, an arXiv paper and AWS share one theme, routing LLM inference across more than one pool of compute. It began with Shard, a Show HN project that splits inference across several computers, and continued with Cap-and-Track, a paper on dispatching requests when fleet capacity shifts.",
-    "stale": false,
-    "whats_new": "AWS launched the SageMaker HyperPod Global Inference Gateway, one managed endpoint that routes requests across HyperPod clusters in one Region or several and fails over between them.",
-    "why_it_matters": "Multi-cluster and multi-Region routing is moving from custom load-balancer code into managed gateways, so capacity-aware dispatch and failover become things you configure, not build.",
-    "take_for_builders": "If you run HyperPod in more than one cluster or Region, compare the gateway's failover behavior against your own router before you retire it; elsewhere, check that your dispatcher adapts its rate when capacity drops."
-   }
-  },
-  {
-   "slug": "prompt-injection",
-   "label": "Prompt Injection",
-   "item_count": 5,
-   "day_count": 5,
-   "source_count": 2,
-   "first_seen": "2026-11-04T23:18:10+00:00",
-   "last_updated": "2026-11-19T21:55:07+00:00",
-   "latest_title": "AI Agent Authorization That Limits the Damage of Prompt Injection",
-   "days": [
-    "2026-11-04",
-    "2026-11-05",
-    "2026-11-08",
-    "2026-11-11",
-    "2026-11-19"
-   ],
-   "member_sids": [
-    "ff6fd9e5c49f2a11",
-    "8cb3780368901295",
-    "54f1f65b7c731a1b",
-    "5b14ba0a321ddbad",
-    "08a0e8fcc9a87a88"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.07222v1",
-    "http://arxiv.org/abs/2611.07640v1",
-    "http://arxiv.org/abs/2611.11571v1",
-    "https://www.mrnice.dev/posts/heavyweight-guardrails",
-    "https://www.stackbuilders.com/insights/ai-agent-authorization-that-limits-the-damage-of-prompt-injection"
-   ],
-   "editorial": {
-    "tldr": "This is a topic cluster, not one event: early-November papers proposed a runtime defense for tool-using agents and widened injection testing to task tampering. A Nov 8 paper then argued for treating the model as untrusted, and a Nov 11 practitioner post showed agent guardrails bypassed with legal-style phrasing.",
-    "stale": false,
-    "whats_new": "A Nov 19 Stack Builders post takes the same containment line from the practitioner side: scope agent authorization so a successful prompt injection can do limited damage, rather than trying to block the injection itself.",
-    "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the permission boundary enforced in code around the tool call.",
-    "take_for_builders": "Give each agent task the narrowest credentials it needs and gate high-impact tool calls with deterministic policy or human approval, then add legal-register and task-tampering cases to your red-team suite."
-   }
-  },
-  {
-   "slug": "inference-gpus",
-   "label": "Inference GPUs",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-11-10T02:05:11+00:00",
-   "last_updated": "2026-11-19T21:28:18+00:00",
-   "latest_title": "Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints",
+   "first_seen": "2026-11-10T17:16:47+00:00",
+   "last_updated": "2026-11-24T18:20:27+00:00",
+   "latest_title": "Can agents write inference engines from scratch in 12 hours and beat vLLM?",
    "days": [
     "2026-11-10",
-    "2026-11-11",
-    "2026-11-19"
+    "2026-11-22",
+    "2026-11-24"
    ],
    "member_sids": [
-    "fed29696ba0516e2",
-    "1adc84018e934ecd",
-    "735d1f9416d3ebe2"
+    "f9d81d0a259ab7bb",
+    "9aba4bf153849718",
+    "781ec9697da4f86b"
    ],
    "member_urls": [
-    "https://github.com/mw00/project-maya/pull/879",
-    "https://amirhusain.com/software/kindi",
-    "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints"
+    "http://arxiv.org/abs/2611.14356v1",
+    "http://arxiv.org/abs/2611.29734v1",
+    "https://github.com/humanityslastsystem/hls"
    ],
    "editorial": {
-    "tldr": "This is a loose thread of separate projects about getting more inference out of GPUs, not one event. It began with two Hacker News projects that move LLM serving off a single high-end CUDA stack: a project-maya pull request for mixed CUDA+ROCm inference titled up to 48% faster, and Kindi, billed by its author as the fastest engine for low-cost GPUs.",
+    "tldr": "This is a loose theme thread, not one event: three unrelated sources over two weeks treated the inference engine itself as the object of work. It opened with EngineAgent, a paper on using agents to port new LLM architectures into on-device engines, and a Nov 22 paper on stripping backdoor activations at inference time.",
     "stale": false,
-    "whats_new": "Amazon SageMaker AI now monitors generative AI inference endpoints by default, flagging latency drift, idle GPUs, and serving-configuration changes that could improve performance or cut cost.",
-    "why_it_matters": "GPU spend on inference is set by utilization as much as by hardware choice; SageMaker now surfaces idle capacity and latency drift by default, while the alternative-GPU engines in this thread still rest on self-reported speed claims.",
-    "take_for_builders": "On SageMaker, review the new endpoint findings for idle GPUs before you add capacity; elsewhere, rerun your own latency and throughput evals before trusting any alternative-GPU engine, and keep your CUDA serving path as the fallback."
+    "whats_new": "Humanity's Last System (HLS), an open benchmark, gives coding agents live GPU sandboxes for up to 36 hours to build inference servers that are verified and scored for speed against vLLM-style baselines.",
+    "why_it_matters": "Agent-written serving code is moving from research prototype to scored benchmark, so the speed claims around custom inference engines will soon come with a public yardstick against vLLM.",
+    "take_for_builders": "Treat agent-built inference servers as unproven until HLS publishes verified scores; keep vLLM as the serving baseline and rerun your own latency evals before swapping engines."
    }
   },
   {
-   "slug": "activation-steering",
-   "label": "Activation Steering",
+   "slug": "vllm-inference",
+   "label": "Vllm Inference",
    "item_count": 3,
    "day_count": 3,
    "source_count": 2,
-   "first_seen": "2026-11-02T17:53:26+00:00",
-   "last_updated": "2026-11-19T18:59:53+00:00",
-   "latest_title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+   "first_seen": "2026-11-10T22:28:15+00:00",
+   "last_updated": "2026-11-24T18:20:27+00:00",
+   "latest_title": "Can agents write inference engines from scratch in 12 hours and beat vLLM?",
    "days": [
-    "2026-11-02",
-    "2026-11-13",
-    "2026-11-19"
+    "2026-11-10",
+    "2026-11-18",
+    "2026-11-24"
    ],
    "member_sids": [
-    "ba560efbe9932076",
-    "c782cc86916eca79",
-    "63c5d50779da2bd3"
+    "131509a7651f4930",
+    "0a0ce400ec58ec0b",
+    "1173301e4bceb248",
+    "781ec9697da4f86b"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2611.03518v1",
-    "http://arxiv.org/abs/2611.18274v1",
-    "http://arxiv.org/abs/2611.26627v1"
+    "https://github.com/TensorRails/warmctl",
+    "https://vllm.ai/blog/2026-11-18-ernie-5-5-flash-preview",
+    "https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview",
+    "https://github.com/humanityslastsystem/hls"
    ],
    "editorial": {
-    "tldr": "On Nov 2 the VIAS paper tested activation steering, adding vectors to internal activations at generation time, to make LLM agents follow several organisational values at once. A Nov 13 paper argued that steering every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory.",
+    "tldr": "This is a theme thread, not one event: three separate items treat vLLM as the default open serving stack. It opened with Warmctl, a Show HN tool for faster vLLM cold starts, then vLLM shipped day-0 support for Baidu's ERNIE 5.5 Flash Preview through a plugin.",
     "stale": false,
-    "whats_new": "A Nov 19 paper argues that RL post-training of diffusion transformers amounts to activation steering, linking a costly training step to an inference-time intervention.",
-    "why_it_matters": "Activation steering is a behavior control that needs no fine-tuning run, so if it can isolate values, gate per token, or stand in for RL gains, teams get a cheaper lever for compliance and quality tuning on open-weight models.",
-    "take_for_builders": "If you steer an open-weight model for policy compliance, measure output quality with steering on versus off per token before shipping; always-on steering is the failure mode the Nov 13 paper targets."
+    "whats_new": "Humanity's Last System (HLS), an open benchmark, gives coding agents live GPU sandboxes for up to 36 hours to build inference servers, then verifies them and scores their speed against vLLM-style baselines.",
+    "why_it_matters": "vLLM is now the reference point for serving: new models ship as vLLM plugins, tools patch its cold starts, and agent benchmarks measure themselves against it.",
+    "take_for_builders": "For ERNIE 5.5 Flash, pin vllm==0.32.0 with the vllm-ERNIE plugin. Treat HLS results as research until verified scores beat your own vLLM baseline on your models."
+   }
+  },
+  {
+   "slug": "weight-space-programming",
+   "label": "Weight-Space Programming",
+   "item_count": 6,
+   "day_count": 6,
+   "source_count": 5,
+   "first_seen": "2026-11-11T23:47:21+00:00",
+   "last_updated": "2026-11-24T09:41:22+00:00",
+   "latest_title": "Looped Weight-Space Programming: use AI to set model weights",
+   "days": [
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-16",
+    "2026-11-18",
+    "2026-11-23",
+    "2026-11-24"
+   ],
+   "member_sids": [
+    "3f5db491bb6150c6",
+    "66afd15d3cc82624",
+    "c6ff682be23f5497",
+    "6891036f2be78fdd",
+    "442791943ea0bb14",
+    "9f78cee464619905"
+   ],
+   "member_urls": [
+    "https://github.com/eax/w-isa",
+    "http://arxiv.org/abs/2611.16981v1",
+    "http://arxiv.org/abs/2611.21449v1",
+    "http://arxiv.org/abs/2611.24330v1",
+    "http://arxiv.org/abs/2611.31233v1",
+    "https://twitter.com/ahmedmm72234641/status/2124869402634129901"
+   ],
+   "editorial": {
+    "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in a single reply set off a run of follow-ups in mid-November: an open-source instruction set (W-ISA), a game-agent compilation paper, and an independent replication. A Nov 18 paper then moved from capability edits to value edits, and a Nov 23 CLIP paper borrowed the name for a closed-form weight-editing recipe.",
+    "stale": false,
+    "whats_new": "MBZUAI researchers report Claude Opus 5.5 solved only 26% of hard mazes directly, but a transformer it wrote by setting weights solved 100% of their test mazes in 39 minutes for $19, with no training run.",
+    "why_it_matters": "If an LLM can hand-author a small model that beats its own direct answers, weight-writing becomes a cheap way to build narrow task solvers, and an untracked way to change a model's behavior.",
+    "take_for_builders": "Treat LLM-written weights as a research option for narrow, verifiable tasks only. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail."
+   }
+  },
+  {
+   "slug": "product-openai",
+   "label": "Product OpenAI",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-11-05T08:00:00+00:00",
+   "last_updated": "2026-11-24T06:32:00+00:00",
+   "latest_title": "QCon San Francisco 2026: Lessons from Building a $100M Product in Six Weeks at OpenAI",
+   "days": [
+    "2026-11-05",
+    "2026-11-12",
+    "2026-11-24"
+   ],
+   "member_sids": [
+    "db9792e954d44701",
+    "67672a694e389b29",
+    "a491aa90d650ab2b",
+    "83cce543d6fb49b7"
+   ],
+   "member_urls": [
+    "https://openai.com/index/merge-builds-with-openai",
+    "https://openai.com/business/customer-stories/amplitude",
+    "https://openai.com/index/amplitude",
+    "https://www.infoq.com/news/2026/11/qcon-sf-openai-lessons/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "This is a theme thread, not one event: three accounts of teams shipping product work with OpenAI models and Codex agents. It opened with two OpenAI customer stories, Merge using GPT-6 Astra and Codex for code review and Amplitude's Wave agent driving 1-2 day product changes.",
+    "stale": false,
+    "whats_new": "At QCon SF, OpenAI's Brian Yang said the ChatGPT ads product was built with Codex agents and no human-written code, held together by layered testing, sandboxes, and batched PR reviews.",
+    "why_it_matters": "The first engineering account in the thread names the controls behind agent-written code (layered tests, sandboxes, batched review), where the customer stories only named the tools.",
+    "take_for_builders": "Before letting coding agents merge unattended, put a sandboxed run and a layered test gate in front of every agent PR, and batch reviews rather than skipping them."
+   }
+  },
+  {
+   "slug": "glm-5-4-loop",
+   "label": "GLM-5.4 Loop",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-11-23T19:11:40+00:00",
+   "last_updated": "2026-11-24T02:35:00+00:00",
+   "latest_title": "Zhipu launches GLM-5.4: 750B base model delivers 2-3T-class performance, Loop architecture debuts in a flagship model",
+   "days": [
+    "2026-11-23",
+    "2026-11-24"
+   ],
+   "member_sids": [
+    "8328dbcf64c7a708",
+    "105d2dd6f5d647be",
+    "23b31e845283d676"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMieEFVX3lxTFBqeDNOWG90U1haTnBtcnRwU2hPTXNLSjJreWU3b2ljdUI0Qmg0eW5EUXVTblVqQmp3WV80RmhjQnJZVGFrMnFfSVFwMDVOLWtPNGxrc3NmSzk2V00yOEttakZtQ1FiWlhZdDJ1Sk90bkNZZnI4NkhRetIBeEFVX3lxTFBqeDNOWG90U1haTnBtcnRwU2hPTXNLSjJreWU3b2ljdUI0Qmg0eW5EUXVTblVqQmp3WV80RmhjQnJZVGFrMnFfSVFwMDVOLWtPNGxrc3NmSzk2V00yOEttakZtQ1FiWlhZdDJ1Sk90bkNZZnI4NkhReg?oc=5",
+    "https://simonwillison.net/2026/Nov/23/glm-54",
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQdU9uV3Bxc2p2U1RiVG91eGw5bU41LV9sN255aVo1SHJoUkpEWmpvZm1EcFA1NW9nRFNLc0RpRUw1OTBTRzY0b1JveGdDMVRxTC10OUMwY2g2dHpyMG83Y0pyc2pwemRqVEV3QW5yaW95NWdMQWc?oc=5"
+   ],
+   "editorial": {
+    "tldr": "Z.ai (Zhipu) released GLM-5.4 on Nov 23, a 750B loop transformer that passes its 28 weight-shared layers twice instead of stacking more unique layers. It is the lab's first looped flagship, pitched at generalized coding, and launched without open weights.",
+    "stale": false,
+    "whats_new": "Zhipu now claims the 750B GLM-5.4 matches 2-3T-class models, but that claim comes from Chinese financial press and has no independent benchmark behind it yet.",
+    "why_it_matters": "Looping shared layers trades parameter count for repeated compute per token, so GLM-5.4's memory footprint and its latency and cost per token may not scale the way a plain 750B model's would.",
+    "take_for_builders": "Do not swap GLM-5.4 into a coding-agent stack on the 2-3T claim; wait for weights or API pricing, then rerun your own coding evals and measure latency per token.",
+    "status": {
+     "state": "Released · weights not yet open",
+     "tone": "launch",
+     "changed": "2026-11-23",
+     "detail": "The model is announced and described, but open weights and independent evaluations are both still missing."
+    }
    }
   },
   {
    "slug": "routing-inference",
-   "label": "Efficient Learning",
-   "item_count": 18,
-   "day_count": 11,
+   "label": "Efficient Inference",
+   "item_count": 22,
+   "day_count": 13,
    "source_count": 7,
-   "first_seen": "2026-11-02T08:46:28+00:00",
-   "last_updated": "2026-11-19T18:58:31+00:00",
-   "latest_title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
+   "first_seen": "2026-11-06T15:21:03+00:00",
+   "last_updated": "2026-11-24T00:00:00+00:00",
+   "latest_title": "Announcing vLLM-GR: Efficient Inference for Generative Recommendation",
    "days": [
-    "2026-11-02",
-    "2026-11-03",
     "2026-11-06",
     "2026-11-08",
     "2026-11-09",
     "2026-11-10",
     "2026-11-12",
     "2026-11-15",
+    "2026-11-16",
     "2026-11-17",
     "2026-11-18",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23",
+    "2026-11-24"
    ],
    "member_sids": [
-    "473a95cd7c540d1a",
-    "219537f3fa2b3690",
     "9b6ce22e2f29b264",
     "e5680f897e15540f",
     "5bfc543d91bf8d2a",
     "a4e942d0f147f07c",
     "adc7ff27af4b9288",
+    "ca0cd6bcfdb70098",
     "d7a4f91e59e352a3",
     "e267de687efb45c3",
     "018ac20c79d4eeba",
+    "15de4f547fb7e7f3",
     "dec4d075135f7b7e",
     "60d6d445e0dacc9d",
     "a2babe4c488b1701",
@@ -272,19 +222,23 @@
     "791a1b16a3fdcbe1",
     "a272cda257e80f9a",
     "a20d3952433df237",
-    "024d4dfaa92472bb"
+    "024d4dfaa92472bb",
+    "f51ccad0f77a0a72",
+    "1e9cd14ce7d752e8",
+    "34fa4a3e4f5678d6",
+    "e51f1d2a874386b9"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2611.02766v1",
-    "http://arxiv.org/abs/2611.05313v1",
     "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
     "http://arxiv.org/abs/2611.09715v1",
     "http://arxiv.org/abs/2611.11319v1",
     "http://arxiv.org/abs/2611.11371v1",
     "http://arxiv.org/abs/2611.11761v1",
+    "http://arxiv.org/abs/2611.14387v1",
     "http://arxiv.org/abs/2611.14469v1",
     "http://arxiv.org/abs/2611.17041v1",
     "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
+    "http://arxiv.org/abs/2611.20771v1",
     "http://arxiv.org/abs/2611.22215v1",
     "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
     "http://arxiv.org/abs/2611.23035v1",
@@ -292,28 +246,133 @@
     "http://arxiv.org/abs/2611.24085v1",
     "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai",
     "http://arxiv.org/abs/2611.25433v1",
-    "http://arxiv.org/abs/2611.26619v1"
+    "http://arxiv.org/abs/2611.26619v1",
+    "http://arxiv.org/abs/2611.27645v1",
+    "http://arxiv.org/abs/2611.27710v1",
+    "http://arxiv.org/abs/2611.31056v1",
+    "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement"
    ],
    "editorial": {
-    "tldr": "This is a loose topical cluster, not one event: 18 independent items from Nov 2 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
+    "tldr": "This is a loose theme thread, not one event: 22 independent items from Nov 6 to Nov 24 that each cut inference or agent cost at a different layer, mostly arXiv papers plus posts from Google, Baseten, Microsoft Research, UW, AWS and vLLM. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
     "stale": false,
-    "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
-    "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 18 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
-    "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure."
+    "whats_new": "vLLM shipped vLLM-GR on Nov 24, an open-source serving framework that adds beam search over semantic item IDs so generative recommendation models such as OneRec can run on the vLLM stack.",
+    "why_it_matters": "KV-cache memory is still the most-attacked bottleneck here (6 of 22 items), and vLLM-GR shows mainstream serving engines now stretching to non-chat workloads, so one serving stack may soon cover both LLM and recommendation traffic.",
+    "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; if you run generative recommendation on a separate stack, test vLLM-GR before building custom beam-search serving."
+   }
+  },
+  {
+   "slug": "benchmarking-multi-agent",
+   "label": "Benchmarking Multi-Agent",
+   "item_count": 18,
+   "day_count": 13,
+   "source_count": 5,
+   "first_seen": "2026-11-04T02:08:57+00:00",
+   "last_updated": "2026-11-23T18:55:44+00:00",
+   "latest_title": "Seeking in Space: Benchmarking Purposeful Active Exploration of Vision-Language Models for Spatial Reasoning",
+   "days": [
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-21",
+    "2026-11-23"
+   ],
+   "member_sids": [
+    "346fd33a4e5b3077",
+    "45b80d77d473d30f",
+    "138e084674254809",
+    "14fde8003cd1147c",
+    "23c0753cd928bfa7",
+    "f5f5bfe9b72425ef",
+    "29f0e99816524f78",
+    "b3a45cba6445f63d",
+    "d56fa1c78b5794b5",
+    "e372c76cd210406f",
+    "61fe6193294930a8",
+    "004673f14a75854b",
+    "46d71c45a0641225",
+    "dd4bda4f3ff03b68",
+    "52c1ddc39f6c73dc",
+    "9ef53558a95bc11c",
+    "213a3d94fcfe4f8e",
+    "8151cba33f4fca30"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.05827v1",
+    "http://arxiv.org/abs/2611.07689v1",
+    "http://arxiv.org/abs/2611.09721v1",
+    "http://arxiv.org/abs/2611.10412v1",
+    "http://arxiv.org/abs/2611.11995v1",
+    "http://arxiv.org/abs/2611.12118v1",
+    "http://arxiv.org/abs/2611.12412v1",
+    "http://arxiv.org/abs/2611.12856v1",
+    "http://arxiv.org/abs/2611.14364v1",
+    "http://arxiv.org/abs/2611.16661v1",
+    "http://arxiv.org/abs/2611.17068v1",
+    "http://arxiv.org/abs/2611.18293v1",
+    "http://arxiv.org/abs/2611.21552v1",
+    "http://arxiv.org/abs/2611.22138v1",
+    "http://arxiv.org/abs/2611.24184v1",
+    "http://arxiv.org/abs/2611.28671v1",
+    "http://arxiv.org/abs/2611.31063v1",
+    "http://arxiv.org/abs/2611.31215v1"
+   ],
+   "editorial": {
+    "tldr": "This is a theme thread, not one event: three weeks of arXiv papers proposing new agent benchmarks, starting with multi-agent decision and coordination tests (TandemBench, WorkflowArena). Later papers moved to MCP hallucination, memory poisoning, and long-horizon real-world tasks such as AI infra tuning and research sessions.",
+    "stale": false,
+    "whats_new": "REPA (Nov 23) models how one agent's local errors propagate into system-level failures across multi-agent workflows, two days after MASSys showed Star vs Chain topology rankings flip under KV-cache pressure.",
+    "why_it_matters": "Multi-agent scores now depend on serving substrate and error propagation, not just the model, so a leaderboard number may not hold on your own inference stack.",
+    "take_for_builders": "Before choosing a multi-agent topology from a published score, rerun the comparison on your own serving stack at production load, because MASSys shows the ranking can flip with KV-cache pressure."
+   }
+  },
+  {
+   "slug": "spatial-reasoning",
+   "label": "Spatial Reasoning",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-11-20T17:52:02+00:00",
+   "last_updated": "2026-11-23T18:55:44+00:00",
+   "latest_title": "Seeking in Space: Benchmarking Purposeful Active Exploration of Vision-Language Models for Spatial Reasoning",
+   "days": [
+    "2026-11-20",
+    "2026-11-23"
+   ],
+   "member_sids": [
+    "416b7269a8b3e488",
+    "201b4ccaccfdd1ef",
+    "8151cba33f4fca30"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.27915v1",
+    "http://arxiv.org/abs/2611.31021v1",
+    "http://arxiv.org/abs/2611.31215v1"
+   ],
+   "editorial": {
+    "tldr": "Three arXiv papers in four days attack the same weakness: vision-language models that misjudge depth, distance, and layout. They share a theme rather than one event, starting with StereoVLM, which feeds calibrated stereo image pairs to a VLM for metric 3D reasoning.",
+    "stale": false,
+    "whats_new": "ActSpace-Bench tests whether VLMs explore a scene before answering 994 spatial questions; the strongest models explore purposefully but lose gathered evidence to limited memory.",
+    "why_it_matters": "For agents that act on camera input, the papers point at three levers outside the base model: richer sensor input, extra vision encoders, and memory across exploration steps.",
+    "take_for_builders": "If an agent answers spatial questions from images, log what it saw at each step and check whether the final answer uses it; ActSpace-Bench points at memory, not perception, as the failure point."
    }
   },
   {
    "slug": "large-language",
    "label": "Large Language",
-   "item_count": 58,
-   "day_count": 16,
-   "source_count": 8,
-   "first_seen": "2026-11-02T11:00:00+00:00",
-   "last_updated": "2026-11-19T18:20:01+00:00",
-   "latest_title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+   "item_count": 71,
+   "day_count": 18,
+   "source_count": 7,
+   "first_seen": "2026-11-04T08:48:07+00:00",
+   "last_updated": "2026-11-23T18:48:02+00:00",
+   "latest_title": "ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents",
    "days": [
-    "2026-11-02",
-    "2026-11-03",
     "2026-11-04",
     "2026-11-05",
     "2026-11-06",
@@ -327,41 +386,43 @@
     "2026-11-16",
     "2026-11-17",
     "2026-11-18",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22",
+    "2026-11-23"
    ],
    "member_sids": [
-    "744a7a52285cfa40",
-    "526c07c3667e6cf7",
-    "8b24b2aa117fb77b",
-    "94da3bfcbd46a769",
-    "57b08f9866a26766",
-    "5ab1b6ecf4ca3e7a",
     "c43d3ff3aa20c41c",
+    "fb3e45410f2c29fc",
+    "3b93b07bf2154e4f",
+    "51abf5f84d7f5698",
     "416b05f86baa94c5",
-    "464b347f5551c3b2",
+    "df40d12666dedf69",
+    "83722b13b6167c53",
     "2e4c5bdb80c6e509",
     "06c2c68bc425da7f",
+    "0d4497db5df885d5",
     "5606760643e4651e",
-    "23c0753cd928bfa7",
     "b76cb948754a8e57",
     "9c88a41fbb756af3",
     "e07cc0f8ad9bbda1",
     "1c564d62e97c9758",
     "3b4f703ae0a8f385",
-    "94045c979b35ebe7",
-    "77f0b452ecfd74d0",
     "501ef39353c40289",
-    "60cf435fff992a90",
+    "ba175d39f9ba45a4",
+    "bd9e024b04419d57",
     "5ddb49a19fc35296",
     "2ffd7e8cb1f550c6",
     "c4a35e75b732ef4a",
     "69a7c1548b162d4e",
     "dcfca63926ea22ea",
     "b6805052b5174dca",
-    "9b791542dc8bb7cc",
+    "26bc756ec216b604",
     "f1908d0038e22f5b",
-    "151cc2392264c544",
     "173841a135ec48af",
+    "046191ac623ca927",
+    "21fb7be8e1ad8383",
     "7b04b19e28032924",
     "590316d609c0ce23",
     "0fe69ec1eb1a4f14",
@@ -370,7 +431,6 @@
     "ca54e3a4f2c1d30b",
     "3985de9df0cd2149",
     "951243773dcd7469",
-    "75db6f155d9769a5",
     "53cced15d557cd0b",
     "fb7a288ad791ee0d",
     "baf7e4781272e609",
@@ -380,48 +440,62 @@
     "1e13d673398b4485",
     "8f0034965a63d29c",
     "0d292c5fdc2bf79f",
+    "9e1f2252eb72ea8e",
     "51009fb859c1b51e",
     "563c7d3375862838",
     "871015d49de97b4a",
     "3be6797ec1d79375",
+    "58879952ed5ac223",
+    "4de03e96899a0073",
     "c259fdb087f2c077",
+    "f1c00e19e15c137a",
     "e497c044e025058b",
     "1d45f44793728555",
-    "7f32f43e5847c550"
+    "7f32f43e5847c550",
+    "8455ac0d04bbc04e",
+    "74b241bc7ba0b014",
+    "d5776de0ed715c7d",
+    "45ad90fd8b412dd8",
+    "d981cedec3aec798",
+    "d43ec4840a23ed16",
+    "cc1d845dd86911fc",
+    "0c2537d2a4651ab8",
+    "77fc0e39997bf0b1",
+    "f378fea92addc171",
+    "201b4ccaccfdd1ef",
+    "a9604be3fa41d6ac"
    ],
    "member_urls": [
-    "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-    "http://arxiv.org/abs/2611.03087v1",
-    "http://arxiv.org/abs/2611.03517v1",
-    "http://arxiv.org/abs/2611.04834v1",
-    "http://arxiv.org/abs/2611.05066v1",
-    "http://arxiv.org/abs/2611.05373v1",
     "http://arxiv.org/abs/2611.06168v1",
+    "http://arxiv.org/abs/2611.06414v1",
+    "http://arxiv.org/abs/2611.06687v1",
+    "http://arxiv.org/abs/2611.07203v1",
     "http://arxiv.org/abs/2611.08383v1",
-    "https://thinker.sh/how-it-works",
+    "http://arxiv.org/abs/2611.08755v1",
+    "http://arxiv.org/abs/2611.08811v1",
     "http://arxiv.org/abs/2611.09568v1",
     "http://arxiv.org/abs/2611.09634v1",
+    "http://arxiv.org/abs/2611.09729v1",
     "http://arxiv.org/abs/2611.09770v1",
-    "http://arxiv.org/abs/2611.11995v1",
     "http://arxiv.org/abs/2611.12079v1",
     "http://arxiv.org/abs/2611.12392v1",
     "http://arxiv.org/abs/2611.12727v1",
     "http://arxiv.org/abs/2611.12763v1",
     "http://arxiv.org/abs/2611.12791v1",
-    "http://arxiv.org/abs/2611.13254v1",
-    "http://arxiv.org/abs/2611.13396v1",
     "http://arxiv.org/abs/2611.13531v1",
-    "http://arxiv.org/abs/2611.14051v1",
+    "http://arxiv.org/abs/2611.13966v1",
+    "http://arxiv.org/abs/2611.14009v1",
     "http://arxiv.org/abs/2611.14263v1",
     "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
     "http://arxiv.org/abs/2611.14285v1",
     "http://arxiv.org/abs/2611.14312v1",
     "http://arxiv.org/abs/2611.14333v1",
     "http://arxiv.org/abs/2611.14382v1",
-    "http://arxiv.org/abs/2611.15568v1",
+    "http://arxiv.org/abs/2611.14419v1",
     "http://arxiv.org/abs/2611.15925v1",
-    "http://arxiv.org/abs/2611.16414v1",
     "http://arxiv.org/abs/2611.16843v1",
+    "http://arxiv.org/abs/2611.17239v1",
+    "http://arxiv.org/abs/2611.17316v1",
     "http://arxiv.org/abs/2611.17621v1",
     "http://arxiv.org/abs/2611.17763v1",
     "http://arxiv.org/abs/2611.17797v1",
@@ -430,7 +504,6 @@
     "http://arxiv.org/abs/2611.18370v1",
     "http://arxiv.org/abs/2611.18453v1",
     "http://arxiv.org/abs/2611.18485v1",
-    "http://arxiv.org/abs/2611.18514v1",
     "http://arxiv.org/abs/2611.18905v1",
     "http://arxiv.org/abs/2611.19061v1",
     "http://arxiv.org/abs/2611.19871v1",
@@ -440,35 +513,49 @@
     "http://arxiv.org/abs/2611.21291v1",
     "http://arxiv.org/abs/2611.21331v1",
     "http://arxiv.org/abs/2611.21384v1",
+    "http://arxiv.org/abs/2611.21535v1",
     "http://arxiv.org/abs/2611.21605v1",
     "http://arxiv.org/abs/2611.22456v1",
     "http://arxiv.org/abs/2611.22514v1",
     "http://arxiv.org/abs/2611.23010v1",
+    "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOTC0zWUV4djRvQ1NFdXFvLTRFdlF0Q1ZZakNpUnI4Mmd6TGx5T2ZXbURmbENndGNxNVJzSDhEbVB4TGpSdEpnUW0xdGRMQ3BkNFllbTl4VnNWVHc0SWdxTVQwbXFDLU0xNWI0dVNFVG5ZVnpXa2ROVDZtVDRYSkIxTjRpYnJESFdSSUtXN3ppQzJieFI5bll1WnhyTWhpX0RnV2h2YjVqVlppdXZKZFN2dzFkT2JhUDRSWTZMLUZESEJWeldwY2FvVW55OVZRV3BBQ3RTQ1YydG56LWIzMlh0bVhn?oc=5",
+    "http://arxiv.org/abs/2611.24294v1",
     "http://arxiv.org/abs/2611.24552v1",
+    "http://arxiv.org/abs/2611.24892v1",
     "http://arxiv.org/abs/2611.24936v1",
     "http://arxiv.org/abs/2611.25590v1",
-    "http://arxiv.org/abs/2611.26545v1"
+    "http://arxiv.org/abs/2611.26545v1",
+    "http://arxiv.org/abs/2611.27712v1",
+    "http://arxiv.org/abs/2611.27734v1",
+    "http://arxiv.org/abs/2611.27780v1",
+    "http://arxiv.org/abs/2611.27807v1",
+    "http://arxiv.org/abs/2611.27899v1",
+    "http://arxiv.org/abs/2611.27973v1",
+    "http://arxiv.org/abs/2611.29014v1",
+    "http://arxiv.org/abs/2611.29590v1",
+    "http://arxiv.org/abs/2611.30365v1",
+    "http://arxiv.org/abs/2611.30460v1",
+    "http://arxiv.org/abs/2611.31021v1",
+    "http://arxiv.org/abs/2611.31198v1"
    ],
    "editorial": {
-    "tldr": "This thread is a reading list of LLM research papers grouped by shared wording, not one event. From Nov 2 it ran through agent reliability, serving infrastructure, eval validity and multimodal hallucination, then to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+    "tldr": "This thread is a reading list of LLM research papers grouped by shared wording, not one event. From Nov 4 it ran through agent benchmarks, kernel and serving work, eval validity and multimodal hallucination, then Nov 13-19 papers on abstention, jailbreak screening and lie probes.",
     "stale": false,
-    "whats_new": "Nov 19: a deception study tests label-free knowledge and persona directions as lie probes at 70B scale, aimed at the transfer failures of linear probes. A second paper measures hallucination in cyber-threat-intelligence tasks.",
-    "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on detection at serving time (jailbreak screening, calibrated abstention, lie probes), each a component a serving stack can test on its own traffic.",
-    "take_for_builders": "Before adopting any of these detectors, replay your own traffic: measure the jailbreak screen's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each adds."
+    "whats_new": "Nov 23: ToolSmith has multimodal search agents generate and reuse their own tools across 13 benchmarks, three days after Search-RSI reported 9.8- and 9.5-point gains at 9B and 27B by growing the agent's search world.",
+    "why_it_matters": "Most items are single unreplicated preprints, but the late-November run moves toward agents that extend their own tools, search space and memory, which touches tool registries and KV-cache budgets in a serving stack.",
+    "take_for_builders": "Before letting an agent add tools or memory at runtime, gate it: review generated tools before they enter the shared registry, log which ones get reused, and measure any cached-memory scheme's answer quality on your own long-context traffic, not only its prefill latency."
    }
   },
   {
    "slug": "reinforcement-learning",
    "label": "Reinforcement Learning",
-   "item_count": 25,
-   "day_count": 13,
+   "item_count": 22,
+   "day_count": 14,
    "source_count": 6,
-   "first_seen": "2026-11-02T08:46:28+00:00",
-   "last_updated": "2026-11-19T17:54:04+00:00",
-   "latest_title": "Grid Cells as Spectral Successor Features: A Reusable Basis for Continual Reinforcement Learning",
+   "first_seen": "2026-11-04T13:24:54+00:00",
+   "last_updated": "2026-11-23T18:38:53+00:00",
+   "latest_title": "CO-GRAFT: Attributing Reinforcement Learning Gains in Search Agents via Role-Level Policy Grafting",
    "days": [
-    "2026-11-02",
-    "2026-11-03",
     "2026-11-04",
     "2026-11-05",
     "2026-11-06",
@@ -479,22 +566,17 @@
     "2026-11-13",
     "2026-11-16",
     "2026-11-17",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-23"
    ],
    "member_sids": [
-    "473a95cd7c540d1a",
-    "bce25dc1c825a3e7",
-    "3ac08f6799c57341",
-    "08c314bb237b4b82",
-    "d97ee2168f669bce",
-    "981c5fba5d1f60bf",
-    "fb3e45410f2c29fc",
     "4553deeec0e06574",
     "4e9768611cda6532",
     "4f75e58fea1157aa",
     "6fd3ac39e855936d",
     "84ecbe8e1def5e6c",
-    "c4a35e75b732ef4a",
     "283f892f9c4f657a",
     "a7b79c5f448ee3b6",
     "8ccdea5bc171877c",
@@ -505,23 +587,20 @@
     "a0ffcbab57857e23",
     "ab31cf7efa665033",
     "3e8eb23833610c66",
-    "3538d600a000ec1b",
-    "4554d13ae5865101"
+    "4554d13ae5865101",
+    "24ed891a976fe11b",
+    "f51ccad0f77a0a72",
+    "bac47501e3966159",
+    "f424b012833cf66e",
+    "5b8b87d097096ea4",
+    "567190b13cf55806"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2611.02766v1",
-    "http://arxiv.org/abs/2611.03301v1",
-    "http://arxiv.org/abs/2611.05151v1",
-    "http://arxiv.org/abs/2611.05263v1",
-    "http://arxiv.org/abs/2611.05266v1",
-    "http://arxiv.org/abs/2611.06956v1",
-    "http://arxiv.org/abs/2611.06414v1",
     "http://arxiv.org/abs/2611.06483v1",
     "http://arxiv.org/abs/2611.08240v1",
     "http://arxiv.org/abs/2611.08864v1",
     "http://arxiv.org/abs/2611.09625v1",
     "http://arxiv.org/abs/2611.12825v1",
-    "http://arxiv.org/abs/2611.14285v1",
     "http://arxiv.org/abs/2611.14515v1",
     "http://arxiv.org/abs/2611.15507v1",
     "https://vllm.ai/blog/2026-11-12-rl-small-dense-tpu-v7",
@@ -532,100 +611,107 @@
     "http://arxiv.org/abs/2611.21524v1",
     "http://arxiv.org/abs/2611.22039v1",
     "http://arxiv.org/abs/2611.25989v1",
-    "http://arxiv.org/abs/2611.26336v1",
-    "http://arxiv.org/abs/2611.26504v1"
+    "http://arxiv.org/abs/2611.26504v1",
+    "http://arxiv.org/abs/2611.27119v1",
+    "http://arxiv.org/abs/2611.27645v1",
+    "http://arxiv.org/abs/2611.27865v1",
+    "http://arxiv.org/abs/2611.28558v1",
+    "http://arxiv.org/abs/2611.30559v1",
+    "http://arxiv.org/abs/2611.31185v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster of mostly arXiv papers, not one developing story. It began as broad agent training, retrieval and alignment work, then re-centered in November on RL itself: agent and multi-agent RL, RL-learned memory, training cost, and tool-use reliability.",
+    "tldr": "This is a theme thread of mostly arXiv papers, not one developing story. Since Nov 4 it has tracked RL for agents: multi-turn and multi-agent training, RL-learned memory, rollout cost, and the finding that RL tool-use gains can raise tool hallucination.",
     "stale": false,
-    "whats_new": "Nov 19: two continual-RL papers (policy-improvement-guided replay, grid-cell successor features) target learning new tasks without losing old ones, after StateAlign showed RL tool-use gains can raise tool hallucination.",
-    "why_it_matters": "If you post-train or operate tool-using agents, this cluster names concrete costs of RL: rollout underutilization, tool hallucination that rises with task score, and crude stop rules, but nearly every result is author-reported.",
-    "take_for_builders": "Before adopting an RL-tuned tool-use model, track tool-hallucination rate (calls to tools that do not fit the state) alongside task success in your evals, since the two can move in opposite directions."
+    "whats_new": "Nov 23: CO-GRAFT finds query generation explains at most 15% of RL gains in Search-R1 agents, and a state-verified RL paper lifts a 27B tutoring agent from 51.47% to 80.74% strict success.",
+    "why_it_matters": "If you post-train or operate tool-using agents, this cluster names where RL pays off and what it costs: rollout throughput, tool hallucination, and which agent role actually improved, though nearly every result is author-reported.",
+    "take_for_builders": "When evaluating an RL-tuned agent, score tool-hallucination rate and per-role behavior (query, read, answer) next to task success, since the headline gain can hide regressions or come from one role."
    }
   },
   {
-   "slug": "continual-learning",
-   "label": "Continual Learning",
+   "slug": "policy-learning",
+   "label": "Policy Learning",
    "item_count": 6,
-   "day_count": 4,
+   "day_count": 6,
    "source_count": 4,
-   "first_seen": "2026-11-02T17:50:48+00:00",
-   "last_updated": "2026-11-19T17:54:04+00:00",
-   "latest_title": "Grid Cells as Spectral Successor Features: A Reusable Basis for Continual Reinforcement Learning",
+   "first_seen": "2026-11-04T13:32:57+00:00",
+   "last_updated": "2026-11-23T18:38:53+00:00",
+   "latest_title": "CO-GRAFT: Attributing Reinforcement Learning Gains in Search Agents via Role-Level Policy Grafting",
    "days": [
-    "2026-11-02",
+    "2026-11-04",
+    "2026-11-05",
     "2026-11-09",
-    "2026-11-18",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23"
    ],
    "member_sids": [
-    "d8518666be6b2970",
-    "de25d9c4c09e2ab0",
-    "3d0b2294ca5ad80c",
-    "1efbc276679369d7",
+    "7ae1983bc20b4540",
+    "4e7cf2bff5db16a6",
+    "9a1617ac0ac4ae2d",
     "3e8eb23833610c66",
-    "4554d13ae5865101"
+    "a49f8a5d1a19b958",
+    "567190b13cf55806"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2611.03513v1",
-    "http://arxiv.org/abs/2611.12777v1",
-    "http://arxiv.org/abs/2611.23810v1",
-    "http://arxiv.org/abs/2611.24637v1",
+    "http://arxiv.org/abs/2611.06501v1",
+    "http://arxiv.org/abs/2611.07495v1",
+    "https://www.infoq.com/news/2026/11/google-gemini-argon/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
     "http://arxiv.org/abs/2611.25989v1",
-    "http://arxiv.org/abs/2611.26504v1"
+    "http://arxiv.org/abs/2611.27919v1",
+    "http://arxiv.org/abs/2611.31185v1"
    ],
    "editorial": {
-    "tldr": "November's continual-learning papers started with cheaper adapters: RASP (Nov 2) keeps one fixed-size LoRA instead of a branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data. On Nov 18 the thread moved toward deployment, adding specialist vision models to a trained agent's tools and running continual learning on edge devices.",
+    "tldr": "This is a theme thread, not one event: six November items share the words \"policy learning\" or \"policy improvement\" across speech translation, multi-agent orchestration, robotics, and continual RL. Google's Gemini 4 Argon, framed partly around robot policy improvement, is the only product release in the set.",
     "stale": false,
-    "whats_new": "Nov 19: two papers carry continual learning into reinforcement learning, one choosing replay by policy improvement and the other using grid-cell-inspired successor features as a reusable basis across changing tasks.",
-    "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters, incremental tool addition and targeted replay are the candidate mechanisms.",
-    "take_for_builders": "Do not adopt yet; if you add tools or fine-tune adapters on a live agent, rerun the old task evals after each update to catch regressions.",
-    "status": {
-     "state": "Developing · research",
-     "tone": "rising",
-     "changed": "2026-11-19",
-     "detail": "Six arXiv papers in November on a shared theme rather than one event; all research-stage, none shipped in a product or framework."
-    }
+    "whats_new": "CO-GRAFT (Nov 23) swaps RL-trained and pre-RL policies role by role in Search-R1 agents and finds query generation accounts for at most 15% of the RL gain.",
+    "why_it_matters": "For agent builders, the useful strand is attribution: knowing which agent role RL actually improved tells you where to spend fine-tuning and eval effort.",
+    "take_for_builders": "Before RL-tuning a whole search agent, ablate per role (query writing, reading, answering) to find which step the training actually improves."
    }
   },
   {
-   "slug": "learning-world",
-   "label": "Learning World",
-   "item_count": 6,
-   "day_count": 5,
-   "source_count": 5,
-   "first_seen": "2026-11-03T12:00:00+00:00",
-   "last_updated": "2026-11-19T17:15:38+00:00",
-   "latest_title": "Mind2Act World: A Diagnostic Benchmark for Embodied Mind, Physical Action, and Mind-Action Composition in Robotic Manipulation",
+   "slug": "prompt-injection",
+   "label": "Prompt Injection",
+   "item_count": 8,
+   "day_count": 7,
+   "source_count": 3,
+   "first_seen": "2026-11-04T23:18:10+00:00",
+   "last_updated": "2026-11-23T18:01:58+00:00",
+   "latest_title": "FATCAT: Fault Injection Attacks Targeting Chip-level Alignment",
    "days": [
-    "2026-11-03",
+    "2026-11-04",
     "2026-11-05",
     "2026-11-06",
-    "2026-11-17",
-    "2026-11-19"
+    "2026-11-08",
+    "2026-11-11",
+    "2026-11-19",
+    "2026-11-23"
    ],
    "member_sids": [
-    "25493a43cba550c7",
-    "ed02c84438586458",
-    "5a90caffb2c87d2e",
-    "6fd3ac39e855936d",
-    "6ed8ba7c268695db",
-    "1018b9cf048fca1c"
+    "ff6fd9e5c49f2a11",
+    "8cb3780368901295",
+    "83722b13b6167c53",
+    "54f1f65b7c731a1b",
+    "5b14ba0a321ddbad",
+    "08a0e8fcc9a87a88",
+    "8f913d3c64972156",
+    "849440de0b308dcc"
    ],
    "member_urls": [
-    "https://openai.com/index/accelerating-engineering-for-the-physical-world",
-    "http://arxiv.org/abs/2611.08177v1",
-    "https://huggingface.co/blog/allenai/toyblocks",
-    "http://arxiv.org/abs/2611.09625v1",
-    "http://arxiv.org/abs/2611.22291v1",
-    "http://arxiv.org/abs/2611.26444v1"
+    "http://arxiv.org/abs/2611.07222v1",
+    "http://arxiv.org/abs/2611.07640v1",
+    "http://arxiv.org/abs/2611.08811v1",
+    "http://arxiv.org/abs/2611.11571v1",
+    "https://www.mrnice.dev/posts/heavyweight-guardrails",
+    "https://www.stackbuilders.com/insights/ai-agent-authorization-that-limits-the-damage-of-prompt-injection",
+    "http://arxiv.org/abs/2611.29977v1",
+    "http://arxiv.org/abs/2611.31129v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster, not one event: six unrelated pieces share the theme of AI working in and learning about the physical world. It opened with OpenAI pitching ChatGPT and Codex for CAD, PCB and simulation work, then drew in early-November research on world models and controlled robot-learning testbeds.",
+    "tldr": "This is a topic cluster, not one event: early-November papers proposed a runtime defense for tool-using agents and widened injection testing to task tampering and injected reasoning. A Nov 8 paper argued for treating the model as untrusted, and practitioner posts followed with a lawyerspeak guardrail bypass and a case for authorization scoping.",
     "stale": false,
-    "whats_new": "Mind2Act World (Nov 19) adds a diagnostic robotic-manipulation benchmark that scores reasoning, physical action, and their composition separately, two days after a paper argued physical-world agents ship with no test suite.",
-    "why_it_matters": "Agents that write code for robots, labs and controllers cannot be checked with unit tests, so evaluation for these workloads is still being invented in benchmarks, not settled practice.",
-    "take_for_builders": "If your agents emit code for physical systems, gate deploys on a simulator or hardware-in-the-loop check; no shared benchmark here is ready to replace that."
+    "whats_new": "A Nov 23 paper, Conartist, reports adaptive multi-step injection succeeding 32.12% of the time on a 576-instance tool-use benchmark and 66.67% on a Reddit GUI benchmark across five backbone models.",
+    "why_it_matters": "Adaptive, multi-step attacks against computer-using agents land often enough that a text-reading guardrail cannot be the last line; the control that holds is the permission boundary enforced in code around each tool call.",
+    "take_for_builders": "Give each agent task the narrowest credentials it needs and gate high-impact tool calls with deterministic policy or human approval, then add adaptive multi-step, task-tampering, and legal-register cases to your red-team suite."
    }
   }
  ]

@@ -1,36 +1,20 @@
 {
  "slug": "weight-space-programming",
  "label": "Weight-Space Programming",
- "item_count": 5,
- "day_count": 5,
+ "item_count": 6,
+ "day_count": 6,
  "source_count": 5,
- "first_seen": "2026-11-03T05:35:00+00:00",
- "last_updated": "2026-11-18T12:31:23+00:00",
- "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "first_seen": "2026-11-11T23:47:21+00:00",
+ "last_updated": "2026-11-24T09:41:22+00:00",
+ "generated_at": "2026-11-25T00:14:27.939533+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
+  "arxiv_cs_lg",
   "arxiv_llm_reliability",
-  "hackernews_ai",
-  "latent_space"
+  "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-11-03",
-   "items": [
-    {
-     "title": "[AINews] LLMs can read & write neural network weights: \"Weight Space Programming\" cuts Autoresearch out of the RSI loop",
-     "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of",
-     "source": "latent_space",
-     "type": "news",
-     "summary_1line": "Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark.",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "22262baef95a2fe5",
-     "published": "2026-11-03T05:35:00+00:00",
-     "editor_note": "Introduced the technique to a practitioner audience, with a concrete Qwen reasoning-loop edit."
-    }
-   ]
-  },
   {
    "date": "2026-11-11",
    "items": [
@@ -68,10 +52,10 @@
      "url": "http://arxiv.org/abs/2611.21449v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Researchers at MIT recently reported that GPT-6 Astra, a frontier large language model (LLM), can write the weights of small neural networks directly in a single reply, and can read the raw weights of small networks to say what they were trained to do. In a three-day sprint, we r",
+     "summary_1line": "Researchers at MIT recently reported that GPT-6 Astra, a frontier large language model (LLM), can write the weights of small neural networks directly in a single reply, and can read the raw weights of small networks t...",
      "sid": "c6ff682be23f5497",
      "published": "2026-11-16T17:35:18+00:00",
-     "editor_note": "Independent replication of the original MIT write-and-read results, with extensions."
+     "editor_note": "Independent replication of the MIT write-and-read results, with extensions."
     }
    ]
   },
@@ -89,27 +73,49 @@
      "editor_note": "Moved the technique from capability edits to value edits, testing a pledge-versus-benefit trade-off."
     }
    ]
+  },
+  {
+   "date": "2026-11-23",
+   "items": [
+    {
+     "title": "TowerBridge: Bridging the Dual-Encoder Modality Gap via Weight-Space Programming",
+     "url": "http://arxiv.org/abs/2611.31233v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "TowerBridge is a closed-form weight-editing recipe for CLIP-style dual encoders that attenuates directions where the image and text towers agree on hard negatives, raising COCO and Flickr30k retrieval across 21 checkpoints.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "442791943ea0bb14",
+     "published": "2026-11-23T18:59:13+00:00",
+     "editor_note": "Applied weight editing to CLIP-style retrieval with a closed-form recipe, not LLM-authored weights."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "items": [
+    {
+     "title": "Looped Weight-Space Programming: use AI to set model weights",
+     "url": "https://twitter.com/ahmedmm72234641/status/2124869402634129901",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Researchers from MBZUAI report that Claude Opus 5.5 solved only 26% of hard mazes directly, but wrote a transformer by setting its weights directly, which solves 100% of their test mazes in 39 minutes for $19 without training.",
+     "sid": "9f78cee464619905",
+     "published": "2026-11-24T09:41:22+00:00",
+     "editor_note": "First cost and success figures: a written transformer beat its author model's direct answers."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "On Nov 3, Latent Space covered an MIT result showing frontier LLMs can read and write small neural network weights directly, with no training run. Over the next two weeks an open-source instruction set, a game-agent compilation paper, and an independent replication followed.",
+  "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in a single reply set off a run of follow-ups in mid-November: an open-source instruction set (W-ISA), a game-agent compilation paper, and an independent replication. A Nov 18 paper then moved from capability edits to value edits, and a Nov 23 CLIP paper borrowed the name for a closed-form weight-editing recipe.",
   "stale": false,
-  "whats_new": "A Nov 18 arXiv paper tests whether a weight edit can change a model's ethical trade-off, raising the benefit needed to override a formal pledge in a concept-supervised text model.",
-  "why_it_matters": "If LLMs can author and inspect weights directly, model behavior becomes editable without a training run, which is both a new tooling surface and a new tampering risk for anything you serve.",
-  "take_for_builders": "Hold off on production use: results so far cover small networks and research models. Do add checkpoint hashing and behavior regression evals, since direct weight edits leave no training trail.",
+  "whats_new": "MBZUAI researchers report Claude Opus 5.5 solved only 26% of hard mazes directly, but a transformer it wrote by setting weights solved 100% of their test mazes in 39 minutes for $19, with no training run.",
+  "why_it_matters": "If an LLM can hand-author a small model that beats its own direct answers, weight-writing becomes a cheap way to build narrow task solvers, and an untracked way to change a model's behavior.",
+  "take_for_builders": "Treat LLM-written weights as a research option for narrow, verifiable tasks only. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail.",
   "beats": [
    {
-    "kicker": "ORIGIN",
-    "tone": "launch",
-    "headline": "LLMs shown reading and writing neural network weights",
-    "summary": "Latent Space frames the MIT result as a way to cut autoresearch out of the self-improvement loop, citing weight edits to Qwen that reduce reasoning loops.",
-    "sids": [
-     "22262baef95a2fe5"
-    ]
-   },
-   {
     "kicker": "TOOLING",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "W-ISA proposes an instruction set for programming LLM weights",
     "sids": [
      "3f5db491bb6150c6"
@@ -119,27 +125,38 @@
     "kicker": "REPLICATION",
     "tone": "rising",
     "headline": "Papers compile game rules into agents and reproduce the core claim",
-    "summary": "One paper tests whether compiled game agents generalize to held-out levels; another reproduces the write-weights and read-weights results in a three-day sprint.",
+    "summary": "One paper tests whether compiled game agents generalize to held-out levels; another reproduces the MIT write-weights and read-weights results.",
     "sids": [
      "66afd15d3cc82624",
      "c6ff682be23f5497"
     ]
    },
    {
+    "kicker": "SPREAD",
+    "tone": "rising",
+    "headline": "Weight edits aimed at ethical priorities and CLIP retrieval",
+    "summary": "A value-edit study on a concept-supervised text model and a closed-form CLIP recipe reported across 21 checkpoints; the CLIP work shares the name more than the LLM-authored method.",
+    "sids": [
+     "6891036f2be78fdd",
+     "442791943ea0bb14"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Researchers test weight edits on a model's ethical priorities",
+    "headline": "LLM-written transformer solves all test mazes for $19",
+    "summary": "Looped weight-space programming beats the same model's direct answers, 100% versus 26% on hard mazes.",
     "sids": [
-     "6891036f2be78fdd"
+     "9f78cee464619905"
     ]
    }
   ],
   "open_questions": [
    "Does weight-space programming work beyond small networks, on production-scale LLM layers?",
-   "Do the Qwen reasoning-loop edits hold up on independent benchmarks?",
+   "Does the MBZUAI maze result hold on tasks other than mazes, and has anyone reproduced it?",
    "Can weight-space edits be detected by inspecting a served checkpoint?",
    "Does W-ISA gain adoption or a reference implementation from a major lab?"
   ],
-  "generated_at": "2026-11-20T00:12:42Z"
+  "generated_at": "2026-11-25T00:30:00Z"
  }
 }

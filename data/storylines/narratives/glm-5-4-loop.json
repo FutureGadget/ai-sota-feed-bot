@@ -1,0 +1,47 @@
+{
+  "slug": "glm-5-4-loop",
+  "generated_at": "2026-11-25T00:20:00+00:00",
+  "covers_last_updated": "2026-11-24T02:35:00+00:00",
+  "covers_member_sids": [
+    "8328dbcf64c7a708",
+    "105d2dd6f5d647be",
+    "23b31e845283d676"
+  ],
+  "tldr": "Z.ai (Zhipu) released GLM-5.4 on Nov 23, a 750B loop transformer that passes its 28 weight-shared layers twice instead of stacking more unique layers. It is the lab's first looped flagship, pitched at generalized coding, and launched without open weights.",
+  "whats_new": "Zhipu now claims the 750B GLM-5.4 matches 2-3T-class models, but that claim comes from Chinese financial press and has no independent benchmark behind it yet.",
+  "why_it_matters": "Looping shared layers trades parameter count for repeated compute per token, so GLM-5.4's memory footprint and its latency and cost per token may not scale the way a plain 750B model's would.",
+  "status": {
+    "state": "Released · weights not yet open",
+    "tone": "launch",
+    "changed": "2026-11-23",
+    "detail": "The model is announced and described, but open weights and independent evaluations are both still missing."
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "GLM-5.4 ships as a 750B loop transformer that runs 28 layers twice",
+      "summary": "Z.ai frames it as its first looped model, aimed at generalized coding.",
+      "sids": ["8328dbcf64c7a708", "105d2dd6f5d647be"]
+    },
+    {
+      "kicker": "THE CLAIM",
+      "tone": "now",
+      "headline": "Zhipu claims 2-3T-class performance from a 750B base",
+      "summary": "The headline efficiency claim is reported, not independently verified.",
+      "sids": ["23b31e845283d676"]
+    }
+  ],
+  "open_questions": [
+    "Will Z.ai publish GLM-5.4 open weights, and under what license?",
+    "Does an independent benchmark confirm 2-3T-class performance from the 750B model?",
+    "What do per-token latency and price look like when every token runs the 28 layers twice?",
+    "Do other labs adopt looped layers in flagship models after GLM-5.4?"
+  ],
+  "take_for_builders": "Do not swap GLM-5.4 into a coding-agent stack on the 2-3T claim; wait for weights or API pricing, then rerun your own coding evals and measure latency per token.",
+  "day_captions": {
+    "8328dbcf64c7a708": "First report of the release, with the 750B size and the 28-layers-run-twice design.",
+    "105d2dd6f5d647be": "Adds the generalized-coding framing and notes the weights are not yet open.",
+    "23b31e845283d676": "Adds Zhipu's 2-3T-class performance claim, flagged as unverified."
+  }
+}

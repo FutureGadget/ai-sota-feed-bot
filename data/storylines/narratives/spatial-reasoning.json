@@ -1,0 +1,43 @@
+{
+  "slug": "spatial-reasoning",
+  "generated_at": "2026-11-25T00:30:00+00:00",
+  "covers_last_updated": "2026-11-23T18:55:44+00:00",
+  "covers_member_sids": ["416b7269a8b3e488", "201b4ccaccfdd1ef", "8151cba33f4fca30"],
+  "tldr": "Three arXiv papers in four days attack the same weakness: vision-language models that misjudge depth, distance, and layout. They share a theme rather than one event, starting with StereoVLM, which feeds calibrated stereo image pairs to a VLM for metric 3D reasoning.",
+  "whats_new": "ActSpace-Bench tests whether VLMs explore a scene before answering 994 spatial questions; the strongest models explore purposefully but lose gathered evidence to limited memory.",
+  "why_it_matters": "For agents that act on camera input, the papers point at three levers outside the base model: richer sensor input, extra vision encoders, and memory across exploration steps.",
+  "beats": [
+    {
+      "kicker": "INPUT",
+      "tone": "launch",
+      "headline": "StereoVLM adds binocular input for metric depth",
+      "summary": "Trains on calibrated stereo pairs and reports 95.17% depth accuracy on its own Stereo3D-Bench.",
+      "sids": ["416b7269a8b3e488"]
+    },
+    {
+      "kicker": "INFERENCE",
+      "tone": "rising",
+      "headline": "LatentParse turns vision-encoder features into a text report",
+      "summary": "Training-free: an analyst VLM reads CLIP, DINOv3 and VGGT features, lifting five VLMs by 0.7-2.4 points.",
+      "sids": ["201b4ccaccfdd1ef"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "ActSpace-Bench measures active exploration and finds a memory bottleneck",
+      "summary": "234 episodes in 72 real-scanned indoor scenes; evidence gathered while exploring is lost before the answer.",
+      "sids": ["8151cba33f4fca30"]
+    }
+  ],
+  "open_questions": [
+    "Does StereoVLM's depth accuracy hold on a benchmark its authors did not build?",
+    "Do LatentParse's 0.7-2.4 point gains justify running an extra analyst VLM and three encoders per query?",
+    "Does adding explicit scene memory close the evidence-loss gap ActSpace-Bench reports?"
+  ],
+  "take_for_builders": "If an agent answers spatial questions from images, log what it saw at each step and check whether the final answer uses it; ActSpace-Bench points at memory, not perception, as the failure point.",
+  "day_captions": {
+    "416b7269a8b3e488": "Opens the thread by changing the input: stereo pairs plus a new benchmark for metric 3D reasoning.",
+    "201b4ccaccfdd1ef": "Adds a training-free route that improves existing VLMs instead of training a new one.",
+    "8151cba33f4fca30": "Moves from static images to active exploration and names limited memory as the bottleneck."
+  }
+}

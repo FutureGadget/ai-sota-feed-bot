@@ -1,0 +1,54 @@
+{
+  "slug": "vllm-inference",
+  "generated_at": "2026-11-25T00:30:00+00:00",
+  "covers_last_updated": "2026-11-24T18:20:27+00:00",
+  "covers_member_sids": [
+    "131509a7651f4930",
+    "0a0ce400ec58ec0b",
+    "1173301e4bceb248",
+    "781ec9697da4f86b"
+  ],
+  "tldr": "This is a theme thread, not one event: three separate items treat vLLM as the default open serving stack. It opened with Warmctl, a Show HN tool for faster vLLM cold starts, then vLLM shipped day-0 support for Baidu's ERNIE 5.5 Flash Preview through a plugin.",
+  "whats_new": "Humanity's Last System (HLS), an open benchmark, gives coding agents live GPU sandboxes for up to 36 hours to build inference servers, then verifies them and scores their speed against vLLM-style baselines.",
+  "why_it_matters": "vLLM is now the reference point for serving: new models ship as vLLM plugins, tools patch its cold starts, and agent benchmarks measure themselves against it.",
+  "beats": [
+    {
+      "kicker": "OPS GAP",
+      "tone": "neutral",
+      "headline": "Warmctl targets vLLM cold-start latency",
+      "summary": "A Show HN tool aimed at the slow startup of vLLM servers.",
+      "sids": [
+        "131509a7651f4930"
+      ]
+    },
+    {
+      "kicker": "MODEL SUPPORT",
+      "tone": "launch",
+      "headline": "Day-0 vLLM support for ERNIE 5.5 Flash Preview via plugin",
+      "summary": "A 280B-parameter MoE with 14B active per token runs through the vllm-ERNIE plugin on vllm==0.32.0.",
+      "sids": [
+        "0a0ce400ec58ec0b"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "HLS benchmark asks agents to build inference engines that beat vLLM",
+      "summary": "Agent-built servers are verified and scored for speed against vLLM-style baselines.",
+      "sids": [
+        "781ec9697da4f86b"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does any agent-built server in HLS beat the vLLM baseline on verified speed, and on which models?",
+    "Does ERNIE 5.5 Flash support move from the vllm-ERNIE plugin into mainline vLLM?",
+    "Does Warmctl publish cold-start measurements against a stock vLLM startup?"
+  ],
+  "take_for_builders": "For ERNIE 5.5 Flash, pin vllm==0.32.0 with the vllm-ERNIE plugin. Treat HLS results as research until verified scores beat your own vLLM baseline on your models.",
+  "day_captions": {
+    "131509a7651f4930": "Opens the thread with a community fix for a vLLM operations pain point: cold starts.",
+    "0a0ce400ec58ec0b": "Shows a model lab shipping launch-day serving support as a vLLM plugin pinned to a specific vLLM release.",
+    "781ec9697da4f86b": "Turns vLLM into the benchmark target for agent-written inference engines."
+  }
+}

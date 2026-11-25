@@ -1,0 +1,46 @@
+{
+  "slug": "inference-engines",
+  "generated_at": "2026-11-25T00:30:00+00:00",
+  "covers_last_updated": "2026-11-24T18:20:27+00:00",
+  "covers_member_sids": [
+    "f9d81d0a259ab7bb",
+    "9aba4bf153849718",
+    "781ec9697da4f86b"
+  ],
+  "tldr": "This is a loose theme thread, not one event: three unrelated sources over two weeks treated the inference engine itself as the object of work. It opened with EngineAgent, a paper on using agents to port new LLM architectures into on-device engines, and a Nov 22 paper on stripping backdoor activations at inference time.",
+  "whats_new": "Humanity's Last System (HLS), an open benchmark, gives coding agents live GPU sandboxes for up to 36 hours to build inference servers that are verified and scored for speed against vLLM-style baselines.",
+  "why_it_matters": "Agent-written serving code is moving from research prototype to scored benchmark, so the speed claims around custom inference engines will soon come with a public yardstick against vLLM.",
+  "beats": [
+    {
+      "kicker": "AGENTS PORT ENGINES",
+      "tone": "launch",
+      "headline": "EngineAgent proposes agents that adapt on-device engines to new LLM architectures",
+      "summary": "Frames per-model engine support across heterogeneous mobile hardware as recurring, costly work worth automating.",
+      "sids": ["f9d81d0a259ab7bb"]
+    },
+    {
+      "kicker": "SIDE THREAD",
+      "tone": "neutral",
+      "headline": "Training-free SVD filter cuts backdoor attack success to about 2% at inference",
+      "summary": "A security result on CNN and ViT models; it shares the inference-time framing, not the agent theme.",
+      "sids": ["9aba4bf153849718"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "HLS benchmark asks whether agents can build an inference server that beats vLLM",
+      "sids": ["781ec9697da4f86b"]
+    }
+  ],
+  "open_questions": [
+    "Does any agent-built server in HLS beat the vLLM baseline on published results?",
+    "Which models and GPUs does HLS score on, and does the verification step check output correctness as well as speed?",
+    "Does EngineAgent release code or results for a named on-device engine?"
+  ],
+  "take_for_builders": "Treat agent-built inference servers as unproven until HLS publishes verified scores; keep vLLM as the serving baseline and rerun your own latency evals before swapping engines.",
+  "day_captions": {
+    "f9d81d0a259ab7bb": "First framing of engine porting as an agent task, scoped to on-device inference.",
+    "9aba4bf153849718": "Adds an inference-time defense angle: backdoor success averaged 2.07% across five models.",
+    "781ec9697da4f86b": "Turns agent-built engines into an open, scored benchmark with vLLM-style baselines."
+  }
+}
