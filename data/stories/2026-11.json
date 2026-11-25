@@ -6542,6 +6542,23 @@
   "url": "https://vercel.com/blog/eve-is-now-generally-available",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3427f2523e64ffb1": {
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "1aa0183f56311d6f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T01:01:49+00:00",
+  "sid": "3427f2523e64ffb1",
+  "source": "arxiv_agent_systems_research",
+  "summary": "The growing autonomy of AI agents in using external tools and making decisions has created an urgent need for comprehensive safety benchmarks. Existing benchmarks test compromised tool channels or adaptive multi-turn attacks, though they may not capture the unique capabilities of policy-governed tool-use agents, which must resist unauthorized requests without abandoning the legitimate work embedded in the same interaction. To fill this gap, we introduce TACT-Bench, a stateful benchmark built around scenario-specific stories, personas, manipulation tactics, and response-adaptive escalation. Each adversarial task targets an action explicitly prohibited by the policy provided to the assistant, while the policy remains hidden from the attacking user. TACT pairs each adversarial task with at least one benign counterpart, and its adversarial tasks retain authorized ground-truth actions when a compliant resolution remains available. We define these base tasks as TACT-Base. We additionally introduce TACT-TrustPrime, which places an independent benign task before an unrelated attack in the same conversation. We also propose Paired Selective Trustworthiness (PST), which combines explicit safe refusal with demonstrated capability on matched benign tasks, to analyze an agent's overcautiousness and practicality. Averaged across 6 different models as assistants, TACT-Base raises Attack-Induced Failure Rate (AFR) by 17.53% over four compatible attack baselines, and TACT-TrustPrime raises it",
+  "summary_1line": "The growing autonomy of AI agents in using external tools and making decisions has created an urgent need for comprehensive safety benchmarks. Existing benchmarks test compromised tool channels or adaptive multi-turn...",
+  "title": "TACT-Bench: Testing Adaptive Conversational Threats against Tool-Use Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31756v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "3449739a151bbd6a": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. The article describes an architecture for agentic AI in regulated utility operations. Agents reason and propose actions, but a deterministic policy gate and a governed tool gateway control execution, with human approval where required. It covers an AWS reference implementation, grounding in runbooks, governed prediction, outcome validation, audit evidence, and phased autonomy. Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embeddings for a 10x throughput leap, and eliminating hidden system bottlenecks - from custom flash attention masks to Python GIL workarounds, gc.freeze, and non-blocking CUDA memory copies. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to hel",
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
@@ -9049,6 +9066,24 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.172.0-alpha.2.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "471145a2ed0d4194": {
+  "content_excerpt": "The trace of an agent is the system of record of what the agent did. It contains rich information about user intent, agent trajectory, and final outcome achieved. The simplest way to use these traces is as a debugging tool to visualize the sequence of steps an LLM application took and determine what went wrong. As agent traces become longer (as agents become more powerful) and more plentiful (as agents reach production), this manual debugging no longer scales. In order to use this trace data to drive continuous improvement of agents at scale, you need two things: We’ve been working on both of these for nearly two years. The first big piece we launched was SmithDB , a purpose-built database for traces. Over the past few months, we’ve been increasing our focus on “intelligent compute”. The reason you need “intelligent compute” is that these agent traces themselves are traces of unstructured reasoning, so intelligence is required to analyze them. In traditional data engineering, a data lake stores a shared corpus of data that different engines can query and process. As we’ve built LangSmith, we’ve noticed our platform architecture converging to that as well: a shared corpus of agent data (stored in SmithDB) with many different forms of “intelligent compute” running over it. Traditional data lakes like Snowflake and Databricks don’t have storage or “intelligent compute” optimized for this agent data. As more and more of the data a company generates becomes agent traces, we think ",
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "4d7b7d7ef53bef22",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6b0510da8c773799da085909_The%20Agent%20Lake.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T01:30:00+00:00",
+  "sid": "471145a2ed0d4194",
+  "source": "langchain_blog",
+  "summary": "An agent lake holds every trace your agents produce. See how LangSmith finds high-signal traces at scale and turns them into fixes and fine-tuned models.",
+  "summary_1line": "LangChain describes LangSmith as an \"agent lake\" that stores agent traces and outcomes in its SmithDB database, ingesting traces from billions of agent runs per month, and argues such a platform is needed beyond traditional data lakes.",
+  "title": "The Agent Lake",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/the-agent-lake",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4715dd7a49e69939": {
   "first_seen": "2026-11-05T12:05:33.949815+00:00",
   "id": "44e9da586333cb52",
@@ -9233,6 +9268,18 @@
   "title": "Food Critic: An Agentic Visualization System for Auditable Restaurant-Safety Reasoning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15843v1"
+ },
+ "48ff0e7ac3e2ac15": {
+  "content_excerpt": "Giving a modern LLM root access to a computer allows it to do a lot of things that were previously unthinkable. You can give a hard problem that requires intense focus and iterations to an LLM agent, and it will solve it for you. This moment may not last, but right now they are clearly worse than humans in some respects, but much better in others. If you work hand-in-hand you can harness the uniqu",
+  "first_seen": "2026-11-25T02:08:59.208447+00:00",
+  "id": "4629372d5f4a2a1f",
+  "published": "2026-11-25T00:09:57+00:00",
+  "sid": "48ff0e7ac3e2ac15",
+  "source": "hackernews_ai",
+  "summary_1line": "Foreman is a self-hosted agent orchestrator for running LLM agents, with its security design as the stated focus, though the excerpt provided is largely general commentary on LLM agents with root access and does not detail its features.",
+  "title": "Foreman: A secure self-hosted agent orchestrator",
+  "type": "news",
+  "url": "https://www.palkeo.com/en/blog/foreman.html"
  },
  "496b86d93c453049": {
   "content_excerpt": "Firecracker microVMs for the code your agents write. Start one in a single call, pause and resume it, on one simple monthly plan. Sandboxes, workspaces, build machines and your own lab hardware behind one API. No servers to set up. Sandscale compute, US East. Sandboxes, workspaces and build hosts on our machines in N. Virginia, ready with one API call. Europe, in Frankfurt, is coming soon. Your lab, connected. Plug in your own Linux or macOS machines with real devices and claim them per run. Firecracker microVMs for agent code. Run commands, move files, stream logs, snapshot, pause and resume. A persistent cloud computer for your coding agent, with your repo, terminals and SSH. Keep working from any device. Lease a clean build machine for a set time, sync your tree and run over SSH with a short-lived certificate. Wiped on release. Connect your own Linux or macOS machines with security keys, TPMs, debug probes and boards, and claim them per run. Claude Code runs under your policy through its hooks: each tool call is allowed, blocked or sent to a person. Codex and Gemini CLI report every step over OpenTelemetry. Pause or stop any session from the dashboard. Decide which templates, sizes, run times and agents each project may use, and which calls need a person first. Every sandbox, workspace, lease and change lands in a hash-chained audit log you can export. Sandboxes, workspaces and build hosts all draw from your plan's monthly awake hours. A box counts only while it is awake: ",
@@ -10853,6 +10900,23 @@
   "type": "research",
   "url": "https://huggingface.co/blog/amazon/higher-order-pruning-experts"
  },
+ "55f174c136bef75a": {
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "df265cb8a83c72ec",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-23T17:57:08+00:00",
+  "sid": "55f174c136bef75a",
+  "source": "arxiv_llm_reliability",
+  "summary": "Recent advances in MLLMs have improved social understanding, enabling models to recognize emotions and distinguish truthful from deceptive behaviors. However, existing benchmarks largely focus on coarse-grained emotion recognition or binary truth-deception detection, overlooking the diverse ways people manipulate information in conversations, such as withholding, leakage, fabrication, evasion, and defensive counterclaim. Understanding these behaviors requires reasoning about underlying facts, participant knowledge, and conversational context, making them difficult to evaluate reliably. To address this gap, we introduce InfoCon, a multimodal benchmark for fine-grained information manipulation in conversations. InfoCon identifies six fine-grained strategies and derives a coarse consistency label from their factual and interactional relations. We develop an evidence-grounded multi-agent annotation framework to construct and verify reliable labels from rich contextual evidence. We benchmark representative multimodal models and systematically analyze their fine-grained information manipulation understanding, providing a testbed beyond binary truth-deception judgments.",
+  "summary_1line": "Introduces InfoCon, a multimodal benchmark that labels six fine-grained information manipulation strategies in conversations, such as withholding, leakage, and fabrication, plus a coarse consistency label, and benchmarks representative multimodal models on it.",
+  "title": "What People Choose Not to Say: A Multimodal Benchmark for Fine-Grained Information Manipulation in Conversations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31346v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "55f9a62f165093eb": {
   "content_excerpt": "Do contact forms on AI-built sites send anything? A Playwright harness that checks without sending, with known-answer fixtures and the study's method and results. We submitted the contact form on public Lovable and Bolt sites while recording every network request and blocking all of them , so no message ever reached a site owner. On the final run, 27 of 105 forms showed a success message (\"Message sent!\") and sent nothing; 54 of 105 sent the typed message. On sites without demo signs, 16 of 73 were fake. After the contact form is found, every request is intercepted. Same-origin static files and cross-origin scripts, styles and fonts load; everything else is recorded and aborted . The harness fills visible fields with obvious test values (never honeypots), presses send and watches the page for five seconds. Open DevTools → Network and press send: a working form adds a request that carries the text you typed. The write-up's fix section lists three ways to fix it. Coding agents (Claude Code, Cursor, Codex) can install a skill that adds a working form and replaces fake handlers: Nothing is submitted to anyone. The site list and per-site results are not published, and the write-up names no site. Please use the harness the same way. Do contact forms on AI-built sites send anything? A Playwright harness that checks without sending, with known-answer fixtures and the study's method and results.",
   "first_seen": "2026-11-16T23:04:08.342264+00:00",
@@ -11016,6 +11080,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.19663v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "56d42021fc58e6ac": {
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "ddd78203f940cb86",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-23T21:06:33+00:00",
+  "sid": "56d42021fc58e6ac",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based user simulation can support interface design, accessibility research, and interactive-agent evaluation, but standard computer-use agents are optimized for task completion rather than reproducing how people perceive, reason, and act. We introduce COGENT (COGnitive agENT), a modular cognitive architecture for simulating user interaction with desktop interfaces. COGENT draws on established cognitive theories, such as Norman's action cycle and ACT-R, to enable explainable, intervenable, and modular user simulation by decomposing the simulation process into cognitive modules with explicit representations of perception, memory, user state, intentions, and action selection. We begin by presenting six intervenability demonstrations, each tracing how a single edit to memory, a user attribute, or a processing module propagates through the cognitive pipeline to produce a behavioral change. We evaluate COGENT's behavioral and attributional fidelity across three benchmarks -- AgentNetBench, A11y-CUA, and SENSE-42 -- finding that it achieves statistically significant fidelity gains over computer-use baselines in reproducing recorded human behavior and recovers the relational structure among human self-reported psychological states. Together, these demos and evaluations demonstrate COGENT's utility toward more faithful, explainable, intervenable, and modular LLM-based cognitive simulations.",
+  "summary_1line": "Presents COGENT, a modular cognitive architecture for simulating users interacting with desktop interfaces, reporting six intervenability demos and statistically significant fidelity gains over computer-use baselines on three benchmarks.",
+  "title": "COGENT: A Modular Cognitive Architecture for Agentic User Simulation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31559v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "5729d7c3be69bbc7": {
   "first_seen": "2026-11-16T11:06:17.692956+00:00",
@@ -16924,7 +17005,7 @@
   "sid": "895b540db6a8889e",
   "source": "google_deepmind_blog",
   "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.",
-  "summary_1line": "Google DeepMind describes using teams of AI agents together with formal verification to find improvements to quantum algorithms for applications in fusion and chemistry.",
+  "summary_1line": "Google DeepMind describes how teams of AI agents, paired with formal verification, were used to find improvements to quantum algorithms for fusion and chemistry applications.",
   "title": "Finding faster quantum algorithms with agents and formal verification",
   "type": "news",
   "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification",
@@ -23560,6 +23641,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26075v1"
  },
+ "badad62bfaefb859": {
+  "first_seen": "2026-11-25T02:08:59.208447+00:00",
+  "id": "6354030c0cb108b8",
+  "published": "2026-11-23T21:26:38+00:00",
+  "sid": "badad62bfaefb859",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Researchers propose LatentLens, a framework that separates the latent interface from the agent harness and tests it on seven benchmarks with Qwen3 models, finding it often fails to improve and can degrade accuracy.",
+  "title": "LatentLens: Rethinking Latent Interface in Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31582v1"
+ },
  "baf7e4781272e609": {
   "first_seen": "2026-11-18T02:06:02.321798+00:00",
   "id": "09102efcc5c919a0",
@@ -23592,6 +23684,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06662v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "bb0bf7307bef304f": {
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "b4cc711611dbd176",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-24T02:31:21+00:00",
+  "sid": "bb0bf7307bef304f",
+  "source": "arxiv_llm_reliability",
+  "summary": "As AI transitions to sociotechnical deployments, uninterpretable models pose serious threats to reliability, public trust and contestability. However, not all interpretation methods are created equal: for interpretability to enhance deployment safety and effectiveness, interpretation methods must be evaluated in a tiered system to differentiate evidence levels of trustworthiness, rather than validated through isolated interpretation instances. Our core vision is that elevating the evaluation of interpretation methods to a core AI assessment metric will drive robust knowledge discovery from data (KDD) and ensure safe, contestable sociotechnical deployments of AI. To this end, we propose TRUST, a tiered evaluation framework that builds upon the Predictability-Computability-Stability (PCS) principles for Veridical Data Science (VDS) and the Predictive, Descriptive and Relevant (PDR) foundations. To differentiate interpretation methods effectively and systematically, TRUST grades interpretation across five tiers: Task-Aligned PDR Foundations, Rigorous Epistemic Grounding, Unifying Semantic Understanding, Scope Transferability, and Targeted Prospective Validation. We present a start-to-finish case study of the iterative Random Forest (iRF) family under TRUST and contrast it with other LLM interpretation methods that struggle to clear specific tiers. Finally, we conclude with brief initial thoughts on how TRUST principles can extend in autonomous agentic frameworks. Ultimately, the",
+  "summary_1line": "Proposes TRUST, a five-tier framework for grading AI interpretation methods by trustworthiness, built on PCS and PDR principles, and applies it to iterative Random Forest and LLM-based methods.",
+  "title": "Not All Interpretation Methods Are Created Equal: Tiered Evaluation of AI Interpretability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31833v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "bb1f2f07f5994d40": {
   "content_excerpt": "Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings & deals before it starts. REGISTER HERE. The financials Anthropic shared with investors this week suggest that its AI coding tool, Claude Code, is every bit the business success the frontier lab wanted. The company recorded an operating profit in the second quarter, and 900% net revenue retention — that is, spending from the same customers in Q3 2025 grew nine times in Q3 2026. Anthropic has focused on getting enterprise users to stick around and Wednesday announced a new suite of reporting tools designed to give those customers a more granular understanding of the value they get from their token spend. Using internal analytics and employee surveys, managers can view a team’s work over a given date range, what the team produced, how much it cost, and where its workflows broke down. Anthropic says it won’t use this data for model training by default. The reports will also offer recommendations on how to improve the results. This is a clear attempt to demonstrate the return on investment of Anthropic’s tools and to show customers how to improve it — a major concern among large customers. Anthropic is also creating pooled group budgets to allow teams to better manage token spending. Businesses have been hunting for that kind of information as they figure out how best to deploy AI tools. While usage among venture-backed firms is driving token spend, most of the Fortune 500 are not seeing major gains from deploying ",
@@ -26002,6 +26111,28 @@
   "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "d1a8a8c302ae6a4a": {
+  "first_seen": "2026-11-25T02:06:23.367274+00:00",
+  "id": "499e48cc625f0145",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-25T01:32:14+00:00",
+  "release_highlights": [
+   "Added skills from MCP servers (beta). They show as server:skill in the / menu; other skills keep their names",
+   "Added a PreSkillShellCommand hook event that can refuse a skill or command's inline shell commands as it loads; on 2.1.331 and older, a settings file naming...",
+   "Added \"Always deliver\" to the prompt for held messages from other sessions"
+  ],
+  "sid": "d1a8a8c302ae6a4a",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added skills from MCP servers (beta). They show as server:skill in the / menu; other skills keep their names Added a PreSkillShellCommand hook event that can refuse a skill or command's inline shell commands as it loads; on 2.1.331 and older, a settings file naming it opens a dialog at start Added \"Always deliver\" to the prompt for held messages from other sessions Added a footer line that stays while a flagged message has your session on a different model, until you pick one with /model Added an OpenTelemetry assistant_response event for text Claude sends through SendUserMessage or Cowork's message tool, when response logging is on Added a warning in VS Code and Desktop's Code tab when part of a session couldn't be saved, saying how to save it with /compact Added a notice in VS Code and Desktop's Code tab when a resumed session's earlier messages weren't loaded, as the terminal already shows Added your Cyber Verification Program access tier to the startup header, beside the model name when your tier applies to that model and you're signed in with a claude.ai account Fixed claude auth login reporting Login successful. when a claude.ai login could not be saved: it now exits 1 and says what to check, such as a leftover lock file or a full disk Fixed Read, @-mentions and compaction hanging on a named pipe that nothing writes to, such as a .env mounted by a locked secrets manager; the read now fails after 20 seconds Fixed turns ending in \"Prompt is too long\" after ",
+  "summary_1line": "Claude Code v2.1.332 adds beta support for skills from MCP servers, a PreSkillShellCommand hook event, and OpenTelemetry assistant_response logging, and fixes several freezes and hangs.",
+  "title": "claude-code v2.1.332",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.332",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "d1b22ca3efd7f735": {
   "first_seen": "2026-11-17T00:08:58.064493+00:00",
   "id": "3fca83511549dcf9",
@@ -27279,6 +27410,17 @@
   "title": "AWS Capacity Largely Sold Out Through 2027, With On Demand Headroom Reserved",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/aws-capacity-sold-out/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "db68a7b8e354aade": {
+  "first_seen": "2026-11-25T02:08:59.208447+00:00",
+  "id": "7851b01075f6a63b",
+  "published": "2026-11-23T17:22:47+00:00",
+  "sid": "db68a7b8e354aade",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Runtime controls for tool-using agents depend on manifests that state what each tool may read and where its output may go. Evaluations of these controls, including ChainCaps, report per-attack blocking: the share of attacks a set of manifests stops. We show that this is the wrong",
+  "title": "Per-Attack Blocking Hides Catalog Vulnerability: A Weakest-Link Analysis of Tool Manifests",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.31338v1"
  },
  "db9792e954d44701": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
