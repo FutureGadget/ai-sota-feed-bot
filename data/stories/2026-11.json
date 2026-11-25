@@ -1129,6 +1129,18 @@
   "url": "http://arxiv.org/abs/2611.05263v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "08c4f5967ec593f1": {
+  "content_excerpt": "An engineer opens an Azure incident and asks an AI assistant: \"Why is this application slow?\" The assistant queries Azure Monitor, reviews Log Analytics results, inspects an App Service configuration, and compares the affected resource with a healthy deployment. The investigation that once required several portal blades, Azure CLI commands, and Kusto queries can now begin in one conversation. Now consider the same assistant connected to an Azure subscription with permission to restart workloads, change network rules, update resources, or read Key Vault secrets. The question is no longer only whether the answer is accurate. It is whether the assistant can expose sensitive Azure data, interpret attacker-controlled telemetry as instructions, select the wrong subscription or resource group, or turn a diagnostic request into a production change. Azure MCP Server makes the connection possible. Azure identity, authorization, governance, and monitoring determine whether the connection is safe. Azure MCP Server connects compatible AI clients to Azure services through tools. Depending on the configuration, an assistant can inspect resources, query Azure Monitor, and invoke other Azure operations. Microsoft’s Azure MCP Server security guidance emphasizes that the server, its credentials, and the tool inputs and outputs all require protection. Each boundary matters. Which Entra identity is used? Which tenant and subscription are selected? What role assignments apply at the management gro",
+  "first_seen": "2026-11-25T23:05:34.301984+00:00",
+  "id": "6b9281e67578547d",
+  "published": "2026-11-25T21:11:13+00:00",
+  "sid": "08c4f5967ec593f1",
+  "source": "hackernews_ai",
+  "summary_1line": "An article on threat modeling Azure MCP Server, which lets AI assistants query and act on Azure resources, covering the identity, scope, and data risks and the controls to apply.",
+  "title": "Threat Modeling Azure MCP: Securing AI-Assisted Infrastructure Operations",
+  "type": "news",
+  "url": "https://techcommunity.microsoft.com/blog/azureinfrastructureblog/threat-modeling-azure-mcp-securing-ai-assisted-infrastructure-operations/4564892"
+ },
  "09174079a1bd1a60": {
   "content_excerpt": "In our experiments, an open-weight model reliably exploited the \"patch gap\" to compromise six recent Firefox releases, costing about $1,000 each to carry out GLM 5.3, a widely available open-weight model released by Z.ai in August, can identify and exploit vulnerabilities in recent versions of the Mozilla Firefox browser using security fixes that have been published but not yet shipped to users. The window between a fix being published and reaching users is known as the patch gap . In our experiments, GLM 5.3 used this gap to build a webpage that, when visited by a Firefox user, read a file from the visitor’s computer and sent it to the attacker with no further user interaction. In particular, we found that any Firefox version released between September 17 and October 26 could be compromised in this way using only information available at the time of release. The patch gap is a known weakness in software release practices, and it exists widely across software, e.g., browsers, phone operating systems, and router firmware. Exploiting it previously required significant time and expertise, or special access to frontier models with advanced cyber capabilities, so few attackers could target these vulnerabilities before they were fixed. Our central finding is that widely available open-weight models can now do much, or even all, of this work on their own. We deliberately designed our setup to emulate what a relatively unsophisticated actor with limited resources could achieve, using",
   "first_seen": "2026-10-30T03:04:29.303367+00:00",
@@ -5833,6 +5845,22 @@
   "title": "Broadening access to AI for scientists",
   "type": "news",
   "url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
+ },
+ "2d86acad7d216da8": {
+  "first_seen": "2026-11-25T23:05:34.301984+00:00",
+  "id": "bd3f6636f15cdd5c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T18:05:01+00:00",
+  "sid": "2d86acad7d216da8",
+  "source": "arxiv_cs_lg",
+  "summary": "Since its introduction by DeepSeek, group relative policy optimization (GRPO) has been widely adopted for training large reasoning models and agents, spurring a proliferation of its variants. Yet the group size, a crucial hyperparameter in these GRPO-type algorithms, remains largely chosen by trial and error. Exploiting the U-statistic structure of GRPO's policy gradient, we recast the selection of the group size as a classical statistical problem of variance ratio estimation. This problem is particularly challenging when the denominator of the ratio is small, rendering naive plug-in estimators unstable. To address this challenge, we propose a pessimistic ratio estimator that accounts for the denominator's estimation uncertainty. We characterise the statistical properties of this estimator across three sample-size regimes. Empirically, using %a jackknife-based pessimistic rule on synthetic tasks from Reasoning Gym and real-world benchmarks covering both mathematical reasoning and code generation, we show that our adaptive group size selection reduces the mean squared error of the resulting policy gradient and improves policy optimisation over fixed-group-size baselines, with modest additional computational cost.",
+  "summary_1line": "Proposes an adaptive method that selects the group size for GRPO-style reasoning-model training by framing it as variance ratio estimation, using a pessimistic estimator that reduces policy gradient error versus fixed group sizes.",
+  "title": "U-Statistics-Powered LLM Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33064v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2dbb06d855d6e9c7": {
   "content_excerpt": "Beyond FLOP/s: comparing AI hardware for inference by accounting for memory and communication. Inference performance improvements can be much larger than changes in raw compute speed (FLOP/s) suggest. We estimate that the Nvidia GB300 provides about 25× Nvidia H100’s inference capacity per chip on the agentic inference workloads we model, with only 2.5× the 8-bit FLOP per second. Comparing FLOP/s alone would therefore underestimate GB300’s inference capacity relative to H100 by a factor of ten. This is because memory and inter-chip communication can matter more than arithmetic throughput for inference performance. We introduce the Inference Performance Index (IPI) to capture these differences. The index compares how many requests each chip can serve at once across a range of required output speeds. IPI Version 1 focuses on agentic workloads and combines results across four representative models. Scores are expressed in GB300 equivalents (GB300e), with GB300 scoring one by definition. 1 A score of two means we estimate that a chip can serve twice as many users or agents at once as GB300, on average across the workloads and output-speed requirements in the index. We use GB300 as our reference because it is a widely used inference GPU with leading benchmark performance, such as in SemiAnalysis InferenceX . System configuration also matters. Nvidia GB300 NVL72 has about 1.9× the modeled inference capacity per GPU of Nvidia B300 HGX. Both use Blackwell Ultra GPUs, but GB300 connec",
@@ -12279,6 +12307,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14263v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "5e2106f0eb891f07": {
+  "content_excerpt": "A fast local inference engine for Inkling 2 Mini on Apple silicon, written in Rust and built for coding agents. It serves an OpenAI-compatible API that Codex, aider and opencode can use as they would a hosted model. It runs one model family and does not try to be general. That is what lets it do things a general engine does not: generate whole tokens in one GPU submission, keep processed prompts between requests and restarts, and copy runs of tokens the reply repeats from the conversation. The first run downloads Unsloth’s UD-Q4_K_M conversion (16.6 GB) to the Hugging Face cache, where other tools that use the Hub will find it too. rustling pull does only that, if you would rather fetch it ahead. A download that is interrupted starts again from the beginning; on an unreliable connection, hf download unsloth/Inkling-2-Mini-GGUF Inkling-2-Mini-UD-Q4_K_M.gguf can resume, and rustling finds the file it leaves. rustling chat is an assistant for the current directory, with the model in the same process: no server, no network. It can read and search files ( read , grep and glob ), asking before each call; it changes nothing and runs no commands. It is built on manifatura, an agent framework. Its own instructions are one line, cli/src/agent/system.md ; the tools' guidelines, the AGENTS.md files, the directory and the date follow it. Its instructions follow the AGENTS.md convention: ~/.config/rustling/AGENTS.md , then AGENTS.md (or CLAUDE.md ) in each directory from the repository roo",
+  "first_seen": "2026-11-25T23:05:34.301984+00:00",
+  "id": "55b17af73766cecf",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T19:42:36+00:00",
+  "sid": "5e2106f0eb891f07",
+  "source": "hackernews_ai",
+  "summary_1line": "Rustling is a Rust local inference engine for Inkling 2 Mini on Apple silicon that serves an OpenAI-compatible API for coding agents and includes a terminal chat that runs the model in-process with read, grep and glob tools.",
+  "title": "Show HN: Rust agent with an Inkling 2 Mini inference engine for Apple Silicon",
+  "type": "news",
+  "url": "https://github.com/onatm/rustling",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "5e376c6293c28ebd": {
   "content_excerpt": "Agent Experience is the experience AI agents have when discovering, choosing, and using your technology. Practicing AX means systematically improving that experience. Measurement is how you know whether you did. Developers now ask AI agents to build with your SDK, API, or CLI, and they judge your technology by what the agent produces. If the agent picks a competing service, calls an API you deprecated, or reports success on a broken build, your technology looks broken, even when your docs are excellent for people. Mathias Biilmann of Netlify coined the term in January 2025 and described it as “the holistic experience AI agents will have as the user of a product or platform.” It applies to any AI agent, from a coding agent in your editor to ChatGPT calling your MCP server. AX comes down to two questions. The first is propensity : does the agent find your technology and choose it? Give the agent a task that doesn’t name your product, like adding email sending to an app, and see what it reaches for. The second is efficacy : once the agent uses your technology, does it use it correctly? Name your product in the task, and see whether the agent calls your current API or one you deprecated. Your eval tool might use other names, like discovery and selection for propensity, or quality for efficacy. For both, you score what each run produced and what it cost. Cost is easy to skip and easy to get wrong. For example, Claude Sonnet 5 launched with 33% lower per-token pricing than Sonnet 4",
@@ -22222,6 +22266,18 @@
   "type": "news",
   "url": "https://openai.com/business/customer-stories/shield",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "aa06bc3c1c64285e": {
+  "first_seen": "2026-11-25T23:05:34.301984+00:00",
+  "id": "ce7a193ac673fdc6",
+  "published": "2026-11-24T15:27:58+00:00",
+  "sid": "aa06bc3c1c64285e",
+  "source": "arxiv_cs_cl",
+  "summary": "Grammar-constrained decoding enables large language models to generate outputs that satisfy formal constraints, but in code and domain-specific language generation, the relevant constraints are not always fully available before decoding and may emerge progressively from new declarations, inferred type information, or runtime analysis feedback. Existing structured-decoding engines efficiently handle fixed, predeclared, or previously seen constraint structures; however, when a first-seen grammar update changes the parser state induced by an already committed prefix, the straightforward solution reconstructs the constraint state under the updated grammar, repeating parsing work already performed over the prefix. We introduce GramDelta, an incremental framework for constrained decoding with append-only runtime grammar updates. GramDelta maintains parse state over the committed prefix and propagates only changes induced by newly added grammar rules through historical dependencies, avoiding prefix replay. It then maps the updated parse state to exact next-token masks via compilation-free factorized projection over shared historical charts, avoiding per-update mask-cache recompilation. GramDelta therefore preserves the result of full reconstruction while making update cost sensitive to the actual impact of a grammar change. Experiments across four model configurations show that GramDelta adds negligible overhead without updates; under sustained runtime grammar evolution, it reduces ",
+  "summary_1line": "Introduces GramDelta, an incremental constrained-decoding method that updates parse state and next-token masks for append-only grammar rule additions without replaying the committed prefix, reporting 10.7–11.5x lower median update latency.",
+  "title": "From Grammar Deltas to Token Masks: Incremental Constrained Decoding under Runtime Grammar Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32807v1"
  },
  "aa0e7ab947744a98": {
   "first_seen": "2026-11-18T08:06:11.109800+00:00",
@@ -32941,6 +32997,22 @@
   "title": "Humans.md: tell your AI agents how to work with you",
   "type": "news",
   "url": "https://humansmd.dev",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "fe7939e5fa3c854a": {
+  "content_excerpt": "One agent, 30 real stores, one task: find the product, add it to the cart, check out as a guest, stop before payment. Only the browser changed. Anchor got the agent past the front door at 25 stores, Chromium on a laptop at 12. Once in, the agent finished checkout at 19. The other 6 stopped on an agent stall or on a store with no guest checkout. The prompt tells your coding agent how to write an adapter, so the bench can run your own shopping agent on these stores. Chromium on a laptop got in at 12. 13 stores that turned the laptop away let Anchor in. 4 more stopped on an agent stall and 2 on a store with no guest checkout. Neither is a browser block. Getting in is the browser’s job. Finishing checkout after that depends on the agent, which is what Commerce Bench helps you tune. Each bar is 30 stores. A store counts as got in unless a bot wall or an error page ended most of its runs. Each row shows the Anchor setup that did best for that store, how far along the checkout the agent got, and its three runs. The five squares compare setups for the same store: laptop, default session, Mac hardware, proxy with extra stealth, residential proxy. An empty square means that setup was not run there. The 11 stores that did not finish, grouped by what ended most of their runs on the best setup. The browser got past the front door and the agent reached the cart or the checkout. It then did not get the form accepted, or used up its steps. A stronger shopping agent can finish here with no ch",
+  "first_seen": "2026-11-25T23:05:34.301984+00:00",
+  "id": "b9842633ad2f7a7d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T19:30:21+00:00",
+  "sid": "fe7939e5fa3c854a",
+  "source": "hackernews_ai",
+  "summary_1line": "A benchmark tests one shopping agent on 30 real stores, finding that Anchor's browser got in at 25 stores versus 12 for Chromium on a laptop, and checkout finished at 19 stores.",
+  "title": "Which stores let a shopping agent check out?",
+  "type": "news",
+  "url": "https://commerce.assistantanalysis.com",
   "why_it_matters": "Matches feed focus: agent."
  },
  "fed29696ba0516e2": {
