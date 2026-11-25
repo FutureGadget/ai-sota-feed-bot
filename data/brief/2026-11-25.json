@@ -1,34 +1,34 @@
 {
  "date": "2026-11-25",
  "diagnostics": {
-  "admitted": 4,
-  "candidates": 482,
+  "admitted": 2,
+  "candidates": 507,
   "duplicate_url": 6,
-  "items": 46,
-  "keeps": 299,
-  "new": 4,
-  "off_topic": 41,
+  "items": 48,
+  "keeps": 314,
+  "new": 2,
+  "off_topic": 45,
   "prior_story": 20,
   "rejected_gate": {
-   "insufficient_evidence": 7,
+   "insufficient_evidence": 10,
    "judge_drop": 18,
-   "off_topic": 41,
-   "score_low": 94
+   "off_topic": 45,
+   "score_low": 97
   },
   "rejected_quota": {
-   "role_quota": 235
+   "role_quota": 243,
+   "source_quota": 5
   },
   "releases": 23,
-  "reviews": 108,
+  "reviews": 114,
   "role_counts": {
-   "community": 3,
-   "search": 1
+   "community": 2
   },
   "run_candidates": 140,
   "stale_story": 17,
-  "stories": 322,
-  "unjudged": 8,
-  "updated": 13,
+  "stories": 337,
+  "unjudged": 11,
+  "updated": 8,
   "written": true
  },
  "items": {
@@ -55,7 +55,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "release",
    "matched_topics": [
     "agent"
@@ -65,7 +65,7 @@
    "rank_at_first_seen": 37,
    "release_tier": "minor",
    "score_at_first_seen": 0.648,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "agent_tooling_releases",
    "source": "claude_agent_sdk_python_releases",
    "source_count": 1,
@@ -107,7 +107,7 @@
     "release_lane": 0.98
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "release",
    "matched_topics": [
     "agent",
@@ -118,7 +118,7 @@
    "rank_at_first_seen": 29,
    "release_tier": "major",
    "score_at_first_seen": 2.0487,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "agent_tooling_releases",
    "source": "claude_code_releases",
    "source_count": 1,
@@ -210,7 +210,7 @@
     "release_lane": 0.12
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.939,
@@ -218,7 +218,7 @@
    "rank_at_first_seen": 43,
    "release_tier": null,
    "score_at_first_seen": 1.0891,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "search_cn_open_weight_labs",
    "source_count": 1,
@@ -713,7 +713,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -723,7 +723,7 @@
    "rank_at_first_seen": 36,
    "release_tier": null,
    "score_at_first_seen": 0.4626,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "frontier_official",
    "source": "google_deepmind_blog",
    "source_count": 1,
@@ -790,6 +790,58 @@
    "utility_basis": "judge",
    "v2_slot": "community_signal",
    "why_it_matters": ""
+  },
+  "story|title:how uber evals 1 million agent skill invocations a month": {
+   "admission_rank": 47,
+   "admitted_at": "2026-11-25T09:09:26.191166+00:00",
+   "also_covered": [],
+   "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. A skill is a Markdown file that teaches an AI agent to do one job well, such as creating a pull request, querying a metrics store, or outlining a weekly sales presentation. Skills are one of the building blocks of Uber's software factory . Uber's shared skills marketplace grew from 1 skill in October 2025 to more than 5,000 in just one year. Thousands of people have written a skill, and agents invoked skills more than 1 million times in just one month. At enterprise scale, skill management, quality, efficiency, and distribution raise many challenges and opportunities. This post is for teams that are rolling out agents across a company. We share how to improve AI enablement and how to use agents to help. A skill is a workflow, and \"the atomic unit of the enterprise is the workflow.\" [1] A skill packages one workflow: a runbook, a team's process, or a task an expert does by hand. It can be as short as editing a Linear® issue or as long as a full root-cause analysis. On disk, a skill is a directory. Its SKILL.md file has a name, a description, and a body of instructions. The directory can also hold scripts and reference files. An agent loads it in three stages, so thousands of skills cost only a short description each: Figure 1: A skill folder, and when an agent loads each part of it. The Agent Skills specification describes the open format in detail. We created one place for everyone to put skills, where they load easily wherever people use agents. The best place turned out to be a Git® repository, because version control already gives each skill an owner, a review, and a history. Figure 2: Skills in the agent marketplace at the end of each week over 13 months, counted from the repository's Git history. Figure 3: Recorded skill invocations per month, March to October 2026, across Claude Code™, OpenCode™, Codex™, and Uber's internal agent. The goal is to make it easy for teams to write skills while providing them with a curated set of skills by default. To enable fast but high quality development, we separate the marketplace into three tiers, and the expectations for quality and efficiency rise as a skill graduates. To graduate a skill, we run our eval system and have a set of quality and usefulness checks. Figure 4: The three tiers, what a plugin contains, and the path from pull request to release. Supporting many different agents is part of our strategy. It is an opp",
+   "first_seen": "2026-11-25T09:09:26.191166+00:00",
+   "freshness_at_admission": 0.9485,
+   "id": "9e375ccdef74d222",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.87,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-25T09:08:57.921362+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.85,
+   "judge_signals": {
+    "corporate_marketing": 0.11,
+    "keep": 0.85,
+    "platform_relevant": 0.97,
+    "release_lane": 0.07
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent",
+    "eval"
+   ],
+   "prefilter_score": 1.843,
+   "published": "Wed, 25 Nov 2026 06:24:36 +0000",
+   "rank_at_first_seen": 47,
+   "release_tier": null,
+   "score_at_first_seen": 1.4217,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": 0.148,
+   "story_cluster_id": "fc610fff6e71eced",
+   "story_key": "story|title:how uber evals 1 million agent skill invocations a month",
+   "summary_1line": "Uber describes its shared marketplace of agent skills, which grew from 1 skill in October 2025 to more than 5,000 and was invoked over 1 million times in one month, and how it tiers and evaluates them.",
+   "time_decay_factor": 0.961,
+   "title": "How Uber Evals 1 Million Agent Skill Invocations a Month",
+   "type": "news",
+   "url": "https://www.uber.com/in/en/blog/optimizing-ubers-agent-skills/",
+   "utility": 1.4217,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent, eval."
   },
   "story|title:koi evidence guided self calibrating planning for multi cloud llm inference": {
    "admission_rank": 26,
@@ -964,7 +1016,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T06:08:54.986445+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.889,
@@ -972,7 +1024,7 @@
    "rank_at_first_seen": 40,
    "release_tier": null,
    "score_at_first_seen": 1.419,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "research_watch",
    "source": "arxiv_cs_ai",
    "source_count": 1,
@@ -989,7 +1041,7 @@
    "utility": 1.419,
    "utility_basis": "judge",
    "v2_slot": "research_watch",
-   "why_it_matters": ""
+   "why_it_matters": "Matches feed focus: agent."
   },
   "story|title:measuring and mitigating agent sandbox escape with siren": {
    "admission_rank": 25,
@@ -1544,6 +1596,57 @@
    "v2_slot": "research_watch",
    "why_it_matters": "Matches feed focus: agent, harness."
   },
+  "story|title:sightline windows cli for ai agents to capture ui and map dpi coords": {
+   "admission_rank": 48,
+   "admitted_at": "2026-11-25T09:09:26.191166+00:00",
+   "also_covered": [],
+   "content_excerpt": "Lightweight CLI tool for AI agents on Windows to capture windows, map DPI-aware coordinates, and monitor process resources. Eyes and a stopwatch for AI coding agents on Windows. One small exe, command sight . sightline finds windows, screenshots them even when covered, waits for the UI to change and then stop changing, and tells the agent how image pixels map to screen, window and client coordinates. It also measures CPU and memory of a whole process tree. It only observes : it never clicks, types or moves the mouse. The agent acts with its own tools, then uses sightline to check the result. Asked to \"check the dialog looks right\", an agent on Windows usually writes a throwaway PowerShell script: Start-Sleep 3 , CopyFromScreen , a hard-coded PID. sightline replaces that. Images are written to a file and only the path is returned, never base64, so a screenshot costs one file read instead of thousands of tokens. PowerShell one-liner (installs to %LOCALAPPDATA%\\Programs\\sight and adds it to your user PATH ): Open a new terminal afterwards so the PATH change is picked up, then check with sight doctor . Pin a version, change the folder, or uninstall: The script verifies the download against the sight.exe.sha256 published with each release. Manual. Download sight.exe from Releases ( sight-windows-x64.zip also holds the docs and the skill), put it in a folder, and add that folder to PATH : Or via Settings → System → About → Advanced system settings → Environment Variables → Path → New. Restart the terminal (and the agent) afterwards. Agents must be able to find sight on their PATH . Act with the agent's own input tool, at coordinates computed from the formulas below. Wait for the UI , then look. Right after an external click the UI may not have started changing, so a plain --settle could return the old frame. --expect-change (or wait --change ) first waits for pixels to differ from a baseline, then settles. Both phases share --timeout : If nothing changes before the timeout, shot still saves the latest frame and both commands fail with TIMEOUT (exit 5) and data.changed:false . Tiny noise such as a blinking caret does not count: a change needs --min-change-px differing pixels (default 16). The baseline is the first captured frame, which arrives about 0.3 s after sight starts, so a change that already finished by then is not seen ( TIMEOUT , changed:false : take a plain shot and look). Instant reactions: --baseline . Take a shot before acting and wait against it, s",
+   "first_seen": "2026-11-25T09:09:26.191166+00:00",
+   "freshness_at_admission": 0.9437,
+   "id": "15bb37ad491f6e50",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.94,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-25T09:08:57.921462+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.82,
+   "judge_signals": {
+    "corporate_marketing": 0.07,
+    "keep": 0.82,
+    "platform_relevant": 0.97,
+    "release_lane": 0.18
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.829,
+   "published": "Wed, 25 Nov 2026 06:08:51 +0000",
+   "rank_at_first_seen": 48,
+   "release_tier": null,
+   "score_at_first_seen": 1.4027,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": 0.148,
+   "story_cluster_id": "df5e8e7cf2365809",
+   "story_key": "story|title:sightline windows cli for ai agents to capture ui and map dpi coords",
+   "summary_1line": "Sightline is a small Windows command-line tool, run as `sight`, that lets AI agents capture windows even when covered, wait for UI changes, map DPI-aware coordinates, and measure process-tree CPU and memory, without clicking or typing.",
+   "time_decay_factor": 0.958,
+   "title": "Show HN: Sightline – Windows CLI for AI agents to capture UI and map DPI coords",
+   "type": "news",
+   "url": "https://github.com/sao-coding/sightline",
+   "utility": 1.4027,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:tact bench testing adaptive conversational threats against tool use agents": {
    "admission_rank": 30,
    "admitted_at": "2026-11-25T02:08:59.208447+00:00",
@@ -1619,7 +1722,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1629,7 +1732,7 @@
    "rank_at_first_seen": 35,
    "release_tier": null,
    "score_at_first_seen": 0.8185,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -2228,7 +2331,7 @@
     "release_lane": 0.87
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.988,
@@ -2236,7 +2339,7 @@
    "rank_at_first_seen": 41,
    "release_tier": "major",
    "score_at_first_seen": 1.8943,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "open_weight_releases",
    "source": "hf_tencent_hunyuan_releases",
    "source_count": 1,
@@ -2278,7 +2381,7 @@
     "release_lane": 0.88
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-25T08:09:39.361294+00:00",
+   "last_seen": "2026-11-25T09:09:26.191166+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.988,
@@ -2286,7 +2389,7 @@
    "rank_at_first_seen": 42,
    "release_tier": "major",
    "score_at_first_seen": 1.8768,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "open_weight_releases",
    "source": "hf_tencent_hunyuan_releases",
    "source_count": 1,
@@ -2345,5 +2448,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-25T08:09:39.361294+00:00"
+ "updated_at": "2026-11-25T09:09:26.191166+00:00"
 }

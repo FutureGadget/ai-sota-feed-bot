@@ -2095,6 +2095,22 @@
   "url": "http://arxiv.org/abs/2611.17797v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
+ "0ffd5f5783f897bc": {
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "0ae4681da6b594b5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-24T18:28:41+00:00",
+  "sid": "0ffd5f5783f897bc",
+  "source": "arxiv_cs_cl",
+  "summary": "A language-model decoder carries state between decoding steps, and in hardware a wrong state update can leave the current token correct and corrupt the output several tokens later, so a design can pass output tests and still be wrong. AIChipBench asks what LLM coding agents need to build such hardware correctly. Agents implement quantized Qwen3.5, Gemma 3, Gemma 4, and Llama 3.2 decoders in synthesizable register-transfer-level (RTL) code against an executable integer reference that specifies the outputs and the stored state at every decoding step. They debug against public tests under fixed budgets; their frozen designs are graded on held-out token sequences, resets, memory stalls, and synthesis, and a second track asks them to speed up a correct design at nearly fixed area. Across 9,136 attempts by four coding agents, the difficulty lies in stored state. Feedback that points to the first state mismatch raises acceptance over output-only feedback in all 12 agent--task cells of a matched study, by 25.0 to 46.9 percentage points, and halves the agent-hours per accepted design. Regraded on new sequences and conditions, 45 of 69 accepted designs fail within the 32 steps their tests required. More than a third of attempts to speed up a correct design end without one. An overall score ranks Sol 5.6 and Fable 5.1 above Astra 6 and Opus 5.5, and both halves of the instances give this order in all 200 random splits. Hardware agents therefore need debugging feedback that exposes store",
+  "summary_1line": "AIChipBench tests LLM coding agents writing synthesizable RTL for quantized Qwen3.5, Gemma 3, Gemma 4 and Llama 3.2 decoders, finding that state-exposing feedback helps but many accepted designs fail on held-out tests.",
+  "title": "AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33093v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "101486f7b2793e33": {
   "first_seen": "2026-11-20T00:12:03.741107+00:00",
   "id": "32bacba6315aa5e8",
@@ -2523,6 +2539,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09721v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "13ea930d98720064": {
+  "content_excerpt": "Lightweight CLI tool for AI agents on Windows to capture windows, map DPI-aware coordinates, and monitor process resources. Eyes and a stopwatch for AI coding agents on Windows. One small exe, command sight . sightline finds windows, screenshots them even when covered, waits for the UI to change and then stop changing, and tells the agent how image pixels map to screen, window and client coordinates. It also measures CPU and memory of a whole process tree. It only observes : it never clicks, types or moves the mouse. The agent acts with its own tools, then uses sightline to check the result. Asked to \"check the dialog looks right\", an agent on Windows usually writes a throwaway PowerShell script: Start-Sleep 3 , CopyFromScreen , a hard-coded PID. sightline replaces that. Images are written to a file and only the path is returned, never base64, so a screenshot costs one file read instead of thousands of tokens. PowerShell one-liner (installs to %LOCALAPPDATA%\\Programs\\sight and adds it to your user PATH ): Open a new terminal afterwards so the PATH change is picked up, then check with sight doctor . Pin a version, change the folder, or uninstall: The script verifies the download against the sight.exe.sha256 published with each release. Manual. Download sight.exe from Releases ( sight-windows-x64.zip also holds the docs and the skill), put it in a folder, and add that folder to PATH : Or via Settings → System → About → Advanced system settings → Environment Variables → Path → N",
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "15bb37ad491f6e50",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T06:08:51+00:00",
+  "sid": "13ea930d98720064",
+  "source": "hackernews_ai",
+  "summary_1line": "Sightline is a small Windows command-line tool, run as `sight`, that lets AI agents capture windows even when covered, wait for UI changes, map DPI-aware coordinates, and measure process-tree CPU and memory, without clicking or typing.",
+  "title": "Show HN: Sightline – Windows CLI for AI agents to capture UI and map DPI coords",
+  "type": "news",
+  "url": "https://github.com/sao-coding/sightline",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "145122ff5dd034c8": {
   "content_excerpt": "Congratulations, you've built an app on Databricks Apps, and it's gone from a couple of users to hundreds or thousands across your organization. Your users want it to respond fast and stay up. And your boss may not love having to pay for XLarge compute across a stack of instances. How do you make an app that runs fast, stays up and handles growing demand? The intuitive answer is more compute, but that only helps once you know where requests spend their time and whether the app is built to scale: its framework, async code and ability to run on several instances, so the platform can easily scale it up or out. In this guide, we walk through how to scale Databricks Apps across four stages: design; build; test and deploy; and operate (Figure 1). The focus of this guide is primarily application performance and resiliency at scale; it does not cover deployment automation or performance optimization and scaling of other Databricks services that may interact with the app. Good scaling decisions start before any code is written: agree what users need from the app, then decide where the work will run and where the data will live. Before choosing an architecture, it helps to pin down how much load the app has to handle and what a good experience looks like. We suggest agreeing two main targets: Alongside these, decide which work must survive a restart and check that critical dependencies can support that. This shapes how you split state and how many instances you run. Next, sketch a few ",
@@ -5316,6 +5348,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26966v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "2a5306f476e7b4d7": {
+  "content_excerpt": "The AI harness & editor for when you pause to think. Native, open source (AGPL-3.0), and bring your own key. Hm is a desktop code editor with an AI coding agent built in. It is written in Go and draws its UI with Yoga , a GPU-rendered (WebGPU) UI toolkit, so it starts quickly, stays light, and runs natively on macOS, Linux and Windows without a browser engine. It is a sibling of Chapar and shares its look and feel. Everything is configured in plain YAML, with a settings page on top. The agent is bring-your-own-key: Anthropic, Google Gemini, OpenAI, Azure OpenAI or any OpenAI-compatible endpoint (OpenRouter, Groq, Mistral, xAI, Ollama, LM Studio, ...), and nothing leaves your machine except the calls you configure. Hm is the sound you make when you are evaluating a solution: the short pause after reading a diff, a stack trace or a suggestion, before you decide whether it is right. That pause is what Hm is built around. The agent can write code quickly, but the decision about whether it belongs in your codebase stays with you. That is why Hm: Chat with the agent beside the editor or full screen; ask about a selection with cmd+alt+l . Sessions in tabs, several working at once: cmd+t opens one, ctrl+tab / ctrl+shift+tab switch, and a spinner or dot marks a tab that is working, waiting for you or was interrupted. Full screen, a sidebar replaces the explorer: New chat, Projects, Artifacts, a filterable history of every session (across all your folders, with sub-agents and forks nes",
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "13c9a0f450b66f80",
+  "matched_topics": [
+   "harness"
+  ],
+  "published": "2026-11-25T07:26:14+00:00",
+  "sid": "2a5306f476e7b4d7",
+  "source": "hackernews_ai",
+  "summary_1line": "Hm is an open-source (AGPL-3.0) desktop code editor written in Go with a built-in AI coding agent that runs natively on macOS, Linux and Windows and works with user-supplied API keys for various providers.",
+  "title": "Show HN: Open-source native AI harness that's trying to do less by default",
+  "type": "news",
+  "url": "https://github.com/usehm/hm",
+  "why_it_matters": "Matches feed focus: harness."
  },
  "2a783f6259dc0b2d": {
   "content_excerpt": "Coding is the largest category of enterprise AI application spend, reaching $34B in 2026 . Every company now wants to know what all that spend returns, but most engineering leaders still can’t give an exact answer to what it's buying. To try to understand coding agent ROI, teams used to look at high-level data like usage analytics and AI consumption, but these don’t provide insight into what tokens actually produce. Answering the ROI question is hard and requires visibility into spend across users and teams, along with a way to connect it to outcomes. We felt this friction firsthand when spend with our own coding agent, Robin, started climbing, and is one of the reasons we built a model router. Now we're excited to offer a practical solution for our customers too. LangSmith now offers reporting built for coding agents, along with new capabilities that tie their spend to the pull requests they produce. This provides a clearer way to calculate the ROI behind coding agent budgets and understand how changes to models and policies impact it. The new LangSmith Agent Platform operates around the agent. Each agent has its own record and belongs to an \"agent type\" that determines what its dashboard shows, which data it connects to, and how it's evaluated. Coding agents are the first specialized agent type, and present data on pull requests, one of the signs that the agent's work is useful. LangSmith already traces coding agents across model providers, including Claude Code and Codex .",
@@ -12673,6 +12721,23 @@
   "type": "news",
   "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "637708640ffbd574": {
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "62d2531359035d46",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-24T17:32:00+00:00",
+  "sid": "637708640ffbd574",
+  "source": "arxiv_cs_ai",
+  "summary": "Can a simple mirror expose the limitations of today's robotic manipulation policies? Inspired by the mirror self-recognition test in animal cognition, we investigate whether robot policies can reliably manipulate physical objects in scenes containing their reflections. We introduce RoboDojo-Mirror, a benchmark built on RoboDojo that preserves task objectives, success criteria, and policy checkpoints while comparing a mirror-free baseline with single-mirror, dual-mirror, and mirrored-tabletop conditions. Across five policies spanning Vision-Language-Action models, World Action Models, and agentic policies, every mirror condition reduces aggregate success rates: averaged over the three conditions, the drop ranges from 10.8 to 56.7 percentage points across policies, and it reaches 62.5 points on the mirrored tabletop. Because a mirror is also a physical obstacle, we compare it against geometrically matched non-reflective panels; 50--88\\% of mirror-specific failures occur without recorded robot--panel contact, so direct collisions alone do not explain the degradation. Trajectory and contact analyses instead reveal recurring behaviors consistent with phantom targeting of reflected objects and spatial mislocalization of real ones. Targeted diagnostics further characterize grasping near reflections, policy-dependent pushing progress, and physical-target interaction under main-camera occlusion. Real-robot experiments with $π_{0.5}$ and FastWAM also show lower overall success rates un",
+  "summary_1line": "A benchmark called RoboDojo-Mirror tests five robot manipulation policies with mirrors in the scene, finding success rates fall by 10.8 to 56.7 points on average, with 50–88% of mirror-specific failures occurring without robot–panel contact.",
+  "title": "Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33010v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "637cae78a163e2de": {
   "first_seen": "2026-11-04T03:03:29.158969+00:00",
@@ -29592,6 +29657,23 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ead1ba23a070c6a0": {
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "80d4fe007d1f9614",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T10:54:17+00:00",
+  "sid": "ead1ba23a070c6a0",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Self-evolving language models can continuously acquire useful experience through test-time interaction, reflection, and prompt optimization, yet turning such experience into model itself to ensure self improvement remains challenging. On-policy self-distillation (OPSD) provides a natural mechanism for internalizing test-time information into model parameters, yet it largely assumes that the gener- ated experience is worth learning. We show that this assumption does not always hold: experiences that improve test-time performance may provide limited or even harmful training signals. To better characterize which experience should be inter- nalized, we systematically analyze diverse mutated experiences across multiple tasks and reflection models, and find that gradient-based alignment is a more reli- able indicator of downstream distillation gains than immediate test-time improve- ment. Based on this finding, we propose E2L, a self-evolution framework that iteratively generates, evaluates, and distills experiences according to their esti- mated training utility. E2L closes the loop between experience generation and parameter learning, enabling agents to autonomously produce experience suitable for self-improvement.",
+  "summary_1line": "Introduces E2L, a self-evolution framework that generates, evaluates, and distills model experiences by their estimated training utility, using gradient alignment rather than test-time gains as the selection signal.",
+  "title": "Evolve to Learn: Gradient-aligned experience evolution for model self-improvement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32390v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "eb1f61303f3e3d57": {
   "first_seen": "2026-11-10T00:04:45.371214+00:00",
   "id": "b0b1d0140b8fc84c",
@@ -30354,13 +30436,18 @@
  "f1cc2271c89a756c": {
   "first_seen": "2026-11-25T06:08:54.986445+00:00",
   "id": "10deb3d7be4522b4",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-24T16:54:37+00:00",
   "sid": "f1cc2271c89a756c",
   "source": "arxiv_cs_ai",
+  "summary": "Large language model (LLM) serving engines offload the key/value (KV) cache from GPU memory to host DRAM and SSD so multi-turn and agent requests can reuse prompt prefixes. Capacity then limits service at two levels: external tiers govern prefix reuse before eviction, while the GPU KV pool bounds concurrent long requests, and lossy compression alters KV values and outputs. LoomKV brings lossless KV compression to both external tiers (tier mode) and the GPU pool (pool mode) on an unmodified engine. Using a calibrated per-head two-level 3-bit code over BF16 high bytes (sign and upper seven exponent bits), LoomKV stores BF16 KV at 0.71 of its raw size across nine models and FP8 KV at 0.85-0.87. In tier mode, TileStream writes exact-length records with length readback off the load path, leaving tier storage, eviction, and prefetch unchanged, and decompresses fetched records straight into scattered GPU pages. In pool mode, FragPack packs variable-length records into smaller shared-budget GPU pages read in place by a fused decode-attention kernel faster than FlashAttention-3 on BF16. Built with LMCache and vLLM, LoomKV makes compressed tiers act as 1.4x larger raw tiers on AgentX: across LMCache's LRU cliff, tier mode delivers 2.7-3.6x raw's goodput and 1.9-3.1x lower mean time-to-first-token (TTFT), shifts the cliff identically under other simulated replacement policies, and cuts repeated-prompt TTFT up to 1.7x via SSD-to-DRAM promotion. When tiers hold the working set, pool mode ",
   "summary_1line": "LoomKV is a lossless KV cache compression system for LLM serving that works on an unmodified engine, storing BF16 KV at 0.71 of raw size and reporting 2.7-3.6x raw goodput on the AgentX trace across LMCache's LRU cliff.",
   "title": "LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.32954v1"
+  "url": "http://arxiv.org/abs/2611.32954v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f1e32dd0ad4b585e": {
   "first_seen": "2026-11-20T22:05:14.750261+00:00",
@@ -31540,6 +31627,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18998v1"
  },
+ "fa093a6918b68912": {
+  "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. A skill is a Markdown file that teaches an AI agent to do one job well, such as creating a pull request, querying a metrics store, or outlining a weekly sales presentation. Skills are one of the building blocks of Uber's software factory . Uber's shared skills marketplace grew from 1 skill in October 2025 to more than 5,000 in just one year. Thousands of people have written a skill, and agents invoked skills more than 1 million times in just one month. At enterprise scale, skill management, quality, efficiency, and distribution raise many challenges and opportunities. This post is for teams that are rolling out agents across a company. We share how to improve AI enablement and how to use agents to help. A skill is a workflow, and \"the atomic unit of the enterprise is the workflow.\" [1] A skill packages one workflow: a runbook, a team's process, or a task an expert does by hand. It can be as short as editing a Linear® issue or as long as a full root-cause analysis. On disk, a skill is a directory. Its SKILL.md file has a name, a description, and a body of instructions. The directory can also hold scripts and reference files. An agent loads it in three stages, so thousands of skills cost only a short description each: Figure 1: A skill folder, and when an agent loads each part of it. The Agent Skills specification describes the open format in detail. We created one place for everyone to ",
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "9e375ccdef74d222",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T06:24:36+00:00",
+  "sid": "fa093a6918b68912",
+  "source": "hackernews_ai",
+  "summary_1line": "Uber describes its shared marketplace of agent skills, which grew from 1 skill in October 2025 to more than 5,000 and was invoked over 1 million times in one month, and how it tiers and evaluates them.",
+  "title": "How Uber Evals 1 Million Agent Skill Invocations a Month",
+  "type": "news",
+  "url": "https://www.uber.com/in/en/blog/optimizing-ubers-agent-skills",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "fa7b3613e133ac76": {
   "first_seen": "2026-11-10T13:05:59.025979+00:00",
   "id": "a4a7e4c23b790151",
@@ -32234,6 +32338,22 @@
   "title": "How Far Can Lightweight LLMs Go in Intent-to-SLO Translation?",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07982v1"
+ },
+ "ff53ee6575a7964e": {
+  "first_seen": "2026-11-25T09:06:23.620256+00:00",
+  "id": "e3f2093c8b8b6c16",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T18:13:28+00:00",
+  "sid": "ff53ee6575a7964e",
+  "source": "arxiv_cs_cl",
+  "summary": "Large Language Models (LLMs) are increasingly used to translate natural-language statements into first-order logic (FOL) to improve reasoning. However, LLMs are prone to errors, and so a semantically unfaithful FOL formula could corrupt downstream reasoning. We present FOL-Proof, a semantic firewall pipeline that validates LLM-generated FOL translations against independently derived linguistic interpretations. FOL-Proof operates by deterministically obtaining a pool of candidate translations via semantic analysis tools, such as the English Resource Grammar and Minimal Recursion Semantics; then applying an SMT solver to check each derived reading for logical equivalence to the LLM-generated formula. If the translation is faithful it is accepted; otherwise, it is rejected, or optionally repaired via repeated invocations to the LLM. The procedure is conservative: incomplete search, unsupported constructions, or inconclusive checks yield abstention rather than false rejection. We evaluated FOL-Proof on established benchmarks (ProofWriter, RuleTaker and PrOntoQA), and also on a new adversarial benchmark (LongFaithCheck). Our experiments show that FOL-Proof attains near perfect selective accuracy, while direct LLM judges and round-trip baselines show substantially worse performance.",
+  "summary_1line": "FOL-Proof is a pipeline that checks LLM-generated first-order logic translations against readings from deterministic grammar-based semantic analysis, using an SMT solver, and abstains when checks are inconclusive.",
+  "title": "FOL-Proof: Verifying LLM Text-to-Logic Translations via Deterministic Semantics",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33078v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "ff6c35403ec66552": {
   "first_seen": "2026-11-05T03:07:47.473054+00:00",
