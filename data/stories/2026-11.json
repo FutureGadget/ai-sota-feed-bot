@@ -2326,6 +2326,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPVlNkc2xsanhBWjFyTjVXbXFBcXBhaVNkWWotWTB5LTU2aEoyWGVFWFR5TlVwVHFiejZaek9jbG5PVUcycXdfeTVlMFlqMGk2ZUtNTXdpd1U3cUNyOWlaeDl0NVF2NlVOME8zbjBDT1ZCZHI0NmN2M3AzUlRQR3k3RWZDRU82MGZpX1R5UnBlWQ?oc=5"
  },
+ "12a67d3ad6875fb6": {
+  "first_seen": "2026-11-25T05:06:20.779123+00:00",
+  "id": "40b6afb0c0efe1ae",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T16:57:12+00:00",
+  "sid": "12a67d3ad6875fb6",
+  "source": "arxiv_cs_ai",
+  "summary": "AI agents are beginning to automate data analysis, orchestration, and simulation steering in HPC environments, but they introduce a security problem that existing cluster defenses do not address: the hijacked authorized agent. An adversary can subvert an agent through prompt injection, poisoned shared data, compromised tools, or multi-agent coordination, then exfiltrate sensitive data through legitimate encrypted LLM API traffic. We propose behavioral attestation as a runtime defense for this setting. Our system, AEGIS, compiles task-derived behavioral constraints, monitors agent actions with ebpf-based syscall interception, verifies evidence against constraint profiles, correlates behavior across agents, and triggers slurm-level containment. On the real attestation path, AEGIS detects all four implemented attack classes with sub-second median latency at a 1-second interval and low measured verifier overhead. Controlled experiments show full attack-suite coverage, stronger detection than representative baselines, and no observed false positives on the evaluated benign workflows.",
+  "summary_1line": "Proposes AEGIS, a runtime behavioral-attestation system that uses eBPF syscall monitoring and Slurm containment to detect four implemented attack classes against hijacked AI agents in HPC clusters, reporting full coverage in controlled tests.",
+  "title": "Attestation is All You Need: Toward a Zero-Trust Architecture for HPC AI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32958v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "12b745da9ddada73": {
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
   "id": "50e21df1de6f0728",
@@ -10583,6 +10600,24 @@
   "url": "http://arxiv.org/abs/2611.03600v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "53759ea325a013c5": {
+  "first_seen": "2026-11-25T05:06:20.779123+00:00",
+  "id": "1ccd161b284d8d50",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-24T14:07:17+00:00",
+  "sid": "53759ea325a013c5",
+  "source": "arxiv_cs_ai",
+  "summary": "In-context learning (ICL) lets agents acquire new rules from context and adapt to user-specific requirements at inference time. The same frontier agents now operate both computers and robots, yet their ICL remains insufficiently assessed: existing benchmarks are largely offline, rely on text or static images, and risk training-data contamination, while robot evaluations are limited to method-level ablations. We present ICLWorld, an online benchmark that evaluates the ICL of agents from digital to physical worlds, covering computer use and robot use, together with UIverse, a unified harness that turns every environment into a user interface. We build 30 environments, record 630 demonstration videos (10+ hours), and design 160 tasks with customized, often counter-intuitive rules that cannot be satisfied without learning from the context. Each task comes with three rule versions, given as text or video, and we test generalization at three levels, from replaying the demonstration to new instances and unseen environments. Across six frontier models, the strongest agents, Claude Opus 5.5 and GPT-6 Astra, succeed on 82% and 76% of computer-use runs but only 27% and 26% of robot-use runs, and a no-rule control reduces success to at most 8%. GPT-6 Astra succeeds under all three rule versions on only 38% of computer-use tasks, half its rate under a single rule, and answers 98% of robot rule questions correctly yet completes only 20% of these tasks. Frontier agents learn rules comparabl",
+  "summary_1line": "ICLWorld is an online benchmark of 160 tasks across 30 environments that tests whether AI agents learn customized rules from context, covering both computer use and robot use.",
+  "title": "ICLWorld: Benchmarking In-Context Learning of Agents from Digital to Physical Worlds",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32649v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "5378dad3a82e4415": {
   "content_excerpt": "Version 0.16.0 · A research artifact: not maintained, not accepting contributions. · Apache 2.0 FlashProve lets an AI provider prove which model answered a request, without revealing the model's weights. FlashProve runs Llama 4 Maverick at full size, with a 1,024-token context window, on a single NVIDIA H100. The prover reaches about 110 tokens/second of prefill at 24 requests per batch ( Performance ). The protocol's soundness is proved in Lean 4. A provider that tries to pass off output that is not the committed model's is caught, except with probability about q/2^124 + 2^-101 after q hash queries. lean/THEOREM.md has the theorem and how to check it. Building FlashProve, running it and checking its output take long builds and many exact comparisons. That work is meant for a coding agent. Point yours at this repository with: Run everything from the repository root as an ordinary user, never as root or under sudo . Only installing system packages needs root, so ask your user to do that. If root is the only account, create one first ( how ). Also read AGENTS.md for the rules on reporting results. It is silent for 1–2 minutes, then prints a line starting THE VERIFIER IS BUILT: and exits 0. A line starting build.sh: note: is a warning: quote it in your report. If your tool calls time out, run the build in the background: Then poll tail -n 2 verifier-build.log until the last line starts exit code . Don't start a second build meanwhile. Expect last line YES , exit code 0. This exa",
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
@@ -15609,6 +15644,22 @@
   "title": "MIGRO: A Decoupled and Portable Long-Term Memory System for Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15315v1"
+ },
+ "7e316428d23e482b": {
+  "first_seen": "2026-11-25T05:06:20.779123+00:00",
+  "id": "d700d21269ad251d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T16:02:46+00:00",
+  "sid": "7e316428d23e482b",
+  "source": "arxiv_cs_cl",
+  "summary": "Small businesses repeatedly ask cloud language models about the same confidential prices, unit costs and margins. Numeric prompt disguises for such numbers are evaluated one prompt at a time, but a provider sees a firm's history, in which each fresh secret gives a new, independent view of the same numbers. Since real costs are not public, we measure on synthetic firms with known values how much an honest-but-curious provider recovers when it knows the disguise algorithm, holds sector-level price and margin statistics, and links a firm's queries. In one prompt, per-field scaling, a fixed-axis instantiation of Zhang et al.'s order-preserving substitution and Pr$\\varepsilon\\varepsilon$mpt's released sanitizer keep the attacker's margin-hit advantage over a prior-only guess between -0.6 and +4.4 percentage points. After 16 linked queries with fresh secrets, every disguise we test (Pr$\\varepsilon\\varepsilon$mpt at $\\varepsilon\\geq 0.5$) has a target recovered significantly more often: under the order-preserving substitution, margin recovery rises from 25.0% to 59.4%. The same attacker recovers 29.4 percentage points more margins with fresh maps than with one reused map. Theory explains the contrast: one reused secret bounds all queries by a single full-precision view of the fields shown, whereas fresh scaling keys are identifiable. Except for Pr$\\varepsilon\\varepsilon$mpt at $\\varepsilon=0.5$, the gains persist when the attacker's prior comes from another population model and when",
+  "summary_1line": "Simulated study showing that a curious cloud LLM provider can recover a small firm's margins far more often across linked queries with fresh disguise keys than from a single prompt or a reused key.",
+  "title": "Fresh Keys, Stale Secrets: Numeric Leakage across Linked LLM Prompts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32864v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "7e55f69884382e44": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
@@ -26728,6 +26779,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.8",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "d68041683b201e2f": {
+  "first_seen": "2026-11-25T05:06:20.779123+00:00",
+  "id": "a3b1e4ca822f42f5",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-24T14:12:23+00:00",
+  "sid": "d68041683b201e2f",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Deep search is a critical capability for agents tackling complex, open-ended tasks, where solving a problem requires iterative information gathering, query reformulation, and evidence-based verification rather than a single retrieval step. To address these requirements, we present Bathys 9B and 27B deep search agents built around a training framework that spans verifiable question synthesis, post-training, and online reinforcement learning (RL) under context compression. Our high-quality data construction ensures both search depth and reliability: each clue is reformulated as an indirect reference requiring independent retrieval, and retained evidence chains enable verification that the clues jointly determine a unique answer. Curated trajectories underpin a pipeline of supervised fine-tuning (SFT), Kahneman-Tversky Optimization (KTO), and Compaction-Managed Group Sequence Policy Optimization (CM-GSPO): SFT provides a stable foundation for tool use over long horizons and query reformulation; KTO uses binary feedback on trajectories to improve the selection of answers grounded in evidence; CM-GSPO optimizes execution sub-trajectories with length-normalized likelihood ratios on the recorded rollout contexts and reweights sub-trajectory advantages to correct the extra weighting introduced by independently averaging sub-trajectory losses. Bathys 9B and 27B attain 66.51% and 80.49% on BrowseComp, respectively, under an evaluation protocol with trajectory self-verification and cond",
+  "summary_1line": "Introduces Bathys 9B and 27B deep search agents, trained via verifiable question synthesis, SFT, KTO and CM-GSPO reinforcement learning, reaching 66.51% and 80.49% on BrowseComp under a self-verification and retry protocol.",
+  "title": "Bathys: Advancing Deep Search Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32660v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "d723295579b427cc": {
   "content_excerpt": "This post investigates whether the source code of a program can be presented so that a large language model based analysis fails to report a defect that is genuinely present even though the models know what exception they miss (i.e. they have the knowledge but they don't apply it). Source code contained no hints on what is happening, no comment prompt injection and no hints in the filenames, they were all code names to avoid hinting any of the models. Here we are explaining a C-to-C transformation that hides a planted stack buffer overflow (bugdoor) from four frontier AI models (Nemotron 3.5 Super VL 120B, DeepSeek V4.1 Flash, OpenAI GPT-5.5, Anthropic Claude Sonnet 5.5). The tool used for this research was Karma Pro ( https://reviewcode.org ). Each model scanned the code at least 3 times. The interesting part: Some models knew the tricks we used but they still missed identifying the vulnerabilities However if I ask, some of the models know they missed the planted vulnerability but they could not reason to it. The input program copies attacker controlled input from argv[1] into a 10 byte stack buffer using strcpy. The transformed program performs the exact same bytes write operation, but hides the unbounded length behind two techniques: It prints the supplied name. strcpy copies bytes until it hits a null terminator (\\0). If argv[1] is 11+ bytes, strcpy writes past buffer[10], corrupting the stack. This is a stack buffer overflow . Input \"AAAAAAAAAAA\" (11 bytes) to strcpy wri",
