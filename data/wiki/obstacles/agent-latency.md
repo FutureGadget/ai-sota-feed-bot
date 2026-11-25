@@ -8,7 +8,7 @@ solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-25
 themes:
   - key: agent-traffic
     title: Scheduling, batching, and routing for agent-shaped traffic
@@ -27,7 +27,7 @@ themes:
     summary: Latency-first small models, learned prompt compression, protocol-aware trimming, and better speculative drafting cut decode work; trimming below half the context budget sharply raises failure.
   - key: beyond-the-engine
     title: "Latency outside the model: tools, cold starts, and voice"
-    summary: Tool round-trips (search APIs, data queries, CI) and cold starts often dominate the loop, and voice sets a hard floor the whole stack must meet.
+    summary: Tool round-trips, verification runs, and cold starts often dominate wall clock (66% in one overnight coding run); overlapping them with model work is the emerging fix.
 ---
 
 ## TL;DR
@@ -39,38 +39,41 @@ twin of [cost](/topic/agent-cost): the loop that runs up the bill also runs
 out the clock.
 
 ## State of the art
-Agent latency is attacked at several layers at once, and the binding
-constraint has moved from compute to memory.
+Agent latency is attacked at several layers at once, and in long agent runs
+the binding constraint is often outside the model entirely.
 
 **Agent traffic is not chat.** Coding agents send bursty, long-context,
-tool-interleaved requests with over 80% KV-cache reuse. Schedulers, batchers,
-and routers are being rebuilt for that shape: session-aware scheduling,
-learned batching policies, and routing logic pulled inside the serving layer.
-vLLM's AgentX tuning shows these levers compound when tuned together, though
-its cost comparison is vendor-reported.
+tool-interleaved requests with over 80% KV-cache reuse. Schedulers are being
+rebuilt for that shape: session-aware scheduling, routing inside the serving
+layer, co-scheduling inference with tool environments (10-65% faster batch
+completion), and systems that retune themselves online to live traffic.
 
 **The bottleneck is moving KV state, not FLOPs.** The context grows every
-step, and streaming it back is bandwidth-bound. Four answers compete: compress
-the cache, offload it to shared RAM/NVMe tiers, shard it across GPUs, or reuse
-it through prefix caching, prefix-aware routing, and cross-model KV transfer.
-Reuse has a sharp edge: once reused text sits mid-prompt, as in RAG and
-multi-agent handoffs, an unrepaired cache can score worse than none.
+step, and streaming it back is bandwidth-bound. Four answers compete:
+compress the cache (now losslessly, at 0.71x size), offload it to shared RAM
+and NVMe tiers (AMD reports NVMe within 1% of DRAM throughput), shard it
+across GPUs, or reuse it through prefix-aware routing. Reuse has a sharp
+edge: once reused text sits mid-prompt, an unrepaired cache can score worse
+than none.
 
-**Engines are specializing.** Disaggregation now splits by phase
-(prefill/decode) and by compute type (attention/FFN). New open-weight models
-and accelerators get tuned serving on day 0, then steady per-release kernel
-gains of a few percent per token, which multiply across every step of a loop.
+**Engines are specializing, and tuning is measured.** Disaggregation splits
+serving by phase and by compute type. New models get tuned serving on day 0,
+then per-release kernel gains of a few percent per token. Measured config
+search beat expert vLLM settings by 1.5-2.3x, with a different winner per
+model, so defaults are a starting point, not an answer.
 
-**Doing less work per step** is the other lever: small latency-first models
-for the bulk of calls, learned prompt compression (Shopify cut end-to-end
-latency from 6.8s to 4.2s), and better speculative drafting. Context trimming
-has a measured cliff: below half the budget, failure odds rise sharply unless
-trimming preserves instructions and tool state.
+**Doing less work per step** is the other lever: small latency-first models,
+learned prompt compression, sparse attention, and better speculative
+drafting. Context trimming has a measured cliff: below half the budget,
+failure odds rise sharply unless trimming preserves instructions and tool
+state.
 
-**The open problem sits outside the engine.** Tool round-trips (search APIs
-with a 12x latency spread and short-lived caches, fan-out data queries, remote
-CI) and cold starts often dominate wall-clock time, and no serving
-optimization touches them. Voice sets a hard floor the whole loop must meet.
+**The open problem sits outside the engine.** One overnight coding run spent
+66% of wall clock on UI tests and simulator checks and 26% on the model. Tool
+round-trips, verification, and cold starts dominate such loops, and no
+serving optimization touches them. Overlapping that work (running tools while
+the user speaks, watching the screen with a small monitor) is where the next
+gains are. Voice sets a hard floor the whole loop must meet.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

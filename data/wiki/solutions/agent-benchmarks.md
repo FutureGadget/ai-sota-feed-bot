@@ -6,11 +6,11 @@ status: active
 obstacles: [agent-evaluation]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-25
 themes:
   - key: trusting-the-score
     title: "What a score measures: model, harness, or noise"
-    summary: Harness choice, protocol artifacts, and run-to-run noise can outweigh model differences; fixed environments, replays, counterfactual checks, and paired statistical trials are how scores earn trust.
+    summary: Grader bugs, overspecified tests, leaked test sets, harness choice, and run-to-run noise can each outweigh model differences; audited graders, end-state diffs, replays, and paired trials are how scores earn trust.
   - key: own-workload
     title: Benchmarking on your own tools and real work
     summary: Public leaderboards overstate out-of-distribution performance; suites built from your own tools, real sessions, and held-out environments predict production better, and authoring them is getting cheaper.
@@ -19,7 +19,7 @@ themes:
     summary: New suites target one job at a time (Java migration, Stripe integrations, AWS operations, Rails, code review, scientific imaging) and keep finding domain-specific failures, often in validation rather than code generation.
   - key: adversarial-and-security
     title: Adversarial tools, poisoned inputs, and security
-    summary: Benchmarks now test the failure path (unreliable tools, poisoned business data, malicious issues) and score defenses on precision and recall together; cost-optimized models fail these far more often.
+    summary: "Benchmarks now test the failure path (multi-turn social engineering, split-screen harm, destructive chores, injection-seeded replica webs), but their own verdicts need audits: miscounted attacks and seed-sensitive scores are documented."
   - key: long-horizon-and-subsystems
     title: Long horizons and subsystem diagnostics
     summary: Long-horizon suites show final-answer scores overstate success, while subsystem benchmarks (memory, knowledge conflicts, root-cause reasoning, coordination) grade the inner process so a regression can be localized.
@@ -33,39 +33,42 @@ coordinating), so they double as integration tests for the whole agent, not
 just the model.
 
 ## State of the art
-Agent benchmarks now score the trajectory, not only the final answer: which
-tools were called, whether the task was really done, and whether each
-intermediate step was right.
+Agent benchmarks score the trajectory and the end state, not only the final
+answer, and the newest problem is that the grader itself is often wrong.
 
-**Public scores transfer poorly.** Agents that top familiar leaderboards
-degrade sharply in unfamiliar environments, so the strongest signal comes from
-suites built on your own tools and real sessions. Authoring them is getting
-cheaper through small CLIs, standing workbenches, and automated task curation.
+**Check the grader before the leaderboard.** A teardown of 12 public evals
+found graders failing valid work in eight. Overspecified tests fail correct
+fixes in an estimated 23% of SWE-bench Verified and 35% of Pro tasks. Silent
+logging bugs reorder leaderboards, and test sets now leak into base models.
+Credible suites diff the whole end state, audit verdicts, and publish
+trajectories.
 
-**The harness is part of what you measure.** A deliberately simple loop
-reaches SOTA across 21 models, and the same model can gain inside one
-commercial harness and lose inside another. Run-to-run noise compounds this:
-one practitioner measured a model's own variance as larger than the
-best-to-worst model gap. Credible results now come with fixed environments
-(signed bundles, full replays), cost per solved task, repeated runs, and
-checks against harness gaming.
+**The harness and the noise are part of the measurement.** The same model
+gains in one harness and loses in another, and run-to-run variance can exceed
+the gap between models. Treat a harness change like a model change: hold the
+model fixed, run paired, repeated trials, and test against a measured noise
+floor.
 
-**Suites are fragmenting by domain and failure mode.** Each new suite targets
-one job and keeps finding domain-specific failures, often in validation rather
-than code generation. Adversarial suites test the failure path: unreliable
-tools, poisoned business data, malicious issues. Cost-optimized models fail
-these far more often than frontier ones.
+**Public scores transfer poorly.** Leaderboard leaders degrade in unfamiliar
+environments, so the strongest signal comes from suites built on your own
+tools, data, and load, such as live Postgres under traffic. A preregistered
+local-agent study found no uplift at all.
 
-**Long horizons expose what short tasks hide.** Over hundreds of turns,
-agents skip checks they planned themselves; on long multimodal research chains
-the best system reaches 43.1% accuracy. Subsystem benchmarks (memory,
-knowledge conflicts, root-cause reasoning) localize the part that broke.
+**Adversarial suites now grade the failure path.** Suites test social
+engineering over many turns, harm split across benign screens, deletion
+chores that break servers, and injections hidden in realistic replica webs.
+Their verdicts are fragile too: AgentDojo miscounted 433 successful attacks
+as failures, and changing only a hash seed flipped up to 17% of one agent's
+security verdicts.
+
+**Long horizons widen the spread.** Given 36 hours and 8 H200s to build an
+inference server, the best agent beat the baseline in 71% of runs and the
+next in 24%; short coding suites do not show a gap that wide. Subsystem
+benchmarks localize what broke.
 
 **The open problem is validity.** A score is a claim about one task set,
-harness, and protocol, and protocol artifacts can masquerade as capability.
-Elastic's production harness shows what trusting a benchmark costs: paired
-trials, significance tests against a measured noise floor, guard workloads,
-and human approval gates.
+grader, harness, and seed. Until graders are audited as routinely as models,
+a benchmark delta is a hypothesis, not a result.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it is a static
