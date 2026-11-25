@@ -13895,6 +13895,22 @@
   "url": "https://machinelearningmastery.com/the-complete-guide-to-llm-evaluation",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "6f4da66d69ee069e": {
+  "first_seen": "2026-11-25T06:06:23.197888+00:00",
+  "id": "af8502a958a03d14",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T17:29:40+00:00",
+  "sid": "6f4da66d69ee069e",
+  "source": "arxiv_cs_lg",
+  "summary": "Speculative decoding accelerates large language model (LLM) generation using a lightweight draft. Existing methods evaluate complete recipes under different training configurations, leaving component effects, interactions, and composition benefits unclear. Therefore, we present LEGOSpec, a composable framework for speculative draft design and training. LEGOSpec decomposes draft models into Context, Backbone, Proposal, and Objective components that share a unified training infrastructure. Using LEGOSpec, we systematically vary components and evaluate selected combinations under matched training conditions to isolate their effects and interactions. These experiments reveal three findings: (1) Different workloads favor different backbones, depending on context length and memory budget, with within-block dependency modeling particularly important for long contexts. (2) Proposal design must balance acceptance and latency. (3) The training objective should match token distributions locally and optimize acceptance length across the block. These findings guide workload-aware configurations and DFlux, a balanced general-purpose draft combining a convolution-equipped SWA--GQA hybrid backbone, Residual Corrector, and hierarchical supervision. Across Qwen and Gemma models, DFlux improves acceptance length over the strongest baseline by up to 13.7% on regular benchmarks and 34.7% on long-context workloads. To support efficient training, LEGOSpec integrates metadata-aware scheduling and as",
+  "summary_1line": "LEGOSpec is a modular framework that splits speculative decoding draft models into four swappable components and trains them under matched conditions, yielding the DFlux draft that improves acceptance length on Qwen and Gemma models.",
+  "title": "LEGOSpec: A Composable and Efficient Framework for Speculative Draft Design and Training",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33004v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "6f6be21f91e99ce9": {
   "content_excerpt": "Woolly is the open memory engine for agents. It keeps facts current and learns from every session, through an API, Python and JavaScript SDKs, plugins and MCP. It runs on your own machine by default, in Markdown you can read. Every AI coding tool starts from zero. You explain your stack to Cursor, then again to Claude Code, then to Codex. Each keeps its own memory, or none, and none of them know what you decided yesterday or what your teammate’s agent learned this morning. Woolly is the memory they share . It’s one folder on your laptop, plain Markdown, with no cloud and no account. Any tool that speaks MCP can save to it and search it, and woolly proxy gives the same memory to Ollama and any app that uses the OpenAI or Anthropic API. When a session starts, your agent gets your profile, the project’s notes and where you left off . When it ends, Woolly saves what you decided and why. The agents you build get the same memory. Send a conversation to the memory API and a local model decides what’s new, what changed and what’s no longer true, per user. While you’re away, Woolly dreams . It tidies what it knows and learns lessons from your sessions. Claude Code opens every session with your profile, the project’s notes and a handoff from last time. Nobody has to say “here’s my stack” again. When a session ends, Woolly saves what you chose, why, and what you ruled out. No agent pitches the rejected option again. Give the agents you build a memory with an API shaped like mem0’s. For ",
   "first_seen": "2026-11-17T04:04:14.578855+00:00",
@@ -17788,6 +17804,22 @@
   "url": "http://arxiv.org/abs/2611.17753v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "8dc412120c61e17c": {
+  "first_seen": "2026-11-25T06:06:23.197888+00:00",
+  "id": "eee09cb4dd143c8d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T18:51:29+00:00",
+  "sid": "8dc412120c61e17c",
+  "source": "arxiv_cs_cl",
+  "summary": "Long-term conversational memory requires retrieving complementary facts scattered across dialogue sessions, including intermediate evidence with limited similarity to the original question. Existing approaches often rely on derived memory representations or persistent relational structures, introducing construction costs and potentially losing source details. We present SAG-Mem, a conversational memory framework that preserves complete dialogue messages in non-overlapping chunks and discovers complementary evidence through query-time lexical expansion. Memory construction requires no model inference, using a lexical index without LLM-based extraction, summarization, or semantic relation construction. At query time, BM25 retrieves initial candidates, an evidence evaluator identifies useful chunks, and lexical cues from selected evidence guide an additional retrieval round. Retrieved dialogue is further annotated with calendar interpretations of supported relative-time expressions, preserving the original wording and temporal granularity. We also introduce SAG-Mem-Lite, an alternative configuration that replaces evidence scoring with embedding-based candidate scoring, achieving lower operational cost than Full Context and all memory-based baselines across both benchmarks with low query latency. On LoCoMo and LongMemEval, SAG-Mem achieves overall scores of 83.08 and 80.20, respectively, the highest among the evaluated methods on both benchmarks. On LongMemEval, it exceeds the st",
+  "summary_1line": "Introduces SAG-Mem, a conversational memory framework that stores full dialogue messages in chunks with a lexical index and no LLM processing, reporting top scores of 83.08 on LoCoMo and 80.20 on LongMemEval.",
+  "title": "SAG-Mem-1.0 Technical Report",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33124v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "8ddf2e67d3917490": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
   "id": "ab198d889465e08c",
@@ -20034,6 +20066,23 @@
   "url": "https://benchaudit.org",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "9f9cac7b2636dce8": {
+  "first_seen": "2026-11-25T06:06:23.197888+00:00",
+  "id": "1949791cb1b15e7a",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-24T17:30:06+00:00",
+  "sid": "9f9cac7b2636dce8",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model (LLM) agents rely on external memory to retain and reuse information across interactions. Existing memory systems treat memory as a record of the past and evaluate it by fidelity to the conversation. However, the value of memory lies in whether it improves the agent's response. A memory system decides what to memorize and what to serve before that response exists, and fidelity checks neither decision against it. Faithful memory can therefore fail to improve the response. We instead view memory as a prediction problem and present \\textbf{\\emph{\\leto{}}}, a memory system for LLM agents that focuses on the utility of memory to the future rather than on its fidelity to the past. Because future requests are unknown, \\emph{\\leto{}} preserves access to conversation details through memory indexing, allowing information to remain available through its sources. When a request arrives, memory replay draws on this index to anticipate and supply the context the agent needs beyond what the request explicitly states. The utility of the served context remains uncertain until the response is generated, motivating a utility loop that uses response outcomes to refine future memory selection. We evaluate our system against six memory systems on five benchmarks across three scenarios. In personalization, it outperforms the strongest compared memory system by 16.3 percentage points in accuracy on PrefEval and by 3.1 points in task completion on PERMA. For long-horizon tasks, i",
+  "summary_1line": "Introduces Leto, an LLM agent memory system that judges memory by its usefulness to future responses rather than fidelity to past conversations, and reports gains over six baselines on five benchmarks.",
+  "title": "Leto: Utility-Centric Agent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33005v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "9fa41f3699d37602": {
   "content_excerpt": "Local-first macOS agent that watches what you do and offers to help. Nothing runs without your approval. A local-first macOS agent that watches what you do and offers to help. Nothing runs without your approval. Download for macOS (Apple Silicon, macOS 14 or later, signed and notarized) or build from source . It notices activity on your Mac (new files in Downloads, incoming mail and iMessages, upcoming meetings, app switches), asks an LLM \"how could I help here?\" , and offers an action, or a small tool it writes itself, as a card in the menu bar. bot-inator is not limited to the tools it ships with. When it spots something you keep doing by hand, or something you asked for in chat that it couldn't do, it offers to build a tool for it: Ways in besides the automatic offers: ask in Chat, or use Watch me to do a task once while it records the steps. The two talk over a WebSocket ( /ws/stream ) plus a small HTTP API. See ARCHITECTURE.md for diagrams and LIVING_SPEC.md for the full protocol and design history. The app is signed and notarized and carries its own daemon and Python, so it needs no terminal, Python or Xcode. It starts the daemon when it opens and stops it when it quits. Models are not in the download: with the local provider they download from the setup screen (about 12.7 GB). install.sh checks for macOS 14+, Apple Silicon, Python 3.11+ and the Xcode command line tools (it names anything missing), sets up the daemon's Python environment and builds the menu bar app. It ",
   "first_seen": "2026-11-20T05:06:02.483516+00:00",
@@ -20600,6 +20649,22 @@
   "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
   "type": "news",
   "url": "https://openai.com/index/daybreak-red-aws-govcloud"
+ },
+ "a3483f98b2e0e165": {
+  "first_seen": "2026-11-25T06:06:23.197888+00:00",
+  "id": "9dddfe9f13a8fdc2",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T15:00:23+00:00",
+  "sid": "a3483f98b2e0e165",
+  "source": "arxiv_cs_ai",
+  "summary": "Quantization-Conditioned Backdoors (QCBs) cause large language models (LLMs) to exhibit malicious behavior after quantization while remaining benign at high precision. Existing defenses often rely on security-guided configuration selection or iterative optimization, but do not identify which quantization-induced changes should be repaired. We isolate module-local quantization effects from upstream drift by evaluating the high-precision and quantized versions of each module on identical states from the quantized inference trajectory, and formulate QCB defense as repairing the resulting same-state operator discrepancies. We propose ReQOR, a training-free defense that identifies the dominant directions of these discrepancies on benign calibration data and restores the full-precision computation along them in closed form, yielding a factorized residual adapter. ReQOR uses neither attack information nor gradient-based optimization and supports both full-span and low-rank repair. Experiments across four LLMs, three PGD-based QCB attacks, three malicious behaviors, and three quantization formats show substantial QCB mitigation while largely preserving benign utility. In additional experiments on a non-PGD outlier-injection attack, existing baselines largely fail, whereas ReQOR remains effective. Further analysis shows that dominant operator-discrepancy directions provide more effective and rank-efficient repair than rank-matched random, low-energy, or raw weight-error directions, wh",
+  "summary_1line": "Proposes ReQOR, a training-free defense against quantization-conditioned backdoors in LLMs that repairs dominant same-state operator discrepancies on benign calibration data via a factorized residual adapter, tested on four LLMs.",
+  "title": "ReQOR: Operator-Discrepancy Subspace Repair for Quantization-Conditioned Backdoors in Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32755v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "a348c024152a3ca4": {
   "content_excerpt": "Since Paneflow 0.17.7 , the sidebar takes an agent's turn state from exactly one place: a status the agent writes into its own terminal. An agent that stops for a permission writes a sequence of this shape (the example comes from the spec): The usual assumption is that a tool running agents has to watch them from the outside: match the spinner, spot the permission prompt, notice the input box came back. I built that, several times, and deleted it. My position now is that the turn state belongs to the agent, the only process that actually knows it, and that the terminal's job is to carry the declaration without guessing. This is what ships in Paneflow 0.19.0. It covers the agents that emit OSC 7501: Claude Code from v2.1.295, and Codex, which merged support in openai/codex#52725 and #54114 in October. An agent that declares nothing gets no turn state, on purpose. The post follows one Claude Code turn from the agent to the sidebar, then the general shape, the six approaches that came before, what it costs, and the strongest objection. Mitchell Hashimoto published the Program Status Protocol on October 6, 2026, as \"a completely generic, terminal-native specification\" that came out of his work on Superlogical and Ghostty ( his post ). A program writes OSC 7501 with key=value pairs separated by colons: A program asks for support with OSC 7501 ; ? . There is no heartbeat. When the shell prompt returns ( OSC 133 A ) or the program exits, the terminal drops working and blocked ; done",
@@ -29143,6 +29208,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5YR05pc1lJQkhLTXVZZ2tBSGlaMkF3ZEZBSmtfM085ekV6MmRreHRCb1lETWNUV1hVS1ItcXI1bTY4amxLdmxTYVFPbV9qbzFmd01jQ3hoWHFQUmc1emJ4ZElKY1JpdHpVWTR0NGZqWndiZ2Rr?oc=5"
  },
+ "e8226c13fd91bfc4": {
+  "first_seen": "2026-11-25T06:06:23.197888+00:00",
+  "id": "2df83e1fbaafe037",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-24T16:17:51+00:00",
+  "sid": "e8226c13fd91bfc4",
+  "source": "arxiv_cs_ai",
+  "summary": "AI agents working on long tasks often commit to an answer before they have enough evidence, a behavior called laziness. In our evaluations, they frequently commit even while their stated belief still names several possible answers. An outcome reward at the end of the episode scores only the final answer, so it cannot teach the agent when to commit, because a lucky guess receives the same reward as an answer backed by evidence. During training, however, the simulator can compute the exact posterior over the answer at every step and tell whether the evidence is already enough. We propose Reinforcement Learning with Verifiable Beliefs (RLVB), which rewards the agent for taking further steps while this posterior still allows several answers and for committing once the evidence is sufficient. The reward needs no judge, critic or reward model, and it never reads the belief line the agent writes before each action. We also introduce Pro Worlds, a benchmark of visual puzzles where the agent views a large world through a small window. We evaluate three vision-language models on three benchmarks, two of which are never seen in training. RLVB improves the base model in all nine settings, by 17.1% on average. Under the outcome reward, GRPO and PPO fall below the base model on average. RLVB also outperforms PPO with a process reward from an LLM judge by 9.3% on average while using 1.6 times fewer GPU-hours. The trained agent answers with sufficient evidence in 51%, 12% and 74% of the epis",
+  "summary_1line": "Proposes RLVB, a reinforcement learning method that rewards AI agents for gathering more evidence while several answers remain possible and for committing once evidence suffices, using a simulator-computed posterior rather than a judge or outcome reward.",
+  "title": "Lazy Agents Answer Against Their Own Beliefs: Reinforcement Learning with Verifiable Beliefs Teaches Them to Act on What They Believe",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32884v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "e823044e69bd7a71": {
   "first_seen": "2026-11-19T16:06:21.033634+00:00",
   "id": "96887bc043a2bc27",
@@ -30208,6 +30290,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02561v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "f1cc2271c89a756c": {
+  "first_seen": "2026-11-25T06:08:54.986445+00:00",
+  "id": "10deb3d7be4522b4",
+  "published": "2026-11-24T16:54:37+00:00",
+  "sid": "f1cc2271c89a756c",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "LoomKV is a lossless KV cache compression system for LLM serving that works on an unmodified engine, storing BF16 KV at 0.71 of raw size and reporting 2.7-3.6x raw goodput on the AgentX trace across LMCache's LRU cliff.",
+  "title": "LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32954v1"
  },
  "f1e32dd0ad4b585e": {
   "first_seen": "2026-11-20T22:05:14.750261+00:00",
