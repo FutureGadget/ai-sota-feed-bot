@@ -1475,6 +1475,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.2.1"
  },
+ "0b37f74ca4ace71b": {
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "0b70ee69a3d1df05",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-24T17:07:06+00:00",
+  "sid": "0b37f74ca4ace71b",
+  "source": "arxiv_cs_lg",
+  "summary": "Linear attention models exhibit a disproportionate deficit relative to softmax attention in associative recall (AR) in language modeling. We investigate this gap through natural language evaluations, synthetic recall tasks, and targeted training interventions. Using a synthetic setting, we quantify the role of state-size in how many items can be recalled from memory and find a similar empirical scaling across the tested linear-attention architectures. Testing this relationship reveals that even a single layer at scale can learn to retrieve thousands of associations across long distances. Yet, standard language model training does not reliably teach a linear model to copy from context, whereas a comparable softmax model learns to do so. Considering this, we strengthen recall supervision during training through in-context sentence repetition and context-sensitive loss reweighting. Both methods improve recall-intensive benchmark performance and narrow the long-distance AR gap to the softmax baseline without changing the architecture, token budget, or number of optimization steps, at a slight cost to general language modeling. These targeted changes to training can thus elicit substantial but underutilized retrieval capacity in linear-attention models. These findings suggest that, although linear-attention architectures have substantial capacity for recall, their inductive biases and the demands of language model training make it difficult to develop this capability without dedic",
+  "summary_1line": "Research paper finding that linear-attention models have substantial but underused associative recall capacity, and that in-context sentence repetition and context-sensitive loss reweighting narrow their gap to softmax attention.",
+  "title": "Eliciting the Recall Capacity of Linear Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.32969v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0b3a2ab108487321": {
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
   "id": "5ce231560e9c4ee4",
@@ -8519,6 +8535,22 @@
   "type": "news",
   "url": "https://github.com/lhadzic377-netizen/TokiRecur"
  },
+ "415f33463dc26d9a": {
+  "content_excerpt": "Host daemon for the Drums shared runtime: many isolated Linux desktops per server, with CRIU restore, fork and reset, for computer-use RL The host daemon of the Drums shared runtime: hundreds of isolated Linux desktops on one server, restored from CRIU checkpoints, forked and reset without a reboot, with a gate report and a reward audit on every episode. Training a computer-use agent needs thousands of isolated desktops, and the usual answer is one virtual machine per desktop, each booting its own kernel, operating system and applications. Drums takes a different route: one Linux host runs one booted desktop image, and every environment is a private copy-on-write state on top of it (its own overlay root, its own pid, mount, network, ipc, uts and user namespaces, its own cgroup). An environment is not booted; it is restored from a CRIU checkpoint of a running desktop, so a reset or a fork brings up Chrome, LibreOffice or GIMP where they were, in seconds, and many environments share the image's pages. drumsd is the daemon that owns those environments on a host. It creates, resets, saves (captures), forks (branches), quarantines and destroys them; drives the Drums fork of CRIU ( drums-criu , one template server per checkpoint); runs every episode behind a set of gates (restore fidelity, isolation, cgroup limits, OOM kills, application crashes) so a trainer never sees a reward from a broken desktop; and audits each reward (a second checker run, a redundant checker, a file-scope s",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "026915e3a95fcba7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T16:52:14+00:00",
+  "sid": "415f33463dc26d9a",
+  "source": "hackernews_ai",
+  "summary_1line": "drumsd is a host daemon for the Drums runtime that runs many isolated Linux desktops on one server, restoring them from CRIU checkpoints and gating each episode's reward for computer-use agent training.",
+  "title": "Show HN: Fork Linux desktops in 139ms for computer-use agent training",
+  "type": "news",
+  "url": "https://github.com/Drums-Labs/drumsd",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4161b961fc34e560": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
   "id": "a61dbb336f0df297",
@@ -8747,6 +8779,24 @@
   "title": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09825v1"
+ },
+ "424247e110803b69": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Dio Rettori discusses the operational realities of enterprise AI inference. Moving beyond fast token generation, he explores why inference requires dedicated systems engineering, tackles GPU utilization pitfalls, compares on-prem versus cloud TCO, and analyzes multi-agent latency determinism. He shares why teams must embed domain ontology directly into models rather than relying solely on RAG. Laura Savino discusses the psychological friction of AI adoption for sen",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "c5eecfee5c73e502",
+  "image_url": "https://res.infoq.com/news/2026/11/vercel-board-agents/en/headerimage/generatedHeaderImage-1795183495782.jpg",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T13:57:00+00:00",
+  "sid": "424247e110803b69",
+  "source": "infoq_ai_ml",
+  "summary": "Vercel's experimental Board is a headless message store where people and coding agents claim leased tasks, declare dependencies, and sync threads with Slack, GitHub, and Linear. By Daniel Dominguez",
+  "summary_1line": "The excerpt is an InfoQ page of podcast and webinar listings on supply chain security, AI evaluation and AI adoption, with no details about Vercel's board.",
+  "title": "Vercel Launched Experimental Board to Coordinate Tasks Across Humans and Coding Agents",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/vercel-board-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "429c2fc60045adbd": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
@@ -12721,6 +12771,19 @@
   "title": "Show HN: Fit large JSON tool results into an LLM's context without losing data",
   "type": "news",
   "url": "https://github.com/AryabhattaLabs/agent-tool-result-reducer"
+ },
+ "616293296550946f": {
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "a930955b2babb28b",
+  "image_url": "https://lh3.googleusercontent.com/CtAfS_JWygw2R9cuDNty3xd0S4WFRzVew1vtNDiPaN1ZOGa88hCwTiCLxtgCtpSFER2t3jFO-moRkPnQYPjXziNgMvKHVc0wkOkzBTdGRoOYL3Ld=w528-h297-n-nu-rw-lo",
+  "published": "2026-11-24T13:07:53+00:00",
+  "sid": "616293296550946f",
+  "source": "google_deepmind_blog",
+  "summary": "Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra.",
+  "summary_1line": "Google DeepMind has released Mass Spec Skills, a tool for scientists using Google Antigravity that interprets tandem mass spectra to help identify molecules.",
+  "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
+  "type": "news",
+  "url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity"
  },
  "616c68177b707eae": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
@@ -24507,6 +24570,23 @@
   "url": "https://openai.com/index/cultfit-builds-with-codex",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "bbd93c6708a57349": {
+  "content_excerpt": "Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into everything we do across the developer lifecycle. Our engineering and security teams do some incredible work. Let’s take a look at how we use GitHub to be more productive, build collaboratively, and shift security left. Organizations worldwide are incorporating open source methodologies into the way they build and ship their own software. Learn about core challenges in DevSecOps, and how you can start addressing them with AI and automation. Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into ever",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "364a451395aac439",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T18:00:00+00:00",
+  "sid": "bbd93c6708a57349",
+  "source": "github_blog_ai_ml",
+  "summary": "Learn how to assess a legacy application, choose a bounded modernization step, and reuse the method with a GitHub Copilot agent skill. The post How to choose the next safe step in application modernization appeared first on The GitHub Blog .",
+  "summary_1line": "A GitHub blog post describes an evidence-first method for assessing a legacy application and choosing a bounded modernization step, applied to four public applications, from a Node.js game to a large Java ERP app.",
+  "title": "How to choose the next safe step in application modernization",
+  "type": "news",
+  "url": "https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bbe6960ce28561b7": {
   "first_seen": "2026-11-24T18:05:25.528689+00:00",
   "id": "6829fd44831d7d93",
@@ -24879,6 +24959,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.30986v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "be81c40e6a96cbf5": {
+  "content_excerpt": "How last month's Railway incident made us rethink what infrastructure has become table stakes for AI-native companies The TLDR: Over the past month, we moved almost all of Dreamwork's backend onto servers and cloud accounts we control - deploying our own fine-tuned models in charge of applying, custom classifier models for our data filtering + enrichment, and rolling out a custom lightweight browser built specifically for crawling nearly 3M live jobs across ~140,000 companies. The result is higher reliability, faster iteration, and dramatically lower operating costs...and it made us rethink some things in the process. To understand why we made such a drastic change, we need to go back to Railway's security incident on Oct 20. Per their incident report, an attacker decrypted environment variables for a subset of workspaces and went after AI provider keys. As a result of this, several of our keys were exposed and abused immediately, running up $80K+ in unauthorized inference before we were even notified. While dealing with the fallout, we took this as a clear signal to stop renting the core of our stack. As AI models become more capable, these kinds of security incidents are only going to get worse. And security isn't the only reason to own inference anymore. Data visibility and unit economics have become just as important. Applying to jobs across thousands of different employer portals is an inherently messy, stateful problem. Deterministic rules or narrow structured decision ",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "85558caf93bac01c",
+  "published": "2026-11-25T17:48:17+00:00",
+  "sid": "be81c40e6a96cbf5",
+  "source": "hackernews_ai",
+  "summary_1line": "After an October 2025 Railway security incident exposed AI provider keys and led to over $80K in unauthorized inference, Dreamwork moved most of its backend onto infrastructure it controls, including self-hosted fine-tuned models.",
+  "title": "An $80K breach forced us to own our AI stack. We're never going back",
+  "type": "news",
+  "url": "https://twitter.com/benadamsky/status/2125643724596314433"
  },
  "be909d20a4bddae8": {
   "content_excerpt": "An autonomous agent that lives on your Android phone. Tell it what to do; it works in the background, operates apps for you, writes and builds code in a real Linux environment on the same device, checks its own work, and asks before anything risky. Operates the phone. It reads the screen (accessibility tree first, screenshots when needed), taps, types, scrolls, opens apps, reads notifications and logs, and verifies that each action did what it should. Work can run in an invisible background display, so you keep using the phone. A Linux machine in your pocket. A Debian environment (bash, git, Python, Bun, and add-on toolchains such as C/C++, Java, Node, Android app builds and a virtual desktop) where the agent builds and tests software. Files live in workspaces both worlds can see. Built on omp , a coding agent with a mature tool and planning loop, extended here with Android, privileged and desktop tools. Models are yours: Anthropic, OpenAI, Google, OpenRouter, or any OpenAI-compatible server. You stay in control. Risky actions (payments, messages, deleting data, security settings, installing apps, passwords) always need your approval, from the app, a notification or a floating control. The agent can never operate its own app or answer its own approvals. Everything it asked and you answered is kept in a history. Settings → Stop and take back takes access back (stop everything, revoke the helpers, turn screen control off, delete the history); each of these says what it ends bef",
@@ -26159,6 +26251,22 @@
   "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18370v1"
+ },
+ "ca6184de1a56750e": {
+  "content_excerpt": "Anyone who thinks for themselves needs a safe place to think out loud: to turn over a personal question, work an idea through before it's ready, or build something that is their own. Done in a chat with a model, that thinking leaves a record on someone else's servers, where the provider may use it or train on it, and where a breach could hand your history to people who would use it against you. shh, short for Sovereign Human Headspace, exists so that your thinking can happen without leaving that record in readable form on anyone's servers: your prompts go only to an enclave the provider can't read, and shh checks that before it sends anything. shh-code can do most of what other coding agents do, but privately. It works in your terminal, reads, writes and edits files, runs shell commands and searches the web, and asks you before it changes or runs anything; shh-code chat turns it into a general assistant. What sets it apart is where your prompts go. It only talks to models running in attested, end-to-end encrypted confidential-computing enclaves (TEEs) on Tinfoil , and it refuses to send anything when it can't verify the enclave. There is no fallback to a plaintext or unattested path. Experimental software. shh-code is provided AS IS, without warranty of any kind, and you use it at your own risk. It is not meant for production use, or for code and data you can't afford to expose. It has not had an independent security audit: the only reviews so far were done by a coding agent.",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "04756ec6e7f0a84f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T17:13:28+00:00",
+  "sid": "ca6184de1a56750e",
+  "source": "hackernews_ai",
+  "summary_1line": "shh-code is an experimental, unaudited terminal coding agent that sends prompts only to attested, end-to-end encrypted confidential-computing enclaves on Tinfoil, refusing to send if the enclave cannot be verified.",
+  "title": "Show HN: Shh-code – coding agent with privacy",
+  "type": "news",
+  "url": "https://github.com/maksympetkus/shh-code",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ca72892014db33b2": {
   "first_seen": "2026-11-19T00:09:50.610543+00:00",
@@ -28728,6 +28836,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.10224v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "df3be113c8aed13f": {
+  "content_excerpt": "Inkling 2 Mini came out last week and sets a new state of the art for local AI and smaller open-source models. With ~26B total parameters (3B active per token), multimodal inputs, and a 1M-token context window, it leads its weight class on the Artificial Analysis Intelligence Index v5 and across 32 of 48 benchmarks against models like Gemma 4 31B and Qwen3.8-27B, making it a strong open option for coding, tool use, and reasoning on modest hardware. We wrote an extensive blog post on how you can use it within the Hugging Face ecosystem here . One of the interesting aspects of Inkling 2 Mini that might explain its great performance is its unusual architecture. Inkling 2 Mini is a looped Mixture-of-Experts (MoE) model with 24 physical layers where the middle 12 layers run three times, so every token passes through 48 layers. The checkpoint ships in mixed NVFP4 and MXFP8 and bundles a DSpark drafter for speculative decoding. Both vLLM and SGLang, the go-to frameworks for LLM inference, support it on nightly builds, though the published serving recipes target NVIDIA B200 and GB300 GPUs ( sm100 ), leaving out sm120 cards like the NVIDIA RTX PRO 6000 where kernel compatibility can differ. We wanted to see how fast we could serve it on a single NVIDIA RTX PRO 6000 96 GB, the GPU behind an nvidia-rtx-pro-6000 Inference Endpoint . Rather than tuning flags by hand, we gave a coding agent the inference-optimisation skill, the hf CLI, and access to Hugging Face Jobs , and let it run exper",
+  "first_seen": "2026-11-25T18:06:32.745553+00:00",
+  "id": "6616aa59349e00ce",
+  "published": "2026-11-25T00:00:00+00:00",
+  "sid": "df3be113c8aed13f",
+  "source": "huggingface_blog",
+  "summary_1line": "An agent-driven tuning run on one RTX PRO 6000 raised single-user decode for Inkling 2 Mini from 136 to 190.6 tok/s (+40%) and 8-user aggregate throughput from about 570 to 716 tok/s (+26%) across 46 valid runs.",
+  "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+  "type": "research",
+  "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb"
  },
  "df40d12666dedf69": {
   "first_seen": "2026-11-09T04:05:46.806933+00:00",
