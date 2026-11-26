@@ -12744,6 +12744,23 @@
   "url": "http://arxiv.org/abs/2611.14263v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "5e0630e2a6682f32": {
+  "content_excerpt": "gnosh: an AI coding harness with the Gno VM inside, written from an empty repository gnosh sits between a person, a language model and the machine. The model reads, edits and runs things under the person's rules, and it keeps its plan in mem , in Gno, on disk. Each step of a task is a frame: when the step is done and popped, its work leaves what the model is sent and its result stays, the way a function's locals go when it returns. A new session starts from what is still open. It runs. Built from this tree, it has answered prompts, used tools, asked permission, planned and finished a task in mem , and popped frames against a real model (Qwen 3.8 27B on llama.cpp). tools/dev/remote-ci.sh builds, vets and tests every package from a clean copy. In a session, Claude Code's commands work as there: /help , /clear , /restart (gnosh starts again in the same session, the newer one once a new build is installed, which the session says), /background (the session goes on without the terminal, as a run of its own on the prompt given), /fork (a copy of the conversation works on the prompt in the background while this session goes on), /subtask (as /fork , and what the copy answers comes back to this conversation when it is done), /compact , /resume (by number, id, name, or words from a session's name or first prompt), /branch , /rewind (the conversation, the files Write and Edit changed, or both, the files as they were when the prompt went out, whatever changed them since; what a file hold",
+  "first_seen": "2026-11-26T22:06:46.874584+00:00",
+  "id": "e6bb5c032c4524e2",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-26T21:39:00+00:00",
+  "sid": "5e0630e2a6682f32",
+  "source": "hackernews_ai",
+  "summary_1line": "gnosh is an AI coding harness, written from an empty repository, that sits between a person, a language model and the machine, with the Gno VM inside and a plan kept in mem on disk.",
+  "title": "Agent Harness",
+  "type": "news",
+  "url": "https://github.com/gnosh-ai/gnosh",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "5e2106f0eb891f07": {
   "content_excerpt": "A fast local inference engine for Inkling 2 Mini on Apple silicon, written in Rust and built for coding agents. It serves an OpenAI-compatible API that Codex, aider and opencode can use as they would a hosted model. It runs one model family and does not try to be general. That is what lets it do things a general engine does not: generate whole tokens in one GPU submission, keep processed prompts between requests and restarts, and copy runs of tokens the reply repeats from the conversation. The first run downloads Unsloth’s UD-Q4_K_M conversion (16.6 GB) to the Hugging Face cache, where other tools that use the Hub will find it too. rustling pull does only that, if you would rather fetch it ahead. A download that is interrupted starts again from the beginning; on an unreliable connection, hf download unsloth/Inkling-2-Mini-GGUF Inkling-2-Mini-UD-Q4_K_M.gguf can resume, and rustling finds the file it leaves. rustling chat is an assistant for the current directory, with the model in the same process: no server, no network. It can read and search files ( read , grep and glob ), asking before each call; it changes nothing and runs no commands. It is built on manifatura, an agent framework. Its own instructions are one line, cli/src/agent/system.md ; the tools' guidelines, the AGENTS.md files, the directory and the date follow it. Its instructions follow the AGENTS.md convention: ~/.config/rustling/AGENTS.md , then AGENTS.md (or CLAUDE.md ) in each directory from the repository roo",
   "first_seen": "2026-11-25T23:05:34.301984+00:00",
@@ -22471,7 +22488,7 @@
   "sid": "a577b44a420ece11",
   "source": "arxiv_cs_ai",
   "summary": "Merging RDF serializations creates ordering conflicts and misses semantic ones. We describe and evaluate a three-way merge in which the schema defines a conflict: set algebra combines canonical triples, and a slot is contended only where a SHACL shape bounds its cardinality and both sides' changes cannot stand within that bound. Unbounded predicates union; contended slots go to a person. The same shapes graph validates the result. We do not claim the first three-way merge for RDF. Our contribution is an implementation in a production multi-agent store and an evaluation against a reimplementation of Quit Store's Context Merge overlap rule, which it extends rather than replaces, and six other strategies. Across five synthetic seeds, the shape-aware operator raised 33 conflicts, all true positives as judged by the same shapes that define them, with no triples lost or fabricated and no SHACL violations admitted. The context-overlap baseline, counted per slot, detected the same 33 conflicts but asked 845 questions. A replay built from recorded production incidents covers 105 human alias repairs (93 after excluding 12 chained pairs) and 939 duplicate-value incidents. It reproduces a triple-level limit: different names for one entity remain invisible (0 of 93 alias repairs detected, matching 0 of 21 synthetic cases). In a study of evolving shape contracts, merging shape declarations first handles the tested cardinality changes, while datatype evolution exposes a detector blind spot ",
-  "summary_1line": "Merging RDF serializations creates ordering conflicts and misses semantic ones. We describe and evaluate a three-way merge in which the schema defines a conflict: set algebra combines canonical triples, and a slot is...",
+  "summary_1line": "Describes a shape-aware three-way merge for RDF knowledge graphs that flags conflicts only where SHACL cardinality bounds are exceeded, evaluated against a Quit Store-style baseline on synthetic seeds and production-derived replay data.",
   "title": "Shape-Aware Three-Way Merge for RDF Knowledge Graphs: The schema defines the conflict: an implementation and evaluation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.34870v1",
@@ -31893,6 +31910,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21456v1"
  },
+ "eec965c0ad4f25a1": {
+  "first_seen": "2026-11-26T22:06:46.874584+00:00",
+  "id": "5cd010bde49a2152",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-25T17:34:16+00:00",
+  "sid": "eec965c0ad4f25a1",
+  "source": "arxiv_cs_lg",
+  "summary": "Tabular prior-fitted networks (PFNs) work well across tabular classification problems but can fail silently at deployment when distributions shift. We propose CALD (Calibrated Anchor-Loss Disagreement), a lightweight unsupervised monitor that triggers an alarm to warn when a PFN might fail. By finetuning the decoder to maximize disagreement with the test-set prediction while maintaining accuracy on an ID anchor set, CALD identifies harmful OOD batches through the resulting anchor loss, requiring no labels on test batches. We prove that the post-finetune anchor loss has a strictly lower expectation under sufficiently severe shift than under ID eval, yielding a one-sided test. Across 14 datasets covering tabular and structured distribution shift, on both TabPFN and TabICL, CALD matches or outperforms baselines on harmful shifts and is markedly more resilient to benign-shift false alarms.",
+  "summary_1line": "Proposes CALD, an unsupervised monitor that warns when tabular prior-fitted networks like TabPFN and TabICL may fail under distribution shift, tested on 14 datasets without test labels.",
+  "title": "When to Trust a PFN: Detecting Harmful Shift in Tabular Foundation Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34767v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "eee2a9d44b7a1208": {
   "first_seen": "2026-11-24T11:06:53.415547+00:00",
   "id": "db84c38f2d2918c2",
@@ -33135,6 +33168,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12118v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "f613c86fe92edbd9": {
+  "content_excerpt": "Installs, builds and data science move to a full-speed machine with the same files. * One agent hour: a conversation open for an hour with 120 short tool calls. Others at list price for 1 vCPU and 1 GiB for the hour, busy or idle. Prices and start times checked 2026-11-23; sources on each comparison page. A Linux sandbox for your AI agent to run commands in, one per conversation. You pay per command; idle time is free. A conversation is mostly people reading and the model thinking. An hour with 120 tool calls costs $0.006 here and about $0.067 at E2B's list price. $0.05 per 1,000, with a second of CPU each. Reads, rollback and fork are free. 100,000 a month are free, and nothing is charged during the beta. Yes. Heavy commands run on full-speed machines with the same files, automatically: npm install typescript takes about 8.8 s. Each sandbox is isolated, runs without root and cannot reach private networks or cloud metadata. Data is stored in Europe and deleted after 7 days unless you keep it. Add the MCP server, use the TypeScript SDK, or call the HTTP API from any language.",
+  "first_seen": "2026-11-26T22:06:46.874584+00:00",
+  "id": "ffad18460624b11a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T17:54:18+00:00",
+  "sid": "f613c86fe92edbd9",
+  "source": "hackernews_ai",
+  "summary_1line": "A Linux sandbox for AI agent commands that bills per command rather than per CPU second, with idle time free and an example hour of 120 tool calls costing $0.006 versus about $0.067 at E2B's list price.",
+  "title": "Show HN: An Agent Sandbox where you pay per command, not CPU second",
+  "type": "news",
+  "url": "https://flashbox.app",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f61d908deea2ff93": {
   "first_seen": "2026-11-24T17:04:37.422259+00:00",
