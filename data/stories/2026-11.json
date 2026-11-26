@@ -407,6 +407,18 @@
   "url": "https://youtu.be/3NH_i8M1Gqg",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "033be80916f4fb7a": {
+  "content_excerpt": "Forward-looking: A lot of what AI servers do all day involves pulling data from their SSDs so a CPU or GPU can process it. Phison wants some of that processing to happen before the data ever leaves the drive. The controller maker has detailed an SSD design with its own NPU and 64GB of memory, designed to run PyTorch and llama.cpp directly on the drive. The company showed off the design at Supercomputing 2026 (SC26) in Chicago this week. Rather than sending entire datasets to the host, the drive scans and processes data in parallel right where it sits. It then sends back only the results that matter. Phison claims this could cut data transfers by 10 to 100 times for suitable workloads. The host CPU would get some breathing room, too. On paper, the drive's memory delivers 130 GB/s of bandwidth. That's more than four times the 28 GB/s that Phison's upcoming PCIe 6.0 controller can deliver to a host. In other words, the drive can read its own data far faster than it can transfer it to the server. The company also says developers won't need specialized programming tools because the drive supports familiar frameworks such as vLLM and OpenVINO. Oddly, the only compute figure Phison shared for the NPU is 36,800 DMIPS. That's a decades-old CPU integer benchmark. As Tom's Hardware points out , the figure likely describes companion CPU cores on the drive rather than its AI processing power. There's no TOPS rating anywhere in the announcement. The drive also has no product name or sampli",
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "529c08cc9a56bd80",
+  "published": "2026-11-26T07:58:49+00:00",
+  "sid": "033be80916f4fb7a",
+  "source": "hackernews_ai",
+  "summary_1line": "Phison has detailed an SSD architecture with its own NPU and 64GB of memory that can run PyTorch and llama.cpp on the drive, showing it at SC26; the design is still in development with no product name or sampling date.",
+  "title": "Phison shows SSD design with NPU and 64GB of memory that runs AI on its data",
+  "type": "news",
+  "url": "https://www.techspot.com/news/114653-phison-shows-ssd-design-npu-64gb-memory-runs.html"
+ },
  "036c0f4365e53887": {
   "content_excerpt": "A production outage. An unexpected state change. An independent evaluator. See what a superficially successful workflow misses—then take control of the real WorldFoundry simulation yourself. The ticket must be critical, assigned to on-call, acknowledged with both “outage” and “incident,” and resolved. In this scenario, a separate system resets its priority during the workflow. Choose actions in an",
   "first_seen": "2026-11-22T13:06:57.043672+00:00",
@@ -1571,6 +1583,22 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/google-agent-distraction/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "0b8b94ceaf35662d": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "89e9bb1fc137c9d9",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T17:01:07+00:00",
+  "sid": "0b8b94ceaf35662d",
+  "source": "arxiv_cs_cl",
+  "summary": "Temporal knowledge graphs (TKGs) continually introduce emerging entities whose interaction histories evolve from zero-shot debuts into sparse, bursty few-shot trajectories. However, current paradigms are fragmented: pattern-transfer methods lack catalog-wide event memory, whereas online memory models suffer from endpoint-role asymmetry that degrades unseen-answer ranking. Furthermore, sparse early interactions exhibit both long-range dispersion and local redundancy under skewed distribution. To address these challenges, we propose INSPIRE (Integrating Shared Patterns and Individual Evidence for Reasoning), a two-stage forecasting framework over a known catalog. In Stage I, INSPIRE learns an availability-aware shared-pattern predictor that fuses event-updated memory across the full candidate catalog while applying coordinated query- and catalog-side masking. Subsequently, Stage II freezes this predictor and optimizes a lightweight individual-evidence adapter (EA) combining textual semantic priors with correlation-weighted long-range event statistics under support- and role-balanced co-answer supervision with prior-odds debiasing and soft residual alignment. In addition, we decompose evaluation by endpoint roles and track longitudinal emerging-answer cohorts via query-micro and answer-entity macro metrics. Across four benchmarks based on the ICEWS and GDELT event datasets, INSPIRE improves Emerging MRR by 16.73%-88.83% over the strongest baselines. Relative to paired Stage I pr",
+  "summary_1line": "Proposes INSPIRE, a two-stage framework for forecasting interactions of emerging entities in temporal knowledge graphs, reporting 16.73%-88.83% Emerging MRR gains over the strongest baselines on four ICEWS and GDELT benchmarks.",
+  "title": "From Shared Patterns to Individual Evidence: Two-Stage Reasoning for Emerging Entities in Temporal Knowledge Graphs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34708v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "0bb8222dedf65e8b": {
   "content_excerpt": "A chart is one JSON spec. validate() and repair() check and fix it locally, with no model call and no hosted service. The same spec draws as SVG in React, Vue, Svelte, Solid, Qwik, Angular, Astro, plain DOM, or Node. svg is a string. It needs no browser, so the same call works in Node, in a build step, or in an edge worker. A line chart is 32 KB gzip. uPlot is smaller at 24 KB. We publish the benchmarks we lose as well as the ones we win: BENCHMARKS.md . Nothing to install: ChartKit Cloud does the same render over HTTP. Send a spec to /render and get an SVG or PNG back. Agents can call its remote MCP, which has three tools: render_chart , validate_chart and repair_chart . It goes live at cloud.chartkit.dev with v1. The service is in apps/cloud . The chart is static SVG with no client script. The build fails on an invalid spec. Add the client prop for tooltips and selection. Each of these also prints the SVG during server rendering. Their READMEs are in packages/ . By default an adapter can draw every chart type. To ship one type, pass render from createRenderer([...]) . validate() returns coded diagnostics ( CK1003 and so on), and each one carries a JSON Patch fix where a fix is safe. repair() applies those fixes. Both are deterministic and run in your process. repairAsync() from @chartkitdev/core/validate/convert also converts Chart.js, ECharts, Plotly, Vega-Lite and Recharts configs. In our agent eval, a model with no ChartKit docs got 21 of 42 specs right on its first answ",
@@ -9530,6 +9558,23 @@
   "url": "http://arxiv.org/abs/2611.14505v1",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "4638abcd39a00769": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "8452cc73547c9581",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:59:28+00:00",
+  "sid": "4638abcd39a00769",
+  "source": "arxiv_cs_lg",
+  "summary": "AI monitors, classifiers that flag dangerous behaviour by AI agents, are often evaluated against transcripts generated by attack policies acting as proxies for dangerous behaviour in deployment. We evaluate an ex-production OpenAI monitor as a case study and find that measured false negative rate is highly sensitive to both the method used to generate attack policies and the level of optimisation applied within that method. This rate ranged from 0.5\\% to 20.8\\% across optimisation levels of a single method (reinforcement learning), and from 6.4\\% to 23.0\\% across methods at their best observed optimisation level (optimised prompting vs.\\ transcript editing). Every attack policy was developed against proxy monitors only: all reported results show attacks transferring to the held-out GPT-5.4 target monitor. Our results suggest that monitor evasion evaluations can easily mislead: an evaluation using only basic attack methods may give false confidence that a monitor is strong. The sensitivity to attack-policy choice raises a problem: interpreting any particular result as evidence about deployment performance requires justification. The transcripts produced by attack policies are proxies for the dangerous behaviour a monitor must flag in deployment. These proxies can introduce visible artefacts, such as reasoning about a ``side task'' absent from the instructions shown to the monitor, that affect monitor judgements. Given the sensitivity above, the choice of proxy can change an ev",
+  "summary_1line": "Measured false negative rates for an ex-production OpenAI monitor varied from 0.5% to 20.8% depending on how attack policies were generated and optimised, so monitor evaluations can give misleading confidence.",
+  "title": "Attack Policy Selection can Mislead Monitor Evaluators",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34934v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "463947138381fd18": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "2c44d32f915f6e78",
@@ -14038,6 +14083,23 @@
   "type": "news",
   "url": "https://openai.com/index/advancing-chip-design-with-our-models"
  },
+ "69a487d02c92b580": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "4691a78477689e77",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T17:30:37+00:00",
+  "sid": "69a487d02c92b580",
+  "source": "arxiv_llm_reliability",
+  "summary": "LLM agents increasingly rely on external memory, yet they still hallucinate about what they remember. Often the correct memory is retrieved and placed in the prompt, but the answer contradicts it or the memory is applied to the wrong question. We call these use-time memory hallucinations. Across five open models, we find that they arise from the conflict between parametric knowledge and external memory and take three forms: memory-ignoring, where the model returns to a stale fact in its weights (up to 46% of queries); memory-misapplying, where it attributes the memory to unrelated entities (up to 24%, and 49% when retrieval is combined with weight editing); and version confusion, where 53% of answers about revised facts assert the superseded value when both versions remain stored. We propose TASK memory, which goes beyond text-only memory by combining a Text note with Activation Steering and Knowledge editing that share one in-model address. The text holds the content. A removable knowledge edit supplies the address through its subject key and supports multi-hop composition. A pair of steering vectors decides, query by query, whether the model adopts the memory or keeps its own answer; the vectors store no content and control how the text memory is used. On frozen models under a pre-registered, test-once protocol, TASK reduces memory-ignoring hallucinations to at most 1.5% in all ten model-dataset cells and cuts neighbour misuse from 39.2% to 7.5% (+10.8 pp composite on Count",
+  "summary_1line": "Proposes TASK memory, which pairs a text note with activation steering and a removable knowledge edit to reduce use-time memory hallucinations in frozen LLMs, reporting memory-ignoring errors cut to at most 1.5% across ten model-dataset cells.",
+  "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34762v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "69a7c1548b162d4e": {
   "first_seen": "2026-11-13T00:08:39.142506+00:00",
   "id": "f8a7d61e33d22c3b",
@@ -14405,7 +14467,7 @@
   "published": "2026-11-26T07:04:15+00:00",
   "sid": "6cc45c9aedf2dc74",
   "source": "search_cn_open_weight_labs",
-  "summary_1line": "China’s AI Labs Are Hitting",
+  "summary_1line": "Finimize reports that Chinese AI labs are taking longer between model releases; the excerpt gives no specific labs, models, or timeframes.",
   "title": "China’s AI Labs Are Hitting A Longer Release Cycle",
   "type": "release",
   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNWpTYWJjd2dLaGhLM3M4ejlYZWp6Ul9HVUw4NlRZMGY3bXRHenJXV3kyQmVlTnlQZW1zSEl2TmM5eGdoWjhob2p1aVAxOUlQRkROQ1VVSFRXa216OWJUVFF6MWcwbjNIT1BVRG1FN0s1TG5vU0UtOWVWaFpQWkhkX09aRkM?oc=5"
@@ -16622,6 +16684,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26073v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "7ed15a328278987a": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "06e55e3932229a84",
+  "published": "2026-11-26T08:08:49+00:00",
+  "sid": "7ed15a328278987a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Tencent Hunyuan Open-Sources DFly2 Acceleration Component, Boosting Hy4 flash Long-Context Generation by Up to 4.2x finance.biggo.com",
+  "summary_1line": "Tencent's Hunyuan team has open-sourced DFly2, an acceleration component for its Hy4 flash model that the source says speeds up long-context generation by up to 4.2x.",
+  "title": "Tencent Hunyuan Open-Sources DFly2 Acceleration Component, Boosting Hy4 flash Long-Context Generation by Up to 4.2x",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1mQW81NXdDS3BFYUxCdndfbjVqWkJpakFXWnNHZFBmUktHMlNvdHNUcDlkbnFBemMzMXRESkNUSEFvTmhmZUdpbkFNUHo2Q2ZvNFNHUEdTNFo3Q1dsbDBxQ0xiZ2JJODNtaVVFR1lkZWpRZXF4MFE?oc=5"
  },
  "7eddd5b3047f8f44": {
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -19746,6 +19820,23 @@
   "title": "Do Agentic Policies Need to Look at Every Step? Geometric Abstraction for Reasoning and Action",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05058v1"
+ },
+ "9601ff2422cc834f": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "6802804f641956f9",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-25T14:22:22+00:00",
+  "sid": "9601ff2422cc834f",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model agents are increasingly improved via agentic reinforcement learning, which can be on-policy but suffers from expensive rollouts and sparse rewards, limiting its application at test time. In this paper, we present a verbally Supervised Fine-Tuning (vSFT) framework that enables the conjunction of dense feedback in natural language and weight updates at test time. Specifically, our vSFT forms a closed loop between an agent and a supervisor via a hypernetwork, in which the supervisor generates verbal supervision from the agent's failed trajectories, and the hypernetwork converts that supervision into low-rank weight updates to tune the agent. We validate that this test-time in-parameter evolving process outperforms both its in-context counterparts and prevalent reinforcement learning methods. In particular, our vSFT using Qwen3-4B outperforms GRPO and Reflexion by 8.7% and 13.9% in success rate on ALFWorld, and by 4.8% and 18.2% on WebShop, respectively. We believe that learning how to adapt a model, rather than an adapted model, offers a promising path towards more capable agents that improve themselves.",
+  "summary_1line": "Proposes vSFT, a test-time method where a supervisor's verbal feedback on an agent's failed trajectories is converted by a hypernetwork into low-rank weight updates; with Qwen3-4B it reports higher success than GRPO and Reflexion on ALFWorld and WebShop.",
+  "title": "vSFT: Learning to Verbally Tune Agents at Test Time",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34440v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "9634b5e75ef12012": {
   "content_excerpt": "At SC26, an annual supercomputing conference taking place this week in Chicago, NVIDIA is introducing the DGX Spark HPC Developer Kit for researchers, academics and developers. The kit is a four-node cluster of NVIDIA DGX Spark systems , each connected directly to its two neighbors in a ring, with an NVIDIA HPC SDK installation playbook coming soon. Researchers get a place at their desk to run multi-node scientific workloads, AI models and agents, instead of waiting for time on a shared GPU cluster. The kit puts the GB10 Grace Blackwell Superchip on researchers’ desks. It scales from one system, or node, to four — linked directly to one another over NVIDIA ConnectX-7 networking, with no network switch to buy or set up. At four nodes, it provides 512GB of combined memory and 20TB of NVMe storage that provides researchers more capacity to distribute models and scientific workloads across the cluster. With NVFP4, researchers can deploy models with up to 700B parameters locally across the four DGX Spark clusters, such as DeepSeek V4.1. With that much power at the desk, researchers with a fixed compute and server allocation no longer have to wait in a queue for every job. Teams can develop and debug on their own, saving server hours for production runs and keeping unpublished results, and proprietary datasets on premises. The playbook for NVIDIA HPC SDK is coming soon, bringing GPU-accelerated C, C++ and Fortran compilers, libraries and message passing interface tools to the DGX S",
@@ -23312,6 +23403,22 @@
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.1rc0",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "aeda233af858a817": {
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "9265c1b295e661ee",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T16:29:37+00:00",
+  "sid": "aeda233af858a817",
+  "source": "arxiv_cs_ai",
+  "summary": "Reinforcement learning has achieved remarkable success in sequential decision-making, but learning effective policies often requires substantial interaction experience. Model-based reinforcement learning alleviates this dependence by leveraging world models, which are typically used to support planning or policy optimization. In this paper, we investigate an alternative paradigm in which autonomous LLM-based coding agents directly synthesize control policies by reasoning over readable world models. By examining environment source code, these agents translate environmental knowledge into executable decision rules and iteratively refine their policies using online feedback or offline data, without task-specific RL training. Experiments across diverse decision-making benchmarks show that synthesized policies match or outperform conventional RL methods while requiring substantially less experience. Further analyses reveal interpretable decision rules and how they evolve through feedback-driven refinement. Comparisons with policies generated without source code access and experiments under challenging conditions further demonstrate the benefits of readable world models. These findings suggest that direct policy synthesis can reduce reliance on trial and error, challenging the necessity of task-specific RL training.",
+  "summary_1line": "Researchers study whether LLM-based coding agents can write control policies by reading an environment's source code as a readable world model, and report that these policies match or beat conventional RL with far less experience.",
+  "title": "Do We Still Need Reinforcement Learning When We Can Read the World Model?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34656v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "aeee01f562824dca": {
   "first_seen": "2026-11-13T01:04:43.528175+00:00",
   "id": "a3c2258e60a8cd1c",
@@ -24917,7 +25024,7 @@
   "sid": "ba0527aa85a2e3cc",
   "source": "infoq_ai_ml",
   "summary": "At Ignite 2026, Microsoft positioned Copilot as the operating system for work and extended agent identity, governance, and cost controls across Azure, Foundry, Entra, and Defender. Highlights include Cobalt 200 VMs, Azure HorizonDB, a continuous improvement loop in Foundry, Microsoft IQ, a standalone Azure AI Gateway, and Windows Server 2028. By Steef-Jan Wiggers",
-  "summary_1line": "At Ignite 2026, Microsoft positioned Copilot as the operating system for work and extended agent identity, governance, and cost controls across Azure, Foundry, Entra, and Defender. Highlights include Cobalt 200 VMs, A...",
+  "summary_1line": "The supplied text is mostly InfoQ site navigation and summaries of unrelated podcasts and events, with no details of the Ignite recap itself.",
   "title": "Recap of Microsoft Ignite 2026: Copilot as the Work OS and Agent Governance",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/microsoft-ignite-2026-recap/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
@@ -30098,6 +30205,22 @@
   "title": "Cloudflare Makes Basin Serverless Analytics Generally Available",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/cloudflare-basin-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "e42b08608ac6315c": {
+  "content_excerpt": "Leather-clad billionaires aren’t the only ones who can be led astray by alleged honeypots . Researchers at Anthropic have developed Siren , a new honeypot test for artificial intelligence agents. The setup puts agents in realistic simulations designed to tempt them into misbehaving. How they respond will help researchers evaluate the likelihood that new models will go rogue when deployed in the real world, as well as the effectiveness of different safety measures. The test lets agents loose inside one of 26 different simulated sandbox environments. Various features of the sandbox are deliberately misconfigured to allow egress, while an enticing file containing things like passwords and apparent routes onto the internet sits just outside the sandbox boundary. The setup then presents tasks that tempt the agent to reach outside the sandbox without giving it explicit permission to do so. Crucially, the sandbox exists inside a second sandbox that’s cut off from the outside world to avoid real-life mishaps . “Models are going to continue getting better, continue finding zero-day vulnerabilities,” says Darya Kaviani, a researcher at Anthropic who specializes in security and helped develop Siren. A zero-day vulnerability is a previously unknown flaw in a piece of software that can be used to pilfer data or gain unauthorized access. Anthropic’s Mythos models are especially skilled at finding zero-day bugs because they lack the guardrails that normally block this kind of potentially ma",
+  "first_seen": "2026-11-26T09:07:07.952974+00:00",
+  "id": "0d1dc20986f19cc8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T07:30:49+00:00",
+  "sid": "e42b08608ac6315c",
+  "source": "hackernews_ai",
+  "summary_1line": "Anthropic has developed Siren, a honeypot test that places AI agents in one of 26 simulated sandboxes with deliberately misconfigured features and a tempting file of passwords just outside the boundary, to see if they break out.",
+  "title": "Anthropic Created a Honeypot to Lure AI Agents into Misbehaving",
+  "type": "news",
+  "url": "https://www.wired.com/story/ai-agents-can-get-honeypotted-too-aw",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e43967052c90d199": {
   "first_seen": "2026-11-12T08:05:07.652909+00:00",
