@@ -2,110 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Evaluating Recent Model Releases on GDPx
-- Type: release | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/evaluating-recent-model-releases
-- Score: 3.51 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 1. Recap of Microsoft Ignite 2026: Copilot as the Work OS and Agent Governance
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/microsoft-ignite-2026-recap/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 4.12 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 2. DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2611.34852v1
-- Score: 3.74 | Reliability: 1.0
+- Score: 3.642 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 3. DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity
+## 3. $μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34776v1
-- Score: 3.493 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+- URL: http://arxiv.org/abs/2611.34920v1
+- Score: 3.468 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. AliceAI-Foundation-80B-A3B-Base
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.34529v1
-- Score: 3.429 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 4. How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34875v1
+- Score: 3.445 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 5. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
+## 5. Evaluating Recent Model Releases on GDPx
+- Type: release | Source: semianalysis
+- URL: https://newsletter.semianalysis.com/p/evaluating-recent-model-releases
+- Score: 3.42 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 6. GLM-5.4 vs GLM-5.3: 1.5x Quota, No Open Weights
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR3VQeVd2XzN5NXk4SlV2SF95QkVYOFpBd1drX0Z6cjRoY2xycDJ1b3FIZXRicGpaQ3JPRFpfVm5EOFl1N1hWY1R1dlRxS2JybGRqbk5SOTM2bDNEZl9CTXZ6b2plUkx0TVpfOU5odm9RZGZycnJmM2xVV3VJdF83MTBlZ3RvZFQ3RVJ3?oc=5
+- Score: 3.168 | Reliability: 1.0
+- Why it matters: 
+
+## 7. Three LLM inflection points in twelve months
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/24/llm-inflection-points/
+- Score: 2.977 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex, claude code.
+
+## 8. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
 - Type: video | Source: ai_native_dev
 - URL: https://youtu.be/pH9CZKTB4yQ
-- Score: 3.026 | Reliability: 0.778
+- Score: 2.93 | Reliability: 0.806
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 6. Announcing vLLM-GR: Efficient Inference for Generative Recommendation
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-24-vllm-gr-announcement
-- Score: 2.592 | Reliability: 1.0
-- Why it matters: 
-
-## 7. How the Claude Code team thinks about verification
+## 9. How the Claude Code team thinks about verification
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/
-- Score: 2.016 | Reliability: 1.0
+- Score: 1.994 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 8. codex 0.174.0-alpha.7
+## 10. Using a "chaos loop" to harden the Claude Docs launch: 60 server errors across billions of requests
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/chaos-loop-claude-docs-launch/
+- Score: 1.922 | Reliability: 1.0
+- Why it matters: Matches feed focus: claude code.
+
+## 11. Solve Vision with Code: Coding Agents Are Stronger Visual Reasoners Than Video Models
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.34813v1
+- Score: 3.232 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, codex.
+
+## 12. Maco-RL: Scaling Agent Capabilities with Mixed-Task Reinforcement Learning
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34703v1
+- Score: 3.195 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. codex 0.174.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.7
-- Score: 1.92 | Reliability: 1.0
+- Score: 1.819 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/
-- Score: 1.827 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Introducing Search for Agents
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/search-for-agents/
-- Score: 1.692 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 11. Kolpona: An Agentic Framework with Gradient-Free Neuron Programming for RTL Generation
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.33973v1
-- Score: 3.363 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 12. EGSE: Evidence-Grounded Skill Evolution for Medical Reasoning Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.33909v1
-- Score: 3.31 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 13. claude-code v2.1.332
+## 14. claude-code v2.1.332
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.332
-- Score: 1.625 | Reliability: 1.0
+- Score: 1.61 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 14. Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud
+## 15. tencent/WeMM-Ecom-35B-A3B-GGUF released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeMM-Ecom-35B-A3B-GGUF
+- Score: 1.368 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Data + AI Anywhere: AlloyDB Omni integration with local models
 - Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise/
-- Score: 1.461 | Reliability: 1.0
+- URL: https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models/
+- Score: 1.279 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 15. tencent/WeMM-Ecom-0.8B-GPTQ released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Ecom-0.8B-GPTQ
-- Score: 1.41 | Reliability: 1.0
-- Why it matters: 
-
-## 16. claude-agent-sdk-python v0.2.189
+## 17. claude-agent-sdk-python v0.2.189
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.189
-- Score: 1.255 | Reliability: 1.0
+- Score: 1.243 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. langgraph==1.2.24
+## 18. langgraph==1.2.24
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.24
-- Score: 0.988 | Reliability: 1.0
+- Score: 0.984 | Reliability: 1.0
 - Why it matters: 
 
-## 18. vllm v0.34.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 0.901 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
+## 19. Release 2.75.0 corresponding to NGC container 26.11
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.75.0
+- Score: 0.692 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
