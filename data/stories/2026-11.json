@@ -3754,6 +3754,22 @@
   "url": "https://openai.com/index/openai-to-acquire-pierre",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "1c12bb356dd8c424": {
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "0baa6f65014be5ca",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T17:12:08+00:00",
+  "sid": "1c12bb356dd8c424",
+  "source": "arxiv_cs_lg",
+  "summary": "The emerging field of weight space learning has demonstrated the potential to enable metanetworks, i.e. models that process neural network (NN) data, to support several steps of the machine learning lifecycle, from model optimisation to evaluation and adaptation. However, this potential has yet to materialise beyond small-scale MLPs or CNNs: most current models, including message-passing based graph metanetworks (GMNs), operate exclusively at the finest level of granularity, processing every neuron and weight of the input model. Their cost therefore scales with the number of parameters. Yet NNs are inherently organised hierarchically, with neurons forming layers and layers forming blocks and modules. Additionally, several of their properties, such as Lipschitz upper bounds and generalisation measures, are compositions of layer- and block-level quantities. To incorporate this inductive bias, we introduce Hierarchical Graph Metanetworks (H-GMNs), which leverage the input architecture's hierarchy to coarsen and refine the graph using permutation-symmetry-preserving pooling and un-pooling layers. Further, we extend H-GMNs to Transformers by introducing a graph construction that preserves permutation symmetries and enables multi-level pooling. Our evaluation includes new ResNet-18, ViT and varying ViT model zoos of up to 86M parameters, on tasks spanning model evaluation (an analytic Lipschitz bound proxy, generalisation and robustness prediction), testing (backdoor detection) and",
+  "summary_1line": "The emerging field of weight space learning has demonstrated the potential to enable metanetworks, i.e. models that process neural network (NN) data, to support several steps of the machine learning lifecycle, from mo...",
+  "title": "Hierarchical Graph Metanetworks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34726v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "1c1687d38f9aafb9": {
   "first_seen": "2026-11-05T06:05:14.674295+00:00",
   "id": "278e1f5de24bd091",
@@ -6374,6 +6390,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12311v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "2f8b0a8cbf6c6378": {
+  "content_excerpt": "I made a 95-second film of an ordinary day with my agents ( ethanflow.com/how-i-work ). Every scene in it was re-enacted on the live system, with names and conversations changed, and the film says so on screen. A film shows the parts that work. This post is about the parts that broke, which is where most of my time goes. The setup: since October 31, a coordinator session has run on my Mac every day, from morning into the evening. It is a Claude Code session with a written manual. It splits requests into briefs, hands them to worker sessions or short-lived sub-agents, checks what comes back, and reports to me in a group chat on my phone. The work is ordinary: reading and drafting email, shipping updates to my apps, keeping a few servers alive, research, and repairing its own tooling. There is one hard wall, payments. It fills everything in up to checkout and stops. The model is rented. Everything around it I built, and that is the part that breaks. A busy day of chat, reports and tool output fills the window by mid-afternoon. A hook warns at 70% and again at 85%. The coordinator then writes a handoff file (what’s pending, which workers are running, whether the listener is armed), opens a fresh session and tells it to read the file. In 27 days there have been 35 coordinator sessions. The rule that makes this survivable: state lives on disk, not in the conversation. Every wake-up is read disk, act, write back. What still broke: The coordinator never polls in a loop of its own. A",
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "776f56cc32098ec8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T13:01:32+00:00",
+  "sid": "2f8b0a8cbf6c6378",
+  "source": "hackernews_ai",
+  "summary_1line": "An account of a single developer's 27 days running a Claude Code coordinator that delegates work to worker sessions, detailing failures including a 19-day silent outage in another user's agent listener.",
+  "title": "What broke in 27 days of running a team of AI agents on real work",
+  "type": "news",
+  "url": "https://ethanflow.com/writing/what-broke-ai-agent-team",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2f97c84acd3e3328": {
   "content_excerpt": "Check what your AI agents actually changed. AI agent safety for databases and health records: rules decide each tool call, a check compares what really changed with what the agent reported, and each action is sealed as a signed record anyone can check offline. Run npx deedglass and a simple local app opens in your browser. Apache-2.0 core. Safety for AI agents that work on databases and health records. Rules decide each AI agent tool call; Deedglass checks what really changed and seals a record. Open source, self-hosted, every feature free. An app opens in your browser. It runs on your own computer, signed in, with no account, no sign-up and no Docker or database to set up, and nothing is sent to us. Choose who will use it (a clinic, hospital IT, or people building with AI), then connect Claude Desktop, Cursor, VS Code, a record system or a database. You need Node 18 or newer. Read Start here for a short tour, or try it without installing anything at deedglass.com/play . Without Docker, start plays the same scene inside the binary, every line labelled live or replay , in under 30 s. More: Quickstart · Docs · Policy Generator · Healthcare · Benchmarks · Security · deedglass.com Found it useful? A star helps other people find Deedglass. To hear about new releases, use Watch › Custom › Releases . Deedglass sits between AI agents and the systems they change. Rules decide each tool call, a check compares what the system really changed with what the agent reported (Claimed, Checked",
@@ -13604,6 +13636,22 @@
   "url": "http://arxiv.org/abs/2611.30742v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "654618872ac83495": {
+  "content_excerpt": "Lockward pins every skill, MCP server, hook and rules file your AI coding agents load, then blocks anything that changes without approval. It works offline across Claude Code, Cursor, Codex and Gemini CLI, and outputs SARIF and CycloneDX AI-BOMs. Think of it as a lockfile plus a CI policy gate for agent supply chains. Lockward pins every skill, MCP server, hook, rules file and security-relevant setting used by Claude Code, Cursor, Codex, Gemini CLI, Windsurf and GitHub Copilot, then fails locally or in CI when anything changes without approval. It runs offline, needs no account, and has no LLM in the loop. Scanners tell you what looks bad today. Lockward tells you what changed since you approved it, and blocks it. AI agents load third-party skills, MCP servers, hooks and instruction files that run with your shell, files and credentials. In 2026 that layer became an actively attacked supply chain: over a thousand malicious skills in one marketplace, MCP packages that turned malicious after 15 clean versions, repositories whose config auto-executes when opened, and public demonstrations that every major skill scanner can be bypassed. The common recommendation is to pin what you trust, review every change and keep an inventory. Lockward makes that a single CI step. Background and sources: docs/RESEARCH.md . Approve only what you reviewed: lockward approve updates that entry and nothing else. The action downloads the release, verifies its Sigstore signature and checksum before ru",
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "71e403b9e1cfe15f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T15:01:29+00:00",
+  "sid": "654618872ac83495",
+  "source": "hackernews_ai",
+  "summary_1line": "Lockward is an open-source tool that pins AI coding agents' skills, MCP servers, hooks and rules files, then fails local or CI runs when pinned items change without approval.",
+  "title": "Show HN: Lockward – a lockfile for skills and MCP servers your AI agent loads",
+  "type": "news",
+  "url": "https://github.com/Breaktroughf1/lockward",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "655235a8f0a36432": {
   "content_excerpt": "How the BMW Group governs hundreds of agents across thousands of developers | Artificial Intelligence Skip to Main Content Filter: All <ul data-rg-list-dir=\"h\" class=\"rggn_3da1576c rggn_1035c2c9",
   "first_seen": "2026-11-20T04:09:36.012602+00:00",
@@ -20476,6 +20524,23 @@
   "title": "Itsfree.ai – Every model you can use for free",
   "type": "news",
   "url": "https://itsfree.ai/models"
+ },
+ "9987c5546ed30517": {
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "850c29ebb1fc8513",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-25T16:39:10+00:00",
+  "sid": "9987c5546ed30517",
+  "source": "arxiv_cs_ai",
+  "summary": "Robots should adapt to unfamiliar environments and acquire new skills through interaction, then execute those skills efficiently with practice. Vision-language-action policies provide efficient control, but often need additional human demonstrations to handle unfamiliar settings; reasoning agents can discover solutions using broad prior knowledge and robot-control APIs, but repeated deliberation and repair are costly. Inspired by human learning through reasoning and practice, we propose RoboEvo$^2$, a framework for recursive harness-policy co-evolution. In Policy-to-Harness (P2H) evolution, policy failures guide a coding agent to search complementary Code, Code+ICL, and Code+Policy routes, consolidating verified solutions into reusable skills, routing strategies, and experience memory. In Harness-to-Policy (H2P) evolution, verified trajectories provide supervised training, while Counterfactual Preference Distillation (CPD) teaches the policy to favor successful corrections over failures from the same starting state. The improved policy provides stronger motor skills for subsequent search, while its remaining failures redirect harness evolution, closing the reciprocal loop. Through recursive co-evolution without additional human demonstrations, RoboEvo$^2$ improves standalone success from 11.0% to 84.1% and hybrid success from 30.4% to 90.5% on LIBERO-PRO, with similar gains and reduced agentic costs on RoboTwin C2R. Further experiments demonstrate autonomous task acquisition,",
+  "summary_1line": "RoboEvo² is a robot learning framework in which a coding agent and a vision-language-action policy iteratively improve each other, reporting higher success on LIBERO-PRO and RoboTwin C2R without added human demonstrations.",
+  "title": "RoboEvo$^2$: Recursive Robot Self-Improvement via Harness-Policy Co-Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34675v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "999b562dd3f5608a": {
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
@@ -32330,6 +32395,22 @@
   "url": "http://arxiv.org/abs/2611.06812v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "f32917387b0ef33e": {
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "6adf3217589f11a9",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-25T17:59:24+00:00",
+  "sid": "f32917387b0ef33e",
+  "source": "arxiv_cs_ai",
+  "summary": "World-action models jointly predict future observations and actions, yet visual corruption can disrupt the resulting policies. We introduce HOG-WAM, which adds future Histograms of Oriented Gradients (HOG) as structural supervision derived directly from demonstration images. An auxiliary HOG diffusion transformer (DiT) module reads RGB features through asymmetric attention, allowing its objective to shape the visual representation used for control. The module is used only during training and removed at inference, preserving FastWAM's RGB-to-action architecture. We evaluate four controlled observation corruptions through a visual-corruption extension of RoboTwin, termed RoboTwin-Plus; HOG-WAM achieves the highest success among the compared policies under all four. Mixed-noise success increases from 78.86% to 82.86% relative to FastWAM, with comparable performance on clean scenes. On LIBERO Plus, overall success increases from 74.49% to 75.26%, with the largest gain under sensor noise, from 74.14% to 78.89%. Across four Franka tasks, average success increases from 40% to 59% under clean observations and from 17% to 24% under noisy observations. A representation ablation favors combining RGB observations with auxiliary HOG prediction over replacing RGB with HOG. These findings support future-gradient prediction as complementary supervision for visually robust control, with larger absolute gains on physical tasks than in simulation. Code is available at https://github.com/iPPLab/",
+  "summary_1line": "HOG-WAM adds an auxiliary training-only module that predicts future Histograms of Oriented Gradients, reporting higher robot-policy success than FastWAM under four visual corruptions on RoboTwin-Plus and LIBERO Plus.",
+  "title": "HOG-WAM: Improving Visual Robustness through Future Gradient Prediction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34811v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "f350b66d46c34624": {
   "first_seen": "2026-11-20T05:06:02.483516+00:00",
   "id": "27b2ce075e9b336c",
@@ -33275,6 +33356,22 @@
   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOd0tTZ3c1MHRILWV0NE9xeFFWaVUyMFNGcU1yUGdGUUxpbVFRaDVaZjJlOTZJU3NzUlBMbW9NbFNfUW9DeFJ1Z09fNmxVbEc3amdhUkQ1TmdmaERDMktMZzlNVGFsd01xcWVGQldmYnVaOTNXVWFYQVNoc2ZzV2trTm1QTFNGbTFwU1E?oc=5",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "f9b9c30a1dc6b3a5": {
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "9b2ed1cbacf013cd",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:39:28+00:00",
+  "sid": "f9b9c30a1dc6b3a5",
+  "source": "arxiv_cs_lg",
+  "summary": "Visual context is a powerful cue for object recognition: scenes inform what, where, and at what scale objects are likely to appear. Yet over-reliance on context becomes a failure mode when models predict objects based on their typical neighbors rather than the objects' own visual features, which we call typicality bias. While extensively studied in the pre-Transformer era, it has often been assumed that architectural and scale improvements would naturally solve it, and a systematic diagnostic across the modern vision stack remains absent. We provide such a diagnostic framework. We measure typicality bias via normalized pointwise mutual information (NPMI) over object pairs, and introduce STRANGE-Bench (Synthetic Typicality-RANked Grounded Evaluation Benchmark): a photorealistic, layout-controlled benchmark spanning 17 sub-tiers from typical to never-co-occurring object pairs. Across five model families (specialist detectors, open-vocabulary detectors, self-supervised, vision-language, and multimodal large language models) and three recognition tasks (supervised detection, open-vocabulary detection, and classification), the bias is prevalent: gaps of 5-11 p.p. persist when objects appear outside their typical company, and do not consistently shrink with scale. To mitigate it, we turn to data augmentation: existing augmentations are designed for visual diversity, not for breaking co-occurrence shortcuts, and sample from the very distribution that produces typicality bias. We pro",
+  "summary_1line": "Introduces STRANGE-Bench, a synthetic photorealistic benchmark testing whether vision models over-rely on typical object co-occurrence, finding 5-11 point accuracy gaps across 5 model families and proposing a sampling augmentation to reduce them.",
+  "title": "Stranger Things: When Objects Appear Without Their Typical Neighbors",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34881v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "f9bc1d0eac05fde6": {
   "content_excerpt": "groma.md - Your architecture as OKF Markdown in Git, and one C4 map you can walk. Scanned from source, curated by you and your agents. Your architecture, alive. A live C4 map of your repository, stored as OKF Markdown in Git. groma.md scans your code into a first C4 architecture map. You can curate it into the architecture you would explain to a new teammate, either yourself or with your coding agent. The map stays open while you work. Save a file and the map updates. Work on a Backlog.md task and it appears pinned to the components it touches. Everything is plain Markdown in your repository, so architecture changes are reviewed in the same pull request as the code. groma.md is free, MIT-licensed, and runs locally with no account or backend. Scans run offline once the scanners are installed, use deterministic code analysis, and call no AI service. You can use groma.md entirely without AI. Three steps. Scan your code, then review and curate the map yourself or with your coding agent. Backlog.md provides the tasks shown on the map; groma.md works without it. To run without Node.js, download the standalone executable for your platform. macOS requires Apple Silicon. groma web scans your repository automatically at startup and opens the map. On a new project, it first walks you through project setup and scanner selection in your browser. The first scan gives you a starting map from what the scanners can detect. To turn it into your architecture, click Copy prompt on the map's firs",
   "first_seen": "2026-11-15T20:05:15.888181+00:00",
@@ -33598,6 +33695,22 @@
   "title": "DistDNA: Language Model Fingerprinting under Stochastic Decoding",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.27831v1"
+ },
+ "fb89575b05f0672d": {
+  "content_excerpt": "20 AI testers on 20 different phones, in parallel, on GitHub's free runners: Claude Code agents on iOS Simulators and Android emulators that find broken flows, translation, layout and accessibility bugs The phones are real screen recordings of the LocalSend run; the map is the dashboard on the demo app . Video with sound (MP4) · The 20 phones, full recording · The run, device by device No test scripts to write. Each tester is a Claude Code agent with its own iOS Simulator or Android emulator on GitHub Actions. It plays a persona (iPhone SE in Swedish at the largest text size, Pixel 7 at 200%, iPad in German, Arabic right to left...), uses your app like a new user (or runs through the feature you point it at) and writes a bug report with screenshots. Flutter, React Native, Expo, native Kotlin and Swift, Kotlin Multiplatform, Capacitor and .NET MAUI. GitHub's runners are free for public repos. You only pay for the model, with your Claude subscription or API key: about $0.15 to $0.55 per phone in these runs . Or let Claude set it up for you: /plugin marketplace add pierridotite/mobile-agent-testers , then /plugin install mobile-agent-testers@mobile-agent-testers . Every input (builds, briefs, bug reports, cheaper models, build arguments, video) and the supported frameworks: docs/configuration.md . The demo app has 11 deliberate bugs . In one run , the 4 demo testers found 9 of them (2 to 7 minutes per agent, about 21 minutes for the whole run, builds included), plus real issues ",
+  "first_seen": "2026-11-26T15:05:33.416552+00:00",
+  "id": "69b41f8f0b6008df",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T14:39:23+00:00",
+  "sid": "fb89575b05f0672d",
+  "source": "hackernews_ai",
+  "summary_1line": "An open-source tool runs Claude Code AI agents on GitHub Actions free runners, each on its own iOS Simulator or Android emulator, to explore a mobile app as personas and report bugs with screenshots.",
+  "title": "Show HN: AI agents explore your mobile app, then their paths replay as tests",
+  "type": "news",
+  "url": "https://github.com/pierridotite/mobile-agent-testers",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "fb984b4ec46a1a9a": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
