@@ -1,0 +1,97 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-11-26",
+  "source_hash": "2dd2a1dfe3b15d9b62ab1c8ed7f0b78b1d701b83c40ec33dfb1aa96302a9b14d",
+  "translated_at": "2026-11-26T22:17:50Z",
+  "model": "claude-opus-5-5",
+  "review_status": "machine",
+  "title": "11월 26일 AI 데일리: 스킬과 MCP, 인프라가 되다",
+  "intro": [
+    "에이전트 스킬과 MCP가 엔터프라이즈 규모의 배관이 됐다. Uber는 스킬 호출이 월 100만 회를 넘었다고 밝혔고, Atlassian은 근무일 하루에 MCP 도구 호출 500만 건 이상을 처리한다. 이 정도 물량이 되자 팀들은 에이전트가 로드하는 것을 고정하고 통제하기 시작했다. Lockward 같은 도구와 Microsoft Ignite의 에이전트 거버넌스 메시지가 그 예다.",
+    "신뢰성 근거는 현실적인 압박 테스트에서 나왔다. Anthropic의 Siren 허니팟은 26개 샌드박스에서 에이전트의 일탈을 유도한다. 대부분 AI로 만든 561개 프로젝트를 정적 스캔한 결과, 21%에서 심각도 높은 문제가 나왔다."
+  ],
+  "highlights": [
+    "Uber 공유 스킬 마켓플레이스, 스킬 5,000개 이상·월 호출 100만 회 돌파, 이제 평가(eval)까지 한다",
+    "MCP 물량 급증: Atlassian 근무일당 도구 호출 500만 건 이상, Notion 트래픽 60배 증가",
+    "Lockward, 스킬·MCP 서버·훅·규칙 파일을 고정하고 승인 없는 변경 시 CI를 실패시킨다",
+    "Anthropic Siren 허니팟, 유혹적인 샌드박스 26개에서 에이전트의 일탈 여부를 시험한다",
+    "대부분 AI로 만든 561개 프로젝트 정적 스캔: 25%에 명확한 문제, 21%에 심각도 높은 문제",
+    "Mantic, 사후 학습한 예측 에이전트가 Fable 5.2 (medium)에 근접한 정확도를 15배 낮은 비용으로 낸다고 보고"
+  ],
+  "categories": [
+    {
+      "name": "에이전트 스킬과 MCP, 관리형 인프라가 되다",
+      "summary": "스킬과 MCP 서버가 엔터프라이즈 수준의 호출량으로 돌아가자, 팀들이 에이전트가 로드하는 것에 평가·고정·거버넌스를 붙이고 있다.",
+      "articles": [
+        {
+          "url": "https://www.uber.com/us/en/blog/optimizing-ubers-agent-skills/",
+          "title": "Uber, 에이전트 스킬 호출 월 100만 회를 평가하다",
+          "summary": "Uber의 공유 스킬 마켓플레이스는 2025년 10월 스킬 1개에서 5,000개 이상으로 늘었고, 한 달 호출이 100만 회를 넘었다. 이 규모에서 스킬 품질과 효율을 어떻게 관리하는지 다룬다."
+        },
+        {
+          "url": "https://www.philschmid.de/mcp-2027",
+          "title": "내가 2027년 MCP를 낙관하는 이유",
+          "summary": "Phil Schmid는 MCP가 컨텍스트 비대화 반발에서 회복 중이라고 주장한다. 근거로 Atlassian의 근무일당 MCP 도구 호출 500만 건 이상(44%는 소프트웨어 팀 밖 사용자)과 Notion의 MCP 트래픽 60배 증가를 든다."
+        },
+        {
+          "url": "https://github.com/Breaktroughf1/lockward",
+          "title": "Lockward: 에이전트가 로드하는 스킬과 MCP 서버용 lockfile",
+          "summary": "Claude Code, Cursor, Codex, Gemini CLI, Windsurf, Copilot에서 모든 스킬·MCP 서버·훅·규칙 파일을 고정하고, 승인 없는 변경이 생기면 로컬이나 CI에서 실패시키는 오픈소스 도구다. SARIF와 CycloneDX AI-BOM을 출력한다."
+        },
+        {
+          "url": "https://www.infoq.com/news/2026/11/microsoft-ignite-2026-recap/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "title": "Microsoft Ignite 2026 정리: 업무 OS가 된 Copilot과 에이전트 거버넌스",
+          "summary": "InfoQ의 Ignite 정리는 Microsoft의 메시지를 Copilot이 업무 OS가 되고, 에이전트 거버넌스가 그 주변의 엔터프라이즈 통제 계층이 된다는 것으로 요약한다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트 신뢰성 근거: 허니팟, 장애 기록, 정적 검사",
+      "summary": "오늘의 신뢰성 신호는 벤치마크 순위표가 아니라, 에이전트와 에이전트가 만든 코드를 현실적인 압박 아래에서 시험한 결과에서 나왔다.",
+      "articles": [
+        {
+          "url": "https://www.wired.com/story/ai-agents-can-get-honeypotted-too-aw/",
+          "title": "Anthropic, AI 에이전트의 일탈을 유도하는 허니팟을 만들다",
+          "summary": "Anthropic의 Siren 테스트는 일탈을 유도하도록 설계된 26개 시뮬레이션 샌드박스 중 하나에 에이전트를 넣는다. 새 모델이 폭주할 가능성과 안전 장치가 얼마나 버티는지 추정하는 것이 목적이다."
+        },
+        {
+          "url": "https://ethanflow.com/writing/what-broke-ai-agent-team/",
+          "title": "AI 에이전트 팀을 실제 업무에 27일 돌리며 망가진 것들",
+          "summary": "10월 31일부터 매일, 작성된 매뉴얼을 가진 Claude Code 코디네이터 세션이 요청을 브리프로 나눠 워커 세션과 서브에이전트에 넘기고 결과를 확인하는 구성의 장애 기록이다."
+        },
+        {
+          "url": "https://lintsure.com/research/561-projects",
+          "title": "규칙 기반 검사기로 561개 공개 프로젝트(대부분 AI로 제작)를 돌린 결과",
+          "summary": "Lintsure 0.3.17이 고정 정적 규칙 116개를 561개 프로젝트, 5,100만 줄에 적용했다. 25%에 명확한 문제, 21%에 심각도 높은 문제가 있었고, 결제를 받는 프로젝트는 3개 중 2개에서 문제가 나왔다."
+        },
+        {
+          "url": "https://thinkingmachines.ai/news/training-a-scalable-forecasting-agent/",
+          "title": "확장 가능한 예측 에이전트 학습하기 (Thinking Machines × Mantic 게스트 포스트)",
+          "summary": "Mantic은 Tinker에서 Inkling 2 Small을 사후 학습해 예측 에이전트를 만들었다. Fable 5.2 (medium)과 비슷한 정확도를 예측당 15배 낮은 비용으로 낸다고 보고하며, 이를 이용해 50개 시나리오에서 S&P 500 예측 100,000건을 생성했다."
+        }
+      ]
+    },
+    {
+      "name": "검색과 추론: 임베딩 파인튜닝, 더 빠른 긴 컨텍스트",
+      "summary": "인프라 소식은 검색과 긴 컨텍스트 생성을 더 싸게 만드는 쪽이었다. 포인트 릴리스 사이에도 모델 접근 조건이 바뀔 수 있다는 점도 다시 확인됐다.",
+      "articles": [
+        {
+          "url": "https://www.infoq.com/presentations/fine-tune-enterprise-rag-embeddings/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "title": "더 나은 검색을 위한 임베딩 모델 파인튜닝: Dell의 에이전틱 검색에서 얻은 교훈",
+          "summary": "Dell의 에이전틱 검색 작업을 바탕으로, 엔터프라이즈 검색 품질을 높이기 위해 임베딩 모델을 파인튜닝하는 방법을 다룬 InfoQ 발표다."
+        },
+        {
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1mQW81NXdDS3BFYUxCdndfbjVqWkJpakFXWnNHZFBmUktHMlNvdHNUcDlkbnFBemMzMXRESkNUSEFvTmhmZUdpbkFNUHo2Q2ZvNFNHUEdTNFo3Q1dsbDBxQ0xiZ2JJODNtaVVFR1lkZWpRZXF4MFE?oc=5",
+          "title": "Tencent Hunyuan, Hy4 flash 긴 컨텍스트 생성을 가속하는 DFly2 오픈소스 공개",
+          "summary": "Tencent Hunyuan 팀이 Hy4 flash용 오픈소스 가속 컴포넌트 DFly2를 공개했다. 출처에 따르면 긴 컨텍스트 생성 속도가 최대 4.2배 빨라진다."
+        },
+        {
+          "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR3VQeVd2XzN5NXk4SlV2SF95QkVYOFpBd1drX0Z6cjRoY2xycDJ1b3FIZXRicGpaQ3JPRFpfVm5EOFl1N1hWY1R1dlRxS2JybGRqbk5SOTM2bDNEZl9CTXZ6b2plUkx0TVpfOU5odm9RZGZycnJmM2xVV3VJdF83MTBlZ3RvZFQ3RVJ3?oc=5",
+          "title": "GLM-5.4 vs GLM-5.3: 쿼터 1.5배, 오픈 가중치 없음",
+          "summary": "한 비교 글에 따르면 GLM-5.4는 GLM-5.3보다 사용 쿼터가 1.5배지만 오픈 가중치 없이 나왔다. GLM 계열을 셀프 호스팅하는 팀에게는 달라진 조건이다."
+        }
+      ]
+    }
+  ],
+  "description": "Uber 스킬 월 100만 회 호출, Atlassian MCP 하루 500만 건 이상, Anthropic Siren 허니팟까지, 에이전트 스킬과 MCP가 관리 대상 인프라로 넘어간 하루다."
+}
