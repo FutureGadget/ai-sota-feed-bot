@@ -11287,6 +11287,23 @@
   "type": "news",
   "url": "https://github.com/dxn111/evolv"
  },
+ "540e2bbfe326a75a": {
+  "first_seen": "2026-11-26T06:06:04.809675+00:00",
+  "id": "3e4cbfb1732bbf40",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T07:28:21+00:00",
+  "sid": "540e2bbfe326a75a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Medical reasoning agents combine foundation models with specialized tools to interpret medical images, yet reusing their historical experience remains challenging. A correct final answer can conceal flawed reasoning or tool use, synthesized advice may lack source support, and superficially similar cases may require different diagnostic procedures. In this paper, we propose EGSE, an evidence-grounded skill evolution framework that distills historical dialogues from similar cases into reusable conditional workflows and progressively refines a multi-faceted skill library through supported and validated updates to improve medical agents. EGSE evaluates intermediate reasoning and tool use and contrasts repeated successful and failed rollouts to extract useful practices and evidence-supported avoidance guidance. These experiences are synthesized into workflows with applicability conditions and checks traceable to source dialogues. Library additions and merges require source-grounded review and execution validation. At inference time, EGSE routes queries to skill nodes organized by imaging modality, question task type, and disease category, then retrieves and selects applicable workflows based on their conditions, the current images, and the question to guide evidence acquisition and interpretation. Experiments across four chest X-ray benchmarks show that EGSE outperforms representative medical agents and skill evolution methods in reasoning accuracy while reducing tool calls. It al",
+  "summary_1line": "EGSE is a framework that distills historical dialogues into conditional workflows and maintains a validated skill library to improve medical reasoning agents, outperforming baselines on four chest X-ray benchmarks while reducing tool calls.",
+  "title": "EGSE: Evidence-Grounded Skill Evolution for Medical Reasoning Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33909v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "542b885c5174d56e": {
   "content_excerpt": "AI agents can run commands, rewrite files, spawn processes, and contact remote services—but when a run fails, stalls, or behaves unexpectedly, their logs rarely tell the whole story. AgentSight is a local-first top / strace -like observability tool for AI agents. It connects prompts, model calls, and tool decisions to their real effects on your machine. No SDK, no proxy, no vendor integration. AgentSight observes with eBPF and TLS traffic tracing, so it works even when the agent is a closed-source CLI. ✨ Zero SDK Required Live sessions ranked by model, session tokens, health, process family, tool calls, file activity, and network activity Agent Nebula replays how coding agents read, write, create, rename, and delete files across the ACTplane repository Width is system-effect weight; the uneven stack height shows prompt, tool-call, process, and effect paths ending at different depths. See the agentpprof guide for the other profiles and how widths and stack depths are drawn. Application-level tools such as LangSmith , Langfuse , and Phoenix are great for traces, prompts, tokens, evals, and latency when you own the application code. Gateway/proxy tools such as Helicone are useful when you can route provider traffic through a managed endpoint. AgentSight focuses on the layer those tools often miss: what the agent actually does at the system boundary. It observes existing binaries and CLI agents without SDKs or proxies, then correlates LLM traffic with process execution, file acce",
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
@@ -19789,6 +19806,23 @@
   "url": "http://arxiv.org/abs/2611.01940v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "96a4b81c89410116": {
+  "first_seen": "2026-11-26T06:06:04.809675+00:00",
+  "id": "2959b401f49e0994",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-25T08:34:49+00:00",
+  "sid": "96a4b81c89410116",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Open-weight large language models (LLMs) for register-transfer level (RTL) design are usually improved by fine-tuning on curated Verilog corpora, which needs large sets of verified designs and GPU training. We present Kolpona, an agentic framework that improves such models without gradient training. Its first component is neuron programming, a new form of weight-space programming (WSP) that writes single neurons in closed form into the weights to remove failure habits found on practice tasks, and keeps each edit only when testbench results on fresh tasks favour it. At inference time, tool-using agents propose designs, and a label-free selection stage delivers one design per task from the specification, the candidates and their simulations alone. On Qwen3.5-4B, edits to 16 neurons raise the VerilogEval v2 pass@1 of the model alone from 31.7% to 55.4%, and the full framework reaches 77.6%. On Qwen3.8-27B, Kolpona lifts pass@1 from 73.1% to 94.9% on VerilogEval v2 and from 66.0% to 92.0% on RTLLM v2.1 on a single 32 GB GPU, above every published system in our comparison. The RTL edits also carry over to Python and raise the pass@1 of the 4B model alone from 84.8% to 91.5% on HumanEval+ and from 67.7% to 77.5% on MBPP+.",
+  "summary_1line": "Kolpona is a gradient-free agentic framework that edits individual neuron weights and uses tool-using agents with label-free selection to improve LLM-generated RTL, reporting VerilogEval v2 pass@1 gains for Qwen3.5-4B and Qwen3.8-27B.",
+  "title": "Kolpona: An Agentic Framework with Gradient-Free Neuron Programming for RTL Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33973v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "96c7f67bef86f831": {
   "content_excerpt": "Truly useful AI assistants need to be able to help users who ask misguided questions—not just users who ask the right question with the right amount of detail. We’re releasing XYBench , a benchmark of 8K+ questions that tests how AI assistants respond to requests based on misconceptions, such as asking how to thicken frosting that keeps sliding off cupcakes when the real problem is that the cupcakes are still too warm to frost. XYBench won the Best Resource Paper Award at EMNLP 2026. A mismatch between the approach someone asks about and the goal they want to achieve is known as the XY problem : a person wants to accomplish X, assumes a particular approach Y will work, and asks for help with Y. In the cupcake example, the person is so committed to making the frosting stick that they fail to consider the warmth of the cupcake as the true problem to be addressed. Developed with researchers at Carnegie Mellon, NVIDIA, and Johns Hopkins, XYBench exposes a critical gap in LLMs' ability to troubleshoot problems: recognizing when a user's request is based on an implicit misconception and appropriately redirecting them toward a solution that addresses their actual goal. Drawing on 8,115 real-world questions spanning programming and everyday activities such as cooking and home repair, we introduce a benchmark that measures whether models identify these misconceptions and are able to prioritize effective solutions in their responses. The models we evaluated on XYBench – Claude Sonnet 4",
   "first_seen": "2026-11-13T17:06:40.570545+00:00",
@@ -25075,6 +25109,22 @@
   "title": "Maggie Appleton: Agentic Coding Has Outgrown the Text Box",
   "type": "video",
   "url": "https://youtu.be/0cySwRF7oJI",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
+ "bb4c90dec13b8ea7": {
+  "first_seen": "2026-11-26T06:06:04.809675+00:00",
+  "id": "528a6d99345ec063",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-25T17:37:49+00:00",
+  "sid": "bb4c90dec13b8ea7",
+  "source": "arxiv_cs_cl",
+  "summary": "To avoid the quadratic cost of dense attention over long contexts, models such as DeepSeek-V4 and Hy4 have turned natively sparse, and speculative decoding, which matters most where decoding is slowest, increasingly runs on them. Their drafters, however, still keep a context cache of their own, over the whole prompt or a sliding window. Beyond memory, such a cache costs prefill time, prefix-cache hits and decode concurrency. Drafters that read the target's cache avoid one of their own, but settle only which cache, not which positions, and still read everything or a recent window. Neither rule is made for the query at hand, and computing a selection per query in the drafter would cost more as the context grows. Yet a natively sparse target already picks positions for each query, over a cache it keeps anyway. Both of the drafter's choices are therefore already made, and paid for, by the target: its cache and its selection. We measure how far one selection carries: made a step early, it still covers close to nine tenths of what each later token selects on DS-V4.1-Flash. We present DFly2, a block-parallel drafter that shares the target's sparsity. Each draft layer reads the KV its paired target layer cached (KV sharing), at the positions that layer's indexer selected, a fixed number anywhere in the context (Index sharing). DFly2 thus runs no scoring pass and keeps no cache of its own. On DS-V4.1-Flash, GLM-5.3-Flash and Hy4~flash, whose sparse attention and architecture differ, i",
+  "summary_1line": "DFly2 is a block-parallel speculative decoding drafter that reuses the target model's KV cache and per-query sparse index selections instead of keeping its own cache, and it accepts more tokens per step than DFlash and DSpark.",
+  "title": "DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34776v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
  "bb9b68b7eb7dea1c": {
