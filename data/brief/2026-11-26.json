@@ -1,14 +1,14 @@
 {
  "date": "2026-11-26",
  "diagnostics": {
-  "admitted": 0,
-  "candidates": 526,
+  "admitted": 1,
+  "candidates": 527,
   "duplicate_url": 9,
-  "items": 55,
+  "items": 56,
   "keeps": 289,
-  "new": 0,
+  "new": 1,
   "off_topic": 73,
-  "prior_story": 37,
+  "prior_story": 38,
   "rejected_gate": {
    "insufficient_evidence": 19,
    "judge_drop": 18,
@@ -16,17 +16,18 @@
    "score_low": 96
   },
   "rejected_quota": {
-   "role_quota": 173,
-   "source_quota": 27
+   "role_quota": 199
   },
-  "releases": 34,
+  "releases": 35,
   "reviews": 120,
-  "role_counts": {},
+  "role_counts": {
+   "community": 1
+  },
   "run_candidates": 140,
   "stale_story": 20,
-  "stories": 320,
+  "stories": 321,
   "unjudged": 20,
-  "updated": 2,
+  "updated": 8,
   "written": true
  },
  "items": {
@@ -304,7 +305,7 @@
     "release_lane": 0.19
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 2.0,
@@ -312,7 +313,7 @@
    "rank_at_first_seen": 33,
    "release_tier": null,
    "score_at_first_seen": 1.3168,
-   "seen_count": 13,
+   "seen_count": 14,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -556,7 +557,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T19:07:22.593364+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -566,7 +567,7 @@
    "rank_at_first_seen": 48,
    "release_tier": null,
    "score_at_first_seen": 1.1349,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -808,7 +809,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent"
@@ -818,7 +819,7 @@
    "rank_at_first_seen": 22,
    "release_tier": null,
    "score_at_first_seen": 1.2658,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1115,7 +1116,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.773,
@@ -1123,7 +1124,7 @@
    "rank_at_first_seen": 24,
    "release_tier": null,
    "score_at_first_seen": 1.2138,
-   "seen_count": 8,
+   "seen_count": 9,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1716,7 +1717,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.808,
@@ -1724,7 +1725,7 @@
    "rank_at_first_seen": 23,
    "release_tier": null,
    "score_at_first_seen": 1.2282,
-   "seen_count": 9,
+   "seen_count": 10,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -1840,6 +1841,55 @@
    "utility": 1.2802,
    "utility_basis": "judge",
    "v2_slot": "research_watch",
+   "why_it_matters": ""
+  },
+  "story|title:rustingstrata pure rust llm gguf engine runs models vram on cuda and vulkan": {
+   "admission_rank": 56,
+   "admitted_at": "2026-11-26T20:09:20.242377+00:00",
+   "also_covered": [],
+   "content_excerpt": "Pure-Rust LLM inference engine for GGUF (Qwen, DeepSeek, GLM, Hy4, Flint). Runs models bigger than your VRAM on CUDA and Vulkan, with MTP drafts and an OpenAI/Anthropic server. 12 GB RTX 3060 vs llama.cpp: Qwen3.6-35B-A3B UD-Q5_K_M 80.5 vs 64.4 tok/s, Flint UD-Q5_K_XL 64.6 vs 48.6. With MTP: 108 tok/s (UD-Q3_K_M), up to 160 (UD-Q2_K_XL). A pure-Rust inference engine for GGUF models, built for MoE models that do not fit in VRAM. The CUDA kernels are compiled at run time with NVRTC, and the same kernels run on Vulkan: no C++ build step, no ggml. Experts that do not fit in VRAM run on the CPU at the same time as the GPU work, and the expert placement adapts to the routing it sees. Supported models: Qwen3, Qwen3-Next, Qwen3.5/3.6, Qwen3.8-Flash-Next, Recursive Flint, Gemma 4, DeepSeek-V4.1-Flash, GLM-5.3-Flash, Hy4-flash, Inkling 2 Mini and Kolibri 1.1. The architectures, the GGUF types and the notes for each model are in docs/MODELS.md . Qwen3.6-35B-A3B on an RTX 3060 12 GB (Ryzen 5 7600X, 32 GB RAM), CUDA, greedy, against llama.cpp tuned for the same file. Neither file fits in VRAM. serve --parallel N decodes the requests together in one batched forward (CUDA). Same machine, same load script ( tools/loadtest.py : N streamed chats at once, 128 reply tokens each, greedy), total decode tok/s: vLLM runs bf16 weights and RustingStrata Q4_K_M, so the dense columns are not like for like. The 27 GB MoE file does not fit on the 12 GB card, so vLLM was not run on it. RustingStrata reads each expert once for all requests of a step, runs the experts that are not in VRAM on the CPU, and keeps slot state that does not fit in VRAM in RAM. The MoE column moves by about 30% between runs on this machine (the 27 GB file is read through a 30 GB page cache). The method, the ranges, Vulkan, the other models and the quality checks are in docs/BENCHMARKS.md . Windows (PowerShell; installs to %LOCALAPPDATA%\\Programs\\RustingStrata , adds it to PATH and makes a Start menu entry that opens the chat page): Arch Linux: yay -S rustingstrata-bin (AUR). Or download a binary from the releases page , or build it (Rust 2024 edition; on Windows install the Visual Studio C++ Build Tools first): Then rustingstrata serve --gpu --open opens the chat page, which downloads models, and rustingstrata interface asks a few questions in the terminal. rustingstrata update replaces the binary with the newest release ( --check only says whether one is out); serve prints a line at start when a newer release i",
+   "first_seen": "2026-11-26T20:09:20.242377+00:00",
+   "freshness_at_admission": 0.9853,
+   "id": "1f3ba300ed382208",
+   "image_url": null,
+   "judge_category": "inference_serving",
+   "judge_category_confidence": 0.77,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-26T19:07:00.268004+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.96,
+   "judge_signals": {
+    "corporate_marketing": 0.03,
+    "keep": 0.96,
+    "platform_relevant": 0.99,
+    "release_lane": 0.13
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-26T19:07:22.593364+00:00",
+   "llm_category": "platform",
+   "matched_topics": [],
+   "prefilter_score": 1.953,
+   "published": "Thu, 26 Nov 2026 18:21:05 +0000",
+   "rank_at_first_seen": 56,
+   "release_tier": null,
+   "score_at_first_seen": 1.4951,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "9bf1c79d6d07d4bd",
+   "story_key": "story|title:rustingstrata pure rust llm gguf engine runs models vram on cuda and vulkan",
+   "summary_1line": "RustingStrata is a pure-Rust GGUF inference engine that runs MoE models larger than GPU VRAM on CUDA and Vulkan, with its own benchmarks reporting faster decode than llama.cpp on a 12 GB RTX 3060.",
+   "time_decay_factor": 0.989,
+   "title": "RustingStrata – Pure Rust LLM GGUF Engine, Runs Models > VRAM on CUDA and Vulkan",
+   "type": "news",
+   "url": "https://github.com/RustingStudio/RustingStrata",
+   "utility": 1.4951,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
    "why_it_matters": ""
   },
   "story|title:shellbench what matters more for ai agents models or harness for everyday tasks": {
@@ -2372,7 +2422,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.821,
@@ -2380,7 +2430,7 @@
    "rank_at_first_seen": 28,
    "release_tier": null,
    "score_at_first_seen": 0.8158,
-   "seen_count": 10,
+   "seen_count": 11,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2422,7 +2472,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T19:07:22.593364+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent",
@@ -2433,7 +2483,7 @@
    "rank_at_first_seen": 54,
    "release_tier": null,
    "score_at_first_seen": 1.2674,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "practitioner_analysis",
    "source": "philschmid",
    "source_count": 1,
@@ -2575,7 +2625,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T18:08:55.894490+00:00",
+   "last_seen": "2026-11-26T20:09:20.242377+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.78,
@@ -2583,7 +2633,7 @@
    "rank_at_first_seen": 25,
    "release_tier": null,
    "score_at_first_seen": 1.0829,
-   "seen_count": 8,
+   "seen_count": 9,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2808,5 +2858,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-26T19:07:22.593364+00:00"
+ "updated_at": "2026-11-26T20:09:20.242377+00:00"
 }
