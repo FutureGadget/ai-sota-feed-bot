@@ -1,0 +1,100 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/inference-server",
+  "source_hash": "73ace2667ddc7ed1bb311e704bf053cc1c0a27b66b040568fd1831237a895be9",
+  "translated_at": "2026-11-26T05:27:42.110657+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "inference-server",
+  "label": "Inference Server",
+  "item_count": 3,
+  "day_count": 3,
+  "source_count": 2,
+  "first_seen": "2026-11-12T06:19:22+00:00",
+  "last_updated": "2026-11-25T15:08:38+00:00",
+  "generated_at": "2026-11-26T00:12:44.970528+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-11-12",
+      "items": [
+        {
+          "title": "Show HN: Qwen Reasoning Traces Trainer and Inference Server",
+          "url": "https://github.com/cookiengineer/qwen-reasoning-trainer",
+          "source": "hackernews_ai",
+          "type": "news",
+          "sid": "d5d0815a3aa9b544",
+          "published": "2026-11-12T06:19:22+00:00",
+          "editor_note": "취미 개발자용 오픈소스 출발점: 자체 추론 서버를 함께 제공하는 Qwen 추론 트레이스 트레이너."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "items": [
+        {
+          "title": "Superfluid: Local AI Server for Distributed LLM Inference",
+          "url": "http://arxiv.org/abs/2611.17753v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "8da93282dcb219d5",
+          "published": "2026-11-13T05:10:32+00:00",
+          "editor_note": "연구 관점: 프라이버시, 비용, 오프라인 사용을 위해 여러 기기에 LLM 추론을 분산하는 로컬 서버."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "items": [
+        {
+          "title": "The model inside the server: Network design for inference on a few GPU nodes",
+          "url": "https://blog.apnic.net/2026/11/25/the-model-inside-the-server-network-design-for-inference-on-a-few-gpu-nodes",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Explains network design for inference on a few GPU nodes, using a 4-server, 8-GPU example running Llama 3.3 70B with vLLM, and argues that request handling and session count matter more than GPU-to-GPU bandwidth.",
+          "sid": "2714f44b3c3e9482",
+          "published": "2026-11-25T15:08:38+00:00",
+          "editor_note": "첫 구체적 규모 산정 가이드: vLLM 서버 4대 예시를 들어, 네트워크 설계를 좌우하는 것은 GPU 대역폭이 아니라 세션이라고 주장한다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose thread of three unrelated pieces on running your own LLM inference server, not one developing event. It began with a hobbyist Qwen trainer-plus-server on Show HN (Nov 12) and an arXiv paper on Superfluid, a local server that distributes inference across devices (Nov 13).",
+    "stale": false,
+    "whats_new": "An APNIC post works through a 4-server, 8-GPU vLLM deployment of Llama 3.3 70B and argues request handling and session count, not GPU-to-GPU bandwidth, decide network design at that scale.",
+    "why_it_matters": "For small self-hosted inference fleets, the bottleneck claim shifts sizing effort from interconnect spend toward request routing and concurrency limits.",
+    "take_for_builders": "Before buying faster interconnect for a 2–4 node inference cluster, load-test your real concurrent session count and request mix against the current network first.",
+    "beats": [
+      {
+        "kicker": "LOCAL SERVING",
+        "tone": "launch",
+        "headline": "Self-hosted servers: a Qwen hobby project and the Superfluid paper",
+        "summary": "Two early items frame local serving: one open-source trainer with a bundled server, one research system for spreading a model across local devices.",
+        "sids": [
+          "d5d0815a3aa9b544",
+          "8da93282dcb219d5"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Few-node GPU inference: network design follows sessions, not bandwidth",
+        "summary": "A worked vLLM example on 8 GPUs across 4 servers moves the thread from single-box serving to small-cluster sizing.",
+        "sids": [
+          "2714f44b3c3e9482"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does any vLLM or SGLang benchmark confirm that session count outweighs interconnect bandwidth for 70B-class models on 2–4 nodes?",
+      "Does Superfluid release code or measured latency against a single-GPU baseline?"
+    ],
+    "generated_at": "2026-11-26T00:30:00+00:00"
+  }
+}

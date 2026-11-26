@@ -1,0 +1,131 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/technical-report",
+  "source_hash": "cc34829f6445ee651f4934906066809f96d6d5182517247dbb282b33e7c8b306",
+  "translated_at": "2026-11-26T05:27:46.900514+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "technical-report",
+  "label": "Technical Report",
+  "item_count": 4,
+  "day_count": 4,
+  "source_count": 2,
+  "first_seen": "2026-11-09T12:33:26+00:00",
+  "last_updated": "2026-11-24T18:51:29+00:00",
+  "generated_at": "2026-11-26T00:12:44.970528+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "arxiv_cs_cl"
+  ],
+  "days": [
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "MNN-Pocket-0.3B Technical Report",
+          "url": "http://arxiv.org/abs/2611.12311v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "This technical report presents MNN-Pocket-0.3B, a compact 300M-parameter dense language model designed for efficient on-device deployment and supporting context lengths of up to 32K tokens. With an INT4 deployment foo...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "2f7be7ac68b1edc1",
+          "published": "2026-11-09T12:33:26+00:00",
+          "editor_note": "스레드는 가장 작은 모델인 INT4 경로를 갖춘 300M 온디바이스 모델로 시작한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "Clover-35B-A3B-Preview Technical Report",
+          "url": "http://arxiv.org/abs/2611.24636v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "We introduce Clover-35B-A3B-Preview (Clover), a mixture-of-experts diffusion language model with 35 billion total parameters and 3 billion activated parameters, supporting thinking-mode generation. Clover adapts Gated...",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "b0b6c263afe6d2d0",
+          "published": "2026-11-18T15:46:14+00:00",
+          "editor_note": "자기회귀 방식이 일반적인 것과 다른 디코딩 접근인 희소 디퓨전 LM이 추가된다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "items": [
+        {
+          "title": "Beam Model Technical Report",
+          "url": "http://arxiv.org/abs/2611.26358v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "A technical report introducing Beam, a sparse Mixture-of-Experts model with 501.3B total and 23.4B active parameters for coding, reasoning, and agentic tasks, with a 1M-token context window and a large-scale asynchronous RL post-training run.",
+          "why_it_matters": "Matches feed focus: agentic, evaluation.",
+          "sid": "df883eb99e24a75f",
+          "published": "2026-11-19T16:28:23+00:00",
+          "editor_note": "가장 큰 모델로, 에이전트 작업을 겨냥한 501B 희소 MoE가 추가된다. 1M 토큰 컨텍스트와 비동기 RL 사후 학습을 갖췄다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "SAG-Mem-1.0 Technical Report",
+          "url": "http://arxiv.org/abs/2611.33124v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Introduces SAG-Mem, a conversational memory framework that stores full dialogue messages in chunks with a lexical index and no LLM processing, reporting top scores of 83.08 on LoCoMo and 80.20 on LongMemEval.",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "8dc412120c61e17c",
+          "published": "2026-11-24T18:51:29+00:00",
+          "editor_note": "최신 항목은 모델에서 에이전트 메모리로 초점을 옮겨, 원본 대화에 대한 어휘 기반 검색과 벤치마크 점수를 다룬다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose thread of unrelated arXiv technical reports, not one developing event. It opened Nov 9 with MNN-Pocket-0.3B, a 300M on-device model, then added sparse MoE models: the Clover diffusion LM (35B total, 3B active) and Beam (501.3B total, 23.4B active, 1M-token context).",
+    "stale": false,
+    "whats_new": "SAG-Mem-1.0's report (Nov 24) describes a conversational memory framework that stores raw dialogue chunks behind a lexical index with no LLM processing, reporting 83.08 on LoCoMo and 80.20 on LongMemEval.",
+    "why_it_matters": "The reports span different serving shapes: sub-1B INT4 on-device models, sparse MoE models up to 501B, and a memory layer that skips LLM calls at write time, each with its own runtime and cost profile.",
+    "take_for_builders": "Treat these as research reads. If you run agent memory, benchmark SAG-Mem's no-LLM chunk-and-index approach against your summarization pipeline on LoCoMo or LongMemEval before paying for write-time LLM calls.",
+    "beats": [
+      {
+        "kicker": "ON-DEVICE",
+        "tone": "launch",
+        "headline": "MNN-Pocket-0.3B targets on-device deployment at 300M parameters",
+        "summary": "A compact dense model with 32K context and an INT4 deployment path.",
+        "sids": [
+          "2f7be7ac68b1edc1"
+        ]
+      },
+      {
+        "kicker": "SPARSE MoE",
+        "tone": "rising",
+        "headline": "Clover and Beam report sparse mixture-of-experts models at two scales",
+        "summary": "Clover is a 35B/3B-active diffusion LM with thinking mode; Beam is a 501.3B/23.4B-active model for coding and agentic tasks with a 1M-token context.",
+        "sids": [
+          "b0b6c263afe6d2d0",
+          "df883eb99e24a75f"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "SAG-Mem-1.0: agent memory from raw chunks and a lexical index",
+        "summary": "No LLM summarization at write time; reported 83.08 on LoCoMo and 80.20 on LongMemEval.",
+        "sids": [
+          "8dc412120c61e17c"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Are the MNN-Pocket-0.3B, Clover, or Beam weights released under a license that permits commercial use?",
+      "Do mainstream inference servers support Clover's diffusion decoding, or does it need a custom runtime?",
+      "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?",
+      "Does Beam's 1M-token context hold up on long-context agentic benchmarks run outside the authors' lab?",
+      "Do SAG-Mem's LoCoMo and LongMemEval scores hold up against LLM-summarized memory baselines under independent replication?"
+    ],
+    "generated_at": "2026-11-26T00:20:00Z"
+  }
+}

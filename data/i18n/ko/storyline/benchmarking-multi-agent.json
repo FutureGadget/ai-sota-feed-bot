@@ -1,126 +1,44 @@
 {
   "locale": "ko",
   "source_path": "/storyline/benchmarking-multi-agent",
-  "source_hash": "3151cbe78ef60679cd48f283655514b29ea7587864d2f0928a7cfc9680ddf783",
-  "translated_at": "2026-11-25T05:42:12.205560+00:00",
+  "source_hash": "5232396bdcca1795ce32ef061743b8f9e2d0663b015ab0a5ca48af2cdc2876f3",
+  "translated_at": "2026-11-26T05:27:16.479641+00:00",
   "model": "claude-sonnet-5-5",
   "review_status": "machine",
   "slug": "benchmarking-multi-agent",
-  "label": "Benchmarking Multi-Agent",
-  "item_count": 18,
-  "day_count": 13,
-  "source_count": 5,
-  "first_seen": "2026-11-04T02:08:57+00:00",
-  "last_updated": "2026-11-23T18:55:44+00:00",
-  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "label": "Multi-agent Systems",
+  "item_count": 12,
+  "day_count": 9,
+  "source_count": 4,
+  "first_seen": "2026-11-06T17:07:35+00:00",
+  "last_updated": "2026-11-24T17:48:54+00:00",
+  "generated_at": "2026-11-26T00:12:44.970528+00:00",
   "sources": [
     "arxiv_agent_systems_research",
-    "arxiv_cs_ai",
     "arxiv_cs_cl",
-    "arxiv_cs_lg",
-    "arxiv_llm_reliability"
+    "hackernews_ai",
+    "infoq_ai_ml"
   ],
   "days": [
-    {
-      "date": "2026-11-04",
-      "items": [
-        {
-          "title": "TandemBench: Benchmarking Decision Models for Multi-Agent Collaboration",
-          "url": "http://arxiv.org/abs/2611.05827v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Decision models choose among predefined options in tasks such as routing and action selection. In multi-agent collaboration, a decision determines how members divide work, exchange resources, and act in parallel. We i...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "346fd33a4e5b3077",
-          "published": "2026-11-04T02:08:57+00:00",
-          "editor_note": "스레드 시작: 팀이 작업을 나누고 병렬로 행동하는 방식을 기준으로 의사결정 모델을 평가한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-05",
-      "items": [
-        {
-          "title": "MCPHallu: Benchmarking Reasoning, Execution, and Memory Hallucinations in MCP Agents",
-          "url": "http://arxiv.org/abs/2611.07689v1",
-          "source": "arxiv_llm_reliability",
-          "type": "paper",
-          "summary_1line": "Large language model agents are increasingly deployed through the Model Context Protocol (MCP), which allows them to discover and invoke tools across multiple servers at runtime. Existing MCP benchmarks primarily meas...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "45b80d77d473d30f",
-          "published": "2026-11-05T09:14:26+00:00",
-          "editor_note": "MCP 작업 성공률을 넘어 추론, 실행, 메모리 환각을 구분해 측정한다."
-        }
-      ]
-    },
     {
       "date": "2026-11-06",
       "items": [
         {
-          "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
-          "url": "http://arxiv.org/abs/2611.09721v1",
-          "source": "arxiv_cs_cl",
+          "title": "Coordinated Mixed-Precision KV Cache Quantization for Efficient LLM-based Multi-agent Systems",
+          "url": "http://arxiv.org/abs/2611.10096v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "LLM agents benefit from using memory systems to improve performance on long-horizon, multi-session tasks. However, memory introduces a critical attack surface. Malicious instructions encountered in one session may be...",
-          "why_it_matters": "Matches feed focus: agentic, evaluation.",
-          "sid": "138e084674254809",
-          "published": "2026-11-06T17:00:09+00:00",
-          "editor_note": "에이전트 메모리를 공격 표면으로 규정하고, 지시문이 이후 세션을 오염시키는 문제를 다룬다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-07",
-      "items": [
-        {
-          "title": "TurnFlow: Benchmarking User-State Reasoning in Multi-Turn LLM Agents via Scene-Guided User Simulation",
-          "url": "http://arxiv.org/abs/2611.10412v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "Large Language Models (LLMs) are increasingly deployed through conversational interfaces, yet strong single-turn performance does not imply reliability in multi-turn settings. Multi-turn assistance requires a model to...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "14fde8003cd1147c",
-          "published": "2026-11-07T02:45:54+00:00",
-          "editor_note": "단일 턴 점수가 높아도 멀티턴에서 사용자 상태를 추적한다는 보장은 없음을 보여준다."
+          "summary_1line": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies indepen...",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "d48d8aea5d45b475",
+          "published": "2026-11-06T17:07:35+00:00",
+          "editor_note": "팀 단위 메모리 비용을 짚는다: 모든 에이전트의 KV 캐시가 동시에 상주한다."
         }
       ]
     },
     {
       "date": "2026-11-09",
       "items": [
-        {
-          "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
-          "url": "http://arxiv.org/abs/2611.11995v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "23c0753cd928bfa7",
-          "published": "2026-11-09T07:24:54+00:00",
-          "editor_note": "에이전트가 실제 AI 인프라를 장기간에 걸쳐 계속 개선할 수 있는지 시험한다."
-        },
-        {
-          "title": "Joi-Bench-Task: Benchmarking Task Coordination in Full-duplex Voice Agents through Interactive Simulation",
-          "url": "http://arxiv.org/abs/2611.12118v1",
-          "source": "arxiv_agent_systems_research",
-          "type": "paper",
-          "summary_1line": "Full-duplex voice agents enable natural, hands-free interaction, allowing users to refine requests, redirect ongoing work, and seek clarification while the agent is speaking. However, existing voice-agent benchmarks i...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "f5f5bfe9b72425ef",
-          "published": "2026-11-09T09:31:55+00:00",
-          "editor_note": "사용자가 끼어들고 방향을 바꾸는 풀 듀플렉스 음성 에이전트로 조율 테스트를 확장한다."
-        },
-        {
-          "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
-          "url": "http://arxiv.org/abs/2611.12412v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agent...",
-          "why_it_matters": "Matches feed focus: agent.",
-          "sid": "29f0e99816524f78",
-          "published": "2026-11-09T13:43:52+00:00",
-          "editor_note": "공유 메모리를 통해 에이전트가 별도 지시 없이 협업하는 현상을, 두 가지 구현으로 고정해 재현했다."
-        },
         {
           "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
           "url": "http://arxiv.org/abs/2611.12856v1",
@@ -138,42 +56,31 @@
       "date": "2026-11-10",
       "items": [
         {
-          "title": "ARE-bench: Benchmarking Agents' Research Ability in Real-World Researcher Sessions and Workspaces",
-          "url": "http://arxiv.org/abs/2611.14364v1",
-          "source": "arxiv_cs_cl",
+          "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
+          "url": "http://arxiv.org/abs/2611.13696v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Research agents achieve increasingly strong benchmark scores, yet these scores do not necessarily translate into reliable delivery in ongoing research projects. Many research-agent benchmarks emphasize standalone task...",
-          "why_it_matters": "Matches feed focus: agent, eval.",
-          "sid": "d56fa1c78b5794b5",
-          "published": "2026-11-10T17:21:31+00:00",
-          "editor_note": "리서치 에이전트 점수는 진행 중인 프로젝트로 이어지지 않는다고 주장하며, 실제 연구자 세션으로 테스트한다."
+          "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform...",
+          "why_it_matters": "Matches feed focus: agentic, eval.",
+          "sid": "a34f1fafb710e628",
+          "published": "2026-11-10T07:43:02+00:00",
+          "editor_note": "의제에 프라이버시를 더한다: 에이전트 간 비공개 검색과 추론."
         }
       ]
     },
     {
-      "date": "2026-11-12",
+      "date": "2026-11-11",
       "items": [
         {
-          "title": "Reducing Batch Makespan for LLM Agent Workloads through Inference-Environment Coordination",
-          "url": "http://arxiv.org/abs/2611.16661v1",
-          "source": "arxiv_cs_ai",
+          "title": "CoLFA: Collaboration-Guided Lightweight Failure Attribution for LLM-Based Multi-Agent Systems",
+          "url": "http://arxiv.org/abs/2611.14980v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Efficient batch execution of agent tasks is critical to LLM training and development workflows, including benchmark evaluation, synthetic-data generation, and RL rollouts. Since these tasks alternate between LLM infer...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "e372c76cd210406f",
-          "published": "2026-11-12T11:38:21+00:00",
-          "editor_note": "인접 시스템 연구: 추론과 에이전트 환경을 조율해 배치 makespan을 줄인다."
-        },
-        {
-          "title": "Discovering Effective Agent Memory Designs through Program Evolution",
-          "url": "http://arxiv.org/abs/2611.17068v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "Program evolution provides a promising approach to discover agent memory designs and study the choices underlying their effectiveness. We introduce MAPE, a framework that evolves whole memory programs from minimal see...",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "61fe6193294930a8",
-          "published": "2026-11-12T16:42:04+00:00",
-          "editor_note": "인접 연구: 에이전트 메모리 프로그램 전체를 진화시켜 어떤 설계 선택이 중요한지 찾는다."
+          "summary_1line": "Failure attribution in multi-agent systems requires tracing error formation to identify the decisive error step and the responsible agent. However, agents' division of work and information exchange lead to Interleaved...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "ae75fdfb8dec6766",
+          "published": "2026-11-11T03:38:54+00:00",
+          "editor_note": "첫 장애 원인 귀속 항목: 결정적 오류 단계와 그 뒤에 있는 에이전트를 찾는다."
         }
       ]
     },
@@ -181,31 +88,26 @@
       "date": "2026-11-13",
       "items": [
         {
-          "title": "PrivacyPR: A Dataset of Real-World Privacy Fixes for Benchmarking Privacy-Aware Code Review",
-          "url": "http://arxiv.org/abs/2611.18293v1",
-          "source": "arxiv_cs_ai",
-          "type": "paper",
-          "summary_1line": "Coding agents increasingly review code, yet whether they catch the privacy defects that laws such as the GDPR require software to avoid remains largely untested, partly because few datasets connect real privacy defect...",
-          "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-          "sid": "004673f14a75854b",
-          "published": "2026-11-13T15:18:33+00:00",
-          "editor_note": "GDPR 스타일의 실제 개인정보 보호 수정 사례를 코드 리뷰를 수행하는 코딩 에이전트의 테스트 세트로 활용한다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-16",
-      "items": [
+          "title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+          "url": "https://github.com/Privatris/AgentLeak",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "3debe09eabc6be1b",
+          "published": "2026-11-13T01:36:36+00:00",
+          "editor_note": "스레드의 유일한 오픈소스 도구: 멀티 에이전트 시스템용 프라이버시 유출 테스트."
+        },
         {
-          "title": "Benchmarking memory and nonlinear processing capacity of quantum recurrent neural networks for time series prediction",
-          "url": "http://arxiv.org/abs/2611.21552v1",
-          "source": "arxiv_cs_lg",
+          "title": "Securing Multi-Agent Systems by Design",
+          "url": "http://arxiv.org/abs/2611.17883v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Quantum machine learning has emerged as a promising approach to time series prediction. While quantum reservoir computing has been widely explored for this setting, variational quantum models tailored to sequential da...",
-          "why_it_matters": "Matches feed focus: eval.",
-          "sid": "46d71c45a0641225",
-          "published": "2026-11-16T18:32:05+00:00",
-          "editor_note": "관련성 낮음: 시계열용 양자 순환 신경망으로, 표현이 비슷하다는 이유만으로 같은 클러스터에 묶였다."
+          "summary_1line": "Multi-agent systems solve complex tasks by decomposing them into subtasks, delegating the subtasks to agents, and aggregating the agents' responses using an aggregation rule. Malicious agents can manipulate the final...",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "d761218419b3b591",
+          "published": "2026-11-13T08:22:06+00:00",
+          "editor_note": "에이전트 답변을 취합하는 단계를 악의적 에이전트가 공격하는 지점으로 본다."
         }
       ]
     },
@@ -213,15 +115,25 @@
       "date": "2026-11-17",
       "items": [
         {
-          "title": "RoboTeam: Benchmarking Vision-Based Multi-Agent Control of Many Robot Arms in Real Time",
-          "url": "http://arxiv.org/abs/2611.22138v1",
+          "title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+          "url": "https://www.infoq.com/presentations/scale-llm-ranking-systems-linkedin/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "source": "infoq_ai_ml",
+          "type": "news",
+          "summary_1line": "Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embedding...",
+          "sid": "3449739a151bbd6a",
+          "published": "2026-11-17T11:00:00+00:00",
+          "editor_note": "관련성 낮음: P99 레이턴시 조건의 프로덕션 LLM 랭킹을 다루며 멀티 에이전트 시스템은 아니다."
+        },
+        {
+          "title": "TRACE-MAS: Diagnosing and Repairing Collaboration Failures in Multi-Agent Systems",
+          "url": "http://arxiv.org/abs/2611.23362v1",
           "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Multimodal agents can now control robot arms by calling tools and writing code. Existing benchmarks fall short in three ways: most test one or two arms on short tasks, many pause the world while the agent thinks, and...",
+          "summary_1line": "LLM-based multi-agent systems (MAS) rely on not only individual agent behaviors but also the interactions that connect agents, including message exchanges and task dependencies. Existing MAS safeguards mainly perform...",
           "why_it_matters": "Matches feed focus: agent.",
-          "sid": "dd4bda4f3ff03b68",
-          "published": "2026-11-17T03:24:06+00:00",
-          "editor_note": "에이전트가 생각하는 동안에도 세상이 계속 움직이는 환경에서 여러 로봇 팔을 실시간으로 제어한다."
+          "sid": "31fa9cd8fb58d57c",
+          "published": "2026-11-17T16:49:33+00:00",
+          "editor_note": "협업 실패를 진단하는 단계에서 이를 복구하는 단계로 나아간다."
         }
       ]
     },
@@ -229,31 +141,15 @@
       "date": "2026-11-18",
       "items": [
         {
-          "title": "VideoACE: Benchmarking Agentic Video Understanding through High-Frame-Rate Actions",
-          "url": "http://arxiv.org/abs/2611.24184v1",
+          "title": "Kaer: Security-Aware Replanning for Multi-Agent Systems",
+          "url": "http://arxiv.org/abs/2611.24839v1",
           "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "Agentic video understanding requires models to actively interact with video environments to gather evidence and form judgments. Evaluating this capability therefore requires assessing whether models can translate oppo...",
-          "why_it_matters": "Matches feed focus: agentic, evaluation.",
-          "sid": "52c1ddc39f6c73dc",
-          "published": "2026-11-18T10:26:07+00:00",
-          "editor_note": "고프레임레이트 환경에서의 행동 능력으로 평가하는 에이전틱 영상 이해."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-21",
-      "items": [
-        {
-          "title": "The Evaluation Substrate Matters: Benchmarking Multi-Agent Serving Substrates",
-          "url": "http://arxiv.org/abs/2611.28671v1",
-          "source": "arxiv_agent_systems_research",
-          "type": "paper",
-          "summary_1line": "Introduces MASSys, a benchmark that runs the same multi-agent LLM workflows across different serving substrates and load levels, showing that rankings such as Star versus Chain shift with KV-cache pressure.",
-          "why_it_matters": "Matches feed focus: agent, evaluation.",
-          "sid": "9ef53558a95bc11c",
-          "published": "2026-11-21T08:50:10+00:00",
-          "editor_note": "멀티 에이전트 토폴로지 순위(Star 대 Chain)가 서빙 기반과 KV 캐시 부하에 따라 달라짐을 보여준다."
+          "summary_1line": "Kaer is a multi-agent framework that protects the orchestrator's replanning step from malicious agent feedback, using abstract failure templates and restricted repair operators; it is evaluated on the new Cintra benchmark against Magentic-One and ControlValve.",
+          "why_it_matters": "Matches feed focus: agentic, eval.",
+          "sid": "dfde2d652caf6073",
+          "published": "2026-11-18T18:05:47+00:00",
+          "editor_note": "악의적인 에이전트 피드백에 맞서 오케스트레이터의 재계획 단계를 강화하고, 새로운 Cintra 벤치마크를 선보인다."
         }
       ]
     },
@@ -269,86 +165,105 @@
           "why_it_matters": "Matches feed focus: agent, evaluation.",
           "sid": "213a3d94fcfe4f8e",
           "published": "2026-11-23T17:20:43+00:00",
-          "editor_note": "측정된 로컬 에이전트 오류를 시스템 수준 실패와 연결하고, ErrPropBench-10으로 검증한다."
+          "editor_note": "개별 에이전트의 국소 오류가 시스템 전체 장애로 전파되는 과정을 모델링하고, ErrPropBench-10에서 검증한다."
         },
         {
-          "title": "Seeking in Space: Benchmarking Purposeful Active Exploration of Vision-Language Models for Spatial Reasoning",
-          "url": "http://arxiv.org/abs/2611.31215v1",
-          "source": "arxiv_cs_ai",
+          "title": "LatentLens: Rethinking Latent Interface in Multi-Agent Systems",
+          "url": "http://arxiv.org/abs/2611.31582v1",
+          "source": "arxiv_agent_systems_research",
           "type": "paper",
-          "summary_1line": "ActSpace-Bench is a benchmark of 994 spatial questions across 234 exploration episodes in 72 real-scanned indoor scenes, testing whether VLMs actively seek evidence before answering; strongest models explore purposefully but lose evidence to limited memory.",
+          "summary_1line": "Researchers propose LatentLens, a framework that separates the latent interface from the agent harness and tests it on seven benchmarks with Qwen3 models, finding it often fails to improve and can degrade accuracy.",
+          "why_it_matters": "Matches feed focus: agent, harness.",
+          "sid": "badad62bfaefb859",
+          "published": "2026-11-23T21:26:38+00:00",
+          "editor_note": "부정적 결과: 잠재 에이전트 인터페이스는 정확도를 높이지 못하는 경우가 많고 오히려 떨어뜨릴 수 있다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
+          "url": "http://arxiv.org/abs/2611.33036v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Introduces a fixed-ranking benchmark that tests eight uncertainty quantification signals as monitors of LLM-based recommendation rankings across four datasets and two LLM backbones, reporting that method rankings shift between backbones.",
           "why_it_matters": "Matches feed focus: evaluation.",
-          "sid": "8151cba33f4fca30",
-          "published": "2026-11-23T18:55:44+00:00",
-          "editor_note": "VLM이 답하기 전에 탐색하는지 시험하는 994개의 공간 질문으로, 메모리 한계 때문에 증거를 잃는다."
+          "sid": "31eff569e0a28590",
+          "published": "2026-11-24T17:48:54+00:00",
+          "editor_note": "관련성 낮음: LLM 추천기의 불확실성 신호를 다루며, 공통 표현을 기준으로 군집화한다."
         }
       ]
     }
   ],
   "editorial": {
-    "tldr": "This is a theme thread, not one event: three weeks of arXiv papers proposing new agent benchmarks, starting with multi-agent decision and coordination tests (TandemBench, WorkflowArena). Later papers moved to MCP hallucination, memory poisoning, and long-horizon real-world tasks such as AI infra tuning and research sessions.",
+    "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and workflow orchestration. It then split into two tracks: securing agents against malicious peers and data leaks, and tracing which agent caused a failure.",
     "stale": false,
-    "whats_new": "REPA (Nov 23) models how one agent's local errors propagate into system-level failures across multi-agent workflows, two days after MASSys showed Star vs Chain topology rankings flip under KV-cache pressure.",
-    "why_it_matters": "Multi-agent scores now depend on serving substrate and error propagation, not just the model, so a leaderboard number may not hold on your own inference stack.",
-    "take_for_builders": "Before choosing a multi-agent topology from a published score, rerun the comparison on your own serving stack at production load, because MASSys shows the ranking can flip with KV-cache pressure.",
+    "whats_new": "LatentLens (Nov 23) reports that a latent agent-to-agent interface often fails to improve accuracy and can degrade it across seven benchmarks, the same day REPA modeled how one agent's local errors cascade into system failure.",
+    "why_it_matters": "Multi-agent reliability now has concrete failure models (error propagation, malicious feedback during replanning, cross-agent data leaks), so a single end-to-end success rate no longer tells you why your agent team fails.",
+    "take_for_builders": "Log each agent's messages and intermediate outputs per step in your multi-agent runs, because failure attribution and error-propagation methods like CoLFA and REPA need per-agent traces, not just the final answer.",
     "beats": [
       {
-        "kicker": "COORDINATION",
+        "kicker": "SYSTEM COST",
         "tone": "launch",
-        "headline": "Benchmarks target how agents divide work and coordinate",
-        "summary": "Decision models, workflow orchestration, shared-memory coordination, and full-duplex voice task handling each get a dedicated test.",
+        "headline": "Running agents as a team hits memory and orchestration limits",
+        "summary": "Simultaneously resident KV caches become a memory bottleneck, and harnesses that spawn worker agents get an executable orchestration benchmark.",
         "sids": [
-          "346fd33a4e5b3077",
-          "f5f5bfe9b72425ef",
-          "29f0e99816524f78",
+          "d48d8aea5d45b475",
           "b3a45cba6445f63d"
         ]
       },
       {
-        "kicker": "RELIABILITY",
+        "kicker": "SECURITY",
         "tone": "rising",
-        "headline": "Tool calls, memory, and multi-turn state come under test",
-        "summary": "MCP hallucinations, memory poisoning across sessions, and user-state tracking over turns; two memory papers sit at the theme's edge.",
+        "headline": "Malicious peers and data leaks become the threat model",
+        "summary": "Private retrieval and inference, an open-source leak tester, secure aggregation rules, and a replanning step hardened against hostile agent feedback.",
         "sids": [
-          "45b80d77d473d30f",
-          "138e084674254809",
-          "14fde8003cd1147c",
-          "61fe6193294930a8",
-          "46d71c45a0641225"
+          "a34f1fafb710e628",
+          "3debe09eabc6be1b",
+          "d761218419b3b591",
+          "dfde2d652caf6073"
         ]
       },
       {
-        "kicker": "REAL WORK",
-        "tone": "rising",
-        "headline": "Long-horizon, real-world task benchmarks multiply",
-        "summary": "AI infra optimization, live research workspaces, privacy-aware code review, multi-arm robot control, video, and spatial exploration.",
+        "kicker": "FAILURE",
+        "tone": "turn",
+        "headline": "Research shifts to blaming the right agent for a failure",
+        "summary": "Failure attribution traces the decisive error step and responsible agent; TRACE-MAS adds repair for collaboration failures in messages and task dependencies.",
         "sids": [
-          "23c0753cd928bfa7",
-          "d56fa1c78b5794b5",
-          "004673f14a75854b",
-          "dd4bda4f3ff03b68",
-          "52c1ddc39f6c73dc",
-          "8151cba33f4fca30"
+          "ae75fdfb8dec6766",
+          "31fa9cd8fb58d57c"
         ]
       },
       {
         "kicker": "NOW",
         "tone": "now",
-        "headline": "The system layer: serving substrate and error propagation",
-        "summary": "Papers now measure what happens around the agents: batch scheduling, serving load, and how local errors cascade.",
+        "headline": "Error cascades get a model, and latent interfaces a negative result",
+        "summary": "REPA links local agent errors to system-level failure; LatentLens finds the latent interface frequently does not help.",
         "sids": [
-          "e372c76cd210406f",
-          "9ef53558a95bc11c",
-          "213a3d94fcfe4f8e"
+          "213a3d94fcfe4f8e",
+          "badad62bfaefb859"
+        ]
+      },
+      {
+        "kicker": "EDGE",
+        "tone": "neutral",
+        "headline": "Ranking and recommender papers clustered on shared wording",
+        "summary": "LLM ranking at LinkedIn scale and uncertainty signals for LLM recommenders sit outside the multi-agent theme.",
+        "sids": [
+          "3449739a151bbd6a",
+          "31eff569e0a28590"
         ]
       }
     ],
     "open_questions": [
-      "Does MASSys's topology-ranking flip under KV-cache pressure reproduce on other serving stacks?",
       "Does REPA's error-propagation model hold beyond the three Qwen base models it was evaluated on?",
-      "Do any of these benchmarks release harnesses that teams adopt for their own regression evals?",
-      "Does MCPHallu's separation of reasoning, execution, and memory hallucinations show up in vendor MCP agent evaluations?"
+      "Does LatentLens's degradation result hold on model families other than Qwen3?",
+      "Do CoLFA or TRACE-MAS ship tooling that attributes failures in production agent traces, not only benchmark logs?",
+      "Does Kaer's protected replanning hold up on benchmarks other than its own Cintra suite?",
+      "Do any of these benchmarks release harnesses that teams adopt for their own regression evals?"
     ],
-    "generated_at": "2026-11-25T00:30:00+00:00"
+    "generated_at": "2026-11-26T00:30:00+00:00"
   }
 }
