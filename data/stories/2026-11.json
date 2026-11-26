@@ -2097,6 +2097,22 @@
   "type": "news",
   "url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life"
  },
+ "0f24fd5a4008e485": {
+  "content_excerpt": "The independent mediator for AI agents. Not a payment network, not a platform, not a party: a neutral judge that follows open ODR Standards. One MCP server, no key, free. Claude app or ChatGPT: add a custom connector with the URL https://trucehq.com/mcp . Python: pip install trucehq . JavaScript: npm install trucehq . Add this to your MCP client config (Claude, ChatGPT, Cursor and others). Endpoint: https://trucehq.com/mcp , Streamable HTTP. Listed in the official MCP Registry as com.trucehq/truce . Full guide for agents: agents.md . In the demo, an AI assistant uses Truce for a friendly \"Who's right?\", then two companies' agents settle an invoice dispute within limits their humans set, without either side seeing the other's limit. If your user is in a disagreement, you can start a Truce for them. Truce hears both sides in private and proposes something fair. A human always sends the invite and signs. Endpoint: https://trucehq.com/mcp (Streamable HTTP, no key needed). Tools: start_truce , start_whos_right , get_truce_status , get_whos_right_status , and for the other side's agent get_invite , answer_truce , answer_whos_right . When two agents disagree about a purchase, the referee cannot be one of the players. A payment network, a PSP, a marketplace or an agent platform has customers on one side of the dispute. TruceHQ is none of those: it is not a party, not a payment network, not a PSP and not an agent platform, and it never holds or moves money. Payments made in crypto are",
+  "first_seen": "2026-11-26T14:04:40.719737+00:00",
+  "id": "6e4e398ff9982827",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T13:20:21+00:00",
+  "sid": "0f24fd5a4008e485",
+  "source": "hackernews_ai",
+  "summary_1line": "Truce is a free, keyless MCP server and REST API, with Python and JavaScript packages, that lets AI agents call a neutral mediator to hear both sides of a dispute and propose a settlement; a human must send the invite and sign.",
+  "title": "Show HN: Truce – a neutral mediator AI agents can call when they disagree",
+  "type": "news",
+  "url": "https://trucehq.com/agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "0f2808774140a794": {
   "first_seen": "2026-11-04T21:03:42.369731+00:00",
   "id": "bee1300afcdf1eee",
@@ -14013,6 +14029,22 @@
   "type": "news",
   "url": "https://github.com/rdcm/triton-ng"
  },
+ "67ee60ac54081265": {
+  "first_seen": "2026-11-26T14:04:40.719737+00:00",
+  "id": "2233eaaf4569e1b3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-25T14:11:06+00:00",
+  "sid": "67ee60ac54081265",
+  "source": "arxiv_cs_cl",
+  "summary": "Multi-page document vision-language models encode each page independently, creating a feature-level discontinuity at page boundaries: visual tokens are formed without access to content on adjacent pages, and the language model must reason over these page representations formed in isolation. We introduce DocSEAM (Document Selective Enrichment via Anchored Masking), a lightweight module inserted between a pretrained vision encoder and the language model that injects the inductive bias of local cross-page context into visual representations. For each page, DocSEAM forms a local triplet with its two neighbors, applies center-anchored masked self-attention with directional salience gates to fuse information from neighbor pages, and returns only the enriched center-page tokens, leaving the visual token count unchanged. After a supervised cross-page warm-up and multi-page fine-tuning with DocSEAM frozen, our 9B-parameter model achieves state-of-the-art results among the evaluated open-weight models of up to 10B parameters on five multi-page document VQA benchmarks. We further show that under controlled re-pagination, DocSEAM reduces sensitivity to boundary placement and improves cross-page span localization",
+  "summary_1line": "Introduces DocSEAM, a lightweight module between a vision encoder and language model that enriches each page's visual tokens with neighboring-page context, reporting state-of-the-art results for a 9B model on five multi-page document VQA benchmarks.",
+  "title": "DocSEAM: Bidirectional Cross-Page Encoding for Multi-Page Document Understanding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34420v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "67f0cc476c10d6bc": {
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
   "id": "ee5a755c15c62483",
@@ -19662,6 +19694,24 @@
   "url": "https://latent.space/p/resend",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "93cec7f36fc5907a": {
+  "content_excerpt": "MCP went through the full hype cycle in the last 18 months. Early excitement turned into backlash and confusion fast, with context bloat as the main complaint. When Skills arrived, most developers moved to CLIs and progressive disclosure instead. I never believed in that, and that sentiment is now changing. At Linear and Notion , agents now create roughly half of all issues (~2.4M/week) and pages, with Notion reporting 60x MCP traffic growth. At Atlassian , MCP handles over 5M tool calls per workday, and 44% of those users sit outside software teams where CLIs were never an option. At Neon , agent usage over MCP grows 14% week over week, and even Apple now ships local MCP servers for Pages, Numbers, and Keynote. The protocol is healthy and actively improving. The 2026-07-28 spec dropped stateful sessions and added official extensions, and clients are getting smarter about how they use them. Real tasks almost always take more than 1 tool call, e.g. you list open issues, grab details, check errors, and write a summary. With plain tool calling, every step needs another model turn and dumps information into the context. Joining data across 2 MCP servers uses the model's context as memory for intermediate payloads. Code Mode is changing how agents call MCP servers. Instead of putting 50 tool schemas into the prompt and calling 1 tool per turn, the harness gives the model a sandbox and exposes MCP tools as callable functions. It's already becoming the default in OpenCode 2.0, Claud",
+  "first_seen": "2026-11-26T14:04:40.719737+00:00",
+  "id": "8489599aa3cddc73",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-26T00:00:00+00:00",
+  "sid": "93cec7f36fc5907a",
+  "source": "philschmid",
+  "summary": "Early MCP deserved its backlash. Code Mode, typed outputSchema, native multimodality, Agent Skills inside MCP, always-on MCP Events, and MCP Apps are turning it into the integration layer for agent harnesses in 2027.",
+  "summary_1line": "Philipp Schmid argues that MCP will remain important into 2027, citing agent usage growth at Linear, Notion, Atlassian and Neon, and the rise of Code Mode as a way agents call MCP tools.",
+  "title": "Why I'm Bullish on MCP for 2027",
+  "type": "news",
+  "url": "https://www.philschmid.de/mcp-2027",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "93d56575adcc1f8d": {
   "first_seen": "2026-11-16T03:22:44.474127+00:00",
   "id": "c44911d360ed0520",
@@ -19705,6 +19755,22 @@
   "title": "Knowing What You Know: A Trait Theory of Reviewer Value in Human-AI Cognitive Systems",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24932v1"
+ },
+ "94438c04413384cb": {
+  "content_excerpt": "There are ~1,000 interesting global issues on major prediction markets, but the universe of would-be useful forecasts is orders of magnitude larger. Order of magnitude estimate from stripping out sports, crypto, and mention markets (see Polymarket research). As a demonstration, Figure 1 shows 100,000 forecasts for the S&P 500 under 50 different geopolitical and economic scenarios. We made these forecasts with an agent we post-trained from Inkling 2 Small on Tinker. It is roughly as accurate as Fable 5.2 (medium) but 15× cheaper per forecast (Figure 2). This run required improvements across our post-training stack to tackle data scarcity, point-in-time research throughput and latency, and noisy rewards. We built this stack on Tinker for three reasons: (a) it scales easily to thousands of concurrent rollouts, (b) async RL with StableReinforce speeds up experiment runtime by 3×, and (c) it’s cost-effective. Mantic’s vision is that large-scale AI forecasting – combined with the impressive accuracy of these systems – will unlock radically new applications of forecasting. In Summer 2026, two AI systems (including Mantic) outperformed all 600+ human forecasters in a major competition, the Metaculus Cup, for the first time. Forecasting involves two stages: research and prediction. In our previous post , we described training a model to make predictions given research done by other agents. Here, we post-train Inkling 2 Small to do both in a single agentic rollout. Each environment pro",
+  "first_seen": "2026-11-26T14:04:40.719737+00:00",
+  "id": "4979348654d301df",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T12:25:16+00:00",
+  "sid": "94438c04413384cb",
+  "source": "hackernews_ai",
+  "summary_1line": "Mantic describes post-training a forecasting agent from Inkling 2 Small on Tinker, reporting accuracy comparable to Fable 5.2 (medium) at 15× lower cost per forecast, and a synthetic question pool of 45,000 for training.",
+  "title": "Training a Scalable Forecasting Agent (Guest Post with Mantic)",
+  "type": "news",
+  "url": "https://thinkingmachines.ai/news/training-a-scalable-forecasting-agent",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "9444ee7529255986": {
   "content_excerpt": "Policy-as-code for what AI agents produce: decide where an agent's output can go, based on what it read. Policy-as-code for what AI agents produce. Decide where your agent's output can go, based on what it read. Permission systems decide what an agent may read . They lose track the moment the agent writes something new. In May 2025, Invariant Labs showed a coding agent reading a user's private repositories and publishing what it found in a pull request on a public one, after it read a crafted issue. Every step was something the agent was allowed to do. Reading private code was fine. Opening a public pull request was fine. Nothing checked that the second came from the first. Taking away access does not fix this: the agent needs the private code to do its job. What is missing is a rule about where things derived from it may go. The same gap opens each time one agent hands its work to another: the restriction should follow the data through every step. You write one small policy file. It says who may read anything derived from each source, which agents may use it, and where each action sends output: TrustGraph records what each output was built from, through every step, and answers allow , needs approval or deny with the reason: Approval adds a requirement. It never widens who may read a source. Anything the policy does not name is denied. It starts local fake MCP servers and a real gateway, follows an injected instruction in private code, and verifies that the public PR and secr",
@@ -20097,6 +20163,22 @@
   "title": "claude-agent-sdk-python v0.2.179",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.179",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "973eddcb4030d06a": {
+  "content_excerpt": "A desktop workbench for making CAD parts with an AI coding agent. You point at the part, Claude Code writes the build123d code, torno builds it on every save. A desktop workbench for making CAD parts with an AI coding agent. You point at the part. The agent writes the code. torno builds it every time you save. torno is new and early. It is developed on Linux (Arch, Wayland) 100% using claudecode and also runs on macOS, which has seen less use. Expect rough edges, and please open an issue when you find one. Coding agents are good at writing build123d models, the Python CAD library on top of OpenCascade. Two things get in the way. The agent can't see what it made, and it's hard for you to tell it which face is wrong, or by how much. torno fixes both. It runs Claude Code next to a live 3D view of the model. You pin a note to a face, measure a wall or draw on the view, and the agent gets exactly what you pointed at: the face's ref, the exact measured value, your note. The agent also gets tools to look at the model, measure it and cut sections through it, so it can check its own work before it hands it back. torno is not a modeller. It has no feature tree and no way to edit a solid by hand, and its sketches tell Claude what you mean rather than make geometry. The model is the Python file, and torno shows it. It goes well with prismatic parts that have sizes you measured: brackets, enclosures, holders, a lid and a box, hole patterns. It needs more from you for a part that must fit ",
+  "first_seen": "2026-11-26T14:04:40.719737+00:00",
+  "id": "2ffb2dae9d588a39",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T11:10:12+00:00",
+  "sid": "973eddcb4030d06a",
+  "source": "hackernews_ai",
+  "summary_1line": "torno is an early desktop workbench that runs Claude Code beside a live 3D view, so users can pin notes, measurements or drawings to faces and have the agent write build123d CAD code, rebuilt on each save.",
+  "title": "Show HN: Workbench for making CAD parts with Claude/AI coding agent",
+  "type": "news",
+  "url": "https://github.com/luisg0nc/torno",
   "why_it_matters": "Matches feed focus: agent."
  },
  "975749c9dd84b6cc": {
