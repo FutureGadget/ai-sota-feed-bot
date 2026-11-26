@@ -1,12 +1,12 @@
 {
  "slug": "weight-space-programming",
  "label": "Weight-Space Programming",
- "item_count": 6,
+ "item_count": 7,
  "day_count": 6,
  "source_count": 5,
  "first_seen": "2026-11-11T23:47:21+00:00",
- "last_updated": "2026-11-24T09:41:22+00:00",
- "generated_at": "2026-11-25T00:14:27.939533+00:00",
+ "last_updated": "2026-11-24T17:43:09+00:00",
+ "generated_at": "2026-11-26T00:12:44.970528+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
@@ -102,16 +102,27 @@
      "sid": "9f78cee464619905",
      "published": "2026-11-24T09:41:22+00:00",
      "editor_note": "First cost and success figures: a written transformer beat its author model's direct answers."
+    },
+    {
+     "title": "Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?",
+     "url": "http://arxiv.org/abs/2611.33031v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Tests whether Claude-family LLMs, given only the text weights of a 20k-parameter CIFAR-10 CNN and no tools or data, can produce a 4-bit version; the best model raises accuracy from 60.4% to 77.95%, versus 81.4% for the float network.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "d342a12713de08ee",
+     "published": "2026-11-24T17:43:09+00:00",
+     "editor_note": "Extended the method from building networks to repairing one, recovering most of a 4-bit quantization loss without data."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in a single reply set off a run of follow-ups in mid-November: an open-source instruction set (W-ISA), a game-agent compilation paper, and an independent replication. A Nov 18 paper then moved from capability edits to value edits, and a Nov 23 CLIP paper borrowed the name for a closed-form weight-editing recipe.",
+  "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in one reply set off mid-November follow-ups: an open-source instruction set (W-ISA), a game-agent compilation paper, an independent replication, and value-edit and CLIP papers. On Nov 24, MBZUAI showed a Claude Opus 5.5-written transformer solving all of its test mazes for $19.",
   "stale": false,
-  "whats_new": "MBZUAI researchers report Claude Opus 5.5 solved only 26% of hard mazes directly, but a transformer it wrote by setting weights solved 100% of their test mazes in 39 minutes for $19, with no training run.",
-  "why_it_matters": "If an LLM can hand-author a small model that beats its own direct answers, weight-writing becomes a cheap way to build narrow task solvers, and an untracked way to change a model's behavior.",
-  "take_for_builders": "Treat LLM-written weights as a research option for narrow, verifiable tasks only. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail.",
+  "whats_new": "A Nov 24 arXiv paper reports Claude-family models, given only a 20k-parameter CIFAR-10 CNN's weights as text and no tools or data, repaired its 4-bit version from 60.4% to 77.95% accuracy, against 81.4% for the float network.",
+  "why_it_matters": "Weight-writing now covers repair as well as construction: an LLM reading raw weights recovered most of a quantization loss without data, and the same method can change a model's behavior with no training trail.",
+  "take_for_builders": "Treat LLM-written weights as a research option for small, verifiable models only; keep your standard quantization pipeline. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail.",
   "beats": [
    {
     "kicker": "TOOLING",
@@ -142,21 +153,31 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "THE TURN",
+    "tone": "turn",
     "headline": "LLM-written transformer solves all test mazes for $19",
     "summary": "Looped weight-space programming beats the same model's direct answers, 100% versus 26% on hard mazes.",
     "sids": [
      "9f78cee464619905"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Tool-free weight edits repair a 4-bit CNN to 77.95% accuracy",
+    "summary": "The best Claude-family model closed most of the gap between a 60.4% naive 4-bit CNN and its 81.4% float original, using only the weights as text.",
+    "sids": [
+     "d342a12713de08ee"
     ]
    }
   ],
   "open_questions": [
    "Does weight-space programming work beyond small networks, on production-scale LLM layers?",
    "Does the MBZUAI maze result hold on tasks other than mazes, and has anyone reproduced it?",
+   "Does LLM-driven quantization repair scale past a 20k-parameter CNN, and how does it compare with data-driven quantization-aware methods?",
    "Can weight-space edits be detected by inspecting a served checkpoint?",
    "Does W-ISA gain adoption or a reference implementation from a major lab?"
   ],
-  "generated_at": "2026-11-25T00:30:00Z"
+  "generated_at": "2026-11-26T00:30:00Z"
  }
 }

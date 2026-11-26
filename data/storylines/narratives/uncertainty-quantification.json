@@ -1,0 +1,47 @@
+{
+  "slug": "uncertainty-quantification",
+  "generated_at": "2026-11-26T00:20:00+00:00",
+  "covers_last_updated": "2026-11-24T17:48:54+00:00",
+  "covers_member_sids": [
+    "3985de9df0cd2149",
+    "a1b60d2b0521f078",
+    "31eff569e0a28590"
+  ],
+  "tldr": "On Nov 13 an arXiv paper proposed ensemble-of-ensembles uncertainty estimates for black-box LLMs that split prompt ambiguity from knowledge gaps. A Nov 18 paper moved the question to evaluation, estimating benchmark performance from at most 31 revealed outcomes with a Beta prior.",
+  "whats_new": "A Nov 24 benchmark tested eight uncertainty signals as monitors of LLM recommender rankings on four datasets and found the method ranking changes when the LLM backbone changes.",
+  "why_it_matters": "A confidence signal tuned on one model may not carry over when you swap the backbone, so uncertainty-based routing, abstention, and monitoring need per-model validation.",
+  "beats": [
+    {
+      "kicker": "METHOD",
+      "tone": "launch",
+      "headline": "Black-box ensembles separate ambiguity from knowledge gaps",
+      "summary": "Brings Bayesian-style aleatoric/epistemic splits to API-only LLMs.",
+      "sids": ["3985de9df0cd2149"]
+    },
+    {
+      "kicker": "EVAL COST",
+      "tone": "rising",
+      "headline": "Bayesian estimates from 31 outcomes replace large eval runs",
+      "summary": "Applies uncertainty to the eval itself: how sure a small benchmark sample can make you.",
+      "sids": ["a1b60d2b0521f078"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Uncertainty method rankings shift between LLM backbones",
+      "summary": "A fixed-ranking recommender benchmark shows no single signal wins across models.",
+      "sids": ["31eff569e0a28590"]
+    }
+  ],
+  "open_questions": [
+    "Does the backbone-dependent ranking of uncertainty signals also appear outside recommendation tasks?",
+    "Does the ensemble-of-ensembles method stay reliable when evaluated across multiple model backbones?",
+    "Can 31-outcome Bayesian estimates predict agent or tool-use benchmark scores, not only static benchmarks?"
+  ],
+  "take_for_builders": "If you gate, route, or abstain on an uncertainty score, re-check its calibration on your eval set every time you change the underlying model.",
+  "day_captions": {
+    "3985de9df0cd2149": "Opens the thread with a black-box method for API-only models that splits uncertainty into ambiguity and missing knowledge.",
+    "a1b60d2b0521f078": "Turns uncertainty onto evaluation: a Beta prior from public counts, updated with at most 31 outcomes.",
+    "31eff569e0a28590": "First cross-backbone check: eight signals on four datasets, with method rankings that change by backbone."
+  }
+}

@@ -1,60 +1,82 @@
 {
   "slug": "weight-space-programming",
-  "generated_at": "2026-11-25T00:30:00Z",
-  "covers_last_updated": "2026-11-24T09:41:22+00:00",
+  "generated_at": "2026-11-26T00:30:00Z",
+  "covers_last_updated": "2026-11-24T17:43:09+00:00",
   "covers_member_sids": [
     "3f5db491bb6150c6",
     "66afd15d3cc82624",
     "c6ff682be23f5497",
     "6891036f2be78fdd",
     "442791943ea0bb14",
-    "9f78cee464619905"
+    "9f78cee464619905",
+    "d342a12713de08ee"
   ],
-  "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in a single reply set off a run of follow-ups in mid-November: an open-source instruction set (W-ISA), a game-agent compilation paper, and an independent replication. A Nov 18 paper then moved from capability edits to value edits, and a Nov 23 CLIP paper borrowed the name for a closed-form weight-editing recipe.",
-  "whats_new": "MBZUAI researchers report Claude Opus 5.5 solved only 26% of hard mazes directly, but a transformer it wrote by setting weights solved 100% of their test mazes in 39 minutes for $19, with no training run.",
-  "why_it_matters": "If an LLM can hand-author a small model that beats its own direct answers, weight-writing becomes a cheap way to build narrow task solvers, and an untracked way to change a model's behavior.",
+  "tldr": "An MIT report that a frontier LLM can write and read small neural network weights in one reply set off mid-November follow-ups: an open-source instruction set (W-ISA), a game-agent compilation paper, an independent replication, and value-edit and CLIP papers. On Nov 24, MBZUAI showed a Claude Opus 5.5-written transformer solving all of its test mazes for $19.",
+  "whats_new": "A Nov 24 arXiv paper reports Claude-family models, given only a 20k-parameter CIFAR-10 CNN's weights as text and no tools or data, repaired its 4-bit version from 60.4% to 77.95% accuracy, against 81.4% for the float network.",
+  "why_it_matters": "Weight-writing now covers repair as well as construction: an LLM reading raw weights recovered most of a quantization loss without data, and the same method can change a model's behavior with no training trail.",
   "beats": [
     {
       "kicker": "TOOLING",
       "tone": "launch",
       "headline": "W-ISA proposes an instruction set for programming LLM weights",
-      "sids": ["3f5db491bb6150c6"]
+      "sids": [
+        "3f5db491bb6150c6"
+      ]
     },
     {
       "kicker": "REPLICATION",
       "tone": "rising",
       "headline": "Papers compile game rules into agents and reproduce the core claim",
       "summary": "One paper tests whether compiled game agents generalize to held-out levels; another reproduces the MIT write-weights and read-weights results.",
-      "sids": ["66afd15d3cc82624", "c6ff682be23f5497"]
+      "sids": [
+        "66afd15d3cc82624",
+        "c6ff682be23f5497"
+      ]
     },
     {
       "kicker": "SPREAD",
       "tone": "rising",
       "headline": "Weight edits aimed at ethical priorities and CLIP retrieval",
       "summary": "A value-edit study on a concept-supervised text model and a closed-form CLIP recipe reported across 21 checkpoints; the CLIP work shares the name more than the LLM-authored method.",
-      "sids": ["6891036f2be78fdd", "442791943ea0bb14"]
+      "sids": [
+        "6891036f2be78fdd",
+        "442791943ea0bb14"
+      ]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "LLM-written transformer solves all test mazes for $19",
+      "summary": "Looped weight-space programming beats the same model's direct answers, 100% versus 26% on hard mazes.",
+      "sids": [
+        "9f78cee464619905"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "LLM-written transformer solves all test mazes for $19",
-      "summary": "Looped weight-space programming beats the same model's direct answers, 100% versus 26% on hard mazes.",
-      "sids": ["9f78cee464619905"]
+      "headline": "Tool-free weight edits repair a 4-bit CNN to 77.95% accuracy",
+      "summary": "The best Claude-family model closed most of the gap between a 60.4% naive 4-bit CNN and its 81.4% float original, using only the weights as text.",
+      "sids": [
+        "d342a12713de08ee"
+      ]
     }
   ],
   "open_questions": [
     "Does weight-space programming work beyond small networks, on production-scale LLM layers?",
     "Does the MBZUAI maze result hold on tasks other than mazes, and has anyone reproduced it?",
+    "Does LLM-driven quantization repair scale past a 20k-parameter CNN, and how does it compare with data-driven quantization-aware methods?",
     "Can weight-space edits be detected by inspecting a served checkpoint?",
     "Does W-ISA gain adoption or a reference implementation from a major lab?"
   ],
-  "take_for_builders": "Treat LLM-written weights as a research option for narrow, verifiable tasks only. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail.",
+  "take_for_builders": "Treat LLM-written weights as a research option for small, verifiable models only; keep your standard quantization pipeline. Add checkpoint hashing and behavior regression evals now, since direct weight edits leave no training trail.",
   "day_captions": {
     "3f5db491bb6150c6": "First open-source attempt to formalize weight writing as an instruction set.",
     "66afd15d3cc82624": "Tested whether compiled agents generalize to unseen levels, renderings and start states.",
     "c6ff682be23f5497": "Independent replication of the MIT write-and-read results, with extensions.",
     "6891036f2be78fdd": "Moved the technique from capability edits to value edits, testing a pledge-versus-benefit trade-off.",
     "442791943ea0bb14": "Applied weight editing to CLIP-style retrieval with a closed-form recipe, not LLM-authored weights.",
-    "9f78cee464619905": "First cost and success figures: a written transformer beat its author model's direct answers."
+    "9f78cee464619905": "First cost and success figures: a written transformer beat its author model's direct answers.",
+    "d342a12713de08ee": "Extended the method from building networks to repairing one, recovering most of a 4-bit quantization loss without data."
   }
 }

@@ -1,116 +1,93 @@
 {
   "slug": "routing-inference",
-  "generated_at": "2026-11-25T00:30:00Z",
-  "covers_last_updated": "2026-11-24T00:00:00+00:00",
+  "generated_at": "2026-11-26T00:30:00Z",
+  "covers_last_updated": "2026-11-24T16:54:37+00:00",
   "covers_member_sids": [
     "9b6ce22e2f29b264",
     "e5680f897e15540f",
     "5bfc543d91bf8d2a",
-    "a4e942d0f147f07c",
     "adc7ff27af4b9288",
-    "ca0cd6bcfdb70098",
     "d7a4f91e59e352a3",
-    "e267de687efb45c3",
-    "018ac20c79d4eeba",
-    "15de4f547fb7e7f3",
     "dec4d075135f7b7e",
-    "60d6d445e0dacc9d",
     "a2babe4c488b1701",
-    "dc09546d23d7229e",
     "791a1b16a3fdcbe1",
     "a272cda257e80f9a",
     "a20d3952433df237",
     "024d4dfaa92472bb",
-    "f51ccad0f77a0a72",
     "1e9cd14ce7d752e8",
-    "34fa4a3e4f5678d6",
-    "e51f1d2a874386b9"
+    "f1cc2271c89a756c"
   ],
-  "tldr": "This is a loose theme thread, not one event: 22 independent items from Nov 6 to Nov 24 that each cut inference or agent cost at a different layer, mostly arXiv papers plus posts from Google, Baseten, Microsoft Research, UW, AWS and vLLM. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
-  "whats_new": "vLLM shipped vLLM-GR on Nov 24, an open-source serving framework that adds beam search over semantic item IDs so generative recommendation models such as OneRec can run on the vLLM stack.",
-  "why_it_matters": "KV-cache memory is still the most-attacked bottleneck here (6 of 22 items), and vLLM-GR shows mainstream serving engines now stretching to non-chat workloads, so one serving stack may soon cover both LLM and recommendation traffic.",
+  "tldr": "This is a theme thread, not one event: 13 items from Nov 6 to Nov 24 that each cut LLM serving cost at a different layer, mostly arXiv papers plus Google's XLA Serving Engine launch and an AWS case study. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
+  "whats_new": "LoomKV (Nov 24) compresses the KV cache losslessly from GPU memory down to SSD on an unmodified serving engine, storing BF16 KV at 0.71x raw size and reporting 2.7-3.6x raw goodput on the AgentX trace.",
+  "why_it_matters": "KV-cache memory is the dominant serving bottleneck in this thread (7 of 13 items), and LoomKV is the first entry that claims lossless savings without engine changes, so cache tiering may become a drop-in layer rather than a fork.",
   "beats": [
     {
       "kicker": "SERVING",
       "tone": "neutral",
       "headline": "Serving stacks: XLA Serving Engine, edge simulation, cross-Region routing",
       "summary": "Infrastructure that decides where and on what hardware requests run.",
-      "sids": ["9b6ce22e2f29b264", "791a1b16a3fdcbe1", "a272cda257e80f9a"]
+      "sids": [
+        "9b6ce22e2f29b264",
+        "791a1b16a3fdcbe1",
+        "a272cda257e80f9a"
+      ]
     },
     {
-      "kicker": "MODEL",
+      "kicker": "EFFICIENCY",
       "tone": "neutral",
-      "headline": "Cheaper decoding: draft pruning, diffusion blocks, MoE traffic, small models",
-      "summary": "Efficiency inside the model and decode loop: cheaper draft verification, overlapping diffusion blocks, less all-to-all traffic, quantization and a 4GB agent model.",
-      "sids": ["a4e942d0f147f07c", "ca0cd6bcfdb70098", "018ac20c79d4eeba", "15de4f547fb7e7f3", "dec4d075135f7b7e"]
-    },
-    {
-      "kicker": "TOKENS",
-      "tone": "neutral",
-      "headline": "Shrink what the model reads and writes: images, audio, chain-of-thought",
-      "summary": "Token reduction on input (VLM cropping, chunked long-audio ASR) and on output (shorter chain-of-thought training targets).",
-      "sids": ["d7a4f91e59e352a3", "dc09546d23d7229e", "1e9cd14ce7d752e8"]
-    },
-    {
-      "kicker": "AGENTS",
-      "tone": "neutral",
-      "headline": "Agent-level efficiency: coordinated delegation and learned token budgets",
-      "summary": "Cost cuts at the agent layer rather than the serving stack.",
-      "sids": ["e267de687efb45c3", "60d6d445e0dacc9d"]
+      "headline": "Fewer tokens and less traffic: VLM cropping, MoE activation deltas, shorter chain-of-thought",
+      "summary": "Cost cuts outside the cache: smaller visual inputs, compressed expert-parallel communication, and shorter reasoning training targets.",
+      "sids": [
+        "d7a4f91e59e352a3",
+        "dec4d075135f7b7e",
+        "1e9cd14ce7d752e8"
+      ]
     },
     {
       "kicker": "KV CACHE",
       "tone": "rising",
       "headline": "The KV cache becomes the main target",
       "summary": "Six papers attack cache memory: intent-aware prefix reuse, verified compression, prefill/decode KV translation, Gemma 4 shared K=V storage, reasoning-trace compression, and hybrid-model cache streaming in SGLang.",
-      "sids": ["e5680f897e15540f", "5bfc543d91bf8d2a", "adc7ff27af4b9288", "a2babe4c488b1701", "a20d3952433df237", "024d4dfaa92472bb"]
-    },
-    {
-      "kicker": "OFF-THREAD",
-      "tone": "neutral",
-      "headline": "Keyword matches outside LLM serving",
-      "summary": "Two papers share the word \"efficient\" but address robot-policy RL training and an answer-evidence classifier, not inference serving.",
-      "sids": ["f51ccad0f77a0a72", "34fa4a3e4f5678d6"]
+      "sids": [
+        "e5680f897e15540f",
+        "5bfc543d91bf8d2a",
+        "adc7ff27af4b9288",
+        "a2babe4c488b1701",
+        "a20d3952433df237",
+        "024d4dfaa92472bb"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "vLLM extends to generative recommendation with vLLM-GR",
-      "summary": "A mainstream serving engine adds a non-chat decoding mode: beam search over semantic item IDs.",
-      "sids": ["e51f1d2a874386b9"]
+      "headline": "LoomKV: lossless KV compression across GPU, CPU and SSD tiers",
+      "summary": "Stores BF16 KV at 0.71x raw size on an unmodified engine and reports 2.7-3.6x goodput past LMCache's LRU cliff.",
+      "sids": [
+        "f1cc2271c89a756c"
+      ]
     }
   ],
   "open_questions": [
-    "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV) land in vLLM, SGLang or another mainstream serving engine?",
+    "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV, LoomKV) land in vLLM, SGLang or another mainstream serving engine?",
+    "Does LoomKV release code, and do its goodput gains hold on traces other than AgentX?",
     "Does TideCache's SGLang implementation get merged upstream or released as code?",
     "Does the Gemma 4 store-K=V-once trick ship in a paged serving engine release, and with what measured memory savings?",
-    "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
-    "Does vLLM-GR report throughput numbers against existing recommendation serving stacks?",
-    "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
+    "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?"
   ],
-  "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; if you run generative recommendation on a separate stack, test vLLM-GR before building custom beam-search serving.",
+  "take_for_builders": "If you offload KV cache with LMCache or similar, measure goodput as the working set crosses your LRU capacity before adding GPUs; that cliff is where LoomKV claims its gains.",
   "day_captions": {
-    "9b6ce22e2f29b264": "Google's open-source launch of an XLA-based serving engine, one of two new serving products in the set.",
+    "9b6ce22e2f29b264": "Google's open-source launch of an XLA-based serving engine, the one new serving product in the set.",
     "e5680f897e15540f": "First KV-cache paper: caches prefixes by conversational intent rather than exact prefix match.",
     "5bfc543d91bf8d2a": "Targets KV caches that overflow GPU memory in long-lived agents, verifying before fetching offloaded entries.",
-    "a4e942d0f147f07c": "Speculative decoding: learns to prune block-diffusion draft trees so verification costs less under concurrency.",
     "adc7ff27af4b9288": "Splits phases across models: a large model prefills, a small one decodes, bridged by KV translation.",
-    "ca0cd6bcfdb70098": "Diffusion LMs: overlaps block boundaries during denoising for faster generation.",
     "d7a4f91e59e352a3": "Input reduction for VLMs: complementary cropping and compression for visual question answering.",
-    "e267de687efb45c3": "Agent-layer: coordinated task allocation to make multi-agent deep research cheaper than naive delegation.",
-    "018ac20c79d4eeba": "Baseten's practitioner overview of inference trade-offs, including quantization.",
-    "15de4f547fb7e7f3": "A 4GB small model post-trained from Gemma-4-E4B-it, tuned for intelligence per GB in conversational agents.",
     "dec4d075135f7b7e": "Cuts MoE expert-parallel communication by sending activation changes instead of full activations.",
-    "60d6d445e0dacc9d": "Microsoft Research on coding agents that learn from past runs to spend fewer tokens.",
     "a2babe4c488b1701": "Exploits Gemma 4's tied key/value design to store the global KV cache once without changing attention kernels.",
-    "dc09546d23d7229e": "Extends input reduction to speech: hierarchical chunking for long-context ASR inference.",
     "791a1b16a3fdcbe1": "A simulator for planning distributed LLM serving across heterogeneous edge devices without physical test runs.",
     "a272cda257e80f9a": "AWS case study: Salesforce pools fragmented Regional capacity with SageMaker AI cross-Region routing.",
     "a20d3952433df237": "KV compression aimed at long reasoning traces, pruning redundant, low-utility generated tokens.",
     "024d4dfaa92472bb": "Hybrid-attention cache management on CPU-GPU superchips, implemented in SGLang and tested on GB300 and GH200.",
-    "f51ccad0f77a0a72": "Off-thread: training efficiency for robot VLA policies via latent world models, not inference serving.",
     "1e9cd14ce7d752e8": "Output-side reduction: builds shorter chain-of-thought training targets, cutting compressor budget by a median 90.7%.",
-    "34fa4a3e4f5678d6": "Off-thread: an answer-evidence classifier that mentions efficient inference only in passing.",
-    "e51f1d2a874386b9": "Latest item: vLLM's own extension into generative recommendation serving."
+    "f1cc2271c89a756c": "Latest item: first lossless, engine-unmodified KV compression in the thread, with goodput numbers against LMCache."
   }
 }

@@ -1,44 +1,51 @@
 {
   "slug": "technical-report",
-  "generated_at": "2026-11-20T00:12:41Z",
-  "covers_last_updated": "2026-11-18T15:46:14+00:00",
-  "covers_member_sids": ["80bf40e7e133130c", "2f7be7ac68b1edc1", "b0b6c263afe6d2d0"],
-  "tldr": "This is a loose thread of unrelated model technical reports, not one developing event. It opened with Tencent Hunyuan's Hy-Nomas world-model report and benchmark on Oct 30, then MNN-Pocket-0.3B, a 300M-parameter on-device model with 32K context, on Nov 9.",
-  "whats_new": "Clover-35B-A3B-Preview's report (Nov 18) describes a mixture-of-experts diffusion language model with 35B total and 3B active parameters that supports a thinking mode.",
-  "why_it_matters": "Each report shows a different serving shape: world models, sub-1B INT4 on-device models, and sparse diffusion LMs, each with its own inference cost and runtime needs.",
+  "generated_at": "2026-11-26T00:20:00Z",
+  "covers_last_updated": "2026-11-24T18:51:29+00:00",
+  "covers_member_sids": [
+    "2f7be7ac68b1edc1",
+    "b0b6c263afe6d2d0",
+    "df883eb99e24a75f",
+    "8dc412120c61e17c"
+  ],
+  "tldr": "This is a loose thread of unrelated arXiv technical reports, not one developing event. It opened Nov 9 with MNN-Pocket-0.3B, a 300M on-device model, then added sparse MoE models: the Clover diffusion LM (35B total, 3B active) and Beam (501.3B total, 23.4B active, 1M-token context).",
+  "whats_new": "SAG-Mem-1.0's report (Nov 24) describes a conversational memory framework that stores raw dialogue chunks behind a lexical index with no LLM processing, reporting 83.08 on LoCoMo and 80.20 on LongMemEval.",
+  "why_it_matters": "The reports span different serving shapes: sub-1B INT4 on-device models, sparse MoE models up to 501B, and a memory layer that skips LLM calls at write time, each with its own runtime and cost profile.",
   "beats": [
     {
-      "kicker": "WORLD MODELS",
-      "tone": "launch",
-      "headline": "Tencent Hunyuan publishes the Hy-Nomas report and Hy-Nomas-Bench",
-      "summary": "A lab report paired with a new benchmark for world models; coverage came via secondary press.",
-      "sids": ["80bf40e7e133130c"]
-    },
-    {
       "kicker": "ON-DEVICE",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "MNN-Pocket-0.3B targets on-device deployment at 300M parameters",
       "summary": "A compact dense model with 32K context and an INT4 deployment path.",
       "sids": ["2f7be7ac68b1edc1"]
     },
     {
+      "kicker": "SPARSE MoE",
+      "tone": "rising",
+      "headline": "Clover and Beam report sparse mixture-of-experts models at two scales",
+      "summary": "Clover is a 35B/3B-active diffusion LM with thinking mode; Beam is a 501.3B/23.4B-active model for coding and agentic tasks with a 1M-token context.",
+      "sids": ["b0b6c263afe6d2d0", "df883eb99e24a75f"]
+    },
+    {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Clover-35B-A3B-Preview: a sparse MoE diffusion LM with thinking mode",
-      "summary": "35B total and 3B active parameters, built on an adapted gated architecture per the abstract.",
-      "sids": ["b0b6c263afe6d2d0"]
+      "headline": "SAG-Mem-1.0: agent memory from raw chunks and a lexical index",
+      "summary": "No LLM summarization at write time; reported 83.08 on LoCoMo and 80.20 on LongMemEval.",
+      "sids": ["8dc412120c61e17c"]
     }
   ],
   "open_questions": [
-    "Are the Hy-Nomas, MNN-Pocket-0.3B, or Clover weights released under a license that permits commercial use?",
-    "Does Hy-Nomas-Bench gain adoption outside Tencent's own evaluations?",
+    "Are the MNN-Pocket-0.3B, Clover, or Beam weights released under a license that permits commercial use?",
     "Do mainstream inference servers support Clover's diffusion decoding, or does it need a custom runtime?",
-    "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?"
+    "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?",
+    "Does Beam's 1M-token context hold up on long-context agentic benchmarks run outside the authors' lab?",
+    "Do SAG-Mem's LoCoMo and LongMemEval scores hold up against LLM-summarized memory baselines under independent replication?"
   ],
-  "take_for_builders": "Treat these as research reads. Before adopting one, check its weight license and runtime support, especially for Clover's diffusion decoding.",
+  "take_for_builders": "Treat these as research reads. If you run agent memory, benchmark SAG-Mem's no-LLM chunk-and-index approach against your summarization pipeline on LoCoMo or LongMemEval before paying for write-time LLM calls.",
   "day_captions": {
-    "80bf40e7e133130c": "Opens the thread: a world-model report plus a new benchmark, reported secondhand by Pandaily.",
-    "2f7be7ac68b1edc1": "Adds the small end of the range: a 300M on-device model with an INT4 path.",
-    "b0b6c263afe6d2d0": "Latest entry: a sparse diffusion LM, a different decoding approach from the autoregressive norm."
+    "2f7be7ac68b1edc1": "Opens the thread at the small end: a 300M on-device model with an INT4 path.",
+    "b0b6c263afe6d2d0": "Adds a sparse diffusion LM, a different decoding approach from the autoregressive norm.",
+    "df883eb99e24a75f": "Adds the large end: a 501B sparse MoE aimed at agentic work, with a 1M-token context and async RL post-training.",
+    "8dc412120c61e17c": "Latest entry shifts from models to agent memory: lexical retrieval over raw dialogue with benchmark scores."
   }
 }

@@ -1,0 +1,54 @@
+{
+  "slug": "harness-performance",
+  "generated_at": "2026-11-26T00:20:00+00:00",
+  "covers_last_updated": "2026-11-24T18:34:40+00:00",
+  "covers_member_sids": [
+    "701a571706ec6c00",
+    "2a7f0fddd2dac162",
+    "c39c6a595988af5c"
+  ],
+  "tldr": "Hugging Face opened the thread on Nov 20 by training a LoRA adapter that fits a model to its harness, raising Qwen3.8-27B's Terminal-Bench 2.1 pass@1 from 39% to 55% on half the tokens. On Nov 23 Jcode, an open-source Rust harness, shifted the lever to running parallel agents on one repo with a server that coordinates file changes.",
+  "whats_new": "Delegent, an arXiv harness built on Claude Code, keeps a frontier model in charge and hands easy subtasks to a small local model, reporting 67% lower frontier cost on long-horizon coding and 59% on agentic search.",
+  "why_it_matters": "Three separate teams treat the harness, not the model, as the tuning surface for agent cost and pass rate: adapter training, parallel orchestration, and frontier-to-local delegation.",
+  "status": {
+    "state": "Developing · research claims",
+    "tone": "rising",
+    "changed": "2026-11-24",
+    "detail": "Each result is self-reported by its authors on its own benchmark; no item yet compares the three approaches on a shared task."
+  },
+  "beats": [
+    {
+      "kicker": "MODEL-SIDE",
+      "tone": "launch",
+      "headline": "Hugging Face trains a LoRA adapter to fit a model to its harness",
+      "summary": "RL on Qwen3.8-27B with the Pi harness: Terminal-Bench 2.1 pass@1 39% to 55%, average tokens 2.9K to 1.5K.",
+      "sids": ["701a571706ec6c00"]
+    },
+    {
+      "kicker": "ORCHESTRATION",
+      "tone": "rising",
+      "headline": "Jcode runs parallel coding agents on one repo from a Rust harness",
+      "summary": "A coordinating server notifies agents of file changes and handles messaging between them; no benchmark numbers attached.",
+      "sids": ["2a7f0fddd2dac162"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Delegent routes easy subtasks from a frontier model to a local one",
+      "summary": "Built on Claude Code; reports 67% lower frontier cost on long-horizon coding and 59% on agentic search.",
+      "sids": ["c39c6a595988af5c"]
+    }
+  ],
+  "open_questions": [
+    "Does a harness adapter trained for Pi keep its Terminal-Bench gain when the same model runs in a different harness?",
+    "Does Delegent's frontier-cost cut hold once local-model latency and hardware cost are counted?",
+    "Does Jcode publish pass-rate or throughput numbers against a single-agent harness?",
+    "Does any independent group reproduce these gains on a shared benchmark such as Terminal-Bench?"
+  ],
+  "take_for_builders": "Before switching models to cut agent cost, benchmark harness changes on your own tasks: log frontier-token spend per subtask and test routing the cheap ones to a local model.",
+  "day_captions": {
+    "701a571706ec6c00": "Starting point: harness fit as a trainable property, with a 16-point Terminal-Bench gain at half the tokens.",
+    "2a7f0fddd2dac162": "Moves the lever from training to orchestration: parallel agents sharing one repo through a coordinating server.",
+    "c39c6a595988af5c": "Adds model routing as a third lever, with the thread's largest reported cost cut."
+  }
+}

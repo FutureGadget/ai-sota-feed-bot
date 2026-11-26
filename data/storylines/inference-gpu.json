@@ -1,12 +1,12 @@
 {
  "slug": "inference-gpu",
  "label": "Inference GPU",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 3,
  "first_seen": "2026-11-06T18:01:00+00:00",
- "last_updated": "2026-11-22T06:27:00+00:00",
- "generated_at": "2026-11-23T00:13:28.700650+00:00",
+ "last_updated": "2026-11-25T15:08:38+00:00",
+ "generated_at": "2026-11-26T00:12:44.970528+00:00",
  "sources": [
   "aws_ml_blog",
   "hackernews_ai",
@@ -57,14 +57,29 @@
      "editor_note": "Extends GPU sharing to serverless: one model per GPU serves up to 48 concurrent Lambda invocations."
     }
    ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "The model inside the server: Network design for inference on a few GPU nodes",
+     "url": "https://blog.apnic.net/2026/11/25/the-model-inside-the-server-network-design-for-inference-on-a-few-gpu-nodes",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Explains network design for inference on a few GPU nodes, using a 4-server, 8-GPU example running Llama 3.3 70B with vLLM, and argues that request handling and session count matter more than GPU-to-GPU bandwidth.",
+     "sid": "2714f44b3c3e9482",
+     "published": "2026-11-25T15:08:38+00:00",
+     "editor_note": "Adds the self-hosted counterpart: where the bottleneck sits when you run a 70B model on four GPU servers."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose topic cluster, not one event: three unrelated items about running inference on GPUs. Its main thread is AWS adding ways to share one GPU, starting with NVIDIA Multi-Instance GPU partitions for SageMaker endpoints on Nov 6.",
+  "tldr": "This is a loose topic cluster about running inference on GPUs, not one event. Its main thread is AWS adding managed ways to share one GPU: NVIDIA MIG partitions for SageMaker endpoints on Nov 6, then Lambda GPU functions with up to 48 concurrent invocations per model on Nov 22.",
   "stale": false,
-  "whats_new": "AWS Lambda now runs GPU inference on EC2 G-series instances through Lambda Managed Instances, with up to 48 concurrent invocations sharing one model per GPU and vLLM/SGLang base images.",
-  "why_it_matters": "Two AWS launches in three weeks move GPU sharing into managed services, so small or bursty models no longer need a dedicated, mostly idle GPU endpoint.",
-  "take_for_builders": "If you run small or bursty models on dedicated GPU endpoints, benchmark the same model on a SageMaker MIG partition and on Lambda GPU before your next capacity renewal.",
+  "whats_new": "An APNIC design guide for self-hosted inference on a few GPU nodes, built on a 4-server, 8-GPU vLLM setup running Llama 3.3 70B, argues that request handling and session count matter more than GPU-to-GPU bandwidth.",
+  "why_it_matters": "Whether you rent shared GPUs from AWS or run a few nodes yourself, utilization now depends on how requests are batched and routed more than on raw interconnect speed.",
+  "take_for_builders": "Before buying faster interconnect for a small self-hosted cluster, load-test request concurrency and session counts on vLLM; for bursty small models, benchmark SageMaker MIG and Lambda GPU first.",
   "beats": [
    {
     "kicker": "PARTITION",
@@ -85,12 +100,21 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "SERVERLESS",
+    "tone": "rising",
     "headline": "Lambda runs GPU inference with 48 concurrent invocations per model",
     "summary": "Lambda Managed Instances on G-series GPUs share one loaded model across invocations, with vLLM and SGLang base images.",
     "sids": [
      "9e6bd2a43844cbfa"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Self-hosted view: network design for a 4-node, 8-GPU vLLM cluster",
+    "summary": "For Llama 3.3 70B on a few servers, the guide puts request handling and session count ahead of GPU-to-GPU bandwidth.",
+    "sids": [
+     "2714f44b3c3e9482"
     ]
    }
   ],
@@ -98,8 +122,9 @@
    "Which G-series instance types and regions does Lambda GPU support at launch?",
    "How does Lambda GPU pricing compare with a SageMaker endpoint on a MIG partition for the same model?",
    "What cold-start time does a Lambda GPU function show when it loads a model?",
-   "Does SageMaker MIG support cover all MIG profiles, or only a fixed set of partition sizes?"
+   "Does SageMaker MIG support cover all MIG profiles, or only a fixed set of partition sizes?",
+   "At what model size or node count does GPU-to-GPU bandwidth become the bottleneck again for a small vLLM cluster?"
   ],
-  "generated_at": "2026-11-23T00:12:27Z"
+  "generated_at": "2026-11-26T00:20:00Z"
  }
 }

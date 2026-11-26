@@ -1,85 +1,98 @@
 {
   "slug": "benchmarking-multi-agent",
-  "generated_at": "2026-11-25T00:30:00+00:00",
-  "covers_last_updated": "2026-11-23T18:55:44+00:00",
+  "generated_at": "2026-11-26T00:30:00+00:00",
+  "covers_last_updated": "2026-11-24T17:48:54+00:00",
   "covers_member_sids": [
-    "346fd33a4e5b3077",
-    "45b80d77d473d30f",
-    "138e084674254809",
-    "14fde8003cd1147c",
-    "23c0753cd928bfa7",
-    "f5f5bfe9b72425ef",
-    "29f0e99816524f78",
+    "d48d8aea5d45b475",
     "b3a45cba6445f63d",
-    "d56fa1c78b5794b5",
-    "e372c76cd210406f",
-    "61fe6193294930a8",
-    "004673f14a75854b",
-    "46d71c45a0641225",
-    "dd4bda4f3ff03b68",
-    "52c1ddc39f6c73dc",
-    "9ef53558a95bc11c",
+    "a34f1fafb710e628",
+    "ae75fdfb8dec6766",
+    "3debe09eabc6be1b",
+    "d761218419b3b591",
+    "3449739a151bbd6a",
+    "31fa9cd8fb58d57c",
+    "dfde2d652caf6073",
     "213a3d94fcfe4f8e",
-    "8151cba33f4fca30"
+    "badad62bfaefb859",
+    "31eff569e0a28590"
   ],
-  "tldr": "This is a theme thread, not one event: three weeks of arXiv papers proposing new agent benchmarks, starting with multi-agent decision and coordination tests (TandemBench, WorkflowArena). Later papers moved to MCP hallucination, memory poisoning, and long-horizon real-world tasks such as AI infra tuning and research sessions.",
-  "whats_new": "REPA (Nov 23) models how one agent's local errors propagate into system-level failures across multi-agent workflows, two days after MASSys showed Star vs Chain topology rankings flip under KV-cache pressure.",
-  "why_it_matters": "Multi-agent scores now depend on serving substrate and error propagation, not just the model, so a leaderboard number may not hold on your own inference stack.",
+  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and workflow orchestration. It then split into two tracks: securing agents against malicious peers and data leaks, and tracing which agent caused a failure.",
+  "whats_new": "LatentLens (Nov 23) reports that a latent agent-to-agent interface often fails to improve accuracy and can degrade it across seven benchmarks, the same day REPA modeled how one agent's local errors cascade into system failure.",
+  "why_it_matters": "Multi-agent reliability now has concrete failure models (error propagation, malicious feedback during replanning, cross-agent data leaks), so a single end-to-end success rate no longer tells you why your agent team fails.",
   "beats": [
     {
-      "kicker": "COORDINATION",
+      "kicker": "SYSTEM COST",
       "tone": "launch",
-      "headline": "Benchmarks target how agents divide work and coordinate",
-      "summary": "Decision models, workflow orchestration, shared-memory coordination, and full-duplex voice task handling each get a dedicated test.",
-      "sids": ["346fd33a4e5b3077", "f5f5bfe9b72425ef", "29f0e99816524f78", "b3a45cba6445f63d"]
+      "headline": "Running agents as a team hits memory and orchestration limits",
+      "summary": "Simultaneously resident KV caches become a memory bottleneck, and harnesses that spawn worker agents get an executable orchestration benchmark.",
+      "sids": [
+        "d48d8aea5d45b475",
+        "b3a45cba6445f63d"
+      ]
     },
     {
-      "kicker": "RELIABILITY",
+      "kicker": "SECURITY",
       "tone": "rising",
-      "headline": "Tool calls, memory, and multi-turn state come under test",
-      "summary": "MCP hallucinations, memory poisoning across sessions, and user-state tracking over turns; two memory papers sit at the theme's edge.",
-      "sids": ["45b80d77d473d30f", "138e084674254809", "14fde8003cd1147c", "61fe6193294930a8", "46d71c45a0641225"]
+      "headline": "Malicious peers and data leaks become the threat model",
+      "summary": "Private retrieval and inference, an open-source leak tester, secure aggregation rules, and a replanning step hardened against hostile agent feedback.",
+      "sids": [
+        "a34f1fafb710e628",
+        "3debe09eabc6be1b",
+        "d761218419b3b591",
+        "dfde2d652caf6073"
+      ]
     },
     {
-      "kicker": "REAL WORK",
-      "tone": "rising",
-      "headline": "Long-horizon, real-world task benchmarks multiply",
-      "summary": "AI infra optimization, live research workspaces, privacy-aware code review, multi-arm robot control, video, and spatial exploration.",
-      "sids": ["23c0753cd928bfa7", "d56fa1c78b5794b5", "004673f14a75854b", "dd4bda4f3ff03b68", "52c1ddc39f6c73dc", "8151cba33f4fca30"]
+      "kicker": "FAILURE",
+      "tone": "turn",
+      "headline": "Research shifts to blaming the right agent for a failure",
+      "summary": "Failure attribution traces the decisive error step and responsible agent; TRACE-MAS adds repair for collaboration failures in messages and task dependencies.",
+      "sids": [
+        "ae75fdfb8dec6766",
+        "31fa9cd8fb58d57c"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "The system layer: serving substrate and error propagation",
-      "summary": "Papers now measure what happens around the agents: batch scheduling, serving load, and how local errors cascade.",
-      "sids": ["e372c76cd210406f", "9ef53558a95bc11c", "213a3d94fcfe4f8e"]
+      "headline": "Error cascades get a model, and latent interfaces a negative result",
+      "summary": "REPA links local agent errors to system-level failure; LatentLens finds the latent interface frequently does not help.",
+      "sids": [
+        "213a3d94fcfe4f8e",
+        "badad62bfaefb859"
+      ]
+    },
+    {
+      "kicker": "EDGE",
+      "tone": "neutral",
+      "headline": "Ranking and recommender papers clustered on shared wording",
+      "summary": "LLM ranking at LinkedIn scale and uncertainty signals for LLM recommenders sit outside the multi-agent theme.",
+      "sids": [
+        "3449739a151bbd6a",
+        "31eff569e0a28590"
+      ]
     }
   ],
   "open_questions": [
-    "Does MASSys's topology-ranking flip under KV-cache pressure reproduce on other serving stacks?",
     "Does REPA's error-propagation model hold beyond the three Qwen base models it was evaluated on?",
-    "Do any of these benchmarks release harnesses that teams adopt for their own regression evals?",
-    "Does MCPHallu's separation of reasoning, execution, and memory hallucinations show up in vendor MCP agent evaluations?"
+    "Does LatentLens's degradation result hold on model families other than Qwen3?",
+    "Do CoLFA or TRACE-MAS ship tooling that attributes failures in production agent traces, not only benchmark logs?",
+    "Does Kaer's protected replanning hold up on benchmarks other than its own Cintra suite?",
+    "Do any of these benchmarks release harnesses that teams adopt for their own regression evals?"
   ],
-  "take_for_builders": "Before choosing a multi-agent topology from a published score, rerun the comparison on your own serving stack at production load, because MASSys shows the ranking can flip with KV-cache pressure.",
+  "take_for_builders": "Log each agent's messages and intermediate outputs per step in your multi-agent runs, because failure attribution and error-propagation methods like CoLFA and REPA need per-agent traces, not just the final answer.",
   "day_captions": {
-    "346fd33a4e5b3077": "Opens the thread: decision models scored on how a team divides work and acts in parallel.",
-    "45b80d77d473d30f": "Moves past MCP task success to separate reasoning, execution, and memory hallucinations.",
-    "138e084674254809": "Frames agent memory as an attack surface, with instructions poisoning later sessions.",
-    "14fde8003cd1147c": "Shows strong single-turn scores don't guarantee multi-turn user-state tracking.",
-    "23c0753cd928bfa7": "Tests whether agents can keep improving real AI infrastructure over long horizons.",
-    "f5f5bfe9b72425ef": "Brings coordination testing to full-duplex voice agents users interrupt and redirect.",
-    "29f0e99816524f78": "Locked two-implementation replication of agents coordinating unprompted via shared memory.",
+    "d48d8aea5d45b475": "Names the memory cost of a team: every agent's KV cache resident at once.",
     "b3a45cba6445f63d": "Scores harnesses that spawn worker agents on executable workflow orchestration.",
-    "d56fa1c78b5794b5": "Argues research-agent scores don't transfer to ongoing projects; tests real researcher sessions.",
-    "e372c76cd210406f": "Adjacent systems work: cuts batch makespan by coordinating inference with agent environments.",
-    "61fe6193294930a8": "Adjacent: evolves whole agent memory programs to find which design choices matter.",
-    "004673f14a75854b": "Real GDPR-style privacy fixes as a test set for coding agents doing code review.",
-    "46d71c45a0641225": "Loose fit: quantum recurrent networks for time series, clustered on shared wording only.",
-    "dd4bda4f3ff03b68": "Real-time control of many robot arms, where the world keeps moving while the agent thinks.",
-    "52c1ddc39f6c73dc": "Agentic video understanding scored on acting in high-frame-rate environments.",
-    "9ef53558a95bc11c": "Shows multi-agent topology rankings (Star vs Chain) shift with serving substrate and KV-cache load.",
-    "213a3d94fcfe4f8e": "Links measured local agent errors to system-level failure, tested on ErrPropBench-10.",
-    "8151cba33f4fca30": "994 spatial questions testing whether VLMs explore before answering; memory limits lose evidence."
+    "a34f1fafb710e628": "Adds privacy to the agenda: private retrieval and inference between agents.",
+    "ae75fdfb8dec6766": "First failure-attribution entry: find the decisive error step and the agent behind it.",
+    "3debe09eabc6be1b": "The thread's one open-source tool: privacy leak testing for multi-agent systems.",
+    "d761218419b3b591": "Treats aggregation of agent answers as the point where malicious agents strike.",
+    "3449739a151bbd6a": "Loose fit: production LLM ranking under P99 latency, not a multi-agent system.",
+    "31fa9cd8fb58d57c": "Moves from diagnosing collaboration failures to repairing them.",
+    "dfde2d652caf6073": "Hardens the orchestrator's replanning step against malicious agent feedback, with a new Cintra benchmark.",
+    "213a3d94fcfe4f8e": "Models how local agent errors propagate to system failure, tested on ErrPropBench-10.",
+    "badad62bfaefb859": "Negative result: a latent agent interface often fails to improve accuracy and can degrade it.",
+    "31eff569e0a28590": "Loose fit: uncertainty signals for LLM recommenders, clustered on shared wording."
   }
 }

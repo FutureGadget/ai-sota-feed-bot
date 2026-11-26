@@ -1,20 +1,19 @@
 {
  "slug": "routing-inference",
- "label": "Efficient Inference",
- "item_count": 22,
- "day_count": 13,
- "source_count": 7,
+ "label": "Cache Serving",
+ "item_count": 13,
+ "day_count": 9,
+ "source_count": 6,
  "first_seen": "2026-11-06T15:21:03+00:00",
- "last_updated": "2026-11-24T00:00:00+00:00",
- "generated_at": "2026-11-25T00:14:27.939533+00:00",
+ "last_updated": "2026-11-24T16:54:37+00:00",
+ "generated_at": "2026-11-26T00:12:44.970528+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
   "aws_ml_blog",
-  "hackernews_ai",
-  "vllm_blog"
+  "hackernews_ai"
  ],
  "days": [
   {
@@ -28,7 +27,7 @@
      "summary_1line": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
      "sid": "9b6ce22e2f29b264",
      "published": "2026-11-06T15:21:03+00:00",
-     "editor_note": "Google's open-source launch of an XLA-based serving engine, one of two new serving products in the set."
+     "editor_note": "Google's open-source launch of an XLA-based serving engine, the one new serving product in the set."
     },
     {
      "title": "Intent-Aware Caching for Efficient LLM Serving",
@@ -56,16 +55,6 @@
      "sid": "5bfc543d91bf8d2a",
      "published": "2026-11-08T11:43:34+00:00",
      "editor_note": "Targets KV caches that overflow GPU memory in long-lived agents, verifying before fetching offloaded entries."
-    },
-    {
-     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
-     "url": "http://arxiv.org/abs/2611.11371v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
-     "sid": "a4e942d0f147f07c",
-     "published": "2026-11-08T13:29:14+00:00",
-     "editor_note": "Speculative decoding: learns to prune block-diffusion draft trees so verification costs less under concurrency."
     }
    ]
   },
@@ -88,17 +77,6 @@
    "date": "2026-11-10",
    "items": [
     {
-     "title": "Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models",
-     "url": "http://arxiv.org/abs/2611.14387v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing c...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "ca0cd6bcfdb70098",
-     "published": "2026-11-10T17:40:24+00:00",
-     "editor_note": "Diffusion LMs: overlaps block boundaries during denoising for faster generation."
-    },
-    {
      "title": "C$^2$-Routing: Complementary Cropping and Compression for Efficient Vision-Language Inference",
      "url": "http://arxiv.org/abs/2611.14469v1",
      "source": "arxiv_cs_lg",
@@ -108,52 +86,6 @@
      "sid": "d7a4f91e59e352a3",
      "published": "2026-11-10T18:32:28+00:00",
      "editor_note": "Input reduction for VLMs: complementary cropping and compression for visual question answering."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-12",
-   "items": [
-    {
-     "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
-     "url": "http://arxiv.org/abs/2611.17041v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "e267de687efb45c3",
-     "published": "2026-11-12T16:26:27+00:00",
-     "editor_note": "Agent-layer: coordinated task allocation to make multi-agent deep research cheaper than naive delegation."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-15",
-   "items": [
-    {
-     "title": "The efficient frontier of LLM inference",
-     "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
-     "source": "hackernews_ai",
-     "type": "news",
-     "sid": "018ac20c79d4eeba",
-     "published": "2026-11-15T23:55:50+00:00",
-     "editor_note": "Baseten's practitioner overview of inference trade-offs, including quantization."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-16",
-   "items": [
-    {
-     "title": "Nemotron 3.5 Bolt E4B 4GB: An Open and Efficient Small Language Model for Fast Conversational Agents",
-     "url": "http://arxiv.org/abs/2611.20771v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "We introduce Nemotron 3.5 Bolt E4B 4GB, an open and efficient small language model further post-trained from Gemma-4-E4B-it and optimized for speed and intelligence per GB of memory used for fast conversational agents...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "15de4f547fb7e7f3",
-     "published": "2026-11-16T09:21:45+00:00",
-     "editor_note": "A 4GB small model post-trained from Gemma-4-E4B-it, tuned for intelligence per GB in conversational agents."
     }
    ]
   },
@@ -171,17 +103,6 @@
      "editor_note": "Cuts MoE expert-parallel communication by sending activation changes instead of full activations."
     },
     {
-     "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
-     "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "60d6d445e0dacc9d",
-     "published": "2026-11-17T06:53:51+00:00",
-     "editor_note": "Microsoft Research on coding agents that learn from past runs to spend fewer tokens."
-    },
-    {
      "title": "Storing the Gemma 4 K=V Cache Once: Exact Global-KV Memory Savings in a Paged Serving Engine with Unchanged Attention Kernels",
      "url": "http://arxiv.org/abs/2611.23035v1",
      "source": "arxiv_cs_cl",
@@ -196,16 +117,6 @@
   {
    "date": "2026-11-18",
    "items": [
-    {
-     "title": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
-     "url": "https://syfi.cs.washington.edu/blog/2026-11-13-murmur",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
-     "sid": "dc09546d23d7229e",
-     "published": "2026-11-18T06:40:34+00:00",
-     "editor_note": "Extends input reduction to speech: hierarchical chunking for long-context ASR inference."
-    },
     {
      "title": "LEDGE: An Efficient Simulator for Distributed LLM Serving on Heterogeneous Edge Devices",
      "url": "http://arxiv.org/abs/2611.24085v1",
@@ -260,16 +171,6 @@
    "date": "2026-11-20",
    "items": [
     {
-     "title": "Efficient VLA Reinforcement Learning via Subchunk Rollouts in Latent World Models",
-     "url": "http://arxiv.org/abs/2611.27645v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Proposes LS-MBPO, a lightweight residual reinforcement learning framework that uses latent world models instead of large image or video generators to improve pretrained vision-language-action robot policies, tested on LIBERO, RoboTwin, and a real ALOHA robot.",
-     "sid": "f51ccad0f77a0a72",
-     "published": "2026-11-20T14:09:06+00:00",
-     "editor_note": "Off-thread: training efficiency for robot VLA policies via latent world models, not inference serving."
-    },
-    {
      "title": "Abstract What Varies, Reuse Longer Patterns: Efficient Offline Chain-of-Thought Compression",
      "url": "http://arxiv.org/abs/2611.27710v1",
      "source": "arxiv_cs_ai",
@@ -282,43 +183,28 @@
    ]
   },
   {
-   "date": "2026-11-23",
-   "items": [
-    {
-     "title": "DKnown-Jev-2: Article-Level Answer-Evidence Classification and Efficient Inference with a Pre-trained Language Model",
-     "url": "http://arxiv.org/abs/2611.31056v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "DKnown-Jev-2 is an article-level classifier that labels whether a candidate article holds answer evidence for a normative question, reporting 91.77% accuracy and 91.28% macro-F1 on a 972-instance test set, 2.16 and 2.37 points above Jev.",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "34fa4a3e4f5678d6",
-     "published": "2026-11-23T17:18:23+00:00",
-     "editor_note": "Off-thread: an answer-evidence classifier that mentions efficient inference only in passing."
-    }
-   ]
-  },
-  {
    "date": "2026-11-24",
    "items": [
     {
-     "title": "Announcing vLLM-GR: Efficient Inference for Generative Recommendation",
-     "url": "https://vllm.ai/blog/2026-11-24-vllm-gr-announcement",
-     "source": "vllm_blog",
-     "type": "news",
-     "summary_1line": "vLLM-GR is an open-source inference and serving framework built on vLLM that adds beam search over semantic item IDs to generate candidate sets for recommendation models such as OneRec.",
-     "sid": "e51f1d2a874386b9",
-     "published": "2026-11-24T00:00:00+00:00",
-     "editor_note": "Latest item: vLLM's own extension into generative recommendation serving."
+     "title": "LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving",
+     "url": "http://arxiv.org/abs/2611.32954v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "LoomKV is a lossless KV cache compression system for LLM serving that works on an unmodified engine, storing BF16 KV at 0.71 of raw size and reporting 2.7-3.6x raw goodput on the AgentX trace across LMCache's LRU cliff.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "f1cc2271c89a756c",
+     "published": "2026-11-24T16:54:37+00:00",
+     "editor_note": "Latest item: first lossless, engine-unmodified KV compression in the thread, with goodput numbers against LMCache."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose theme thread, not one event: 22 independent items from Nov 6 to Nov 24 that each cut inference or agent cost at a different layer, mostly arXiv papers plus posts from Google, Baseten, Microsoft Research, UW, AWS and vLLM. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
+  "tldr": "This is a theme thread, not one event: 13 items from Nov 6 to Nov 24 that each cut LLM serving cost at a different layer, mostly arXiv papers plus Google's XLA Serving Engine launch and an AWS case study. Through Nov 19 the KV cache was the most-attacked target, ending with RoCoKV and TideCache.",
   "stale": false,
-  "whats_new": "vLLM shipped vLLM-GR on Nov 24, an open-source serving framework that adds beam search over semantic item IDs so generative recommendation models such as OneRec can run on the vLLM stack.",
-  "why_it_matters": "KV-cache memory is still the most-attacked bottleneck here (6 of 22 items), and vLLM-GR shows mainstream serving engines now stretching to non-chat workloads, so one serving stack may soon cover both LLM and recommendation traffic.",
-  "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; if you run generative recommendation on a separate stack, test vLLM-GR before building custom beam-search serving.",
+  "whats_new": "LoomKV (Nov 24) compresses the KV cache losslessly from GPU memory down to SSD on an unmodified serving engine, storing BF16 KV at 0.71x raw size and reporting 2.7-3.6x raw goodput on the AgentX trace.",
+  "why_it_matters": "KV-cache memory is the dominant serving bottleneck in this thread (7 of 13 items), and LoomKV is the first entry that claims lossless savings without engine changes, so cache tiering may become a drop-in layer rather than a fork.",
+  "take_for_builders": "If you offload KV cache with LMCache or similar, measure goodput as the working set crosses your LRU capacity before adding GPUs; that cliff is where LoomKV claims its gains.",
   "beats": [
    {
     "kicker": "SERVING",
@@ -332,37 +218,14 @@
     ]
    },
    {
-    "kicker": "MODEL",
+    "kicker": "EFFICIENCY",
     "tone": "neutral",
-    "headline": "Cheaper decoding: draft pruning, diffusion blocks, MoE traffic, small models",
-    "summary": "Efficiency inside the model and decode loop: cheaper draft verification, overlapping diffusion blocks, less all-to-all traffic, quantization and a 4GB agent model.",
-    "sids": [
-     "a4e942d0f147f07c",
-     "ca0cd6bcfdb70098",
-     "018ac20c79d4eeba",
-     "15de4f547fb7e7f3",
-     "dec4d075135f7b7e"
-    ]
-   },
-   {
-    "kicker": "TOKENS",
-    "tone": "neutral",
-    "headline": "Shrink what the model reads and writes: images, audio, chain-of-thought",
-    "summary": "Token reduction on input (VLM cropping, chunked long-audio ASR) and on output (shorter chain-of-thought training targets).",
+    "headline": "Fewer tokens and less traffic: VLM cropping, MoE activation deltas, shorter chain-of-thought",
+    "summary": "Cost cuts outside the cache: smaller visual inputs, compressed expert-parallel communication, and shorter reasoning training targets.",
     "sids": [
      "d7a4f91e59e352a3",
-     "dc09546d23d7229e",
+     "dec4d075135f7b7e",
      "1e9cd14ce7d752e8"
-    ]
-   },
-   {
-    "kicker": "AGENTS",
-    "tone": "neutral",
-    "headline": "Agent-level efficiency: coordinated delegation and learned token budgets",
-    "summary": "Cost cuts at the agent layer rather than the serving stack.",
-    "sids": [
-     "e267de687efb45c3",
-     "60d6d445e0dacc9d"
     ]
    },
    {
@@ -380,33 +243,22 @@
     ]
    },
    {
-    "kicker": "OFF-THREAD",
-    "tone": "neutral",
-    "headline": "Keyword matches outside LLM serving",
-    "summary": "Two papers share the word \"efficient\" but address robot-policy RL training and an answer-evidence classifier, not inference serving.",
-    "sids": [
-     "f51ccad0f77a0a72",
-     "34fa4a3e4f5678d6"
-    ]
-   },
-   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "vLLM extends to generative recommendation with vLLM-GR",
-    "summary": "A mainstream serving engine adds a non-chat decoding mode: beam search over semantic item IDs.",
+    "headline": "LoomKV: lossless KV compression across GPU, CPU and SSD tiers",
+    "summary": "Stores BF16 KV at 0.71x raw size on an unmodified engine and reports 2.7-3.6x goodput past LMCache's LRU cliff.",
     "sids": [
-     "e51f1d2a874386b9"
+     "f1cc2271c89a756c"
     ]
    }
   ],
   "open_questions": [
-   "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV) land in vLLM, SGLang or another mainstream serving engine?",
+   "Do any of the KV-cache methods (RoCoKV, Verify Before You Fetch, BridgeKV, LoomKV) land in vLLM, SGLang or another mainstream serving engine?",
+   "Does LoomKV release code, and do its goodput gains hold on traces other than AgentX?",
    "Does TideCache's SGLang implementation get merged upstream or released as code?",
    "Does the Gemma 4 store-K=V-once trick ship in a paged serving engine release, and with what measured memory savings?",
-   "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
-   "Does vLLM-GR report throughput numbers against existing recommendation serving stacks?",
-   "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
+   "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?"
   ],
-  "generated_at": "2026-11-25T00:30:00Z"
+  "generated_at": "2026-11-26T00:30:00Z"
  }
 }

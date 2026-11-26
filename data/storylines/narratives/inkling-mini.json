@@ -1,0 +1,49 @@
+{
+  "slug": "inkling-mini",
+  "generated_at": "2026-11-26T00:30:00+00:00",
+  "covers_last_updated": "2026-11-25T19:42:36+00:00",
+  "covers_member_sids": [
+    "227c0cb62bf0dc78",
+    "824c03b970f1dc58",
+    "df3be113c8aed13f",
+    "5e2106f0eb891f07"
+  ],
+  "tldr": "Thinking Machines Lab released Inkling 2 Mini on Nov 20: a looped multimodal MoE with about 26B total parameters, roughly 3B active per token, and a 1M-token context. vLLM shipped day-0 serving on Blackwell, Hopper and DGX Spark the same day, with a Docker image.",
+  "whats_new": "Five days after launch, an agent-driven tuning run pushed single-user decode on one RTX PRO 6000 from 136 to 190.6 tok/s, and a Rust engine now serves the model on Apple silicon behind an OpenAI-compatible API.",
+  "why_it_matters": "A 26B MoE with about 3B active parameters and 1M context now has serving paths on datacenter GPUs, one workstation card and Macs, so local coding-agent backends no longer need a hosted API.",
+  "status": {
+    "state": "Shipping · ecosystem growing",
+    "tone": "rising",
+    "changed": "2026-11-25",
+    "detail": "Open-weight release with vLLM support at launch; community tuning and non-CUDA runtimes followed within a week."
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Inkling 2 Mini ships with day-0 vLLM serving",
+      "summary": "A looped-transformer MoE at about 26B total parameters, released with a vLLM Docker image for NVIDIA GPUs.",
+      "sids": ["824c03b970f1dc58", "227c0cb62bf0dc78"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Tuned single-GPU decode and an Apple silicon engine",
+      "summary": "Community work moves the model onto one workstation GPU at 190.6 tok/s and onto Macs for local coding agents.",
+      "sids": ["df3be113c8aed13f", "5e2106f0eb891f07"]
+    }
+  ],
+  "open_questions": [
+    "Do the RTX PRO 6000 tuning gains land upstream in vLLM or another mainline server?",
+    "What decode speed does Rustling reach on common Apple silicon chips?",
+    "How does Inkling 2 Mini score on coding-agent benchmarks against other small MoE models?",
+    "How much of the 1M-token context fits in memory on a single-GPU or Mac deployment?"
+  ],
+  "take_for_builders": "If you run a local coding-agent backend, benchmark Inkling 2 Mini with the vLLM Docker image on your own hardware before adopting the community tuning numbers.",
+  "day_captions": {
+    "824c03b970f1dc58": "Launch post: architecture, about 3B active parameters, 1M-token context.",
+    "227c0cb62bf0dc78": "Day-0 serving path: vLLM support on Blackwell, Hopper and DGX Spark plus a Docker image.",
+    "df3be113c8aed13f": "First published tuning numbers: +40% single-user decode and +26% 8-user throughput on one RTX PRO 6000.",
+    "5e2106f0eb891f07": "First non-CUDA runtime: a Rust engine for Apple silicon with an OpenAI-compatible API for coding agents."
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "inference-server",
+  "generated_at": "2026-11-26T00:30:00+00:00",
+  "covers_last_updated": "2026-11-25T15:08:38+00:00",
+  "covers_member_sids": [
+    "d5d0815a3aa9b544",
+    "8da93282dcb219d5",
+    "2714f44b3c3e9482"
+  ],
+  "tldr": "This is a loose thread of three unrelated pieces on running your own LLM inference server, not one developing event. It began with a hobbyist Qwen trainer-plus-server on Show HN (Nov 12) and an arXiv paper on Superfluid, a local server that distributes inference across devices (Nov 13).",
+  "whats_new": "An APNIC post works through a 4-server, 8-GPU vLLM deployment of Llama 3.3 70B and argues request handling and session count, not GPU-to-GPU bandwidth, decide network design at that scale.",
+  "why_it_matters": "For small self-hosted inference fleets, the bottleneck claim shifts sizing effort from interconnect spend toward request routing and concurrency limits.",
+  "beats": [
+    {
+      "kicker": "LOCAL SERVING",
+      "tone": "launch",
+      "headline": "Self-hosted servers: a Qwen hobby project and the Superfluid paper",
+      "summary": "Two early items frame local serving: one open-source trainer with a bundled server, one research system for spreading a model across local devices.",
+      "sids": ["d5d0815a3aa9b544", "8da93282dcb219d5"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Few-node GPU inference: network design follows sessions, not bandwidth",
+      "summary": "A worked vLLM example on 8 GPUs across 4 servers moves the thread from single-box serving to small-cluster sizing.",
+      "sids": ["2714f44b3c3e9482"]
+    }
+  ],
+  "open_questions": [
+    "Does any vLLM or SGLang benchmark confirm that session count outweighs interconnect bandwidth for 70B-class models on 2–4 nodes?",
+    "Does Superfluid release code or measured latency against a single-GPU baseline?"
+  ],
+  "take_for_builders": "Before buying faster interconnect for a 2–4 node inference cluster, load-test your real concurrent session count and request mix against the current network first.",
+  "day_captions": {
+    "d5d0815a3aa9b544": "Hobbyist open-source starting point: a Qwen reasoning-trace trainer that ships its own inference server.",
+    "8da93282dcb219d5": "Research angle: a local server that distributes LLM inference across devices for privacy, cost and offline use.",
+    "2714f44b3c3e9482": "First concrete sizing guidance: a 4-server vLLM example argues sessions, not GPU bandwidth, drive network design."
+  }
+}

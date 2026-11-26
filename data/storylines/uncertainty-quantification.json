@@ -1,0 +1,106 @@
+{
+ "slug": "uncertainty-quantification",
+ "label": "Uncertainty Quantification",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-11-13T17:26:39+00:00",
+ "last_updated": "2026-11-24T17:48:54+00:00",
+ "generated_at": "2026-11-26T00:12:44.970528+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
+     "url": "http://arxiv.org/abs/2611.18453v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemi...",
+     "sid": "3985de9df0cd2149",
+     "published": "2026-11-13T17:26:39+00:00",
+     "editor_note": "Opens the thread with a black-box method for API-only models that splits uncertainty into ambiguity and missing knowledge."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Fast Bayesian Methods for Uncertainty Quantification in Sparse AI Evaluation",
+     "url": "http://arxiv.org/abs/2611.24159v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Estimating how an AI system will perform on a new benchmark need not require another large model. We use public evaluation counts to choose a weak Beta prior, then update it exactly from at most 31 revealed outcomes....",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "a1b60d2b0521f078",
+     "published": "2026-11-18T10:02:38+00:00",
+     "editor_note": "Turns uncertainty onto evaluation: a Beta prior from public counts, updated with at most 31 outcomes."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "items": [
+    {
+     "title": "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
+     "url": "http://arxiv.org/abs/2611.33036v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces a fixed-ranking benchmark that tests eight uncertainty quantification signals as monitors of LLM-based recommendation rankings across four datasets and two LLM backbones, reporting that method rankings shift between backbones.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "31eff569e0a28590",
+     "published": "2026-11-24T17:48:54+00:00",
+     "editor_note": "First cross-backbone check: eight signals on four datasets, with method rankings that change by backbone."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "On Nov 13 an arXiv paper proposed ensemble-of-ensembles uncertainty estimates for black-box LLMs that split prompt ambiguity from knowledge gaps. A Nov 18 paper moved the question to evaluation, estimating benchmark performance from at most 31 revealed outcomes with a Beta prior.",
+  "stale": false,
+  "whats_new": "A Nov 24 benchmark tested eight uncertainty signals as monitors of LLM recommender rankings on four datasets and found the method ranking changes when the LLM backbone changes.",
+  "why_it_matters": "A confidence signal tuned on one model may not carry over when you swap the backbone, so uncertainty-based routing, abstention, and monitoring need per-model validation.",
+  "take_for_builders": "If you gate, route, or abstain on an uncertainty score, re-check its calibration on your eval set every time you change the underlying model.",
+  "beats": [
+   {
+    "kicker": "METHOD",
+    "tone": "launch",
+    "headline": "Black-box ensembles separate ambiguity from knowledge gaps",
+    "summary": "Brings Bayesian-style aleatoric/epistemic splits to API-only LLMs.",
+    "sids": [
+     "3985de9df0cd2149"
+    ]
+   },
+   {
+    "kicker": "EVAL COST",
+    "tone": "rising",
+    "headline": "Bayesian estimates from 31 outcomes replace large eval runs",
+    "summary": "Applies uncertainty to the eval itself: how sure a small benchmark sample can make you.",
+    "sids": [
+     "a1b60d2b0521f078"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Uncertainty method rankings shift between LLM backbones",
+    "summary": "A fixed-ranking recommender benchmark shows no single signal wins across models.",
+    "sids": [
+     "31eff569e0a28590"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the backbone-dependent ranking of uncertainty signals also appear outside recommendation tasks?",
+   "Does the ensemble-of-ensembles method stay reliable when evaluated across multiple model backbones?",
+   "Can 31-outcome Bayesian estimates predict agent or tool-use benchmark scores, not only static benchmarks?"
+  ],
+  "generated_at": "2026-11-26T00:20:00+00:00"
+ }
+}

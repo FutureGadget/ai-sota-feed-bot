@@ -1,32 +1,17 @@
 {
  "slug": "technical-report",
  "label": "Technical Report",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 2,
- "first_seen": "2026-10-30T02:07:22+00:00",
- "last_updated": "2026-11-18T15:46:14+00:00",
- "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "first_seen": "2026-11-09T12:33:26+00:00",
+ "last_updated": "2026-11-24T18:51:29+00:00",
+ "generated_at": "2026-11-26T00:12:44.970528+00:00",
  "sources": [
-  "arxiv_cs_cl",
-  "search_cn_open_weight_labs"
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
  ],
  "days": [
-  {
-   "date": "2026-10-30",
-   "items": [
-    {
-     "title": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models",
-     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOVlZ5am9WcWMtVE9JLUIzRkVUaDI5QS1vQ29VYWpwWVJQdjUtUWJPZGxNdmR1dDJTZ0xoc1ZIV04zQlY2M0NxdWxYMHhRTFJ3UUl5LXNCMVJ2ZTFNZW9COUZLT05OU1NQT1Y5cThXSVY3eXI2aUdpbUpqOG1UYUJITjFMdFhYeXczQ2l1SmJjWWNwZFExQnJTMm42Sm8zM2tXaHBON1FJVQ?oc=5",
-     "source": "search_cn_open_weight_labs",
-     "type": "release",
-     "summary_1line": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models Pandaily",
-     "sid": "80bf40e7e133130c",
-     "published": "2026-10-30T02:07:22+00:00",
-     "editor_note": "Opens the thread: a world-model report plus a new benchmark, reported secondhand by Pandaily."
-    }
-   ]
-  },
   {
    "date": "2026-11-09",
    "items": [
@@ -39,7 +24,7 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "2f7be7ac68b1edc1",
      "published": "2026-11-09T12:33:26+00:00",
-     "editor_note": "Adds the small end of the range: a 300M on-device model with an INT4 path."
+     "editor_note": "Opens the thread at the small end: a 300M on-device model with an INT4 path."
     }
    ]
   },
@@ -55,30 +40,53 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "b0b6c263afe6d2d0",
      "published": "2026-11-18T15:46:14+00:00",
-     "editor_note": "Latest entry: a sparse diffusion LM, a different decoding approach from the autoregressive norm."
+     "editor_note": "Adds a sparse diffusion LM, a different decoding approach from the autoregressive norm."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "Beam Model Technical Report",
+     "url": "http://arxiv.org/abs/2611.26358v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "A technical report introducing Beam, a sparse Mixture-of-Experts model with 501.3B total and 23.4B active parameters for coding, reasoning, and agentic tasks, with a 1M-token context window and a large-scale asynchronous RL post-training run.",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "df883eb99e24a75f",
+     "published": "2026-11-19T16:28:23+00:00",
+     "editor_note": "Adds the large end: a 501B sparse MoE aimed at agentic work, with a 1M-token context and async RL post-training."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "items": [
+    {
+     "title": "SAG-Mem-1.0 Technical Report",
+     "url": "http://arxiv.org/abs/2611.33124v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces SAG-Mem, a conversational memory framework that stores full dialogue messages in chunks with a lexical index and no LLM processing, reporting top scores of 83.08 on LoCoMo and 80.20 on LongMemEval.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "8dc412120c61e17c",
+     "published": "2026-11-24T18:51:29+00:00",
+     "editor_note": "Latest entry shifts from models to agent memory: lexical retrieval over raw dialogue with benchmark scores."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose thread of unrelated model technical reports, not one developing event. It opened with Tencent Hunyuan's Hy-Nomas world-model report and benchmark on Oct 30, then MNN-Pocket-0.3B, a 300M-parameter on-device model with 32K context, on Nov 9.",
+  "tldr": "This is a loose thread of unrelated arXiv technical reports, not one developing event. It opened Nov 9 with MNN-Pocket-0.3B, a 300M on-device model, then added sparse MoE models: the Clover diffusion LM (35B total, 3B active) and Beam (501.3B total, 23.4B active, 1M-token context).",
   "stale": false,
-  "whats_new": "Clover-35B-A3B-Preview's report (Nov 18) describes a mixture-of-experts diffusion language model with 35B total and 3B active parameters that supports a thinking mode.",
-  "why_it_matters": "Each report shows a different serving shape: world models, sub-1B INT4 on-device models, and sparse diffusion LMs, each with its own inference cost and runtime needs.",
-  "take_for_builders": "Treat these as research reads. Before adopting one, check its weight license and runtime support, especially for Clover's diffusion decoding.",
+  "whats_new": "SAG-Mem-1.0's report (Nov 24) describes a conversational memory framework that stores raw dialogue chunks behind a lexical index with no LLM processing, reporting 83.08 on LoCoMo and 80.20 on LongMemEval.",
+  "why_it_matters": "The reports span different serving shapes: sub-1B INT4 on-device models, sparse MoE models up to 501B, and a memory layer that skips LLM calls at write time, each with its own runtime and cost profile.",
+  "take_for_builders": "Treat these as research reads. If you run agent memory, benchmark SAG-Mem's no-LLM chunk-and-index approach against your summarization pipeline on LoCoMo or LongMemEval before paying for write-time LLM calls.",
   "beats": [
    {
-    "kicker": "WORLD MODELS",
-    "tone": "launch",
-    "headline": "Tencent Hunyuan publishes the Hy-Nomas report and Hy-Nomas-Bench",
-    "summary": "A lab report paired with a new benchmark for world models; coverage came via secondary press.",
-    "sids": [
-     "80bf40e7e133130c"
-    ]
-   },
-   {
     "kicker": "ON-DEVICE",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "MNN-Pocket-0.3B targets on-device deployment at 300M parameters",
     "summary": "A compact dense model with 32K context and an INT4 deployment path.",
     "sids": [
@@ -86,21 +94,32 @@
     ]
    },
    {
+    "kicker": "SPARSE MoE",
+    "tone": "rising",
+    "headline": "Clover and Beam report sparse mixture-of-experts models at two scales",
+    "summary": "Clover is a 35B/3B-active diffusion LM with thinking mode; Beam is a 501.3B/23.4B-active model for coding and agentic tasks with a 1M-token context.",
+    "sids": [
+     "b0b6c263afe6d2d0",
+     "df883eb99e24a75f"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Clover-35B-A3B-Preview: a sparse MoE diffusion LM with thinking mode",
-    "summary": "35B total and 3B active parameters, built on an adapted gated architecture per the abstract.",
+    "headline": "SAG-Mem-1.0: agent memory from raw chunks and a lexical index",
+    "summary": "No LLM summarization at write time; reported 83.08 on LoCoMo and 80.20 on LongMemEval.",
     "sids": [
-     "b0b6c263afe6d2d0"
+     "8dc412120c61e17c"
     ]
    }
   ],
   "open_questions": [
-   "Are the Hy-Nomas, MNN-Pocket-0.3B, or Clover weights released under a license that permits commercial use?",
-   "Does Hy-Nomas-Bench gain adoption outside Tencent's own evaluations?",
+   "Are the MNN-Pocket-0.3B, Clover, or Beam weights released under a license that permits commercial use?",
    "Do mainstream inference servers support Clover's diffusion decoding, or does it need a custom runtime?",
-   "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?"
+   "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?",
+   "Does Beam's 1M-token context hold up on long-context agentic benchmarks run outside the authors' lab?",
+   "Do SAG-Mem's LoCoMo and LongMemEval scores hold up against LLM-summarized memory baselines under independent replication?"
   ],
-  "generated_at": "2026-11-20T00:12:41Z"
+  "generated_at": "2026-11-26T00:20:00Z"
  }
 }
