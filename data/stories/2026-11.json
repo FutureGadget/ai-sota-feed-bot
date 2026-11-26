@@ -16870,6 +16870,23 @@
   "url": "https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "807614c1da97a1d8": {
+  "first_seen": "2026-11-26T12:06:40.955785+00:00",
+  "id": "e62c213a98f01e91",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T10:23:38+00:00",
+  "sid": "807614c1da97a1d8",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using large language model (LLM) agents raise safety risks that are not captured by text-only refusal behavior, especially when tools can trigger high-impact actions. This concern is salient in military settings, where autonomous weapons raise the possibility of delegating force decisions to software agents. In this work, we study whether a drone agent's action boundary is stable under changes to the target descriptor. We evaluate recent and popular LLMs in a simulated perception-action pipeline over real-world drone imagery, where models can localize requested targets and invoke a simulated lethal tool. We find two concerning failure modes. First, some LLM agents invoke the lethal tool for ordinary generic descriptors such as \\emph{people}, requiring no jailbreak at all. Second, an agent that initially appears conservative under protected descriptors can become unsafe under a simple semantic target shift.",
+  "summary_1line": "An arXiv study tests whether LLM drone agents keep their lethal-action limits when the target description changes, finding some invoke a simulated lethal tool for generic targets like people and some become unsafe after a small semantic shift.",
+  "title": "Unstable Action Boundaries in Lethal Drone Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34121v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "80862ee92fd83149": {
   "content_excerpt": "Local Autonomous Agent for Windows and Linux - Browser-controlled AI agent with workspace tools, diagnostics, and multi-agent delegation ⚠️ Project Status: ABANDONED / BASE FOR COMMUNITY. This project is no longer actively maintained by the original creator. The codebase is released as an open-source foundation for anyone to fork, improve, modify, or build upon. The only requirement: your derivative work must also remain free and open-source (GPL-3.0). Original Creator: Moonyeep - Built with Manus AI, based on ZeroScript architecture Infinix is a local autonomous AI agent for Windows and Linux, controlled through supported browser-based AI chats. Its local bridge provides endpoint diagnostics, workspace tools, browser automation, shell access under a selectable capability profile, and hierarchical multi-agent delegation. No separate model API key is required for browser providers. This project was created by Moonyeep using Manus AI , built upon the ZeroScript architecture. The original creator has abandoned this project and is releasing it as an open-source base for the community. Roblox Studio is an optional integration. When enabled, Infinix can also control Studio through its MCP server; the general local agent does not require Roblox Studio. Eight AI providers are supported: DeepSeek (chat.deepseek.com, recommended), ChatGPT (chatgpt.com), Google Gemini (gemini.google.com), Kimi (kimi.ai, Moonshot AI), GLM (chat.z.ai, Z.ai), Qwen (chat.qwen.ai), Arena (arena.ai, a multi-m",
   "first_seen": "2026-11-07T18:03:37.622063+00:00",
@@ -17639,6 +17656,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12825v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "84f4e59c59df6b56": {
+  "first_seen": "2026-11-26T12:06:40.955785+00:00",
+  "id": "1e2951aa002fff8b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T17:38:00+00:00",
+  "sid": "84f4e59c59df6b56",
+  "source": "arxiv_cs_cl",
+  "summary": "Group-based reinforcement learning with verifiable rewards often yields all-fail groups on long-horizon agent tasks: every sampled trajectory receives zero reward, leaving group-relative methods without a reward-based policy gradient. A common remedy supplies complete solutions from a stronger model, but full trajectories are expensive and expose the learner to long off-policy histories. We introduce SPLICE, which constructs local training targets from failed current-policy trajectories online. For each all-fail group, a proposal model selects a splice point in a current-policy trajectory and generates several bounded options from that point. We estimate each option's value using repeated current-policy continuations, convert positive estimates into a return-weighted local target, and fit the current policy on the options. We evaluate SPLICE across two policy families on two long-horizon agent tasks, Software Engineering with SWE-bench Verified and Deep Research with BrowseComp-Plus. SPLICE outperforms GRPO and full-trajectory guidance baselines in all four settings, improving over GRPO by 2.8--9.8 percentage points. On initially failed SWE tasks, it raises GRPO's graduation rate by 10.8 percentage points. Further experiments show that SPLICE improves performance while reducing costly proposal-model computation.",
+  "summary_1line": "Introduces SPLICE, an RL method for long-horizon agent tasks that builds local training targets from failed policy trajectories, reporting gains of 2.8 to 9.8 points over GRPO on SWE-bench Verified and BrowseComp-Plus.",
+  "title": "When Every Rollout Fails: Splicing Learner-Conditioned Options into Long-Horizon Agent RL",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34777v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "851958f4eb1c5d85": {
   "first_seen": "2026-11-26T04:09:41.342987+00:00",
@@ -22356,6 +22390,18 @@
   "type": "research",
   "url": "https://huggingface.co/blog/transformers-mic"
  },
+ "a734da9d3a1d8760": {
+  "content_excerpt": "The llama.cpp × AMD Benchmark dashboard is available on Hugging Face. It lets you track prompt processing and text generation performance across llama.cpp builds, models, and quantizations, so you can explore how local inference performs on AMD Ryzen and Radeon hardware. Local inference performance changes as models, kernels, and builds evolve. We want those changes to be easy to inspect for any AMD developer: pick a hardware, a model and a build, compare quantizations, and follow performance over time. The benchmark workflow and underlying results are public, so you can also inspect how we benchmark inference performance. You can choose Hardware , Model , and llama.cpp build in the Configuration sidebar. The current hardware choices are Radeon 8060S (gfx1151) and Radeon AI Pro R9700S (gfx1201). Both tests start at context depth zero ( n_depth=0 ). PP512 measures processing 512 input tokens without generation; TG128 measures generating 128 tokens without a pre-existing context. The plotted value is the mean throughput ( avg_ts ). These are useful reference workloads, while the Context scaling tab lets you explore token generation throughput as the context grows. We benchmark the prebuilt binaries distributed through llama-install.sh , the build and installation project behind llama.app . The public gfx1151 and gfx1201 workflows are scheduled weekly and run the standard benchmarks using the llama-bench tool with Flash Attention on and off, with 10 repetitions per configuration",
+  "first_seen": "2026-11-26T12:06:40.955785+00:00",
+  "id": "e88ea14466ef3b90",
+  "published": "2026-11-26T11:37:17+00:00",
+  "sid": "a734da9d3a1d8760",
+  "source": "huggingface_blog",
+  "summary_1line": "A Hugging Face dashboard lets users track llama.cpp prompt processing and text generation throughput on AMD Radeon 8060S (gfx1151) and Radeon AI Pro R9700S (gfx1201) hardware, with public weekly benchmark data.",
+  "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+  "type": "research",
+  "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench"
+ },
  "a7b3995f39a11035": {
   "content_excerpt": "rufous is an agent harness for 2B–12B models running on your own machine, either inside your editor or in its own web UI. While the model works, rufous keeps a Record of every Tool Call, one the model has no way of editing. Before a Turn ends, we hold the model’s report up against that Record. That is how we catch the file you named that never got written, the write you declined, and the refusal the model only half remembers. There is a single binary for macOS and Linux, and a zip for Windows. rufous is licensed under Apache-2.0, and you won’t need an account. Nothing about your usage is sent back to us. The short of it, is that rufous is built around the limits of a small model. We have measured it on models between 2B and 12B parameters, and every run starts with a Prefill of about 1,250 tokens , i.e. the system prompt plus nine core tool schemas. Every Tool Call the model makes passes through the five Rings of the Safety Gate before it touches your system. When a Turn ends with something missing, rufous places one Hold on the reply at most, and an honest “I couldn’t” always passes. Give a 4B model one clear instruction and it will usually carry it out. Three Turns into a conversation however, it turns out that it often does something close to what you asked, and then reports success. This is because a small model follows the most recent text in front of it, not the state of your files. rufous can’t make the model remember. What it can do is check. Every Tool Call is writte",
   "first_seen": "2026-11-02T03:05:12.932939+00:00",
@@ -22462,6 +22508,22 @@
   "type": "video",
   "url": "https://youtu.be/pH9CZKTB4yQ",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "a86e1e6c8340e2b0": {
+  "first_seen": "2026-11-26T12:06:40.955785+00:00",
+  "id": "f81803db7456bb7a",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:23:07+00:00",
+  "sid": "a86e1e6c8340e2b0",
+  "source": "arxiv_cs_lg",
+  "summary": "Large language models (LLMs) are increasingly applied to time series reasoning. However, current evaluations often give models events in chronological order and already matched to the time series. This makes it unclear whether models use timestamps to connect events with observations or simply take shortcuts. To expose this ambiguity, we reformulate time series reasoning from a world-to-series projection perspective, viewing timestamps as explicit indices that connect numerical observations and external events to shared world states. We identify three structures that timestamps can make explicit: temporal causal structure, time semantics, and event-series alignment. Building on this perspective, we develop a diagnostic protocol that distinguishes timestamp-grounded reasoning from correlational shortcuts, a distinction that accuracy-based benchmarks cannot make. Controlled interventions on 310 questions from two tasks show that high accuracy can persist when timestamps are replaced by relative offsets or removed, while breaking event-series alignment induces systematic failures. When context is pre-aligned, models barely need timestamps. When order is missing, they use dates to recall world knowledge. Without dates, they rely on correlational shortcuts and rarely notice incorrect timestamps. These findings show that high accuracy on pre-aligned, ordered inputs does not establish that a model uses timestamps to synchronize observations with the world. We release our code, model",
+  "summary_1line": "Introduces a diagnostic protocol for LLM time series reasoning that uses controlled interventions on 310 questions to test whether models use timestamps or rely on correlational shortcuts.",
+  "title": "Put the World Back: Timestamps Matter in Time Series Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34848v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "a890a236270cc5e3": {
   "first_seen": "2026-11-20T01:04:02.252515+00:00",
@@ -25268,6 +25330,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.31833v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "bb18cbf717771ba4": {
+  "first_seen": "2026-11-26T12:06:40.955785+00:00",
+  "id": "3aa10f6ae53bd03f",
+  "published": "2026-11-25T18:58:53+00:00",
+  "sid": "bb18cbf717771ba4",
+  "source": "arxiv_cs_cl",
+  "summary": "Looped Transformers boost expressivity by reusing shared layers across loops, yet at the cost of efficiency. Pushing their expressivity-efficiency frontier requires rethinking the core mechanism connecting adjacent loops: What should be passed as a Transformer loops? We introduce Mixture-of-Loops Transformer (MoLT), whose Mixture-of-Loops Attention (MoLA) uses keys and values (KV) as memory for selective reuse across depths and loops. Under loop residual, MoLT-R retains the residual stream and reads local KV across loops for expressivity. Under loop KV, MoLT-KV instead restarts from embeddings and reads current-loop local KV with preceding-loop memory KV at earlier positions for efficiency. MoLT-KV eliminates same-position cross-loop dependence and, paired with loop forcing for parallel training, unlocks single-traversal Mixture-of-Loops (MoL) decoding beyond the training loop horizon. To balance efficiency and quality, we introduce U-shaped MoLT (U-MoLT), which separates memory construction from prediction readout and skips unused decoder traversals without changing predictions. In 400B-token pretraining, U-MoLT outperforms OLMo3 across 700M/1.5B dense and 3B MoE models, achieving 1.7x validation cross-entropy (CE) token efficiency at 700M while improving 3B MoE 10-domain perplexity by 0.75 and 10-task accuracy by 2.1 percentage points. In 100B-token continued pretraining of Qwen3.5-0.8B-Base, our U-MoLT adaptation lowers CE on all 11 domains over the matched baseline with 1",
+  "summary_1line": "Introduces Mixture-of-Loops Transformer (MoLT), a looped architecture that reuses keys and values as memory across loops, with a U-shaped variant reported to beat OLMo3 in 400B-token pretraining and to match its inference latency on ~113M models.",
+  "title": "Mixture-of-Loops Transformer",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34923v1"
  },
  "bb1f2f07f5994d40": {
   "content_excerpt": "Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings & deals before it starts. REGISTER HERE. The financials Anthropic shared with investors this week suggest that its AI coding tool, Claude Code, is every bit the business success the frontier lab wanted. The company recorded an operating profit in the second quarter, and 900% net revenue retention — that is, spending from the same customers in Q3 2025 grew nine times in Q3 2026. Anthropic has focused on getting enterprise users to stick around and Wednesday announced a new suite of reporting tools designed to give those customers a more granular understanding of the value they get from their token spend. Using internal analytics and employee surveys, managers can view a team’s work over a given date range, what the team produced, how much it cost, and where its workflows broke down. Anthropic says it won’t use this data for model training by default. The reports will also offer recommendations on how to improve the results. This is a clear attempt to demonstrate the return on investment of Anthropic’s tools and to show customers how to improve it — a major concern among large customers. Anthropic is also creating pooled group budgets to allow teams to better manage token spending. Businesses have been hunting for that kind of information as they figure out how best to deploy AI tools. While usage among venture-backed firms is driving token spend, most of the Fortune 500 are not seeing major gains from deploying ",

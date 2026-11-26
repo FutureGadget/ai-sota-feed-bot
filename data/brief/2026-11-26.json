@@ -1,33 +1,32 @@
 {
  "date": "2026-11-26",
  "diagnostics": {
-  "admitted": 2,
-  "candidates": 439,
+  "admitted": 1,
+  "candidates": 441,
   "duplicate_url": 6,
-  "items": 46,
-  "keeps": 253,
-  "new": 2,
+  "items": 47,
+  "keeps": 254,
+  "new": 1,
   "off_topic": 55,
   "prior_story": 34,
   "rejected_gate": {
    "insufficient_evidence": 7,
    "judge_drop": 14,
    "off_topic": 55,
-   "score_low": 87
+   "score_low": 88
   },
   "rejected_quota": {
    "role_quota": 169,
    "source_quota": 6
   },
   "releases": 26,
-  "reviews": 105,
+  "reviews": 106,
   "role_counts": {
-   "community": 1,
-   "practitioner": 1
+   "first_party": 1
   },
   "run_candidates": 140,
   "stale_story": 16,
-  "stories": 276,
+  "stories": 277,
   "unjudged": 7,
   "updated": 6,
   "written": true
@@ -235,6 +234,55 @@
    "v2_slot": "community_signal",
    "why_it_matters": ""
   },
+  "model:llama|title:introducing the llama cpp benchmark dashboard for amd ryzen and radeon": {
+   "admission_rank": 47,
+   "admitted_at": "2026-11-26T12:10:15.395454+00:00",
+   "also_covered": [],
+   "content_excerpt": "The llama.cpp × AMD Benchmark dashboard is available on Hugging Face. It lets you track prompt processing and text generation performance across llama.cpp builds, models, and quantizations, so you can explore how local inference performs on AMD Ryzen and Radeon hardware. Local inference performance changes as models, kernels, and builds evolve. We want those changes to be easy to inspect for any AMD developer: pick a hardware, a model and a build, compare quantizations, and follow performance over time. The benchmark workflow and underlying results are public, so you can also inspect how we benchmark inference performance. You can choose Hardware , Model , and llama.cpp build in the Configuration sidebar. The current hardware choices are Radeon 8060S (gfx1151) and Radeon AI Pro R9700S (gfx1201). Both tests start at context depth zero ( n_depth=0 ). PP512 measures processing 512 input tokens without generation; TG128 measures generating 128 tokens without a pre-existing context. The plotted value is the mean throughput ( avg_ts ). These are useful reference workloads, while the Context scaling tab lets you explore token generation throughput as the context grows. We benchmark the prebuilt binaries distributed through llama-install.sh , the build and installation project behind llama.app . The public gfx1151 and gfx1201 workflows are scheduled weekly and run the standard benchmarks using the llama-bench tool with Flash Attention on and off, with 10 repetitions per configuration. The model set evolves and currently includes Inkling 2 Mini, Qwen, Gemma, gpt-oss, and LFM models, covering both dense and mixture-of-experts architectures. Available GGUF formats include Q4_K_M , Q8_0 , other quantizations, and higher-precision formats such as BF16 and F16 . The explorer reads directly from the public ggml-org/install.sh-benches-data Storage Bucket on Hugging Face. The data source link beside the chart title opens the folder for the selected build, hardware, and model. Standard results use <build>/<hardware>/<model>/<quant>.jsonl . Workload sweeps use the same folder <quant>-tg.jsonl filename. Use them to investigate a result, make your own charts, or compare with a local run. Thanks to the AMD team for providing test infrastructure and helping validate the setup! Try the dashboard , inspect the data , and let us know which models and workloads you would like to see next.",
+   "first_seen": "2026-11-26T12:10:15.395454+00:00",
+   "freshness_at_admission": 0.9895,
+   "id": "e88ea14466ef3b90",
+   "image_url": null,
+   "judge_category": "evaluation_reliability",
+   "judge_category_confidence": 0.55,
+   "judge_evidence_chars": 2404,
+   "judge_judged_at": "2026-11-26T12:09:52.575296+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.78,
+   "judge_signals": {
+    "corporate_marketing": 0.21,
+    "keep": 0.78,
+    "platform_relevant": 0.97,
+    "release_lane": 0.16
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
+   "llm_category": "research",
+   "matched_topics": [],
+   "prefilter_score": 1.995,
+   "published": "Thu, 26 Nov 2026 11:37:17 GMT",
+   "rank_at_first_seen": 47,
+   "release_tier": null,
+   "score_at_first_seen": 1.2259,
+   "seen_count": 1,
+   "slot": "research_watch",
+   "source": "huggingface_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": -0.06,
+   "story_cluster_id": "bcdb3b2738cd33de",
+   "story_key": "model:llama|title:introducing the llama cpp benchmark dashboard for amd ryzen and radeon",
+   "summary_1line": "A Hugging Face dashboard lets users track llama.cpp prompt processing and text generation throughput on AMD Radeon 8060S (gfx1151) and Radeon AI Pro R9700S (gfx1201) hardware, with public weekly benchmark data.",
+   "time_decay_factor": 0.997,
+   "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+   "type": "research",
+   "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+   "utility": 1.2259,
+   "utility_basis": "judge",
+   "v2_slot": "research_watch",
+   "why_it_matters": ""
+  },
   "model:nemotron|ver:3.5|title:building on nemotron 3 5 parse open data fine tuning and faster inference": {
    "admission_rank": 33,
    "admitted_at": "2026-11-26T05:09:18.557589+00:00",
@@ -258,7 +306,7 @@
     "release_lane": 0.19
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 2.0,
@@ -266,7 +314,7 @@
    "rank_at_first_seen": 33,
    "release_tier": null,
    "score_at_first_seen": 1.3168,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -1018,7 +1066,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.773,
@@ -1026,7 +1074,7 @@
    "rank_at_first_seen": 24,
    "release_tier": null,
    "score_at_first_seen": 1.2138,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1570,7 +1618,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.808,
@@ -1578,7 +1626,7 @@
    "rank_at_first_seen": 23,
    "release_tier": null,
    "score_at_first_seen": 1.2282,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -2022,7 +2070,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.821,
@@ -2030,7 +2078,7 @@
    "rank_at_first_seen": 28,
    "release_tier": null,
    "score_at_first_seen": 0.8158,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2072,7 +2120,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic",
@@ -2083,7 +2131,7 @@
    "rank_at_first_seen": 46,
    "release_tier": null,
    "score_at_first_seen": 1.0105,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2124,7 +2172,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T11:07:13.703738+00:00",
+   "last_seen": "2026-11-26T12:10:15.395454+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.78,
@@ -2132,7 +2180,7 @@
    "rank_at_first_seen": 25,
    "release_tier": null,
    "score_at_first_seen": 1.0829,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2357,5 +2405,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-26T11:07:13.703738+00:00"
+ "updated_at": "2026-11-26T12:10:15.395454+00:00"
 }
