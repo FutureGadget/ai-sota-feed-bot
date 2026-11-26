@@ -781,6 +781,23 @@
   "type": "news",
   "url": "https://latent.space/p/ainews-it-s-swapping-season"
  },
+ "062ca583db2be62b": {
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "eed559963d32cd3e",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-25T08:02:04+00:00",
+  "sid": "062ca583db2be62b",
+  "source": "arxiv_cs_cl",
+  "summary": "Agent skills are directories of instructions, reference materials, and scripts loaded on demand by coding agents. According to SkillsBench, although human-curated skills can raise the passing rate by about 16.6 percentage points (pp) on average, they have actually reduced the results for some tasks. Later research has started to gate or eliminate skills according to the above per-task gains. We have audited the above benchmark at the source-code level and analysed 7,554 public trials to form 1,421 paired \"(configuration, task) cells\". Source-code audit identified two controlled-verified cases of grader dependence and one operational definition gap; the average lift on these three tasks was 74.6 pp, and the overall average lift for the full set was 18.7 pp. The audit also found that four tasks contained placeholder skill directories, and a certain execution harness additionally added 48 built-in skills in most runs. No task-level reduction achieved statistical significance in the pooled reanalysis with multiple-testing correction. As there were at most three runs per condition for each cell, the observed negative differences are very susceptible to run-sampling noise, and arithmetically, 58% of the cells could not have shown a decrease. Therefore, the raw numbers of negative cells cannot show that skills cause harm. A gating strategy based on the skill-free score seems to improve by 2-3 pp in the logs; however, even after shuffling condition labels to remove any skill effect, ",
+  "summary_1line": "A source-code audit and noise-aware reanalysis of the SkillsBench benchmark finds that its reported per-task skill regressions are not statistically significant and do not show skills cause harm.",
+  "title": "What Does Skill Lift Actually Measure? A Source-Code-Level Audit and Noise-Aware Reanalysis of SkillsBench",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33943v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "064fb88520fa5af6": {
   "content_excerpt": "Larger models, longer contexts and agentic applications are increasing GPU memory pressure while supply tightens and prices rise — a trend expected to continue through the near term. NVIDIA works closely with memory partners to rapidly adopt the latest memory technologies. NVIDIA was first to adopt HBM3e and HBM4 technologies into an accelerated computing stack. But the approach isn’t to simply pack more memory onto the GPU. It’s full-stack codesign. NVIDIA intentionally designs GPUs, CPUs, networking, storage and software together to get more useful work out of memory at every layer of the AI factory. That matters because an AI factory runs on a memory and storage hierarchy. GPU high-bandwidth memory (HBM) is the fastest, most expensive and most contested tier — with model weights and KV cache competing for limited capacity. Below it sit CPU memory, local SSDs and shared storage, each trading speed for more capacity at a lower cost per bit. How much useful work a byte does depends on how well the whole hierarchy is used: shrinking what must be stored, placing it on the right tier and bringing it back to the GPU before it’s needed. Byte for byte, NVIDIA makes the most efficient use of memory at every layer — and the results show it. From NVIDIA Blackwell Ultra to the Vera Rubin platform, HBM capacity per GPU rose roughly 3%, while agentic throughput per dollar rose by up to 30x on SemiAnalysis AgentX. Frontier models now have trillions of parameters — the values that hold wha",
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
@@ -1909,7 +1926,7 @@
   "sid": "0e4b41be257d1582",
   "source": "arxiv_cs_ai",
   "summary": "Evaluations of quantized language models attribute the change in a benchmark score to quantization. We write the measured change as the true change plus a term contributed by the instrument. Instrument error that is the same at every precision can shrink a paired comparison but cannot create or reverse an effect. Error that interacts with quantization can do both, and it is reported as an effect of quantization. We estimate this interaction for four measurement choices in 8 instruction-tuned models below two billion parameters, at float16, LLM.int8() and NF4, on identical items. Measured against labels from two human annotators, the 4-bit rise in harmful compliance is about half to two-thirds of the rise in non-refusal that a corrected key word detector records. Cloze and lettered multiple-choice scoring disagree about the effect of quantization far more than their noise allows: their estimates correlate at \\r{ho} = 0.10, against a ceiling of about 0.77. LLM.int8() answers and generations depend on which items share a batch, and padding alone changes its answers. Rounding activations to 8 bits is enough to produce this dependence. NF4 is batch-invariant. The two largest reported calibration losses are response-bias shifts. We release item-level predictions, option scores and human annotations, and give recommendations for evaluating compressed small models.",
-  "summary_1line": "Evaluations of quantized language models attribute the change in a benchmark score to quantization. We write the measured change as the true change plus a term contributed by the instrument. Instrument error that is the same at every precision can shrink a paired comparison but c",
+  "summary_1line": "The paper argues that quantized language model benchmark score changes are often attributed to quantization when part of the measured change comes from the evaluation instrument itself, and it models this as a measurement error term.",
   "title": "Measurement Artifacts in Trustworthiness Evaluations of Quantized Small Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.32848v1",
@@ -8458,6 +8475,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02936v1"
  },
+ "402348415ec753a9": {
+  "content_excerpt": "Amazon blocks third-party AI shopping agents while Walmart builds an official gateway. Here's what the split means for holiday shopping with AI. Amazon has been blocking third-party AI shopping agents from operating on its site, treating unrecognized automated traffic as a threat to manage rather than a customer to serve. Walmart went the opposite direction, launching an “agent gateway,” a dedicated front door for approved AI agents that includes spending caps and approval steps built into the system. One retailer is closing the gate. The other is building a controlled one. Both are responding to the same problem: AI agents that can browse, click, and buy on a user’s behalf are becoming common, and retailers have to decide whether to let them in. AI shopping agents are programs that can log into websites, fill out forms, compare prices, and complete purchases without a person clicking through each step. That sounds convenient, and it is, but it also creates a new category of website traffic that looks a lot like a human and can act with real purchasing power. Retailers have to decide, often with imperfect information, whether a given visit is a legitimate customer using an agent they authorized, an agent acting outside its instructions, or an attacker using an agent to probe for weaknesses. This isn’t hypothetical anxiety. Axios reported that major US banks, including Morgan Stanley, Bank of America, JPMorgan, and Wells Fargo, have detected unauthorized third-party AI agents ",
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "cc9c182126aa2383",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T02:28:06+00:00",
+  "sid": "402348415ec753a9",
+  "source": "hackernews_ai",
+  "summary_1line": "Amazon blocks third-party AI shopping agents from its site, while Walmart launched an agent gateway for approved agents with built-in spending caps and approval steps.",
+  "title": "Amazon vs. Walmart: Why Retailers Are Split on AI Shopping Agents",
+  "type": "news",
+  "url": "https://www.mindstudio.ai/blog/ai-agents-shopping-access-wars",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4081da62254c0683": {
   "content_excerpt": "In an age when agents can write code in any programming language, it’s fair to ask: why have agents write code in C#? Last year, I was a technical lead on the effort at Motion ($500m valuation, series C, post YCombinator startup, ~40 engineers) to move the entire backend off of TypeScript + Node and shift to a combination of C# and F# for all future backends . The reasons are numerous and I’ve written about this extensively before , but it’s worth summarizing this again in mid 2026 framed in the context of building in an agent-first reality: Aside from that, if developers are no longer writing code, why not choose a platform that has: Given the benefits of adding both build and runtime type safety as well as a mature, well-documented, and broad first party platform, C# is a surprisingly strong choice for building real software with AI. The objective of this two-part series is to shed some light on how C# and the .NET ecosystem is an ideal foundation for building production software with agents. If you’re using Docker Compose or Tilt for dev runtime orchestration, you may have occasionally wished that it was just a bit more programmable . That’s exactly the gap that Aspire fills: a programmable orchestration layer that makes it easy to build an isolated runtime stack that agents can control while building software. The best analogy is to consider the difference between Terraform and Pulumi or CDK. Terraform is a declarative tool for building infrastructure, while Pulumi and CD",
   "first_seen": "2026-11-11T08:04:45.810095+00:00",
@@ -13158,6 +13191,22 @@
   "type": "research",
   "url": "https://huggingface.co/blog/cwe-bench"
  },
+ "639573a956b3bd96": {
+  "content_excerpt": "A stack-first view of your branches and PRs, inferred from git ancestry — no hand-maintained plan, no backend, no database. Coordination state (claims, agent identity, layer titles) lives in one file, .git/stackmaestro/state.json , shared across every worktree of a clone. Read more: StackMaestro: trying to make agent-written code understandable by humans . Three ways to use it: a Cursor/VS Code sidebar, an MCP server for any agent's chat, and a standalone desktop app. No cursor on your PATH? Cmd+Shift+P → \"Shell Command: Install 'cursor' command in PATH\", or substitute code . Open any git repo afterward — the Explorer sidebar gets a \"StackMaestro\" section under your file tree. Exposes 9 tools: list_stack , plan_feature , register_agent , claim_layer , release_layer , create_layer , ensure_worktree , publish_layer , sync_github_stack . Quick iteration without a real app bundle: pnpm --filter @stackmaestro/desktop start .",
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "4a47bc932385b156",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T02:25:09+00:00",
+  "sid": "639573a956b3bd96",
+  "source": "hackernews_ai",
+  "summary_1line": "StackMaestro is a local tool that shows git branches and PRs as stacks inferred from git ancestry, offered as a Cursor/VS Code sidebar, an MCP server for agents, and a desktop app, with coordination state stored in .git/stackmaestro/state.json.",
+  "title": "Show HN: StackMaestro – Local management of agent-generated stacks",
+  "type": "news",
+  "url": "https://github.com/marklyons/stackmaestro",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6396adf447d0e9af": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
   "id": "0b90302783c800b4",
@@ -14316,7 +14365,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "6d90ec3ccf84aa4b": {
-  "content_excerpt": "Vivien Cheng on X: \"🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu, @MorrisYau, and @HazyResearch. 🧵 https://t.co/Xu3DVfQ86h\" / X Post Log in Sign up Post Log in Sign up Vivien Cheng on X: \"🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu, @MorrisYau, and @HazyResearch. 🧵 https://t.co/Xu3DVfQ86h\" Conversation Log in or sign up for X See what’s happening and join the conversation Continue with phone Continue with Apple Continue with Google or Log in with username or email Relevant people Vivien Cheng @ viviencheng__ Follow Stanford PhD | EE + CS What’s happening Show more Terms · Privacy · Cookies · Accessibility · Ads Info · More © 2026 X Corp. Vivien Cheng @viviencheng__ 🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu , @MorrisYau , and @HazyResearch . 🧵 hazyresearch.stanford.edu/blog/2026-11-2… 00:00 4:41 PM · Nov 25, 2026 · 181.4K Views 101 471 3.1K 2.7K Vivien Cheng @viviencheng__ 9h (1/5) 🏛️ The Platonic Representation Hypothesis proposes that neural networks converge on a shared representation of reality. If so, can one LLM directly use another's representations? Yes, with just one rotation and one global scale 🔄 We demonstra",
+  "content_excerpt": "Vivien Cheng on X: \"🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu, @MorrisYau, and @HazyResearch. 🧵 https://t.co/Xu3DVfQ86h\" / X Post Log in Sign up Post Log in Sign up Vivien Cheng on X: \"🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu, @MorrisYau, and @HazyResearch. 🧵 https://t.co/Xu3DVfQ86h\" Conversation Log in or sign up for X See what’s happening and join the conversation Continue with phone Continue with Apple Continue with Google or Log in with username or email Relevant people Vivien Cheng @ viviencheng__ Follow Stanford PhD | EE + CS What’s happening Show more Terms · Privacy · Cookies · Accessibility · Ads Info · More © 2026 X Corp. Vivien Cheng @viviencheng__ 🗝️ Introducing Plato's Key. A single rotation lets independently trained LLMs use each other’s representations as their own. No gradients required ✨ With @jerrywliu , @MorrisYau , and @HazyResearch . 🧵 hazyresearch.stanford.edu/blog/2026-11-2… 00:00 4:41 PM · Nov 25, 2026 · 195.6K Views 103 499 3.3K 2.9K Vivien Cheng @viviencheng__ 10h (1/5) 🏛️ The Platonic Representation Hypothesis proposes that neural networks converge on a shared representation of reality. If so, can one LLM directly use another's representations? Yes, with just one rotation and one global scale 🔄 We demonstr",
   "first_seen": "2026-11-26T02:07:02.421383+00:00",
   "id": "dc45cff54c9a4294",
   "published": "2026-11-26T01:17:22+00:00",
@@ -16455,6 +16504,22 @@
   "title": "Vision-Language-Action Models: A Life-Cycle Survey of Design, Training and Deployment",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18372v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "7f882b12b525dcb4": {
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "76a869ce0814393c",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T03:53:23+00:00",
+  "sid": "7f882b12b525dcb4",
+  "source": "arxiv_cs_lg",
+  "summary": "Covariate-aware time-series foundation models (TSFMs) condition their forecasts on additional input variables, called covariates, that are supplied over the future horizon. This capability makes them appealing for interventional forecasting, in which a target is predicted under a planned action such as a new product pricing policy or a new patient treatment schedule. We refer to covariates that encode such actions as treatment covariates. Current covariate-aware TSFMs, however, are trained on observed patterns, and their behavior is unclear when future treatment covariates fall outside the range seen in the history. Examples include a numerical treatment that leaves its historical range and a categorical treatment that takes a previously unseen policy. We call this practically common setting covariate novelty, and note that it is not systematically represented in existing benchmarks. We introduce an operational definition of covariate novelty and use it to construct CovNovBench, a benchmark of 88,476 evaluation series generated or filtered from four simulator-based and real-world datasets. The benchmark spans categorical and numerical treatment covariates as well as stable and trending targets. We evaluate six covariate-aware TSFMs zero-shot using point and directional accuracy metrics. No model is consistently reliable in our benchmark: point error almost always increases under covariate novelty, directional performance changes non-uniformly, and the best observed model vari",
+  "summary_1line": "Introduces CovNovBench, an 88,476-series benchmark from four datasets testing six covariate-aware time-series foundation models on forecasts under unseen future treatment covariates, finding no model consistently reliable.",
+  "title": "CovNovBench: A Benchmark for Evaluating Time Series Foundation Models under Covariate Novelty",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33732v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "7f903ef14a1441d8": {
@@ -19464,7 +19529,7 @@
   "sid": "9587b30e6a61d0a8",
   "source": "arxiv_llm_reliability",
   "summary": "Conversational sports analytics requires accurate, evidence-based responses with low latency. Changes in query distributions, data resources, and model behavior can degrade static agent configurations, motivating controlled evolution guided by runtime evidence. We present Sports Agent, a self-evolving framework integrating an Agentic SQL Model for structured-data reasoning, a harness for planning and tool orchestration, and a unified Feedback Engine connecting online execution with offline evolution. The engine assesses responses and execution trajectories, verifies factual claims, diagnoses failures, and generates evolution signals. Model evolution combines SQL-to-Question Scaling for coverage expansion with Graph-Guided Scaling for error-targeted synthesis. Generated questions undergo trajectory distillation and quality filtering for iterative supervised fine-tuning, followed by a separate Post-RL stage. Harness evolution translates recurrent failures into bounded prompt and skill updates, validated through independent audits, execution replay, and regression testing. Performance-tolerance checks guard against unacceptable degradation during simplification. The resulting Qwen3.6-35B-A3B-based model outperforms Qwen3.8-Max on sports question answering and analysis while achieving approximately three times the inference efficiency. Across 30 harness-evolution rounds, the aggregate performance score improves by 10.8 points. In a live sports analytics product, the evolved syste",
-  "summary_1line": "Conversational sports analytics requires accurate, evidence-based responses with low latency. Changes in query distributions, data resources, and model behavior can degrade static agent configurations, motivating cont...",
+  "summary_1line": "Introduces Sports Agent, a self-evolving system for conversational sports analytics that aims to keep responses accurate, evidence-based and low-latency as query distributions, data resources and model behavior shift.",
   "title": "Sports Agent: A Self-Evolving System for Conversational Data Analytics",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.33700v1",
@@ -19893,6 +19958,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08308v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "9966eac362fdf74e": {
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "bd9b363a1938c13b",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-24T22:07:32+00:00",
+  "sid": "9966eac362fdf74e",
+  "source": "arxiv_cs_lg",
+  "summary": "Freezing older adapters does not ensure that a continual learner will select and use them properly at inference time. When multiple adapters exist, routing among them and identifying the adapter whose representation space matches the query's answer can be difficult. We propose CONTLORA, which replaces stored examples with compact class statistics for adapter selection and classification. Gaussian class models in a frozen representation select LoRA adapters, while accumulated feature moments exactly recover a class-balanced ridge classifier for fixed training features. Trained without retaining images or feature vectors, CONTLORA reaches 88.55% accuracy on 20-task CIFAR-100 and 86.99% on CUB-200. Across three benchmarks in the matched component study, its mean final accuracy differs from an independently trained stored-feature counterpart by at most 0.07 percentage points. Ablations show that improved task coverage need not improve classification and adapter composition also matters. On held-out classes, competitor-centered likelihood scores improve novelty AUROC over raw likelihood without altering routing ranks. These results support statistical memory as an alternative to example-retention approaches in the evaluated settings, while identifying task ambiguity as an ongoing limitation.",
+  "summary_1line": "CONTLORA is a continual learning method that uses compact class statistics instead of stored examples to select LoRA adapters and classify, reporting 88.55% on 20-task CIFAR-100 and 86.99% on CUB-200.",
+  "title": "The Geometry Is the Memory: Task-Density Routing for Continual LoRA",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.33487v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "997d89b2a624432b": {
   "content_excerpt": "Local AI models, with no Internet connection, explore, discover and then program a vintage device attached to serial port Local AI agents, with only local LLMs, investigate an unknown machine attached to a serial port. It doesn't have Internet access, does not have access to the device's documentation. There's no human to help. Just two local LLMs, an SSH session into a Raspberry Pi, and that unknown device. I wired an anonymous device — “X” — to a Raspberry Pi's serial port, told an LLM agent: find out what X is, reverse-engineer its protocol, and run your own program on it , and walked away. The agent ran inside a network jail (no way out except two model servers and the Pi), and every claim it made had to be verified, based on evidence by a second, independent LLM with fresh context on another box. It worked. In ~5.5 hours, Qwen3.8-Flash-Next (on a DGX Spark) discovered that X was a Motorola 68000 single-board trainer running “TUTOR 1.3” . It first suspected the machine was KIM-1 with a similar ROM, but later corrected the course. It mapped X's memory by deliberately triggering bus errors , decoded its monitor's command set line-by-line, assembled and ran its own program on 68000 hardware, and wrote a verdict the critic accepted — RESULT.md . Then, probing one I/O corner too deep, it hung X's CPU . Which was not a problem at that point, as all the goals had been by then achieved. Both roles are OpenCode agents, driven headlessly by go.sh via opencode run ; OpenCode's permi",
@@ -25628,6 +25709,22 @@
   "url": "https://www.infoq.com/news/2026/11/claude-code-review/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "c19aa18de1b8d9c2": {
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "54b10bde7374f0aa",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-26T02:55:12+00:00",
+  "sid": "c19aa18de1b8d9c2",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.174.0-alpha.7",
+  "summary_1line": "Release 0.174.0-alpha.7",
+  "title": "codex rust-v0.174.0-alpha.7",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.7",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "c1a6c988688f758b": {
   "first_seen": "2026-11-23T15:06:29.543667+00:00",
   "id": "b7644df5c93025f8",
@@ -31231,6 +31328,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNREtNc2xqMVZHOGluRzU2dVJpclVpQmZqcEM3ZzN3WU5XYmdtdHNuWE80UzBmMHA0RWoxU2EtbnpDWXNRbEIwclVPMmZtN0pzV3NVd0R5bDZyMTg3b1RaOUpvX084Sm1wVGFmSVk4dUNmM19GOTluem10WDJBZ2N3ZERPUVRVLUFIbGl4VFdXRFh6Q1R6d1ZmYTNTM29yZ1lPdUY0?oc=5"
  },
+ "f17308e5829a9f75": {
+  "first_seen": "2026-11-26T03:04:35.223172+00:00",
+  "id": "d38c0d0697f25976",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-25T11:16:43+00:00",
+  "sid": "f17308e5829a9f75",
+  "source": "arxiv_cs_cl",
+  "summary": "Existing defenses against indirect prompt injection in retrieval-augmented generation (RAG) are inherently reactive: prompt-engineering methods are often overridden by the injected instructions, while supervised detectors must be retrained for each new attack style. We propose a different paradigm: defend by maximizing relevance, not by detecting attacks. Our method, MINE, is training-free and attack-agnostic, and it also serves as a query-conditioned reranker. To evaluate defenses under realistic conditions, we introduce LC-Inj-SQuAD, a long-context benchmark with an average of 4,032 words per context. We evaluate on four datasets spanning short-context QA (Inj-SQuAD, Inj-TriviaQA), long-context QA (LC-Inj-SQuAD), and agent tool-call injection (InjecAgent). Across all four, MINE achieves the best accuracy--security trade-off among training-free defenses. It is also the only defense that stays usable against a fully adaptive attacker, generalizes to agent tool-call injection, and achieves the lowest inference latency on long contexts.",
+  "summary_1line": "Existing defenses against indirect prompt injection in retrieval-augmented generation (RAG) are inherently reactive: prompt-engineering methods are often overridden by the injected instructions, while supervised detec...",
+  "title": "MINE: A Training-Free Defense against Indirect Prompt Injection via Mutual Information and Embedding Variance",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34188v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "f1908d0038e22f5b": {
   "first_seen": "2026-11-13T05:03:49.483648+00:00",
   "id": "fb7d6abd726ce2d5",
@@ -31592,13 +31706,20 @@
  "f3919f64a3d29ec3": {
   "first_seen": "2026-11-26T02:09:58.866985+00:00",
   "id": "58b4fb4290d1374f",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
   "published": "2026-11-25T02:42:59+00:00",
   "sid": "f3919f64a3d29ec3",
   "source": "arxiv_agent_systems_research",
+  "summary": "Recent advances in LLM-assisted theorem proving and program verification have attracted widespread attention. Beyond determining whether a proposition is true, LLM agents must produce evidence that can be independently checked by humans or formal verification tools. To evaluate the underlying, protocol-agnostic ability of LLM agents to construct verifiable proofs-rather than their proficiency with any particular proof language or verification tool, we introduce Merlin-Bench. Drawing on interactive proof systems from computational complexity theory, we cast an LLM agent as the prover: under a designated protocol, the agent interacts with a formal verifier to substantiate its claimed answer to a problem instance. We develop an automated framework for constructing test cases and use it to create 100 cases across 15 problem families, each formulated within this prover-verifier framework. Experiments with 10 frontier LLMs across multiple agent harnesses show that reliably producing verifiable proofs in accordance with specified protocols remains a substantial challenge. Our case studies further provide actionable insights into improving agents' ability to generate verifier-accepted proofs: tool use is essential for completing practical proof tasks; different forms of guidance, ranging from engineering instructions to problem-specific knowledge, substantially affect success rates on interactive-proof tasks; and proof-solving experience distilled from abstract tasks can transfer to ",
   "summary_1line": "Introduces Merlin-Bench, a benchmark of 100 cases across 15 problem families that tests whether LLM agents can produce proofs a formal verifier accepts under interactive-proof protocols, and reports that 10 frontier LLMs struggle with this.",
   "title": "Interactive Proofs as a Unified Framework for Evaluating and Leveraging Verifiable Proof Generation by LLM Agents",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.33676v1"
+  "url": "http://arxiv.org/abs/2611.33676v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "f3d370a5121afbf2": {
   "first_seen": "2026-11-19T23:05:24.375349+00:00",
