@@ -8,7 +8,7 @@ solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-10
+updated: 2026-11-26
 themes:
   - key: trace-capture
     title: Capturing the full trajectory
@@ -24,7 +24,7 @@ themes:
     summary: Enterprises want traces and spend data inside their own network, answered either by self-hosted gateways or by managed platforms deployed into the customer's cloud.
   - key: monitoring-limits
     title: When the trace is not enough
-    summary: Offline monitoring covers agents you cannot instrument live, and latent-channel work shows a complete transcript can still miss how agents coordinated.
+    summary: A complete transcript can miss latent coordination, and a monitor's measured miss rate swings from 0.5% to 20.8% with how the attack transcripts were generated.
 ---
 
 ## TL;DR
@@ -51,17 +51,19 @@ systems pair pre-correlated telemetry with LLM analysis and keep a human
 approving changes. Evidence suggests models can reason about a failure once
 the context is assembled. The best frontier agent on a realistic oncall
 benchmark still gets only about a quarter of root causes right, so the
-pipeline, not the model, is the open problem.
+pipeline, not the model, is the open problem. Failure attribution works best
+in two steps: localize the responsible actor and step, then name the error.
 
 **Ownership is a design choice.** Enterprises want traces and spend data in
 their own network, through a self-hosted gateway or a managed platform
 deployed into their cloud. Payload privacy defaults differ by framework, and
 traces can be truncated.
 
-**The trace has limits.** Offline monitoring covers agents you can't watch
-live, and agents can coordinate through hidden states a transcript never
-records. Evaluating the monitors is itself an [evaluation](/topic/agent-evaluation)
-problem.
+**The trace has limits.** Agents can coordinate through hidden states a
+transcript never records. Monitors that read transcripts are also hard to
+trust: one production monitor's false-negative rate ranged from 0.5% to 20.8%
+depending on how the test attacks were generated. Evaluate monitors against
+strong, varied attacks and report the worst case.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

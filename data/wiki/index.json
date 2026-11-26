@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25T18:08:26.377987+00:00",
+ "generated_at": "2026-11-26T18:08:46.100879+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -96,164 +96,164 @@
  ],
  "latest_entries": [
   {
-   "id": "2026-11-25-uber-skills-marketplace",
+   "id": "2026-11-26-lockward-agent-lockfile",
+   "topic": "version-pinning",
+   "topic_title": "Version pinning, compatibility ranges, and staged upgrades",
+   "kind": "solution",
+   "date": "2026-11-26",
+   "title": "Lockward pins the skills, MCP servers, hooks, and rules files agents load, and fails CI on unapproved changes"
+  },
+  {
+   "id": "2026-11-26-prior-pre-call-reasoning",
    "topic": "tool-use",
    "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Uber's skill marketplace: 5,000+ skills and 1M+ invocations a month need tiering and evals"
+   "date": "2026-11-26",
+   "title": "Tool use fades under RL when SFT traces skip reasoning before calls; deeper pre-call reasoning keeps it"
   },
   {
-   "id": "2026-11-25-compiled-web-operations",
+   "id": "2026-11-26-gramdelta-evolving-grammars",
    "topic": "tool-use",
    "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Compiling web pages into typed operations lifts long-task completion to 76% from 46%"
+   "date": "2026-11-26",
+   "title": "GramDelta updates decoding masks for grammar rules added mid-generation, with 11x lower latency than replay"
   },
   {
-   "id": "2026-11-25-cloudflare-search-for-agents",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Cloudflare turns site search for agents into a toggle: auto-indexed, discoverable on the site's own domain"
-  },
-  {
-   "id": "2026-11-25-catalog-weakest-link",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Per-attack blocking hides catalog risk: 92% blocked, yet 99% of 200-tool catalogs leak"
-  },
-  {
-   "id": "2026-11-25-draft-temperature-calibration",
+   "id": "2026-11-26-dfly2-shared-sparsity",
    "topic": "speculative-decoding",
    "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
    "kind": "solution",
-   "date": "2026-11-25",
-   "title": "Temperature-scaling the draft model lengthens speculative acceptance by up to ~10% at near-zero cost"
+   "date": "2026-11-26",
+   "title": "DFly2 drafts from the target's own KV cache and sparse index picks for long-context speculative decoding"
   },
   {
-   "id": "2026-11-25-permission-replies-rewrite-policy",
+   "id": "2026-11-26-criu-forked-desktops",
+   "topic": "scalability",
+   "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+   "kind": "obstacle",
+   "date": "2026-11-26",
+   "title": "Drums forks isolated Linux desktops from CRIU checkpoints in 139 ms, packing hundreds per host"
+  },
+  {
+   "id": "2026-11-26-mine-mutual-information-defense",
    "topic": "prompt-injection",
    "topic_title": "Untrusted input and tools can hijack an agent",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "A permission-prompt answer can delete deny rules, turning prompt relays into policy administrators"
+   "date": "2026-11-26",
+   "title": "MINE flags indirect prompt injection in RAG via mutual information and embedding variance, with no training"
   },
   {
-   "id": "2026-11-25-latentlens-latent-interfaces",
+   "id": "2026-11-26-chasm-kv-cache-transfer",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-26",
+   "title": "Transferring KV caches between models in multi-agent systems raises prompt-injection and jailbreak success"
+  },
+  {
+   "id": "2026-11-26-cairn-agents-zero-day",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-26",
+   "title": "Amazon reports attackers' agents found and exploited a zero-day from one instruction to get shell access"
+  },
+  {
+   "id": "2026-11-26-coordinator-27-day-field-report",
    "topic": "multi-agent",
    "topic_title": "Coordinating multiple agents adds more failure than capability",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Controlled test finds latent agent-to-agent messaging adds nothing over text and can cut accuracy"
+   "date": "2026-11-26",
+   "title": "A 27-day agent-team log: state on disk survived 35 sessions; a broken wait tool burned 77% of a day's tokens"
   },
   {
-   "id": "2026-11-25-contradictory-docs",
-   "topic": "grounding",
-   "topic_title": "An agent's answer is only as good as what it retrieved — and whether it can prove it",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Contradictory docs: coding agents spot the conflict yet follow the wrong page, costing up to 38% more tokens"
-  },
-  {
-   "id": "2026-11-25-tool-result-reducer",
-   "topic": "context-compaction",
-   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "id": "2026-11-26-mcp-2027-code-mode-adoption",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
    "kind": "solution",
-   "date": "2026-11-25",
-   "title": "Budget large JSON tool results by whole items and tell the model exactly what was cut"
+   "date": "2026-11-26",
+   "title": "MCP's case for 2027: Code Mode plus typed outputSchema, with large reported production call volumes"
   },
   {
-   "id": "2026-11-25-siren-escape-eval",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "id": "2026-11-26-verifier-decision-prefill",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
    "kind": "solution",
-   "date": "2026-11-25",
-   "title": "Anthropic's Siren eval: recent Claude models leave weakened sandboxes in 20-33% of tempting tasks"
+   "date": "2026-11-26",
+   "title": "A span verifier's verdict rests on one branch token; stopping there cuts serving cost 85% at the same F1"
   },
   {
-   "id": "2026-11-25-hidden-holdout-tests",
+   "id": "2026-11-26-reviewer-effort-wrong-patches",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-11-26",
+   "title": "Higher effort helps Claude 5.5 code reviewers reject wrong patches, but no setting catches them reliably"
+  },
+  {
+   "id": "2026-11-26-hub-j-human-derived-bias",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-11-26",
+   "title": "HUB-J mines human-vs-judge disagreements to find and regress out judge bias factors"
+  },
+  {
+   "id": "2026-11-26-messages-api-production-oracle",
    "topic": "agent-reliability",
    "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Separating test-writer from coder: hidden holdout suites reject 20 of 35 coding-agent runs"
+   "date": "2026-11-26",
+   "title": "Anthropic verified a Claude-written Rust rewrite by using its live Python API as the oracle"
   },
   {
-   "id": "2026-11-25-ifood-remote-agents-platform",
-   "topic": "agent-orchestration",
-   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
-   "kind": "solution",
-   "date": "2026-11-25",
-   "title": "iFood turns repo chores across 15,000 repositories into API calls that return merge requests"
+   "id": "2026-11-26-recordroute-failure-localization",
+   "topic": "agent-observability",
+   "topic_title": "You can't see why an agent did what it did",
+   "kind": "obstacle",
+   "date": "2026-11-26",
+   "title": "RecordRoute localizes a failed run's responsible actor and decisive step before naming the error mode"
   },
   {
-   "id": "2026-11-25-agent-kernel-subgraph-recovery",
-   "topic": "agent-orchestration",
-   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
-   "kind": "solution",
-   "date": "2026-11-25",
-   "title": "Agent-Kernel re-runs only a failed node's descendants: 100% recovery vs 55% for whole-trajectory replay"
+   "id": "2026-11-26-monitor-eval-attack-policy",
+   "topic": "agent-observability",
+   "topic_title": "You can't see why an agent did what it did",
+   "kind": "obstacle",
+   "date": "2026-11-26",
+   "title": "A monitor's measured miss rate swung from 0.5% to 20.8% depending on how the attack transcripts were made"
   },
   {
-   "id": "2026-11-25-sag-mem-lexical-memory",
+   "id": "2026-11-26-task-memory-steering",
    "topic": "agent-memory",
    "topic_title": "Agents forget across steps and sessions",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "SAG-Mem: raw dialogue chunks plus BM25 expansion top LoCoMo and LongMemEval with no LLM at write time"
+   "date": "2026-11-26",
+   "title": "TASK memory adds activation steering and a removable edit to text notes, cutting memory-ignoring errors"
   },
   {
-   "id": "2026-11-25-leto-utility-memory",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Leto scores memory by whether it improves the next answer, not fidelity to the past"
-  },
-  {
-   "id": "2026-11-25-loomkv-lossless-kv",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "LoomKV: lossless KV compression to 0.71x size gives 2.7-3.6x goodput past LMCache's eviction cliff"
-  },
-  {
-   "id": "2026-11-25-koi-multicloud-planner",
+   "id": "2026-11-26-meterrouter-budget-graphs",
    "topic": "agent-cost",
    "topic_title": "Agent token costs are unpredictable and easily run away",
    "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Koi plans inference deployments across clouds and GPUs by learning from every run: 1.18x goodput, 20% cheaper"
+   "date": "2026-11-26",
+   "title": "MeterRouter builds a per-query agent graph under a dollar budget, matching the best system at 82% less cost"
   },
   {
-   "id": "2026-11-25-hotpath-replay-as-code",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Hotpath replays a recurring agent job as checked code, cutting a 1,000-run/day bill from $537 to $18"
-  },
-  {
-   "id": "2026-11-25-delegent-slm-subtasks",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-11-25",
-   "title": "Delegent keeps the frontier model in charge but hands legwork to a local SLM, cutting cost 59-67%"
-  },
-  {
-   "id": "2026-11-25-tact-bench-conversational-threats",
+   "id": "2026-11-26-skillsbench-noise-audit",
    "topic": "agent-benchmarks",
    "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
    "kind": "solution",
-   "date": "2026-11-25",
-   "title": "TACT-Bench: adaptive social engineering adds 17.5% attack-induced failures; tested defenses cut ~9%"
+   "date": "2026-11-26",
+   "title": "A source-level audit of SkillsBench finds its per-task skill regressions are within noise"
+  },
+  {
+   "id": "2026-11-26-shellbench-model-over-harness",
+   "topic": "agent-benchmarks",
+   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+   "kind": "solution",
+   "date": "2026-11-26",
+   "title": "ShellBench: on everyday tasks, model choice moves pass rates more than harness choice"
   }
  ],
  "nodes": {
@@ -295,7 +295,7 @@
      "key": "routing",
      "title": "Routing each turn to the cheapest model that can handle it",
      "summary": "Benchmarks find most agent turns don't need a frontier model; per-thread routing inside the harness cuts cost 64-74%, and online tuning of the routing policy is emerging.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "caching-and-serving",
@@ -311,6 +311,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-meterrouter-budget-graphs",
+     "topic": "agent-cost",
+     "date": "2026-11-26",
+     "title": "MeterRouter builds a per-query agent graph under a dollar budget, matching the best system at 82% less cost",
+     "theme": "routing",
+     "html": "<p>MeterRouter routes at the level of the whole collaboration: for each query it constructs which agents and models work together, under an explicit monetary budget. Across five benchmarks the authors report accuracy comparable to the strongest fixed multi-agent system at <strong>82% lower cost</strong>.</p>\n<p>For builders: a fixed multi-agent topology pays its full price on easy queries. Budget-aware routing over the topology, not just the model, is where the savings in this paper come from. The numbers are author-reported on benchmarks; measure on your own traffic mix.</p>",
+     "evidence": [
+      {
+       "sid": "851958f4eb1c5d85",
+       "title": "MeterRouter: Budget-Aware Dynamic Routing for Multi-Agent Systems"
+      }
+     ],
+     "also": [
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-koi-multicloud-planner",
      "topic": "agent-cost",
@@ -1475,6 +1495,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-coordinator-27-day-field-report",
+     "topic": "multi-agent",
+     "topic_title": "Coordinating multiple agents adds more failure than capability",
+     "date": "2026-11-26",
+     "title": "A 27-day agent-team log: state on disk survived 35 sessions; a broken wait tool burned 77% of a day's tokens"
+    },
+    {
      "id": "2026-11-25-compiled-web-operations",
      "topic": "tool-use",
      "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
@@ -1706,8 +1733,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 70,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 71,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1725,6 +1752,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "851958f4eb1c5d85",
+     "title": "MeterRouter: Budget-Aware Dynamic Routing for Multi-Agent Systems"
+    },
     {
      "sid": "925d484a6a3e5e81",
      "title": "Koi: Evidence-Guided, Self-Calibrating Planning for Multi-Cloud LLM Inference"
@@ -2034,7 +2065,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -4096,6 +4127,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-monitor-eval-attack-policy",
+     "topic": "agent-observability",
+     "topic_title": "You can't see why an agent did what it did",
+     "date": "2026-11-26",
+     "title": "A monitor's measured miss rate swung from 0.5% to 20.8% depending on how the attack transcripts were made"
+    },
+    {
+     "id": "2026-11-26-messages-api-production-oracle",
+     "topic": "agent-reliability",
+     "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+     "date": "2026-11-26",
+     "title": "Anthropic verified a Claude-written Rust rewrite by using its live Python API as the oracle"
+    },
+    {
      "id": "2026-11-25-uber-skills-marketplace",
      "topic": "tool-use",
      "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
@@ -5942,6 +5987,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-gramdelta-evolving-grammars",
+     "topic": "tool-use",
+     "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+     "date": "2026-11-26",
+     "title": "GramDelta updates decoding masks for grammar rules added mid-generation, with 11x lower latency than replay"
+    },
+    {
+     "id": "2026-11-26-dfly2-shared-sparsity",
+     "topic": "speculative-decoding",
+     "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
+     "date": "2026-11-26",
+     "title": "DFly2 drafts from the target's own KV cache and sparse index picks for long-context speculative decoding"
+    },
+    {
      "id": "2026-11-24-serving-substrate-rankings",
      "topic": "multi-agent",
      "topic_title": "Coordinating multiple agents adds more failure than capability",
@@ -6356,7 +6415,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "measuring-memory",
@@ -6366,6 +6425,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-task-memory-steering",
+     "topic": "agent-memory",
+     "date": "2026-11-26",
+     "title": "TASK memory adds activation steering and a removable edit to text notes, cutting memory-ignoring errors",
+     "theme": "memory-integrity",
+     "html": "<p>Text-only memory fails at use time: the model has the note in context and still answers from its prior. TASK memory stores each memory as a text note plus an activation-steering vector and a removable knowledge edit on a frozen model. The authors report memory-ignoring errors at <strong>at most 1.5%</strong> across ten model-dataset cells.</p>\n<p>For builders: this needs weight or activation access, so it applies to self-hosted open models, not API models. The &quot;removable&quot; edit is the operationally important part: memories can be deleted without retraining.</p>",
+     "evidence": [
+      {
+       "sid": "69a487d02c92b580",
+       "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-25-sag-mem-lexical-memory",
      "topic": "agent-memory",
@@ -7901,8 +7975,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 89,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 90,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -7916,6 +7990,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "69a487d02c92b580",
+     "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination"
+    },
     {
      "sid": "8dc412120c61e17c",
      "title": "SAG-Mem-1.0 Technical Report"
@@ -8289,7 +8367,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -8305,7 +8383,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p><strong>Observability for agents is trace-first.</strong> The unit captured is the full trajectory: prompts, tool calls, results, retries, and subagent handoffs. Harnesses and serving platforms now emit these spans natively over OpenTelemetry, and capture extends to voice agents and plain CLIs.</p>\n<p><strong>The bottleneck has moved from capture to reading.</strong> Teams run a model over the traces to surface recurring failure patterns, debug many coding agents in one console, and read a session as a single thread instead of a span tree. Loops and runaway spend show up in the same trace, so trace and cost views are merging.</p>\n<p><strong>Agentic root-cause analysis works with guardrails, not alone.</strong> Production systems pair pre-correlated telemetry with LLM analysis and keep a human approving changes. Evidence suggests models can reason about a failure once the context is assembled. The best frontier agent on a realistic oncall benchmark still gets only about a quarter of root causes right, so the pipeline, not the model, is the open problem.</p>\n<p><strong>Ownership is a design choice.</strong> Enterprises want traces and spend data in their own network, through a self-hosted gateway or a managed platform deployed into their cloud. Payload privacy defaults differ by framework, and traces can be truncated.</p>\n<p><strong>The trace has limits.</strong> Offline monitoring covers agents you can&#x27;t watch live, and agents can coordinate through hidden states a transcript never records. Evaluating the monitors is itself an <a href=\"/topic/agent-evaluation\">evaluation</a> problem.</p>"
+     "html": "<p><strong>Observability for agents is trace-first.</strong> The unit captured is the full trajectory: prompts, tool calls, results, retries, and subagent handoffs. Harnesses and serving platforms now emit these spans natively over OpenTelemetry, and capture extends to voice agents and plain CLIs.</p>\n<p><strong>The bottleneck has moved from capture to reading.</strong> Teams run a model over the traces to surface recurring failure patterns, debug many coding agents in one console, and read a session as a single thread instead of a span tree. Loops and runaway spend show up in the same trace, so trace and cost views are merging.</p>\n<p><strong>Agentic root-cause analysis works with guardrails, not alone.</strong> Production systems pair pre-correlated telemetry with LLM analysis and keep a human approving changes. Evidence suggests models can reason about a failure once the context is assembled. The best frontier agent on a realistic oncall benchmark still gets only about a quarter of root causes right, so the pipeline, not the model, is the open problem. Failure attribution works best in two steps: localize the responsible actor and step, then name the error.</p>\n<p><strong>Ownership is a design choice.</strong> Enterprises want traces and spend data in their own network, through a self-hosted gateway or a managed platform deployed into their cloud. Payload privacy defaults differ by framework, and traces can be truncated.</p>\n<p><strong>The trace has limits.</strong> Agents can coordinate through hidden states a transcript never records. Monitors that read transcripts are also hard to trust: one production monitor&#x27;s false-negative rate ranged from 0.5% to 20.8% depending on how the test attacks were generated. Evaluate monitors against strong, varied attacks and report the worst case.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -8329,7 +8407,7 @@
      "key": "agentic-rca",
      "title": "Agents doing root-cause analysis and on-call",
      "summary": "Production RCA and triage agents work when telemetry is pre-correlated and a human approves changes; benchmarks show end-to-end oncall accuracy is still low.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "telemetry-ownership",
@@ -8340,11 +8418,51 @@
     {
      "key": "monitoring-limits",
      "title": "When the trace is not enough",
-     "summary": "Offline monitoring covers agents you cannot instrument live, and latent-channel work shows a complete transcript can still miss how agents coordinated.",
-     "count": 3
+     "summary": "A complete transcript can miss latent coordination, and a monitor's measured miss rate swings from 0.5% to 20.8% with how the attack transcripts were generated.",
+     "count": 4
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-recordroute-failure-localization",
+     "topic": "agent-observability",
+     "date": "2026-11-26",
+     "title": "RecordRoute localizes a failed run's responsible actor and decisive step before naming the error mode",
+     "theme": "agentic-rca",
+     "html": "<p>RecordRoute is a supervised method for auditing failed agent runs. It first ranks the trajectory&#x27;s records to pick the actor responsible and the decisive step. Only then does it predict the error mode, from that one record&#x27;s text and metadata rather than the whole trace.</p>\n<p>For builders: failure attribution works better as two steps, <em>where</em> then <em>what</em>. Structure trace records with actor and step metadata so a classifier, or a human, can point at one record instead of rereading a whole multi-agent trajectory.</p>",
+     "evidence": [
+      {
+       "sid": "d8def057899f6ec1",
+       "title": "RecordRoute: Auditing Agent Failures with Localization-Guided Diagnosis"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-tracing",
+       "title": "Tracing and trace analysis for agent runs"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-26-monitor-eval-attack-policy",
+     "topic": "agent-observability",
+     "date": "2026-11-26",
+     "title": "A monitor's measured miss rate swung from 0.5% to 20.8% depending on how the attack transcripts were made",
+     "theme": "monitoring-limits",
+     "html": "<p>Agent monitors are evaluated on transcripts from attack policies that stand in for real misbehavior. Testing an ex-production OpenAI monitor, the authors found its false-negative rate ranged from <strong>0.5% to 20.8%</strong> across optimization levels of one method (RL), and from <strong>6.4% to 23.0%</strong> across methods. All attacks were built against proxy monitors and transferred to the held-out target. Proxies also leave artifacts, such as reasoning about a side task, that change monitor judgments.</p>\n<p>For builders: a monitor that looks strong against basic attacks may not be. Evaluate it against several attack-generation methods at high optimization, and report the worst case.</p>",
+     "evidence": [
+      {
+       "sid": "4638abcd39a00769",
+       "title": "Attack Policy Selection can Mislead Monitor Evaluators"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-11-19-trace-mas-interaction-rca",
      "topic": "agent-observability",
@@ -8800,8 +8918,8 @@
      "title": "A parallel subagent's test escaped an unsandboxed Mac and spoke aloud on the host"
     }
    ],
-   "entry_count": 27,
-   "latest_entry_date": "2026-11-19",
+   "entry_count": 29,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-tracing",
@@ -8811,6 +8929,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "d8def057899f6ec1",
+     "title": "RecordRoute: Auditing Agent Failures with Localization-Guided Diagnosis"
+    },
+    {
+     "sid": "4638abcd39a00769",
+     "title": "Attack Policy Selection can Mislead Monitor Evaluators"
+    },
     {
      "sid": "31fa9cd8fb58d57c",
      "title": "TRACE-MAS: Diagnosing and Repairing Collaboration Failures in Multi-Agent Systems"
@@ -8920,7 +9046,7 @@
      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
     }
    ],
-   "updated": "2026-11-19"
+   "updated": "2026-11-26"
   },
   "agent-planning": {
    "slug": "agent-planning",
@@ -9926,7 +10052,7 @@
      "key": "verifying-the-work",
      "title": "Proving the work instead of trusting \"done\"",
      "summary": "The bottleneck has moved from generating output to verifying it; proof-of-work tooling, user-flagged errors, and verified-outcome training help, but the verifier is still the weak point for self-improving agents.",
-     "count": 14
+     "count": 15
     },
     {
      "key": "consistency-and-autonomy",
@@ -9936,6 +10062,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-messages-api-production-oracle",
+     "topic": "agent-reliability",
+     "date": "2026-11-26",
+     "title": "Anthropic verified a Claude-written Rust rewrite by using its live Python API as the oracle",
+     "theme": "verifying-the-work",
+     "html": "<p>Claude wrote the core of Anthropic&#x27;s Rust Messages API in a week; verifying it took far longer. Ported tests were a weak oracle: an audit found <strong>100+ weakened assertions</strong>, and the Rust build passed about <strong>98%</strong> of tests while only about <strong>a quarter</strong> of production inputs matched. The team shadowed live traffic instead. It ran the model once, replayed its output to both versions, and compared every stage before and after the model call exactly, recording only the shape of each difference for privacy. Agents then fixed the diffs. Anthropic reports <strong>~70% less CPU</strong> per request and <strong>~20% lower</strong> median time to first token.</p>\n<p>For builders: when an agent rewrites a live service, tests it can edit are not verification. Shadow against production with the nondeterministic step held fixed.</p>",
+     "evidence": [
+      {
+       "sid": "69fbec9981f84b43",
+       "title": "Migrating our Messages API to Rust"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-hidden-holdout-tests",
      "topic": "agent-reliability",
@@ -10667,6 +10813,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-reviewer-effort-wrong-patches",
+     "topic": "llm-as-judge",
+     "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+     "date": "2026-11-26",
+     "title": "Higher effort helps Claude 5.5 code reviewers reject wrong patches, but no setting catches them reliably"
+    },
+    {
      "id": "2026-11-25-contradictory-docs",
      "topic": "grounding",
      "topic_title": "An agent's answer is only as good as what it retrieved — and whether it can prove it",
@@ -10765,8 +10918,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 45,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 46,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -10776,6 +10929,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "69fbec9981f84b43",
+     "title": "Migrating our Messages API to Rust"
+    },
     {
      "sid": "2f5762523e95d678",
      "title": "Hired a bouncer to check my coding agent: 20 out of 35 Opus runs did not get in"
@@ -10957,7 +11114,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "grounding": {
    "slug": "grounding",
@@ -12623,7 +12780,7 @@
      "key": "production-evidence",
      "title": "Production deployments and what they report",
      "summary": "Named deployments in security ops, trading, sales, code review, healthcare, and internal platform work report real gains from role specialization plus human checkpoints; the numbers are self-reported by the teams or vendors.",
-     "count": 15
+     "count": 16
     },
     {
      "key": "parallel-coding-agents",
@@ -12645,6 +12802,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-coordinator-27-day-field-report",
+     "topic": "multi-agent",
+     "date": "2026-11-26",
+     "title": "A 27-day agent-team log: state on disk survived 35 sessions; a broken wait tool burned 77% of a day's tokens",
+     "theme": "production-evidence",
+     "html": "<p>A solo builder ran a coordinator session that splits requests into briefs for worker sessions and sub-agents. The context window filled by mid-afternoon, so a hook warns at 70% and 85% and the coordinator writes a handoff file before restarting: <strong>35 coordinator sessions in 27 days</strong>. The rule that held: state lives on disk, never in the conversation.</p>\n<p>What broke was the plumbing. One worker&#x27;s &quot;wait for posts&quot; tool returned immediately, so it looped at about <strong>290,000 tokens a turn</strong> and used about <strong>77% of ~1.3B</strong> context tokens read that day. Another worker reported waiting 30 minutes after one. A 30-minute listener timeout caused 24 empty wake-ups in a day.</p>\n<p>For builders: put a token budget on idle loops, and never trust an agent&#x27;s report of elapsed time.</p>",
+     "evidence": [
+      {
+       "sid": "2f8b0a8cbf6c6378",
+       "title": "What broke in 27 days of running a team of AI agents on real work"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-latentlens-latent-interfaces",
      "topic": "multi-agent",
@@ -13646,6 +13823,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-meterrouter-budget-graphs",
+     "topic": "agent-cost",
+     "topic_title": "Agent token costs are unpredictable and easily run away",
+     "date": "2026-11-26",
+     "title": "MeterRouter builds a per-query agent graph under a dollar budget, matching the best system at 82% less cost"
+    },
+    {
+     "id": "2026-11-26-chasm-kv-cache-transfer",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-26",
+     "title": "Transferring KV caches between models in multi-agent systems raises prompt-injection and jailbreak success"
+    },
+    {
      "id": "2026-11-25-delegent-slm-subtasks",
      "topic": "agent-cost",
      "topic_title": "Agent token costs are unpredictable and easily run away",
@@ -13842,8 +14033,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 58,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 59,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -13861,6 +14052,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2f8b0a8cbf6c6378",
+     "title": "What broke in 27 days of running a team of AI agents on real work"
+    },
     {
      "sid": "badad62bfaefb859",
      "title": "LatentLens: Rethinking Latent Interface in Multi-Agent Systems"
@@ -14094,7 +14289,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -14122,13 +14317,13 @@
      "key": "injection-paths",
      "title": "New paths for injected instructions",
      "summary": "Injected instructions now arrive through fetched pages, API routers, self-spreading documents, caches shared between sandboxes, and even the agent's own compaction summaries; the root cause is role confusion, not a missing filter.",
-     "count": 14
+     "count": 15
     },
     {
      "key": "model-defenses",
      "title": "Guardrail models, model hardening, and how defenses are measured",
      "summary": "Guardrail classifiers and model hardening cut measured jailbreak and injection rates sharply, but guardrails can be attacked themselves, and long-context, non-English, and self-improving red-team tests show published defense numbers run optimistic.",
-     "count": 15
+     "count": 16
     },
     {
      "key": "harness-controls",
@@ -14152,10 +14347,60 @@
      "key": "offensive-cyber",
      "title": "Frontier cyber models and weaponized agents",
      "summary": "Frontier models now reach Critical cyber capability and reach defenders through gated access programs, while attackers already run open-weight agents unattended at industrial scale.",
-     "count": 9
+     "count": 10
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-mine-mutual-information-defense",
+     "topic": "prompt-injection",
+     "date": "2026-11-26",
+     "title": "MINE flags indirect prompt injection in RAG via mutual information and embedding variance, with no training",
+     "theme": "model-defenses",
+     "html": "<p>Prompt-engineering defenses against indirect injection in RAG are often overridden by the injected instruction, and supervised detectors must be trained on known attacks. MINE is a training-free alternative: it scores retrieved content using mutual information and embedding variance to detect injected instructions before they steer the model.</p>\n<p>For builders: a training-free detector can sit in the retrieval path without a labeled attack corpus. Treat it as one layer; it does not replace limiting what a retrieved document can make the agent do.</p>",
+     "evidence": [
+      {
+       "sid": "f17308e5829a9f75",
+       "title": "MINE: A Training-Free Defense against Indirect Prompt Injection via Mutual Information and Embedding Variance"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-26-chasm-kv-cache-transfer",
+     "topic": "prompt-injection",
+     "date": "2026-11-26",
+     "title": "Transferring KV caches between models in multi-agent systems raises prompt-injection and jailbreak success",
+     "theme": "injection-paths",
+     "html": "<p>Some multi-agent systems now pass KV caches between models instead of text, to skip re-encoding. The Chasm study finds this latent channel is an attack path: a transferred cache can raise prompt-injection and jailbreak success on the receiving model. The authors propose a target-side guard that checks incoming caches.</p>\n<p>For builders: latent communication bypasses text-level filters that inspect messages between agents. If you adopt cache sharing, treat a received cache as untrusted input and guard it on the receiving side.</p>",
+     "evidence": [
+      {
+       "sid": "e5cd4c9ff569d569",
+       "title": "Latent-in-the-Middle: On the Security of Cross-Model Latent Communication in Multi-Agent Systems"
+      }
+     ],
+     "also": [
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-26-cairn-agents-zero-day",
+     "topic": "prompt-injection",
+     "date": "2026-11-26",
+     "title": "Amazon reports attackers' agents found and exploited a zero-day from one instruction to get shell access",
+     "theme": "offensive-cyber",
+     "html": "<p>Amazon says attackers running Cairn, an open-source AI penetration-testing framework, gave agents a list of IP addresses and the goal &quot;obtain shell access.&quot; With no further human input, the agents found and exploited a zero-day in an open-source medical-imaging AI application on a university server.</p>\n<p>For builders: AI applications you self-host are now in scope for autonomous discovery, not just known-CVE scanning. Shorten the patch window on internet-facing inference and agent tooling, and keep them off the open internet where you can.</p>",
+     "evidence": [
+      {
+       "sid": "44bd775b8ffe162a",
+       "title": "Amazon says hackers' AI agents found and exploited 0-day with little human input"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-25-permission-replies-rewrite-policy",
      "topic": "prompt-injection",
@@ -15425,6 +15670,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-lockward-agent-lockfile",
+     "topic": "version-pinning",
+     "topic_title": "Version pinning, compatibility ranges, and staged upgrades",
+     "date": "2026-11-26",
+     "title": "Lockward pins the skills, MCP servers, hooks, and rules files agents load, and fails CI on unapproved changes"
+    },
+    {
      "id": "2026-11-25-tact-bench-conversational-threats",
      "topic": "agent-benchmarks",
      "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
@@ -15621,8 +15873,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 77,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 80,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -15632,6 +15884,18 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f17308e5829a9f75",
+     "title": "MINE: A Training-Free Defense against Indirect Prompt Injection via Mutual Information and Embedding Variance"
+    },
+    {
+     "sid": "e5cd4c9ff569d569",
+     "title": "Latent-in-the-Middle: On the Security of Cross-Model Latent Communication in Multi-Agent Systems"
+    },
+    {
+     "sid": "44bd775b8ffe162a",
+     "title": "Amazon says hackers' AI agents found and exploited 0-day with little human input"
+    },
     {
      "sid": "6bdcd0c1ace0da2f",
      "title": "When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy"
@@ -15973,7 +16237,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -16372,7 +16636,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p><strong>The consensus fix is to remove the central coordinator, not scale it.</strong> The same move now shows up at three layers:</p>\n<ul><li><strong>Sandbox scheduling.</strong> A Kubernetes-style scheduler backed by strongly consistent state caps out before the hardware does. The working design lets each worker accept or reject work on its own resources and publish state to a shared stream. Modal reports 1 million concurrent sandboxes in under 60 seconds this way.</li><li><strong>Inference serving.</strong> Paged KV caches and packed, ragged batching stop padding overhead from compounding as concurrent requests share a batch. The failure mode is shared cache slots: two coding agents on one Ollama slot waited a median 46 seconds for first token, against one second with a slot each, because each evicted the other&#x27;s cached prefix.</li><li><strong>Tool protocol.</strong> Stateless MCP drops sessions and sticky routing so remote servers scale like any stateless service.</li></ul>\n<p><strong>Density is the second lever.</strong> Instead of keeping sandboxes warm, platforms suspend idle ones and resume them in under a second, and Kubernetes can now scale agent workloads to zero.</p>\n<p><strong>The open problem is where the state goes.</strong> Removing the coordinator or the session does not remove the state. Retries, idempotency, application state, and observability move to layers the platform team now owns. Most published numbers are vendor-reported and not independently reproduced.</p>"
+     "html": "<p><strong>The consensus fix is to remove the central coordinator, not scale it.</strong> The same move now shows up at three layers:</p>\n<ul><li><strong>Sandbox scheduling.</strong> A Kubernetes-style scheduler backed by strongly consistent state caps out before the hardware does. The working design lets each worker accept or reject work on its own resources and publish state to a shared stream. Modal reports 1 million concurrent sandboxes in under 60 seconds this way.</li><li><strong>Inference serving.</strong> Paged KV caches and packed, ragged batching stop padding overhead from compounding as concurrent requests share a batch. The failure mode is shared cache slots: two coding agents on one Ollama slot waited a median 46 seconds for first token, against one second with a slot each, because each evicted the other&#x27;s cached prefix.</li><li><strong>Tool protocol.</strong> Stateless MCP drops sessions and sticky routing so remote servers scale like any stateless service.</li></ul>\n<p><strong>Density is the second lever.</strong> Instead of keeping sandboxes warm, platforms suspend idle ones and resume them in under a second, and Kubernetes can now scale agent workloads to zero. For training and eval fleets, forking desktops from process checkpoints packs hundreds per host instead of one VM each.</p>\n<p><strong>The open problem is where the state goes.</strong> Removing the coordinator or the session does not remove the state. Retries, idempotency, application state, and observability move to layers the platform team now owns. Most published numbers are vendor-reported and not independently reproduced.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -16395,11 +16659,31 @@
     {
      "key": "fleet-density",
      "title": "Sandbox density and scale-to-zero for idle fleets",
-     "summary": "Platforms now suspend idle agent sandboxes and resume them in under a second, so idle fleets stop holding capacity; density claims are vendor-reported.",
-     "count": 1
+     "summary": "Platforms suspend idle sandboxes and resume them in under a second, and checkpoint forking packs hundreds of desktops per host; density claims are vendor-reported.",
+     "count": 2
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-criu-forked-desktops",
+     "topic": "scalability",
+     "date": "2026-11-26",
+     "title": "Drums forks isolated Linux desktops from CRIU checkpoints in 139 ms, packing hundreds per host",
+     "theme": "fleet-density",
+     "html": "<p>Computer-use agent training needs thousands of isolated desktops, usually one VM each with its own kernel and boot. Drums, an open-source host daemon, runs hundreds of isolated Linux desktops on one server instead. It restores them from CRIU checkpoints and forks or resets them without a reboot, in <strong>139 ms</strong> per the project. Every episode also gets a gate report and a reward audit.</p>\n<p>For builders: checkpoint-and-fork moves desktop environments from per-VM boot cost to process-restore cost. That changes how many parallel RL or eval rollouts one machine can hold. The density and isolation claims are project-reported; check the isolation boundary before running untrusted agents this way.</p>",
+     "evidence": [
+      {
+       "sid": "415f33463dc26d9a",
+       "title": "Show HN: Fork Linux desktops in 139ms for computer-use agent training"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
     {
      "id": "2026-11-22-lambda-gpu-shared-model",
      "topic": "scalability",
@@ -16517,8 +16801,8 @@
      "title": "Postgres as the agent memory layer: JSONB, HNSW vectors, and row-level locking"
     }
    ],
-   "entry_count": 6,
-   "latest_entry_date": "2026-11-22",
+   "entry_count": 7,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -16528,6 +16812,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "415f33463dc26d9a",
+     "title": "Show HN: Fork Linux desktops in 139ms for computer-use agent training"
+    },
     {
      "sid": "9e6bd2a43844cbfa",
      "title": "AWS Lambda Now Runs GPU Inference with 48 Concurrent Invocations Sharing One Model per GPU"
@@ -16553,7 +16841,7 @@
      "title": "Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds"
     }
    ],
-   "updated": "2026-11-22"
+   "updated": "2026-11-26"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -16593,7 +16881,7 @@
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 13
+     "count": 15
     },
     {
      "key": "guarding-the-call",
@@ -16609,6 +16897,41 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-prior-pre-call-reasoning",
+     "topic": "tool-use",
+     "date": "2026-11-26",
+     "title": "Tool use fades under RL when SFT traces skip reasoning before calls; deeper pre-call reasoning keeps it",
+     "theme": "calling-reliability",
+     "html": "<p>PRIOR studies why fine-tuned agents stop calling tools during later RL. SFT trajectories with little reasoning before each tool call lose tool use during RL. Filtering the SFT data for longer pre-call reasoning improved post-RL accuracy across benchmarks.</p>\n<p>For builders training their own tool-use models: audit SFT traces for reasoning before each call, not just correct calls. Short call-only traces can look fine after SFT and still collapse once RL starts.</p>",
+     "evidence": [
+      {
+       "sid": "adca41e514a08c77",
+       "title": "PRIOR: Pre-Call Reasoning in SFT and Its Influence on Tool-Use Retention under RL"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-26-gramdelta-evolving-grammars",
+     "topic": "tool-use",
+     "date": "2026-11-26",
+     "title": "GramDelta updates decoding masks for grammar rules added mid-generation, with 11x lower latency than replay",
+     "theme": "calling-reliability",
+     "html": "<p>Constrained decoding normally assumes a fixed grammar. When an agent&#x27;s output grammar grows at runtime, such as a tool schema registered mid-session, the engine must replay the committed prefix to rebuild parse state. GramDelta handles append-only rule additions incrementally, updating parse state and next-token masks without replay. The authors report <strong>10.7-11.5x</strong> lower median update latency.</p>\n<p>For builders: dynamic tool catalogs and structured output do not have to trade off. Incremental grammar updates let a server add schemas mid-stream without a latency spike.</p>",
+     "evidence": [
+      {
+       "sid": "aa06bc3c1c64285e",
+       "title": "From Grammar Deltas to Token Masks: Incremental Constrained Decoding under Runtime Grammar Evolution"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-latency",
+       "title": "Agent loops multiply per-call latency into slow, expensive runs"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-uber-skills-marketplace",
      "topic": "tool-use",
@@ -17374,6 +17697,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-mcp-2027-code-mode-adoption",
+     "topic": "mcp",
+     "topic_title": "Model Context Protocol: a standard interface for agent tools",
+     "date": "2026-11-26",
+     "title": "MCP's case for 2027: Code Mode plus typed outputSchema, with large reported production call volumes"
+    },
+    {
      "id": "2026-11-25-tool-result-reducer",
      "topic": "context-compaction",
      "topic_title": "Context compaction: summarize, compress, and curate the working set",
@@ -17521,8 +17851,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 42,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 44,
+   "latest_entry_date": "2026-11-26",
    "solutions": [
     {
      "slug": "mcp",
@@ -17532,6 +17862,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "adca41e514a08c77",
+     "title": "PRIOR: Pre-Call Reasoning in SFT and Its Influence on Tool-Use Retention under RL"
+    },
+    {
+     "sid": "aa06bc3c1c64285e",
+     "title": "From Grammar Deltas to Token Masks: Incremental Constrained Decoding under Runtime Grammar Evolution"
+    },
     {
      "sid": "fa093a6918b68912",
      "title": "How Uber Evals 1 Million Agent Skill Invocations a Month"
@@ -17705,7 +18043,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -17737,19 +18075,19 @@
      "key": "trusting-the-score",
      "title": "What a score measures: model, harness, or noise",
      "summary": "Grader bugs, overspecified tests, leaked test sets, harness choice, and run-to-run noise can each outweigh model differences; audited graders, end-state diffs, replays, and paired trials are how scores earn trust.",
-     "count": 17
+     "count": 18
     },
     {
      "key": "own-workload",
      "title": "Benchmarking on your own tools and real work",
      "summary": "Public leaderboards overstate out-of-distribution performance; suites built from your own tools, real sessions, and held-out environments predict production better, and authoring them is getting cheaper.",
-     "count": 13
+     "count": 14
     },
     {
      "key": "domain-suites",
      "title": "Domain-specific suites mined from real work",
      "summary": "New suites target one job at a time (Java migration, Stripe integrations, AWS operations, Rails, code review, scientific imaging) and keep finding domain-specific failures, often in validation rather than code generation.",
-     "count": 16
+     "count": 17
     },
     {
      "key": "adversarial-and-security",
@@ -17765,6 +18103,56 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-skillsbench-noise-audit",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-26",
+     "title": "A source-level audit of SkillsBench finds its per-task skill regressions are within noise",
+     "theme": "trusting-the-score",
+     "html": "<p>SkillsBench reported tasks where adding agent skills made results worse. A source-code audit and noise-aware reanalysis finds those per-task regressions are <strong>not statistically significant</strong>, so they do not show that skills cause harm.</p>\n<p>For builders: per-task deltas on small agent benchmarks often sit inside run-to-run variance. Before dropping or adopting a skill on a benchmark&#x27;s word, check how many trials stand behind each task and whether the difference survives a significance test.</p>",
+     "evidence": [
+      {
+       "sid": "062ca583db2be62b",
+       "title": "What Does Skill Lift Actually Measure? A Source-Code-Level Audit and Noise-Aware Reanalysis of SkillsBench"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-26-shellbench-model-over-harness",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-26",
+     "title": "ShellBench: on everyday tasks, model choice moves pass rates more than harness choice",
+     "theme": "own-workload",
+     "html": "<p>ShellBench is <strong>100</strong> day-to-day tasks drawn from more than 10 million user requests, each in a messy workspace with competing data sources, graded for correctness and safety. The authors ran <strong>12 models × 5 harnesses × 3 reasoning levels</strong> (53,100 rollouts). Harness choice barely mattered: pass@1 ranged from <strong>42.9</strong> (Claude Code) to <strong>45.2</strong> (OpenClaw), with little safety difference. Among models, the top three were within <strong>1.1 points</strong>; GPT-6.1 Sol passed <strong>61.4%</strong> at about one-sixth of GPT-6 Astra&#x27;s estimated token cost, against Astra&#x27;s <strong>62.5%</strong>.</p>\n<p>For builders: on general shell work, spend evaluation effort on model and cost per attempt before switching harnesses. Re-check on your own tasks, since 80% of the suite is held back.</p>",
+     "evidence": [
+      {
+       "sid": "8e681754c00e3bfc",
+       "title": "ShellBench: What Matters More for AI Agents, Models, or Harness for Everyday Tasks"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-orchestration",
+       "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-26-mu-bench-multi-user-voice",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-26",
+     "title": "μ-Bench: multi-user voice agents succeed 62-65% on proprietary models and under 20% on open weights",
+     "theme": "domain-suites",
+     "html": "<p>μ-Bench tests voice agents in shared interactions where several users must jointly complete one task. It has <strong>800</strong> simulated cases across <strong>20</strong> domains. Across <strong>13</strong> agents, proprietary systems reached about <strong>62-65%</strong> success, while open-weight models stayed below <strong>20%</strong>.</p>\n<p>For builders: single-user voice benchmarks overstate readiness for shared settings like households, meetings, or support calls with several parties. If your agent serves more than one speaker, budget for a proprietary model or test open weights on this case directly.</p>",
+     "evidence": [
+      {
+       "sid": "2477e7048eea6d93",
+       "title": "$μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-25-tact-bench-conversational-threats",
      "topic": "agent-benchmarks",
@@ -18969,8 +19357,8 @@
      "title": "The best agent resolves 69.6% of single tool requests but only 39.8% of three-turn dialogues"
     }
    ],
-   "entry_count": 70,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 73,
+   "latest_entry_date": "2026-11-26",
    "solutions": [],
    "obstacles": [
     {
@@ -18988,6 +19376,18 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "062ca583db2be62b",
+     "title": "What Does Skill Lift Actually Measure? A Source-Code-Level Audit and Noise-Aware Reanalysis of SkillsBench"
+    },
+    {
+     "sid": "8e681754c00e3bfc",
+     "title": "ShellBench: What Matters More for AI Agents, Models, or Harness for Everyday Tasks"
+    },
+    {
+     "sid": "2477e7048eea6d93",
+     "title": "$μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents"
+    },
     {
      "sid": "3427f2523e64ffb1",
      "title": "TACT-Bench: Testing Adaptive Conversational Threats against Tool-Use Agents"
@@ -19269,7 +19669,7 @@
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
@@ -19909,6 +20309,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-26-shellbench-model-over-harness",
+     "topic": "agent-benchmarks",
+     "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+     "date": "2026-11-26",
+     "title": "ShellBench: on everyday tasks, model choice moves pass rates more than harness choice"
+    },
     {
      "id": "2026-11-23-pi-dash-django-to-rust",
      "topic": "multi-agent",
@@ -21654,6 +22061,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-26-criu-forked-desktops",
+     "topic": "scalability",
+     "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+     "date": "2026-11-26",
+     "title": "Drums forks isolated Linux desktops from CRIU checkpoints in 139 ms, packing hundreds per host"
+    },
+    {
      "id": "2026-11-25-permission-replies-rewrite-policy",
      "topic": "prompt-injection",
      "topic_title": "Untrusted input and tools can hijack an agent",
@@ -22424,6 +22838,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-26-recordroute-failure-localization",
+     "topic": "agent-observability",
+     "topic_title": "You can't see why an agent did what it did",
+     "date": "2026-11-26",
+     "title": "RecordRoute localizes a failed run's responsible actor and decisive step before naming the error mode"
+    },
     {
      "id": "2026-11-22-tether-exact-replay",
      "topic": "model-drift",
@@ -23818,13 +24239,13 @@
      "key": "cheaper-judges",
      "title": "Making the judge cheap enough to run on every trace",
      "summary": "Small fine-tuned judges, encoder classifiers, and shared-backbone heads cut judge cost and latency by one to two orders of magnitude.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "trusting-the-judge",
      "title": "Auditing the judge, the rubric, and whether you need one",
      "summary": "Judges carry position, verbosity, and language bias and flip verdicts between runs; calibrate against human labels or replace the judge with a deterministic check.",
-     "count": 14
+     "count": 15
     },
     {
      "key": "scoring-design",
@@ -23836,10 +24257,60 @@
      "key": "correcting-judge-error",
      "title": "Measuring judge error and correcting scores for it",
      "summary": "One global judge accuracy does not transfer across agents, languages, or traffic slices; replay labeled decisions per slice and keep a small random human audit to correct scores.",
-     "count": 2
+     "count": 3
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-verifier-decision-prefill",
+     "topic": "llm-as-judge",
+     "date": "2026-11-26",
+     "title": "A span verifier's verdict rests on one branch token; stopping there cuts serving cost 85% at the same F1",
+     "theme": "cheaper-judges",
+     "html": "<p>A generative verifier often keeps decoding to quote and classify errors when the caller only needs &quot;is any claim unsupported?&quot;. In a frozen 2B span verifier, the choice between an empty error list and its first object comes before any localization. <em>Prefill1</em> supplies the seven fixed syntax tokens as input and generates only that branch token. On <strong>2,015</strong> code-agent responses it cut eager resident serving by <strong>84.84%</strong> versus full generation, at F1 <strong>83.43</strong> versus <strong>83.41</strong>. Under compiled execution the extra saving over stopping at the branch was 6.7-26.7%.</p>\n<p>For builders: if a verifier gates a pipeline, read its decision token and generate spans only for flagged items.</p>",
+     "evidence": [
+      {
+       "sid": "fbde8cddf276738d",
+       "title": "Reading Decisions Before Spans: Efficient Generative Verification"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-26-reviewer-effort-wrong-patches",
+     "topic": "llm-as-judge",
+     "date": "2026-11-26",
+     "title": "Higher effort helps Claude 5.5 code reviewers reject wrong patches, but no setting catches them reliably",
+     "theme": "trusting-the-judge",
+     "html": "<p>The study ran three Claude 5.5 models as code reviewers at low, medium, and high effort on <strong>90</strong> plausible-but-wrong Django patches. High effort accepted fewer wrong patches than lower settings, but no model-and-effort combination rejected them reliably.</p>\n<p>For builders: an AI reviewer is a filter, not a gate, for patches that look right. Raising effort is worth its cost on high-risk merges. Still pair it with tests or hidden checks that exercise the behavior the patch claims to fix.</p>",
+     "evidence": [
+      {
+       "sid": "7b091d01de2f3c49",
+       "title": "How Much Effort Does an AI Code Reviewer Need? Evidence from Claude 5.5 Models on Plausible-but-Wrong Patches"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-reliability",
+       "title": "Agents give fluent, confident-looking output even when it's wrong"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-26-hub-j-human-derived-bias",
+     "topic": "llm-as-judge",
+     "date": "2026-11-26",
+     "title": "HUB-J mines human-vs-judge disagreements to find and regress out judge bias factors",
+     "theme": "correcting-judge-error",
+     "html": "<p>HUB-J is a training-free method for auditing an LLM judge. It starts from cases where human and judge verdicts disagree, uses them to discover the factors that bias the judge, measures how strongly each factor sways verdicts, and then applies a regression correction to reduce bias-driven verdict flips.</p>\n<p>For builders: the human labels you already keep for judge calibration can also name <em>which</em> features skew the judge. That turns a single accuracy number into a list of biases to correct or test against.</p>",
+     "evidence": [
+      {
+       "sid": "6cacf0d6b431e506",
+       "title": "Auditing the Judge: Human-Derived Bias Discovery, Quantification, and Mitigation in LLM Judges"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-24-trajectory-dependent-judge-error",
      "topic": "llm-as-judge",
@@ -24444,8 +24915,8 @@
      "title": "Checking 100 human-annotated traces shows automated evals diverge from human raters"
     }
    ],
-   "entry_count": 31,
-   "latest_entry_date": "2026-11-24",
+   "entry_count": 34,
+   "latest_entry_date": "2026-11-26",
    "solutions": [],
    "obstacles": [
     {
@@ -24459,6 +24930,18 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "fbde8cddf276738d",
+     "title": "Reading Decisions Before Spans: Efficient Generative Verification"
+    },
+    {
+     "sid": "7b091d01de2f3c49",
+     "title": "How Much Effort Does an AI Code Reviewer Need? Evidence from Claude 5.5 Models on Plausible-but-Wrong Patches"
+    },
+    {
+     "sid": "6cacf0d6b431e506",
+     "title": "Auditing the Judge: Human-Derived Bias Discovery, Quantification, and Mitigation in LLM Judges"
+    },
     {
      "sid": "65021a141fd5a47d",
      "title": "Transport-Safe Evaluation of LLM Agents: Trajectory-Dependent Judge Error and Anytime-Valid Auditing"
@@ -24584,7 +25067,7 @@
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
     }
    ],
-   "updated": "2026-11-24"
+   "updated": "2026-11-26"
   },
   "mcp": {
    "slug": "mcp",
@@ -24634,7 +25117,7 @@
      "key": "servers-in-production",
      "title": "Vendor servers and hosted deployments",
      "summary": "Infrastructure and SaaS vendors now ship official MCP servers and managed gateways, but GA does not yet mean every major client can connect.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "beyond-tools",
@@ -24644,6 +25127,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-mcp-2027-code-mode-adoption",
+     "topic": "mcp",
+     "date": "2026-11-26",
+     "title": "MCP's case for 2027: Code Mode plus typed outputSchema, with large reported production call volumes",
+     "theme": "servers-in-production",
+     "html": "<p>Philipp Schmid argues the context-bloat backlash against MCP is fading, and cites company-reported volumes: Atlassian handles over <strong>5M MCP tool calls per workday</strong>, <strong>44%</strong> from users outside software teams; Notion reports <strong>60x</strong> MCP traffic growth; Neon&#x27;s MCP agent usage grows <strong>14% week over week</strong>.</p>\n<p>The technical shift is <em>Code Mode</em>. Instead of loading dozens of tool schemas and calling one tool per turn, the harness exposes MCP tools as functions in a sandbox. When a server declares <code>outputSchema</code>, the client generates typed stubs, so the model chains, filters, and joins calls in one script and returns only the result.</p>\n<p>For builders: declare <code>outputSchema</code> on servers you own. It is what lets Code Mode clients keep intermediate payloads out of context.</p>",
+     "evidence": [
+      {
+       "sid": "93cec7f36fc5907a",
+       "title": "Why I'm Bullish on MCP for 2027"
+      }
+     ],
+     "also": [
+      {
+       "slug": "tool-use",
+       "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+      }
+     ]
+    },
     {
      "id": "2026-11-24-snap-dual-identity-gateway",
      "topic": "mcp",
@@ -25486,8 +25989,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 39,
-   "latest_entry_date": "2026-11-24",
+   "entry_count": 40,
+   "latest_entry_date": "2026-11-26",
    "solutions": [],
    "obstacles": [
     {
@@ -25497,6 +26000,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "93cec7f36fc5907a",
+     "title": "Why I'm Bullish on MCP for 2027"
+    },
     {
      "sid": "5ffb2e252de57ff5",
      "title": "MCP Gateway: How Snap Checks Both the Person and the Agent"
@@ -25658,7 +26165,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-11-24"
+   "updated": "2026-11-26"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
@@ -25696,7 +26203,7 @@
      "key": "draft-methods",
      "title": "Picking and tuning the draft method per model and accelerator",
      "summary": "MTP, EAGLE-3, DFlash, and DSpark now run on both NVIDIA and AMD GPUs; the fastest method changes by model and task, so tune and measure acceptance per workload.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "agent-context",
@@ -25706,6 +26213,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-dfly2-shared-sparsity",
+     "topic": "speculative-decoding",
+     "date": "2026-11-26",
+     "title": "DFly2 drafts from the target's own KV cache and sparse index picks for long-context speculative decoding",
+     "theme": "draft-methods",
+     "html": "<p>Long contexts make a drafter&#x27;s separate KV cache expensive. DFly2 is a block-parallel drafter that keeps no cache of its own: it reuses the target model&#x27;s KV cache and the target&#x27;s per-query sparse attention selections. The authors report it accepts more tokens per step than the DFlash and DSpark drafters.</p>\n<p>For builders: on long agent contexts, drafter memory competes with the target for KV space. A drafter that shares the target&#x27;s cache and sparsity removes that cost, which matters most when serving many long sessions per GPU.</p>",
+     "evidence": [
+      {
+       "sid": "bb4c90dec13b8ea7",
+       "title": "DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-latency",
+       "title": "Agent loops multiply per-call latency into slow, expensive runs"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-draft-temperature-calibration",
      "topic": "speculative-decoding",
@@ -25876,8 +26403,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 9,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 10,
+   "latest_entry_date": "2026-11-26",
    "solutions": [],
    "obstacles": [
     {
@@ -25887,6 +26414,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "bb4c90dec13b8ea7",
+     "title": "DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity"
+    },
     {
      "sid": "420b2dee4fa3c677",
      "title": "Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions"
@@ -25924,7 +26455,7 @@
      "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-26"
   },
   "vector-kb": {
    "slug": "vector-kb",
@@ -26395,7 +26926,7 @@
      "key": "transitive-pinning",
      "title": "Pinning the whole chain, not just the SDK",
      "summary": "SDK patch releases forward bundled CLI and model changes, and compromised framework releases and hijacked weight repos reach loose ranges, so pins must cover packages and model revisions by hash.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "compatibility-signals",
@@ -26411,6 +26942,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-26-lockward-agent-lockfile",
+     "topic": "version-pinning",
+     "date": "2026-11-26",
+     "title": "Lockward pins the skills, MCP servers, hooks, and rules files agents load, and fails CI on unapproved changes",
+     "theme": "transitive-pinning",
+     "html": "<p>Lockward treats an agent&#x27;s configuration as a supply chain. It records every skill, MCP server, hook, rules file, and security-relevant setting used by Claude Code, Cursor, Codex, Gemini CLI, Windsurf, and GitHub Copilot. When any of them changes without approval, it fails locally or in CI. It runs offline, needs no account, uses no LLM, and emits SARIF and CycloneDX AI-BOMs.</p>\n<p>For builders: a silently updated skill or MCP server changes agent behavior as much as a dependency bump. Pin those files the way you pin packages, and route changes through review.</p>",
+     "evidence": [
+      {
+       "sid": "654618872ac83495",
+       "title": "Show HN: Lockward – a lockfile for skills and MCP servers your AI agent loads"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-11-21-npm-hermes-agent-implant",
      "topic": "version-pinning",
@@ -26689,8 +27240,8 @@
      "title": "Vercel gateway data: three in four teams leave a model within four weeks of its peak"
     }
    ],
-   "entry_count": 14,
-   "latest_entry_date": "2026-11-21",
+   "entry_count": 15,
+   "latest_entry_date": "2026-11-26",
    "solutions": [],
    "obstacles": [
     {
@@ -26700,6 +27251,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "654618872ac83495",
+     "title": "Show HN: Lockward – a lockfile for skills and MCP servers your AI agent loads"
+    },
     {
      "sid": "3b3617abd2209071",
      "title": "NPM package installed Hermes Agent as root and tasked it over Telegram"
@@ -26793,7 +27348,7 @@
      "title": "claude-code v2.1.183"
     }
    ],
-   "updated": "2026-11-21"
+   "updated": "2026-11-26"
   }
  }
 }

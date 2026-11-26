@@ -8,7 +8,7 @@ solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-11-19
+updated: 2026-11-26
 themes:
   - key: coordinator-free-scheduling
     title: Removing the central coordinator instead of scaling it
@@ -18,7 +18,7 @@ themes:
     summary: Paged KV caches and packed batching keep time to first token flat as concurrent agents share a batch, but agents sharing one cache slot evict each other's prefixes and wait tens of seconds.
   - key: fleet-density
     title: Sandbox density and scale-to-zero for idle fleets
-    summary: Platforms now suspend idle agent sandboxes and resume them in under a second, so idle fleets stop holding capacity; density claims are vendor-reported.
+    summary: Platforms suspend idle sandboxes and resume them in under a second, and checkpoint forking packs hundreds of desktops per host; density claims are vendor-reported.
 ---
 
 ## TL;DR
@@ -46,7 +46,8 @@ same move now shows up at three layers:
 
 **Density is the second lever.** Instead of keeping sandboxes warm, platforms
 suspend idle ones and resume them in under a second, and Kubernetes can now
-scale agent workloads to zero.
+scale agent workloads to zero. For training and eval fleets, forking desktops
+from process checkpoints packs hundreds per host instead of one VM each.
 
 **The open problem is where the state goes.** Removing the coordinator or the
 session does not remove the state. Retries, idempotency, application state,
