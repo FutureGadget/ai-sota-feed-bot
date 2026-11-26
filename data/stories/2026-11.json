@@ -5807,6 +5807,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26216v1"
  },
+ "2bb714fbc5927fde": {
+  "content_excerpt": "Venice is a privacy friendly AI service, and they've made it look an awful lot like their (usual) \"private\" tier is the self host tier. Venice runs leading open-source and third-party models across four privacy tiers: [...] Private (zero data retention on self-hosted open-source models), [...] Venice offers four tiers of privacy: [...] Private (zero data retention, self-hosted open-source models), Private - Zero data retention on self-hosted open-source models. Your prompts are never stored. Not to mention that Venice is an OpenRouter provider as of writing, and many ( 45.8% ) think most OpenRouter providers run models themselves. If you give Venice an image_url , it gets downloaded from another inference provider: Baseten , DeepInfra , Fireworks or Parasail for 14 of the 18 image models Venice listed on OpenRouter on November 21. OpenRouter even lists Qwen3.5 397B A17B, even though it's marked as anonymized and not private, and on November 21 its requests looped back into OpenRouter (32 of 40 requests). Between November 22, when I sent OpenRouter a preview of this post, and November 24, Venice moved 397B to DeepInfra, and GLM 5 \"turbo\", which looped back the same way, came off OpenRouter. Attested proof is available here (run 44936721959 on 85554d8 ). Media models too. Hunyuan Image 3.0 runs on fal according to Venice's app config: I discussed what \"private\" actually means with a Venice developer in the Venice Discord, who directed me to https://venice.ai/privacy . This page",
+  "first_seen": "2026-11-26T23:06:37.808761+00:00",
+  "id": "b44b62469bb7c144",
+  "published": "2026-11-26T22:47:04+00:00",
+  "sid": "2bb714fbc5927fde",
+  "source": "hackernews_ai",
+  "summary_1line": "A post alleging that Venice AI markets its \"Private\" tier as self-hosted, though its models on OpenRouter often run on third-party inference providers such as DeepInfra, Fireworks and Baseten, and that Venice has not corrected the claims.",
+  "title": "Potemkin Inference on Openrouter (Venice AI)",
+  "type": "news",
+  "url": "https://kendell.dev/blog/venicewrapper"
+ },
  "2bd2e996a1a3ce57": {
   "content_excerpt": "Decks is a React slide framework for animated, data-driven talks, built to be written with coding agents. A deck is a directory of MDX slides and React components; slides are drawn on a 1920x1080 canvas that scales to any window, clicks step through motion inside a slide, and a story stage pins one visualization per slide and advances it in beats while a prose card carries the argument. It ships as one npm package, @steamfield/decks , with a decks command, and a Claude Code plugin that teaches an agent to build a good deck. Node 22.12 or later and React 19. The -p form keeps runners from fetching the unrelated decks package on npm. The user guide is docs/guide/ ; it also ships inside the package. Decks was a Slidev addon ( slidev-addon-decks ) until 1.0; the git tag slidev-final holds the last Slidev version of this repo.",
   "first_seen": "2026-11-20T05:06:02.483516+00:00",
@@ -12313,6 +12325,24 @@
   "title": "Researchers hijack Hugging Face account for popular Kokoro AI model",
   "type": "news",
   "url": "https://www.bleepingcomputer.com/news/security/researchers-hijack-hugging-face-account-for-popular-kokoro-ai-model"
+ },
+ "5a4d59a63415e415": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent Clay wants you to get about the same results whether you use its own agent or point Claude Code at Clay. Usage is already split close to 50/50 between Clay’s agent and outside harnesses. In this episode, we chat with Jeff Barg, Head of AI at Clay, about what it takes to build go-to-market infrastructure that any agent can use. Jeff joined Clay when it acquired Avenue , the ops alerting startup he cofounded. At the time, Clay had about 50 people, and Avenue had five. AI was already a big part of how Clay thought about its product, but nobody there worked on AI. Since then, the business has grown roughly 10x, and the team is up to around 600 people. In September, Clay raised $115 million at a $7.1 billion valuation . By Jeff’s napkin math, it would cost about $1,500 to check all 40 million companies in Clay’s database against your ideal customer profile with a classifier like TypeSafe’s Jev. Models have been acing Clay’s lead-qualification evals for about a year now. Jeff sees more value in using f",
+  "first_seen": "2026-11-26T23:06:37.808761+00:00",
+  "id": "dd3b3da78e8aadaf",
+  "image_url": "https://i.ytimg.com/vi/qjPcaZf_plo/maxresdefault.jpg",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T23:02:48+00:00",
+  "sid": "5a4d59a63415e415",
+  "source": "latent_space",
+  "summary": "How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent",
+  "summary_1line": "How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent",
+  "title": "How Clay Builds GTM Agents — Jeff Barg, Head of AI",
+  "type": "news",
+  "url": "https://latent.space/p/how-clay-builds-gtm-agents-jeff-barg-head-of-ai",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "5a90caffb2c87d2e": {
   "content_excerpt": "Robots are learning to fold laundry, sort parts, and handle unfamiliar objects. But those demonstrations are often rather narrow and don't explain what a robot has learned or why it fails. To study a complex system, scientists often begin with a small, controlled environment, such as a petri dish or terrarium, where they can vary conditions and observe the effects. Robotics needs environments that make this kind of investigation possible—researchers should be able to change the training data or model design, repeat a test, and trace the cause of a failure. Today we're introducing a framework for creating these environments; we call them FoundationWorlds. Each pairs a controlled, simulated world targeted at studying robotics in a specific environment with tools for automatically generating tasks and training demonstrations, as well as metrics for measuring a robot's behavior over time. Together, they provide a setting for studying questions such as how models improve as more training data becomes available, and how to best combine high-level reasoning with precise physical control. Our first foundation world is ToyBlocks : an open simulation framework built around a robot arm and blocks on a tabletop. The setting is deliberately simple, but the robot must still reason about how the blocks interact and how to arrange them while pushing, flipping, and stacking. ToyBlocks automatically generates demonstrations, which are recordings of a robot completing tasks in simulation, witho",
@@ -32529,6 +32559,22 @@
   "title": "WhatWeRun, a database of real production AI agent stacks",
   "type": "news",
   "url": "https://whatwerun.dev",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "f24efb2f01636124": {
+  "content_excerpt": "Every week there is a new AI agent orchestrator on my timeline, and every week it is the exact same app . Conductor, Orca, Jean, Intent, Opensession, whatever launched on Hacker News this morning. Blur out the logos on the landing pages and you genuinely cannot tell them apart. The recipe is always identical. Wrap Claude Code or Codex. Spin up a git worktree per task. Put them in a dark-mode sidebar. Bolt on a diff viewer, an embedded terminal, maybe a Kanban board if you're feeling spicy. Call it an Agent Development Environment and ship it. I honestly don't get it. We are at one of those rare moments where we have a brand-new primitive and nobody actually knows what the right UX for it is yet. On top of that, building software has never been cheaper or faster. You would think people would be taking wild swings right now—making weird, broken, interesting experiments just to see what sticks. Instead, the entire industry immediately settled on the most boring idea possible and started cloning it over and over. Part of it is probably that low friction kills originality . When you can throw together a desktop app in a weekend, you don't sit around thinking deeply about the problem for a month. You just build the very first obvious thing that pops into your head. And because half of these apps are being built using the exact same coding agents they wrap, the tools are basically reproducing themselves. Ask an LLM to build a multi-agent desktop app and it is going to hand you Elect",
+  "first_seen": "2026-11-26T23:06:37.808761+00:00",
+  "id": "ee9e3b0f6d6952c7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T21:51:44+00:00",
+  "sid": "f24efb2f01636124",
+  "source": "hackernews_ai",
+  "summary_1line": "An opinion piece argues that new AI agent orchestrator apps look nearly identical, all wrapping coding agents in git worktrees with sidebars, diff viewers and terminals, and that the real bottleneck is reviewing concurrent agent output.",
+  "title": "Why is every agent orchestrator the exact same app?",
+  "type": "news",
+  "url": "https://kevinak.se/blog/3602153a-3f9c-4ce0-8a4b-fc8e0abceb4f",
   "why_it_matters": "Matches feed focus: agent."
  },
  "f25b9201ad6bdcc6": {
