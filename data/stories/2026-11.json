@@ -483,6 +483,23 @@
   "url": "http://arxiv.org/abs/2611.05636v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
+ "043f8331a0f789b2": {
+  "first_seen": "2026-11-26T04:06:51.450555+00:00",
+  "id": "6e2332042fdcec6f",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-25T18:37:06+00:00",
+  "sid": "043f8331a0f789b2",
+  "source": "arxiv_cs_ai",
+  "summary": "Agent patches are larger than developers', which is widely read as over-editing. But patch size does not say whether the extra edits are needed, what they are, or where they come from. We introduce Delta Residue Attribution (DRA), which replays agent trajectories, traces every block (unit) of the final patch to the step that wrote it, reverts each unit, and reruns the task tests to decide whether the unit is needed. We apply DRA to 7,660 resolved GitHub Copilot CLI trajectories from 18 frontier models on SWE-bench Verified (6,728) and DeepSWE (932), and grade developer patches using the same method. Agent patches do change more lines than developers'; on SWE-bench Verified the majority of extra edits add tests (61%) and documentation (13%) while on DeepSWE, most extra edits are code (58%). On both benchmarks, agents' code is on average at least as necessary as developers' (mean $NP_{code}$ 0.887 vs. 0.864 on SWE-bench Verified, where 11 of 18 models leave less unneeded code than developers, and 0.797 vs. 0.785 on DeepSWE). On average, 11% of an agent patch's code units on SWE-bench Verified are still unneeded, and 89% of those change behavior. Debug steps write almost none of the unneeded code. Code necessity differs substantially by model; it is unrelated to resolve rate on SWE-bench Verified and negatively correlated with it on DeepSWE (Spearman -0.59, p = 0.01). On SWE-bench Verified, pruning with DRA using only the tests the agent can see (its own tests and the repository",
+  "summary_1line": "Introduces Delta Residue Attribution, which reverts each patch unit and reruns tests to find unneeded edits, applying it to 7,660 Copilot CLI trajectories across 18 models on SWE-bench Verified and DeepSWE.",
+  "title": "How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34875v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "04524b2773c6396e": {
   "first_seen": "2026-11-10T10:49:44.059605+00:00",
   "id": "4a22b5ba5de524d7",
@@ -8792,6 +8809,22 @@
   "type": "news",
   "url": "https://www.rmrfbench.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "41d42e322cfbc62a": {
+  "first_seen": "2026-11-26T04:06:51.450555+00:00",
+  "id": "041d38a893bdf3fe",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-25T13:30:46+00:00",
+  "sid": "41d42e322cfbc62a",
+  "source": "arxiv_llm_reliability",
+  "summary": "Data management systems organize large text collections for tasks such as finding relevant studies and extracting contract clauses. Systems make long documents searchable by splitting them into independently indexed chunks. Chunking can separate text from its identifying details. The indexing challenge is to keep each chunk independently searchable while preserving the context needed to find and rank it. Existing methods either encode that context in chunk vectors or attach it as a text prefix. Context encoded only in vectors is unavailable to text rerankers. Prompted prefixes serve both vector search and reranking, but are costly to generate at indexing time and can underperform contextual encoders. We propose ConTra (Context That Travels), a reinforcement learning framework for training lightweight prefix generators. Its reward combines feedback from frozen embedding and reranking models with factual verification and length control. ConTra generates one prefix per chunk during index construction and stores the augmented text and its embedding for reuse across queries. To evaluate contextual retrieval across workloads and under interference, we introduce RealContextBench, a benchmark with five application collections and three controlled conditions that isolate the effect of distracting text. On ConTEB and RealContextBench, ConTra-2B outperforms the prompted 9B baseline using Anthropic's method and the PPLX-4B contextual encoder, with a margin of up to 3.15 points over their",
+  "summary_1line": "Data management systems organize large text collections for tasks such as finding relevant studies and extracting contract clauses. Systems make long documents searchable by splitting them into independently indexed c...",
+  "title": "ConTra: A Training Framework for Effective Contextual Retrieval via Prefix Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34366v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "41dc3eb408a1a39e": {
   "first_seen": "2026-11-05T15:05:26.471206+00:00",
@@ -17394,6 +17427,17 @@
   "url": "http://arxiv.org/abs/2611.12825v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "851958f4eb1c5d85": {
+  "first_seen": "2026-11-26T04:09:41.342987+00:00",
+  "id": "1a0f1e04e5965f50",
+  "published": "2026-11-25T13:09:13+00:00",
+  "sid": "851958f4eb1c5d85",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Presents MeterRouter, a router that builds a multi-agent collaboration graph per query under a monetary budget, reporting comparable accuracy to the strongest multi-agent system at 82% lower cost across five benchmarks.",
+  "title": "MeterRouter: Budget-Aware Dynamic Routing for Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34327v1"
+ },
  "85363033843f7ffd": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "659d12b1d33317e3",
@@ -24238,6 +24282,23 @@
   "url": "http://arxiv.org/abs/2611.12079v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "b771eb023b90c8cb": {
+  "first_seen": "2026-11-26T04:06:51.450555+00:00",
+  "id": "a4b8addcf10f969a",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:25:30+00:00",
+  "sid": "b771eb023b90c8cb",
+  "source": "arxiv_cs_cl",
+  "summary": "Deep research agents gather information from multiple sources and synthesize it into reports on complex, open-ended questions. Existing benchmarks assess report quality along several dimensions, but lack a dedicated knowledge-centric evaluation of which research directions a report covers and how deeply it explores them. We introduce DRBench Pro, a benchmark that makes structured knowledge coverage the primary evaluation target. Our automated pipeline builds local knowledge trees from Wikipedia and uses sampled subgraphs to generate research queries and evidence-grounded rubrics. Each rubric corresponds to a relation in the tree, preserving the structure of the knowledge being evaluated. Agents receive only the research query. This structure allows us to measure breadth across major research directions and depth along related knowledge chains, with their geometric mean giving overall coverage. The benchmark includes 144 cases across 24 domains and 44,102 rubrics. Evaluating 16 deep research agents reveals different strengths in breadth and depth, with the best-performing agent reaching 57.04% overall coverage. Rubric judgments agree closely with human annotations, and agent rankings remain stable across the tested metric configurations.",
+  "summary_1line": "DRBench Pro is a benchmark that scores deep research agents by how broadly and deeply their reports cover knowledge from Wikipedia-derived trees, with 144 cases, 44,102 rubrics, and a best agent at 57.04% coverage.",
+  "title": "DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34852v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "b78023b26122d472": {
   "content_excerpt": "Claude Haiku scored 82% on 21 MCP servers through OpenCode and 65% through Claude Code. The gap comes from the built-in tools each agent reaches for first. We ran the same model, Claude Haiku 5.5, through two coding agents against the same 21 MCP servers, with the agent as the only difference. Through OpenCode it answered 82.0% of the tasks correctly from the server. Through Claude Code it answered 65.4%. We were testing M3 , our open-source tool for testing MCP servers , and wanted a workload big enough to break it: 21 real servers, about 20 tasks each, three agents, three trials per task. The results became the MCP Agent Usability leaderboard , and every number in this post comes from it. Our first guess was that OpenCode is simply better at calling tools. Splitting the servers by what they do rules that out. Eleven of the servers do a job none of the agents has a built-in tool for: a Postgres database, MongoDB, Redis, Kafka, Linear, Jenkins, Grafana, Kubernetes, Gitea, and two browser servers. The other ten overlap with something every agent already carries: web search and docs lookup (Exa, Fetch, Microsoft Learn, DeepWiki, Terraform), files and shell (Git, Filesystem, Desktop Commander, Serena), and memory. On the first eleven, the three agents land within 4.1 points of each other, even though Codex runs a different model. On the other ten, Claude Code trails OpenCode by 32 points and Codex trails it by 49. Here is one task from the Exa server, run once through each agent",
   "first_seen": "2026-11-01T15:04:17.406320+00:00",
@@ -30092,6 +30153,22 @@
   "url": "http://arxiv.org/abs/2611.05104v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "e5cd4c9ff569d569": {
+  "first_seen": "2026-11-26T04:06:51.450555+00:00",
+  "id": "46be056cfd020362",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T12:35:33+00:00",
+  "sid": "e5cd4c9ff569d569",
+  "source": "arxiv_agent_systems_research",
+  "summary": "As large language models increasingly collaborate in heterogeneous multi-agent systems, latent communication has emerged as an efficient alternative to exchanging natural-language messages. By sharing internal representations, agents can avoid repeatedly processing the same context, reducing communication overhead and prefill computation. One such mechanism is cross-model Key-Value (KV) cache transfer, which uses a learned mapper to translate a source model's KV cache into one a target model can use. However, this handoff means the target model consumes context it did not encode itself, thus calling into question whether its safety alignment still holds. In this work, we investigate the security implications of latent handoffs by introducing Chasm, a framework characterizing cross-model handoff attacks across three new attack surfaces: the source model, mapper, and handoff mechanism itself. Our experiments reveal that latent handoffs substantially undermine safety alignment and prompt-injection defenses. Notably, a target model that follows only 0.4% of benchmark prompt injections natively, follows up to 44.2% when transferred through a mapper from a source model. On the other hand, for jailbreak attacks, transfer alone raises attack success by up to 24.6 pp within a model family and zero-shot attacks by up to 69.2 pp, whereas white-box optimization through the mapper boosts the attack success rate to 92.5%, against 37.5% for ordinary GCG on the same target. To address these ",
+  "summary_1line": "Introduces Chasm, a study of security risks in cross-model KV cache transfer between LLMs, finding transferred caches can raise prompt-injection and jailbreak success and proposing a target-side cache guard to mitigate them.",
+  "title": "Latent-in-the-Middle: On the Security of Cross-Model Latent Communication in Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34278v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "e5e2441a8a9d18df": {
   "first_seen": "2026-11-20T09:06:20.090453+00:00",
   "id": "bdcb36faa5634c1c",
@@ -33156,6 +33233,23 @@
   "title": "[AINews] D-Day (Decision Models Day)",
   "type": "news",
   "url": "https://latent.space/p/ainews-d-day-decision-models-day"
+ },
+ "fd23d2fbcefca3cc": {
+  "first_seen": "2026-11-26T04:06:51.450555+00:00",
+  "id": "2835c1a099272375",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-25T10:31:08+00:00",
+  "sid": "fd23d2fbcefca3cc",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Verification is increasingly critical across various inference and learning paradigms, such as test-time scaling, recursive intelligence and automated research, where feedback can improve efficiency and optimization. Common score-based verifiers, or discriminative reward models, predict a scalar reward for an output. While useful for filtering, rewarding, and ranking, such scores provide no explicit, auditable evidentiary basis for the judgment. In parallel, although existing generative process reward models offer text feedback, most designs do not fully exploit agentic capabilities, such as tool use and iterative reasoning, which are essential for fact-checking and fine-grained claim verification. In this paper, we address these limitations by introducing Agent-as-a-Verifier, an agentic, certificate-producing verification system that places role-separated LLM agents inside a formal-methods-inspired claim-obligation-certificate protocol. Given a generation candidate, Agent-as-a-Verifier produces a certificate by extracting a verdict-blind dependency graph of claims, independently compiling the task's acceptance contract, and deriving checkable obligations. On Terminal-Bench 2.1, Agent-as-a-Verifier achieves higher accuracy than the state-of-the-art approach. Across different downstream applications, the augmented agent also outperforms the plain agent on FrontierMath and CyberGym. More importantly, Agent-as-a-Verifier is able to identify reward-hacking solutions that deceive ",
+  "summary_1line": "Introduces Agent-as-a-Verifier, an agentic system of role-separated LLM agents that produces auditable certificates of claims and obligations to verify generated outputs, reporting gains on Terminal-Bench 2.1, FrontierMath and CyberGym.",
+  "title": "Agent-as-a-Verifier: From Scores to Evidence for General Verification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34132v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "fd3d9b15585eb3e1": {
   "first_seen": "2026-11-18T08:06:11.109800+00:00",
