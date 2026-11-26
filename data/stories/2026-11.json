@@ -2551,6 +2551,22 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/unity-catalog-metric-views-now-power-bi-one-unified-governed-semantic-layer-all-your-reporting"
  },
+ "130940cc89ad7627": {
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "a5644cb973b919ad",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:29:36+00:00",
+  "sid": "130940cc89ad7627",
+  "source": "arxiv_cs_ai",
+  "summary": "We introduce BOP-Refer, the first benchmark for monocular 3D and 2D grounding of everyday and industrial objects sourced from 9 diverse BOP datasets. We pair images from these datasets with VLM-generated and human-verified referring expressions, and derive accurate ground-truth 3D and 2D bounding boxes of the referred objects from their 3D models and 6DoF pose annotations. Our systematic evaluation of 17 frontier VLMs across the major proprietary and open-weight families (Gemini, GPT, Claude, Qwen, Gemma) shows that the best model, Gemini 4 Carbon, reaches 72.6% AP_IoU2D in 2D but only 12.4% AP_IoU3D in 3D, despite the more lenient IoU thresholds in 3D. The predicted 3D boxes are usually centered on the target objects in the image but often off in depth by more than the object's size, suggesting that metric scale estimation, which needs reliable object size priors, is currently by far the main source of error.",
+  "summary_1line": "Introduces BOP-Refer, a benchmark of referring expressions over images from nine BOP datasets for monocular 3D and 2D object grounding, where the top of 17 evaluated VLMs scores 72.6% AP_IoU2D but only 12.4% AP_IoU3D.",
+  "title": "BOP-Refer: Benchmark for Monocular 3D and 2D Object Grounding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34862v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "131509a7651f4930": {
   "content_excerpt": "GPU checkpoint/restore for vLLM: snapshot a warmed-up engine (compiled kernels, CUDA graphs, weights, 1-8 GPUs) into an OCI image and restore it in seconds instead of a multi-minute cold start. Scale to zero, spot GPUs, Kubernetes optional. warmctl is GPU checkpoint/restore for vLLM. It snapshots a warmed-up engine and restores it in seconds on any host with the same GPUs and NVIDIA driver branch, so a new replica skips weight loading, torch.compile, kernel autotuning and CUDA graph capture. GLM-5.3-Flash on 8×H100: vLLM cold start 650 s, warmctl up 37 s, then stock serving speed. That makes scale to zero, fast autoscaling and spot GPU replacement practical for large models. The public catalog has 21 models on H100, H200, B200, B300, L40S and RTX PRO 6000. Any other model vLLM serves with sleep mode, build yourself ( tutorial ): warmctl up to serving, snapshot in page cache, against a vLLM cold start (weights on local disk, empty compile caches). ~ is the time to a ready engine while building the snapshot; where we measured both, a plain cold start was 1–24% shorter. On B200, GLM-5.3-Flash restores in 44 s (8×B200) and DeepSeek-V4.1-Flash in 73 s (4×B200). Every platform is in the catalog . GLM-5.3-Flash on 8×H100 by phase, from page cache and from a cold network file share (about 10 GB/s): Restored engines serve at stock vLLM speed or faster (GLM-5.3-Flash: 100–136% of stock throughput). build starts vLLM in a container, warms it over every shape in the profile and checkpoin",
   "first_seen": "2026-11-10T23:04:50.256417+00:00",
@@ -5839,6 +5855,22 @@
   "type": "news",
   "url": "https://latent.space/p/cs146s"
  },
+ "2c0f943dd05d7e7b": {
+  "content_excerpt": "Mezo is a blockchain network that enables developers to build decentralized applications for the Bitcoin community. As a member of the Mezo community, I noticed they were preparing to host a hackathon, the Mezo Buildathon. The event ran in two waves, each lasting about two weeks, from October 16 to November 15, 2026. Recently, I have focused on agent-ready documentation. I saw the Buildathon as an opportunity to put my learning into practice. Coding agents now read documentation on behalf of developers. They rely on it to understand products and complete development tasks, and they are becoming its primary consumers. Fern published a report on November 10, 2026 that found 52% of documentation traffic comes from agents, up from 14% in January. AI agents read documentation differently from people. They need an index file ( llms.txt ) that tells them where each page lives, and a clean Markdown version of each page. Mezo's documentation lacked the structure agents need to navigate and consume its content. When agents cannot navigate documentation, they miss information or give wrong answers. Developers who rely on those answers lose trust, and the developer experience suffers. On October 10, 2026, I assessed Mezo's documentation using AFDocs . AFDocs is a specification for evaluating how well documentation supports AI agents. Mezo's documentation scored 41 out of 100, an F. Authentication and access scored 100 because the documentation already supported standard HTTP behavior. Co",
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "a6acdc14c4e85909",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T18:45:14+00:00",
+  "sid": "2c0f943dd05d7e7b",
+  "source": "hackernews_ai",
+  "summary_1line": "A developer describes making Mezo's documentation agent-ready, adding an llms.txt index and Markdown versions of pages, after an AFDocs assessment scored the original docs 41 out of 100.",
+  "title": "How I Made Mezo's Documentation Agent-Ready",
+  "type": "news",
+  "url": "https://0xdezman.cv/blog/how-i-made-mezo-documentation-agent-ready",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2c2c060d34af1ace": {
   "first_seen": "2026-11-26T18:06:33.281165+00:00",
   "id": "884187a9e203c779",
@@ -7446,6 +7478,22 @@
   "title": "Bypassing ADB: 0.32ms Android UI trees and A* routing for AI agents (Rust/Kotlin",
   "type": "news",
   "url": "https://github.com/V0val0x/DroidPath/blob/main/docs/benchmarks.md",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "367ab28d69554f49": {
+  "content_excerpt": "Local-first persistent memory for AI coding agents (Claude Code, Cursor, OpenCode). Remembers decisions, stops repeated mistakes, and syncs via Git. Preserves development context and catches repeated mistakes across Claude Code, Cursor, Codex, and OpenCode. Dev-Mem gives AI coding agents (Claude Code, Codex, Cursor, OpenCode) a persistent local knowledge store that survives session restarts and agent switches. It records decisions, failed approaches, constraints, and discoveries your agent makes while coding, and injects the relevant ones at the start of each new session — so the next session doesn't re-investigate what the last one already figured out. Everything stays on your machine. No server, no network dependency beyond your existing LLM API key. (Or, if you prefer not to install globally, you can prefix all commands in this guide with npx dev-memo ) Dev-Mem automatically detects which agent directories exist in your project. However, since agents like Codex and Cursor do not auto-create their directories in every repository by default, you can explicitly specify your agent : Dev-Mem also creates .dev-mem/ at the project root (gitignored by default) and adds .dev-mem/ to .gitignore if it isn't already there. Reinstalling: running npx dev-memo install again is safe — it won't duplicate hooks if they're already present. After upgrading, run dev-memo install once in each project to register the new UserPromptSubmit prompt-time injection hook for Claude Code. Run dev-memo s",
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "2df79166c9e9c4b2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-26T16:59:24+00:00",
+  "sid": "367ab28d69554f49",
+  "source": "hackernews_ai",
+  "summary_1line": "Dev-Mem is a local-first tool that gives AI coding agents such as Claude Code, Cursor, Codex and OpenCode a persistent SQLite knowledge store of decisions, failed approaches and constraints, injected into new sessions and optionally shared via Git.",
+  "title": "Show HN: Dev-Mem – Local-first SQLite knowledge graph for AI coding agents",
+  "type": "news",
+  "url": "https://github.com/HarsH-1877/Dev-Mem",
   "why_it_matters": "Matches feed focus: agent."
  },
  "369674385192a647": {
@@ -15186,6 +15234,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17280v1"
  },
+ "729136163e57ed12": {
+  "content_excerpt": "Pure-Rust LLM inference engine for GGUF (Qwen, DeepSeek, GLM, Hy4, Flint). Runs models bigger than your VRAM on CUDA and Vulkan, with MTP drafts and an OpenAI/Anthropic server. 12 GB RTX 3060 vs llama.cpp: Qwen3.6-35B-A3B UD-Q5_K_M 80.5 vs 64.4 tok/s, Flint UD-Q5_K_XL 64.6 vs 48.6. With MTP: 108 tok/s (UD-Q3_K_M), up to 160 (UD-Q2_K_XL). A pure-Rust inference engine for GGUF models, built for MoE models that do not fit in VRAM. The CUDA kernels are compiled at run time with NVRTC, and the same kernels run on Vulkan: no C++ build step, no ggml. Experts that do not fit in VRAM run on the CPU at the same time as the GPU work, and the expert placement adapts to the routing it sees. Supported models: Qwen3, Qwen3-Next, Qwen3.5/3.6, Qwen3.8-Flash-Next, Recursive Flint, Gemma 4, DeepSeek-V4.1-Flash, GLM-5.3-Flash, Hy4-flash, Inkling 2 Mini and Kolibri 1.1. The architectures, the GGUF types and the notes for each model are in docs/MODELS.md . Qwen3.6-35B-A3B on an RTX 3060 12 GB (Ryzen 5 7600X, 32 GB RAM), CUDA, greedy, against llama.cpp tuned for the same file. Neither file fits in VRAM. serve --parallel N decodes the requests together in one batched forward (CUDA). Same machine, same load script ( tools/loadtest.py : N streamed chats at once, 128 reply tokens each, greedy), total decode tok/s: vLLM runs bf16 weights and RustingStrata Q4_K_M, so the dense columns are not like for like. The 27 GB MoE file does not fit on the 12 GB card, so vLLM was not run on it. RustingStrata reads ",
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "1f3ba300ed382208",
+  "published": "2026-11-26T18:21:05+00:00",
+  "sid": "729136163e57ed12",
+  "source": "hackernews_ai",
+  "summary_1line": "RustingStrata is a pure-Rust GGUF inference engine that runs MoE models larger than GPU VRAM on CUDA and Vulkan, with its own benchmarks reporting faster decode than llama.cpp on a 12 GB RTX 3060.",
+  "title": "RustingStrata – Pure Rust LLM GGUF Engine, Runs Models > VRAM on CUDA and Vulkan",
+  "type": "news",
+  "url": "https://github.com/RustingStudio/RustingStrata"
+ },
  "72c9dee23b49167c": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
   "id": "2431a6844b9cf64b",
@@ -22400,6 +22460,23 @@
   "url": "https://github.com/owenpatience2010-cmyk/paperpulse",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a577b44a420ece11": {
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "a7edfdf8ca5591dc",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-25T18:34:46+00:00",
+  "sid": "a577b44a420ece11",
+  "source": "arxiv_cs_ai",
+  "summary": "Merging RDF serializations creates ordering conflicts and misses semantic ones. We describe and evaluate a three-way merge in which the schema defines a conflict: set algebra combines canonical triples, and a slot is contended only where a SHACL shape bounds its cardinality and both sides' changes cannot stand within that bound. Unbounded predicates union; contended slots go to a person. The same shapes graph validates the result. We do not claim the first three-way merge for RDF. Our contribution is an implementation in a production multi-agent store and an evaluation against a reimplementation of Quit Store's Context Merge overlap rule, which it extends rather than replaces, and six other strategies. Across five synthetic seeds, the shape-aware operator raised 33 conflicts, all true positives as judged by the same shapes that define them, with no triples lost or fabricated and no SHACL violations admitted. The context-overlap baseline, counted per slot, detected the same 33 conflicts but asked 845 questions. A replay built from recorded production incidents covers 105 human alias repairs (93 after excluding 12 chained pairs) and 939 duplicate-value incidents. It reproduces a triple-level limit: different names for one entity remain invisible (0 of 93 alias repairs detected, matching 0 of 21 synthetic cases). In a study of evolving shape contracts, merging shape declarations first handles the tested cardinality changes, while datatype evolution exposes a detector blind spot ",
+  "summary_1line": "Merging RDF serializations creates ordering conflicts and misses semantic ones. We describe and evaluate a three-way merge in which the schema defines a conflict: set algebra combines canonical triples, and a slot is...",
+  "title": "Shape-Aware Three-Way Merge for RDF Knowledge Graphs: The schema defines the conflict: an implementation and evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34870v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "a57dc09a48f71698": {
   "first_seen": "2026-11-20T15:06:22.351480+00:00",
   "id": "5d5bfe45754d194f",
@@ -27913,6 +27990,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "cf660e09947351ea": {
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "127229b9b63b35a3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-25T18:08:01+00:00",
+  "sid": "cf660e09947351ea",
+  "source": "arxiv_cs_lg",
+  "summary": "LLM routing aims to choose, for each prompt, which model in a portfolio is most likely to answer correctly. This only makes sense when the benchmark contains enough prompt-specific variation for different models to be best on different inputs. On coarse-scored LLM benchmarks, however, many models often tie for the best score, and the single best model may already leave little room for improvement. We therefore propose a routeability-first audit, instantiated as RAP and RouteabilityBench, a runnable claim-verification package. The audit is retrospective: it runs once the benchmark-portfolio score matrix exists and before router comparisons are interpreted as general evidence, rather than certifying a portfolio that has not yet been evaluated. Across four benchmarks and 66 LLMs, generic routing enhancements such as larger embedding sets, dimensionality reduction, selective abstention, clustering, and stronger regressors do not consistently outperform the single best model. The clearest positive evidence is concentrated in portfolio-dependent Omni-MATH settings, while GPQA, MMLU-Pro, and IFEval show different ways in which routing can remain hard or predictor-sensitive. Our practical recommendation is that routing gains should be reported together with routeability diagnostics, tied-best analysis, portfolio construction details, and family-corrected statistical tests.",
+  "summary_1line": "Proposes a retrospective routeability audit (RAP) and RouteabilityBench package, finding across four benchmarks and 66 LLMs that common routing enhancements do not consistently beat the single best model.",
+  "title": "Routeability Before Routing: Routeability Audit Protocol (RAP) and RouteabilityBench for Audited LLM Model Selection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34825v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "cf858573320ea5b3": {
   "first_seen": "2026-11-04T15:05:34.099063+00:00",
   "id": "10895c4317f90be9",
@@ -31427,6 +31520,23 @@
   "url": "http://arxiv.org/abs/2611.32390v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "ead3084d2f1393dc": {
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "c5abd78d54c95015",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-25T11:35:43+00:00",
+  "sid": "ead3084d2f1393dc",
+  "source": "arxiv_agent_systems_research",
+  "summary": "This paper studies policy learning for cooperative task allocation in open multi-agent systems, where submodular utilities model diminishing marginal returns due to overlapping agent contributions. While standard methods evaluate every candidate action to update the policy, this may incur an excessive computational cost online. Hence, we impose a budget on these evaluations and analytically study the effect of query budget on online learning. Our algorithm samples a prescribed number of agent-action pairs and applies inverse-probability weighting to their marginal gains, yielding an unbiased gradient estimate of the expected stage utility for a Kullback-Leibler (KL) mirror-ascent update. We derive a $1/2$-approximate regret bound that elegantly splits into a tracking error between optimal and learned policies, quantified by their KL divergence, and a query-dependent feedback term. Experiments on cooperative information coverage show that our approach retains high performance with significantly less computation online.",
+  "summary_1line": "Proposes an online policy-learning algorithm for cooperative task allocation among agents with submodular utilities that samples a fixed budget of agent-action evaluations, reporting a 1/2-approximate regret bound and experiments on information coverage.",
+  "title": "Compute-Aware Submodular Online Learning in Open Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34211v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "eb1f61303f3e3d57": {
   "first_seen": "2026-11-10T00:04:45.371214+00:00",
   "id": "b0b1d0140b8fc84c",
@@ -31843,6 +31953,22 @@
   "title": "ServiceNow on-behalf-of token exchange with Bedrock AgentCore Gateway",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/servicenow-on-behalf-of-token-exchange-with-bedrock-agentcore-gateway",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "ef3d8c76b471800a": {
+  "first_seen": "2026-11-26T19:05:34.169883+00:00",
+  "id": "bb9ffc96ef3d39c1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-25T17:27:31+00:00",
+  "sid": "ef3d8c76b471800a",
+  "source": "arxiv_cs_cl",
+  "summary": "Fully online on-policy distillation (OPD) is costly for long-horizon agents because each update depends on fresh environment rollouts. Prefix replay offers an efficient alternative by sampling current-student responses from stored histories, reducing idle time for long-tail rollouts and allowing each collected trajectory to support multiple updates. However, our analysis of the complete prefix replay pipeline identifies two limitations in long-horizon settings. In trajectory collection, teacher-only trajectories miss student-induced histories, while broader history coverage can reduce teacher reliability. In trajectory reuse, fixed position-based schedules cannot identify critical decisions that may occur at any trajectory depth. We introduce CARE-OPD (Collect for coverAge, Replay with Evidence) to address both limitations. Student-seeded teacher completions and response-level confidence gating expand history coverage while filtering unreliable updates. Hindsight replay allocation then uses downstream execution evidence to select consequential turns. Across long-horizon tasks Software Engineering and Deep Research, CARE-OPD outperforms online OPD and prior prefix replay baselines. On SWE-bench Verified, it raises task success to 59.5% while reducing end-to-end training time by 45% and environment actions by 44% relative to asynchronous online OPD.",
+  "summary_1line": "Introduces CARE-OPD, a prefix-replay method for on-policy distillation of long-horizon agents that reports 59.5% task success on SWE-bench Verified while cutting training time by 45% versus asynchronous online OPD.",
+  "title": "Collect for Coverage, Replay with Evidence: Adaptive and Efficient On-Policy Distillation for Long-Horizon Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.34756v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "ef4c20cc8b60cd08": {
@@ -33213,7 +33339,7 @@
   "published": "2026-11-24T03:16:57+00:00",
   "sid": "f8bbbb480f3e1fbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 20, downloads: 399.",
+  "summary": "New model weights from tencent on Hugging Face. Task: feature-extraction. Likes: 26, downloads: 399.",
   "summary_1line": "Tencent has posted the OmniEVIE-4B model weights on Hugging Face, tagged for feature-extraction tasks, with one like and no recorded downloads so far.",
   "title": "tencent/OmniEVIE-4B released on Hugging Face",
   "type": "release",
