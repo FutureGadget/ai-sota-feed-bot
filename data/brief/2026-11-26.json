@@ -1,33 +1,32 @@
 {
  "date": "2026-11-26",
  "diagnostics": {
-  "admitted": 3,
-  "candidates": 367,
-  "duplicate_url": 3,
-  "items": 32,
-  "keeps": 218,
-  "new": 3,
-  "off_topic": 47,
-  "prior_story": 28,
+  "admitted": 1,
+  "candidates": 406,
+  "duplicate_url": 4,
+  "items": 33,
+  "keeps": 240,
+  "new": 1,
+  "off_topic": 49,
+  "prior_story": 29,
   "rejected_gate": {
-   "insufficient_evidence": 3,
+   "insufficient_evidence": 5,
    "judge_drop": 10,
-   "off_topic": 47,
-   "score_low": 73
+   "off_topic": 49,
+   "score_low": 84
   },
   "rejected_quota": {
-   "source_quota": 157
+   "source_quota": 178
   },
-  "releases": 19,
-  "reviews": 89,
+  "releases": 21,
+  "reviews": 101,
   "role_counts": {
-   "community": 1,
-   "research": 2
+   "first_party": 1
   },
   "run_candidates": 140,
-  "stale_story": 14,
-  "stories": 234,
-  "unjudged": 3,
+  "stale_story": 15,
+  "stories": 258,
+  "unjudged": 5,
   "updated": 2,
   "written": true
  },
@@ -82,6 +81,55 @@
    "utility_basis": "release:minor",
    "v2_slot": "agent_tooling_releases",
    "why_it_matters": "Matches feed focus: codex."
+  },
+  "model:nemotron|ver:3.5|title:building on nemotron 3 5 parse open data fine tuning and faster inference": {
+   "admission_rank": 33,
+   "admitted_at": "2026-11-26T05:09:18.557589+00:00",
+   "also_covered": [],
+   "content_excerpt": "We recently released NVIDIA Nemotron 3.5 Parse , a compact document model that turns page images into structured data for retrieval-augmented generation (RAG) and agents. Now we’re building on that release with synthetic training datasets, a fine-tuning recipe, and a DFlash2 speculator for faster inference . We’re also sharing how we trained Parse 3.5: first teaching document understanding through supervised fine-tuning, then using reinforcement learning to improve accuracy, consistency, and reliable completion. Parse extracts content from pages of documents into reading order, assigns content classes such as headings, paragraphs, tables, and charts, and returns bounding boxes that locate the content. Tables and charts become structured records that can power downstream document processing applications. Figure 1. Actual model output from a synthetic operations brief, showing the connection between the page and its structured representation. This latest version of Parse significantly extends its ability to read charts and tables, especially in more difficult and ambiguous cases. For example, bar charts or other plots that do not have any marked numeric values. The model is able to infer values by looking at the axes and height of the bar to derive these. Tables can be especially tricky because the structure is so meaningful, a shifted row or column can totally change the interpretation and meaning. These advancements have been largely powered by synthetic data generation, rendering variations of charts and tables with known ground truth and then training our model to reverse this process. Synthetic Charts V1 — 9.98M examples : rendered charts and structured annotations for learning categories, series, and numerical values. Synthetic Tables V1 — 1M examples : rendered HTML tables with targets that preserve rows, columns, headers, and cell relationships. OCR Synthetic Multilingual v2 — 7.9M examples : synthetic document pages with Parse-format targets across varied fonts and layouts, for multilingual OCR and structured page reading. Each release includes images, annotations, generation documentation, and the training format. Use these pairs to fine-tune document models or create new variations for a target document type or language. We trained Parse 3.5 with two phases of training. Supervised fine-tuning (SFT) spanning text, layout, tables, charts, and multilingual documents. Learning to predict structured targets established the general capability of reading",
+   "first_seen": "2026-11-26T05:09:18.557589+00:00",
+   "freshness_at_admission": 0.9988,
+   "id": "fe9e45b9ef43d790",
+   "image_url": null,
+   "judge_category": "frontier_product",
+   "judge_category_confidence": 0.63,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-26T05:08:50.029158+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.85,
+   "judge_signals": {
+    "corporate_marketing": 0.07,
+    "keep": 0.85,
+    "platform_relevant": 0.96,
+    "release_lane": 0.19
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-26T05:09:18.557589+00:00",
+   "llm_category": "research",
+   "matched_topics": [],
+   "prefilter_score": 2.0,
+   "published": "Thu, 26 Nov 2026 05:05:36 GMT",
+   "rank_at_first_seen": 33,
+   "release_tier": null,
+   "score_at_first_seen": 1.3168,
+   "seen_count": 1,
+   "slot": "research_watch",
+   "source": "huggingface_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": null,
+   "story_cluster_id": "a571754f3c4f6042",
+   "story_key": "model:nemotron|ver:3.5|title:building on nemotron 3 5 parse open data fine tuning and faster inference",
+   "summary_1line": "Hugging Face's post releases three synthetic training datasets for NVIDIA Nemotron 3.5 Parse, a fine-tuning recipe, and a DFlash speculator for faster inference, and explains the model's two-phase training.",
+   "time_decay_factor": null,
+   "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+   "type": "research",
+   "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+   "utility": 1.3168,
+   "utility_basis": "judge",
+   "v2_slot": "research_watch",
+   "why_it_matters": ""
   },
   "story|title:auditing the judge human derived bias discovery quantification and mitigation in": {
    "admission_rank": 14,
@@ -307,7 +355,7 @@
     "release_lane": 0.17
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T04:09:41.342987+00:00",
+   "last_seen": "2026-11-26T05:09:18.557589+00:00",
    "llm_category": "release",
    "matched_topics": [
     "eval"
@@ -317,7 +365,7 @@
    "rank_at_first_seen": 20,
    "release_tier": "minor",
    "score_at_first_seen": 0.5751,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "practitioner_analysis",
    "source": "semianalysis",
    "source_count": 1,
@@ -812,7 +860,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-26T04:09:41.342987+00:00",
+   "last_seen": "2026-11-26T05:09:18.557589+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.875,
@@ -820,7 +868,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 1.3618,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -837,7 +885,7 @@
    "utility": 1.3618,
    "utility_basis": "judge",
    "v2_slot": "research_watch",
-   "why_it_matters": ""
+   "why_it_matters": "Matches feed focus: agent."
   },
   "story|title:mxfp4 for llm inference complementary post training quantization techniques and": {
    "admission_rank": 15,
@@ -1647,5 +1695,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-26T04:09:41.342987+00:00"
+ "updated_at": "2026-11-26T05:09:18.557589+00:00"
 }
