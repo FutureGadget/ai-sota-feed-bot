@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T10:09:21.180228+00:00",
+  "generated_at": "2026-11-27T18:04:48.241386+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -73,6 +73,24 @@
   ],
   "recent_evidence": [
     {
+      "concept": "llm-cache-integrity",
+      "concept_title": "Why do LLM caches fail silently?",
+      "id": "vllm-2026-agentic-kv-cache-nvme",
+      "title": "Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-27"
+    },
+    {
+      "concept": "agent-error-history",
+      "concept_title": "Should you clean an agent's mistakes out of its history?",
+      "id": "retryrealistic-2026-tools-fail-agents-fabricate",
+      "title": "When Tools Fail, Agents Fabricate: Silent Failure and Verification-First Oversight in Tool-Using LLM Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-27"
+    },
+    {
       "concept": "speculative-decoding",
       "concept_title": "How does speculative decoding speed up LLM inference?",
       "id": "grammar-as-a-draft-2026",
@@ -125,24 +143,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-20"
-    },
-    {
-      "concept": "llm-judge-reliability",
-      "concept_title": "Can you trust an LLM-as-judge score?",
-      "id": "agentdojo-verdict-audit-2026",
-      "title": "Did the Attack Really Work? Auditing, Re-running, and Sealing AI-Agent Security Findings with .sova",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-20"
-    },
-    {
-      "concept": "prompt-injection-enforcement",
-      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
-      "id": "zhang-2026-task-tampering-ipi",
-      "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-18"
     }
   ],
   "concepts": {
@@ -261,8 +261,8 @@
       "status": "active",
       "cluster": "tool-use",
       "cluster_label": "Tool use and agents",
-      "updated": "2026-11-13",
-      "latest_evidence_added": "2026-11-13",
+      "updated": "2026-11-27",
+      "latest_evidence_added": "2026-11-27",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -280,15 +280,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>The receipt outranks the evidence.</strong> The model continues from the transcript as a trusted account of its own past. A step recorded as done is one it has no reason to re-verify. In the AppWorld arm of the frozen-state study, a success receipt for a database write whose effect was absent cut whole-task success from 45% to 28%. The same receipt raised success from 38% to 49% once the effect was present. Identical text, opposite outcome, decided by the world.</p>\n<p><strong>Correct content is not enough.</strong> Both AgentCE-Bench edits added the right value to the history. The note framed it as an open correction and helped. The completed action framed it as finished work and hurt. What matters is the claim the edit makes, not whether the right answer appears.</p>\n<p><strong>Removal reads as &quot;nothing to do.&quot;</strong> The delivery study held error text fixed and varied where it landed. A new user turn that kept the failed exchange avoided a severe stopping failure seen in Llama models when the exchange was removed. As a recovery layer it added 14.2 points on ToolMaze explicit errors for 7-8B models and 10.5 for 32-70B. It was not the best form for every model.</p>\n<p><strong>Agents rarely act on contradicting evidence unprompted.</strong> A full read of 95 failed multi-agent runs found evidence against the error already in the trajectory in 72% of them, unused in 88% of those. That is why an explicit note outperforms leaving the model to notice.</p>"
+          "html": "<p><strong>The receipt outranks the evidence.</strong> The model continues from the transcript as a trusted account of its own past. A step recorded as done is one it has no reason to re-verify. In the AppWorld arm of the frozen-state study, a success receipt for a database write whose effect was absent cut whole-task success from 45% to 28%. The same receipt raised success from 38% to 49% once the effect was present. Identical text, opposite outcome, decided by the world.</p>\n<p><strong>Correct content is not enough.</strong> Both AgentCE-Bench edits added the right value to the history. The note framed it as an open correction and helped. The completed action framed it as finished work and hurt. What matters is the claim the edit makes, not whether the right answer appears.</p>\n<p><strong>Removal reads as &quot;nothing to do.&quot;</strong> A new user turn that kept the failed exchange avoided a severe stopping failure seen in Llama models when the exchange was removed, and added 10-14 points on ToolMaze explicit errors. It was not the best form for every model.</p>\n<p><strong>Partial results enter the history as truth.</strong> A tool that returns truncated or partial data raises no error, so the agent accepts it on first contact and builds on it. The RetryRealistic study calls this silent ingestion: partial-data faults drove fabrication up to 38% of runs, while hard denials produced honest failures.</p>\n<p><strong>Agents rarely act on contradicting evidence unprompted.</strong> A full read of 95 failed multi-agent runs found evidence against the error already in the trajectory in 72% of them, unused in 88% of those. That is why an explicit note outperforms leaving the model to notice.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Reconcile before you rewrite.</strong> A repair step fixes the world first (undo the write, re-run the call), verifies with a read, and only then records success.</li><li><strong>Annotate instead of deleting.</strong> Keep the failed call and add a truthful note: what was attempted, what the world holds now, what remains open.</li><li><strong>Generate receipts from observed state.</strong> Record a write as succeeded after a read-back confirms the effect, not when the call returned.</li><li><strong>Carry open errors through compaction and handoff.</strong> Treat &quot;unrepaired side effects&quot; as load-bearing context alongside pinned constraints; a summary that says &quot;updated the record&quot; must be true.</li><li><strong>Deliver errors as a new turn that retains the failed exchange</strong>, then test that choice per model. Pass a typed fault kind when the harness knows it.</li><li><strong>Re-check beliefs against the environment at checkpoints.</strong> Faults entered at a median 18% of the run in the trajectory study.</li><li><strong>Test it.</strong> Freeze a mid-task state with a known wrong write, apply your compactor or repair step, and measure whether a fresh model fixes the remaining targets.</li></ul>"
+          "html": "<ul><li><strong>Reconcile before you rewrite.</strong> A repair step fixes the world first (undo the write, re-run the call), verifies with a read, and only then records success.</li><li><strong>Annotate instead of deleting.</strong> Keep the failed call and add a truthful note: what was attempted, what the world holds now, what remains open.</li><li><strong>Turn silent faults into visible ones.</strong> Check each structured tool result against its expected shape (row counts, required fields, truncation markers) and inject a corrective note instead of a hard block. That monitor cut fabrication from 17.3% to 10.8%.</li><li><strong>Generate receipts from observed state.</strong> Record a write as succeeded after a read-back confirms the effect, not when the call returned.</li><li><strong>Carry open errors through compaction and handoff.</strong> Treat &quot;unrepaired side effects&quot; as load-bearing context alongside pinned constraints; a summary that says &quot;updated the record&quot; must be true.</li><li><strong>Deliver errors as a new turn that retains the failed exchange</strong>, then test that choice per model. Pass a typed fault kind when the harness knows it.</li><li><strong>Re-check beliefs against the environment at checkpoints.</strong> Faults entered at a median 18% of the run in the trajectory study.</li><li><strong>Test it.</strong> Freeze a mid-task state with a known wrong write, apply your compactor or repair step, and measure whether a fresh model fixes the remaining targets.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Rewriting a failed step as successful to &quot;unconfuse&quot; the model while the bad write persists.</li><li>Dropping failed tool calls to save tokens, so the model sees no reason to retry.</li><li>Handoff summaries that report intent (&quot;set the price to 40&quot;) as outcome.</li><li>Trusting a tool&#x27;s return value as proof of effect.</li><li>Assuming one error-delivery format works across models.</li><li>Expecting delivery fixes to catch silent corruption; the delivery study measured no gain there.</li></ul>"
+          "html": "<ul><li>Rewriting a failed step as successful to &quot;unconfuse&quot; the model while the bad write persists.</li><li>Dropping failed tool calls to save tokens, so the model sees no reason to retry.</li><li>Handoff summaries that report intent (&quot;set the price to 40&quot;) as outcome.</li><li>Trusting a tool&#x27;s return value as proof of effect.</li><li>Assuming one error-delivery format works across models.</li><li>Expecting delivery fixes to catch silent corruption; the delivery study measured no gain there. Silent faults need a check on the result itself.</li><li>Stripping chain-of-thought to save tokens; removing it raised fabrication by 8.3 points.</li></ul>"
         },
         {
           "heading": "Related",
@@ -296,6 +296,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "retryrealistic-2026-tools-fail-agents-fabricate",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "When Tools Fail, Agents Fabricate: Silent Failure and Verification-First Oversight in Tool-Using LLM Agents",
+          "note": "Injects 9 fault types into 8 real tools (filesystem, SQLite, HTTP, shell) over 2,100 runs of four agents. Recovery is correct in only 19-68% of runs, and 6-26% end in a confident fabrication. Fault type matters more than model: partial-data faults drive fabrication up to 38%, hard denials drive honest failure. A monitor that checks structured tool outputs and issues corrective directives raises correct recovery from 45.6% to 56.3% and cuts fabrication from 17.3% to 10.8%.",
+          "added": "2026-11-27",
+          "url": "http://arxiv.org/abs/2611.28341",
+          "sid": "aab56d32e7581342"
+        },
         {
           "id": "history-vs-world-2026-cleaning-hurts",
           "kind": "benchmark-result",
@@ -331,7 +341,7 @@
           "kind": "editorial-inference",
           "tier": "editorial inference",
           "title": "LLM Digest synthesis",
-          "note": "The three studies measure different things: history edits against a frozen world, error delivery to open models, and post-hoc annotation of multi-agent failures. Read together they support one harness rule: the transcript is a claim about the world, so any step that rewrites it (repair, compaction, handoff) must either fix the world first or keep the error visible. The first two are single-paper results on specific benchmarks and receivers, not replicated.",
+          "note": "The four studies measure different things: history edits against a frozen world, error delivery to open models, post-hoc annotation of multi-agent failures, and fault injection into real tools. Together they support one harness rule: the transcript is a claim about the world, so any step that writes it (tool result, repair, compaction, handoff) must match the world or keep the error visible. Each is a single-paper result on specific benchmarks, not replicated.",
           "added": "2026-11-13"
         }
       ],
@@ -1858,8 +1868,8 @@
       "status": "active",
       "cluster": "operations",
       "cluster_label": "Cost, latency, and operations",
-      "updated": "2026-10-30",
-      "latest_evidence_added": "2026-10-30",
+      "updated": "2026-11-27",
+      "latest_evidence_added": "2026-11-27",
       "audience": "strong-software-engineer",
       "math_depth": "none",
       "sections": [
@@ -1877,15 +1887,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p>Prompt caching only hits when the cached prefix is byte-identical and meets provider-specific rules, such as minimum length and explicit markers. A timestamp, reordered tool list, or missing marker near the top of the prompt breaks the match. The request still succeeds at full price. Usage fields also differ by provider, so cache reads can be miscounted when you read them.</p>\n<p>KV cache bugs are state-handoff bugs. Cloudflare&#x27;s incident arose when a prompt exceeded the prefill pool. The engine substituted a placeholder, sent &quot;transfer complete&quot; to the decode node, and the decode node trusted that message. It attended over cache pages still holding earlier requests&#x27; data. A success message stood in for verified content.</p>"
+          "html": "<p>Prompt caching only hits when the cached prefix is byte-identical and meets provider-specific rules, such as minimum length and explicit markers. A timestamp, reordered tool list, or missing marker near the top of the prompt breaks the match. The request still succeeds at full price. Usage fields also differ by provider, so cache reads can be miscounted when you read them.</p>\n<p>Agent traffic makes the hit rate the dominant cost term. In vLLM&#x27;s replay of Claude Code sessions, over 96% of a median 142K-token turn was a prefix the server had already seen, and each point of hit rate was worth about 10% throughput. A miss recomputes the whole prefix, so a small hit-rate drop shows up as a large, unexplained capacity loss.</p>\n<p>KV cache bugs are state-handoff bugs. Cloudflare&#x27;s incident arose when a prompt exceeded the prefill pool. The engine substituted a placeholder, sent &quot;transfer complete&quot; to the decode node, and the decode node trusted that message. It attended over cache pages still holding earlier requests&#x27; data. A success message stood in for verified content.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Alert on cache-hit rate.</strong> Log cached versus uncached input tokens per call and alert when the ratio drops after a deploy.</li><li><strong>Keep the prefix stable.</strong> Put system prompt and tool definitions first, in fixed order, and put timestamps and per-user data last.</li><li><strong>Test each provider&#x27;s rules.</strong> Check minimum length, markers, and how usage is reported before trusting a savings estimate.</li><li><strong>Run a canary on shared inference.</strong> Send a unique marker with a long prompt, then confirm it never appears in other tenants&#x27; or sessions&#x27; output.</li><li><strong>Match pool size to context length</strong> if you self-host, and make over-length requests fail with an error.</li></ul>"
+          "html": "<ul><li><strong>Alert on cache-hit rate.</strong> Log cached versus uncached input tokens per call and alert when the ratio drops after a deploy. On agent traffic, alert on a one-point drop.</li><li><strong>Keep the prefix stable.</strong> Put system prompt and tool definitions first, in fixed order, and put timestamps and per-user data last.</li><li><strong>Test each provider&#x27;s rules.</strong> Check minimum length, markers, and how usage is reported before trusting a savings estimate.</li><li><strong>Run a canary on shared inference.</strong> Send a unique marker with a long prompt, then confirm it never appears in other tenants&#x27; or sessions&#x27; output.</li><li><strong>Match pool size to context length</strong> if you self-host, and make over-length requests fail with an error.</li><li><strong>Size the KV pool for session retention</strong>, not just capacity: it must still hold a session&#x27;s prefix when its next turn arrives.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Assuming &quot;it&#x27;s enabled&quot; means &quot;it&#x27;s working.&quot;</strong> Without hit-rate metrics, a broken cache is invisible.</li><li><strong>Trusting a transfer-complete signal</strong> between prefill and decode without checking token counts.</li><li><strong>Testing only short prompts.</strong> The Cloudflare bug appeared only above 681,280 tokens.</li><li><strong>Copying one provider&#x27;s cache setup to another.</strong></li></ul>"
+          "html": "<ul><li><strong>Assuming &quot;it&#x27;s enabled&quot; means &quot;it&#x27;s working.&quot;</strong> Without hit-rate metrics, a broken cache is invisible.</li><li><strong>Trusting a transfer-complete signal</strong> between prefill and decode without checking token counts.</li><li><strong>Testing only short prompts.</strong> The Cloudflare bug appeared only above 681,280 tokens.</li><li><strong>Copying one provider&#x27;s cache setup to another.</strong></li><li><strong>Evicting idle agent sessions early.</strong> A 1.8 TB DRAM pool held under an hour of KV in vLLM&#x27;s runs, so sessions that pause longer pay full prefill.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1893,6 +1903,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "vllm-2026-agentic-kv-cache-nvme",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe",
+          "note": "vLLM team, 42 runs of Kimi-K3 on AgentX traces replaying real Claude Code sessions. The median turn is 142K input tokens, over 96% of them an already-seen prefix. Raising KV cache hit rate by one point (95% to 96%) gave about 10% more throughput. A 1.8 TB DRAM pool held only 23-47 minutes of KV; a same-size NVMe pool matched its throughput within 1% at 48-96 sessions.",
+          "added": "2026-11-27",
+          "url": "https://vllm.ai/blog/2026-11-23-skip-the-dram-tier",
+          "sid": "fa08bb9c21c2e185"
+        },
         {
           "id": "arxiv-2610-34817-cachelint",
           "kind": "benchmark-result",

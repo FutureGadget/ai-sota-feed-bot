@@ -5,13 +5,20 @@ question: "Why do prompt caches and KV caches fail without raising an error, and
 summary: "Prompt caches and KV caches report success whether or not they work. Misconfigured prompt caching quietly costs money; a mishandled KV cache once leaked other tenants' data. Verify cache behavior with measured hits and canaries, not status codes."
 status: active
 cluster: operations
-updated: 2026-10-30
+updated: 2026-11-27
 audience: "strong-software-engineer"
 math_depth: none
 related_topics: [agent-cost, cost-controls, scalability]
 related_playbook_cards: []
 related_storylines: []
 evidence:
+  - id: vllm-2026-agentic-kv-cache-nvme
+    kind: benchmark-result
+    title: "Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe"
+    url: "https://vllm.ai/blog/2026-11-23-skip-the-dram-tier"
+    sid: "fa08bb9c21c2e185"
+    added: 2026-11-27
+    note: "vLLM team, 42 runs of Kimi-K3 on AgentX traces replaying real Claude Code sessions. The median turn is 142K input tokens, over 96% of them an already-seen prefix. Raising KV cache hit rate by one point (95% to 96%) gave about 10% more throughput. A 1.8 TB DRAM pool held only 23-47 minutes of KV; a same-size NVMe pool matched its throughput within 1% at 48-96 sessions."
   - id: arxiv-2610-34817-cachelint
     kind: benchmark-result
     title: "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents"
@@ -50,20 +57,24 @@ Your code owns the first layer. Your hosting provider or serving stack owns the 
 ## Mechanism
 Prompt caching only hits when the cached prefix is byte-identical and meets provider-specific rules, such as minimum length and explicit markers. A timestamp, reordered tool list, or missing marker near the top of the prompt breaks the match. The request still succeeds at full price. Usage fields also differ by provider, so cache reads can be miscounted when you read them.
 
+Agent traffic makes the hit rate the dominant cost term. In vLLM's replay of Claude Code sessions, over 96% of a median 142K-token turn was a prefix the server had already seen, and each point of hit rate was worth about 10% throughput. A miss recomputes the whole prefix, so a small hit-rate drop shows up as a large, unexplained capacity loss.
+
 KV cache bugs are state-handoff bugs. Cloudflare's incident arose when a prompt exceeded the prefill pool. The engine substituted a placeholder, sent "transfer complete" to the decode node, and the decode node trusted that message. It attended over cache pages still holding earlier requests' data. A success message stood in for verified content.
 
 ## How to apply
-- **Alert on cache-hit rate.** Log cached versus uncached input tokens per call and alert when the ratio drops after a deploy.
+- **Alert on cache-hit rate.** Log cached versus uncached input tokens per call and alert when the ratio drops after a deploy. On agent traffic, alert on a one-point drop.
 - **Keep the prefix stable.** Put system prompt and tool definitions first, in fixed order, and put timestamps and per-user data last.
 - **Test each provider's rules.** Check minimum length, markers, and how usage is reported before trusting a savings estimate.
 - **Run a canary on shared inference.** Send a unique marker with a long prompt, then confirm it never appears in other tenants' or sessions' output.
 - **Match pool size to context length** if you self-host, and make over-length requests fail with an error.
+- **Size the KV pool for session retention**, not just capacity: it must still hold a session's prefix when its next turn arrives.
 
 ## Failure modes
 - **Assuming "it's enabled" means "it's working."** Without hit-rate metrics, a broken cache is invisible.
 - **Trusting a transfer-complete signal** between prefill and decode without checking token counts.
 - **Testing only short prompts.** The Cloudflare bug appeared only above 681,280 tokens.
 - **Copying one provider's cache setup to another.**
+- **Evicting idle agent sessions early.** A 1.8 TB DRAM pool held under an hour of KV in vLLM's runs, so sessions that pause longer pay full prefill.
 
 ## Related
 See `/topic/agent-cost` for cost controls.

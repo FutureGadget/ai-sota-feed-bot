@@ -5,12 +5,19 @@ question: "Should you clean an agent's mistakes out of its history?"
 summary: "No, not while the mistake's effect is still in the world. Controlled 2026 studies show a history edited to look clean can lower recovery below no edit at all, and that a retained failed call recovers better than a removed one."
 status: active
 cluster: tool-use
-updated: 2026-11-13
+updated: 2026-11-27
 audience: "strong-software-engineer"
 related_topics: [tool-use, agent-reliability, context-compaction]
 related_playbook_cards: []
 related_storylines: []
 evidence:
+  - id: retryrealistic-2026-tools-fail-agents-fabricate
+    kind: benchmark-result
+    title: "When Tools Fail, Agents Fabricate: Silent Failure and Verification-First Oversight in Tool-Using LLM Agents"
+    url: "http://arxiv.org/abs/2611.28341"
+    sid: "aab56d32e7581342"
+    added: 2026-11-27
+    note: "Injects 9 fault types into 8 real tools (filesystem, SQLite, HTTP, shell) over 2,100 runs of four agents. Recovery is correct in only 19-68% of runs, and 6-26% end in a confident fabrication. Fault type matters more than model: partial-data faults drive fabrication up to 38%, hard denials drive honest failure. A monitor that checks structured tool outputs and issues corrective directives raises correct recovery from 45.6% to 56.3% and cuts fabrication from 17.3% to 10.8%."
   - id: history-vs-world-2026-cleaning-hurts
     kind: benchmark-result
     title: "Cleaning an Agent's History Hurts When the World Still Holds the Error"
@@ -36,7 +43,7 @@ evidence:
     kind: editorial-inference
     title: "LLM Digest synthesis"
     added: 2026-11-13
-    note: "The three studies measure different things: history edits against a frozen world, error delivery to open models, and post-hoc annotation of multi-agent failures. Read together they support one harness rule: the transcript is a claim about the world, so any step that rewrites it (repair, compaction, handoff) must either fix the world first or keep the error visible. The first two are single-paper results on specific benchmarks and receivers, not replicated."
+    note: "The four studies measure different things: history edits against a frozen world, error delivery to open models, post-hoc annotation of multi-agent failures, and fault injection into real tools. Together they support one harness rule: the transcript is a claim about the world, so any step that writes it (tool result, repair, compaction, handoff) must match the world or keep the error visible. Each is a single-paper result on specific benchmarks, not replicated."
 ---
 
 ## Builder consequence
@@ -64,13 +71,16 @@ Rewrite and delete are safe only when the assertion is true. Compaction, repair 
 
 **Correct content is not enough.** Both AgentCE-Bench edits added the right value to the history. The note framed it as an open correction and helped. The completed action framed it as finished work and hurt. What matters is the claim the edit makes, not whether the right answer appears.
 
-**Removal reads as "nothing to do."** The delivery study held error text fixed and varied where it landed. A new user turn that kept the failed exchange avoided a severe stopping failure seen in Llama models when the exchange was removed. As a recovery layer it added 14.2 points on ToolMaze explicit errors for 7-8B models and 10.5 for 32-70B. It was not the best form for every model.
+**Removal reads as "nothing to do."** A new user turn that kept the failed exchange avoided a severe stopping failure seen in Llama models when the exchange was removed, and added 10-14 points on ToolMaze explicit errors. It was not the best form for every model.
+
+**Partial results enter the history as truth.** A tool that returns truncated or partial data raises no error, so the agent accepts it on first contact and builds on it. The RetryRealistic study calls this silent ingestion: partial-data faults drove fabrication up to 38% of runs, while hard denials produced honest failures.
 
 **Agents rarely act on contradicting evidence unprompted.** A full read of 95 failed multi-agent runs found evidence against the error already in the trajectory in 72% of them, unused in 88% of those. That is why an explicit note outperforms leaving the model to notice.
 
 ## How to apply
 - **Reconcile before you rewrite.** A repair step fixes the world first (undo the write, re-run the call), verifies with a read, and only then records success.
 - **Annotate instead of deleting.** Keep the failed call and add a truthful note: what was attempted, what the world holds now, what remains open.
+- **Turn silent faults into visible ones.** Check each structured tool result against its expected shape (row counts, required fields, truncation markers) and inject a corrective note instead of a hard block. That monitor cut fabrication from 17.3% to 10.8%.
 - **Generate receipts from observed state.** Record a write as succeeded after a read-back confirms the effect, not when the call returned.
 - **Carry open errors through compaction and handoff.** Treat "unrepaired side effects" as load-bearing context alongside pinned constraints; a summary that says "updated the record" must be true.
 - **Deliver errors as a new turn that retains the failed exchange**, then test that choice per model. Pass a typed fault kind when the harness knows it.
@@ -83,7 +93,8 @@ Rewrite and delete are safe only when the assertion is true. Compaction, repair 
 - Handoff summaries that report intent ("set the price to 40") as outcome.
 - Trusting a tool's return value as proof of effect.
 - Assuming one error-delivery format works across models.
-- Expecting delivery fixes to catch silent corruption; the delivery study measured no gain there.
+- Expecting delivery fixes to catch silent corruption; the delivery study measured no gain there. Silent faults need a check on the result itself.
+- Stripping chain-of-thought to save tokens; removing it raised fabrication by 8.3 points.
 
 ## Related
 See [does compacting an agent's context put its safety rules at risk?](/foundations/context-compaction-safety) for summaries that drop or invent rules, [tool use](/topic/tool-use) for calling reliability, and [agent reliability](/topic/agent-reliability).
