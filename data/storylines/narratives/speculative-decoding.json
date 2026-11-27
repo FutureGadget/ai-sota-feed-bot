@@ -1,58 +1,94 @@
 {
   "slug": "speculative-decoding",
-  "generated_at": "2026-11-20T00:12:49Z",
-  "covers_last_updated": "2026-11-18T12:11:43+00:00",
+  "generated_at": "2026-11-27T00:13:01Z",
+  "covers_last_updated": "2026-11-25T17:37:49+00:00",
   "covers_member_sids": [
-    "884381d0dd03d261",
-    "f78a35ba2c2de2e1",
-    "b1fe6c30c1c550df",
-    "0aacbce5f85ac122",
-    "d9424aebc884a5c5",
-    "256bf90ce51f6665",
-    "018074f62583197d",
-    "a34c118cc3850b60"
+    "b1fe6c30c1c550df", "a4e942d0f147f07c", "0aacbce5f85ac122", "d9424aebc884a5c5",
+    "256bf90ce51f6665", "018074f62583197d", "563c7d3375862838", "a34c118cc3850b60",
+    "fb7e5418185abe5a", "c08838a1ebaaf444", "b6559df505fa2a9e", "f378fea92addc171",
+    "f71af688b338f44d", "f5c599840c08b8e9", "6f4da66d69ee069e", "420b2dee4fa3c677",
+    "758bfcdb3a51f9a3", "bb4c90dec13b8ea7"
   ],
-  "tldr": "Speculative decoding research in late summer split between new drafters (diffusion draft trees) and context-heavy agent workloads (AsymSpec). Early November papers then went after the drafter itself: per-token reconsideration, block-diffusion fork trees, phrase-level drafting, and two losses that train directly for acceptance length.",
-  "whats_new": "Callo (Nov 13) and LoopCache (Nov 18) move the thread to serving: Callo starts decoding agent requests whose KV cache was invalidated before re-prefill finishes, and LoopCache adapts self-speculation to looped Transformers' per-loop caches.",
-  "why_it_matters": "For agent serving, the gap now named in papers is not draft quality alone but long or edited context, where KV-cache invalidation and re-prefill stall decoding under prefill-decode disaggregation.",
+  "tldr": "Early November papers reworked the drafter: acceptance-length losses (D-REAL, REAL Loss) and pruned or fork-aware block-diffusion draft trees. By Nov 20 the work reached serving and real output formats, with Callo decoding on invalidated KV and Grammar-as-a-Draft speeding JSON and tool-call outputs in vLLM.",
+  "whats_new": "DFly2 (Nov 25) drops the drafter's own KV cache and reuses the target's cache and sparse index selections, accepting more tokens per step than DFlash and DSpark on long contexts.",
+  "why_it_matters": "Long-context agent traffic makes a separate drafter cache a memory cost; DFly2-style sharing and grammar-forced drafting target the workloads platform teams actually serve, not chat benchmarks.",
   "beats": [
     {
-      "kicker": "BETTER DRAFTERS",
-      "tone": "rising",
-      "headline": "Three papers rework how the drafter proposes tokens",
-      "summary": "Parallel reconsideration gives the drafter a second guess per token, DForkTree builds fork-aware trees from block-diffusion drafters like DFlash, and a phrase-level drafter proposes beyond the target's own vocabulary on a frozen target.",
-      "sids": ["884381d0dd03d261", "0aacbce5f85ac122", "d9424aebc884a5c5"]
-    },
-    {
       "kicker": "TRAINING FOR ACCEPTANCE",
-      "tone": "rising",
-      "headline": "D-REAL and REAL Loss train drafters directly on expected acceptance length",
-      "summary": "Both argue token-level training objectives miss the quantity that sets the speedup, the number of consecutively accepted draft tokens, and optimize it directly.",
+      "tone": "launch",
+      "headline": "D-REAL and REAL Loss train drafters on expected acceptance length",
+      "summary": "Both argue token-level objectives miss the number that sets the speedup, consecutive accepted draft tokens, and optimize it directly.",
       "sids": ["b1fe6c30c1c550df", "256bf90ce51f6665"]
     },
     {
-      "kicker": "LONG CONTEXT AND SERVING",
+      "kicker": "BETTER DRAFT TREES",
+      "tone": "rising",
+      "headline": "Three papers rework how block-diffusion and phrase drafters propose tokens",
+      "summary": "D3Tree prunes draft trees to save verification rows, DForkTree builds fork-aware trees from DFlash-style drafters, and a phrase-level drafter proposes beyond the target's vocabulary.",
+      "sids": ["a4e942d0f147f07c", "0aacbce5f85ac122", "d9424aebc884a5c5"]
+    },
+    {
+      "kicker": "SERVING",
+      "tone": "rising",
+      "headline": "Speculation moves into serving systems and looped models",
+      "summary": "Callo decodes agent requests whose KV cache was invalidated before re-prefill finishes; LoopCache adapts self-speculation to per-loop KV caches.",
+      "sids": ["018074f62583197d", "a34c118cc3850b60"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "Grammar-as-a-Draft and DICE target structured outputs and verification randomness",
+      "summary": "GaaD merges grammar-forced tokens into draft rows for JSON, regex and tool-call outputs in vLLM; DICE pre-samples verification randomness to steer an existing drafter.",
+      "sids": ["b6559df505fa2a9e", "c08838a1ebaaf444"]
+    },
+    {
+      "kicker": "DRAFTER TOOLKIT",
+      "tone": "rising",
+      "headline": "Cheap drafter upgrades: calibration, prefix attention, edge trees, modular training",
+      "summary": "Temperature-scaling the draft adds up to about 10% acceptance length, Corrective Prefix Attention commits 13–15% more tokens than DSpark, Pando reports 5.3x on edge, and LEGOSpec yields the DFlux draft.",
+      "sids": ["f71af688b338f44d", "f5c599840c08b8e9", "6f4da66d69ee069e", "420b2dee4fa3c677"]
+    },
+    {
+      "kicker": "ADJACENT DECODING",
+      "tone": "neutral",
+      "headline": "Non-speculative decoding papers clustered into the thread",
+      "summary": "Hallucination-mitigation decoding, fingerprinting under stochastic decoding, and recurrent-depth warm starts share vocabulary but not the draft-verify mechanism.",
+      "sids": ["563c7d3375862838", "fb7e5418185abe5a", "f378fea92addc171", "758bfcdb3a51f9a3"]
+    },
+    {
+      "kicker": "NOW",
       "tone": "now",
-      "headline": "Work shifts to long-context decoding and cache-invalidated agent requests",
-      "summary": "A retraining-free method targets the remaining full-attention cost in hybrid linear-attention models, Callo serves cache-miss agent requests under prefill-decode disaggregation, and LoopCache handles per-loop KV caches in looped Transformers.",
-      "sids": ["f78a35ba2c2de2e1", "018074f62583197d", "a34c118cc3850b60"]
+      "headline": "DFly2 shares the target's KV cache and sparsity with the drafter",
+      "summary": "A block-parallel drafter with no cache of its own, aimed at long-context decoding, beating DFlash and DSpark on accepted tokens per step.",
+      "sids": ["bb4c90dec13b8ea7"]
     }
   ],
   "open_questions": [
     "Does Callo's decode-on-invalidated-KV approach ship in an open serving stack such as vLLM or SGLang, or stay a research prototype?",
     "Do acceptance-length losses like D-REAL and REAL Loss show up in released EAGLE-3 or DFlash drafter checkpoints?",
-    "Is there a reference implementation of AsymSpec or another context-aware method that agent-pipeline builders can benchmark?",
-    "Do the November drafter gains hold when measured against production serving baselines rather than each paper's own suite?"
+    "Does Grammar-as-a-Draft land upstream in vLLM's structured-output path, and on GPUs as well as TPU v7x?",
+    "Does DFly2's shared-cache drafter release code, and how much memory does it save against a separate drafter cache at long context?",
+    "Do the November drafter gains hold against production serving baselines rather than each paper's own suite?"
   ],
-  "take_for_builders": "If your agents edit context mid-session, measure re-prefill stall time on cache-miss requests before tuning drafters; drafter-level gains from these papers stay paper-only until they land in your serving stack.",
+  "take_for_builders": "If your agents emit JSON or tool calls, benchmark grammar-forced drafting on your vLLM structured-output path first, and try temperature-calibrating your existing draft model before swapping drafters.",
   "day_captions": {
-    "884381d0dd03d261": "Opens the November wave: lets a feature-level drafter reconsider each guess in parallel to raise per-guess acceptance.",
-    "f78a35ba2c2de2e1": "Brings long-context cost into the thread, targeting the full-attention layers hybrid models keep, without retraining.",
-    "b1fe6c30c1c550df": "First of two papers to train the drafter on consecutive accepted tokens instead of token-level loss.",
+    "b1fe6c30c1c550df": "Opens the thread: trains the drafter on consecutive accepted tokens with unbiased gradients instead of token-level loss.",
+    "a4e942d0f147f07c": "Names the cost of big draft trees under concurrency: every node takes a verification row, so it learns to prune them.",
     "0aacbce5f85ac122": "Extends block-diffusion drafting (DFlash, DDTree) with fork-aware draft trees.",
-    "d9424aebc884a5c5": "Questions the shared design of Medusa, EAGLE-3, DFlash and DSpark by drafting at the phrase level against a frozen target.",
-    "256bf90ce51f6665": "Second acceptance-length objective in four days, framed as optimizing expected acceptance length (EAL) directly.",
-    "018074f62583197d": "First serving-system entry: applies speculative decoding to agent requests whose KV cache was invalidated by context edits.",
-    "a34c118cc3850b60": "Latest entry: adapts long-context self-speculative decoding to looped Transformers with per-loop KV caches."
+    "d9424aebc884a5c5": "Questions the shared design of Medusa, EAGLE-3, DFlash and DSpark by drafting phrases against a frozen target.",
+    "256bf90ce51f6665": "Second acceptance-length objective in four days, framed as optimizing expected acceptance length directly.",
+    "018074f62583197d": "First serving-system entry: speculates on agent requests whose KV cache was invalidated by context edits.",
+    "563c7d3375862838": "Adjacent: consensus decoding against cross-modal hallucination in omnimodal models, not a speedup method.",
+    "a34c118cc3850b60": "Adapts long-context self-speculative decoding to looped Transformers with per-loop KV caches.",
+    "fb7e5418185abe5a": "Adjacent: model fingerprinting that survives stochastic decoding, relevant to verifying which checkpoint is served.",
+    "c08838a1ebaaf444": "Shows verification randomness can be pre-sampled and fed to the drafter, reporting up to 24.6pp throughput gains.",
+    "b6559df505fa2a9e": "First result aimed at agent output formats: grammar-forced tokens raise acceptance length for JSON, regex and tool calls in vLLM.",
+    "f378fea92addc171": "Adjacent: a benchmark for evaluating contrastive decoding against multimodal hallucination.",
+    "f71af688b338f44d": "Lets parallel draft tokens attend to earlier choices in the block, up to 3.37x mean speedup on Qwen3 targets.",
+    "f5c599840c08b8e9": "Takes draft trees to edge devices, reporting 5.3x speedup and 4.2x lower energy for a 16-node tree.",
+    "6f4da66d69ee069e": "Splits drafters into four swappable parts trained under matched conditions, producing the DFlux draft.",
+    "420b2dee4fa3c677": "Cheapest upgrade in the thread: post-hoc temperature scaling of the draft for up to about 10% longer acceptance.",
+    "758bfcdb3a51f9a3": "Adjacent: closed-form warm starts cut decoding layers 14–19% in recurrent-depth models, without a drafter.",
+    "bb4c90dec13b8ea7": "Latest entry: the drafter reuses the target's KV cache and sparse index selections instead of keeping its own."
   }
 }

@@ -1,16 +1,17 @@
 {
  "slug": "benchmarking-multi-agent",
  "label": "Multi-agent Systems",
- "item_count": 12,
- "day_count": 9,
- "source_count": 4,
+ "item_count": 17,
+ "day_count": 11,
+ "source_count": 5,
  "first_seen": "2026-11-06T17:07:35+00:00",
- "last_updated": "2026-11-24T17:48:54+00:00",
- "generated_at": "2026-11-26T00:12:44.970528+00:00",
+ "last_updated": "2026-11-26T00:00:00+00:00",
+ "generated_at": "2026-11-27T00:14:18.666001+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl",
   "hackernews_ai",
+  "huggingface_blog",
   "infoq_ai_ml"
  ],
  "days": [
@@ -178,6 +179,17 @@
    "date": "2026-11-24",
    "items": [
     {
+     "title": "CypherMAS: Benchmarking Routing Reliability in LLM-Based Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2611.33242v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Multi-agent systems (MAS) built on large language models (LLMs) distribute reasoning across specialized agents that must exchange messages and invoke tools reliably. Existing evaluations typically couple communication...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "2c2c060d34af1ace",
+     "published": "2026-11-24T14:39:07+00:00",
+     "editor_note": "Separates routing reliability from communication in evaluation: messages and tool calls scored on their own."
+    },
+    {
      "title": "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
      "url": "http://arxiv.org/abs/2611.33036v1",
      "source": "arxiv_cs_cl",
@@ -189,14 +201,68 @@
      "editor_note": "Loose fit: uncertainty signals for LLM recommenders, clustered on shared wording."
     }
    ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "Compute-Aware Submodular Online Learning in Open Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2611.34211v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Proposes an online policy-learning algorithm for cooperative task allocation among agents with submodular utilities that samples a fixed budget of agent-action evaluations, reporting a 1/2-approximate regret bound and experiments on information coverage.",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "ead3084d2f1393dc",
+     "published": "2026-11-25T11:35:43+00:00",
+     "editor_note": "Brings a compute budget into task allocation: a fixed number of agent-action evaluations per round."
+    },
+    {
+     "title": "Latent-in-the-Middle: On the Security of Cross-Model Latent Communication in Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2611.34278v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Introduces Chasm, a study of security risks in cross-model KV cache transfer between LLMs, finding transferred caches can raise prompt-injection and jailbreak success and proposing a target-side cache guard to mitigate them.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "e5cd4c9ff569d569",
+     "published": "2026-11-25T12:35:33+00:00",
+     "editor_note": "Turns the latent-channel question into a security one: transferred KV caches raise injection and jailbreak success."
+    },
+    {
+     "title": "MeterRouter: Budget-Aware Dynamic Routing for Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2611.34327v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Presents MeterRouter, a router that builds a multi-agent collaboration graph per query under a monetary budget, reporting comparable accuracy to the strongest multi-agent system at 82% lower cost across five benchmarks.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "851958f4eb1c5d85",
+     "published": "2026-11-25T13:09:13+00:00",
+     "editor_note": "First explicit dollar budget: per-query collaboration graphs at 82% lower cost for comparable accuracy."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-26",
+   "items": [
+    {
+     "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+     "url": "https://huggingface.co/blog/training-swarms",
+     "source": "huggingface_blog",
+     "type": "research",
+     "summary_1line": "A Hugging Face blog series with reproducible examples for training multi-agent systems; its first example uses four agents sharing one small model and takes about five hours on two H200s, roughly $50.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "819f2bb8e324e5e7",
+     "published": "2026-11-26T00:00:00+00:00",
+     "editor_note": "First practitioner recipe: four agents on one small model, trained in about five hours for roughly $50."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and workflow orchestration. It then split into two tracks: securing agents against malicious peers and data leaks, and tracing which agent caused a failure.",
+  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and orchestration. It split into security against malicious peers, tracing which agent caused a failure, and latent agent-to-agent channels that LatentLens and Chasm found unhelpful or exploitable.",
   "stale": false,
-  "whats_new": "LatentLens (Nov 23) reports that a latent agent-to-agent interface often fails to improve accuracy and can degrade it across seven benchmarks, the same day REPA modeled how one agent's local errors cascade into system failure.",
-  "why_it_matters": "Multi-agent reliability now has concrete failure models (error propagation, malicious feedback during replanning, cross-agent data leaks), so a single end-to-end success rate no longer tells you why your agent team fails.",
-  "take_for_builders": "Log each agent's messages and intermediate outputs per step in your multi-agent runs, because failure attribution and error-propagation methods like CoLFA and REPA need per-agent traces, not just the final answer.",
+  "whats_new": "Hugging Face (Nov 26) published reproducible recipes for training multi-agent teams, the first about $50 on two H200s, a day after MeterRouter reported top multi-agent accuracy at 82% lower cost on five benchmarks.",
+  "why_it_matters": "The thread has moved from what fails in agent teams to what they cost: per-query routing under a dollar budget and cheap team training make cost a tunable you can benchmark, not a fixed overhead of going multi-agent.",
+  "take_for_builders": "Record per-query token cost next to accuracy in your multi-agent evals, and keep KV-cache or latent hand-offs between models behind the same injection guards as text messages until Chasm-style defenses ship.",
   "beats": [
    {
     "kicker": "SYSTEM COST",
@@ -224,20 +290,33 @@
     "kicker": "FAILURE",
     "tone": "turn",
     "headline": "Research shifts to blaming the right agent for a failure",
-    "summary": "Failure attribution traces the decisive error step and responsible agent; TRACE-MAS adds repair for collaboration failures in messages and task dependencies.",
+    "summary": "Failure attribution, collaboration repair, an error-propagation model, and a benchmark that isolates message routing and tool-call reliability.",
     "sids": [
      "ae75fdfb8dec6766",
-     "31fa9cd8fb58d57c"
+     "31fa9cd8fb58d57c",
+     "213a3d94fcfe4f8e",
+     "2c2c060d34af1ace"
+    ]
+   },
+   {
+    "kicker": "LATENT CHANNELS",
+    "tone": "alert",
+    "headline": "Latent agent-to-agent channels: no accuracy win, new attack surface",
+    "summary": "LatentLens finds a latent interface often fails to help and can degrade accuracy; Chasm shows transferred KV caches raise prompt-injection and jailbreak success.",
+    "sids": [
+     "badad62bfaefb859",
+     "e5cd4c9ff569d569"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Error cascades get a model, and latent interfaces a negative result",
-    "summary": "REPA links local agent errors to system-level failure; LatentLens finds the latent interface frequently does not help.",
+    "headline": "Cost becomes the lever: budget routing and cheap team training",
+    "summary": "MeterRouter builds a per-query collaboration graph under a monetary budget, compute-aware allocation samples a fixed evaluation budget, and Hugging Face ships trainable team recipes.",
     "sids": [
-     "213a3d94fcfe4f8e",
-     "badad62bfaefb859"
+     "ead3084d2f1393dc",
+     "851958f4eb1c5d85",
+     "819f2bb8e324e5e7"
     ]
    },
    {
@@ -252,12 +331,13 @@
    }
   ],
   "open_questions": [
+   "Does MeterRouter's 82% cost cut hold on workloads outside its five benchmarks and at tighter budgets?",
+   "Does Chasm's target-side cache guard ship as code that KV-cache transfer stacks can adopt?",
    "Does REPA's error-propagation model hold beyond the three Qwen base models it was evaluated on?",
-   "Does LatentLens's degradation result hold on model families other than Qwen3?",
    "Do CoLFA or TRACE-MAS ship tooling that attributes failures in production agent traces, not only benchmark logs?",
-   "Does Kaer's protected replanning hold up on benchmarks other than its own Cintra suite?",
-   "Do any of these benchmarks release harnesses that teams adopt for their own regression evals?"
+   "Does a team trained with the Hugging Face recipe beat a single larger model at equal cost on an outside benchmark?",
+   "Do CypherMAS or WorkflowArena release harnesses that teams adopt for their own regression evals?"
   ],
-  "generated_at": "2026-11-26T00:30:00+00:00"
+  "generated_at": "2026-11-27T00:12:32Z"
  }
 }

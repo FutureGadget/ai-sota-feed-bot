@@ -1,0 +1,61 @@
+{
+  "slug": "case-study",
+  "generated_at": "2026-11-27T00:12:27Z",
+  "covers_last_updated": "2026-11-25T18:37:06+00:00",
+  "covers_member_sids": [
+    "94045c979b35ebe7",
+    "77f0b452ecfd74d0",
+    "60cf435fff992a90",
+    "9b791542dc8bb7cc",
+    "75db6f155d9769a5",
+    "043f8331a0f789b2"
+  ],
+  "tldr": "This is not one story: the six papers share only the phrase \"case study\" or \"empirical study\" in their titles. They form a loose November run of arXiv work that measures how agents and models actually behave, covering where long-horizon errors enter, what token spend tracks, KV cache reuse, benchmark throttling and web-element hallucination.",
+  "whats_new": "The newest paper reverts each unit of a coding-agent patch and reruns the tests to find unneeded edits, across 7,660 Copilot CLI trajectories from 18 models on SWE-bench Verified and DeepSWE.",
+  "why_it_matters": "The common thread is measurement: several of these papers test whether a number teams already rely on (pass rate, token spend, benchmark score) means what they assume it means.",
+  "beats": [
+    {
+      "kicker": "WHERE AGENTS FAIL",
+      "tone": "launch",
+      "headline": "Two papers trace agent failures back to their origin",
+      "summary": "One follows long-horizon trajectories to where an error first enters. The other uses mechanistic interpretability on web agents that hallucinate page elements.",
+      "sids": ["94045c979b35ebe7", "75db6f155d9769a5"]
+    },
+    {
+      "kicker": "MEASUREMENT",
+      "tone": "rising",
+      "headline": "Token spend and benchmark scores are tested as proxies",
+      "summary": "One links five weeks of engineers' coding-agent token usage to their output. The other asks whether a model can be driven to a target score while looking like a naturally weaker model.",
+      "sids": ["77f0b452ecfd74d0", "9b791542dc8bb7cc"]
+    },
+    {
+      "kicker": "INFERENCE",
+      "tone": "neutral",
+      "headline": "KV cache reuse across a model update, tested on DeepSeek-V4-Flash",
+      "summary": "An infrastructure outlier in the cluster: it asks what a cached prefix still preserves after the model weights change.",
+      "sids": ["60cf435fff992a90"]
+    },
+    {
+      "kicker": "LATEST",
+      "tone": "now",
+      "headline": "Coding agents' unneeded edits measured by revert-and-retest",
+      "summary": "Delta Residue Attribution reverts each patch unit and reruns the tests. Any edit the tests do not need counts as over-editing.",
+      "sids": ["043f8331a0f789b2"]
+    }
+  ],
+  "open_questions": [
+    "Does the over-edit study report which of the 18 models over-edit least, and by how much?",
+    "Does the token-spend paper find any correlation between spend and merged engineering output?",
+    "Does the DeepSeek-V4-Flash study find any cached state that survives a weight update without degrading outputs?",
+    "Does the long-horizon study name a control that catches errors at the step where they enter?"
+  ],
+  "take_for_builders": "If you gate coding-agent patches on passing tests alone, add a diff-size or revert-and-retest check, because a passing patch can still carry edits the tests never needed.",
+  "day_captions": {
+    "94045c979b35ebe7": "Moves agent failure analysis from symptom labels to the step where an error first enters a trajectory.",
+    "77f0b452ecfd74d0": "Questions token spend as a productivity metric, using five weeks of coding-agent usage data.",
+    "60cf435fff992a90": "Adds an inference-cost angle: whether KV caches stay valid after a model update.",
+    "9b791542dc8bb7cc": "Asks whether a benchmark score can be deliberately lowered while the failures still look natural.",
+    "75db6f155d9769a5": "Tests mechanistic interpretability on one concrete agent failure: hallucinated web elements.",
+    "043f8331a0f789b2": "Gives a test-based method for finding unneeded edits in agent patches, at the scale of 7,660 trajectories."
+  }
+}

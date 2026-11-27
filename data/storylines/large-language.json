@@ -1,62 +1,89 @@
 {
  "slug": "large-language",
- "label": "Speculative Decoding",
- "item_count": 17,
- "day_count": 11,
- "source_count": 4,
- "first_seen": "2026-11-05T17:10:03+00:00",
- "last_updated": "2026-11-24T18:41:59+00:00",
- "generated_at": "2026-11-26T00:12:44.970528+00:00",
+ "label": "Large Language",
+ "item_count": 77,
+ "day_count": 19,
+ "source_count": 8,
+ "first_seen": "2026-11-06T03:15:49+00:00",
+ "last_updated": "2026-11-26T16:59:24+00:00",
+ "generated_at": "2026-11-27T00:14:18.666001+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
-  "arxiv_llm_reliability"
+  "arxiv_llm_reliability",
+  "hackernews_ai",
+  "infoq_ai_ml",
+  "search_cn_open_weight_labs"
  ],
  "days": [
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "items": [
     {
-     "title": "Measured Coupling for Parallel Decoding in Diffusion Language Models",
-     "url": "http://arxiv.org/abs/2611.08307v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Diffusion language models can write many tokens per step, but must choose which tokens are safe to commit together. Mean-field decoding penalizes pairs of positions whose predictions look alike. We replace this proxy with the coupling itself: how much committing one token changes",
-     "sid": "0491c6de7a511fb5",
-     "published": "2026-11-05T17:10:03+00:00",
-     "editor_note": "Early context: diffusion LMs commit several tokens per step and need a better rule for which to commit together."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-07",
-   "items": [
+     "title": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
+     "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
+     "sid": "e1376b3038791065",
+     "published": "2026-11-06T03:15:49+00:00",
+     "editor_note": "Threat report on a Chinese-language framework aimed at AI infrastructure."
+    },
     {
-     "title": "D-REAL: Acceptance-Length Optimization with Unbiased Gradients for Speculative Decoding",
-     "url": "http://arxiv.org/abs/2611.10432v1",
+     "title": "Alignment by Confident Debate: Preference Learning from Multi-Agent Debate",
+     "url": "http://arxiv.org/abs/2611.09568v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Speculative decoding efficiency depends on the number of consecutively accepted draft tokens, yet token-level training objectives do not directly optimize this quantity. We introduce D-REAL (Drafter Reinforcement of E...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "b1fe6c30c1c550df",
-     "published": "2026-11-07T03:19:43+00:00",
-     "editor_note": "First drafter-objective paper: D-REAL optimizes acceptance length with unbiased gradients."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-08",
-   "items": [
+     "summary_1line": "Post-training language models for reasoning typically rely on gold answers, task-specific verifiers, or learned reward models, limiting scalability when such signals are scarce. Multi-agent debate offers a self-superv...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "2e4c5bdb80c6e509",
+     "published": "2026-11-06T15:08:58+00:00",
+     "editor_note": "Preference learning from multi-agent debate when no verifier or gold answer exists."
+    },
     {
-     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
-     "url": "http://arxiv.org/abs/2611.11371v1",
-     "source": "arxiv_cs_lg",
+     "title": "Steerable Multi-Objective Group-Relative Preference Optimization with Jointly Trained Low-Rank Adapters",
+     "url": "http://arxiv.org/abs/2611.09634v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
-     "sid": "a4e942d0f147f07c",
-     "published": "2026-11-08T13:29:14+00:00",
-     "editor_note": "Prunes block-diffusion draft trees because every node costs a query row in target verification under concurrency."
+     "summary_1line": "Language model deployment often requires different trade-offs between competing objectives as user preferences change, yet standard post-training methods typically produce a single policy for a fixed objective weighti...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "06c2c68bc425da7f",
+     "published": "2026-11-06T15:50:32+00:00",
+     "editor_note": "Jointly trained LoRA adapters let one model shift between objective weightings at deploy time."
+    },
+    {
+     "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.09770v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Multimodal Large Language Models (MLLMs) require continuous factual updates to stay current, yet lifelong knowledge editing remains a daunting challenge. The primary obstacle is the severe Locality Erosion and Catastr...",
+     "sid": "5606760643e4651e",
+     "published": "2026-11-06T17:32:49+00:00",
+     "editor_note": "Lifelong knowledge editing for multimodal models without eroding unrelated facts."
+    },
+    {
+     "title": "Assessing the Impact of Retrieval-Augmented Generation on Algorithmic Problem-Solving",
+     "url": "http://arxiv.org/abs/2611.09791v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Competitive programming problems pose distinctive challenges for Large Language Models, as they demand not only proficient code generation but also advanced algorithmic reasoning. This study presents a Retrieval-Augme...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "eb1f61303f3e3d57",
+     "published": "2026-11-06T17:46:28+00:00",
+     "editor_note": "Opening item: retrieval-augmented generation tested on competitive-programming problems."
+    },
+    {
+     "title": "Compaction, decay and reinforcement in a two-tier conversational memory: a paired evaluation against retrieval-augmented generation",
+     "url": "http://arxiv.org/abs/2611.09807v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "A conversational agent that remembers has to decide what to keep. Retrieval-augmented generation keeps the transcript and searches it; the alternative is to compact each turn into atomic facts and search those. We com...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "49e633d61cb9577d",
+     "published": "2026-11-06T17:56:37+00:00",
+     "editor_note": "Paired test of compacted atomic-fact memory against plain transcript RAG for a conversational agent."
     }
    ]
   },
@@ -64,24 +91,57 @@
    "date": "2026-11-09",
    "items": [
     {
-     "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
-     "url": "http://arxiv.org/abs/2611.12356v1",
-     "source": "arxiv_cs_ai",
+     "title": "Correct First, Fast Second: What a Local 7B Code Model Can and Cannot Do for GPU Kernel Optimization",
+     "url": "http://arxiv.org/abs/2611.12079v1",
+     "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
-     "sid": "0aacbce5f85ac122",
-     "published": "2026-11-09T13:06:52+00:00",
-     "editor_note": "Builds fork-aware draft trees on DFlash-style block drafters, extending DDTree."
+     "summary_1line": "We study how much the interaction strategy around a fixed, locally hosted 7B-parameter code model (Qwen2.5-Coder-7B-Instruct) affects its ability to replace PyTorch operators with custom CUDA kernels. On 30 KernelBenc...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "b76cb948754a8e57",
+     "published": "2026-11-09T08:56:29+00:00",
+     "editor_note": "A local Qwen2.5-Coder-7B writing CUDA kernels: interaction strategy matters, correctness first."
     },
     {
-     "title": "Phrase-Level Speculative Decoding on a Frozen Target",
-     "url": "http://arxiv.org/abs/2611.12464v1",
+     "title": "More Than Just Style: Benchmarking Personality Influence in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.12392v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Speculative decoders raise throughput by banking more target tokens per forward pass, and Medusa, EAGLE-3, DFlash and DSpark all do it the same way: more candidates that survive verification. All of them draft in the target's own vocabulary, so one node of the candidate tree is o",
-     "sid": "d9424aebc884a5c5",
-     "published": "2026-11-09T14:13:32+00:00",
-     "editor_note": "Drafts phrases instead of target-vocabulary tokens, against a frozen target."
+     "summary_1line": "In addition to the effects of explicit input prompts and instructions, large language model outputs are influenced by underlying behavioral preferences similar to human personality tendencies. These tendencies can aff...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "9c88a41fbb756af3",
+     "published": "2026-11-09T13:29:45+00:00",
+     "editor_note": "Benchmarks how personality-like tendencies shift model outputs beyond style."
+    },
+    {
+     "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+     "url": "http://arxiv.org/abs/2611.12727v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo th",
+     "sid": "e07cc0f8ad9bbda1",
+     "published": "2026-11-09T17:12:09+00:00",
+     "editor_note": "Cover-photo selection for Airbnb listings under semantic constraints."
+    },
+    {
+     "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
+     "url": "http://arxiv.org/abs/2611.12763v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing",
+     "sid": "1c564d62e97c9758",
+     "published": "2026-11-09T17:38:16+00:00",
+     "editor_note": "Token-level reweighting to make preference optimization robust to noisy labels."
+    },
+    {
+     "title": "Large Language Models as a Universal Searcher for Open-World Automated Machine Learning",
+     "url": "http://arxiv.org/abs/2611.12791v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Developing effective machine learning models requires complex manual tuning, while current Automated Machine Learning (AutoML) frameworks remain domain-specific and isolate model architecture, training hyperparameter,...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "3b4f703ae0a8f385",
+     "published": "2026-11-09T17:58:38+00:00",
+     "editor_note": "LLM as a single searcher over architecture and hyperparameters for AutoML."
     }
    ]
   },
@@ -89,15 +149,154 @@
    "date": "2026-11-10",
    "items": [
     {
-     "title": "REAL Loss: Optimizing Real Expected Acceptance Length for Speculative Decoding",
-     "url": "http://arxiv.org/abs/2611.14399v1",
+     "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
+     "url": "http://arxiv.org/abs/2611.13531v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "501ef39353c40289",
+     "published": "2026-11-10T03:54:03+00:00",
+     "editor_note": "Shows headline framing, not the reported fact, can swing an LLM's moderation judgment."
+    },
+    {
+     "title": "OpticalRAG: Pixel-Space Compression for Token-Efficient Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2611.13675v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Speculative decoding accelerates LLM inference by having a draft model propose multiple tokens for the target model to verify in one pass. The speedup is governed by the expected acceptance length (EAL), yet standard...",
+     "summary_1line": "Retrieval-augmented generation (RAG) is bottlenecked by the token budget of large language models: feeding long documents into the context window is expensive, while aggressive textual compression discards fine-graine...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "1eb45d5078fca72b",
+     "published": "2026-11-10T07:24:50+00:00",
+     "editor_note": "Compresses retrieved documents in pixel space to cut RAG token cost."
+    },
+    {
+     "title": "Controlled Knowledge Engineering for Taxonomy Induction with Tool-Grounded LLM Agents and Runtime-Adaptive Policies",
+     "url": "http://arxiv.org/abs/2611.13966v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Taxonomies are structured knowledge representations that support semantic search, recommendation, product catalog organization, and retrieval-augmented generation. Their automated construction from a fixed set of cand...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "ba175d39f9ba45a4",
+     "published": "2026-11-10T12:04:54+00:00",
+     "editor_note": "Tool-grounded agents with runtime-adaptive policies build taxonomies that later feed search and RAG."
+    },
+    {
+     "title": "Chain of Physics: Supporting Fault Diagnosis with Engineering-Inspired Large Language Model Reasoning",
+     "url": "http://arxiv.org/abs/2611.14263v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Fault diagnosis in complex systems requires linking observed changes in physical quantities to the failure mechanisms that produce them. Experienced engineers perform this task by combining sensor information with kno...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "5ddb49a19fc35296",
+     "published": "2026-11-10T16:09:44+00:00",
+     "editor_note": "Physics-grounded reasoning chains for fault diagnosis."
+    },
+    {
+     "title": "The Multimodal Knowledge Agent Benchmark",
+     "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "The Multimodal Knowledge Agent Benchmark",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "2ffd7e8cb1f550c6",
+     "published": "2026-11-10T16:12:21+00:00",
+     "editor_note": "First agent benchmark in the thread: multimodal knowledge agents."
+    },
+    {
+     "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
+     "url": "http://arxiv.org/abs/2611.14285v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled compa...",
      "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "256bf90ce51f6665",
-     "published": "2026-11-10T17:45:12+00:00",
-     "editor_note": "A second loss aimed at real expected acceptance length, three days after D-REAL."
+     "sid": "c4a35e75b732ef4a",
+     "published": "2026-11-10T16:26:19+00:00",
+     "editor_note": "Benchmark for simulators that pick distributed-training parallelism without full runs."
+    },
+    {
+     "title": "PSL-RGHA: Parallel Split Learning with Reference Gradient Half-Space Alignment for Mitigating Gradient Divergence",
+     "url": "http://arxiv.org/abs/2611.14312v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "The escalating complexity of deep neural networks hinders the deployment of federated learning (FL) on resource-constrained devices, especially for multimedia applications such as on-device image classification and speech recognition. Parallel split learning (PSL) has emerged as",
+     "sid": "69a7c1548b162d4e",
+     "published": "2026-11-10T16:42:30+00:00",
+     "editor_note": "Gradient alignment for parallel split learning on constrained devices."
+    },
+    {
+     "title": "AI Isn't Getting Dumber, We're Getting Pickier: Rising Standards in Human Evaluation of Large Language Models",
+     "url": "http://arxiv.org/abs/2611.14333v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Users often complain that AI assistants such as ChatGPT are getting worse. Some versions do change, but human evaluation leaves a second possibility untested: the people judging may change. We separate the two on Chat...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "dcfca63926ea22ea",
+     "published": "2026-11-10T16:56:16+00:00",
+     "editor_note": "Separates model drift from rater drift: human judges of ChatGPT got stricter over time."
+    },
+    {
+     "title": "Cognitive Mapping of Learning by Thinking Mechanisms in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.14382v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) increasingly exhibit capabilities that resemble human Learning by Thinking (LbT), the acquisition of new insight through internal processes such as explanation and reasoning, without new e...",
+     "sid": "b6805052b5174dca",
+     "published": "2026-11-10T17:37:13+00:00",
+     "editor_note": "Maps 'learning by thinking' behaviours in LLMs."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "items": [
+    {
+     "title": "ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.15925v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) have emerged as primary interfaces for factual retrieval, yet current evaluation paradigms rely almost exclusively on explicit entity names. In this work, we demonstrate that LLM knowledge...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "f1908d0038e22f5b",
+     "published": "2026-11-11T19:19:08+00:00",
+     "editor_note": "ShadowBench: models that seem to have unlearned a fact still recall it when the entity is not named."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.16843v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Pre-trained encoders fine-tuned on natural language inference (NLI) and other language understanding tasks keep much of their accuracy after the input is perturbed, e.g. by removing all nouns or shuffling the words. D...",
+     "sid": "173841a135ec48af",
+     "published": "2026-11-12T14:18:44+00:00",
+     "editor_note": "Asks whether corrupted-input robustness in NLU reflects shortcuts or memorisation."
+    },
+    {
+     "title": "Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2611.17161v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Retrieval-augmented generation systems attach citations to attribute claims to their sources. These citations frequently misstate provenance, and standard verification cannot detect this. We measure provenance by coun...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "9a823f949628f234",
+     "published": "2026-11-12T17:39:14+00:00",
+     "editor_note": "Failure evidence: RAG citations often misstate provenance, and standard verification cannot detect it."
+    },
+    {
+     "title": "When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems",
+     "url": "http://arxiv.org/abs/2611.17239v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "In interactive systems where users engage with LLMs, users are adaptive and, after observing LLM responses, can change their prompting strategy, as well as the type and difficulty of subsequent tasks. Thus model respo...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "046191ac623ca927",
+     "published": "2026-11-12T18:26:51+00:00",
+     "editor_note": "Argues static evals miss interactive systems where users adapt their prompts to the model."
     }
    ]
   },
@@ -105,15 +304,222 @@
    "date": "2026-11-13",
    "items": [
     {
-     "title": "Callo: Serving Cache-Miss Requests with Speculative Decoding on Invalidated KV under Prefill-Decode Disaggregation",
-     "url": "http://arxiv.org/abs/2611.18459v1",
+     "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+     "url": "http://arxiv.org/abs/2611.17621v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Agent sessions may involve frequent context edits, which effectively invalidate cached KV state and force requests to wait for re-prefill before decoding. We present Callo, a disaggregated serving system that leverage...",
+     "summary_1line": "Kernel optimization is essential for efficient large language model (LLM) training and inference on Ascend NPUs. Existing Ascend kernel benchmarks primarily focus on kernel generation, with less emphasis on the abilit...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "7b04b19e28032924",
+     "published": "2026-11-13T00:45:36+00:00",
+     "editor_note": "Cost-aware kernel-optimization benchmark on Ascend NPUs."
+    },
+    {
+     "title": "Knowledge After Collapse: Context and Wording Shape Factual Accessibility in Language Models",
+     "url": "http://arxiv.org/abs/2611.17763v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "When a language model accepts a false correction in a factual discussion, its next answer can depend on how the conversation continues. We introduce Knowledge Answer Divergence (KAD), an event-conditioned evaluation protocol that distinguishes initial false-answer adoption from s",
+     "sid": "590316d609c0ce23",
+     "published": "2026-11-13T05:19:42+00:00",
+     "editor_note": "KAD protocol tracks how a model's factual answers change after it accepts a false correction."
+    },
+    {
+     "title": "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding",
+     "url": "http://arxiv.org/abs/2611.17797v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their int...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "0fe69ec1eb1a4f14",
+     "published": "2026-11-13T06:23:19+00:00",
+     "editor_note": "Gives coding agents vision as a callable tool instead of in-context image reasoning."
+    },
+    {
+     "title": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
+     "url": "http://arxiv.org/abs/2611.17955v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing r...",
+     "why_it_matters": "Matches feed focus: agent, evaluation, codex.",
+     "sid": "f90b714a57ce9fe0",
+     "published": "2026-11-13T09:44:48+00:00",
+     "editor_note": "WebArena-Pro: reproducible, multimodal, multi-app benchmark for web agents."
+    },
+    {
+     "title": "Netflix Turns Operational Data Into a Knowledge Graph for AI-Driven Observability",
+     "url": "https://www.infoq.com/news/2026/11/netflix-ai-driven-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Netflix is developing an ontology-driven knowledge graph to accelerate production investigations and provide AI agents with a shared understanding of its operational environment. By Craig Risi",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "39c256e968e0b09a",
+     "published": "2026-11-13T12:00:00+00:00",
+     "editor_note": "The one production case: Netflix builds an ontology-driven knowledge graph so AI agents share a model of its operations."
+    },
+    {
+     "title": "VEPO: Mitigating Multilingual Hallucinations in LVLMs via Visual Evidence-guided Preference Optimization",
+     "url": "http://arxiv.org/abs/2611.18096v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large vision-language models (LVLMs) achieve strong multimodal performance, yet they remain prone to object hallucination---generating answers that are linguistically fluent but visually ungrounded. This issue is especially severe in low-resource languages, where weaker cross-mod",
+     "sid": "c9c6bd7b30cb6c70",
+     "published": "2026-11-13T12:23:14+00:00",
+     "editor_note": "Visual-evidence preference optimization against object hallucination in low-resource languages."
+    },
+    {
+     "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
+     "url": "http://arxiv.org/abs/2611.18370v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Anomaly detection in tabular data poses significant challenges due to heterogeneous feature types-mixing numerical, categorical, and textual attributes, which complicate learning meaningful representations of normality. Recent work has applied large language models (LLMs) to this",
+     "sid": "ca54e3a4f2c1d30b",
+     "published": "2026-11-13T16:16:03+00:00",
+     "editor_note": "Self-play with LLMs for tabular anomaly detection."
+    },
+    {
+     "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
+     "url": "http://arxiv.org/abs/2611.18453v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemi...",
+     "sid": "3985de9df0cd2149",
+     "published": "2026-11-13T17:26:39+00:00",
+     "editor_note": "Black-box uncertainty estimates that separate prompt ambiguity from knowledge gaps."
+    },
+    {
+     "title": "Interactive Program Induction with Language Model Priors",
+     "url": "http://arxiv.org/abs/2611.18485v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Program induction refers to the process in which a learner aims to recover a program from a few given input-output examples. This paradigm broadens programming access by letting users demonstrate the rule-based behavi...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "951243773dcd7469",
+     "published": "2026-11-13T17:59:55+00:00",
+     "editor_note": "Interactive program induction with LLM priors."
+    },
+    {
+     "title": "Ask Precisely, Assume Wisely: Interactive Evaluation of Ambiguity Resolution in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.18905v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Ambiguity is a core challenge in human--AI interaction, where models must decide when to make assumptions and when to seek clarification. Existing approaches to ambiguity evaluation largely focus on coverage over mult...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "53cced15d557cd0b",
+     "published": "2026-11-13T20:07:26+00:00",
+     "editor_note": "Interactive eval of when models ask for clarification versus assume."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-14",
+   "items": [
+    {
+     "title": "Large Language Models for AI Infrastructure",
+     "url": "http://arxiv.org/abs/2611.19061v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) are increasingly used to design, optimize, and operate the infrastructure behind AI training and serving, yet the literature remains fragmented across hardware design, machine learning sys...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "fb7a288ad791ee0d",
+     "published": "2026-11-14T01:12:36+00:00",
+     "editor_note": "Survey of LLMs used to design and operate AI training and serving infrastructure."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-15",
+   "items": [
+    {
+     "title": "Interactive Structured Environment Scaling for Large Language Model Agentic Reasoning",
+     "url": "http://arxiv.org/abs/2611.19871v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning via environmental interaction is a cornerstone post-training paradigm for evolving large language models into autonomous agents capable of multi-turn tool use and exploration. Because the enviro...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "baf7e4781272e609",
+     "published": "2026-11-15T08:20:34+00:00",
+     "editor_note": "Scales structured interactive environments for agentic RL."
+    },
+    {
+     "title": "GEM-MM: Reducing VLM Hallucination with Entropy-Guided Preference Alignment",
+     "url": "http://arxiv.org/abs/2611.20016v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budg...",
+     "why_it_matters": "Matches feed focus: harness, evaluation.",
+     "sid": "8138237fac2e053c",
+     "published": "2026-11-15T13:55:51+00:00",
+     "editor_note": "Entropy-guided preference alignment to cut VLM hallucination on a small data budget."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Explainable Federated Learning via Global-Local Attribution Alignment",
+     "url": "http://arxiv.org/abs/2611.20445v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Federated learning enables on-device training without centralizing data, yet existing systems still struggle to provide explanations that are both locally faithful and globally consistent under strict privacy and band...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "81c44c827e9a0e1d",
+     "published": "2026-11-16T03:15:02+00:00",
+     "editor_note": "Explanations for federated learning that stay locally faithful and globally consistent."
+    },
+    {
+     "title": "Beyond Seeing: Fine-Grained Preference Validation and Severity-Aware Alignment for Mitigating Visual Hallucinations in Vision-Language Models",
+     "url": "http://arxiv.org/abs/2611.20478v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large vision-language models can produce fluent responses containing objects, attributes, or relations unsupported by the image. We study an implemented alignment pipeline that normalizes released fine-grained hallucination supervision, validates chosen-rejected preference pairs",
+     "sid": "d495f69216affbb3",
+     "published": "2026-11-16T03:42:49+00:00",
+     "editor_note": "Validates hallucination preference pairs and weights them by severity."
+    },
+    {
+     "title": "Benchmarking Large Language Models for Linguistic Annotation",
+     "url": "http://arxiv.org/abs/2611.21291v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Assessing large language models for linguistic annotation requires task-specific evaluation under documented conditions. We present dhAIBench, a Python benchmarking and annotation tool with a web interface for explori...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "1e13d673398b4485",
+     "published": "2026-11-16T15:55:45+00:00",
+     "editor_note": "dhAIBench: a benchmarking tool for LLM linguistic annotation."
+    },
+    {
+     "title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.21331v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "When triaging unknown binaries, security analysts must decide which samples to clear as benign, flag as malicious, or escalate for deeper analysis. Large Language Models (LLMs) could support these decisions by interpr...",
      "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "018074f62583197d",
-     "published": "2026-11-13T17:28:37+00:00",
-     "editor_note": "Ties speculation to agent serving: decode on invalidated KV while re-prefill runs under prefill-decode disaggregation."
+     "sid": "8f0034965a63d29c",
+     "published": "2026-11-16T16:19:01+00:00",
+     "editor_note": "Cross-model study of LLMs triaging malware under a budget."
+    },
+    {
+     "title": "Stability-Compensated Threshold Calibration for Selection-Conditioned Risk Control in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.21384v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models often produce hallucinated answers, motivating selective prediction policies that abstain on uncertain queries. However, heuristic uncertainty thresholds alone do not provide statistical control of errors among accepted predictions. Linear Expectation Constr",
+     "sid": "0d292c5fdc2bf79f",
+     "published": "2026-11-16T16:45:29+00:00",
+     "editor_note": "Calibrates abstention thresholds for statistical error control on accepted answers."
+    },
+    {
+     "title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
+     "url": "http://arxiv.org/abs/2611.21605v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from common sense instead of reading the evidence. Reinforcement learning (...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "51009fb859c1b51e",
+     "published": "2026-11-16T18:59:04+00:00",
+     "editor_note": "RL for visual agents that zoom into ultra-high-resolution images instead of answering from priors."
     }
    ]
   },
@@ -129,7 +535,29 @@
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "563c7d3375862838",
      "published": "2026-11-17T09:20:20+00:00",
-     "editor_note": "Side branch: provenance-aware decoding against cross-modal hallucination in omnimodal models."
+     "editor_note": "Provenance-aware decoding against one modality leaking into another in omnimodal models."
+    },
+    {
+     "title": "MM-ReportBench: A Comprehensive Benchmark for Multimodal Report Generation from Tables",
+     "url": "http://arxiv.org/abs/2611.22514v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "The ability to generate multimodal reports integrating fluent narratives with faithful visualizations from tabular data, has become a cornerstone capability for modern vision-language models in practical domains such...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "871015d49de97b4a",
+     "published": "2026-11-17T10:06:56+00:00",
+     "editor_note": "Benchmark for generating reports with charts from tables."
+    },
+    {
+     "title": "PhysScope: Agentic Multimodal Physics Reasoning with Grounded Visual Memory",
+     "url": "http://arxiv.org/abs/2611.23010v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Vision-language models (VLMs) can correctly interpret physics diagrams yet apply constraints outside the states or conditions in which they hold, causing premise errors to propagate through subsequent calculations. We...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "3be6797ec1d79375",
+     "published": "2026-11-17T16:22:21+00:00",
+     "editor_note": "Grounded visual memory to stop physics agents applying constraints out of scope."
     }
    ]
   },
@@ -137,14 +565,94 @@
    "date": "2026-11-18",
    "items": [
     {
-     "title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
-     "url": "http://arxiv.org/abs/2611.24301v1",
+     "title": "Einsia AI Launches Visual Cipher Bench to Evaluate Long-Horizon Visual Reasoning in AI Agents",
+     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOTC0zWUV4djRvQ1NFdXFvLTRFdlF0Q1ZZakNpUnI4Mmd6TGx5T2ZXbURmbENndGNxNVJzSDhEbVB4TGpSdEpnUW0xdGRMQ3BkNFllbTl4VnNWVHc0SWdxTVQwbXFDLU0xNWI0dVNFVG5ZVnpXa2ROVDZtVDRYSkIxTjRpYnJESFdSSUtXN3ppQzJieFI5bll1WnhyTWhpX0RnV2h2YjVqVlppdXZKZFN2dzFkT2JhUDRSWTZMLUZESEJWeldwY2FvVW55OVZRV3BBQ3RTQ1YydG56LWIzMlh0bVhn?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "Einsia AI Launches Visual Cipher Bench to Evaluate Long-Horizon Visual Reasoning in AI Agents StreetInsider",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "58879952ed5ac223",
+     "published": "2026-11-18T10:42:43+00:00",
+     "editor_note": "Einsia AI's Visual Cipher Bench for long-horizon visual reasoning, via a press-release search hit."
+    },
+    {
+     "title": "KnowledgeClaw: Towards Agentic Knowledge Engineering via Omnimodal Hypergraphs",
+     "url": "http://arxiv.org/abs/2611.24294v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Knowledge engineering (KE) turns raw files into a reasoning-ready knowledge base, a task now within reach of LLM agents. KE has progressed from chunk and graph retrieval-augmented generation (RAG) to memory agents, ag...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "4de03e96899a0073",
+     "published": "2026-11-18T12:06:06+00:00",
+     "editor_note": "Agentic knowledge engineering over omnimodal hypergraphs, framed as the step past chunk and graph RAG."
+    },
+    {
+     "title": "NaviGATE: Noise-Aware Dual-View Generation for Multimodal Knowledge Graph Reasoning",
+     "url": "http://arxiv.org/abs/2611.24552v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture grap...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "c259fdb087f2c077",
+     "published": "2026-11-18T14:53:42+00:00",
+     "editor_note": "Noise-aware generation for reasoning over multimodal knowledge graphs."
+    },
+    {
+     "title": "On Evaluating User Simulators for Interactive Agents",
+     "url": "http://arxiv.org/abs/2611.24892v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "User simulators offer a scalable way to evaluate interactive agents, but how to assess their quality remains underexplored. In particular, it is unclear whether existing user simulator evaluation frameworks reliably d...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "f1c00e19e15c137a",
+     "published": "2026-11-18T18:34:23+00:00",
+     "editor_note": "Questions whether current user-simulator evaluations reliably rank simulators for agent testing."
+    },
+    {
+     "title": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
+     "url": "http://arxiv.org/abs/2611.24936v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Looped Transformers achieve large effective depth with compact models by repeatedly applying a weight-shared block across R recurrent steps, each maintaining a loop-specific key-value (KV) cache. To accelerate sequent...",
-     "sid": "a34c118cc3850b60",
-     "published": "2026-11-18T12:11:43+00:00",
-     "editor_note": "Self-speculative decoding for looped transformers, targeting their per-loop KV caches at long context."
+     "summary_1line": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an addit...",
+     "sid": "e497c044e025058b",
+     "published": "2026-11-18T18:56:12+00:00",
+     "editor_note": "Jailbreak detection from contrastive prototypes, with no extra classifier model."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "Measuring Hallucination in Large Language Models for Cyber Threat Intelligence: An Exploratory Study",
+     "url": "http://arxiv.org/abs/2611.25590v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) are increasingly used in cyber threat intelligence (CTI) tasks, such as summarization and question answering. However, they may produce hallucinations, false or misleading content not grounded in the source text, which can mislead analysts and corrupt",
+     "sid": "1d45f44793728555",
+     "published": "2026-11-19T06:35:05+00:00",
+     "editor_note": "Measures hallucination in cyber-threat-intelligence summaries and QA."
+    },
+    {
+     "title": "From Cases to Criteria: Reusing Evaluation Knowledge for Task-Specific Rubric Generation",
+     "url": "http://arxiv.org/abs/2611.25903v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Query-specific rubrics make LLM evaluation more fine-grained and transparent, and generating high-quality rubrics requires both identifying the target query's evaluation scope and specifying concrete checks. Historica...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "7223e80c757f1f59",
+     "published": "2026-11-19T10:52:50+00:00",
+     "editor_note": "Reuses past evaluation cases to generate query-specific rubrics for LLM judges."
+    },
+    {
+     "title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.26545v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Linear probes are the cheapest LLM lie detectors but often fail to transfer across kinds of lie. Label-free directions from honest and deceptive role-play are untested at 70B scale and on lies about knowledge, where a lie and an honest denial can be identical. We widen a publishe",
+     "sid": "7f32f43e5847c550",
+     "published": "2026-11-19T18:20:01+00:00",
+     "editor_note": "Tests label-free lie-detection directions at 70B scale."
     }
    ]
   },
@@ -152,41 +660,126 @@
    "date": "2026-11-20",
    "items": [
     {
-     "title": "DistDNA: Language Model Fingerprinting under Stochastic Decoding",
-     "url": "http://arxiv.org/abs/2611.27831v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Behavioral fingerprints identify a large language model (LLM) from its responses to a shared set of prompts, enabling applications such as verifying whether a deployed model corresponds to the checkpoint it claims to be. Deployed models, however, are commonly served with stochast",
-     "sid": "fb7e5418185abe5a",
-     "published": "2026-11-20T16:52:51+00:00",
-     "editor_note": "Side branch: fingerprinting which model is deployed when it is served with stochastic decoding."
-    },
-    {
-     "title": "Speculative Decoding Is Less Speculative Than You Think",
-     "url": "http://arxiv.org/abs/2611.27891v1",
+     "title": "When Are Images Needed in Multimodal Machine Translation? Text-Only Routing for On-Demand Visual Context",
+     "url": "http://arxiv.org/abs/2611.27712v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Introduces DICE, a speculative decoding method that pre-samples verification randomness and uses it with an existing drafter to direct drafting toward likely continuations, reporting throughput gains of up to 24.6pp over baselines.",
-     "sid": "c08838a1ebaaf444",
-     "published": "2026-11-20T17:33:21+00:00",
-     "editor_note": "DICE pre-samples verification randomness to steer the drafter; reports throughput gains up to 24.6pp."
+     "summary_1line": "Proposes PreVIR, a lightweight text-only router that decides from the source sentence alone whether to invoke visual features in English-to-Chinese machine translation, reducing visual calls while keeping quality near always-on multimodal inference.",
+     "sid": "8455ac0d04bbc04e",
+     "published": "2026-11-20T15:15:54+00:00",
+     "editor_note": "A text-only router decides when translation needs the image, cutting visual calls."
     },
     {
-     "title": "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs",
-     "url": "http://arxiv.org/abs/2611.28349v1",
+     "title": "AutoOntologyBench: A Task-Grounded Benchmark for Agentic Knowledge Engineering",
+     "url": "http://arxiv.org/abs/2611.27734v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Introduces Grammar-as-a-Draft (GaaD), which merges grammar-forced tokens into speculative decoding draft rows for JSON, regex, and tool-call outputs, raising acceptance length and decoding speed in vLLM and Rust runtimes on TPU v7x.",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "b6559df505fa2a9e",
-     "published": "2026-11-20T22:00:38+00:00",
-     "editor_note": "Grammar-forced tokens fill draft rows for JSON, regex and tool-call outputs in vLLM and Rust runtimes on TPU v7x."
+     "summary_1line": "Foundation-model agents are increasingly extending beyond software engineering (SWE) into autonomous scientific research, where acquiring and integrating domain knowledge remains a critical challenge. Recent industria...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "74b241bc7ba0b014",
+     "published": "2026-11-20T15:29:27+00:00",
+     "editor_note": "A task-grounded benchmark for agents that build ontologies."
+    },
+    {
+     "title": "Search-RSI: Expanding Search Worlds Along Multimodal Agents' Capability Frontier",
+     "url": "http://arxiv.org/abs/2611.27780v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Search-RSI is a self-improvement framework for multimodal search agents that expands the retrieval world with new tasks and evidence, reporting 9.8 and 9.5 point average accuracy gains at 9B and 27B across nine benchmarks.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "d5776de0ed715c7d",
+     "published": "2026-11-20T16:09:46+00:00",
+     "editor_note": "Search-RSI self-improvement reports 9.8 and 9.5 point gains at 9B and 27B."
+    },
+    {
+     "title": "Evaluating Prompting Strategies for Zero-Shot Multilingual Aspect-Based Sentiment Analysis with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.27807v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Evaluates zero-shot multilingual aspect-based sentiment triplet extraction across 12 languages, three domains and seven open-weight LLMs under four prompting strategies, finding direct monolithic prompting performs best.",
+     "sid": "45ad90fd8b412dd8",
+     "published": "2026-11-20T16:34:21+00:00",
+     "editor_note": "Across 12 languages and seven open-weight models, direct single prompts beat fancier strategies for sentiment triplets."
+    },
+    {
+     "title": "The Dual-Tier Sentiment Framework: Scalable Multimodal UX Attribution in Web Search",
+     "url": "http://arxiv.org/abs/2611.27899v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Describes a two-tier industrial framework for automated UX attribution in web search: a fine-tuned Gemini XS telemetry model for macro sentiment regression detection, and a Gemini 3.0 Pro multimodal model for layout-level diagnostics.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "d981cedec3aec798",
+     "published": "2026-11-20T17:38:26+00:00",
+     "editor_note": "Two-tier Gemini pipeline that attributes search UX sentiment regressions."
+    },
+    {
+     "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
+     "url": "http://arxiv.org/abs/2611.27973v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "MemOnce proposes an LLM architecture that caches compact final-layer hidden states as memory and decodes them into KV caches, reporting a 1313× smaller memory state cache and 6.9× lower prefill latency for Qwen3.5-4B at 1M context.",
+     "sid": "d43ec4840a23ed16",
+     "published": "2026-11-20T18:51:29+00:00",
+     "editor_note": "MemOnce reports a 1313x smaller memory cache and 6.9x lower prefill latency for Qwen3.5-4B at 1M context."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "items": [
+    {
+     "title": "Population-Based Post-Training for Large Language Models",
+     "url": "http://arxiv.org/abs/2611.29014v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Introduces Population-Based Post-Training (PBPT), which trains several RLVR models in parallel and uses population-based training to tune hyperparameters, reporting stronger agents than compute-matched independent runs on four benchmarks.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "cc1d845dd86911fc",
+     "published": "2026-11-21T19:50:24+00:00",
+     "editor_note": "Population-based training tunes RLVR hyperparameters across parallel runs."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-22",
+   "items": [
+    {
+     "title": "KernelShift: Benchmarking Kernel Optimization Across Evolving Hardware",
+     "url": "http://arxiv.org/abs/2611.29590v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "KernelShift is a benchmark that tests coding agents on CPU kernel optimization across Arm Neon, SVE, SVE2 and SME2, finding agents beat the compiler and some libraries but lag KleidiAI and struggle with SME2.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0c2537d2a4651ab8",
+     "published": "2026-11-22T16:25:24+00:00",
+     "editor_note": "KernelShift: coding agents beat the compiler on Arm kernels but trail KleidiAI and struggle with SME2."
     }
    ]
   },
   {
    "date": "2026-11-23",
    "items": [
+    {
+     "title": "Training-Free Interventions for Hallucination in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.29909v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "A survey of 116 works on inference-time methods for reducing LLM hallucination, comparing intervention families by evidence source, model access, and preparation cost, and noting metrics and limits to reported gains.",
+     "sid": "bccb2e92dff08cf7",
+     "published": "2026-11-23T02:07:52+00:00",
+     "editor_note": "Survey of 116 training-free hallucination fixes, compared by access needs and preparation cost."
+    },
+    {
+     "title": "mini-psych-agent: Evaluating Human-Like Behavior in LLM Agents through Interactive Psychological Environments",
+     "url": "http://arxiv.org/abs/2611.30365v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Presents mini-psych-agent, which converts psychological tasks into interactive environments and uses a learned human-policy model to measure how closely LLM agents' behavior matches human choices, finding this varies with agent configuration and task.",
+     "why_it_matters": "Matches feed focus: agentic, harness, evaluation.",
+     "sid": "77fc0e39997bf0b1",
+     "published": "2026-11-23T09:34:35+00:00",
+     "editor_note": "Measures how human-like agent choices are in psychological task environments."
+    },
     {
      "title": "Rethinking the Evaluation of Contrastive Decoding for Hallucination Mitigation in Multimodal Large Language Models",
      "url": "http://arxiv.org/abs/2611.30460v1",
@@ -196,18 +789,50 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "f378fea92addc171",
      "published": "2026-11-23T10:51:35+00:00",
-     "editor_note": "Side branch: CONCOR re-scores contrastive decoding by how it ranks real objects against hallucinated ones."
+     "editor_note": "CONCOR re-scores contrastive decoding by how it ranks real objects against hallucinated ones."
     },
     {
-     "title": "Look Back, Draft Ahead: Corrective Prefix Attention for Parallel Speculative Decoding",
-     "url": "http://arxiv.org/abs/2611.31112v1",
+     "title": "Test-Time Latent Computation to Improve Visual Perception in Multimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.30480v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Proposes Lobals, a training-free decoding method that re-runs a contiguous window of MLLM layers with the strongest visual-token attention to revisit visual evidence, reporting gains on vision-language, hallucination, and vision-centric tasks.",
+     "sid": "409ea0c8de755810",
+     "published": "2026-11-23T11:05:41+00:00",
+     "editor_note": "Lobals re-runs the most visually attentive layers at decode time, with no training."
+    },
+    {
+     "title": "Parsing Visual Latents for Multimodal Spatial Reasoning",
+     "url": "http://arxiv.org/abs/2611.31021v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Introduces Corrective Prefix Attention, a parallel speculative decoding method that lets draft tokens attend to earlier choices in the block, reporting 13–15% more committed tokens per round than DSpark and up to 3.37× mean speedup on Qwen3 targets.",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "f71af688b338f44d",
-     "published": "2026-11-23T17:52:33+00:00",
-     "editor_note": "Draft tokens attend to earlier block choices; 13-15% more committed tokens than DSpark, up to 3.37x on Qwen3."
+     "summary_1line": "LatentParse is a training-free framework that uses an analyst VLM to parse CLIP, DINOv3 and VGGT features into a text report of spatial evidence, improving five VLMs by 0.7-2.4 points on three spatial benchmarks.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "201b4ccaccfdd1ef",
+     "published": "2026-11-23T17:02:00+00:00",
+     "editor_note": "An analyst VLM turns vision-encoder features into a text spatial report, adding 0.7-2.4 points."
+    },
+    {
+     "title": "What People Choose Not to Say: A Multimodal Benchmark for Fine-Grained Information Manipulation in Conversations",
+     "url": "http://arxiv.org/abs/2611.31346v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Introduces InfoCon, a multimodal benchmark that labels six fine-grained information manipulation strategies in conversations, such as withholding, leakage, and fabrication, plus a coarse consistency label, and benchmarks representative multimodal models on it.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "55f174c136bef75a",
+     "published": "2026-11-23T17:57:08+00:00",
+     "editor_note": "InfoCon labels six information-manipulation strategies, such as withholding and fabrication, in multimodal conversations."
+    },
+    {
+     "title": "ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents",
+     "url": "http://arxiv.org/abs/2611.31198v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Introduces ToolSmith, a framework that automatically generates and reuses new tools on top of a lean base library for multimodal search agents, evaluated on 13 benchmarks with gains that grow with backbone size.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "a9604be3fa41d6ac",
+     "published": "2026-11-23T18:48:02+00:00",
+     "editor_note": "ToolSmith generates and reuses tools for multimodal search agents; gains grow with backbone size."
     }
    ]
   },
@@ -215,15 +840,15 @@
    "date": "2026-11-24",
    "items": [
     {
-     "title": "Pando: Noise-Coupled Parallel Draft Trees for Efficient Edge Speculative Decoding",
-     "url": "http://arxiv.org/abs/2611.32269v1",
-     "source": "arxiv_cs_lg",
+     "title": "ReQOR: Operator-Discrepancy Subspace Repair for Quantization-Conditioned Backdoors in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.32755v1",
+     "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Pando is a speculative decoding method that builds dynamic draft trees on a parallel drafter using noise-coupled pruning, reporting 5.3x speedup and 4.2x energy reduction over autoregressive decoding for a 16-node tree on an edge device.",
+     "summary_1line": "Proposes ReQOR, a training-free defense against quantization-conditioned backdoors in LLMs that repairs dominant same-state operator discrepancies on benign calibration data via a factorized residual adapter, tested on four LLMs.",
      "why_it_matters": "Matches feed focus: eval.",
-     "sid": "f5c599840c08b8e9",
-     "published": "2026-11-24T09:39:12+00:00",
-     "editor_note": "Noise-coupled draft-tree pruning on an edge device: 5.3x speedup and 4.2x energy reduction with a 16-node tree."
+     "sid": "a3483f98b2e0e165",
+     "published": "2026-11-24T15:00:23+00:00",
+     "editor_note": "ReQOR: training-free repair for backdoors that trigger only after quantization."
     },
     {
      "title": "LEGOSpec: A Composable and Efficient Framework for Speculative Draft Design and Training",
@@ -234,93 +859,245 @@
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "6f4da66d69ee069e",
      "published": "2026-11-24T17:29:40+00:00",
-     "editor_note": "Splits drafters into four swappable parts trained under matched conditions; its DFlux draft lifts acceptance on Qwen and Gemma."
+     "editor_note": "Carry-over from the speculative-decoding arc: LEGOSpec trains swappable draft parts; its DFlux draft lifts acceptance length."
     },
     {
-     "title": "Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions",
-     "url": "http://arxiv.org/abs/2611.33111v1",
-     "source": "arxiv_cs_lg",
+     "title": "Joint Estimation of Abilities and Item Parameters for Large Language Models Using Probability and Binary Responses: A Fractional-Response IRT Framework",
+     "url": "http://arxiv.org/abs/2611.33493v1",
+     "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "The paper applies post-hoc calibration, mainly standard temperature scaling, to the draft model in speculative decoding, reporting acceptance length gains of up to about 10% with almost no added cost across tasks.",
-     "sid": "420b2dee4fa3c677",
-     "published": "2026-11-24T18:41:59+00:00",
-     "editor_note": "Latest item: post-hoc temperature scaling of the draft model raises acceptance length up to ~10% at near-zero cost."
+     "summary_1line": "Large language model (LLM) evaluations provide two response types: probabilities assigned to correct answers and binary indicators of correctness. Restricting evaluation to one type narrows the range of available models or discards probability information. We propose a method to",
+     "sid": "ac286630ecd22068",
+     "published": "2026-11-24T22:15:52+00:00",
+     "editor_note": "IRT framework that uses both answer probabilities and binary correctness to score models."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "Interactive Proofs as a Unified Framework for Evaluating and Leveraging Verifiable Proof Generation by LLM Agents",
+     "url": "http://arxiv.org/abs/2611.33676v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Introduces Merlin-Bench, a benchmark of 100 cases across 15 problem families that tests whether LLM agents can produce proofs a formal verifier accepts under interactive-proof protocols, and reports that 10 frontier LLMs struggle with this.",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "f3919f64a3d29ec3",
+     "published": "2026-11-25T02:42:59+00:00",
+     "editor_note": "Merlin-Bench: 10 frontier LLMs struggle to produce proofs a formal verifier accepts."
+    },
+    {
+     "title": "EVA: Evidence-seeking Visual Agent for Hallucination-Resistant Multimodal Reasoning",
+     "url": "http://arxiv.org/abs/2611.33706v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Proposes EVA, a visual agent that reduces multimodal LLM hallucinations by gathering external visual evidence through iterative tool replanning, verifying answers against that evidence, and invoking tools selectively.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "38ddc0187aabdda6",
+     "published": "2026-11-25T03:19:42+00:00",
+     "editor_note": "EVA fetches external visual evidence and verifies answers against it, calling tools selectively."
+    },
+    {
+     "title": "ConTra: A Training Framework for Effective Contextual Retrieval via Prefix Generation",
+     "url": "http://arxiv.org/abs/2611.34366v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Data management systems organize large text collections for tasks such as finding relevant studies and extracting contract clauses. Systems make long documents searchable by splitting them into independently indexed c...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "41d42e322cfbc62a",
+     "published": "2026-11-25T13:30:46+00:00",
+     "editor_note": "ConTra trains prefix generation so independently indexed chunks keep their document context."
+    },
+    {
+     "title": "PoVi: Agentic Poetry-to-Video Generation with Knowledge Grounding and Figurative Understanding",
+     "url": "http://arxiv.org/abs/2611.34690v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces PoVi, a benchmark and agentic framework that turns poems into narrated videos via knowledge-grounded planning, reporting gains over single-call generation across three planners and four video generators.",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "adf21826c7462281",
+     "published": "2026-11-25T16:50:03+00:00",
+     "editor_note": "PoVi: agentic planning beats single-call generation for poem-to-video."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-26",
+   "items": [
+    {
+     "title": "Show HN: Dev-Mem – Local-first SQLite knowledge graph for AI coding agents",
+     "url": "https://github.com/HarsH-1877/Dev-Mem",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Dev-Mem is a local-first tool that gives AI coding agents such as Claude Code, Cursor, Codex and OpenCode a persistent SQLite knowledge store of decisions, failed approaches and constraints, injected into new sessions and optionally shared via Git.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "367ab28d69554f49",
+     "published": "2026-11-26T16:59:24+00:00",
+     "editor_note": "Latest item: Dev-Mem gives coding agents a local SQLite store of decisions and failed approaches, optionally shared via Git."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread was regrouped around speculative decoding, so it is now a run of preprints on drafting tokens cheaply and verifying them in one target pass. Nov 7-10 papers trained drafters directly on acceptance length and built block-diffusion draft trees, then Nov 13-20 work moved into serving: invalidated KV caches, looped models and grammar-constrained outputs.",
+  "tldr": "This thread was regrouped from a speculative-decoding run into a broad bucket of 77 papers and posts sharing the phrase \"large language\", mostly arXiv, from Nov 6. Its largest strands are hallucination fixes, which moved from preference alignment to decode-time methods, eval-validity papers, and RAG and agent-memory designs.",
   "stale": false,
-  "whats_new": "Nov 24: three papers attack the drafter itself: temperature-scaling the draft model lifts acceptance length up to ~10% at almost no cost, LEGOSpec trains swappable draft parts under matched conditions, and Pando reports 5.3x on an edge device.",
-  "why_it_matters": "Speculative decoding is a serving-side lever on decode latency and cost that leaves the target model's outputs unchanged, and this month's papers tune the parts an inference team actually owns: the drafter, the draft-tree shape, the KV cache and structured-output paths.",
-  "take_for_builders": "If you run speculative decoding, log acceptance length per route before changing anything, then try the cheapest lever first: temperature-scale your existing drafter on your own traffic, and for JSON or tool-call endpoints check whether grammar-forced tokens can fill draft rows.",
+  "whats_new": "Nov 26: Dev-Mem, a Show HN tool, gives Claude Code, Cursor, Codex and OpenCode a local SQLite store of past decisions and failed approaches, a day after Merlin-Bench found 10 frontier LLMs struggle to produce verifier-accepted proofs.",
+  "why_it_matters": "The useful signal for platform teams is in two strands: RAG citations can misstate provenance undetected, and eval scores move with rater drift and prompt framing, so both retrieval attribution and regression evals need their own checks.",
+  "take_for_builders": "Before trusting RAG citations, sample answers and check that the cited passage actually supports the claim; when a regression eval moves, re-score an older baseline with today's judges or rubric first to rule out rater drift.",
   "beats": [
    {
-    "kicker": "DRAFTER OBJECTIVES",
+    "kicker": "RETRIEVAL & MEMORY",
     "tone": "launch",
-    "headline": "Train the drafter on acceptance length, not token accuracy",
-    "summary": "D-REAL and REAL Loss both argue token-level losses miss the quantity that sets the speedup: how many draft tokens survive in a row.",
+    "headline": "RAG and agent memory: compress, compact, or build a knowledge graph",
+    "summary": "From pixel-compressed context to compacted fact memory, plus evidence that RAG citations misstate their sources.",
     "sids": [
-     "b1fe6c30c1c550df",
-     "256bf90ce51f6665"
+     "eb1f61303f3e3d57",
+     "49e633d61cb9577d",
+     "1eb45d5078fca72b",
+     "ba175d39f9ba45a4",
+     "9a823f949628f234",
+     "39c256e968e0b09a",
+     "4de03e96899a0073",
+     "c259fdb087f2c077",
+     "74b241bc7ba0b014",
+     "d43ec4840a23ed16"
     ]
    },
    {
-    "kicker": "DRAFT TREES",
+    "kicker": "EVALUATING MODELS",
     "tone": "rising",
-    "headline": "Block-diffusion drafters and smarter draft trees",
-    "summary": "Draft a whole block in one pass, then prune or fork the tree so verification rows are not wasted; a phrase-level drafter steps outside the target's vocabulary.",
+    "headline": "Eval papers question what benchmark scores measure",
+    "summary": "Rater drift, framing effects, adaptive users and hidden recall all move scores without the model changing.",
     "sids": [
-     "0491c6de7a511fb5",
-     "a4e942d0f147f07c",
-     "0aacbce5f85ac122",
-     "d9424aebc884a5c5"
+     "9c88a41fbb756af3",
+     "501ef39353c40289",
+     "dcfca63926ea22ea",
+     "f1908d0038e22f5b",
+     "173841a135ec48af",
+     "046191ac623ca927",
+     "590316d609c0ce23",
+     "53cced15d557cd0b",
+     "1e13d673398b4485",
+     "f1c00e19e15c137a",
+     "7223e80c757f1f59",
+     "45ad90fd8b412dd8",
+     "ac286630ecd22068"
     ]
    },
    {
-    "kicker": "SERVING",
+    "kicker": "AGENT BENCHMARKS",
+    "tone": "rising",
+    "headline": "New benchmarks for web, multimodal and long-horizon agents",
+    "sids": [
+     "2ffd7e8cb1f550c6",
+     "f90b714a57ce9fe0",
+     "871015d49de97b4a",
+     "58879952ed5ac223",
+     "77fc0e39997bf0b1",
+     "55f174c136bef75a"
+    ]
+   },
+   {
+    "kicker": "HALLUCINATION",
     "tone": "turn",
-    "headline": "Speculation moves into the serving stack",
-    "summary": "Drafting over invalidated KV under prefill-decode disaggregation, self-speculation for looped transformers, pre-sampled verification randomness and grammar-forced tokens for JSON and tool calls.",
+    "headline": "Hallucination work shifts to training-free, decode-time fixes",
+    "summary": "Mid-month preference-alignment papers give way to a 116-paper survey of inference-time methods and a benchmark that re-scores contrastive decoding.",
     "sids": [
-     "018074f62583197d",
-     "a34c118cc3850b60",
-     "c08838a1ebaaf444",
-     "b6559df505fa2a9e"
+     "5606760643e4651e",
+     "c9c6bd7b30cb6c70",
+     "3985de9df0cd2149",
+     "8138237fac2e053c",
+     "d495f69216affbb3",
+     "0d292c5fdc2bf79f",
+     "563c7d3375862838",
+     "1d45f44793728555",
+     "8455ac0d04bbc04e",
+     "bccb2e92dff08cf7",
+     "f378fea92addc171",
+     "409ea0c8de755810",
+     "201b4ccaccfdd1ef"
     ]
    },
    {
-    "kicker": "SIDE BRANCHES",
+    "kicker": "POST-TRAINING",
     "tone": "neutral",
-    "headline": "Other decoding work grouped in by wording",
-    "summary": "Hallucination-mitigating decoding for multimodal models and model fingerprinting under sampled decoding; not speculative decoding.",
+    "headline": "Post-training without gold labels: debate, noisy preferences, agent RL",
     "sids": [
-     "563c7d3375862838",
-     "fb7e5418185abe5a",
-     "f378fea92addc171"
+     "2e4c5bdb80c6e509",
+     "06c2c68bc425da7f",
+     "1c564d62e97c9758",
+     "baf7e4781272e609",
+     "51009fb859c1b51e",
+     "d5776de0ed715c7d",
+     "cc1d845dd86911fc"
+    ]
+   },
+   {
+    "kicker": "INFRA & KERNELS",
+    "tone": "neutral",
+    "headline": "LLMs writing kernels and planning training infrastructure",
+    "summary": "Kernel benchmarks on CUDA, Ascend and Arm, plus the one speculative-decoding paper left from this thread's earlier arc.",
+    "sids": [
+     "b76cb948754a8e57",
+     "c4a35e75b732ef4a",
+     "69a7c1548b162d4e",
+     "7b04b19e28032924",
+     "fb7a288ad791ee0d",
+     "81c44c827e9a0e1d",
+     "0c2537d2a4651ab8",
+     "6f4da66d69ee069e"
+    ]
+   },
+   {
+    "kicker": "SECURITY",
+    "tone": "alert",
+    "headline": "Attacks on AI infrastructure and model-level defenses",
+    "sids": [
+     "e1376b3038791065",
+     "8f0034965a63d29c",
+     "e497c044e025058b",
+     "7f32f43e5847c550",
+     "a3483f98b2e0e165"
+    ]
+   },
+   {
+    "kicker": "APPLIED & TOOLING",
+    "tone": "neutral",
+    "headline": "Applied agents and tool use, grouped in by wording",
+    "sids": [
+     "e07cc0f8ad9bbda1",
+     "3b4f703ae0a8f385",
+     "5ddb49a19fc35296",
+     "b6805052b5174dca",
+     "0fe69ec1eb1a4f14",
+     "ca54e3a4f2c1d30b",
+     "951243773dcd7469",
+     "3be6797ec1d79375",
+     "d981cedec3aec798",
+     "a9604be3fa41d6ac"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Back to the drafter: attention, calibration, modular parts and edge trees",
-    "summary": "Nov 23-24 papers improve the draft side rather than the verifier, from cheap temperature scaling to a composable training framework.",
+    "headline": "Verifiable outputs and persistent memory for coding agents",
+    "summary": "Nov 25-26: a formal-proof benchmark, evidence-checking visual agents, context-preserving chunk retrieval, and Dev-Mem.",
     "sids": [
-     "f71af688b338f44d",
-     "f5c599840c08b8e9",
-     "6f4da66d69ee069e",
-     "420b2dee4fa3c677"
+     "f3919f64a3d29ec3",
+     "38ddc0187aabdda6",
+     "41d42e322cfbc62a",
+     "adf21826c7462281",
+     "367ab28d69554f49"
     ]
    }
   ],
   "open_questions": [
-   "Do the reported speedups hold at production batch sizes and concurrency, where extra draft-tree rows compete for verification compute?",
-   "Does draft temperature scaling keep its ~10% acceptance gain when the target model or traffic mix changes after calibration?",
-   "Do Grammar-as-a-Draft or Callo land in a mainstream serving engine such as vLLM or SGLang beyond the authors' prototypes?",
-   "Does LEGOSpec's matched-condition comparison change which draft design (EAGLE-style, block diffusion, parallel) teams should default to?",
-   "Under the CONCOR benchmark, which published contrastive decoding methods still reduce multimodal hallucination?"
+   "Does any decode-time hallucination fix from the Nov 23 survey ship in a mainstream serving engine such as vLLM or SGLang?",
+   "Do MemOnce's 1313x memory-cache and 6.9x prefill-latency figures for Qwen3.5-4B at 1M context reproduce outside the authors' setup?",
+   "Does a citation-provenance check of the kind in \"Cited but Unused\" appear in an open RAG evaluation toolkit?",
+   "Does persistent agent memory like Dev-Mem get a measured effect on coding-agent task success, not just a demo?"
   ],
-  "generated_at": "2026-11-26T00:00:00Z"
+  "generated_at": "2026-11-27T00:13:52Z"
  }
 }

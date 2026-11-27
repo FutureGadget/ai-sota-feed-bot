@@ -1,0 +1,162 @@
+{
+ "slug": "case-study",
+ "label": "Case Study",
+ "item_count": 6,
+ "day_count": 5,
+ "source_count": 4,
+ "first_seen": "2026-11-09T21:25:08+00:00",
+ "last_updated": "2026-11-25T18:37:06+00:00",
+ "generated_at": "2026-11-27T00:14:18.666001+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cn_open_weight_reports",
+  "arxiv_cs_ai",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+     "url": "http://arxiv.org/abs/2611.13254v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried...",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "94045c979b35ebe7",
+     "published": "2026-11-09T21:25:08+00:00",
+     "editor_note": "Moves agent failure analysis from symptom labels to the step where an error first enters a trajectory."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "The AI Era's Lines of Code? A Case Study on What an Engineer's Token Spend Measures",
+     "url": "http://arxiv.org/abs/2611.13396v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Organizations use engineers' token spend to monitor AI adoption, set budgets, and measure productivity, but the metric's relationship with engineering output is unclear. We link five weeks of token usage in coding age...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "77f0b452ecfd74d0",
+     "published": "2026-11-10T00:17:26+00:00",
+     "editor_note": "Questions token spend as a productivity metric, using five weeks of coding-agent usage data."
+    },
+    {
+     "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+     "url": "http://arxiv.org/abs/2611.14051v1",
+     "source": "arxiv_cn_open_weight_reports",
+     "type": "paper",
+     "summary_1line": "Reusing key--value (KV) caches across language model updates could avoid repeated computation of shared context, but changes in model weights raise a fundamental question about what these caches preserve. We investiga...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "60cf435fff992a90",
+     "published": "2026-11-10T13:17:04+00:00",
+     "editor_note": "Adds an inference-cost angle: whether KV caches stay valid after a model update."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "items": [
+    {
+     "title": "Can We Make an LLM Dumber, or Is It Just Playing Dumb? An Empirical Study of Believable Performance Throttling",
+     "url": "http://arxiv.org/abs/2611.15568v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "A benchmark score is commonly read as a proxy for model capability. We study the inverse problem: can a model be driven to a target score, and do its failures resemble those of a naturally weaker model? We operationalize believable performance reduction along three axes: target c",
+     "sid": "9b791542dc8bb7cc",
+     "published": "2026-11-11T14:53:50+00:00",
+     "editor_note": "Asks whether a benchmark score can be deliberately lowered while the failures still look natural."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+     "url": "http://arxiv.org/abs/2611.18514v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "75db6f155d9769a5",
+     "published": "2026-11-13T18:30:58+00:00",
+     "editor_note": "Tests mechanistic interpretability on one concrete agent failure: hallucinated web elements."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches",
+     "url": "http://arxiv.org/abs/2611.34875v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Introduces Delta Residue Attribution, which reverts each patch unit and reruns tests to find unneeded edits, applying it to 7,660 Copilot CLI trajectories across 18 models on SWE-bench Verified and DeepSWE.",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "043f8331a0f789b2",
+     "published": "2026-11-25T18:37:06+00:00",
+     "editor_note": "Gives a test-based method for finding unneeded edits in agent patches, at the scale of 7,660 trajectories."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is not one story: the six papers share only the phrase \"case study\" or \"empirical study\" in their titles. They form a loose November run of arXiv work that measures how agents and models actually behave, covering where long-horizon errors enter, what token spend tracks, KV cache reuse, benchmark throttling and web-element hallucination.",
+  "stale": false,
+  "whats_new": "The newest paper reverts each unit of a coding-agent patch and reruns the tests to find unneeded edits, across 7,660 Copilot CLI trajectories from 18 models on SWE-bench Verified and DeepSWE.",
+  "why_it_matters": "The common thread is measurement: several of these papers test whether a number teams already rely on (pass rate, token spend, benchmark score) means what they assume it means.",
+  "take_for_builders": "If you gate coding-agent patches on passing tests alone, add a diff-size or revert-and-retest check, because a passing patch can still carry edits the tests never needed.",
+  "beats": [
+   {
+    "kicker": "WHERE AGENTS FAIL",
+    "tone": "launch",
+    "headline": "Two papers trace agent failures back to their origin",
+    "summary": "One follows long-horizon trajectories to where an error first enters. The other uses mechanistic interpretability on web agents that hallucinate page elements.",
+    "sids": [
+     "94045c979b35ebe7",
+     "75db6f155d9769a5"
+    ]
+   },
+   {
+    "kicker": "MEASUREMENT",
+    "tone": "rising",
+    "headline": "Token spend and benchmark scores are tested as proxies",
+    "summary": "One links five weeks of engineers' coding-agent token usage to their output. The other asks whether a model can be driven to a target score while looking like a naturally weaker model.",
+    "sids": [
+     "77f0b452ecfd74d0",
+     "9b791542dc8bb7cc"
+    ]
+   },
+   {
+    "kicker": "INFERENCE",
+    "tone": "neutral",
+    "headline": "KV cache reuse across a model update, tested on DeepSeek-V4-Flash",
+    "summary": "An infrastructure outlier in the cluster: it asks what a cached prefix still preserves after the model weights change.",
+    "sids": [
+     "60cf435fff992a90"
+    ]
+   },
+   {
+    "kicker": "LATEST",
+    "tone": "now",
+    "headline": "Coding agents' unneeded edits measured by revert-and-retest",
+    "summary": "Delta Residue Attribution reverts each patch unit and reruns the tests. Any edit the tests do not need counts as over-editing.",
+    "sids": [
+     "043f8331a0f789b2"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the over-edit study report which of the 18 models over-edit least, and by how much?",
+   "Does the token-spend paper find any correlation between spend and merged engineering output?",
+   "Does the DeepSeek-V4-Flash study find any cached state that survives a weight update without degrading outputs?",
+   "Does the long-horizon study name a control that catches errors at the step where they enter?"
+  ],
+  "generated_at": "2026-11-27T00:12:27Z"
+ }
+}

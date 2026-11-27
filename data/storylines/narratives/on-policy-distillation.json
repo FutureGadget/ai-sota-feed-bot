@@ -1,70 +1,58 @@
 {
   "slug": "on-policy-distillation",
-  "generated_at": "2026-11-11T00:13:33Z",
-  "covers_last_updated": "2026-11-09T18:07:42+00:00",
+  "generated_at": "2026-11-27T00:12:25Z",
+  "covers_last_updated": "2026-11-25T17:27:31+00:00",
   "covers_member_sids": [
-    "345d8b761233aa20",
-    "6ec8d30bc1da5744",
-    "79cbc9c6543a99c8",
     "0fc8668945f28662",
-    "43d2f07b8fa119c1"
+    "43d2f07b8fa119c1",
+    "9d2ae92f0e830442",
+    "bd9e024b04419d57",
+    "ef3d8c76b471800a"
   ],
-  "tldr": "On Oct 22 an arXiv paper asked when a student trained on its own sampled outputs should follow its teacher, a refinement of on-policy distillation (OPD). By Oct 30 papers had applied OPD to multi-agent routing and to rerankers, and on Nov 8 one measured how much quantized or asynchronous rollout mismatch OPD tolerates.",
-  "whats_new": "Nov 9: Agentic-OPD, an arXiv paper, argues that keeping only the best-validation checkpoint from GRPO agent training discards capabilities, and uses on-policy distillation to recover them.",
-  "why_it_matters": "On-policy distillation is moving from a training trick into agent post-training and serving components, and its rollout cost now has a studied trade-off against quantized or asynchronous inference.",
-  "take_for_builders": "If you RL-train agents with GRPO, keep intermediate checkpoints instead of only the best-validation one until Agentic-OPD's recovery results are reproduced; none of these papers has independent replication yet.",
+  "tldr": "On Nov 8 an arXiv paper measured how much quantized or asynchronous rollout mismatch on-policy distillation (OPD) tolerates. Over Nov 9-10, three papers pushed OPD into agent training: recovering skills lost to best-checkpoint GRPO selection, picking teacher reference trajectories for multi-turn tool use, and training coding-agent file-memory habits.",
+  "whats_new": "Nov 25: CARE-OPD, an arXiv paper, replays trajectory prefixes during on-policy distillation of long-horizon agents and reports 59.5% on SWE-bench Verified with 45% less training time than asynchronous online OPD.",
+  "why_it_matters": "OPD is becoming a standard agent post-training step, and rollout generation is its dominant cost; CARE-OPD and the mismatch study both target that cost directly.",
+  "take_for_builders": "If you distill long-horizon or coding agents on-policy, benchmark prefix replay against your async online OPD before buying more rollout compute; CARE-OPD's 45% saving is self-reported and unreplicated.",
   "status": {
     "state": "Active research thread",
-    "tone": "rising"
+    "tone": "rising",
+    "changed": "2026-11-25",
+    "detail": "A cluster of arXiv papers adapting OPD to agents and cutting its rollout cost; no independent replication yet."
   },
   "beats": [
     {
-      "kicker": "TEACHER TIMING",
-      "tone": "launch",
-      "headline": "Advantage-based method decides when the student should follow the teacher",
-      "sids": [
-        "345d8b761233aa20"
-      ]
-    },
-    {
-      "kicker": "SERVING",
-      "tone": "rising",
-      "headline": "OPD moves into multi-agent routing and decision-model rerankers",
-      "summary": "EvoRouter targets multi-agent serving configuration cost; DecisionRank distills LLM ranking into a model that scores without decoding.",
-      "sids": [
-        "6ec8d30bc1da5744",
-        "79cbc9c6543a99c8"
-      ]
-    },
-    {
       "kicker": "ROLLOUT COST",
-      "tone": "turn",
+      "tone": "launch",
       "headline": "Study tests how much training-inference mismatch OPD tolerates",
-      "sids": [
-        "0fc8668945f28662"
-      ]
+      "summary": "Quantized inference and asynchronous rollouts cut OPD's generation cost but make student samples drift from the trained policy.",
+      "sids": ["0fc8668945f28662"]
+    },
+    {
+      "kicker": "AGENT TURN",
+      "tone": "turn",
+      "headline": "OPD moves into agent RL, tool-use trajectories, and coding-agent memory",
+      "summary": "Three papers in two days apply OPD to multi-turn agents rather than single-response students.",
+      "sids": ["43d2f07b8fa119c1", "9d2ae92f0e830442", "bd9e024b04419d57"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Agentic-OPD recovers agent skills lost to best-checkpoint selection",
-      "sids": [
-        "43d2f07b8fa119c1"
-      ]
+      "headline": "CARE-OPD claims 45% faster agent distillation via prefix replay",
+      "sids": ["ef3d8c76b471800a"]
     }
   ],
   "open_questions": [
-    "Does the advantage-based method beat plain on-policy distillation on agentic tasks, not only its own benchmarks?",
-    "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?",
-    "Does DecisionRank's distilled reranker match its LLM teacher's ranking quality on a third party's data?",
     "What quantization level or rollout staleness does the mismatch study find safe for OPD students?",
-    "Does any group release code that reproduces Agentic-OPD's capability recovery on a different agent benchmark?"
+    "Does any group release code that reproduces Agentic-OPD's capability recovery on a different agent benchmark?",
+    "Does action-sequence alignment for choosing teacher references beat using any successful trajectory on a public tool-use benchmark?",
+    "Does CARE-OPD's 59.5% SWE-bench Verified result and 45% training-time cut hold when a third party reruns it?",
+    "Is prefix replay compatible with quantized rollouts, or do the two cost savings conflict?"
   ],
   "day_captions": {
-    "345d8b761233aa20": "Adds a rule for when the student should defer to the teacher.",
-    "6ec8d30bc1da5744": "Moves the technique from training a model to choosing multi-agent serving configurations.",
-    "79cbc9c6543a99c8": "Applies the technique to ranking, distilling an LLM into a decision model.",
-    "0fc8668945f28662": "Examines the cost side: whether cheap quantized or asynchronous rollouts break OPD training.",
-    "43d2f07b8fa119c1": "Brings OPD into agent RL, using discarded GRPO checkpoints as a source of lost skills."
+    "0fc8668945f28662": "Sets up the cost problem: whether cheap quantized or asynchronous rollouts break OPD training.",
+    "43d2f07b8fa119c1": "Brings OPD into agent RL, using discarded GRPO checkpoints as a source of lost skills.",
+    "9d2ae92f0e830442": "Asks which successful trajectories make good teacher references for multi-turn tool-use agents.",
+    "bd9e024b04419d57": "Applies OPD to coding-agent memory: teaching when to write and read files on long tasks.",
+    "ef3d8c76b471800a": "Attacks rollout cost for long-horizon agents with prefix replay, with SWE-bench Verified numbers."
   }
 }

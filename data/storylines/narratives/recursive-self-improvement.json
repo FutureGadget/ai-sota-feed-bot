@@ -1,46 +1,78 @@
 {
   "slug": "recursive-self-improvement",
-  "generated_at": "2026-11-20T00:12:43Z",
-  "covers_last_updated": "2026-11-18T15:53:39+00:00",
-  "covers_member_sids": ["35be0c1374147cac", "89699433fb1b1431", "04524b2773c6396e", "1b4724d33b96f50b", "a023d867fd30b5bd"],
-  "tldr": "September's recursive self-improvement (RSI) papers retrained models on their own output; November's wave instead has agents rewrite their harness (prompts, tools, memory, control loop) with the base model frozen. Early November added a benchmark for that loop, a statistical-guarantee method to keep it trustworthy, and a multi-agent version for closed-loop science.",
-  "whats_new": "Two Nov 18 papers push RSI back into the weights: BaseRSI internalizes harness gains into a base vision-language model without training, and Piccolo co-evolves 0.8B-27B decision models with their own training data.",
-  "why_it_matters": "Harness-level RSI means an agent can change its own prompts, tools, and memory in production, so the harness itself becomes a versioned artifact that needs evals and rollback.",
+  "generated_at": "2026-11-27T00:12:41Z",
+  "covers_last_updated": "2026-11-25T16:39:10+00:00",
+  "covers_member_sids": [
+    "35be0c1374147cac",
+    "89699433fb1b1431",
+    "04524b2773c6396e",
+    "1b4724d33b96f50b",
+    "a023d867fd30b5bd",
+    "1b2734c206699b0c",
+    "32c3fead4c4d14a7",
+    "9987c5546ed30517"
+  ],
+  "tldr": "Early November's recursive self-improvement (RSI) papers had agents rewrite their own harness (prompts, tools, memory, control loop) with the base model frozen, and added a benchmark, a statistical acceptance test, and a multi-agent science version. From Nov 18 the loop moved into the weights: BaseRSI, Piccolo, and test-time TT-RSI each fold self-generated gains back into the model.",
+  "whats_new": "RSI now has a second science benchmark and its first robotics loop: RecurSciBench (Nov 24) tests whether agents' self-improvement transfers to new tasks, and RoboEvo² (Nov 25) has a coding agent and a VLA policy improve each other.",
+  "why_it_matters": "Self-improving loops now edit harnesses, weights, and robot policies, so the harness and every self-edit become versioned artifacts that need held-out evals, transfer checks, and rollback.",
   "beats": [
     {
       "kicker": "MEASUREMENT",
       "tone": "launch",
       "headline": "Harness RSI gets a benchmark and a statistical safety check",
-      "summary": "Flex-RSI scores how well frontier agents improve their own harness; a second paper adds statistical guarantees so a self-edit is accepted only when it provably helps.",
-      "sids": ["35be0c1374147cac", "89699433fb1b1431"]
+      "summary": "Flex-RSI scores how well frontier agents improve their own harness; a second paper accepts a self-edit only with statistical evidence that it helps.",
+      "sids": [
+        "35be0c1374147cac",
+        "89699433fb1b1431"
+      ]
     },
     {
       "kicker": "MULTI-AGENT",
       "tone": "rising",
       "headline": "SciMARS applies recursive harness adaptation to multi-agent scientific discovery",
       "summary": "Analysis, experiment design, and verification agents adapt their shared harness task by task in a closed loop.",
-      "sids": ["04524b2773c6396e"]
+      "sids": [
+        "04524b2773c6396e"
+      ]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "RSI moves from the harness back into the model",
+      "summary": "BaseRSI internalizes harness gains without training, Piccolo co-evolves a 0.8B-27B model family with its data, and TT-RSI distills test-time refinements into weights.",
+      "sids": [
+        "1b4724d33b96f50b",
+        "a023d867fd30b5bd",
+        "1b2734c206699b0c"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "RSI moves from the harness back into the model",
-      "summary": "BaseRSI targets harness-bound gains that stay outside the model; Piccolo co-evolves model and data across a 0.8B-27B family.",
-      "sids": ["1b4724d33b96f50b", "a023d867fd30b5bd"]
+      "headline": "Transfer benchmarks and an embodied loop",
+      "summary": "RecurSciBench checks whether self-improvement carries to new science tasks; RoboEvo² co-evolves a robot harness and policy.",
+      "sids": [
+        "32c3fead4c4d14a7",
+        "9987c5546ed30517"
+      ]
     }
   ],
   "open_questions": [
-    "Does Flex-RSI publish per-model scores that show which frontier agents actually gain from editing their own harness?",
+    "Does Flex-RSI or RecurSciBench publish per-model scores that show which frontier agents actually gain from self-improvement?",
     "Do statistical acceptance tests for self-edits hold when the eval distribution shifts after deployment?",
     "Does BaseRSI's training-free internalization keep its gains on tasks outside the harness it learned from?",
-    "Do any of these loops report results outside their own benchmark harnesses?"
+    "Does TT-RSI's label-free +13.89% gain survive on benchmarks where earlier solutions are often wrong?",
+    "Do RoboEvo²'s simulation gains on LIBERO-PRO and RoboTwin carry over to real robots?"
   ],
-  "take_for_builders": "If your agent edits its own prompts, tools, or memory, version every self-edit and gate it on a held-out eval with a rollback path before it reaches production.",
+  "take_for_builders": "If your agent edits its own prompts, tools, memory, or weights, version every self-edit and gate it on a held-out eval of unseen tasks, with a rollback path, before it reaches production.",
   "day_captions": {
     "35be0c1374147cac": "Reframes RSI around the harness and adds a benchmark for frontier agents improving it.",
     "89699433fb1b1431": "Adds statistical guarantees so harness self-edits are accepted only with evidence.",
     "04524b2773c6396e": "Extends harness RSI from a single agent to a multi-agent scientific-discovery loop.",
     "1b4724d33b96f50b": "Moves harness gains into a base vision-language model without a training run.",
-    "a023d867fd30b5bd": "Co-evolves model weights and training data, with a model family spanning 0.8B to 27B."
+    "a023d867fd30b5bd": "Co-evolves model weights and training data, with a model family spanning 0.8B to 27B.",
+    "1b2734c206699b0c": "Brings RSI to test time without labels, distilling refinements into weights for a reported +13.89% average gain.",
+    "32c3fead4c4d14a7": "Second science benchmark, built to test whether self-improvement transfers to new tasks across four domains.",
+    "9987c5546ed30517": "First embodied loop: a coding agent and a VLA policy improve each other without new human demonstrations."
   }
 }

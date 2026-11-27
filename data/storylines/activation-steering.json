@@ -4,30 +4,14 @@
  "item_count": 3,
  "day_count": 3,
  "source_count": 2,
- "first_seen": "2026-11-02T17:53:26+00:00",
- "last_updated": "2026-11-19T18:59:53+00:00",
- "generated_at": "2026-11-23T00:13:28.700650+00:00",
+ "first_seen": "2026-11-13T15:06:43+00:00",
+ "last_updated": "2026-11-25T17:30:37+00:00",
+ "generated_at": "2026-11-27T00:14:18.666001+00:00",
  "sources": [
-  "arxiv_cs_cl",
-  "arxiv_cs_lg"
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-11-02",
-   "items": [
-    {
-     "title": "VIAS: Value-Isolating Activation Steering for Multi-Value Alignment and Compliance for Organisations",
-     "url": "http://arxiv.org/abs/2611.03518v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Organisations increasingly deploy large language model agents that must follow organisational values. We check whether activation steering, which adds vectors to a model's internal activations during generation withou...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "ba560efbe9932076",
-     "published": "2026-11-02T17:53:26+00:00",
-     "editor_note": "Frames steering as a compliance tool for agents bound by multiple organisational values."
-    }
-   ]
-  },
   {
    "date": "2026-11-13",
    "items": [
@@ -57,26 +41,34 @@
      "editor_note": "Extends the idea from text models to diffusion transformers and to explaining RL post-training."
     }
    ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination",
+     "url": "http://arxiv.org/abs/2611.34762v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Proposes TASK memory, which pairs a text note with activation steering and a removable knowledge edit to reduce use-time memory hallucinations in frozen LLMs, reporting memory-ignoring errors cut to at most 1.5% across ten model-dataset cells.",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "69a487d02c92b580",
+     "published": "2026-11-25T17:30:37+00:00",
+     "editor_note": "First application to agent memory, with a reported error ceiling of 1.5% across ten model-dataset cells."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "On Nov 2 the VIAS paper tested activation steering, adding vectors to internal activations at generation time, to make LLM agents follow several organisational values at once. A Nov 13 paper argued that steering every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory.",
+  "tldr": "A Nov 13 paper argued that SAE steering applied to every token pushes representations off-distribution and proposed per-token gating that follows the generation trajectory. A Nov 19 paper then recast RL post-training of diffusion transformers as activation steering, tying a costly training step to an inference-time intervention.",
   "stale": false,
-  "whats_new": "A Nov 19 paper argues that RL post-training of diffusion transformers amounts to activation steering, linking a costly training step to an inference-time intervention.",
-  "why_it_matters": "Activation steering is a behavior control that needs no fine-tuning run, so if it can isolate values, gate per token, or stand in for RL gains, teams get a cheaper lever for compliance and quality tuning on open-weight models.",
-  "take_for_builders": "If you steer an open-weight model for policy compliance, measure output quality with steering on versus off per token before shipping; always-on steering is the failure mode the Nov 13 paper targets.",
+  "whats_new": "A Nov 25 paper, TASK memory, pairs each text memory note with activation steering and a removable knowledge edit, reporting memory-ignoring errors cut to at most 1.5% across ten model-dataset cells on frozen LLMs.",
+  "why_it_matters": "Activation steering is moving from a behavior knob into agent memory, so teams fighting memory hallucination on open-weight models get a no-fine-tuning option beyond better retrieval and prompting.",
+  "take_for_builders": "If your agent ignores or misuses its stored notes on a frozen open-weight model, add a memory-ignoring error rate to your evals now so you can compare TASK-style steering against your current retrieval setup.",
   "beats": [
    {
-    "kicker": "COMPLIANCE",
-    "tone": "launch",
-    "headline": "VIAS isolates per-value steering vectors for organisational compliance",
-    "sids": [
-     "ba560efbe9932076"
-    ]
-   },
-   {
     "kicker": "REFINEMENT",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "SAE steering moves from every token to trajectory-aware gating",
     "summary": "Targets the off-distribution drift that always-on steering causes.",
     "sids": [
@@ -84,20 +76,29 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "REFRAME",
+    "tone": "turn",
     "headline": "RL post-training in diffusion transformers recast as activation steering",
     "sids": [
      "63c5d50779da2bd3"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "TASK memory uses steering plus knowledge edits against memory hallucination",
+    "summary": "Moves steering from output control into how frozen LLMs use stored memories.",
+    "sids": [
+     "69a487d02c92b580"
+    ]
    }
   ],
   "open_questions": [
-   "Does VIAS keep several value vectors from interfering when they are applied together?",
    "How much generation quality does trajectory-aware gating recover compared with steering every token?",
    "Can a steering vector reproduce the RL post-training gains in diffusion transformers without running RL?",
-   "Does any result here carry over between text LLMs and diffusion transformers?"
+   "What latency and storage cost does TASK memory add per stored memory compared with text-only notes?",
+   "Do TASK memory's removable knowledge edits stay isolated when many memories are active at once?"
   ],
-  "generated_at": "2026-11-22T00:12:43Z"
+  "generated_at": "2026-11-27T00:12:32Z"
  }
 }

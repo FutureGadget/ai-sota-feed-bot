@@ -2,65 +2,17 @@
  "slug": "on-policy-distillation",
  "label": "On-Policy Distillation",
  "item_count": 5,
- "day_count": 5,
+ "day_count": 4,
  "source_count": 3,
- "first_seen": "2026-10-22T17:05:21+00:00",
- "last_updated": "2026-11-09T18:07:42+00:00",
- "generated_at": "2026-11-11T00:14:41.869679+00:00",
+ "first_seen": "2026-11-08T15:22:47+00:00",
+ "last_updated": "2026-11-25T17:27:31+00:00",
+ "generated_at": "2026-11-27T00:14:18.666001+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl",
   "arxiv_cs_lg"
  ],
  "days": [
-  {
-   "date": "2026-10-22",
-   "items": [
-    {
-     "title": "When to Follow the Teacher: Advantage-Based On-Policy Distillation",
-     "url": "http://arxiv.org/abs/2610.31563v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Online Policy Distillation (OPD) often outperforms offline methods such as Supervised Fine-Tuning (SFT) by training on trajectories sampled directly from the student. However, standard OPD trains the student to follow...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "345d8b761233aa20",
-     "published": "2026-10-22T17:05:21+00:00",
-     "editor_note": "Adds a rule for when the student should defer to the teacher."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-26",
-   "items": [
-    {
-     "title": "EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation",
-     "url": "http://arxiv.org/abs/2610.35690v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space g...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "6ec8d30bc1da5744",
-     "published": "2026-10-26T16:21:00+00:00",
-     "editor_note": "Moves the technique from training a model to choosing multi-agent serving configurations."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-30",
-   "items": [
-    {
-     "title": "DecisionRank: On-Policy Distillation for Decision-Model Rerankers",
-     "url": "http://arxiv.org/abs/2610.42128v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Decision models target structured tasks by directly predicting choices or scores, avoiding autoregressive decoding latency. However, transferring a generative LLM's ranking knowledge to a decision model remains challe...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "79cbc9c6543a99c8",
-     "published": "2026-10-30T17:56:58+00:00",
-     "editor_note": "Applies the technique to ranking, distilling an LLM into a decision model."
-    }
-   ]
-  },
   {
    "date": "2026-11-08",
    "items": [
@@ -72,7 +24,7 @@
      "summary_1line": "On-policy distillation (OPD) trains a student language model on its own responses, guided by a fixed teacher. Generating these responses is expensive, so systems use quantized inference and asynchronous rollouts to reduce the cost. Both, however, introduce training-inference mism",
      "sid": "0fc8668945f28662",
      "published": "2026-11-08T15:22:47+00:00",
-     "editor_note": "Examines the cost side: whether cheap quantized or asynchronous rollouts break OPD training."
+     "editor_note": "Sets up the cost problem: whether cheap quantized or asynchronous rollouts break OPD training."
     }
    ]
   },
@@ -89,63 +41,102 @@
      "sid": "43d2f07b8fa119c1",
      "published": "2026-11-09T18:07:42+00:00",
      "editor_note": "Brings OPD into agent RL, using discarded GRPO checkpoints as a source of lost skills."
+    },
+    {
+     "title": "Which Successes Make Good References? Action-Sequence Alignment for Multi-Turn On-Policy Distillation",
+     "url": "http://arxiv.org/abs/2611.13135v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "On-policy distillation (OPD) reduces train-inference distribution mismatch by supervising a student on its own trajectories. For multi-turn tool-use agents, conditioning the teacher on a validated same-task successful...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "9d2ae92f0e830442",
+     "published": "2026-11-09T19:18:25+00:00",
+     "editor_note": "Asks which successful trajectories make good teacher references for multi-turn tool-use agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Coding Agent Memory Post-Training II: Unlocking the Memory Potential of Pre-trained File Operations for Long-Horizon Tasks via On-Policy Distillation",
+     "url": "http://arxiv.org/abs/2611.14009v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what to read back, and when to do either. R...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "bd9e024b04419d57",
+     "published": "2026-11-10T12:49:24+00:00",
+     "editor_note": "Applies OPD to coding-agent memory: teaching when to write and read files on long tasks."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "Collect for Coverage, Replay with Evidence: Adaptive and Efficient On-Policy Distillation for Long-Horizon Agents",
+     "url": "http://arxiv.org/abs/2611.34756v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces CARE-OPD, a prefix-replay method for on-policy distillation of long-horizon agents that reports 59.5% task success on SWE-bench Verified while cutting training time by 45% versus asynchronous online OPD.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "ef3d8c76b471800a",
+     "published": "2026-11-25T17:27:31+00:00",
+     "editor_note": "Attacks rollout cost for long-horizon agents with prefix replay, with SWE-bench Verified numbers."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "On Oct 22 an arXiv paper asked when a student trained on its own sampled outputs should follow its teacher, a refinement of on-policy distillation (OPD). By Oct 30 papers had applied OPD to multi-agent routing and to rerankers, and on Nov 8 one measured how much quantized or asynchronous rollout mismatch OPD tolerates.",
+  "tldr": "On Nov 8 an arXiv paper measured how much quantized or asynchronous rollout mismatch on-policy distillation (OPD) tolerates. Over Nov 9-10, three papers pushed OPD into agent training: recovering skills lost to best-checkpoint GRPO selection, picking teacher reference trajectories for multi-turn tool use, and training coding-agent file-memory habits.",
   "stale": false,
-  "whats_new": "Nov 9: Agentic-OPD, an arXiv paper, argues that keeping only the best-validation checkpoint from GRPO agent training discards capabilities, and uses on-policy distillation to recover them.",
-  "why_it_matters": "On-policy distillation is moving from a training trick into agent post-training and serving components, and its rollout cost now has a studied trade-off against quantized or asynchronous inference.",
-  "take_for_builders": "If you RL-train agents with GRPO, keep intermediate checkpoints instead of only the best-validation one until Agentic-OPD's recovery results are reproduced; none of these papers has independent replication yet.",
+  "whats_new": "Nov 25: CARE-OPD, an arXiv paper, replays trajectory prefixes during on-policy distillation of long-horizon agents and reports 59.5% on SWE-bench Verified with 45% less training time than asynchronous online OPD.",
+  "why_it_matters": "OPD is becoming a standard agent post-training step, and rollout generation is its dominant cost; CARE-OPD and the mismatch study both target that cost directly.",
+  "take_for_builders": "If you distill long-horizon or coding agents on-policy, benchmark prefix replay against your async online OPD before buying more rollout compute; CARE-OPD's 45% saving is self-reported and unreplicated.",
   "status": {
    "state": "Active research thread",
-   "tone": "rising"
+   "tone": "rising",
+   "changed": "2026-11-25",
+   "detail": "A cluster of arXiv papers adapting OPD to agents and cutting its rollout cost; no independent replication yet."
   },
   "beats": [
    {
-    "kicker": "TEACHER TIMING",
-    "tone": "launch",
-    "headline": "Advantage-based method decides when the student should follow the teacher",
-    "sids": [
-     "345d8b761233aa20"
-    ]
-   },
-   {
-    "kicker": "SERVING",
-    "tone": "rising",
-    "headline": "OPD moves into multi-agent routing and decision-model rerankers",
-    "summary": "EvoRouter targets multi-agent serving configuration cost; DecisionRank distills LLM ranking into a model that scores without decoding.",
-    "sids": [
-     "6ec8d30bc1da5744",
-     "79cbc9c6543a99c8"
-    ]
-   },
-   {
     "kicker": "ROLLOUT COST",
-    "tone": "turn",
+    "tone": "launch",
     "headline": "Study tests how much training-inference mismatch OPD tolerates",
+    "summary": "Quantized inference and asynchronous rollouts cut OPD's generation cost but make student samples drift from the trained policy.",
     "sids": [
      "0fc8668945f28662"
     ]
    },
    {
+    "kicker": "AGENT TURN",
+    "tone": "turn",
+    "headline": "OPD moves into agent RL, tool-use trajectories, and coding-agent memory",
+    "summary": "Three papers in two days apply OPD to multi-turn agents rather than single-response students.",
+    "sids": [
+     "43d2f07b8fa119c1",
+     "9d2ae92f0e830442",
+     "bd9e024b04419d57"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Agentic-OPD recovers agent skills lost to best-checkpoint selection",
+    "headline": "CARE-OPD claims 45% faster agent distillation via prefix replay",
     "sids": [
-     "43d2f07b8fa119c1"
+     "ef3d8c76b471800a"
     ]
    }
   ],
   "open_questions": [
-   "Does the advantage-based method beat plain on-policy distillation on agentic tasks, not only its own benchmarks?",
-   "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?",
-   "Does DecisionRank's distilled reranker match its LLM teacher's ranking quality on a third party's data?",
    "What quantization level or rollout staleness does the mismatch study find safe for OPD students?",
-   "Does any group release code that reproduces Agentic-OPD's capability recovery on a different agent benchmark?"
+   "Does any group release code that reproduces Agentic-OPD's capability recovery on a different agent benchmark?",
+   "Does action-sequence alignment for choosing teacher references beat using any successful trajectory on a public tool-use benchmark?",
+   "Does CARE-OPD's 59.5% SWE-bench Verified result and 45% training-time cut hold when a third party reruns it?",
+   "Is prefix replay compatible with quantized rollouts, or do the two cost savings conflict?"
   ],
-  "generated_at": "2026-11-11T00:13:33Z"
+  "generated_at": "2026-11-27T00:12:25Z"
  }
 }

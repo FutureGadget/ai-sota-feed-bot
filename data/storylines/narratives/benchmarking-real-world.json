@@ -1,72 +1,104 @@
 {
   "slug": "benchmarking-real-world",
-  "generated_at": "2026-11-18T00:13:29Z",
-  "covers_last_updated": "2026-11-16T18:32:05+00:00",
+  "generated_at": "2026-11-27T00:12:28Z",
+  "covers_last_updated": "2026-11-25T18:58:42+00:00",
   "covers_member_sids": [
-    "ef4c20cc8b60cd08",
-    "45b80d77d473d30f",
+    "e15bcaa61f6af9ac",
     "138e084674254809",
     "23c0753cd928bfa7",
+    "f5f5bfe9b72425ef",
+    "29f0e99816524f78",
     "d56fa1c78b5794b5",
+    "e372c76cd210406f",
+    "61fe6193294930a8",
     "004673f14a75854b",
-    "46d71c45a0641225"
+    "52c1ddc39f6c73dc",
+    "2477e7048eea6d93"
   ],
-  "tldr": "This is a research trend, not one event: six unrelated arXiv papers in ten days each build an agent benchmark from real sessions, real tools or real fixes. It began with group-assistant memory (Nov 3), added MCP hallucinations and memory poisoning, then moved to long-horizon infra work, researcher workspaces and privacy-aware code review (Nov 13).",
-  "whats_new": "The newest member (Nov 16) is a quantum recurrent-network benchmark for time-series prediction; it shares only the word \"benchmarking\", so PrivacyPR (Nov 13) remains the last agent-relevant entry.",
-  "why_it_matters": "Each agent paper argues that standalone task scores overstate how agents behave on stateful, tool-heavy, long-horizon or compliance-sensitive work, which is the work platform teams actually deploy them on.",
+  "tldr": "This is a research trend, not one event: unrelated arXiv papers since Nov 6 each test agents on real sessions, real tools or real fixes instead of standalone tasks. It began with memory poisoning and voice-agent speaker separation, then moved to long-horizon infra work, researcher workspaces, privacy-aware code review (Nov 13) and agentic video (Nov 18).",
+  "whats_new": "μ-Bench (Nov 25) tests voice agents serving several users at once across 800 simulated cases in 20 domains; proprietary agents reach about 62–65% success while open-weight models stay below 20%.",
+  "why_it_matters": "Each paper argues that standalone task scores overstate how agents behave on stateful, multi-party, long-horizon or compliance-sensitive work, and μ-Bench puts a 40-point gap between proprietary and open-weight voice agents on exactly that kind of work.",
   "beats": [
     {
       "kicker": "MEMORY",
       "tone": "launch",
-      "headline": "Group-assistant benchmark tests memory use, not just recall",
-      "summary": "Evaluates whether an assistant shared by many users turns remembered context into appropriate help when there is no fixed answer.",
-      "sids": ["ef4c20cc8b60cd08"]
+      "headline": "MemoryDojo shows agent memory is an attack surface",
+      "summary": "Malicious instructions can persist across sessions through memory; companion papers study coordination through shared memory and evolve memory designs as programs.",
+      "sids": [
+        "138e084674254809",
+        "29f0e99816524f78",
+        "61fe6193294930a8"
+      ]
     },
     {
-      "kicker": "FAILURE MODES",
-      "tone": "turn",
-      "headline": "MCPHallu and MemoryDojo benchmark how agents break",
-      "summary": "One measures reasoning, execution and memory hallucinations in MCP tool use; the other tests whether malicious instructions persist through agent memory across sessions.",
-      "sids": ["45b80d77d473d30f", "138e084674254809"]
+      "kicker": "VOICE",
+      "tone": "rising",
+      "headline": "Voice-agent benchmarks move past single-turn speech",
+      "summary": "One measures whether speaker embedders isolate the active user from background speech in under a second; Joi-Bench-Task tests task coordination while the user interrupts or redirects.",
+      "sids": [
+        "e15bcaa61f6af9ac",
+        "f5f5bfe9b72425ef"
+      ]
     },
     {
       "kicker": "LONG HORIZON",
       "tone": "rising",
       "headline": "Infrathon and ARE-bench test agents on sustained real work",
-      "summary": "One asks whether agents keep improving real AI infrastructure over long horizons; the other scores research agents inside real researcher sessions and workspaces.",
-      "sids": ["23c0753cd928bfa7", "d56fa1c78b5794b5"]
+      "summary": "Agents optimize real AI infrastructure and deliver inside real researcher workspaces; a systems paper cuts batch makespan for running these agent workloads.",
+      "sids": [
+        "23c0753cd928bfa7",
+        "d56fa1c78b5794b5",
+        "e372c76cd210406f"
+      ]
     },
     {
       "kicker": "CODE REVIEW",
       "tone": "rising",
       "headline": "PrivacyPR targets privacy defects in agent code review",
       "summary": "A dataset linking real privacy fixes to the defects they repaired, aimed at coding agents that review pull requests.",
-      "sids": ["004673f14a75854b"]
+      "sids": [
+        "004673f14a75854b"
+      ]
     },
     {
-      "kicker": "OFF-THREAD",
-      "tone": "neutral",
-      "headline": "Quantum RNN time-series benchmark joins on a shared keyword",
-      "summary": "Quantum machine-learning research with no agent or platform angle; clustered here only by the word \"benchmarking\".",
-      "sids": ["46d71c45a0641225"]
+      "kicker": "VIDEO",
+      "tone": "rising",
+      "headline": "VideoACE asks agents to act on high-frame-rate video",
+      "summary": "Scores whether agents interact with a video environment to gather evidence, not just answer questions about clips.",
+      "sids": [
+        "52c1ddc39f6c73dc"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "μ-Bench: multi-user voice agents, with a wide open-weight gap",
+      "summary": "800 simulated shared-interaction cases across 20 domains and 13 agents; proprietary systems reach about 62–65% success, open-weight models stay below 20%.",
+      "sids": [
+        "2477e7048eea6d93"
+      ]
     }
   ],
   "open_questions": [
     "Will any of these benchmarks publish a public leaderboard with frontier-model scores?",
-    "Which MCP hallucination type in MCPHallu do current agents fail most often: reasoning, execution or memory?",
     "Does MemoryDojo show poisoned memory surviving into later sessions for the memory systems teams actually ship?",
     "Do agents that score well on standalone suites rank lower on Infrathon or ARE-bench, as the authors suggest?",
     "What share of PrivacyPR's real privacy defects do current coding-agent reviewers catch?",
+    "Does μ-Bench's open-weight gap come from the base model or from the voice-agent scaffolding around it?",
     "Will the datasets and harnesses be released openly enough to rerun as internal evals?"
   ],
-  "take_for_builders": "If your agents persist memory or call MCP tools, add an eval that replays a poisoned instruction across sessions and logs tool-call hallucinations; keep gating rollouts on one eval built from your own logged sessions, not public scores alone.",
+  "take_for_builders": "If you ship a voice agent on an open-weight model, test it on multi-speaker sessions before rollout; if your agents persist memory, add an eval that replays a poisoned instruction across sessions.",
   "day_captions": {
-    "ef4c20cc8b60cd08": "Opens the cluster: memory evaluated by the quality of assistance it enables across many users.",
-    "45b80d77d473d30f": "Shifts to failure modes: hallucinations in reasoning, execution and memory for agents using MCP tools across servers.",
-    "138e084674254809": "Adds a security angle: malicious instructions from one session persisting through agent memory into later ones.",
+    "e15bcaa61f6af9ac": "Opens the voice angle: can the agent tell the active user from TV audio or colleagues in under a second.",
+    "138e084674254809": "Adds the security angle: malicious instructions from one session persisting through agent memory into later ones.",
     "23c0753cd928bfa7": "Moves the real-world framing to infrastructure: long-horizon optimization tasks for agents.",
-    "d56fa1c78b5794b5": "Applies it to research agents, scoring delivery inside real researcher sessions rather than standalone tasks.",
-    "004673f14a75854b": "Extends it to code review with a dataset of real privacy fixes tied to their defects.",
-    "46d71c45a0641225": "Keyword match only: a quantum ML time-series benchmark that adds nothing to the agent-evaluation thread."
+    "f5f5bfe9b72425ef": "Extends voice evaluation to full-duplex work, where users redirect the agent mid-task.",
+    "29f0e99816524f78": "Replication study: agents sharing memory coordinate without being told to, a safety and engineering concern.",
+    "d56fa1c78b5794b5": "Applies the framing to research agents, scoring delivery inside real researcher sessions.",
+    "e372c76cd210406f": "Systems side: coordinating inference and environments to cut batch makespan for benchmark runs and RL rollouts.",
+    "61fe6193294930a8": "MAPE evolves whole memory programs, a way to find which memory design choices actually help.",
+    "004673f14a75854b": "Extends the thread to code review with a dataset of real privacy fixes tied to their defects.",
+    "52c1ddc39f6c73dc": "Adds video: agents must act on high-frame-rate footage to gather evidence.",
+    "2477e7048eea6d93": "Quantifies a model gap: proprietary voice agents near 62–65%, open-weight below 20% on multi-user tasks."
   }
 }
