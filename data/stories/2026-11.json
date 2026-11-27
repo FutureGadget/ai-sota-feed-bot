@@ -2813,7 +2813,7 @@
   "sid": "14d9ccee163c20f5",
   "source": "arxiv_llm_reliability",
   "summary": "We present AliceAI-Foundation-80B-A3B-Base, a mixture-of-experts language model with 80 billion total parameters and approximately 3 billion active parameters per token, trained from scratch at Yandex and released under the Apache 2.0 license. The model combines Kimi Delta Attention with full attention, uses Attention Residuals, and is trained with Muon. Training comprises general pretraining on 17.5 trillion tokens, two context-extension stages, and a dedicated stage for reasoning and agentic interaction. We describe the data collection and augmentation pipelines, evaluation protocols, architectural ablations, and scaling-law experiments. We identify the limitations of held-out training loss as a proxy for downstream performance and introduce an auxiliary loss on mixture-of-experts outputs to stabilize training at the predicted learning rate. Domain-specific data selection and augmentation improve factual knowledge, mathematics, and programming skills, while agent trajectories introduced during pretraining improve performance on agentic benchmarks after supervised fine-tuning. In zero-shot reasoning evaluation, the model achieves leading results among open base models of comparable size, with 88.7% pass@8 on IMO-AnswerBench and 82.9% pass@8 on LiveCodeBench v5-v6. To evaluate Russian-language factual knowledge, we introduce and release two benchmarks with their evaluation protocols: WikiWebFacts, which tests short factual questions drawn from encyclopedic sources and search ",
-  "summary_1line": "We present AliceAI-Foundation-80B-A3B-Base, a mixture-of-experts language model with 80 billion total parameters and approximately 3 billion active parameters per token, trained from scratch at Yandex and released und...",
+  "summary_1line": "Yandex released this Apache 2.0 mixture-of-experts base model, with 80B total and about 3B active parameters per token, after pretraining on 17.5 trillion tokens.",
   "title": "AliceAI-Foundation-80B-A3B-Base",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.34529v1",
@@ -27011,6 +27011,18 @@
   "title": "[AINews] Perplexity hits a $1B revenue run rate, up 4x in 2026",
   "type": "news",
   "url": "https://latent.space/p/ainews-perplexity-hits-a-1b-revenue-run-rate-up-4x-in-2026"
+ },
+ "c2bd7953104652e4": {
+  "content_excerpt": "Thanks to our partnership with AWS, we were lucky enough to get access to a Trainium3 machine ( trn3.48xlarge , 64 NeuronCores) for a month. We spent most of the month testing Hugging Face models on it, and getting more of them to work. With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos? I picked LTX-2.5 from Lightricks, which generates video and sound together. By the end, once the models were loaded, a 10-second clip with sound took 22 to 23 s to generate, on half of the machine. Here is the result. I had two goals. The first was to see how easy it is to generate videos with diffusers on Trainium3. Not the simple clips from the examples: I wanted to make short films from a script, closer to a real use case, like drafting a movie. The second was performance. I wanted to get close to what you get with CUDA, or with LTX's own API. For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which LTX says makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the ",
+  "first_seen": "2026-11-27T12:06:39.012037+00:00",
+  "id": "118dff371c4140a2",
+  "published": "2026-11-27T00:00:00+00:00",
+  "sid": "c2bd7953104652e4",
+  "source": "huggingface_blog",
+  "summary_1line": "A Hugging Face blog post describes generating short films with LTX-2.5 on an AWS Trainium3 machine, reporting 22 to 23 seconds for a 10-second 2048×1024 clip with sound on half the machine.",
+  "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
+  "type": "research",
+  "url": "https://huggingface.co/blog/video-trainium3"
  },
  "c2d1b58f9d54b8ac": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
