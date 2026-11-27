@@ -1,58 +1,28 @@
 {
   "locale": "ko",
   "source_path": "/storyline/reinforcement-learning",
-  "source_hash": "979a21d67a77b5988c909dd15ff3263a77b50b8f44d2553c008cae15292c7942",
-  "translated_at": "2026-11-25T05:42:04.775420+00:00",
+  "source_hash": "c358483818e9a431f2573030da113f0d65b25fe2df7d8685d62e6d57dd2bd3a2",
+  "translated_at": "2026-11-27T05:21:58.665573+00:00",
   "model": "claude-sonnet-5-5",
   "review_status": "machine",
   "slug": "reinforcement-learning",
   "label": "Reinforcement Learning",
-  "item_count": 22,
+  "item_count": 30,
   "day_count": 14,
-  "source_count": 6,
-  "first_seen": "2026-11-04T13:24:54+00:00",
-  "last_updated": "2026-11-23T18:38:53+00:00",
-  "generated_at": "2026-11-25T00:14:27.939533+00:00",
+  "source_count": 7,
+  "first_seen": "2026-11-06T01:47:52+00:00",
+  "last_updated": "2026-11-25T16:59:27+00:00",
+  "generated_at": "2026-11-27T00:14:18.666001+00:00",
   "sources": [
     "arxiv_agent_systems_research",
     "arxiv_cs_ai",
     "arxiv_cs_cl",
     "arxiv_cs_lg",
     "arxiv_llm_reliability",
+    "huggingface_blog",
     "vllm_blog"
   ],
   "days": [
-    {
-      "date": "2026-11-04",
-      "items": [
-        {
-          "title": "What Does Multi-Turn Reinforcement Learning Really Improve in LLM Agents?",
-          "url": "http://arxiv.org/abs/2611.06483v1",
-          "source": "arxiv_cs_cl",
-          "type": "paper",
-          "summary_1line": "While multi-turn agentic reinforcement learning (RL) excels on long-horizon tasks, its performance gains remain highly sensitive to interaction constraints. Evaluating across sampling breadth $K$ and interaction depth...",
-          "why_it_matters": "Matches feed focus: agentic, eval.",
-          "sid": "4553deeec0e06574",
-          "published": "2026-11-04T13:24:54+00:00",
-          "editor_note": "가장 이른 항목: 멀티턴 에이전트 RL의 성능 향상은 샘플링 폭과 상호작용 깊이에 좌우된다."
-        }
-      ]
-    },
-    {
-      "date": "2026-11-05",
-      "items": [
-        {
-          "title": "FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning",
-          "url": "http://arxiv.org/abs/2611.08240v1",
-          "source": "arxiv_cs_lg",
-          "type": "paper",
-          "summary_1line": "Reinforcement learning (RL) has become a standard post-training method for diffusion models, but most RL objectives roll out the current policy at every iteration, and with a many-step sampler these rollouts typically dominate the cost of training. Few-step models cut this cost,",
-          "sid": "4e9768611cda6532",
-          "published": "2026-11-05T16:19:52+00:00",
-          "editor_note": "비용 측면: few-step 디퓨전 모델을 RL로 파인튜닝해 롤아웃 비용을 줄인다."
-        }
-      ]
-    },
     {
       "date": "2026-11-06",
       "items": [
@@ -64,7 +34,18 @@
           "summary_1line": "We present the Adaptive Scheduling Pipeline (ASP), an offline rollout scheduler for multi-instance asynchronous reinforcement learning (RL) of large language models (LLMs). ASP jointly reduces three sources of rollout underutilization - padding bubbles from intra-minibatch length",
           "sid": "4f75e58fea1157aa",
           "published": "2026-11-06T01:47:52+00:00",
-          "editor_note": "인프라 측면: 비동기 LLM RL에서 패딩 등 유휴 자원 낭비를 없애는 롤아웃 스케줄러."
+          "editor_note": "인프라 관점: 비동기 LLM RL에서 패딩 등 활용도 저하 요인을 없애는 롤아웃 스케줄러."
+        },
+        {
+          "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+          "url": "https://huggingface.co/blog/allenai/toyblocks",
+          "source": "huggingface_blog",
+          "type": "research",
+          "summary_1line": "ToyBlocks: A controlled world for robot learning and evaluation",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "5a90caffb2c87d2e",
+          "published": "2026-11-06T14:00:48+00:00",
+          "editor_note": "로보틱스 측면: 로봇 학습과 평가를 위해 AllenAI가 만든 통제된 블록 월드."
         },
         {
           "title": "Encoding Memory in World Models with Test-Time Model-Based Reinforcement Learning",
@@ -91,7 +72,7 @@
           "why_it_matters": "Matches feed focus: evaluation.",
           "sid": "84ecbe8e1def5e6c",
           "published": "2026-11-09T18:25:42+00:00",
-          "editor_note": "RL을 사용해 무한히 길어지는 이력에 대한 제한된 메모리로서 점진적 요약을 학습한다."
+          "editor_note": "RL로 증분 요약을 학습해 무한히 늘어나는 이력을 제한된 메모리로 다룬다."
         }
       ]
     },
@@ -107,7 +88,7 @@
           "why_it_matters": "Matches feed focus: evaluation.",
           "sid": "283f892f9c4f657a",
           "published": "2026-11-10T18:58:46+00:00",
-          "editor_note": "단일 결과 보상보다 RLVR 경험을 더 많이 활용하도록 AI가 생성한 스캐폴드."
+          "editor_note": "단일 결과 보상보다 RLVR 경험을 더 많이 활용하기 위한 AI 생성 스캐폴드."
         }
       ]
     },
@@ -137,7 +118,7 @@
           "summary_1line": "Co-designing RL for a Qwen3-0.6B dense policy on Google Cloud TPU v7 across vLLM, Tunix, MaxText, and Pallas, with a 107x end-to-end speedup from ~100 minutes to ~56 seconds per true-8K RL cycle.",
           "sid": "8ccdea5bc171877c",
           "published": "2026-11-12T00:00:00+00:00",
-          "editor_note": "유일한 실무자 항목: vLLM은 TPU v7에서 Qwen3-0.6B의 8K RL 사이클당 소요 시간이 약 100분에서 약 56초로 줄었다고 보고했다."
+          "editor_note": "실무자 관점 유일한 항목: vLLM은 TPU v7에서 Qwen3-0.6B의 8K RL 사이클당 소요 시간이 약 100분에서 약 56초로 줄었다고 보고했다."
         },
         {
           "title": "StateAlign: Internalizing State-Aware Decision-Making for Reliable Multi-Turn Tool Agents via Reinforcement Learning",
@@ -148,7 +129,7 @@
           "why_it_matters": "Matches feed focus: agent.",
           "sid": "335ccd3caa00e6d5",
           "published": "2026-11-12T05:04:43+00:00",
-          "editor_note": "실패 유형 지목: RL 도구 사용 성능이 향상되는 대신 도구 환각이 늘어날 수 있으며, 상태 인지형 의사결정을 학습시킨다."
+          "editor_note": "실패 모드 지목: RL로 도구 사용 성능이 오르면 도구 환각도 늘 수 있으며, 상태 인식 기반 의사결정을 학습시킨다."
         }
       ]
     },
@@ -163,7 +144,7 @@
           "summary_1line": "Autonomous agents now run for hundreds of steps with little or no human supervision. In practice, practitioners use runtime monitors such as turn limits and keyword filters to decide when a run should be stopped, upgraded, or assisted. However, these heuristics may stop runs that",
           "sid": "7d287f2835ce9649",
           "published": "2026-11-13T02:14:55+00:00",
-          "editor_note": "턴 제한과 키워드 필터를 대신해, 에이전트 실행을 언제 중단하거나 지원할지에 대한 해석 가능한 규칙을 학습한다."
+          "editor_note": "턴 제한과 키워드 필터 대신, 에이전트 실행을 언제 멈추거나 보조할지를 학습된 해석 가능한 규칙으로 정한다."
         },
         {
           "title": "AutoRL: A Multi-Agent System towards Autonomous Reinforcement Learning",
@@ -185,13 +166,23 @@
           "why_it_matters": "Matches feed focus: agent.",
           "sid": "97cfb937ffa2810c",
           "published": "2026-11-13T18:50:05+00:00",
-          "editor_note": "데모 부트스트래핑을 단일 에이전트 RL에서 멀티 에이전트 RL로 확장한다."
+          "editor_note": "데모 부트스트래핑을 단일 에이전트에서 멀티 에이전트 RL로 확장한다."
         }
       ]
     },
     {
       "date": "2026-11-16",
       "items": [
+        {
+          "title": "Lazy-MOSAIC: Accelerating Skill-Centric Manipulation Planning with Learned Skill-Effect World Models",
+          "url": "http://arxiv.org/abs/2611.21517v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Long-horizon manipulation tasks require a robot to perform a sequence of physical interactions with its environment, typically combining several different skills. Planning such behaviors efficiently is challenging: given a library of parameterized skills, solutions lie in a vast",
+          "sid": "701130a4d1521417",
+          "published": "2026-11-16T18:10:52+00:00",
+          "editor_note": "학습된 스킬 효과 월드 모델로 장기 조작 계획 수립을 가속한다."
+        },
         {
           "title": "Algorithm Distillation for Safe In-Context Reinforcement Learning",
           "url": "http://arxiv.org/abs/2611.21524v1",
@@ -201,7 +192,7 @@
           "why_it_matters": "Matches feed focus: evaluation.",
           "sid": "a0ffcbab57857e23",
           "published": "2026-11-16T18:16:28+00:00",
-          "editor_note": "안전성 측면: 비용 예산 안에서 새로운 작업의 성능을 높이는 인컨텍스트 RL."
+          "editor_note": "안전성 관점: 비용 예산 안에서 새로운 태스크의 성능을 개선하는 인컨텍스트 RL."
         }
       ]
     },
@@ -217,7 +208,7 @@
           "why_it_matters": "Matches feed focus: agent, evaluation.",
           "sid": "ab31cf7efa665033",
           "published": "2026-11-17T01:00:24+00:00",
-          "editor_note": "응용 RL: 한 번에 다시 쓰는 방식 대신 반복적이고 해석 가능한 문서 편집."
+          "editor_note": "응용 RL: 한 번에 다시 쓰는 대신 반복적이고 해석 가능한 방식으로 문서를 편집한다."
         }
       ]
     },
@@ -232,7 +223,18 @@
           "summary_1line": "Continual reinforcement learning (CRL) requires models to acquire new capabilities while retaining performance on previous tasks. A stability-oriented perspective common in conventional continual learning emphasizes knowledge preservation and interference mitigation. Complementin",
           "sid": "3e8eb23833610c66",
           "published": "2026-11-19T12:12:19+00:00",
-          "editor_note": "지식 보존만이 아니라 정책 개선을 기준으로 리플레이를 유도하는 연속 RL."
+          "editor_note": "지식 보존만이 아니라 정책 개선을 기준으로 리플레이를 유도하는 지속 RL."
+        },
+        {
+          "title": "Mind2Act World: A Diagnostic Benchmark for Embodied Mind, Physical Action, and Mind-Action Composition in Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2611.26444v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Embodied intelligence aims to let robots perform complex physical tasks with human-like adaptability and reliability, which requires three complementary capabilities: history-based cognitive reasoning, precise and tim...",
+          "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+          "sid": "1018b9cf048fca1c",
+          "published": "2026-11-19T17:15:38+00:00",
+          "editor_note": "조작 과제에서 추론, 물리적 행동, 그리고 둘의 조합을 구분해 측정하는 진단용 벤치마크."
         },
         {
           "title": "Grid Cells as Spectral Successor Features: A Reusable Basis for Continual Reinforcement Learning",
@@ -242,7 +244,7 @@
           "summary_1line": "Continual reinforcement learning requires agents to adapt when the task changes while reusing what they know about the environment. Successor features separate dynamics from task-specific reward, but their effectiveness depends on the choice of base features. Taking the identific",
           "sid": "4554d13ae5865101",
           "published": "2026-11-19T17:54:04+00:00",
-          "editor_note": "작업이 바뀔 때 재사용할 수 있는 기저로서, 그리드 셀에서 착안한 successor features."
+          "editor_note": "태스크가 바뀔 때 재사용할 수 있는 기저로서, 그리드 셀에서 착안한 successor feature."
         }
       ]
     },
@@ -257,7 +259,17 @@
           "summary_1line": "CTRL is a system that runs an RL learner and a persistent rollout engine on every GPU under CUDA MPS, reporting 1.11-2.24× the throughput of verl's asynchronous baselines across 24 Qwen3 workload settings.",
           "sid": "24ed891a976fe11b",
           "published": "2026-11-20T04:42:26+00:00",
-          "editor_note": "시스템 측면: CUDA MPS에서 학습기와 롤아웃 엔진이 각 GPU를 공유하며, verl 비동기 대비 처리량 1.11~2.24배를 보고했다."
+          "editor_note": "시스템 관점: 학습기와 롤아웃 엔진이 CUDA MPS 아래 각 GPU를 공유하며, verl 비동기 대비 처리량 1.11~2.24배를 보고했다."
+        },
+        {
+          "title": "Learning Interaction Dynamics via Motion-Region Guidance for Robotic Video World Models",
+          "url": "http://arxiv.org/abs/2611.27344v1",
+          "source": "arxiv_llm_reliability",
+          "type": "paper",
+          "summary_1line": "Action-conditioned video world models imagine future observations under candidate robot actions, providing a promising visual tool for robot policy evaluation and interaction simulation. However, existing video world models often optimize global reconstruction errors instead of e",
+          "sid": "000d9bb102ddded4",
+          "published": "2026-11-20T09:20:22+00:00",
+          "editor_note": "움직임 영역으로 학습한 비디오 월드 모델로 로봇 정책을 더 충실하게 평가한다."
         },
         {
           "title": "Efficient VLA Reinforcement Learning via Subchunk Rollouts in Latent World Models",
@@ -278,7 +290,7 @@
           "why_it_matters": "Matches feed focus: agent, eval.",
           "sid": "bac47501e3966159",
           "published": "2026-11-20T17:13:50+00:00",
-          "editor_note": "형식적 전략 로직 명세를 멀티 에이전트 RL용 shaped reward로 변환한다."
+          "editor_note": "형식적 전략 논리 명세를 멀티 에이전트 RL용 shaped reward로 변환한다."
         }
       ]
     },
@@ -294,7 +306,7 @@
           "why_it_matters": "Matches feed focus: agentic.",
           "sid": "f424b012833cf66e",
           "published": "2026-11-21T04:24:24+00:00",
-          "editor_note": "도구별 보상을 설계하는 대신 학습 질문의 가중치를 재조정해 시각 도구 사용을 가르친다."
+          "editor_note": "도구별 보상을 설계하는 대신 학습 질문의 가중치를 재조정해 시각적 도구 사용을 가르친다."
         }
       ]
     },
@@ -310,7 +322,17 @@
           "why_it_matters": "Matches feed focus: agent, evaluation.",
           "sid": "5b8b87d097096ea4",
           "published": "2026-11-23T12:04:31+00:00",
-          "editor_note": "워크스페이스 상태 변화를 결정론적으로 검증하는 검증기에서 보상을 얻으며, strict 성공률이 51.47%에서 80.74%로 올랐다고 보고했다."
+          "editor_note": "작업 공간 상태 변화를 확인하는 결정론적 검증기에서 보상을 받으며, 엄격한 성공률이 51.47%에서 80.74%로 올랐다고 보고했다."
+        },
+        {
+          "title": "RoboTrack: Point tracking for real-world robotic manipulation",
+          "url": "https://huggingface.co/blog/allenai/robotrack",
+          "source": "huggingface_blog",
+          "type": "research",
+          "summary_1line": "Introduces RoboTrack, a benchmark of 307 human-annotated real robot manipulation videos and a 15M-track synthetic training dataset built on MolmoSpaces, for point tracking in robotics.",
+          "sid": "eb2701ff66febea2",
+          "published": "2026-11-23T17:20:37+00:00",
+          "editor_note": "실제 로봇 영상 307개에 주석을 단 포인트 트래킹 벤치마크와 1,500만 트랙 규모의 합성 데이터셋."
         },
         {
           "title": "CO-GRAFT: Attributing Reinforcement Learning Gains in Search Agents via Role-Level Policy Grafting",
@@ -321,25 +343,88 @@
           "why_it_matters": "Matches feed focus: agent, eval.",
           "sid": "567190b13cf55806",
           "published": "2026-11-23T18:38:53+00:00",
-          "editor_note": "최신 항목: RL 성능 향상을 에이전트 역할별로 귀속하고, 쿼리 생성의 기여가 최대 15%에 그친다는 점을 확인했다."
+          "editor_note": "RL 성능 향상을 에이전트 역할별로 분석한 결과, 쿼리 생성의 기여는 최대 15%에 그친다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "items": [
+        {
+          "title": "Avalon-M1: Reinforcement Learning from Collective Rewards",
+          "url": "http://arxiv.org/abs/2611.32539v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Introduces RLCR, a training method where a CEO model and up to eight specialists share one policy and are trained on a common outcome-based advantage, with results reported across 12 benchmarks and safety tests on the 120B Avalon-M1-Mini.",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "2014efafd28906ec",
+          "published": "2026-11-24T13:00:42+00:00",
+          "editor_note": "CEO 모델과 최대 8개의 전문가 모델을 하나의 공유된 결과 기반 어드밴티지로 학습시킨다."
+        },
+        {
+          "title": "Lazy Agents Answer Against Their Own Beliefs: Reinforcement Learning with Verifiable Beliefs Teaches Them to Act on What They Believe",
+          "url": "http://arxiv.org/abs/2611.32884v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Proposes RLVB, a reinforcement learning method that rewards AI agents for gathering more evidence while several answers remain possible and for committing once evidence suffices, using a simulator-computed posterior rather than a judge or outcome reward.",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "e8226c13fd91bfc4",
+          "published": "2026-11-24T16:17:51+00:00",
+          "editor_note": "시뮬레이터가 계산한 사후확률이 확정을 지시할 때까지 근거를 모으도록 에이전트에 보상하며, 판정 모델은 쓰지 않는다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "items": [
+        {
+          "title": "WhatIf: Counterfactual World Models over Action-Grounded Causal Graphs for Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2611.33745v1",
+          "source": "arxiv_llm_reliability",
+          "type": "paper",
+          "summary_1line": "Introduces WhatIf, a counterfactual world model for robotic manipulation that compares candidate actions within shared latent physics, paired with a planning method (CAP) that ranks plans by advantage over an incumbent.",
+          "sid": "51c254964e1eac52",
+          "published": "2026-11-25T04:06:11+00:00",
+          "editor_note": "기존 계획 대비 어드밴티지로 로봇 계획의 순위를 매기는 반사실 월드 모델."
+        },
+        {
+          "title": "Do We Still Need Reinforcement Learning When We Can Read the World Model?",
+          "url": "http://arxiv.org/abs/2611.34656v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Researchers study whether LLM-based coding agents can write control policies by reading an environment's source code as a readable world model, and report that these policies match or beat conventional RL with far less experience.",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "aeda233af858a817",
+          "published": "2026-11-25T16:29:37+00:00",
+          "editor_note": "전제에 의문을 제기한다: 환경 소스 코드를 읽는 코딩 에이전트가 훨씬 적은 경험으로 RL과 같거나 더 나은 성능을 낸다."
+        },
+        {
+          "title": "Maco-RL: Scaling Agent Capabilities with Mixed-Task Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2611.34703v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Proposes Maco-RL, a mixed-task reinforcement learning method that trains one policy across domains, raising Qwen3.5-27B's overall score on five benchmarks from 43.6 to 60.1.",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "1ca0bb9f26e5fb7d",
+          "published": "2026-11-25T16:59:27+00:00",
+          "editor_note": "최신: 혼합 태스크 RL 정책 하나로 Qwen3.5-27B의 5개 벤치마크 점수가 43.6에서 60.1로 올랐다."
         }
       ]
     }
   ],
   "editorial": {
-    "tldr": "This is a theme thread of mostly arXiv papers, not one developing story. Since Nov 4 it has tracked RL for agents: multi-turn and multi-agent training, RL-learned memory, rollout cost, and the finding that RL tool-use gains can raise tool hallucination.",
+    "tldr": "This is a theme thread of mostly arXiv papers, not one developing story. Since Nov 6 it has tracked RL for agents (multi-agent training, RL-learned memory, rollout cost), the finding that RL tool-use gains can raise tool hallucination, and Nov 23 work tracing gains to verified state and specific agent roles.",
     "stale": false,
-    "whats_new": "Nov 23: CO-GRAFT finds query generation explains at most 15% of RL gains in Search-R1 agents, and a state-verified RL paper lifts a 27B tutoring agent from 51.47% to 80.74% strict success.",
-    "why_it_matters": "If you post-train or operate tool-using agents, this cluster names where RL pays off and what it costs: rollout throughput, tool hallucination, and which agent role actually improved, though nearly every result is author-reported.",
-    "take_for_builders": "When evaluating an RL-tuned agent, score tool-hallucination rate and per-role behavior (query, read, answer) next to task success, since the headline gain can hide regressions or come from one role.",
+    "whats_new": "Nov 25: a paper reports coding agents that read an environment's source code write policies matching or beating conventional RL, and Maco-RL lifts Qwen3.5-27B from 43.6 to 60.1 on five benchmarks with mixed-task RL.",
+    "why_it_matters": "If you post-train or operate tool-using agents, this cluster names where RL pays off and what it costs: rollout throughput, tool hallucination, reward design, and when code-writing agents can skip RL, though nearly every result is author-reported.",
+    "take_for_builders": "Before funding an RL run for an agent, test whether a coding agent can write the policy from your environment's code, and score any RL-tuned model on tool-hallucination rate and per-role behavior next to task success.",
     "beats": [
       {
         "kicker": "AGENT RL",
         "tone": "launch",
-        "headline": "RL methods aim at multi-turn and multi-agent systems",
-        "summary": "A study of what multi-turn RL improves, AutoRL running the training pipeline, imitation-bootstrapped MARL, and SLICR's logic-shaped rewards.",
+        "headline": "RL methods aim at multi-agent systems",
+        "summary": "AutoRL running the training pipeline, imitation-bootstrapped MARL, and SLICR's logic-shaped rewards.",
         "sids": [
-          "4553deeec0e06574",
           "ea7e5e3ff883dd79",
           "97cfb937ffa2810c",
           "bac47501e3966159"
@@ -358,10 +443,9 @@
       {
         "kicker": "TRAINING COST",
         "tone": "rising",
-        "headline": "Rollout cost gets attacked from sampler, scheduler and GPU placement",
-        "summary": "FewStepRL, the ASP rollout scheduler, vLLM's 107x TPU v7 cycle speedup, CTRL's learner/rollout co-residency, and latent world-model rollouts for VLA policies.",
+        "headline": "Rollout cost gets attacked from scheduler, GPU placement and cheaper simulators",
+        "summary": "The ASP rollout scheduler, vLLM's 107x TPU v7 cycle speedup, CTRL's learner/rollout co-residency, and latent world-model rollouts for VLA policies.",
         "sids": [
-          "4e9768611cda6532",
           "4f75e58fea1157aa",
           "8ccdea5bc171877c",
           "24ed891a976fe11b",
@@ -401,8 +485,22 @@
         ]
       },
       {
-        "kicker": "NOW",
-        "tone": "now",
+        "kicker": "ROBOTICS",
+        "tone": "neutral",
+        "headline": "Robot-learning benchmarks and world models join the thread",
+        "summary": "ToyBlocks, Mind2Act World and RoboTrack benchmarks, plus Lazy-MOSAIC, motion-region video world models and WhatIf counterfactual planning; adjacent to agent RL rather than part of it.",
+        "sids": [
+          "5a90caffb2c87d2e",
+          "701130a4d1521417",
+          "1018b9cf048fca1c",
+          "000d9bb102ddded4",
+          "eb2701ff66febea2",
+          "51c254964e1eac52"
+        ]
+      },
+      {
+        "kicker": "ATTRIBUTION",
+        "tone": "rising",
         "headline": "Where RL gains come from in tool-using agents: verified state, data reweighting, role attribution",
         "summary": "AOVO drops tool-specific rewards, state-verified RL trains tutoring agents against a deterministic checker, and CO-GRAFT splits Search-R1 gains by role.",
         "sids": [
@@ -410,16 +508,28 @@
           "5b8b87d097096ea4",
           "567190b13cf55806"
         ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "New reward signals and mixed-task training, while one paper asks whether RL is needed at all",
+        "summary": "RLCR shared-outcome rewards for CEO-plus-specialist agents, RLVB belief-based rewards, Maco-RL mixed-task training, and coding agents that write policies from environment source.",
+        "sids": [
+          "2014efafd28906ec",
+          "e8226c13fd91bfc4",
+          "aeda233af858a817",
+          "1ca0bb9f26e5fb7d"
+        ]
       }
     ],
     "open_questions": [
       "Does StateAlign's reduction in tool hallucination hold on tool APIs outside the paper's own benchmarks?",
       "Does vLLM's 107x RL cycle speedup on TPU v7 carry over to policies larger than Qwen3-0.6B?",
       "Does CTRL's 1.11-2.24x throughput over verl's async baselines show up in an independent reproduction?",
-      "Do learned intervention rules like Learn then Bet beat turn limits on production agent runs without stopping good runs early?",
       "If query generation explains at most 15% of Search-R1's RL gain, which role carries the rest, and does the split hold for other search agents?",
-      "Does state-verified RL transfer beyond tutoring workspaces to agents whose state has no deterministic verifier?"
+      "Do code-written policies keep matching RL when the environment's source code is unavailable or too large to read?",
+      "Does Maco-RL's 43.6 to 60.1 gain from one mixed-task policy hold against per-domain RL at equal compute?"
     ],
-    "generated_at": "2026-11-25T00:30:00Z"
+    "generated_at": "2026-11-27T00:13:03Z"
   }
 }
