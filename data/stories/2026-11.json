@@ -1135,6 +1135,7 @@
   "published": "2026-11-25T14:56:55+00:00",
   "sid": "0858a57db8ecc676",
   "source": "arxiv_cs_cl",
+  "summary": "A watermark lets the provider of a language model recognise the text its model wrote, which matters more as generated text becomes hard to tell from human writing: provenance underpins academic integrity, the fight against misinformation and new regulation. Providers have started to watermark the text of their models, and to explain how their watermarks work. Explaining a watermark, however, also tells an attacker how to break it, and there are two ways to do so: reword the text to erase the mark, or learn the mark and copy it onto text the model never wrote. Each attack has been studied on its own. We study an attacker that reads the published design to choose between them: it erases the watermarks that are hard to learn and forges the ones that survive rewording. Against it, every existing watermark we compare fails. We propose KeyedLex, which reads its secret key from the grammar of the previous sentence, which rewording changes little, and whose detector does not need to recover the key exactly. It outperforms every watermark we compare on both models we test, losing about half of its signal where the best alternative loses two thirds, at no extra cost in text quality over the best-known watermarks.",
   "summary_1line": "Proposes KeyedLex, an LLM text watermark whose key comes from the previous sentence's grammar, which the paper reports outperforms compared watermarks against an attacker who chooses between rewording and forgery.",
   "title": "Know the Design, Pick the Attack: Sentence-Keyed Watermarks for LLMs",
   "type": "paper",
@@ -22023,6 +22024,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "a15674a8bcd4b46d": {
+  "content_excerpt": "Muxlio is a durable workflow coordinator for multi-step work across AI agents and shell tools. Your assistant authors an immutable plan; the coordinator runs it as a durable run you can follow in the bundled UI or through MCP after setup. Use Muxlio when work needs dependent steps, verification, retries, or hand-offs—not for one-off answers in the client. You or your assistant authors a workflow ; Muxlio compiles it to an immutable plan and executes a run on the coordinator . Steps run on workers through adapters (agent CLIs, remote A2A, command , and others). Setup ports and MCP clients: Setup defaults . Architecture: overview and how it works . I use this recipe to develop Muxlio itself. The workflow handles one feature at a time and runs the repository’s build and tests before creating a local commit. Describe the steps and checks you want. Your assistant authors and validates a workflow, then starts a run with your inputs. Check the plan before starting the run. An agent implements the feature. A review step inspects and improves the change. Build and test commands run. If a check fails, an agent gets the failure report, fixes it, and the checks run again. After checks pass, the recipe creates a local commit and moves to the next feature. Inspect the diff, review notes, test output, and run history. You decide whether to push. I run Muxlio on a Mac mini and start workflows through my assistant. In the morning, I check the commits and reports. If a run stopped, I read the ",
+  "first_seen": "2026-11-27T10:06:34.688632+00:00",
+  "id": "542266c2576fa4fc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-27T09:31:53+00:00",
+  "sid": "a15674a8bcd4b46d",
+  "source": "hackernews_ai",
+  "summary_1line": "Muxlio is a durable workflow coordinator that runs multi-step AI agent and shell tool work as immutable plans, with a bundled UI and MCP access, installable via Homebrew on macOS or Linux.",
+  "title": "Muxlio: Durable workflow orchestration for AI agents and tools",
+  "type": "news",
+  "url": "https://muxlio.github.io/muxlio",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a19dcdd2e41d11e2": {
   "first_seen": "2026-11-05T22:05:30.713631+00:00",
   "id": "113fa56d5bdc9202",
@@ -32327,6 +32344,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.34767v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "eeca7ffe47912661": {
+  "first_seen": "2026-11-27T10:06:34.688632+00:00",
+  "id": "d62714da1e099836",
+  "published": "2026-11-27T09:56:00+00:00",
+  "sid": "eeca7ffe47912661",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74% Tech Times",
+  "summary_1line": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74% Tech Times",
+  "title": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74%",
+  "type": "release",
+  "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOR0hiM2YzblFobmhCQXZZMFdrOEtEMUVGcFVGcmRqU0lWT0JxbTF3cjJKdWt6U3JVVXNZbGpVTDI5YUVoWkFEUWU1OTdMR2JtTlVVbmEwOHQ0b2poVkF4ckNJME0wYTQ3dmJPb3J2aVJjamlCbEFuZ2RDdE5sYldXSWhQcVp1NEFqOXVtZm5SUjZwNm9lR2VyQ0NvMTRDa2QxbU14RHFVaG1YWGZWTUFCVlJmbmNhWTJvb0kxMDNPY1FoZFo1RHhjcG1raXhVcjdGVzZ4Q0RR?oc=5"
  },
  "eee2a9d44b7a1208": {
   "first_seen": "2026-11-24T11:06:53.415547+00:00",
