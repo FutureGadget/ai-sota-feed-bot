@@ -1,6 +1,6 @@
 {
   "locale": "ko",
-  "updated_at": "2026-11-27T06:09:20.304587+00:00",
+  "updated_at": "2026-11-27T19:07:14.859099+00:00",
   "items": {
     "daily:2026-07-04": {
       "source_hash": "52b62c43cb2f6d6dc9045b739811af623aa8a9f150fe5bac83ef3ca3f34e10f2",
@@ -182,6 +182,16 @@
         "summary": "claude-sonnet-5-5"
       }
     },
+    "foundations:llm-cache-integrity": {
+      "source_hash": "b5e2f1a68991b4a3cb139c80fdb620d1b5e79959bee537a707c3800fe4f362e2",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "LLM 캐시는 왜 조용히 실패하는가",
+      "summary": "프롬프트 캐시와 KV 캐시는 제대로 동작하든 아니든 성공했다고 보고한다. 프롬프트 캐싱을 잘못 설정하면 눈에 띄지 않게 비용이 새고, KV 캐시를 잘못 다룬 탓에 다른 테넌트의 데이터가 유출된 적도 있다. 캐시 동작은 추정이 아니라 실측한 히트율과 카나리로 검증해야 한다…",
+      "origin": {
+        "title": "claude-sonnet-5-5",
+        "summary": "claude-sonnet-5-5"
+      }
+    },
     "foundations:llm-judge-reliability": {
       "source_hash": "358e16684986fb717ae739a6176a1a6d522915284e87e4791a6c8de4ff7c6044",
       "translated_at": "2026-11-23T01:09:30.952482+00:00",
@@ -223,20 +233,20 @@
       }
     },
     "map:agent-benchmarks": {
-      "source_hash": "4237ff0a6ccb8190efc527a15fb063016558b59bfd4cb6409099bb9b4653f989",
-      "translated_at": "2026-11-26T19:07:27.164498+00:00",
-      "title": "에이전트 벤치마크: 실제 도구 사용을 검증하는 고정 태스크",
-      "summary": "SkillsBench를 소스 수준에서 감사한 결과, 태스크별 스킬 성능 하락은 노이즈 범위 안인 것으로 나타났다",
+      "source_hash": "aaf2ee9b82b29fb0ccdd22a764bd6a7af6ecb398619e35cb3680ec889f009f8d",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "에이전트 벤치마크: 실제 도구 사용을 검증하는 고정 과제",
+      "summary": "CypherMAS는 멀티 에이전트 그래프에서 메시지 라우팅만 따로 분리해 평가한다. 27B를 넘는 모델도 그래프가 넓어질수록 성능이 떨어진다.",
       "origin": {
         "title": "claude-sonnet-5-5",
         "summary": "claude-sonnet-5-5"
       }
     },
     "map:agent-cost": {
-      "source_hash": "abfdfcd4665602074d118290b40b6332934bac5a65f3b4dcf7ea3b24aff11520",
-      "translated_at": "2026-11-26T19:07:27.164498+00:00",
+      "source_hash": "35135e5b882721399149fa4a016673f8ef6ebe528bb65e345800b768fbebbe15",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
       "title": "에이전트 토큰 비용은 예측하기 어렵고 쉽게 폭주한다",
-      "summary": "MeterRouter는 달러 예산 안에서 쿼리별로 에이전트 그래프를 구성해, 최고 성능 시스템과 같은 수준의 결과를 82% 낮은 비용으로 달성했다",
+      "summary": "66개 LLM을 비교한 결과, 범용 라우터를 업그레이드해도 가장 좋은 단일 모델을 그냥 쓰는 것보다 나은 경우는 드물었다",
       "origin": {
         "title": "claude-sonnet-5-5",
         "summary": "claude-sonnet-5-5"
@@ -293,10 +303,20 @@
       }
     },
     "map:agent-reliability": {
-      "source_hash": "63bb0c348b50434ce47e41a77369c2741ca70bec2bba3951ea5d986d1d3c266c",
-      "translated_at": "2026-11-26T19:07:27.164498+00:00",
-      "title": "에이전트는 틀렸을 때도 유창하고 자신 있어 보이는 결과물을 내놓는다",
-      "summary": "Anthropic은 Claude가 작성한 Rust 재작성 코드를 검증하기 위해 실제 운영 중인 Python API를 오라클로 사용했다",
+      "source_hash": "2002e93e2775ae432ff7570cb2b10a101e1dd8318ee0b92de6122f80b5189cac",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "에이전트는 틀렸을 때도 유창하고 자신감 있어 보이는 출력을 내놓는다",
+      "summary": "AI가 작성한 Terraform은 두 번째 AI가 아니라 결정론적 plan 검사가 모든 apply를 통제할 때 안전하게 유지된다",
+      "origin": {
+        "title": "claude-sonnet-5-5",
+        "summary": "claude-sonnet-5-5"
+      }
+    },
+    "map:agent-sandboxing": {
+      "source_hash": "9637c3821216819bf3ccd90988b0d17e75fbebf51f9e11c0ee1da98adcda6823",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "샌드박싱, 범위 제한 자격 증명, 가드레일",
+      "summary": "Permission Slips는 사람이 직접 입력한 프롬프트만 위험한 에이전트 작업에 대해 범위가 제한되고 만료되는 권한을 발급할 수 있게 한다",
       "origin": {
         "title": "claude-sonnet-5-5",
         "summary": "claude-sonnet-5-5"
@@ -307,6 +327,26 @@
       "translated_at": "2026-11-26T19:07:27.164498+00:00",
       "title": "LLM-as-judge: 트레이스와 출력에 대한 모델 기반 평가",
       "summary": "스팬 검증기의 판정은 분기 토큰 하나에 좌우된다. 여기서 생성을 멈추면 F1은 그대로이면서 서빙 비용이 85% 줄어든다",
+      "origin": {
+        "title": "claude-sonnet-5-5",
+        "summary": "claude-sonnet-5-5"
+      }
+    },
+    "map:mcp": {
+      "source_hash": "959206e28d14b8ad6db84cc75ea9dcd2f7bec6b1064943f4dae3b14354695b5a",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "Model Context Protocol: 에이전트 도구를 위한 표준 인터페이스",
+      "summary": "Piton은 MCP 도구 스키마와 설명을 별도의 해시로 고정해, 서드파티의 러그 풀(rug pull)을 탐지한다",
+      "origin": {
+        "title": "claude-sonnet-5-5",
+        "summary": "claude-sonnet-5-5"
+      }
+    },
+    "map:model-drift": {
+      "source_hash": "94e2fde9b5397c5d44c1ca7162cd487144d87ac80b3f2f9a634259d090b672ea",
+      "translated_at": "2026-11-27T19:07:14.859099+00:00",
+      "title": "모델, SDK, 런타임이 계속 바뀌면서 에이전트 동작이 흔들린다",
+      "summary": "OpenRouter의 한 프로바이더가 \"비공개 자체 호스팅\"이라고 내세운 모델이 실제로는 다른 프로바이더에서 서빙되는 경우가 많았다",
       "origin": {
         "title": "claude-sonnet-5-5",
         "summary": "claude-sonnet-5-5"
