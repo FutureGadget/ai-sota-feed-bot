@@ -7099,6 +7099,24 @@
   "type": "research",
   "url": "https://huggingface.co/blog/Dharma-AI/dharma-field-extractor"
  },
+ "3300cef8bc936b17": {
+  "first_seen": "2026-11-27T13:06:52.318668+00:00",
+  "id": "7a6cef26ec22f3f7",
+  "matched_topics": [
+   "agentic",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-27T11:51:03+00:00",
+  "sid": "3300cef8bc936b17",
+  "source": "hackernews_ai",
+  "summary": "For those who are tracking, Anthropic released an announcement last week about their experimental code mode for Claude Code, claiming some bonkers token savings when it comes to tool calls (95% on some workloads(1)). I haven't benchmarked it myself, but independent studies come in somewhere closer to 60~70% savings (2), but I digress. TLDR; I built an open-source version for the community. Context: I'm writing an AI RPG engine called Spookery, and I immediately wanted to try this technique for myself when I heard of it. Agent deployment is currently dominated by token costs, especially during tool calling (single prompt generating tens or hundreds of tool calls). Unfortunately, it looks like the only ones who are doing this seriously are big agentic products like Claude Code and Codex. So, I thought it'd be fun to try it myself and bring it to you all! The idea of Code Mode is simple but powerful. Instead of passing back tool call results back to the LLM one at a time, let the LLM batch calls by letting it write a short script using your tools. Basically taking 30 trips to the grocery store for 30 items and turning it into one trip to the store with a list in-hand. There's a few near-ish open-source options, but they used TypeScript backends, we're a little boilerplate heavy, and I wanted to have something a little faster and Rust friendly for my game engine. Pydantic's Monty seemed a good candidate--their self-reports are around 5x faster on execution and 100x faster on star",
+  "summary_1line": "A developer releases Ghost Mode, an MIT-licensed Rust tool that lets an AI agent batch tool calls by writing short scripts, which they say cuts their agent's token use by about 60%.",
+  "title": "Show HN: Open-Sourced Code Mode to Cut ~60% of My Rust Agent's Token Burn",
+  "type": "news",
+  "url": "https://github.com/legend-of-alan/ghostmode",
+  "why_it_matters": "Matches feed focus: agentic, codex, claude code."
+ },
  "333639c388f5e270": {
   "content_excerpt": "Gemini Decision 1 is a multimodal decision model from Google released on November 11, 2026. It is analogous to Jev , the System One model from TypeSafe AI. While browsing Hacker News, I stumbled upon What music does Gemini Decision 1 like? by Liam Warfield. He ends the article with a few ideas to extend his project. The last of these suggestions, “Does it [Gemini Decision 1] like or hate AI-generated music?”, stood out to me because it implicitly suggests that the decision model may be able to recognize AI-generated audio. As it turns out, Gemini Decision 1 can separate AI voices from human voices well above chance, but only if the AI voice generator was published before 2025. As a quick clarification, I am saying separates rather than categorizes as the model has a strong bias towards labeling all tested audio as human-made. Out of 1,020 AI clips, only 20 were given a 50% or higher chance of being AI-generated. However, the ROC-AUC chance that a random AI clip is assigned a higher P(AI) than a random human clip was significantly higher in pre-2025 models, suggesting that recent AI voices are less distinguishable than before. Each point is an AI voice generator, measured by how well Gemini Decision 1 separates 30 of its audio clips from 200 human audiobook clips. When pooled together, generators from 2023 and 2024 are separated with an AUC of 0.67. Six older generators, from 2017 to 2022, score the same (0.67). However, generators released in 2025 and 2026 have an AUC of only",
   "first_seen": "2026-11-17T04:05:58.927087+00:00",
@@ -15169,6 +15187,22 @@
   "url": "https://usewoolly.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "6f7987b91e8e3dc8": {
+  "content_excerpt": "The log of 6 days: a swarm writes a PostgreSQL storage engine in one weekend, we copy 24 million rows 3 times, switch production at 01:44, and get the first error at 01:46. On Friday our production swarm stored everything in one SQLite file. 6 days later it ran on PostgreSQL. The plan said before Christmas. We started Agent Swarm on SQLite on purpose. One file is simple to run and easy to deploy. We knew that we would need PostgreSQL if we scaled. Then the scale came. Our own file grew to 87 GB, one long statement could stall the API, and the next steps on our list need a database that several processes can share. KISS paid. SQLite took us this far, and it stays the default. This post is the log of those 6 days. Times are Barcelona time. The mark on each entry says who did the step: Dani or Taras, Dani's swarm, our swarm, a coding session, or CI. We measured the in-process SQLite drivers that run on Bun. Each of them blocks the event loop while a statement runs. The plan from that research was a worker thread for SQLite. We deferred PostgreSQL. Dani runs Agent Swarm at his company and had the same limit. He and Taras agreed on 4 things on a call: A goal, to say: okay, you have all these E2Es. Just switch the connection to Postgres, and ensure that the E2Es pass with both SQLite and Postgres. And that's it. Maybe that's the easiest way to do it. If this is something that we could put under the Christmas tree, I would be super happy. It's doable. It's just a matter of figuring ",
+  "first_seen": "2026-11-27T13:06:52.318668+00:00",
+  "id": "829e101027f87aa9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-27T12:02:40+00:00",
+  "sid": "6f7987b91e8e3dc8",
+  "source": "hackernews_ai",
+  "summary_1line": "A six-day log describes a team moving its Agent Swarm production storage from a single SQLite file to PostgreSQL, covering the engine build, copying about 24 million rows, and the cutover.",
+  "title": "We migrated agent-swarm from SQLite to Postgres",
+  "type": "news",
+  "url": "https://www.agent-swarm.dev/blog/sqlite-to-postgres-in-six-days",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6facc619133f560d": {
   "first_seen": "2026-11-21T09:06:17.465181+00:00",
   "id": "2a81cf82b1e1dd65",
@@ -19224,6 +19258,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25898v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "8d7a908ee5c63b7b": {
+  "content_excerpt": "The fallback execution layer: when there's no API, CLI or file edit for the job, your AI uses the screen through clawdcursor. It picks the fastest way into each app: the page itself in browsers, the accessibility tree in desktop apps, text recognition when there's no tree, and screenshots last. After every action it tells your AI whether it worked. clawdcursor is a free, open-source MCP server. Your AI connects to it and gets six tools to use a real Windows, macOS or Linux computer. It sees the parts of an app by name, such as \"Email field\" or \"Confirm button\", and acts on them: type into Email, press Confirm, choose High. It clicks and types by name, so a moved or resized window does not throw it off. Clicking at a screen position is the fallback. After each change it reads the result back and tells your AI one of three things: confirmed, unverified or failed. Uninterrupted workflow. When your AI needs you for a step only you can take, such as a sign-in, a 2FA code or a choice, the screen glows blue and a card says what it needs. You do that one step, and your AI carries on with the task where it left off, with nothing to redo. If you take the mouse or keyboard mid-task, it waits and then picks up again. Our own benchmarks, each run on one machine. The scope of every result is stated with it. None of it is a general claim. macOS, one machine, 2.2, 13 scored tasks per model. The whole run took 10 min 44 s for both models. The scripted reference run (the \"oracle\") also needs 4",
+  "first_seen": "2026-11-27T13:06:52.318668+00:00",
+  "id": "794b0bb6b7f6ec62",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-27T10:21:59+00:00",
+  "sid": "8d7a908ee5c63b7b",
+  "source": "hackernews_ai",
+  "summary_1line": "clawdcursor is a free, open-source MCP server that gives an AI agent six tools to operate a Windows, macOS or Linux desktop, and reports its own benchmark results on a single test machine.",
+  "title": "Clawdcursor, a desktop agent that runs UI tasks in the background",
+  "type": "news",
+  "url": "https://clawdcursor.com",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8d86676710497099": {
   "content_excerpt": "We’re introducing StateBench , a benchmark for long-context state tracking —how well language models keep track of information about entities in long documents as they evolve. State tracking underlies tasks from reading code, where variables are assigned and reassigned, to following a story as characters physically move around and objects change hands. For example, if a mystery novel states that “John gave Mary the knife” right before a murder occurs, it’s important to know that the state of each character has changed. However, not all state-tracking problems are created equal: some require only finding the latest update; harder ones require following a chain of changes, where one missed step can throw off the final answer. For example, a harder variant of our mystery state tracking would be if John gave Mary the item in his backpack, with it previously known that Edward put a knife in John’s backpack. Transformers have well-documented theoretical limits on hard variants of state tracking with long dependency chains, helping motivate recurrent and hybrid architectures such as Gated DeltaNet that carry a running memory forward. Existing state-tracking tests tend to focus on the hardest cases, but as these designs become more common, researchers need to know which kinds of state tracking each architecture can handle. We would like to understand the differences between architectures not just on the hardest kinds of state tracking, but also on the simpler, potentially more common",
@@ -31365,7 +31415,7 @@
   "why_it_matters": "Matches feed focus: codex."
  },
  "e59c020d8e504a91": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Rachel Shalom explains how Dell solved enterprise RAG retrieval failures on internal terminology by fine-tuning open-source embedding models. She discusses data prep with hard negatives, distributed InfoNCE loss training on H100 GPUs, automated hyperparameter tuning, and production evaluation using LLM-as-a-judge. Laura Savino discusses the psychological friction of AI adoption for senior engineers & architects. She explains how shifting from static expertise to le",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Saranya Vedagiri explains how to design resilient, low-latency distributed APIs under 100ms. Drawing on practical scale at eBay, she discusses hop-by-hop latency budgets, async fanout tradeoffs, thread pool sizing, caching, and circuit breakers. Learn actionable strategies to eliminate tail-latency bottlenecks and establish performance-first engineering practices. Rachel Shalom explains how Dell solved enterprise RAG retrieval failures on internal terminology by fine-tuning open-source embedding models. She discusses data prep with hard negatives, distributed InfoNCE loss training on H100 GPUs, automated hyperparameter tuning, and production evaluation using LLM-as-a-judge. Laura Savino discusses the psychological friction of AI adoption for senior engineers & architects. She explains how shifting from static expertise to learning in public lowe",
   "first_seen": "2026-11-27T09:05:32.734753+00:00",
   "id": "ce6535281f7c6d8e",
   "image_url": "https://res.infoq.com/news/2026/11/mozilla-mistral-ai-smart-window/en/headerimage/generatedHeaderImage-1795716059601.jpg",
@@ -32364,7 +32414,7 @@
   "sid": "eeca7ffe47912661",
   "source": "search_cn_open_weight_labs",
   "summary": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74% Tech Times",
-  "summary_1line": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74% Tech Times",
+  "summary_1line": "Russian lender Sber has released GigaChat 4, which supports a 1-million-token context window, and its reported coding-test score of 35% trails the 74% that DeepSeek is reported to have achieved.",
   "title": "Sber Releases GigaChat 4 With 1M-Token Window but Lists 35% on Coding Test Where DeepSeek Gets 74%",
   "type": "release",
   "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOR0hiM2YzblFobmhCQXZZMFdrOEtEMUVGcFVGcmRqU0lWT0JxbTF3cjJKdWt6U3JVVXNZbGpVTDI5YUVoWkFEUWU1OTdMR2JtTlVVbmEwOHQ0b2poVkF4ckNJME0wYTQ3dmJPb3J2aVJjamlCbEFuZ2RDdE5sYldXSWhQcVp1NEFqOXVtZm5SUjZwNm9lR2VyQ0NvMTRDa2QxbU14RHFVaG1YWGZWTUFCVlJmbmNhWTJvb0kxMDNPY1FoZFo1RHhjcG1raXhVcjdGVzZ4Q0RR?oc=5"
