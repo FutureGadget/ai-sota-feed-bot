@@ -1,7 +1,7 @@
 ---
 title: "LLM-judged token-waste spans let agents drop 41-46% of reasoning with little accuracy loss"
 date: 2026-11-06
-theme: harness-and-context
+theme: trimming-context
 evidence: [61ea308958ff18b1]
 ---
 A paper (paper-reported) records full agent trajectories, has an LLM judge mark removable spans, then validates them by deleting the spans and resuming execution. In online pruning on two agent benchmarks it removed **41-46% of the model's reasoning** while largely preserving task performance.

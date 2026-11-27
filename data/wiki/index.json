@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T18:08:46.100879+00:00",
+ "generated_at": "2026-11-27T18:07:56.641851+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -96,6 +96,94 @@
  ],
  "latest_entries": [
   {
+   "id": "2026-11-27-clawdcursor-screen-fallback",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "Clawdcursor gives agents screen control as a last-resort tool layer that reports whether each action worked"
+  },
+  {
+   "id": "2026-11-27-agent-swarm-sqlite-to-postgres",
+   "topic": "scalability",
+   "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "Agent Swarm moved 24M rows from an 87 GB SQLite file to Postgres in six days, with the swarm writing the port"
+  },
+  {
+   "id": "2026-11-27-openrouter-private-tier-rerouting",
+   "topic": "model-drift",
+   "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "An OpenRouter provider's \"private, self-hosted\" models were often served by other providers"
+  },
+  {
+   "id": "2026-11-27-piton-split-hash-pins",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
+   "kind": "solution",
+   "date": "2026-11-27",
+   "title": "Piton pins MCP tool schemas and descriptions with separate hashes to catch third-party rug pulls"
+  },
+  {
+   "id": "2026-11-27-permission-slips",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-27",
+   "title": "Permission Slips lets only a human-typed prompt issue scoped, expiring grants for risky agent actions"
+  },
+  {
+   "id": "2026-11-27-flashbox-per-command-billing",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-27",
+   "title": "Per-command sandbox billing prices an hour-long, 120-call agent session at $0.006 versus ~$0.067 per vCPU-hour"
+  },
+  {
+   "id": "2026-11-27-terraform-plan-gates",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "AI-written Terraform stays safe when deterministic plan checks, not a second AI, gate every apply"
+  },
+  {
+   "id": "2026-11-27-routeability-audit",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "Across 66 LLMs, generic router upgrades rarely beat simply using the single best model"
+  },
+  {
+   "id": "2026-11-27-mantic-forecasting-agent",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "An RL-tuned small forecasting agent matches a frontier model at 1/15 the cost per forecast"
+  },
+  {
+   "id": "2026-11-27-carpool-batched-verified-calls",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-27",
+   "title": "Carpool batches independent tasks into one verified request, cutting cost per accepted answer ~80%"
+  },
+  {
+   "id": "2026-11-27-cyphermas-routing-reliability",
+   "topic": "agent-benchmarks",
+   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+   "kind": "solution",
+   "date": "2026-11-27",
+   "title": "CypherMAS isolates message routing in multi-agent graphs; models above 27B still degrade as the graph widens"
+  },
+  {
    "id": "2026-11-26-lockward-agent-lockfile",
    "topic": "version-pinning",
    "topic_title": "Version pinning, compatibility ranges, and staged upgrades",
@@ -166,94 +254,6 @@
    "kind": "obstacle",
    "date": "2026-11-26",
    "title": "A 27-day agent-team log: state on disk survived 35 sessions; a broken wait tool burned 77% of a day's tokens"
-  },
-  {
-   "id": "2026-11-26-mcp-2027-code-mode-adoption",
-   "topic": "mcp",
-   "topic_title": "Model Context Protocol: a standard interface for agent tools",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "MCP's case for 2027: Code Mode plus typed outputSchema, with large reported production call volumes"
-  },
-  {
-   "id": "2026-11-26-verifier-decision-prefill",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "A span verifier's verdict rests on one branch token; stopping there cuts serving cost 85% at the same F1"
-  },
-  {
-   "id": "2026-11-26-reviewer-effort-wrong-patches",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "Higher effort helps Claude 5.5 code reviewers reject wrong patches, but no setting catches them reliably"
-  },
-  {
-   "id": "2026-11-26-hub-j-human-derived-bias",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "HUB-J mines human-vs-judge disagreements to find and regress out judge bias factors"
-  },
-  {
-   "id": "2026-11-26-messages-api-production-oracle",
-   "topic": "agent-reliability",
-   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
-   "kind": "obstacle",
-   "date": "2026-11-26",
-   "title": "Anthropic verified a Claude-written Rust rewrite by using its live Python API as the oracle"
-  },
-  {
-   "id": "2026-11-26-recordroute-failure-localization",
-   "topic": "agent-observability",
-   "topic_title": "You can't see why an agent did what it did",
-   "kind": "obstacle",
-   "date": "2026-11-26",
-   "title": "RecordRoute localizes a failed run's responsible actor and decisive step before naming the error mode"
-  },
-  {
-   "id": "2026-11-26-monitor-eval-attack-policy",
-   "topic": "agent-observability",
-   "topic_title": "You can't see why an agent did what it did",
-   "kind": "obstacle",
-   "date": "2026-11-26",
-   "title": "A monitor's measured miss rate swung from 0.5% to 20.8% depending on how the attack transcripts were made"
-  },
-  {
-   "id": "2026-11-26-task-memory-steering",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-26",
-   "title": "TASK memory adds activation steering and a removable edit to text notes, cutting memory-ignoring errors"
-  },
-  {
-   "id": "2026-11-26-meterrouter-budget-graphs",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-11-26",
-   "title": "MeterRouter builds a per-query agent graph under a dollar budget, matching the best system at 82% less cost"
-  },
-  {
-   "id": "2026-11-26-skillsbench-noise-audit",
-   "topic": "agent-benchmarks",
-   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "A source-level audit of SkillsBench finds its per-task skill regressions are within noise"
-  },
-  {
-   "id": "2026-11-26-shellbench-model-over-harness",
-   "topic": "agent-benchmarks",
-   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
-   "kind": "solution",
-   "date": "2026-11-26",
-   "title": "ShellBench: on everyday tasks, model choice moves pass rates more than harness choice"
   }
  ],
  "nodes": {
@@ -271,7 +271,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p><strong>Per-token prices are falling, but per-task spend is not.</strong> Frontier and open-weight prices drop together, yet Gartner forecasts cost per agentic workflow rising more than fivefold through 2028, because spend scales with steps and tool calls. The deliverable is a cost model per task, not a price list.</p>\n<p>Teams pull four levers, roughly in order of payoff:</p>\n<ul><li><strong>Cache the stable prefix.</strong> An agent re-sends its system prompt, tool schemas, and history every turn. Production setups report 90-99% cache hits, and Anthropic&#x27;s worked example shows one session at $11.20 uncached versus $1.62 cached.</li><li><strong>Route per task.</strong> Benchmarks find only about 7% of agent turns need a frontier model; routing inside the harness cut cost 64-74%.</li><li><strong>Shrink what the agent re-reads.</strong> Validated compaction, tighter tool instructions, and leaner fetched content attack the per-step bill. Naive truncation backfires: agents re-fetch what was cut.</li><li><strong>Downshift with guardrails.</strong> Boundary contracts and harness tuning let cheap models match frontier runs at several times lower cost.</li></ul>\n<p><strong>Cost every downshift on total tokens, not sticker price.</strong> Quantized reasoning models emit more tokens, cheaper models hallucinate more, and truncation triggers retries. Each can erase the discount. Billing data backs the routing case: a weeks-old frontier model took 3.5% of one vendor&#x27;s spend.</p>\n<p><strong>The open problem is accounting at the right unit.</strong> Most reported savings are vendor-measured, offline, or single-customer. Mid-thread re-routing is unsolved, and runaway spend remains the default without an enforced cap (see <a href=\"/topic/cost-controls\">cost controls</a>). Self-hosters face a parallel floor: GPU utilization, KV-cache placement, and runtime billing often matter more than list price.</p>"
+     "html": "<p><strong>Per-token prices are falling, but per-task spend is not.</strong> Frontier and open-weight prices drop together, yet Gartner forecasts cost per agentic workflow rising more than fivefold through 2028, because spend scales with steps and tool calls. The deliverable is a cost model per task, not a price list.</p>\n<p>Teams pull four levers, roughly in order of payoff:</p>\n<ul><li><strong>Cache the stable prefix.</strong> An agent re-sends its system prompt, tool schemas, and history every turn. Production setups report 90-99% cache hits, and Anthropic&#x27;s worked example shows one session at $11.20 uncached versus $1.62 cached.</li><li><strong>Route per task.</strong> Benchmarks find only about 7% of agent turns need a frontier model; routing inside the harness cut cost 64-74%. Audit first: across 66 LLMs, generic routers rarely beat the single best model.</li><li><strong>Shrink what the agent re-reads.</strong> Validated compaction, tighter tool instructions, leaner fetched content, and batching independent tasks into one verified request attack the per-step bill. Naive truncation backfires: agents re-fetch what was cut.</li><li><strong>Downshift with guardrails.</strong> Boundary contracts and harness tuning let cheap models match frontier runs at several times lower cost.</li></ul>\n<p><strong>Cost every downshift on total tokens, not sticker price.</strong> Quantized reasoning models emit more tokens, cheaper models hallucinate more, and truncation triggers retries. Each can erase the discount. Billing data backs the routing case: a weeks-old frontier model took 3.5% of one vendor&#x27;s spend.</p>\n<p><strong>The open problem is accounting at the right unit.</strong> Most reported savings are vendor-measured, offline, or single-customer. Mid-thread re-routing is unsolved, and runaway spend remains the default without an enforced cap (see <a href=\"/topic/cost-controls\">cost controls</a>). Self-hosters face a parallel floor: GPU utilization, KV-cache placement, and runtime billing often matter more than list price.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -281,21 +281,27 @@
    "themes": [
     {
      "key": "harness-and-context",
-     "title": "Harness, context, and topology drive the per-step bill",
-     "summary": "What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.",
-     "count": 17
+     "title": "Harness, environment, and topology drive the per-step bill",
+     "summary": "What the harness re-sends, fetches, and repeats each turn sets most of the bill; tool-instruction tuning, environment cleanup, batching, and replaying stable jobs as code beat model swaps.",
+     "count": 11
+    },
+    {
+     "key": "trimming-context",
+     "title": "Trimming context and reasoning without breaking the task",
+     "summary": "Validated compaction and judged token-waste pruning cut 40-50% of tokens, but naive truncation, dropped protocol messages, and shorter outputs can raise total task cost.",
+     "count": 7
     },
     {
      "key": "cheaper-models",
      "title": "Downshifting to cheaper models, costed on total tokens",
      "summary": "Contracts and harness tuning let cheaper models take frontier work at 5-8x lower cost, but quantization and hallucinations can claw the discount back in extra tokens.",
-     "count": 15
+     "count": 16
     },
     {
      "key": "routing",
      "title": "Routing each turn to the cheapest model that can handle it",
      "summary": "Benchmarks find most agent turns don't need a frontier model; per-thread routing inside the harness cuts cost 64-74%, and online tuning of the routing policy is emerging.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "caching-and-serving",
@@ -311,6 +317,61 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-routeability-audit",
+     "topic": "agent-cost",
+     "date": "2026-11-27",
+     "title": "Across 66 LLMs, generic router upgrades rarely beat simply using the single best model",
+     "theme": "routing",
+     "html": "<p>The Routeability Audit Protocol (RAP) asks first whether a benchmark leaves any room to route. On coarse-scored suites, many models tie for best, and the single best model leaves little headroom. Across four benchmarks and 66 LLMs, larger embedding sets, dimensionality reduction, abstention, clustering, and stronger regressors did not consistently beat the single best model. Clear gains showed up only in portfolio-dependent Omni-MATH settings; GPQA, MMLU-Pro, and IFEval stayed hard or predictor-sensitive.</p>\n<p>For builders: before you trust a router&#x27;s savings claim, check the tied-best rate and the portfolio on your own traffic. A router that cannot beat &quot;always use model X&quot; only adds a failure point.</p>",
+     "evidence": [
+      {
+       "sid": "cf660e09947351ea",
+       "title": "Routeability Before Routing: Routeability Audit Protocol (RAP) and RouteabilityBench for Audited LLM Model Selection"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-benchmarks",
+       "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-mantic-forecasting-agent",
+     "topic": "agent-cost",
+     "date": "2026-11-27",
+     "title": "An RL-tuned small forecasting agent matches a frontier model at 1/15 the cost per forecast",
+     "theme": "cheaper-models",
+     "html": "<p>Mantic post-trained Inkling 2 Small with RL on Tinker. The reward mixes the realized outcome&#x27;s log score with a frontier-ensemble reference forecast to cut single-question noise. On 200 held-out numerical questions, the agent roughly matches Fable 5.2 (medium) at about <strong>1/15 the cost</strong> per forecast (vendor-reported). The bottleneck was tooling, not the model: third-party APIs were too slow for thousands of concurrent rollouts, so Mantic ingested point-in-time data, including a 1.32 TB Wikipedia snapshot, into its own stores.</p>\n<p>For builders: a narrow, high-volume agent job is where fine-tuning a small model pays off. Budget for rollout-grade tool backends; rate-limited APIs cannot serve RL training.</p>",
+     "evidence": [
+      {
+       "sid": "94438c04413384cb",
+       "title": "Training a Scalable Forecasting Agent (Guest Post with Mantic)"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-27-carpool-batched-verified-calls",
+     "topic": "agent-cost",
+     "date": "2026-11-27",
+     "title": "Carpool batches independent tasks into one verified request, cutting cost per accepted answer ~80%",
+     "theme": "harness-and-context",
+     "html": "<p>Every separate model call pays its fixed setup again: system prompt, tool schemas, instructions. Carpool sends independent tasks in one request. Each answer must cite a source ID, and rule-based checks (exact text, numbers with units, names) verify it with no extra model call. Only tasks that fail a check get their own full-evidence retry. On 24 ops tasks and 48 SQuAD questions with Claude, cost per accepted answer fell <strong>78-83%</strong> against one lean call per task and <strong>93-96%</strong> against one agent call per task, with zero regressions. The authors note the small sample bounds regressions only at about 6%.</p>\n<p>For builders: per-item agent calls in a pipeline mostly buy repeated setup. Batch them, and verify each answer mechanically instead of with another model.</p>",
+     "evidence": [
+      {
+       "sid": "f2a29141f92b3b28",
+       "title": "Carpool – cut LLM costs by batching tasks and compiling repeated calls into code"
+      }
+     ],
+     "also": [
+      {
+       "slug": "cost-controls",
+       "title": "Cost controls: budgets, metering, and per-task attribution"
+      }
+     ]
+    },
     {
      "id": "2026-11-26-meterrouter-budget-graphs",
      "topic": "agent-cost",
@@ -595,7 +656,7 @@
      "topic": "agent-cost",
      "date": "2026-11-06",
      "title": "LLM-judged token-waste spans let agents drop 41-46% of reasoning with little accuracy loss",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>A paper (paper-reported) records full agent trajectories, has an LLM judge mark removable spans, then validates them by deleting the spans and resuming execution. In online pruning on two agent benchmarks it removed <strong>41-46% of the model&#x27;s reasoning</strong> while largely preserving task performance.</p>\n<p>Waste varied more across tasks and agent settings than across models, and different harnesses added distinct inefficiencies under the same model and task. Reasoning and visible execution wasted tokens differently.</p>\n<p>Aggregate token counts hide this structure. Measure waste per task and per harness before choosing a cheaper model; the harness may be the larger lever.</p>",
      "evidence": [
       {
@@ -841,7 +902,7 @@
      "topic": "agent-cost",
      "date": "2026-09-18",
      "title": "Pruning redundant rounds from training trajectories cuts inference tokens ~48%",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>Dependency-Aware Trajectory Refinement treats a multi-turn agent trajectory as a <strong>round-level dependency DAG</strong>, finds which rounds (failed tool calls, parallel sub-queries, verification-only steps) the final answer depends on, and fine-tunes on the pruned trajectories.</p>\n<p>Across four multimodal QA benchmarks it improves accuracy by <strong>up to 1.7 points</strong> over vanilla fine-tuning while cutting per-sample inference messages <strong>~40%</strong> and inference tokens <strong>~48%</strong>. Redundant training data inflates the same per-step bill as redundant context, so the fix can sit upstream of compaction.</p>",
      "evidence": [
       {
@@ -856,7 +917,7 @@
      "topic": "agent-cost",
      "date": "2026-09-18",
      "title": "Trimming agent history without preserving its protocol can break the agent",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>&quot;Protocol-Preserving Context Trimming for Agentic Workflows&quot; studies agents whose histories hold instructions, tool states, intermediate decisions, and unresolved dependencies. Unrestricted growth drives up compute, but trimming that ignores the <strong>interaction protocol can break the agent</strong>, not just make it less accurate.</p>\n<p>Its budget guardrails keep trimming inside the protocol&#x27;s constraints, not only inside a token count. It complements ACM&#x27;s cost/fidelity framing with an account of <em>how</em> trimming fails.</p>",
      "evidence": [
       {
@@ -916,7 +977,7 @@
      "topic": "agent-cost",
      "date": "2026-09-05",
      "title": "GitHub: truncating agent output to save tokens can raise total task cost",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>GitHub found that when a coding agent&#x27;s output was truncated or summarized to save tokens, the agent sometimes <strong>reopened the original or reran the command</strong>, turning one cheaper turn into more turns and more context. Its fixes, measured across the whole task:</p>\n<ul><li>Selectively compress repetitive build/test logs while keeping source code (the largest cut)</li><li>Strip unused line-number formatting (<strong>5%</strong>)</li><li>Less verbose Task-tool prompts (<strong>2.9%</strong>)</li><li>Deliver background results without an extra retrieval call (<strong>2.3%</strong>)</li></ul>\n<p>Each change passed offline benchmarks and online A/B tests. Measure cost per task, not per tool call.</p>",
      "evidence": [
       {
@@ -1006,7 +1067,7 @@
      "topic": "agent-cost",
      "date": "2026-08-28",
      "title": "Codex compaction now counts retained images against the token budget",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>Codex 0.150.1 makes remote compaction <strong>count retained images toward its token budget by default</strong>, trimming the oldest images as needed.</p>\n<p>Before, accumulated screenshots could inflate the context re-sent every turn without showing up in the compaction budget. Agents that work from screenshots should account for images as tokens, not as free attachments.</p>",
      "evidence": [
       {
@@ -1245,7 +1306,7 @@
      "topic": "agent-cost",
      "date": "2026-07-24",
      "title": "Only validated compaction gets linear cost without an accuracy cliff, says ACM",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>&quot;Agentic Context Management&quot; (ACM) argues production agents fail less from weak reasoning than from unmanaged context: histories, large prompts, tool definitions, ballooning tool outputs. It frames three regimes:</p>\n<ul><li><strong>Naive accumulation:</strong> per-step cost grows quadratically with conversation length.</li><li><strong>Crude summarization:</strong> linear cost, but an accuracy cliff.</li><li><strong>Validated compaction:</strong> linear cost with fidelity preserved.</li></ul>\n<p>Its reference implementation is Maximem Synap. Treat memory and cost as one lifecycle problem; see <a href=\"/topic/context-compaction\">context compaction</a>.</p>",
      "evidence": [
       {
@@ -1438,7 +1499,7 @@
      "topic": "agent-cost",
      "date": "2026-06-20",
      "title": "Every skill, hook, and subagent used to steer an agent spends context budget",
-     "theme": "harness-and-context",
+     "theme": "trimming-context",
      "html": "<p>Anthropic&#x27;s guide to steering Claude Code compares seven methods (skills, hooks, subagents, rules and more) by <strong>the context cost and the authority of each</strong>.</p>\n<p>Steering and cost are the same knob seen from two sides. Each instruction added to shape behavior consumes context budget on every turn, so a team should pick the cheapest mechanism that carries enough authority for the rule.</p>",
      "evidence": [
       {
@@ -1494,6 +1555,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-27-flashbox-per-command-billing",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-11-27",
+     "title": "Per-command sandbox billing prices an hour-long, 120-call agent session at $0.006 versus ~$0.067 per vCPU-hour"
+    },
     {
      "id": "2026-11-26-coordinator-27-day-field-report",
      "topic": "multi-agent",
@@ -1733,8 +1801,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 71,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 74,
+   "latest_entry_date": "2026-11-27",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1752,6 +1820,18 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "cf660e09947351ea",
+     "title": "Routeability Before Routing: Routeability Audit Protocol (RAP) and RouteabilityBench for Audited LLM Model Selection"
+    },
+    {
+     "sid": "94438c04413384cb",
+     "title": "Training a Scalable Forecasting Agent (Guest Post with Mantic)"
+    },
+    {
+     "sid": "f2a29141f92b3b28",
+     "title": "Carpool – cut LLM costs by batching tasks and compiling repeated calls into code"
+    },
     {
      "sid": "851958f4eb1c5d85",
      "title": "MeterRouter: Budget-Aware Dynamic Routing for Multi-Agent Systems"
@@ -2065,7 +2145,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -10034,7 +10114,7 @@
      "key": "deterministic-boundaries",
      "title": "Deterministic boundaries around the model",
      "summary": "Production teams bound the model with schemas, server-side gates, type checkers, and harness invariants, so enforcement sits outside the model's own decision instead of inside a longer prompt.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "execution-and-identity",
@@ -10062,6 +10142,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-terraform-plan-gates",
+     "topic": "agent-reliability",
+     "date": "2026-11-27",
+     "title": "AI-written Terraform stays safe when deterministic plan checks, not a second AI, gate every apply",
+     "theme": "deterministic-boundaries",
+     "html": "<p>A field write-up on AI-written infrastructure code argues that valid Terraform can still delete resources or loosen IAM, and that a second AI reviewer adds an opinion, not a guarantee. The controls are mechanical:</p>\n<ul><li>Export the plan as JSON and fail on out-of-scope resources; block Delete and require approval for Replace.</li><li>Run fmt, validate, TFLint, Checkov, and plan-time policy identically in local runs and CI.</li><li>Deny the agent merge, apply, state-write, CI, and policy-edit rights.</li><li>Have a separate CI identity apply the exact reviewed plan file.</li></ul>\n<p>For builders: this pattern carries to any agent with write access to production. Gate on the computed diff, not the generated code.</p>",
+     "evidence": [
+      {
+       "sid": "7d749495f7e10f67",
+       "title": "AI-Driven Terraform: Move Fast Without Losing Control"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
     {
      "id": "2026-11-26-messages-api-production-oracle",
      "topic": "agent-reliability",
@@ -10918,8 +11018,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 46,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 47,
+   "latest_entry_date": "2026-11-27",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -10929,6 +11029,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7d749495f7e10f67",
+     "title": "AI-Driven Terraform: Move Fast Without Losing Control"
+    },
     {
      "sid": "69fbec9981f84b43",
      "title": "Migrating our Messages API to Rust"
@@ -11114,7 +11218,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "grounding": {
    "slug": "grounding",
@@ -11886,7 +11990,7 @@
      "key": "serving-runtime-drift",
      "title": "The serving runtime as a drift source",
      "summary": "Inference-runtime upgrades and provider choice move latency, sampling, and accuracy; about one in four hosted open-weight endpoints scores below its reference deployment.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "drift-tooling",
@@ -11896,6 +12000,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-openrouter-private-tier-rerouting",
+     "topic": "model-drift",
+     "date": "2026-11-27",
+     "title": "An OpenRouter provider's \"private, self-hosted\" models were often served by other providers",
+     "theme": "serving-runtime-drift",
+     "html": "<p>An independent probe of Venice, an OpenRouter provider, found its privacy label did not match where requests ran. On 2026-11-21, 14 of 18 listed image models fetched outputs from Baseten, DeepInfra, Fireworks, or Parasail. For Qwen3.5 397B, 32 of 40 test requests looped back into OpenRouter. Venice later moved that model and removed another. The author published attested probe logs; Venice&#x27;s privacy page defines &quot;private&quot; to include partner infrastructure.</p>\n<p>For builders: through an aggregator, the provider label does not tell you which infrastructure ran the request. Pin providers explicitly, and verify data-retention claims per model rather than per vendor.</p>",
+     "evidence": [
+      {
+       "sid": "2bb714fbc5927fde",
+       "title": "Potemkin Inference on Openrouter (Venice AI)"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-24-exact-serving-shortcuts",
      "topic": "model-drift",
@@ -12518,8 +12637,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 34,
-   "latest_entry_date": "2026-11-24",
+   "entry_count": 35,
+   "latest_entry_date": "2026-11-27",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -12533,6 +12652,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2bb714fbc5927fde",
+     "title": "Potemkin Inference on Openrouter (Venice AI)"
+    },
     {
      "sid": "3515c9dc9a088b85",
      "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests"
@@ -12746,7 +12869,7 @@
      "title": "claude-code v2.1.183"
     }
    ],
-   "updated": "2026-11-24"
+   "updated": "2026-11-27"
   },
   "multi-agent": {
    "slug": "multi-agent",
@@ -13822,6 +13945,20 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-27-cyphermas-routing-reliability",
+     "topic": "agent-benchmarks",
+     "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+     "date": "2026-11-27",
+     "title": "CypherMAS isolates message routing in multi-agent graphs; models above 27B still degrade as the graph widens"
+    },
+    {
+     "id": "2026-11-27-agent-swarm-sqlite-to-postgres",
+     "topic": "scalability",
+     "topic_title": "Agent infrastructure buckles under concurrency, not just load",
+     "date": "2026-11-27",
+     "title": "Agent Swarm moved 24M rows from an 87 GB SQLite file to Postgres in six days, with the swarm writing the port"
+    },
     {
      "id": "2026-11-26-meterrouter-budget-graphs",
      "topic": "agent-cost",
@@ -15670,6 +15807,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-27-piton-split-hash-pins",
+     "topic": "mcp",
+     "topic_title": "Model Context Protocol: a standard interface for agent tools",
+     "date": "2026-11-27",
+     "title": "Piton pins MCP tool schemas and descriptions with separate hashes to catch third-party rug pulls"
+    },
+    {
+     "id": "2026-11-27-permission-slips",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-11-27",
+     "title": "Permission Slips lets only a human-typed prompt issue scoped, expiring grants for risky agent actions"
+    },
+    {
      "id": "2026-11-26-lockward-agent-lockfile",
      "topic": "version-pinning",
      "topic_title": "Version pinning, compatibility ranges, and staged upgrades",
@@ -16636,7 +16787,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p><strong>The consensus fix is to remove the central coordinator, not scale it.</strong> The same move now shows up at three layers:</p>\n<ul><li><strong>Sandbox scheduling.</strong> A Kubernetes-style scheduler backed by strongly consistent state caps out before the hardware does. The working design lets each worker accept or reject work on its own resources and publish state to a shared stream. Modal reports 1 million concurrent sandboxes in under 60 seconds this way.</li><li><strong>Inference serving.</strong> Paged KV caches and packed, ragged batching stop padding overhead from compounding as concurrent requests share a batch. The failure mode is shared cache slots: two coding agents on one Ollama slot waited a median 46 seconds for first token, against one second with a slot each, because each evicted the other&#x27;s cached prefix.</li><li><strong>Tool protocol.</strong> Stateless MCP drops sessions and sticky routing so remote servers scale like any stateless service.</li></ul>\n<p><strong>Density is the second lever.</strong> Instead of keeping sandboxes warm, platforms suspend idle ones and resume them in under a second, and Kubernetes can now scale agent workloads to zero. For training and eval fleets, forking desktops from process checkpoints packs hundreds per host instead of one VM each.</p>\n<p><strong>The open problem is where the state goes.</strong> Removing the coordinator or the session does not remove the state. Retries, idempotency, application state, and observability move to layers the platform team now owns. Most published numbers are vendor-reported and not independently reproduced.</p>"
+     "html": "<p><strong>The consensus fix is to remove the central coordinator, not scale it.</strong> The same move now shows up at three layers:</p>\n<ul><li><strong>Sandbox scheduling.</strong> A Kubernetes-style scheduler backed by strongly consistent state caps out before the hardware does. The working design lets each worker accept or reject work on its own resources and publish state to a shared stream. Modal reports 1 million concurrent sandboxes in under 60 seconds this way.</li><li><strong>Inference serving.</strong> Paged KV caches and packed, ragged batching stop padding overhead from compounding as concurrent requests share a batch. The failure mode is shared cache slots: two coding agents on one Ollama slot waited a median 46 seconds for first token, against one second with a slot each, because each evicted the other&#x27;s cached prefix.</li><li><strong>Tool protocol.</strong> Stateless MCP drops sessions and sticky routing so remote servers scale like any stateless service.</li></ul>\n<p><strong>Density is the second lever.</strong> Instead of keeping sandboxes warm, platforms suspend idle ones and resume them in under a second, and Kubernetes can now scale agent workloads to zero. For training and eval fleets, forking desktops from process checkpoints packs hundreds per host instead of one VM each.</p>\n<p><strong>The open problem is where the state goes.</strong> Removing the coordinator or the session does not remove the state. Retries, idempotency, application state, and observability move to layers the platform team now owns. One swarm&#x27;s 87 GB SQLite file stalled its API until a move to Postgres cut p99 from 363 ms to 51 ms at 5x load, at triple the median. Most published numbers are vendor-reported and not independently reproduced.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -16661,9 +16812,35 @@
      "title": "Sandbox density and scale-to-zero for idle fleets",
      "summary": "Platforms suspend idle sandboxes and resume them in under a second, and checkpoint forking packs hundreds of desktops per host; density claims are vendor-reported.",
      "count": 2
+    },
+    {
+     "key": "durable-state",
+     "title": "Moving agent state into a shared durable store",
+     "summary": "Single-file stores stall once several processes share agent state; teams move to Postgres behind engine-parity tests and pay higher median latency for a much lower tail.",
+     "count": 1
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-agent-swarm-sqlite-to-postgres",
+     "topic": "scalability",
+     "date": "2026-11-27",
+     "title": "Agent Swarm moved 24M rows from an 87 GB SQLite file to Postgres in six days, with the swarm writing the port",
+     "theme": "durable-state",
+     "html": "<p>Agent Swarm&#x27;s single SQLite file reached 87 GB, and one long statement could stall the API. A swarm moved about 2,200 SQL call sites behind a storage interface, gated by a contract suite and E2E tests on both engines; it waited about 250 minutes for four human decisions. Cutover copied <strong>24,051,347 rows</strong> in one verified transaction, with 1h49m downtime. The first error came two minutes later: Postgres predicate-lock memory, fixed with a config change and restart. At 5x load, p99 fell from 363 ms to 51 ms while median rose from 4.7 ms to 14.7 ms.</p>\n<p>For builders: shared, multi-process agent state outgrows one file. Build engine-parity tests before the move.</p>",
+     "evidence": [
+      {
+       "sid": "6f7987b91e8e3dc8",
+       "title": "We migrated agent-swarm from SQLite to Postgres"
+      }
+     ],
+     "also": [
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
     {
      "id": "2026-11-26-criu-forked-desktops",
      "topic": "scalability",
@@ -16801,8 +16978,8 @@
      "title": "Postgres as the agent memory layer: JSONB, HNSW vectors, and row-level locking"
     }
    ],
-   "entry_count": 7,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 8,
+   "latest_entry_date": "2026-11-27",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -16812,6 +16989,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "6f7987b91e8e3dc8",
+     "title": "We migrated agent-swarm from SQLite to Postgres"
+    },
     {
      "sid": "415f33463dc26d9a",
      "title": "Show HN: Fork Linux desktops in 139ms for computer-use agent training"
@@ -16841,7 +17022,7 @@
      "title": "Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -16869,7 +17050,7 @@
      "key": "agent-native-surfaces",
      "title": "Exposing existing systems as agent-callable tools",
      "summary": "Teams either build agent-native endpoints or wrap what already runs, via thin overlays, generated MCP surfaces, or per-app capabilities; wrapping is winning in the enterprise.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "discovery-and-definitions",
@@ -16897,6 +17078,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-clawdcursor-screen-fallback",
+     "topic": "tool-use",
+     "date": "2026-11-27",
+     "title": "Clawdcursor gives agents screen control as a last-resort tool layer that reports whether each action worked",
+     "theme": "agent-native-surfaces",
+     "html": "<p>Clawdcursor is an open-source MCP server with six tools for operating a Windows, macOS, or Linux desktop when no API, CLI, or file edit exists. It picks the cheapest reliable path into each app. It uses the page itself in browsers, then the accessibility tree in desktop apps, then text recognition, and screenshots only as a last resort. It addresses elements by name (&quot;Confirm button&quot;) rather than coordinates. After every action, it tells the agent whether the action took effect.</p>\n<p>For builders: computer use is a fallback, not a primary surface. Rank it below APIs, and pick tooling that returns structured per-action success signals instead of making the model judge screenshots.</p>",
+     "evidence": [
+      {
+       "sid": "8d7a908ee5c63b7b",
+       "title": "Clawdcursor, a desktop agent that runs UI tasks in the background"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-26-prior-pre-call-reasoning",
      "topic": "tool-use",
@@ -17851,8 +18047,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 44,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 45,
+   "latest_entry_date": "2026-11-27",
    "solutions": [
     {
      "slug": "mcp",
@@ -17862,6 +18058,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "8d7a908ee5c63b7b",
+     "title": "Clawdcursor, a desktop agent that runs UI tasks in the background"
+    },
     {
      "sid": "adca41e514a08c77",
      "title": "PRIOR: Pre-Call Reasoning in SFT and Its Influence on Tool-Use Retention under RL"
@@ -18043,7 +18243,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -18099,10 +18299,30 @@
      "key": "long-horizon-and-subsystems",
      "title": "Long horizons and subsystem diagnostics",
      "summary": "Long-horizon suites show final-answer scores overstate success, while subsystem benchmarks (memory, knowledge conflicts, root-cause reasoning, coordination) grade the inner process so a regression can be localized.",
-     "count": 11
+     "count": 12
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-cyphermas-routing-reliability",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-27",
+     "title": "CypherMAS isolates message routing in multi-agent graphs; models above 27B still degrade as the graph widens",
+     "theme": "long-horizon-and-subsystems",
+     "html": "<p>CypherMAS tests only communication. Agents in chain, star, bipartite, or ring graphs must route ciphered messages to the peer that holds the decoder. The optimal route is known, so the benchmark counts wasted LLM calls and pinpoints where a message got lost. Across eleven open-weight models from 4B to 753B, small models fail at routing and tool use, dense models above 27B degrade as graph diameter grows, and even successful runs use more calls than the minimum.</p>\n<p>For builders: a multi-agent failure can be a delivery failure, not a reasoning failure. Count hops and redundant calls per topology before you add another agent to the graph.</p>",
+     "evidence": [
+      {
+       "sid": "2c2c060d34af1ace",
+       "title": "CypherMAS: Benchmarking Routing Reliability in LLM-Based Multi-Agent Systems"
+      }
+     ],
+     "also": [
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
     {
      "id": "2026-11-26-skillsbench-noise-audit",
      "topic": "agent-benchmarks",
@@ -19280,6 +19500,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-27-routeability-audit",
+     "topic": "agent-cost",
+     "topic_title": "Agent token costs are unpredictable and easily run away",
+     "date": "2026-11-27",
+     "title": "Across 66 LLMs, generic router upgrades rarely beat simply using the single best model"
+    },
+    {
      "id": "2026-11-25-siren-escape-eval",
      "topic": "agent-sandboxing",
      "topic_title": "Sandboxing, scoped credentials, and guardrails",
@@ -19357,8 +19584,8 @@
      "title": "The best agent resolves 69.6% of single tool requests but only 39.8% of three-turn dialogues"
     }
    ],
-   "entry_count": 73,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 74,
+   "latest_entry_date": "2026-11-27",
    "solutions": [],
    "obstacles": [
     {
@@ -19376,6 +19603,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2c2c060d34af1ace",
+     "title": "CypherMAS: Benchmarking Routing Reliability in LLM-Based Multi-Agent Systems"
+    },
     {
      "sid": "062ca583db2be62b",
      "title": "What Does Skill Lift Actually Measure? A Source-Code-Level Audit and Noise-Aware Reanalysis of SkillsBench"
@@ -19669,7 +19900,7 @@
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
@@ -20604,7 +20835,7 @@
      "key": "permission-policy",
      "title": "Scoping what the agent may do",
      "summary": "Permissions are getting finer and more central, with per-parameter rules, approval-gated writes, IdP-managed connectors, sequence-aware policy, and portable permission specs.",
-     "count": 14
+     "count": 15
     },
     {
      "key": "local-sandboxes",
@@ -20616,7 +20847,7 @@
      "key": "managed-platforms",
      "title": "Managed and self-hosted sandbox platforms",
      "summary": "MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.",
-     "count": 15
+     "count": 16
     },
     {
      "key": "egress-and-escapes",
@@ -20632,6 +20863,46 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-permission-slips",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-27",
+     "title": "Permission Slips lets only a human-typed prompt issue scoped, expiring grants for risky agent actions",
+     "theme": "permission-policy",
+     "html": "<p>Permission Slips adds two hooks to Claude Code and Codex. A <code>UserPromptSubmit</code> hook records a slip such as <code>/slip deploy api</code> only when the human types it, so the model never writes the ledger. A <code>PreToolUse</code> hook matches each call against regex rules and denies a risky one that no valid slip covers. Slips name a target and a lifetime (<code>once</code>, <code>prompt</code>, <code>session</code>, <code>until-spent</code>). The README limits the claim to agents drifting past intent, not hostile ones. An agent with shell access could still reach the ledger unless it lives outside writable paths.</p>\n<p>For builders: tie authority for destructive actions to the human input channel, not to text the model can produce.</p>",
+     "evidence": [
+      {
+       "sid": "155371850eeda6e4",
+       "title": "Show HN: Permission Slips: only your prompt can issue coding-agent grants"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-flashbox-per-command-billing",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-27",
+     "title": "Per-command sandbox billing prices an hour-long, 120-call agent session at $0.006 versus ~$0.067 per vCPU-hour",
+     "theme": "managed-platforms",
+     "html": "<p>Flashbox gives each agent conversation a Linux sandbox and bills per command at $0.05 per 1,000. Idle time is free. Heavy installs and builds move to a full-speed machine that keeps the same files. Its own comparison prices an hour with 120 short tool calls at <strong>$0.006</strong>, against about <strong>$0.067</strong> at E2B&#x27;s list price for 1 vCPU and 1 GiB held for the hour (vendor-reported, prices checked 2026-11-23).</p>\n<p>For builders: most of an agent session is the model thinking or a human reading. Under per-second billing, you pay for that idle box. Model sandbox cost from your real call rate, not from session length.</p>",
+     "evidence": [
+      {
+       "sid": "f613c86fe92edbd9",
+       "title": "Show HN: An Agent Sandbox where you pay per command, not CPU second"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-11-25-siren-escape-eval",
      "topic": "agent-sandboxing",
@@ -22061,6 +22332,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-27-terraform-plan-gates",
+     "topic": "agent-reliability",
+     "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+     "date": "2026-11-27",
+     "title": "AI-written Terraform stays safe when deterministic plan checks, not a second AI, gate every apply"
+    },
+    {
      "id": "2026-11-26-criu-forked-desktops",
      "topic": "scalability",
      "topic_title": "Agent infrastructure buckles under concurrency, not just load",
@@ -22152,8 +22430,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 86,
-   "latest_entry_date": "2026-11-25",
+   "entry_count": 88,
+   "latest_entry_date": "2026-11-27",
    "solutions": [],
    "obstacles": [
     {
@@ -22171,6 +22449,14 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "155371850eeda6e4",
+     "title": "Show HN: Permission Slips: only your prompt can issue coding-agent grants"
+    },
+    {
+     "sid": "f613c86fe92edbd9",
+     "title": "Show HN: An Agent Sandbox where you pay per command, not CPU second"
+    },
     {
      "sid": "c6fb797fc3de32cb",
      "title": "Measuring and mitigating agent sandbox escape with Siren"
@@ -22548,7 +22834,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-11-25"
+   "updated": "2026-11-27"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -24073,6 +24359,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-27-carpool-batched-verified-calls",
+     "topic": "agent-cost",
+     "topic_title": "Agent token costs are unpredictable and easily run away",
+     "date": "2026-11-27",
+     "title": "Carpool batches independent tasks into one verified request, cutting cost per accepted answer ~80%"
+    },
+    {
      "id": "2026-11-24-agent-money-benchmark",
      "topic": "agent-benchmarks",
      "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
@@ -25105,7 +25398,7 @@
      "key": "auth-and-governance",
      "title": "Authorization and governance of connector fleets",
      "summary": "Connector access is now provisioned through identity providers and managed settings, with gateways and server-side write controls deciding what a connection may do.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "webmcp",
@@ -25127,6 +25420,30 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-27-piton-split-hash-pins",
+     "topic": "mcp",
+     "date": "2026-11-27",
+     "title": "Piton pins MCP tool schemas and descriptions with separate hashes to catch third-party rug pulls",
+     "theme": "auth-and-governance",
+     "html": "<p>Piton writes a lockfile with two SHA-256 pins per MCP tool. A structural hash covers the name and input schema, and any drift is blocked. A description hash covers the prose the model reads. Drift there is blocked on third-party servers and only warns on internal ones, so a docstring typo fix does not break CI. It also flags tool-name shadowing across servers, hidden Unicode, and exfiltration directives. It lints Claude Code hooks, Cursor rules, and <code>.vscode</code> autorun tasks for <code>curl|sh</code>-style RCE. Runtime enforcement uses a wrapper and sidecar.</p>\n<p>For builders: a tool description is executable input to the model. Pin third-party descriptions as strictly as schemas, and review every change.</p>",
+     "evidence": [
+      {
+       "sid": "bd26df9fc2790cc4",
+       "title": "Show HN: Piton Lockfile and static supply-chain scanner for MCP/coding agent"
+      }
+     ],
+     "also": [
+      {
+       "slug": "version-pinning",
+       "title": "Version pinning, compatibility ranges, and staged upgrades"
+      },
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-11-26-mcp-2027-code-mode-adoption",
      "topic": "mcp",
@@ -25989,8 +26306,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 40,
-   "latest_entry_date": "2026-11-26",
+   "entry_count": 41,
+   "latest_entry_date": "2026-11-27",
    "solutions": [],
    "obstacles": [
     {
@@ -26000,6 +26317,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "bd26df9fc2790cc4",
+     "title": "Show HN: Piton Lockfile and static supply-chain scanner for MCP/coding agent"
+    },
     {
      "sid": "93cec7f36fc5907a",
      "title": "Why I'm Bullish on MCP for 2027"
@@ -26165,7 +26486,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-11-26"
+   "updated": "2026-11-27"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
@@ -27225,6 +27546,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-27-piton-split-hash-pins",
+     "topic": "mcp",
+     "topic_title": "Model Context Protocol: a standard interface for agent tools",
+     "date": "2026-11-27",
+     "title": "Piton pins MCP tool schemas and descriptions with separate hashes to catch third-party rug pulls"
+    },
     {
      "id": "2026-11-24-schemacaps-widening",
      "topic": "tool-use",

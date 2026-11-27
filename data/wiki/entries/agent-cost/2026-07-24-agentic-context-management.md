@@ -1,7 +1,7 @@
 ---
 title: "Only validated compaction gets linear cost without an accuracy cliff, says ACM"
 date: 2026-07-24
-theme: harness-and-context
+theme: trimming-context
 evidence: [fae52c3b17c1c504]
 ---
 "Agentic Context Management" (ACM) argues production agents fail less from weak reasoning than from unmanaged context: histories, large prompts, tool definitions, ballooning tool outputs. It frames three regimes:

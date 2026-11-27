@@ -8,7 +8,7 @@ solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-11-26
+updated: 2026-11-27
 themes:
   - key: coordinator-free-scheduling
     title: Removing the central coordinator instead of scaling it
@@ -19,6 +19,9 @@ themes:
   - key: fleet-density
     title: Sandbox density and scale-to-zero for idle fleets
     summary: Platforms suspend idle sandboxes and resume them in under a second, and checkpoint forking packs hundreds of desktops per host; density claims are vendor-reported.
+  - key: durable-state
+    title: Moving agent state into a shared durable store
+    summary: Single-file stores stall once several processes share agent state; teams move to Postgres behind engine-parity tests and pay higher median latency for a much lower tail.
 ---
 
 ## TL;DR
@@ -51,7 +54,9 @@ from process checkpoints packs hundreds per host instead of one VM each.
 
 **The open problem is where the state goes.** Removing the coordinator or the
 session does not remove the state. Retries, idempotency, application state,
-and observability move to layers the platform team now owns. Most published
+and observability move to layers the platform team now owns. One swarm's
+87 GB SQLite file stalled its API until a move to Postgres cut p99 from
+363 ms to 51 ms at 5x load, at triple the median. Most published
 numbers are vendor-reported and not independently reproduced.
 
 ## Why it matters for platform engineers

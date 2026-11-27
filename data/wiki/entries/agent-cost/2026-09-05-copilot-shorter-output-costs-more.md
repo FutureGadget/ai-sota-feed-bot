@@ -1,7 +1,7 @@
 ---
 title: "GitHub: truncating agent output to save tokens can raise total task cost"
 date: 2026-09-05
-theme: harness-and-context
+theme: trimming-context
 evidence: [fbfd060b861c9942]
 ---
 GitHub found that when a coding agent's output was truncated or summarized to save tokens, the agent sometimes **reopened the original or reran the command**, turning one cheaper turn into more turns and more context. Its fixes, measured across the whole task:

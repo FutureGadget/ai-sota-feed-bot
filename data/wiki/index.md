@@ -7,9 +7,9 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (46 entries, updated 2026-11-26)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (47 entries, updated 2026-11-27)
   → solutions: agent-sandboxing
-  - theme `deterministic-boundaries` — Deterministic boundaries around the model (7)
+  - theme `deterministic-boundaries` — Deterministic boundaries around the model (8)
   - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (5)
   - theme `hallucination-containment` — Containing hallucination during and after generation (11)
   - theme `verifying-the-work` — Proving the work instead of trusting "done" (15)
@@ -35,9 +35,9 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (44 entries, updated 2026-11-26)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (45 entries, updated 2026-11-27)
   → solutions: mcp
-  - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (6)
+  - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (7)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (9)
   - theme `calling-reliability` — Making the calling loop reliable (15)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (9)
@@ -72,11 +72,12 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (6)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (71 entries, updated 2026-11-26)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (74 entries, updated 2026-11-27)
   → solutions: agent-orchestration, context-compaction, cost-controls
-  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (17)
-  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (15)
-  - theme `routing` — Routing each turn to the cheapest model that can handle it (12)
+  - theme `harness-and-context` — Harness, environment, and topology drive the per-step bill (11)
+  - theme `trimming-context` — Trimming context and reasoning without breaking the task (7)
+  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (16)
+  - theme `routing` — Routing each turn to the cheapest model that can handle it (13)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (16)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (12 entries, updated 2026-11-20)
@@ -115,38 +116,39 @@ Schema: `config/wiki_schema.md`.
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (10)
 
 ### scalability
-- [scalability](obstacles/scalability.md) — Agent infrastructure buckles under concurrency, not just load (7 entries, updated 2026-11-26)
+- [scalability](obstacles/scalability.md) — Agent infrastructure buckles under concurrency, not just load (8 entries, updated 2026-11-27)
   → solutions: agent-sandboxing
   - theme `coordinator-free-scheduling` — Removing the central coordinator instead of scaling it (2)
   - theme `concurrent-serving` — Serving many agents at once without padding waste (3)
   - theme `fleet-density` — Sandbox density and scale-to-zero for idle fleets (2)
+  - theme `durable-state` — Moving agent state into a shared durable store (1)
 
 ### drift
-- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (34 entries, updated 2026-11-24)
+- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (35 entries, updated 2026-11-27)
   → solutions: agent-benchmarks, version-pinning
   - theme `bundled-cli-bumps` — SDK bumps that hide what changed underneath (10)
   - theme `regressions-and-reverts` — Regressions shipped and rolled back in point releases (5)
   - theme `model-and-default-changes` — Models, defaults, and prompts that change under you (7)
-  - theme `serving-runtime-drift` — The serving runtime as a drift source (5)
+  - theme `serving-runtime-drift` — The serving runtime as a drift source (6)
   - theme `drift-tooling` — Tools to pin, test, and replay against drift (7)
 
 ## Solutions
-- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (73 entries, updated 2026-11-26)
+- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (74 entries, updated 2026-11-27)
   - theme `trusting-the-score` — What a score measures: model, harness, or noise (18)
   - theme `own-workload` — Benchmarking on your own tools and real work (14)
   - theme `domain-suites` — Domain-specific suites mined from real work (17)
   - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (13)
-  - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (11)
+  - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (12)
 - [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (30 entries, updated 2026-11-25)
   - theme `code-driven` — Coordination written as code, not tool calls (6)
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (8)
   - theme `runtime-substrate` — The durable runtime underneath the agents (7)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (9)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (86 entries, updated 2026-11-25)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (88 entries, updated 2026-11-27)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (12)
-  - theme `permission-policy` — Scoping what the agent may do (14)
+  - theme `permission-policy` — Scoping what the agent may do (15)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (16)
-  - theme `managed-platforms` — Managed and self-hosted sandbox platforms (15)
+  - theme `managed-platforms` — Managed and self-hosted sandbox platforms (16)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (17)
   - theme `guardrails-and-verification` — Guardrails, red-teaming, and checks on agent output (12)
 - [agent-tracing](solutions/agent-tracing.md) — Tracing and trace analysis for agent runs (15 entries, updated 2026-11-20)
@@ -169,9 +171,9 @@ Schema: `config/wiki_schema.md`.
   - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (15)
   - theme `scoring-design` — The rubric and scale are part of the judge (4)
   - theme `correcting-judge-error` — Measuring judge error and correcting scores for it (3)
-- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (40 entries, updated 2026-11-26)
+- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (41 entries, updated 2026-11-27)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
-  - theme `auth-and-governance` — Authorization and governance of connector fleets (12)
+  - theme `auth-and-governance` — Authorization and governance of connector fleets (13)
   - theme `webmcp` — WebMCP and the browser as a tool surface (6)
   - theme `servers-in-production` — Vendor servers and hosted deployments (8)
   - theme `beyond-tools` — Beyond tool calls - knowledge, memory, work, and computation (7)

@@ -1,7 +1,7 @@
 ---
 title: "Pruning redundant rounds from training trajectories cuts inference tokens ~48%"
 date: 2026-09-18
-theme: harness-and-context
+theme: trimming-context
 evidence: [1a4323f628b5253c]
 ---
 Dependency-Aware Trajectory Refinement treats a multi-turn agent trajectory as a **round-level dependency DAG**, finds which rounds (failed tool calls, parallel sub-queries, verification-only steps) the final answer depends on, and fine-tunes on the pruned trajectories.

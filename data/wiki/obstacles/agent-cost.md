@@ -8,11 +8,14 @@ solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-30
+updated: 2026-11-27
 themes:
   - key: harness-and-context
-    title: Harness, context, and topology drive the per-step bill
-    summary: What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.
+    title: Harness, environment, and topology drive the per-step bill
+    summary: What the harness re-sends, fetches, and repeats each turn sets most of the bill; tool-instruction tuning, environment cleanup, batching, and replaying stable jobs as code beat model swaps.
+  - key: trimming-context
+    title: Trimming context and reasoning without breaking the task
+    summary: Validated compaction and judged token-waste pruning cut 40-50% of tokens, but naive truncation, dropped protocol messages, and shorter outputs can raise total task cost.
   - key: cheaper-models
     title: Downshifting to cheaper models, costed on total tokens
     summary: Contracts and harness tuning let cheaper models take frontier work at 5-8x lower cost, but quantization and hallucinations can claw the discount back in extra tokens.
@@ -48,9 +51,11 @@ Teams pull four levers, roughly in order of payoff:
   hits, and Anthropic's worked example shows one session at $11.20 uncached
   versus $1.62 cached.
 - **Route per task.** Benchmarks find only about 7% of agent turns need a
-  frontier model; routing inside the harness cut cost 64-74%.
+  frontier model; routing inside the harness cut cost 64-74%. Audit first:
+  across 66 LLMs, generic routers rarely beat the single best model.
 - **Shrink what the agent re-reads.** Validated compaction, tighter tool
-  instructions, and leaner fetched content attack the per-step bill. Naive
+  instructions, leaner fetched content, and batching independent tasks into
+  one verified request attack the per-step bill. Naive
   truncation backfires: agents re-fetch what was cut.
 - **Downshift with guardrails.** Boundary contracts and harness tuning let
   cheap models match frontier runs at several times lower cost.
