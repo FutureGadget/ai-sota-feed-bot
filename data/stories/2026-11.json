@@ -14941,6 +14941,7 @@
   "published": "2026-11-25T17:29:33+00:00",
   "sid": "6d35802e48e12bc4",
   "source": "arxiv_agent_systems_research",
+  "summary": "Preference-aligned LLMs can exhibit mode collapse, concentrating their output distributions around a narrow set of high-reward responses. This limits creative generation, which requires quality, novelty, and diversity. Existing test-time methods often emphasize diversity, giving less attention to whether individual responses are both high-quality and novel. This distinction matters in practical use, where users may seek a single compelling, original response. We formalize creative generation as a multi-objective distributional optimization problem and introduce SEPO, a training-free framework for System Prompt Ensemble Optimization. The framework combines prompt evolution with greedy max-min selection to identify behaviorally distinct system prompts under a quality constraint, then uniformly samples one prompt per response at inference time. Across four creative generation tasks with increasing quality requirements and three open-weight models, SEPO ranks first in 8 of 12 settings on the harmonic mean of quality, diversity, and novelty, while no baseline leads in more than two. On average, it raises LLM-judged diversity from 1.92 to 3.43 and novelty from 1.00 to 3.34 over base sampling (1-5 scale), with quality decreasing from 3.72 to 3.30. We further show that expanding the optimized ensemble increases separation among prompt-conditioned response distributions. These results support system prompt ensemble optimization as a promising approach to improving LLM creativity at in",
   "summary_1line": "Introduces SEPO, a training-free method that evolves and selects a set of behaviorally distinct system prompts, then samples one per response, to improve quality, diversity and novelty in LLM creative generation.",
   "title": "One Model, Many Modes: Evolving System Prompt Ensembles for Creative Generation",
   "type": "paper",
@@ -16921,6 +16922,18 @@
   "title": "Where Should a KV-Cache Repair Budget Go? Distractor Structure and Contextual Compatibility in Non-Prefix Reuse",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06397v1"
+ },
+ "7d749495f7e10f67": {
+  "content_excerpt": "Having AI write IaC is no longer unusual. It can add a module, change a few resources, and draft policy much faster than a person. That speed brings a different problem. A change can pull in unrelated resources. Terraform that is perfectly valid can still delete or replace resources, or loosen permissions. Those issues are not always obvious in code review. As the volume grows, reviewing every line by hand stops scaling. Handing the review to another AI adds another opinion, not another guarantee. The real question is this: how can AI keep writing and iterating while its mistakes are caught consistently and kept out of production? I reduce it to three steps: define what AI may change, verify the result with scripts and policy, then leave production writes to human approval and CI/CD. Within that scope, AI can generate code, make small commits, and revise its work from concrete errors. Scripts check formatting, syntax, change scope, and plan risk. Policy checks infrastructure rules. Repository changes and production writes follow separate paths. AI may change code on a controlled branch. A person approves merges, live policy changes, and production changes; CI/CD performs the approved operation. AI does not need to be limited to a few lines, but every task needs a clear scope. If the task is to adjust one database connection, it should not also change unrelated resources or refactor a module. These checks do not require a model to understand the business context, and their res",
+  "first_seen": "2026-11-27T09:05:32.734753+00:00",
+  "id": "ca4def20fd4902e7",
+  "published": "2026-11-27T07:39:13+00:00",
+  "sid": "7d749495f7e10f67",
+  "source": "hackernews_ai",
+  "summary_1line": "Proposes a three-step approach for AI-written Terraform: limit what AI may change, verify changes with scripts and policy checks, and keep production writes behind human approval and CI/CD.",
+  "title": "AI-Driven Terraform: Move Fast Without Losing Control",
+  "type": "news",
+  "url": "https://newbmiao.github.io/what-matters-in-aiops.html"
  },
  "7ddb05ad41f69953": {
   "content_excerpt": "GPUs are usually the most expensive part of any training run, and most teams can't keep them busy. The bottleneck usually isn't the model. It's getting data from where it lives to the GPU fast enough - and every second those chips sit waiting, you're burning both time and money. Today we're releasing the Unity Catalog Dataset (UCDataset) in Beta on AI Runtime. UCDataset is a native PyTorch data loader that streams Unity Catalog tables directly to every GPU in your training job, with no exports, no copies, and no custom loader code. On simulated production workloads, UCDataset cut training time by 10x compared with reading an exported Parquet copy of the same data. Most training data for your models already lives in Unity Catalog tables. Getting it into a distributed training job means picking one of three workarounds, and each one costs you time and money: Then there's the loader itself. Every GPU and every worker needs its own balanced slice of the data. Teams spend time building this by hand, and a subtle bug can mean the model trains on duplicated or skipped rows without anyone noticing. The result: expensive GPUs sit idle, training takes longer than it should, and ML engineers maintain data plumbing instead of improving models. UCDataset makes Unity Catalog tables a first-class data source for distributed PyTorch training. You describe what to read (a table, the columns you need, and a row filter) and UCDataset streams training-ready batches to every GPU. Benefits include",
@@ -26250,6 +26263,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.5",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "bd26df9fc2790cc4": {
+  "content_excerpt": "Piton — The package-lock.json & supply-chain firewall for AI coding agents (split-hash MCP pinning, Claude/Cursor hook RCE linting, shadow replay -> CEL/Cedar & Envoy ext_proc sidecar) Lockfile and static supply-chain scanner for MCP servers, Claude Code hooks, and Cursor rules. Don't wrap your agents in a probabilistic prompt firewall. Hammer deterministic split-hash pins into every MCP tool, Claude/Cursor hook, and schema. Every AI coding agent ( Claude Code , Cursor , Claude Desktop , OpenCode ) now pulls unpinned third-party MCP tool descriptions, executes .claude/settings.json shell hooks, and ingests .cursor/rules / skill markdown files straight into privileged developer sessions. One silent upstream description edit (an MCP rug pull) or a malicious PR hook turns your repo into instant RCE. Piton gives you a 30-second deterministic lockfile and PR gate—and scales all the way to shadow-to-enforce policy replay ( CEL / Cedar export) and a production Go Envoy v3 ext_proc sidecar. Runs live Day-1 poisoning quarantine, zero-secret /gw egress key swapping + chunk-boundary response secret scrubbing, shadow recording, Go↔Python HMAC ledger verification, and replay calibration with zero external API keys: When you move from local coding agents and CI gates into production multi-agent Kubernetes fleets, Piton includes a hardened static Go sidecar ( sidecar/ , prebuilt multi-arch binaries + distroless GHCR image) and a zero-dependency Control Plane : Every commit is verified in CI",
+  "first_seen": "2026-11-27T09:05:32.734753+00:00",
+  "id": "7c72d8e459eaa134",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-27T08:37:25+00:00",
+  "sid": "bd26df9fc2790cc4",
+  "source": "hackernews_ai",
+  "summary_1line": "Piton is an open-source lockfile and static scanner that pins MCP servers, Claude Code hooks, and Cursor rules, flagging unpinned or modified tool descriptions and risky shell hooks before they reach coding agents.",
+  "title": "Show HN: Piton Lockfile and static supply-chain scanner for MCP/coding agent",
+  "type": "news",
+  "url": "https://github.com/tony-stark2025/piton",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bd35aab13d66f65e": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "4ff953140b480dc8",
@@ -31305,6 +31334,20 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.2",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "e59c020d8e504a91": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites, and chief security architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Michael Stiefel spoke to Zhou Yu about using dynamic simulations to evaluate AI agents. One particular focus was conversational agents where actions depend on prior responses, and the non-deterministic nation of LLMs means you cannot rely on static, reference-based benchmarks. You need to test them using dynamic simulations that incorporate different personas, goals, and corner cases. Rachel Shalom explains how Dell solved enterprise RAG retrieval failures on internal terminology by fine-tuning open-source embedding models. She discusses data prep with hard negatives, distributed InfoNCE loss training on H100 GPUs, automated hyperparameter tuning, and production evaluation using LLM-as-a-judge. Laura Savino discusses the psychological friction of AI adoption for senior engineers & architects. She explains how shifting from static expertise to le",
+  "first_seen": "2026-11-27T09:05:32.734753+00:00",
+  "id": "ce6535281f7c6d8e",
+  "image_url": "https://res.infoq.com/news/2026/11/mozilla-mistral-ai-smart-window/en/headerimage/generatedHeaderImage-1795716059601.jpg",
+  "published": "2026-11-27T06:58:00+00:00",
+  "sid": "e59c020d8e504a91",
+  "source": "infoq_ai_ml",
+  "summary": "Mozilla has partnered with Mistral AI to offer Mistral Small 4, an open-weight model, in Firefox's Smart Window AI assistant, now in beta. It is recommended for users in France, the US and Canada. Users can choose among several models, and Mistral agreed to zero data retention. Beta feedback is mixed. By Daniel Curtis",
+  "summary_1line": "The provided page is an InfoQ listing of architecture podcasts, talks and events, and it contains no details about the Mozilla and Mistral partnership.",
+  "title": "Mozilla Partners with Mistral to Bring Open-Weight AI Models to Firefox Smart Window",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/mozilla-mistral-ai-smart-window/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "e5b2debdca78ed1e": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jabez Eliezer Manuel discusses the 20-year evolution of Booking.com’s data management and ML platforms. He explains how they scaled MySQL topologies, sunset Hadoop for cloud architecture, and built high-throughput model serving and feature stores operating at 400B predictions per day. He also shares insights on personalization, interleaved experimentation, and their new agentic AI foundation. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to help",
