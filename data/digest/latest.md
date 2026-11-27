@@ -2,94 +2,94 @@
 
 Focus: AI Platform Engineering
 
-## 1. DeepSeek's Android App Adds Pricing Lookup Feature as Paid Model for LLMs Edges Closer
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMidkFVX3lxTE1DR1U1c3YydC1Iay01VndrMUV4bVJBVTRFU2dVeG5TNmtDc0x5U1IwSUdqQWV0QmZUc05lNkNqT0V4cGgxUzV3LTU0SmVOcWhhUFFoN1dFYkZtQWhCejNoaURnOHhJM1l3bTVYa0Y0ZXRRSDV2b3c?oc=5
-- Score: 2.774 | Reliability: 1.0
+## 1. tencent/Hy-Embodied-Apexio-1.0 released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/Hy-Embodied-Apexio-1.0
+- Score: 2.726 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Evaluating Recent Model Releases on GDPx
-- Type: release | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/evaluating-recent-model-releases
-- Score: 2.753 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 3. Failure Broadens, Success Sharpens: Continual Adaptation of Tool-Use Agents Across Diverse Tasks with Dual-Polarity Memory
+## 2. Agent-as-a-Verifier: From Scores to Evidence for General Verification
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.33612v1
-- Score: 2.669 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.34132v1
+- Score: 3.506 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 3. DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.34852v1
+- Score: 3.202 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. Attack Policy Selection can Mislead Monitor Evaluators
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.34934v1
-- Score: 2.61 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 5. Put the World Back: Timestamps Matter in Time Series Reasoning
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.34848v1
-- Score: 2.598 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 6. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/pH9CZKTB4yQ
-- Score: 2.55 | Reliability: 0.861
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 7. How to choose the next safe step in application modernization
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/
-- Score: 2.07 | Reliability: 1.0
+## 4. Latent-in-the-Middle: On the Security of Cross-Model Latent Communication in Multi-Agent Systems
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.34278v1
+- Score: 3.074 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. codex 0.174.0-alpha.8
+## 5. Evaluating Recent Model Releases on GDPx
+- Type: release | Source: semianalysis
+- URL: https://newsletter.semianalysis.com/p/evaluating-recent-model-releases
+- Score: 2.725 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 6. How to choose the next safe step in application modernization
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/
+- Score: 2.049 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. Lessons from 12 Evals: Where They Break and What to Measure Instead
+- Type: news | Source: eugene_yan
+- URL: https://eugeneyan.com/writing/public-evals
+- Score: 1.952 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 8. codex 0.174.0-alpha.6
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.8
-- Score: 1.573 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.6
+- Score: 1.447 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 9. langgraph-cli==0.4.44
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.44
-- Score: 1.436 | Reliability: 1.0
+- Score: 1.412 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. claude-code v2.1.332
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.332
-- Score: 1.363 | Reliability: 1.0
+- Score: 1.341 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 11. DocSEAM: Bidirectional Cross-Page Encoding for Multi-Page Document Understanding
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34420v1
-- Score: 2.595 | Reliability: 1.0
+## 11. ConTra: A Training Framework for Effective Contextual Retrieval via Prefix Generation
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.34366v1
+- Score: 3.028 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.32195v1
-- Score: 2.585 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex, claude code.
+## 12. How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34875v1
+- Score: 3.026 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 13. tencent/WeMM-Ecom-4B-GPTQ released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Ecom-4B-GPTQ
-- Score: 1.241 | Reliability: 1.0
-- Why it matters: 
+## 13. Introducing Search for Agents
+- Type: news | Source: cloudflare_blog
+- URL: https://blog.cloudflare.com/search-for-agents/
+- Score: 1.258 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 14. Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud
+## 14. Data + AI Anywhere: AlloyDB Omni integration with local models
 - Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise/
-- Score: 1.183 | Reliability: 1.0
+- URL: https://cloud.google.com/blog/products/databases/alloydb-omni-integration-with-local-models/
+- Score: 1.117 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 15. claude-agent-sdk-python v0.2.188
+## 15. claude-agent-sdk-python v0.2.189
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.188
-- Score: 0.914 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.189
+- Score: 1.036 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 16. Release 2.75.0 corresponding to NGC container 26.11
