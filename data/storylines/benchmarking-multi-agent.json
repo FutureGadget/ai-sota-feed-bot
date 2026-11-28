@@ -1,12 +1,12 @@
 {
  "slug": "benchmarking-multi-agent",
- "label": "Multi-agent Systems",
- "item_count": 17,
- "day_count": 11,
+ "label": "Multi-Agent Systems",
+ "item_count": 16,
+ "day_count": 10,
  "source_count": 5,
- "first_seen": "2026-11-06T17:07:35+00:00",
+ "first_seen": "2026-11-09T18:45:28+00:00",
  "last_updated": "2026-11-26T00:00:00+00:00",
- "generated_at": "2026-11-27T00:14:18.666001+00:00",
+ "generated_at": "2026-11-28T00:13:36.099102+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl",
@@ -15,22 +15,6 @@
   "infoq_ai_ml"
  ],
  "days": [
-  {
-   "date": "2026-11-06",
-   "items": [
-    {
-     "title": "Coordinated Mixed-Precision KV Cache Quantization for Efficient LLM-based Multi-agent Systems",
-     "url": "http://arxiv.org/abs/2611.10096v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies indepen...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "d48d8aea5d45b475",
-     "published": "2026-11-06T17:07:35+00:00",
-     "editor_note": "Names the memory cost of a team: every agent's KV cache resident at once."
-    }
-   ]
-  },
   {
    "date": "2026-11-09",
    "items": [
@@ -43,7 +27,7 @@
      "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
      "sid": "b3a45cba6445f63d",
      "published": "2026-11-09T18:45:28+00:00",
-     "editor_note": "Scores harnesses that spawn worker agents on executable workflow orchestration."
+     "editor_note": "Opens the thread: an executable benchmark for harnesses that spawn worker agents."
     }
    ]
   },
@@ -258,19 +242,18 @@
   }
  ],
  "editorial": {
-  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and orchestration. It split into security against malicious peers, tracing which agent caused a failure, and latent agent-to-agent channels that LatentLens and Chasm found unhelpful or exploitable.",
+  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with WorkflowArena's benchmark for harnesses that spawn worker agents. It split into security against malicious peers, tracing which agent caused a failure, and latent agent-to-agent channels that LatentLens and Chasm found unhelpful or exploitable.",
   "stale": false,
-  "whats_new": "Hugging Face (Nov 26) published reproducible recipes for training multi-agent teams, the first about $50 on two H200s, a day after MeterRouter reported top multi-agent accuracy at 82% lower cost on five benchmarks.",
+  "whats_new": "Hugging Face (Nov 26) published reproducible recipes for training multi-agent teams, the first about $50 on two H200s, a day after MeterRouter matched the strongest multi-agent system's accuracy at 82% lower cost on five benchmarks.",
   "why_it_matters": "The thread has moved from what fails in agent teams to what they cost: per-query routing under a dollar budget and cheap team training make cost a tunable you can benchmark, not a fixed overhead of going multi-agent.",
   "take_for_builders": "Record per-query token cost next to accuracy in your multi-agent evals, and keep KV-cache or latent hand-offs between models behind the same injection guards as text messages until Chasm-style defenses ship.",
   "beats": [
    {
-    "kicker": "SYSTEM COST",
+    "kicker": "ORCHESTRATION",
     "tone": "launch",
-    "headline": "Running agents as a team hits memory and orchestration limits",
-    "summary": "Simultaneously resident KV caches become a memory bottleneck, and harnesses that spawn worker agents get an executable orchestration benchmark.",
+    "headline": "Harnesses that spawn worker agents get an executable benchmark",
+    "summary": "WorkflowArena scores how well LLM multi-agent systems orchestrate executable workflows.",
     "sids": [
-     "d48d8aea5d45b475",
      "b3a45cba6445f63d"
     ]
    },
@@ -338,6 +321,6 @@
    "Does a team trained with the Hugging Face recipe beat a single larger model at equal cost on an outside benchmark?",
    "Do CypherMAS or WorkflowArena release harnesses that teams adopt for their own regression evals?"
   ],
-  "generated_at": "2026-11-27T00:12:32Z"
+  "generated_at": "2026-11-28T00:12:29Z"
  }
 }

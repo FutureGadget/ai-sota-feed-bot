@@ -1,94 +1,106 @@
 {
   "slug": "speculative-decoding",
-  "generated_at": "2026-11-27T00:13:01Z",
-  "covers_last_updated": "2026-11-25T17:37:49+00:00",
+  "generated_at": "2026-11-28T00:12:49Z",
+  "covers_last_updated": "2026-11-25T18:03:09+00:00",
   "covers_member_sids": [
-    "b1fe6c30c1c550df", "a4e942d0f147f07c", "0aacbce5f85ac122", "d9424aebc884a5c5",
-    "256bf90ce51f6665", "018074f62583197d", "563c7d3375862838", "a34c118cc3850b60",
-    "fb7e5418185abe5a", "c08838a1ebaaf444", "b6559df505fa2a9e", "f378fea92addc171",
-    "f71af688b338f44d", "f5c599840c08b8e9", "6f4da66d69ee069e", "420b2dee4fa3c677",
-    "758bfcdb3a51f9a3", "bb4c90dec13b8ea7"
+    "9c88a41fbb756af3", "3b4f703ae0a8f385", "501ef39353c40289", "5ddb49a19fc35296",
+    "c4a35e75b732ef4a", "dcfca63926ea22ea", "b6805052b5174dca", "f1908d0038e22f5b",
+    "173841a135ec48af", "046191ac623ca927", "ca54e3a4f2c1d30b", "3985de9df0cd2149",
+    "951243773dcd7469", "53cced15d557cd0b", "fb7a288ad791ee0d", "baf7e4781272e609",
+    "1e13d673398b4485", "8f0034965a63d29c", "0d292c5fdc2bf79f", "563c7d3375862838",
+    "f1c00e19e15c137a", "e497c044e025058b", "1d45f44793728555", "7f32f43e5847c550",
+    "45ad90fd8b412dd8", "d43ec4840a23ed16", "cc1d845dd86911fc", "bccb2e92dff08cf7",
+    "77fc0e39997bf0b1", "f378fea92addc171", "409ea0c8de755810", "a3483f98b2e0e165",
+    "ac286630ecd22068", "f3919f64a3d29ec3", "5b4989c7a72ddf00"
   ],
-  "tldr": "Early November papers reworked the drafter: acceptance-length losses (D-REAL, REAL Loss) and pruned or fork-aware block-diffusion draft trees. By Nov 20 the work reached serving and real output formats, with Callo decoding on invalidated KV and Grammar-as-a-Draft speeding JSON and tool-call outputs in vLLM.",
-  "whats_new": "DFly2 (Nov 25) drops the drafter's own KV cache and reuses the target's cache and sparse index selections, accepting more tokens per step than DFlash and DSpark on long contexts.",
-  "why_it_matters": "Long-context agent traffic makes a separate drafter cache a memory cost; DFly2-style sharing and grammar-forced drafting target the workloads platform teams actually serve, not chat benchmarks.",
+  "tldr": "This slug used to track speculative decoding; after reclustering it holds 35 unrelated arXiv papers from Nov 9 onward whose only link is \"Large Language Models\" in the title. Read it as a research digest: most papers question how LLMs are evaluated, measure hallucination and uncertainty, or probe safety, with a few on infra such as LM-SimBench and MemOnce.",
+  "whats_new": "Two more benchmarks landed Nov 25: Merlin-Bench finds 10 frontier LLMs struggle to produce proofs a formal verifier accepts, and VulnSafe scores eight models on 2,050 Chinese relational-safety prompts.",
+  "why_it_matters": "There is no single event here. The useful signal is that eval methodology itself keeps getting challenged (shifting human raters, adaptive users, unvalidated user simulators), which is the layer your agent eval harness depends on.",
   "beats": [
     {
-      "kicker": "TRAINING FOR ACCEPTANCE",
-      "tone": "launch",
-      "headline": "D-REAL and REAL Loss train drafters on expected acceptance length",
-      "summary": "Both argue token-level objectives miss the number that sets the speedup, consecutive accepted draft tokens, and optimize it directly.",
-      "sids": ["b1fe6c30c1c550df", "256bf90ce51f6665"]
-    },
-    {
-      "kicker": "BETTER DRAFT TREES",
-      "tone": "rising",
-      "headline": "Three papers rework how block-diffusion and phrase drafters propose tokens",
-      "summary": "D3Tree prunes draft trees to save verification rows, DForkTree builds fork-aware trees from DFlash-style drafters, and a phrase-level drafter proposes beyond the target's vocabulary.",
-      "sids": ["a4e942d0f147f07c", "0aacbce5f85ac122", "d9424aebc884a5c5"]
-    },
-    {
-      "kicker": "SERVING",
-      "tone": "rising",
-      "headline": "Speculation moves into serving systems and looped models",
-      "summary": "Callo decodes agent requests whose KV cache was invalidated before re-prefill finishes; LoopCache adapts self-speculation to per-loop KV caches.",
-      "sids": ["018074f62583197d", "a34c118cc3850b60"]
-    },
-    {
-      "kicker": "THE TURN",
-      "tone": "turn",
-      "headline": "Grammar-as-a-Draft and DICE target structured outputs and verification randomness",
-      "summary": "GaaD merges grammar-forced tokens into draft rows for JSON, regex and tool-call outputs in vLLM; DICE pre-samples verification randomness to steer an existing drafter.",
-      "sids": ["b6559df505fa2a9e", "c08838a1ebaaf444"]
-    },
-    {
-      "kicker": "DRAFTER TOOLKIT",
-      "tone": "rising",
-      "headline": "Cheap drafter upgrades: calibration, prefix attention, edge trees, modular training",
-      "summary": "Temperature-scaling the draft adds up to about 10% acceptance length, Corrective Prefix Attention commits 13–15% more tokens than DSpark, Pando reports 5.3x on edge, and LEGOSpec yields the DFlux draft.",
-      "sids": ["f71af688b338f44d", "f5c599840c08b8e9", "6f4da66d69ee069e", "420b2dee4fa3c677"]
-    },
-    {
-      "kicker": "ADJACENT DECODING",
+      "kicker": "APPLIED",
       "tone": "neutral",
-      "headline": "Non-speculative decoding papers clustered into the thread",
-      "summary": "Hallucination-mitigation decoding, fingerprinting under stochastic decoding, and recurrent-depth warm starts share vocabulary but not the draft-verify mechanism.",
-      "sids": ["563c7d3375862838", "fb7e5418185abe5a", "f378fea92addc171", "758bfcdb3a51f9a3"]
+      "headline": "LLMs applied to AutoML, fault diagnosis, anomaly detection and program induction",
+      "summary": "Domain papers that use an LLM as a component; little here touches serving or agent infrastructure.",
+      "sids": ["3b4f703ae0a8f385", "5ddb49a19fc35296", "b6805052b5174dca", "ca54e3a4f2c1d30b", "951243773dcd7469"]
+    },
+    {
+      "kicker": "EVAL METHODS",
+      "tone": "rising",
+      "headline": "Papers question whether LLM evaluations measure what they claim",
+      "summary": "Human raters getting stricter, users adapting mid-conversation, unvalidated user simulators and name-only knowledge probes each can skew a score.",
+      "sids": ["9c88a41fbb756af3", "dcfca63926ea22ea", "f1908d0038e22f5b", "173841a135ec48af", "046191ac623ca927", "53cced15d557cd0b", "1e13d673398b4485", "f1c00e19e15c137a", "45ad90fd8b412dd8", "77fc0e39997bf0b1", "ac286630ecd22068"]
+    },
+    {
+      "kicker": "HALLUCINATION",
+      "tone": "rising",
+      "headline": "Uncertainty, abstention and decoding-time fixes for hallucination",
+      "summary": "Black-box uncertainty estimates, calibrated abstention thresholds, deception probes, and training-free multimodal decoding fixes, capped by a 116-paper survey.",
+      "sids": ["3985de9df0cd2149", "0d292c5fdc2bf79f", "563c7d3375862838", "1d45f44793728555", "7f32f43e5847c550", "bccb2e92dff08cf7", "f378fea92addc171", "409ea0c8de755810"]
+    },
+    {
+      "kicker": "SAFETY",
+      "tone": "rising",
+      "headline": "Framing attacks, jailbreak detection, malware triage and quantization backdoors",
+      "summary": "Security-side papers: how headline framing sways model judgments, detecting jailbreaks without an extra classifier, and repairing backdoors that only fire after quantization.",
+      "sids": ["501ef39353c40289", "8f0034965a63d29c", "e497c044e025058b", "a3483f98b2e0e165"]
+    },
+    {
+      "kicker": "INFRA & TRAINING",
+      "tone": "rising",
+      "headline": "Training simulators, memory-compressed long context and population-based RL",
+      "summary": "The platform-relevant slice: LM-SimBench for parallelism simulators, a survey of LLMs for AI infra, MemOnce's compact KV memory, and RL post-training methods for agents.",
+      "sids": ["c4a35e75b732ef4a", "fb7a288ad791ee0d", "baf7e4781272e609", "d43ec4840a23ed16", "cc1d845dd86911fc"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "DFly2 shares the target's KV cache and sparsity with the drafter",
-      "summary": "A block-parallel drafter with no cache of its own, aimed at long-context decoding, beating DFlash and DSpark on accepted tokens per step.",
-      "sids": ["bb4c90dec13b8ea7"]
+      "headline": "Merlin-Bench and VulnSafe add verifier-checked proofs and relational safety",
+      "sids": ["f3919f64a3d29ec3", "5b4989c7a72ddf00"]
     }
   ],
   "open_questions": [
-    "Does Callo's decode-on-invalidated-KV approach ship in an open serving stack such as vLLM or SGLang, or stay a research prototype?",
-    "Do acceptance-length losses like D-REAL and REAL Loss show up in released EAGLE-3 or DFlash drafter checkpoints?",
-    "Does Grammar-as-a-Draft land upstream in vLLM's structured-output path, and on GPUs as well as TPU v7x?",
-    "Does DFly2's shared-cache drafter release code, and how much memory does it save against a separate drafter cache at long context?",
-    "Do the November drafter gains hold against production serving baselines rather than each paper's own suite?"
+    "Does MemOnce's reported 1313x smaller memory cache at 1M context hold up in an independent reproduction or open serving stack?",
+    "Do other labs adopt Merlin-Bench's verifier-checked proof protocol for agent evals?",
+    "Does the \"raters got pickier\" finding change how ChatGPT-style regressions are reported or re-tested?",
+    "Will reclustering pull speculative-decoding papers back into this slug, or does it stay a generic LLM-research grab-bag?"
   ],
-  "take_for_builders": "If your agents emit JSON or tool calls, benchmark grammar-forced drafting on your vLLM structured-output path first, and try temperature-calibrating your existing draft model before swapping drafters.",
+  "take_for_builders": "If your agent evals rely on a user simulator or LLM-as-judge, validate it against a small human-labeled set before trusting a week-over-week regression signal.",
   "day_captions": {
-    "b1fe6c30c1c550df": "Opens the thread: trains the drafter on consecutive accepted tokens with unbiased gradients instead of token-level loss.",
-    "a4e942d0f147f07c": "Names the cost of big draft trees under concurrency: every node takes a verification row, so it learns to prune them.",
-    "0aacbce5f85ac122": "Extends block-diffusion drafting (DFlash, DDTree) with fork-aware draft trees.",
-    "d9424aebc884a5c5": "Questions the shared design of Medusa, EAGLE-3, DFlash and DSpark by drafting phrases against a frozen target.",
-    "256bf90ce51f6665": "Second acceptance-length objective in four days, framed as optimizing expected acceptance length directly.",
-    "018074f62583197d": "First serving-system entry: speculates on agent requests whose KV cache was invalidated by context edits.",
-    "563c7d3375862838": "Adjacent: consensus decoding against cross-modal hallucination in omnimodal models, not a speedup method.",
-    "a34c118cc3850b60": "Adapts long-context self-speculative decoding to looped Transformers with per-loop KV caches.",
-    "fb7e5418185abe5a": "Adjacent: model fingerprinting that survives stochastic decoding, relevant to verifying which checkpoint is served.",
-    "c08838a1ebaaf444": "Shows verification randomness can be pre-sampled and fed to the drafter, reporting up to 24.6pp throughput gains.",
-    "b6559df505fa2a9e": "First result aimed at agent output formats: grammar-forced tokens raise acceptance length for JSON, regex and tool calls in vLLM.",
-    "f378fea92addc171": "Adjacent: a benchmark for evaluating contrastive decoding against multimodal hallucination.",
-    "f71af688b338f44d": "Lets parallel draft tokens attend to earlier choices in the block, up to 3.37x mean speedup on Qwen3 targets.",
-    "f5c599840c08b8e9": "Takes draft trees to edge devices, reporting 5.3x speedup and 4.2x lower energy for a 16-node tree.",
-    "6f4da66d69ee069e": "Splits drafters into four swappable parts trained under matched conditions, producing the DFlux draft.",
-    "420b2dee4fa3c677": "Cheapest upgrade in the thread: post-hoc temperature scaling of the draft for up to about 10% longer acceptance.",
-    "758bfcdb3a51f9a3": "Adjacent: closed-form warm starts cut decoding layers 14–19% in recurrent-depth models, without a drafter.",
-    "bb4c90dec13b8ea7": "Latest entry: the drafter reuses the target's KV cache and sparse index selections instead of keeping its own."
+    "9c88a41fbb756af3": "Benchmarks how built-in personality tendencies shift model outputs beyond the prompt.",
+    "3b4f703ae0a8f385": "Uses an LLM to search architecture and hyperparameters jointly for AutoML.",
+    "501ef39353c40289": "Shows headline framing, not the reported fact, can sway LLM moderation and routing judgments.",
+    "5ddb49a19fc35296": "Applies engineering-style physical reasoning to LLM fault diagnosis.",
+    "c4a35e75b732ef4a": "Benchmarks training-performance simulators for picking parallelization strategies without full runs.",
+    "dcfca63926ea22ea": "Separates model drift from rater drift: human judges get stricter over time.",
+    "b6805052b5174dca": "Maps how LLMs gain insight by explaining and reasoning without new data.",
+    "f1908d0038e22f5b": "Finds knowledge probes keyed on entity names overstate forgetting; indirect cues still retrieve it.",
+    "173841a135ec48af": "Revisits whether LLMs survive corrupted NLU inputs through shortcuts or memorization.",
+    "046191ac623ca927": "Argues static evals miss interactive systems where users change strategy after each reply.",
+    "ca54e3a4f2c1d30b": "Applies f-divergence self-play with LLMs to mixed-type tabular anomaly detection.",
+    "3985de9df0cd2149": "Black-box ensemble method to split prompt ambiguity from knowledge gaps.",
+    "951243773dcd7469": "Uses LLM priors for interactive program induction from input-output examples.",
+    "53cced15d557cd0b": "Interactive eval of when a model should ask for clarification versus assume.",
+    "fb7a288ad791ee0d": "Surveys LLMs used to design and operate AI training and serving infrastructure.",
+    "baf7e4781272e609": "Scales structured interactive environments for agentic RL post-training.",
+    "1e13d673398b4485": "Releases dhAIBench, a tool for benchmarking LLMs on linguistic annotation.",
+    "8f0034965a63d29c": "Cross-model study of LLMs triaging unknown binaries under a budget.",
+    "0d292c5fdc2bf79f": "Calibrates abstention thresholds to get statistical error control on accepted answers.",
+    "563c7d3375862838": "Consensus decoding against cross-modal hallucination in omnimodal models.",
+    "f1c00e19e15c137a": "Tests whether user-simulator evaluation frameworks actually track simulator quality.",
+    "e497c044e025058b": "Detects jailbreaks from contrastive representations without a separate classifier.",
+    "1d45f44793728555": "Measures hallucination in cyber threat intelligence summarization and QA.",
+    "7f32f43e5847c550": "Tests label-free lie-detection directions at 70B scale, including lies about knowledge.",
+    "45ad90fd8b412dd8": "Compares four prompting strategies across 12 languages; direct prompting wins.",
+    "d43ec4840a23ed16": "Reports 1313x smaller memory cache and 6.9x lower prefill latency at 1M context.",
+    "cc1d845dd86911fc": "Population-based hyperparameter tuning across parallel RLVR runs beats compute-matched baselines.",
+    "bccb2e92dff08cf7": "Surveys 116 inference-time hallucination methods and flags limits on reported gains.",
+    "77fc0e39997bf0b1": "Measures how closely LLM agents match human choices in psychological tasks.",
+    "f378fea92addc171": "CONCOR benchmark re-scores contrastive decoding for multimodal hallucination.",
+    "409ea0c8de755810": "Training-free layer re-run that revisits visual evidence in multimodal models.",
+    "a3483f98b2e0e165": "Training-free repair for backdoors that activate only after quantization, tested on four LLMs.",
+    "ac286630ecd22068": "IRT framework that uses both probability and correctness responses in one eval.",
+    "f3919f64a3d29ec3": "100 verifier-checked proof cases; 10 frontier LLMs struggle.",
+    "5b4989c7a72ddf00": "2,050 Chinese prompts show larger gaps on proactive than prohibitive safety behavior."
   }
 }

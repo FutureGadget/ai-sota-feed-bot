@@ -1,0 +1,330 @@
+{
+ "slug": "speculative-decoding-2026-11-07",
+ "label": "Speculative Decoding",
+ "item_count": 18,
+ "day_count": 11,
+ "source_count": 4,
+ "first_seen": "2026-11-07T03:19:43+00:00",
+ "last_updated": "2026-11-25T17:37:49+00:00",
+ "generated_at": "2026-11-28T00:13:36.099102+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl",
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-11-07",
+   "items": [
+    {
+     "title": "D-REAL: Acceptance-Length Optimization with Unbiased Gradients for Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.10432v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Speculative decoding efficiency depends on the number of consecutively accepted draft tokens, yet token-level training objectives do not directly optimize this quantity. We introduce D-REAL (Drafter Reinforcement of E...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "b1fe6c30c1c550df",
+     "published": "2026-11-07T03:19:43+00:00",
+     "editor_note": "Opens the thread: an RL-style objective that trains the drafter on accepted length, not per-token loss."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
+     "url": "http://arxiv.org/abs/2611.11371v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
+     "sid": "a4e942d0f147f07c",
+     "published": "2026-11-08T13:29:14+00:00",
+     "editor_note": "Flags that each draft-tree node costs a verification row under concurrent serving, and learns to prune."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
+     "url": "http://arxiv.org/abs/2611.12356v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
+     "sid": "0aacbce5f85ac122",
+     "published": "2026-11-09T13:06:52+00:00",
+     "editor_note": "Extends block-diffusion trees (DFlash, DDTree) with fork-aware branching."
+    },
+    {
+     "title": "Phrase-Level Speculative Decoding on a Frozen Target",
+     "url": "http://arxiv.org/abs/2611.12464v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Speculative decoders raise throughput by banking more target tokens per forward pass, and Medusa, EAGLE-3, DFlash and DSpark all do it the same way: more candidates that survive verification. All of them draft in the target's own vocabulary, so one node of the candidate tree is o",
+     "sid": "d9424aebc884a5c5",
+     "published": "2026-11-09T14:13:32+00:00",
+     "editor_note": "Drafts whole phrases instead of target-vocabulary tokens, leaving the target model frozen."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "REAL Loss: Optimizing Real Expected Acceptance Length for Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.14399v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Speculative decoding accelerates LLM inference by having a draft model propose multiple tokens for the target model to verify in one pass. The speedup is governed by the expected acceptance length (EAL), yet standard...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "256bf90ce51f6665",
+     "published": "2026-11-10T17:45:12+00:00",
+     "editor_note": "A second, independent paper optimizing expected acceptance length as the training loss."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Callo: Serving Cache-Miss Requests with Speculative Decoding on Invalidated KV under Prefill-Decode Disaggregation",
+     "url": "http://arxiv.org/abs/2611.18459v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Agent sessions may involve frequent context edits, which effectively invalidate cached KV state and force requests to wait for re-prefill before decoding. We present Callo, a disaggregated serving system that leverage...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "018074f62583197d",
+     "published": "2026-11-13T17:28:37+00:00",
+     "editor_note": "First serving-side entry: speculate on invalidated KV so agent context edits don't stall on re-prefill."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "PACD: Provenance-Aware Consensus Decoding for Mitigating Cross-Modal Hallucinations in Omnimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.22456v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Omnimodal large language models (Omni-LLMs) integrate audio, video, and text for multimodal reasoning, yet remain vulnerable to cross-modal hallucinations, where one modality improperly influences predictions about an...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "563c7d3375862838",
+     "published": "2026-11-17T09:20:20+00:00",
+     "editor_note": "Off-theme: consensus decoding against cross-modal hallucination, not speculative decoding."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
+     "url": "http://arxiv.org/abs/2611.24301v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Looped Transformers achieve large effective depth with compact models by repeatedly applying a weight-shared block across R recurrent steps, each maintaining a loop-specific key-value (KV) cache. To accelerate sequent...",
+     "sid": "a34c118cc3850b60",
+     "published": "2026-11-18T12:11:43+00:00",
+     "editor_note": "Brings self-speculation to looped Transformers with per-loop KV caches on long context."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-20",
+   "items": [
+    {
+     "title": "DistDNA: Language Model Fingerprinting under Stochastic Decoding",
+     "url": "http://arxiv.org/abs/2611.27831v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Behavioral fingerprints identify a large language model (LLM) from its responses to a shared set of prompts, enabling applications such as verifying whether a deployed model corresponds to the checkpoint it claims to be. Deployed models, however, are commonly served with stochast",
+     "sid": "fb7e5418185abe5a",
+     "published": "2026-11-20T16:52:51+00:00",
+     "editor_note": "Off-theme: model fingerprinting robust to stochastic sampling at serve time."
+    },
+    {
+     "title": "Speculative Decoding Is Less Speculative Than You Think",
+     "url": "http://arxiv.org/abs/2611.27891v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Introduces DICE, a speculative decoding method that pre-samples verification randomness and uses it with an existing drafter to direct drafting toward likely continuations, reporting throughput gains of up to 24.6pp over baselines.",
+     "sid": "c08838a1ebaaf444",
+     "published": "2026-11-20T17:33:21+00:00",
+     "editor_note": "DICE pre-samples verification randomness to steer the drafter, reporting up to 24.6pp throughput gain."
+    },
+    {
+     "title": "Grammar-as-a-Draft: More Tokens per Speculative Decoding Step on Grammar-Constrained Structured Outputs",
+     "url": "http://arxiv.org/abs/2611.28349v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces Grammar-as-a-Draft (GaaD), which merges grammar-forced tokens into speculative decoding draft rows for JSON, regex, and tool-call outputs, raising acceptance length and decoding speed in vLLM and Rust runtimes on TPU v7x.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "b6559df505fa2a9e",
+     "published": "2026-11-20T22:00:38+00:00",
+     "editor_note": "Merges grammar-forced tokens into draft rows for JSON, regex, and tool calls, tested in vLLM on TPU v7x."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-23",
+   "items": [
+    {
+     "title": "Rethinking the Evaluation of Contrastive Decoding for Hallucination Mitigation in Multimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.30460v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Introduces CONCOR, a controlled benchmark that scores how contrastive decoding methods rank ground-truth objects against hallucinated candidates in multimodal LLMs, using a Contrastive Grounding Margin metric.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "f378fea92addc171",
+     "published": "2026-11-23T10:51:35+00:00",
+     "editor_note": "Off-theme: a benchmark for contrastive decoding in multimodal hallucination mitigation."
+    },
+    {
+     "title": "Look Back, Draft Ahead: Corrective Prefix Attention for Parallel Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.31112v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Introduces Corrective Prefix Attention, a parallel speculative decoding method that lets draft tokens attend to earlier choices in the block, reporting 13–15% more committed tokens per round than DSpark and up to 3.37× mean speedup on Qwen3 targets.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "f71af688b338f44d",
+     "published": "2026-11-23T17:52:33+00:00",
+     "editor_note": "Lets parallel draft tokens attend to earlier block choices: 13–15% more committed tokens than DSpark."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "items": [
+    {
+     "title": "Pando: Noise-Coupled Parallel Draft Trees for Efficient Edge Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.32269v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Pando is a speculative decoding method that builds dynamic draft trees on a parallel drafter using noise-coupled pruning, reporting 5.3x speedup and 4.2x energy reduction over autoregressive decoding for a 16-node tree on an edge device.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "f5c599840c08b8e9",
+     "published": "2026-11-24T09:39:12+00:00",
+     "editor_note": "Edge-device angle: 5.3x speedup and 4.2x energy cut for a 16-node tree."
+    },
+    {
+     "title": "LEGOSpec: A Composable and Efficient Framework for Speculative Draft Design and Training",
+     "url": "http://arxiv.org/abs/2611.33004v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "LEGOSpec is a modular framework that splits speculative decoding draft models into four swappable components and trains them under matched conditions, yielding the DFlux draft that improves acceptance length on Qwen and Gemma models.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "6f4da66d69ee069e",
+     "published": "2026-11-24T17:29:40+00:00",
+     "editor_note": "Splits drafters into four swappable parts and trains them under matched conditions, yielding DFlux."
+    },
+    {
+     "title": "Draft Calibration for Speculative Decoding: Accelerating LLM Serving by Matching Draft and Target Distributions",
+     "url": "http://arxiv.org/abs/2611.33111v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "The paper applies post-hoc calibration, mainly standard temperature scaling, to the draft model in speculative decoding, reporting acceptance length gains of up to about 10% with almost no added cost across tasks.",
+     "sid": "420b2dee4fa3c677",
+     "published": "2026-11-24T18:41:59+00:00",
+     "editor_note": "Cheapest fix in the thread: temperature-scale the drafter for up to about 10% longer acceptance."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "FlyingStart: Learned Cross-Token Warm Starts for Fixed-Point Decoding in Recurrent-Depth Language Models",
+     "url": "http://arxiv.org/abs/2611.34492v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "FlyingStart is a linear warm start, fitted in closed form on a frozen model, that predicts each token's fixed point from the previous token's stopping state, cutting decoding layers by 14–19% on Huginn-0125.",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "758bfcdb3a51f9a3",
+     "published": "2026-11-25T14:51:50+00:00",
+     "editor_note": "Adjacent: warm starts for fixed-point decoding cut 14–19% of layers on Huginn-0125, no drafter involved."
+    },
+    {
+     "title": "DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity",
+     "url": "http://arxiv.org/abs/2611.34776v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "DFly2 is a block-parallel speculative decoding drafter that reuses the target model's KV cache and per-query sparse index selections instead of keeping its own cache, and it accepts more tokens per step than DFlash and DSpark.",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "bb4c90dec13b8ea7",
+     "published": "2026-11-25T17:37:49+00:00",
+     "editor_note": "Latest: the drafter shares the target's KV cache and sparse index selections instead of keeping its own."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research-theme thread, not one event: three weeks of independent arXiv papers on speculative decoding, from separate groups. Early work retargeted drafter training at acceptance length (D-REAL, REAL Loss), then the focus moved to block-diffusion draft trees and serving-side wins like grammar-forced drafts and KV reuse.",
+  "stale": false,
+  "whats_new": "DFly2 (Nov 25) drops the drafter's own KV cache and reuses the target's cache and sparse-attention selections, reporting more accepted tokens per step than DFlash and DSpark on long contexts.",
+  "why_it_matters": "Speculative decoding is a near-free throughput lever in vLLM-class stacks, and these papers show the gains now hinge on drafter training, tree shape, and cache sharing rather than drafter size.",
+  "take_for_builders": "If you serve structured or tool-call outputs, benchmark grammar-forced drafting and draft temperature calibration on your own traffic before swapping drafter architectures; treat paper speedups as unreplicated.",
+  "beats": [
+   {
+    "kicker": "OBJECTIVES",
+    "tone": "launch",
+    "headline": "Drafters get trained on acceptance length directly",
+    "summary": "Token-level losses don't optimize how many draft tokens survive verification; four papers target that quantity or its proxies.",
+    "sids": [
+     "b1fe6c30c1c550df",
+     "256bf90ce51f6665",
+     "6f4da66d69ee069e",
+     "420b2dee4fa3c677"
+    ]
+   },
+   {
+    "kicker": "DRAFT SHAPE",
+    "tone": "rising",
+    "headline": "Block-diffusion and parallel draft trees compete on tokens per verify",
+    "summary": "Work builds on DFlash and DSpark, pruning or reshaping draft trees so each verification row banks more tokens.",
+    "sids": [
+     "a4e942d0f147f07c",
+     "0aacbce5f85ac122",
+     "d9424aebc884a5c5",
+     "c08838a1ebaaf444",
+     "f71af688b338f44d",
+     "f5c599840c08b8e9"
+    ]
+   },
+   {
+    "kicker": "SERVING",
+    "tone": "now",
+    "headline": "Speculation moves into the serving stack: KV reuse, grammars, cache misses",
+    "summary": "Papers fold speculation into production concerns: invalidated agent KV, structured outputs, and long-context cache cost.",
+    "sids": [
+     "018074f62583197d",
+     "a34c118cc3850b60",
+     "b6559df505fa2a9e",
+     "bb4c90dec13b8ea7"
+    ]
+   },
+   {
+    "kicker": "ADJACENT",
+    "tone": "neutral",
+    "headline": "Other decoding papers clustered in by keyword, not by technique",
+    "summary": "These share the word \"decoding\" but address hallucination, fingerprinting, or recurrent-depth inference, not draft-and-verify.",
+    "sids": [
+     "563c7d3375862838",
+     "fb7e5418185abe5a",
+     "f378fea92addc171",
+     "758bfcdb3a51f9a3"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does any of DFly2, DFlash, or DSpark land in vLLM or SGLang mainline with published throughput numbers?",
+   "Do acceptance-length objectives (D-REAL, REAL Loss) hold their gains under batched, high-concurrency serving?",
+   "Does Grammar-as-a-Draft's speedup on JSON and tool-call outputs reproduce on GPU runtimes, not just TPU v7x?",
+   "Does an independent benchmark compare the draft-tree methods (D3Tree, DForkTree, Pando, Corrective Prefix Attention) on the same targets?"
+  ],
+  "generated_at": "2026-11-28T00:12:40Z"
+ }
+}

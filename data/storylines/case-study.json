@@ -1,16 +1,17 @@
 {
  "slug": "case-study",
- "label": "Case Study",
- "item_count": 6,
+ "label": "Empirical Study",
+ "item_count": 7,
  "day_count": 5,
- "source_count": 4,
+ "source_count": 5,
  "first_seen": "2026-11-09T21:25:08+00:00",
- "last_updated": "2026-11-25T18:37:06+00:00",
- "generated_at": "2026-11-27T00:14:18.666001+00:00",
+ "last_updated": "2026-11-25T18:59:31+00:00",
+ "generated_at": "2026-11-28T00:13:36.099102+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cn_open_weight_reports",
   "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_llm_reliability"
  ],
  "days": [
@@ -101,14 +102,24 @@
      "sid": "043f8331a0f789b2",
      "published": "2026-11-25T18:37:06+00:00",
      "editor_note": "Gives a test-based method for finding unneeded edits in agent patches, at the scale of 7,660 trajectories."
+    },
+    {
+     "title": "Can image generation help visual reasoning? An empirical study",
+     "url": "http://arxiv.org/abs/2611.34935v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "An empirical study finding that adding a generated helper image to visual question answering lowers mean accuracy by 3.7 points across 13 model pairs, with declines on nine of ten tasks.",
+     "sid": "f96de64196c2f4d2",
+     "published": "2026-11-25T18:59:31+00:00",
+     "editor_note": "Adds a negative result: an extra generated image is a cost, not a free reasoning aid, in 9 of 10 tasks tested."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is not one story: the six papers share only the phrase \"case study\" or \"empirical study\" in their titles. They form a loose November run of arXiv work that measures how agents and models actually behave, covering where long-horizon errors enter, what token spend tracks, KV cache reuse, benchmark throttling and web-element hallucination.",
+  "tldr": "This is not one story: the seven papers share only the phrase \"case study\" or \"empirical study\" in their titles. They form a loose November run of arXiv work that measures how agents and models actually behave, covering where long-horizon errors enter, what token spend tracks, KV cache reuse, benchmark throttling, web-element hallucination and over-editing coding agents.",
   "stale": false,
-  "whats_new": "The newest paper reverts each unit of a coding-agent patch and reruns the tests to find unneeded edits, across 7,660 Copilot CLI trajectories from 18 models on SWE-bench Verified and DeepSWE.",
+  "whats_new": "The newest paper finds that adding a generated helper image to visual question answering lowers mean accuracy by 3.7 points across 13 model pairs, with declines on nine of ten tasks.",
   "why_it_matters": "The common thread is measurement: several of these papers test whether a number teams already rely on (pass rate, token spend, benchmark score) means what they assume it means.",
   "take_for_builders": "If you gate coding-agent patches on passing tests alone, add a diff-size or revert-and-retest check, because a passing patch can still carry edits the tests never needed.",
   "beats": [
@@ -142,12 +153,21 @@
     ]
    },
    {
-    "kicker": "LATEST",
-    "tone": "now",
+    "kicker": "OVER-EDITING",
+    "tone": "rising",
     "headline": "Coding agents' unneeded edits measured by revert-and-retest",
-    "summary": "Delta Residue Attribution reverts each patch unit and reruns the tests. Any edit the tests do not need counts as over-editing.",
+    "summary": "Delta Residue Attribution reverts each patch unit and reruns the tests, across 7,660 Copilot CLI trajectories from 18 models. Any edit the tests do not need counts as over-editing.",
     "sids": [
      "043f8331a0f789b2"
+    ]
+   },
+   {
+    "kicker": "LATEST",
+    "tone": "now",
+    "headline": "A generated helper image lowers visual-reasoning accuracy by 3.7 points",
+    "summary": "Across 13 model pairs, adding a generated image to visual question answering hurt accuracy on nine of ten tasks.",
+    "sids": [
+     "f96de64196c2f4d2"
     ]
    }
   ],
@@ -155,8 +175,9 @@
    "Does the over-edit study report which of the 18 models over-edit least, and by how much?",
    "Does the token-spend paper find any correlation between spend and merged engineering output?",
    "Does the DeepSeek-V4-Flash study find any cached state that survives a weight update without degrading outputs?",
-   "Does the long-horizon study name a control that catches errors at the step where they enter?"
+   "Does the long-horizon study name a control that catches errors at the step where they enter?",
+   "Does the image-generation study say what set apart the one task without a decline?"
   ],
-  "generated_at": "2026-11-27T00:12:27Z"
+  "generated_at": "2026-11-28T00:12:43Z"
  }
 }

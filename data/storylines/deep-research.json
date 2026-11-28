@@ -3,110 +3,112 @@
  "label": "Deep Research",
  "item_count": 3,
  "day_count": 3,
- "source_count": 2,
- "first_seen": "2026-10-16T11:04:43+00:00",
- "last_updated": "2026-11-02T13:13:42+00:00",
- "generated_at": "2026-11-04T00:12:28.797841+00:00",
+ "source_count": 3,
+ "first_seen": "2026-11-12T16:26:27+00:00",
+ "last_updated": "2026-11-27T17:08:35+00:00",
+ "generated_at": "2026-11-28T00:13:36.099102+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "arxiv_cs_cl"
+  "arxiv_cs_cl",
+  "hackernews_ai"
  ],
  "days": [
   {
-   "date": "2026-10-16",
+   "date": "2026-11-12",
    "items": [
     {
-     "title": "Optimist Deep Research: An Iterative, State-Centric Agent for Autonomous Literature Research",
-     "url": "http://arxiv.org/abs/2610.23299v1",
+     "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
+     "url": "http://arxiv.org/abs/2611.17041v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Most retrieval-augmented systems treat literature search as a single retrieval step followed by summarization. Real literature research works differently: the investigator's understanding of the question changes as th...",
+     "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
      "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "45845d76a34385a2",
-     "published": "2026-10-16T11:04:43+00:00",
-     "editor_note": "Treats literature research as iterative, with agent state updated as understanding of the question changes."
+     "sid": "e267de687efb45c3",
+     "published": "2026-11-12T16:26:27+00:00",
+     "editor_note": "Frames the multi-agent design problem: delegation saves main-agent context but fails without coordinated task allocation."
     }
    ]
   },
   {
-   "date": "2026-10-22",
+   "date": "2026-11-25",
    "items": [
     {
-     "title": "Beyond Watching and Searching: Benchmarking Agents for Video-centered Deep Research Reports",
-     "url": "http://arxiv.org/abs/2610.31158v1",
+     "title": "DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents",
+     "url": "http://arxiv.org/abs/2611.34852v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Deep research agents synthesize open-web evidence into long reports, but current benchmarks do not evaluate research centered on a source video. We introduce Video-Centered Deep Research Report Generation. Given a vid...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "ed508b2931c601f2",
-     "published": "2026-10-22T12:15:30+00:00",
-     "editor_note": "Introduces a benchmark task where the research report is centered on a given source video."
+     "summary_1line": "DRBench Pro is a benchmark that scores deep research agents by how broadly and deeply their reports cover knowledge from Wikipedia-derived trees, with 144 cases, 44,102 rubrics, and a best agent at 57.04% coverage.",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "b771eb023b90c8cb",
+     "published": "2026-11-25T18:25:30+00:00",
+     "editor_note": "Adds a coverage benchmark with a hard number: the best agent covers 57.04% of rubric knowledge."
     }
    ]
   },
   {
-   "date": "2026-11-02",
+   "date": "2026-11-27",
    "items": [
     {
-     "title": "DR Pixel: Page-Native Deep Research with Vision-Language Models",
-     "url": "http://arxiv.org/abs/2611.03097v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Complex documents such as scientific papers contain rich information in tables, figures, and equations; however, existing deep research (DR) agents typically reduce papers to OCR-extracted text. We instead ask whether...",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "2e1dfcc99bc4c300",
-     "published": "2026-11-02T13:13:42+00:00",
-     "editor_note": "Replaces OCR-extracted paper text with page-level vision-language input for deep research."
+     "title": "Show HN: Shandu 4.0 – Local sleek deep research agent that audits every citation",
+     "url": "https://github.com/jolovicdev/shandu",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Shandu is an open-source local deep research agent with a CLI and web UI that searches the web, arXiv, PubMed and PDFs, and audits every cited sentence against its source text, using any LiteLLM-supported model.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "0fe8a1f1febc51fc",
+     "published": "2026-11-27T17:08:35+00:00",
+     "editor_note": "First practitioner tool in the thread: runs locally and verifies citations sentence by sentence."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Deep research agents are being redefined by what they read and how they search. In October, an arXiv paper proposed an iterative, state-centric agent for literature research, and another introduced a benchmark for reports centered on a source video.",
+  "tldr": "This is a research-theme thread, not one event: through October and early November, papers reworked deep research agents around iterative state, video sources and page-image input. On Nov 12 and Nov 25 the focus moved to multi-agent coordination and to scoring report coverage.",
   "stale": false,
-  "whats_new": "On Nov 2, DR Pixel proposed page-native deep research: vision-language models read papers as page images, rather than OCR-extracted text.",
-  "why_it_matters": "Text-only retrieval pipelines drop tables, figures and equations; if your research agent ingests PDFs, the input modality is now a design choice to test.",
-  "take_for_builders": "If your research agent reads PDFs, test a vision-language pass on pages with tables and equations against your OCR pipeline before trusting text-only extraction.",
+  "whats_new": "On Nov 27, Shandu 4.0 shipped as an open-source local deep research agent that checks every cited sentence against its source text, with any LiteLLM-supported model.",
+  "why_it_matters": "Deep research is moving from demos to measurable systems: coordination cost, rubric-scored coverage and per-sentence citation checks are now concrete things to evaluate in your own research agent.",
+  "take_for_builders": "If you ship a research agent, add a per-sentence citation check against retrieved source text before release, and score report coverage with rubrics instead of judging fluency.",
   "status": {
    "state": "Active research",
    "tone": "rising",
-   "changed": "2026-11-02",
-   "detail": "Academic work is widening deep research from text search to iterative state, video sources and page images."
+   "changed": "2026-11-27",
+   "detail": "Loosely linked work on how deep research agents split work, get scored and prove their citations."
   },
   "beats": [
    {
-    "kicker": "ITERATIVE SEARCH",
+    "kicker": "COORDINATION",
     "tone": "launch",
-    "headline": "Optimist Deep Research tracks evolving understanding across literature search",
-    "summary": "Argues single-step retrieval plus summarization misses how an investigator's question changes.",
+    "headline": "Multi-agent deep research: delegation pays off only when it is coordinated",
+    "summary": "Delegation parallelizes search and keeps long tool traces out of the main agent's context, but only helps when allocation and execution line up.",
     "sids": [
-     "45845d76a34385a2"
+     "e267de687efb45c3"
     ]
    },
    {
-    "kicker": "NEW INPUT",
+    "kicker": "MEASUREMENT",
     "tone": "turn",
-    "headline": "A benchmark for video-centered deep research reports",
-    "summary": "Evaluates agents given a source video rather than a text query.",
+    "headline": "DRBench Pro scores report coverage; best agent reaches 57.04%",
+    "summary": "144 cases and 44,102 rubrics built from Wikipedia-derived knowledge trees.",
     "sids": [
-     "ed508b2931c601f2"
+     "b771eb023b90c8cb"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "DR Pixel reads papers as page images with vision-language models",
-    "summary": "Targets tables, figures and equations lost to OCR text extraction.",
+    "headline": "Shandu 4.0: a local open-source agent that audits every citation",
+    "summary": "CLI and web UI over web, arXiv, PubMed and PDF search, with each cited sentence checked against its source.",
     "sids": [
-     "2e1dfcc99bc4c300"
+     "0fe8a1f1febc51fc"
     ]
    }
   ],
   "open_questions": [
-   "Does DR Pixel beat OCR-text baselines on figure- and table-heavy questions, and at what compute cost?",
-   "Do the video-centered and page-native benchmarks converge on a shared evaluation protocol?",
-   "Does iterative state tracking (Optimist) improve results on open-ended reports versus single-pass retrieval?"
+   "Does Shandu's citation audit catch unsupported claims that DRBench Pro-style coverage rubrics miss?",
+   "Will any multi-agent deep research system report a DRBench Pro score above 57.04%?",
+   "What token or latency overhead does coordinated multi-agent delegation add over a single agent?",
+   "Do page-image (vision-language) inputs from earlier work raise coverage on benchmarks like DRBench Pro?"
   ],
-  "generated_at": "2026-11-04T06:00:00+00:00"
+  "generated_at": "2026-11-28T00:12:11+00:00"
  }
 }

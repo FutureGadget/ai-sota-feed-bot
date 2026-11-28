@@ -1,50 +1,18 @@
 {
  "slug": "question-answering",
  "label": "Question Answering",
- "item_count": 3,
+ "item_count": 4,
  "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-10-27T07:14:59+00:00",
- "last_updated": "2026-11-12T04:56:28+00:00",
- "generated_at": "2026-11-16T00:12:18.135630+00:00",
+ "first_seen": "2026-11-12T04:56:28+00:00",
+ "last_updated": "2026-11-25T18:19:02+00:00",
+ "generated_at": "2026-11-28T00:13:36.099102+00:00",
  "sources": [
-  "arxiv_agent_systems_research",
-  "arxiv_cs_cl",
+  "arxiv_cs_ai",
+  "arxiv_cs_lg",
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-27",
-   "items": [
-    {
-     "title": "DocSkill: Skill-Integrated Agentic Reasoning for Multilingual Multi-Hop Document Question Answering",
-     "url": "http://arxiv.org/abs/2610.36759v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Multilingual multi-hop document question answering (MMHop-DocQA) requires locating and integrating evidence across complex layouts, document pages, and diverse languages. Existing approaches include single-pass proces...",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "334116357c766a21",
-     "published": "2026-10-27T07:14:59+00:00",
-     "editor_note": "Agentic skills applied to multilingual multi-hop document QA."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-04",
-   "items": [
-    {
-     "title": "LibriSpeech-Real-QA: A Benchmark for Streaming Question Answering",
-     "url": "http://arxiv.org/abs/2611.06496v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Most speech large language models (SLMs) still process speech in an offline manner. They only start responding after they receive the complete speech segment. However, many real-world applications require streaming sp...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "81f93605a5cf2115",
-     "published": "2026-11-04T13:30:54+00:00",
-     "editor_note": "Adds a benchmark for streaming speech QA, a new modality for the thread."
-    }
-   ]
-  },
   {
    "date": "2026-11-12",
    "items": [
@@ -53,56 +21,98 @@
      "url": "http://arxiv.org/abs/2611.16300v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Closed-context question answering (QA) requires a system to generate an answer strictly supported by a supplied passage, or to abstain when the passage lacks adequate evidence. SQuAD 2.0 is a widely used benchmark for this setting, scored by Exact Match (EM) i.e., character-level",
+     "summary_1line": "Closed-context question answering (QA) requires a system to generate an answer strictly supported by a supplied passage, or to abstain when the passage lacks adequate evidence. SQuAD 2.0 is a widely used benchmark for...",
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "2e73b9cb16efae6d",
      "published": "2026-11-12T04:56:28+00:00",
-     "editor_note": "Turns the thread to evaluation: grounded, abstention-aware scoring in place of Exact Match."
+     "editor_note": "Opens the thread on evaluation: grounded, abstention-aware scoring in place of Exact Match."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "JET: Just-Enough Exploration Tuning for Efficient Tool-Calling Agents in Repository-Level Question Answering",
+     "url": "http://arxiv.org/abs/2611.22539v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "In repository-level question answering (QA), an agent explores a code repository with tools and should answer a question once enough information is gathered. Nevertheless, we find that LLM agents often continue to inv...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "950bd91368b8cd66",
+     "published": "2026-11-17T10:30:14+00:00",
+     "editor_note": "Moves to agents: over-exploration as a cost problem in repository-level QA."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "items": [
+    {
+     "title": "How Well Do Vision-Language Scene Graphs Serve as Memory for Embodied Question Answering?",
+     "url": "http://arxiv.org/abs/2611.34745v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "The paper evaluates vision-language scene graphs as memory for embodied question answering, introducing an answerability metric and finding that repairs raising it from 27.2% to 37.4% do not always track gains in object F1 or QA accuracy.",
+     "sid": "301a9b3d0d28ce80",
+     "published": "2026-11-25T17:23:01+00:00",
+     "editor_note": "Shows a memory metric (answerability) can rise without matching QA accuracy gains."
+    },
+    {
+     "title": "Knowledge-Base Gradient Descent: Self-Structuring Learning through Question Answering",
+     "url": "http://arxiv.org/abs/2611.34841v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Proposes Knowledge-Base Gradient Descent, which iteratively edits a knowledge base's graph schema or linked documents using question-answer loss, and tests it on research-paper bundles, finding gains on generated questions but mixed results on human questions.",
+     "sid": "bc5735225c73ef8a",
+     "published": "2026-11-25T18:19:02+00:00",
+     "editor_note": "Adds a self-structuring knowledge base whose gains hold on generated questions but not consistently on human ones."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "The thread opened in late October with DocSkill, an arXiv paper applying skill-integrated agents to multilingual multi-hop document QA. LibriSpeech-Real-QA followed on Nov 4 with a benchmark for streaming speech QA, where models must answer before the full audio arrives.",
+  "tldr": "This is a research-theme thread of unrelated arXiv QA papers, not a single event. It opened Nov 12 with SAGE-QA questioning Exact Match scoring on SQuAD 2.0, then JET (Nov 17) targeted tool-calling agents that keep exploring a repository after they already have enough to answer.",
   "stale": false,
-  "whats_new": "SAGE-QA (Nov 12) proposes semantic-aware, grounded scoring for SQuAD 2.0 closed-context QA, replacing character-level Exact Match with checks on whether answers are supported by the passage or correctly abstain.",
-  "why_it_matters": "The thread has shifted from new QA methods to how QA is measured: if Exact Match misjudges grounded answers and abstentions, RAG eval suites built on it misreport faithfulness.",
-  "take_for_builders": "If your QA or RAG evals score with Exact Match, spot-check a sample of grounded paraphrases and abstentions by hand before trusting the metric; treat all three papers as preprints until reproduced.",
+  "whats_new": "Two Nov 25 papers turn to QA memory: scene-graph memory repairs lift answerability from 27.2% to 37.4% without reliably improving QA accuracy, and Knowledge-Base Gradient Descent gains on generated questions but is mixed on human ones.",
+  "why_it_matters": "Across all four papers, the proxy metric (Exact Match, answerability, generated-question scores) diverges from real answer quality, so RAG and agent evals built on those proxies can misreport progress.",
+  "take_for_builders": "Before trusting a QA or RAG eval gain, check it against a hand-graded sample of real user questions; treat all four papers as preprints until reproduced.",
   "beats": [
    {
-    "kicker": "AGENTIC",
+    "kicker": "EVALUATION",
     "tone": "launch",
-    "headline": "DocSkill brings skill-integrated agents to multilingual multi-hop document QA",
-    "summary": "Evidence must be located across pages, layouts and languages, which single-pass approaches handle poorly.",
+    "headline": "SAGE-QA challenges Exact Match scoring for grounded, abstention-aware QA",
+    "summary": "Scores whether an answer is supported by the passage or correctly abstains on SQuAD 2.0.",
     "sids": [
-     "334116357c766a21"
+     "2e73b9cb16efae6d"
     ]
    },
    {
-    "kicker": "NEW MODALITY",
+    "kicker": "AGENTS",
     "tone": "rising",
-    "headline": "LibriSpeech-Real-QA benchmarks streaming question answering for speech LLMs",
-    "summary": "Targets speech models that only respond after the complete audio segment arrives.",
+    "headline": "JET tunes code-repository QA agents to stop exploring once they have enough",
+    "summary": "Targets tool-calling agents that keep invoking tools after gathering sufficient evidence.",
     "sids": [
-     "81f93605a5cf2115"
+     "950bd91368b8cd66"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "SAGE-QA challenges Exact Match scoring for grounded, abstention-aware QA",
-    "summary": "Moves the thread from methods to evaluation: scoring support from the passage and correct abstention on SQuAD 2.0.",
+    "headline": "Memory structures for QA: better structure scores do not always mean better answers",
+    "summary": "Scene-graph memory and self-editing knowledge bases both show gains on internal metrics that do not fully carry to QA accuracy or human questions.",
     "sids": [
-     "2e73b9cb16efae6d"
+     "301a9b3d0d28ce80",
+     "bc5735225c73ef8a"
     ]
    }
   ],
   "open_questions": [
-   "Do any of these methods report results that hold up outside their own benchmarks?",
-   "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?",
    "How far do SQuAD 2.0 model rankings move when scored with SAGE-QA instead of Exact Match?",
-   "Is SAGE-QA's grounding check released as code that can be dropped into an existing RAG eval harness?"
+   "Is SAGE-QA's grounding check released as code that can be dropped into an existing RAG eval harness?",
+   "Does JET's early-stopping cut tool calls on repositories outside its training benchmark without lowering answer accuracy?",
+   "Does Knowledge-Base Gradient Descent improve results on human-written questions in any follow-up evaluation?"
   ],
-  "generated_at": "2026-11-16T00:11:55+00:00"
+  "generated_at": "2026-11-28T00:12:44Z"
  }
 }

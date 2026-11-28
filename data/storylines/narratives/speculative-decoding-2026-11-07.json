@@ -1,0 +1,85 @@
+{
+  "slug": "speculative-decoding-2026-11-07",
+  "generated_at": "2026-11-28T00:12:40Z",
+  "covers_last_updated": "2026-11-25T17:37:49+00:00",
+  "covers_member_sids": [
+    "b1fe6c30c1c550df",
+    "a4e942d0f147f07c",
+    "0aacbce5f85ac122",
+    "d9424aebc884a5c5",
+    "256bf90ce51f6665",
+    "018074f62583197d",
+    "563c7d3375862838",
+    "a34c118cc3850b60",
+    "fb7e5418185abe5a",
+    "c08838a1ebaaf444",
+    "b6559df505fa2a9e",
+    "f378fea92addc171",
+    "f71af688b338f44d",
+    "f5c599840c08b8e9",
+    "6f4da66d69ee069e",
+    "420b2dee4fa3c677",
+    "758bfcdb3a51f9a3",
+    "bb4c90dec13b8ea7"
+  ],
+  "tldr": "This is a research-theme thread, not one event: three weeks of independent arXiv papers on speculative decoding, from separate groups. Early work retargeted drafter training at acceptance length (D-REAL, REAL Loss), then the focus moved to block-diffusion draft trees and serving-side wins like grammar-forced drafts and KV reuse.",
+  "whats_new": "DFly2 (Nov 25) drops the drafter's own KV cache and reuses the target's cache and sparse-attention selections, reporting more accepted tokens per step than DFlash and DSpark on long contexts.",
+  "why_it_matters": "Speculative decoding is a near-free throughput lever in vLLM-class stacks, and these papers show the gains now hinge on drafter training, tree shape, and cache sharing rather than drafter size.",
+  "beats": [
+    {
+      "kicker": "OBJECTIVES",
+      "tone": "launch",
+      "headline": "Drafters get trained on acceptance length directly",
+      "summary": "Token-level losses don't optimize how many draft tokens survive verification; four papers target that quantity or its proxies.",
+      "sids": ["b1fe6c30c1c550df", "256bf90ce51f6665", "6f4da66d69ee069e", "420b2dee4fa3c677"]
+    },
+    {
+      "kicker": "DRAFT SHAPE",
+      "tone": "rising",
+      "headline": "Block-diffusion and parallel draft trees compete on tokens per verify",
+      "summary": "Work builds on DFlash and DSpark, pruning or reshaping draft trees so each verification row banks more tokens.",
+      "sids": ["a4e942d0f147f07c", "0aacbce5f85ac122", "d9424aebc884a5c5", "c08838a1ebaaf444", "f71af688b338f44d", "f5c599840c08b8e9"]
+    },
+    {
+      "kicker": "SERVING",
+      "tone": "now",
+      "headline": "Speculation moves into the serving stack: KV reuse, grammars, cache misses",
+      "summary": "Papers fold speculation into production concerns: invalidated agent KV, structured outputs, and long-context cache cost.",
+      "sids": ["018074f62583197d", "a34c118cc3850b60", "b6559df505fa2a9e", "bb4c90dec13b8ea7"]
+    },
+    {
+      "kicker": "ADJACENT",
+      "tone": "neutral",
+      "headline": "Other decoding papers clustered in by keyword, not by technique",
+      "summary": "These share the word \"decoding\" but address hallucination, fingerprinting, or recurrent-depth inference, not draft-and-verify.",
+      "sids": ["563c7d3375862838", "fb7e5418185abe5a", "f378fea92addc171", "758bfcdb3a51f9a3"]
+    }
+  ],
+  "open_questions": [
+    "Does any of DFly2, DFlash, or DSpark land in vLLM or SGLang mainline with published throughput numbers?",
+    "Do acceptance-length objectives (D-REAL, REAL Loss) hold their gains under batched, high-concurrency serving?",
+    "Does Grammar-as-a-Draft's speedup on JSON and tool-call outputs reproduce on GPU runtimes, not just TPU v7x?",
+    "Does an independent benchmark compare the draft-tree methods (D3Tree, DForkTree, Pando, Corrective Prefix Attention) on the same targets?"
+  ],
+  "take_for_builders": "If you serve structured or tool-call outputs, benchmark grammar-forced drafting and draft temperature calibration on your own traffic before swapping drafter architectures; treat paper speedups as unreplicated.",
+  "day_captions": {
+    "b1fe6c30c1c550df": "Opens the thread: an RL-style objective that trains the drafter on accepted length, not per-token loss.",
+    "a4e942d0f147f07c": "Flags that each draft-tree node costs a verification row under concurrent serving, and learns to prune.",
+    "0aacbce5f85ac122": "Extends block-diffusion trees (DFlash, DDTree) with fork-aware branching.",
+    "d9424aebc884a5c5": "Drafts whole phrases instead of target-vocabulary tokens, leaving the target model frozen.",
+    "256bf90ce51f6665": "A second, independent paper optimizing expected acceptance length as the training loss.",
+    "018074f62583197d": "First serving-side entry: speculate on invalidated KV so agent context edits don't stall on re-prefill.",
+    "563c7d3375862838": "Off-theme: consensus decoding against cross-modal hallucination, not speculative decoding.",
+    "a34c118cc3850b60": "Brings self-speculation to looped Transformers with per-loop KV caches on long context.",
+    "fb7e5418185abe5a": "Off-theme: model fingerprinting robust to stochastic sampling at serve time.",
+    "c08838a1ebaaf444": "DICE pre-samples verification randomness to steer the drafter, reporting up to 24.6pp throughput gain.",
+    "b6559df505fa2a9e": "Merges grammar-forced tokens into draft rows for JSON, regex, and tool calls, tested in vLLM on TPU v7x.",
+    "f378fea92addc171": "Off-theme: a benchmark for contrastive decoding in multimodal hallucination mitigation.",
+    "f71af688b338f44d": "Lets parallel draft tokens attend to earlier block choices: 13–15% more committed tokens than DSpark.",
+    "f5c599840c08b8e9": "Edge-device angle: 5.3x speedup and 4.2x energy cut for a 16-node tree.",
+    "6f4da66d69ee069e": "Splits drafters into four swappable parts and trains them under matched conditions, yielding DFlux.",
+    "420b2dee4fa3c677": "Cheapest fix in the thread: temperature-scale the drafter for up to about 10% longer acceptance.",
+    "758bfcdb3a51f9a3": "Adjacent: warm starts for fixed-point decoding cut 14–19% of layers on Huginn-0125, no drafter involved.",
+    "bb4c90dec13b8ea7": "Latest: the drafter shares the target's KV cache and sparse index selections instead of keeping its own."
+  }
+}

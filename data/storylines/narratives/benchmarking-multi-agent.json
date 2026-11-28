@@ -1,9 +1,8 @@
 {
   "slug": "benchmarking-multi-agent",
-  "generated_at": "2026-11-27T00:12:32Z",
+  "generated_at": "2026-11-28T00:12:29Z",
   "covers_last_updated": "2026-11-26T00:00:00+00:00",
   "covers_member_sids": [
-    "d48d8aea5d45b475",
     "b3a45cba6445f63d",
     "a34f1fafb710e628",
     "ae75fdfb8dec6766",
@@ -21,17 +20,16 @@
     "851958f4eb1c5d85",
     "819f2bb8e324e5e7"
   ],
-  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with KV-cache memory cost and orchestration. It split into security against malicious peers, tracing which agent caused a failure, and latent agent-to-agent channels that LatentLens and Chasm found unhelpful or exploitable.",
-  "whats_new": "Hugging Face (Nov 26) published reproducible recipes for training multi-agent teams, the first about $50 on two H200s, a day after MeterRouter reported top multi-agent accuracy at 82% lower cost on five benchmarks.",
+  "tldr": "This is a theme thread, not one event: three weeks of mostly arXiv work on what breaks when LLM agents run as a team, starting with WorkflowArena's benchmark for harnesses that spawn worker agents. It split into security against malicious peers, tracing which agent caused a failure, and latent agent-to-agent channels that LatentLens and Chasm found unhelpful or exploitable.",
+  "whats_new": "Hugging Face (Nov 26) published reproducible recipes for training multi-agent teams, the first about $50 on two H200s, a day after MeterRouter matched the strongest multi-agent system's accuracy at 82% lower cost on five benchmarks.",
   "why_it_matters": "The thread has moved from what fails in agent teams to what they cost: per-query routing under a dollar budget and cheap team training make cost a tunable you can benchmark, not a fixed overhead of going multi-agent.",
   "beats": [
     {
-      "kicker": "SYSTEM COST",
+      "kicker": "ORCHESTRATION",
       "tone": "launch",
-      "headline": "Running agents as a team hits memory and orchestration limits",
-      "summary": "Simultaneously resident KV caches become a memory bottleneck, and harnesses that spawn worker agents get an executable orchestration benchmark.",
+      "headline": "Harnesses that spawn worker agents get an executable benchmark",
+      "summary": "WorkflowArena scores how well LLM multi-agent systems orchestrate executable workflows.",
       "sids": [
-        "d48d8aea5d45b475",
         "b3a45cba6445f63d"
       ]
     },
@@ -101,8 +99,7 @@
   ],
   "take_for_builders": "Record per-query token cost next to accuracy in your multi-agent evals, and keep KV-cache or latent hand-offs between models behind the same injection guards as text messages until Chasm-style defenses ship.",
   "day_captions": {
-    "d48d8aea5d45b475": "Names the memory cost of a team: every agent's KV cache resident at once.",
-    "b3a45cba6445f63d": "Scores harnesses that spawn worker agents on executable workflow orchestration.",
+    "b3a45cba6445f63d": "Opens the thread: an executable benchmark for harnesses that spawn worker agents.",
     "a34f1fafb710e628": "Adds privacy to the agenda: private retrieval and inference between agents.",
     "ae75fdfb8dec6766": "First failure-attribution entry: find the decisive error step and the agent behind it.",
     "3debe09eabc6be1b": "The thread's one open-source tool: privacy leak testing for multi-agent systems.",

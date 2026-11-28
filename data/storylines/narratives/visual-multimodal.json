@@ -1,0 +1,109 @@
+{
+  "slug": "visual-multimodal",
+  "generated_at": "2026-11-28T00:12:40Z",
+  "covers_last_updated": "2026-11-25T18:59:31+00:00",
+  "covers_member_sids": [
+    "b76cb948754a8e57",
+    "e07cc0f8ad9bbda1",
+    "2ffd7e8cb1f550c6",
+    "7b04b19e28032924",
+    "0fe69ec1eb1a4f14",
+    "f90b714a57ce9fe0",
+    "c9c6bd7b30cb6c70",
+    "51009fb859c1b51e",
+    "871015d49de97b4a",
+    "3be6797ec1d79375",
+    "58879952ed5ac223",
+    "c259fdb087f2c077",
+    "8455ac0d04bbc04e",
+    "d5776de0ed715c7d",
+    "d981cedec3aec798",
+    "0c2537d2a4651ab8",
+    "409ea0c8de755810",
+    "201b4ccaccfdd1ef",
+    "55f174c136bef75a",
+    "a9604be3fa41d6ac",
+    "38ddc0187aabdda6",
+    "f96de64196c2f4d2"
+  ],
+  "tldr": "This is a research-theme thread, not one event: 22 items, mostly arXiv preprints, from Nov 9 to Nov 25 on visual agents, multimodal benchmarks and hallucination fixes. Mid-month the work shifted from new benchmarks (WebArena-Pro, MM-ReportBench, Google's Multimodal Knowledge Agent Benchmark) to agents that fetch visual evidence with tools.",
+  "whats_new": "A Nov 25 study found that adding a generated helper image to visual QA lowered mean accuracy by 3.7 points across 13 model pairs, while EVA the same day cut hallucinations by checking answers against tool-gathered visual evidence.",
+  "why_it_matters": "For multimodal agents, the reliable gains in this thread come from grounding answers in fetched or re-read visual evidence; generating extra images or always sending pixels adds cost without a proven accuracy gain.",
+  "status": {
+    "state": "Developing · research theme",
+    "tone": "rising",
+    "changed": "2026-11-25",
+    "detail": "Preprints only, no shipped products: evidence-seeking visual agents are the common direction, and one negative result questions image generation as a reasoning aid."
+  },
+  "beats": [
+    {
+      "kicker": "OFF-THEME",
+      "tone": "neutral",
+      "headline": "Kernel-optimization benchmarks for coding agents, clustered in by wording",
+      "summary": "Three papers on GPU, Ascend NPU and Arm CPU kernel tuning share vocabulary with this thread but are not about vision.",
+      "sids": ["b76cb948754a8e57", "7b04b19e28032924", "0c2537d2a4651ab8"]
+    },
+    {
+      "kicker": "BENCHMARKS",
+      "tone": "launch",
+      "headline": "New benchmarks test multimodal agents on web, reports and long-horizon visual tasks",
+      "sids": ["2ffd7e8cb1f550c6", "f90b714a57ce9fe0", "871015d49de97b4a", "58879952ed5ac223", "55f174c136bef75a"]
+    },
+    {
+      "kicker": "VISION AS A TOOL",
+      "tone": "rising",
+      "headline": "Agents zoom, search and build tools to gather visual evidence",
+      "summary": "Instead of reasoning over one image in context, these agents call tools to crop, search or remember visual state.",
+      "sids": ["0fe69ec1eb1a4f14", "51009fb859c1b51e", "3be6797ec1d79375", "d5776de0ed715c7d", "a9604be3fa41d6ac"]
+    },
+    {
+      "kicker": "GROUNDING",
+      "tone": "rising",
+      "headline": "Training and decoding fixes target visually ungrounded answers",
+      "sids": ["c9c6bd7b30cb6c70", "c259fdb087f2c077", "409ea0c8de755810", "201b4ccaccfdd1ef"]
+    },
+    {
+      "kicker": "APPLIED",
+      "tone": "neutral",
+      "headline": "Industry papers use vision where it pays: cover photos, UX diagnostics, on-demand routing",
+      "sids": ["e07cc0f8ad9bbda1", "8455ac0d04bbc04e", "d981cedec3aec798"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Evidence-checking helps; generated helper images hurt",
+      "sids": ["38ddc0187aabdda6", "f96de64196c2f4d2"]
+    }
+  ],
+  "open_questions": [
+    "Does any lab ship a production visual agent that verifies answers against tool-gathered evidence, as EVA does?",
+    "Does the 3.7-point accuracy drop from generated helper images hold for frontier models outside the 13 tested pairs?",
+    "Will WebArena-Pro or Google's Multimodal Knowledge Agent Benchmark get adopted as a standard leaderboard?",
+    "Do text-only routers like PreVIR cut visual-token cost in agent workloads, not only in translation?"
+  ],
+  "take_for_builders": "Before adding image generation or always-on image inputs to a multimodal agent, run an ablation on your own eval set; prefer zoom, crop and re-check tools that tie each answer to visual evidence.",
+  "day_captions": {
+    "b76cb948754a8e57": "Off-theme: local 7B code model on CUDA kernels, measured on 30 KernelBench tasks.",
+    "e07cc0f8ad9bbda1": "Applied vision ranking at Airbnb: picking a listing's cover photo under semantic constraints.",
+    "2ffd7e8cb1f550c6": "The only first-party lab item: Google's benchmark for multimodal knowledge agents.",
+    "7b04b19e28032924": "Off-theme: cost-aware kernel optimization benchmark on Ascend NPUs.",
+    "0fe69ec1eb1a4f14": "Treats vision as a callable tool for coding agents, instead of thinking-with-images in context.",
+    "f90b714a57ce9fe0": "Reproducible web-agent benchmark spanning heterogeneous apps and multimodal content.",
+    "c9c6bd7b30cb6c70": "Preference optimization against object hallucination, aimed at low-resource languages.",
+    "51009fb859c1b51e": "RL for zoom-in agents on ultra-high-resolution photos that answer from common sense instead of evidence.",
+    "871015d49de97b4a": "Benchmark for generating reports with faithful charts from tables.",
+    "3be6797ec1d79375": "Grounded visual memory stops physics-diagram premise errors from propagating.",
+    "58879952ed5ac223": "Vendor benchmark for long-horizon visual reasoning, reported via a press wire.",
+    "c259fdb087f2c077": "Noise-aware generation for knowledge-graph reasoning that mixes visual and text evidence.",
+    "8455ac0d04bbc04e": "Text-only router decides when visual features are needed, reducing visual calls in translation.",
+    "d5776de0ed715c7d": "Self-improving multimodal search agent; reports 9.8 and 9.5 point gains at 9B and 27B.",
+    "d981cedec3aec798": "Production setup at Google search: Gemini models for UX regression detection and layout diagnostics.",
+    "0c2537d2a4651ab8": "Off-theme: coding agents beat the compiler on Arm kernels but lag KleidiAI and struggle with SME2.",
+    "409ea0c8de755810": "Training-free decoding that re-runs the most vision-attentive layers to revisit visual evidence.",
+    "201b4ccaccfdd1ef": "Training-free parsing of CLIP, DINOv3 and VGGT features into text; 0.7 to 2.4 point spatial gains.",
+    "55f174c136bef75a": "Benchmark for detecting withholding, leakage and fabrication in multimodal conversations.",
+    "a9604be3fa41d6ac": "Search agents generate and reuse their own tools; gains grow with backbone size across 13 benchmarks.",
+    "38ddc0187aabdda6": "Agent verifies answers against tool-gathered visual evidence and calls tools selectively.",
+    "f96de64196c2f4d2": "Negative result: generated helper images lowered accuracy on nine of ten tasks."
+  }
+}
