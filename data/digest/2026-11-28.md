@@ -2,116 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. Ctxblame – "Git blame" for LLM agent decisions via counterfactual replay
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/kekeandzeyu/ctxblame
-- Score: 3.553 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. Cowork – Self-hosted task queue and orchestration server for AI coding agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/slashman413/cowork
-- Score: 3.474 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. We run 100s of AI agents – here are the most common cyber attacks
-- Type: news | Source: hackernews_ai
-- URL: https://getjavo.com/articles/ai-agent-attacks-what-we-saw/
-- Score: 3.387 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Anthropic Introduces Claude Ship to Review, Fix, and Approve Pull Requests by Policy
+## 1. Anthropic Introduces Claude Ship to Review, Fix, and Approve Pull Requests by Policy
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/11/anthropic-claude-ship/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.325 | Reliability: 1.0
+- Score: 3.207 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. ConTra: A Training Framework for Effective Contextual Retrieval via Prefix Generation
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.34366v1
-- Score: 2.6 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 6. $μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents
+## 2. DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34920v1
-- Score: 2.554 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.34852v1
+- Score: 2.692 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 7. FlyingStart: Learned Cross-Token Warm Starts for Fixed-Point Decoding in Recurrent-Depth Language Models
+## 3. How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34875v1
+- Score: 2.545 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
+
+## 4. $μ$-Bench: Benchmarking Multi-User Task Completion in Shared Interaction Voice Agents
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34492v1
-- Score: 2.525 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+- URL: http://arxiv.org/abs/2611.34920v1
+- Score: 2.505 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 8. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
+## 5. Ten MCP Servers, Still Too Little Context | Birgitta Boeckeler
 - Type: video | Source: ai_native_dev
-- URL: https://youtu.be/pH9CZKTB4yQ
-- Score: 2.273 | Reliability: 0.778
-- Why it matters: Matches feed focus: agent, claude code.
+- URL: https://youtu.be/kB9qXsHb6bY
+- Score: 2.206 | Reliability: 0.778
+- Why it matters: Matches feed focus: agent, eval.
 
-## 9. Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe
+## 6. vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration
 - Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-23-skip-the-dram-tier
-- Score: 1.831 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 10. The Agent Lake
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/the-agent-lake
-- Score: 1.699 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 11. AliceAI-Foundation-80B-A3B-Base
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.34529v1
-- Score: 2.517 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 12. An Indic Voice Agent with CUGA
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga
-- Score: 2.117 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. How to choose the next safe step in application modernization
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/
-- Score: 1.694 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 14. tencent/Hy-Embodied-Apexio-1.0 released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy-Embodied-Apexio-1.0
-- Score: 1.62 | Reliability: 1.0
+- URL: https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview
+- Score: 1.689 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Finding faster quantum algorithms with agents and formal verification
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/
-- Score: 1.482 | Reliability: 1.0
+## 7. The Agent Lake
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/the-agent-lake
+- Score: 1.681 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. codex 0.174.0-alpha.7
+## 8. Lessons from 12 Evals: Where They Break and What to Measure Instead
+- Type: news | Source: eugene_yan
+- URL: https://eugeneyan.com/writing/public-evals
+- Score: 1.679 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 9. tencent/Hy-Embodied-Apexio-1.0 released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/Hy-Embodied-Apexio-1.0
+- Score: 1.604 | Reliability: 1.0
+- Why it matters: 
+
+## 10. Genie 4 is now available
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-is-now-available/
+- Score: 1.334 | Reliability: 1.0
+- Why it matters: 
+
+## 11. Kolpona: An Agentic Framework with Gradient-Free Neuron Programming for RTL Generation
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.33973v1
+- Score: 2.447 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 12. TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.34762v1
+- Score: 2.301 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. codex 0.174.0-alpha.5
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.7
-- Score: 1.206 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.5
+- Score: 1.091 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 17. claude-code v2.1.332
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.332
-- Score: 1.088 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 14. Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise/
+- Score: 0.894 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 18. claude-agent-sdk-python v0.2.189
+## 15. claude-agent-sdk-python v0.2.189
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.189
-- Score: 0.839 | Reliability: 1.0
+- Score: 0.81 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)
+## 16. v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.1rc0
-- Score: 0.497 | Reliability: 1.0
+- Score: 0.494 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
