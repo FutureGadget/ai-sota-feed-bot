@@ -4,6 +4,23 @@
   var disabled = false;
   var scrollDepthStarted = false;
   var engagementStarted = false;
+  var linkTrackingStarted = false;
+  // `data-track` values the static recap, story and storyline pages put on
+  // their links. The home feed's `item-link` is left out: index.html already
+  // sends it as `click`, the event auto_tune.py reads for source CTR.
+  var TRACKED_LINKS = {
+    'daily-link': 1,
+    'weekly-link': 1,
+    'story-link': 1,
+    'story-source': 1,
+    'story-related': 1,
+    'story-covered': 1,
+    'storyline-link': 1,
+    'model-official-link': 1,
+    'community-teaser': 1,
+    'daily-video': 1,
+    'weekly-video': 1,
+  };
   // Visible time on one page that counts as a person reading it.
   var ENGAGED_DWELL_MS = 10000;
   var ENGAGEMENT_INPUTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
@@ -214,6 +231,44 @@
     }
   }
 
+  // One `recap_link_click` per trusted click (or middle-click) on a tracked
+  // link. Clicks before the SDK loads queue in `pending` like any capture.
+  function startLinkTracking() {
+    if (linkTrackingStarted) return;
+    linkTrackingStarted = true;
+    var doc = window.document;
+    if (!doc || !doc.addEventListener) return;
+
+    function onClick(event) {
+      try {
+        if (!event || event.isTrusted === false) return;
+        if (event.type === 'auxclick' && event.button !== 1) return;
+        var target = event.target;
+        var link = target && target.closest ? target.closest('a[data-track]') : null;
+        if (!link) return;
+        var track = link.getAttribute('data-track');
+        if (!TRACKED_LINKS[track]) return;
+        var href = link.getAttribute('href') || '';
+        var section = link.closest('section[id]');
+        var same = doc.querySelectorAll('a[data-track="' + track + '"]');
+        var position = Array.prototype.indexOf.call(same, link);
+        capture('recap_link_click', {
+          track: track,
+          url: href,
+          external: /^https?:\/\//i.test(href) && !/^https?:\/\/(www\.)?llm-digest\.com/i.test(href),
+          path: window.location.pathname,
+          section: section ? section.getAttribute('id') : null,
+          position: position >= 0 ? position + 1 : null,
+        });
+      } catch (e) {
+        console.debug('posthog_link_track_failed', e);
+      }
+    }
+
+    doc.addEventListener('click', onClick, true);
+    doc.addEventListener('auxclick', onClick, true);
+  }
+
   function installPostHogSnippet() {
     !(function (t, e) {
       var o, n, p, r;
@@ -328,8 +383,10 @@
     init: init,
     startEngagementTracking: startEngagementTracking,
     startScrollDepthTracking: startScrollDepthTracking,
+    startLinkTracking: startLinkTracking,
   };
 
   startEngagementTracking();
+  startLinkTracking();
   init();
 })();

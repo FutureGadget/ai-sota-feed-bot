@@ -15,6 +15,14 @@ This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify inge
   - `engaged_visit` (once per page load, on the first trusted pointer, key,
     wheel or touch input, or after 10 seconds of visible time; properties
     `path`, `trigger`, `ms_since_load`)
+  - `recap_link_click` (a trusted click or middle-click on a link the static
+    recap, story and storyline pages tag with `data-track`: `daily-link`,
+    `weekly-link`, `story-link`, `story-source`, `story-related`,
+    `story-covered`, `storyline-link`, `model-official-link`,
+    `community-teaser`, `daily-video`, `weekly-video`; properties `track`,
+    `url`, `external`, `path`, `section`, `position`). The home feed's
+    `item-link` is not included: it stays `click`, which `auto_tune.py` reads
+    for source CTR.
 - Every event carries the super property `profile_state`: `fresh` when the
   browser had no reader id before the page loaded, `returning` when it did
   (or arrived from an email `rid=` link), `unknown` when storage is blocked.
