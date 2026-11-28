@@ -95,6 +95,7 @@ Stage B: slot assignment (ranking.assign_slots)
   - cloud_platform_updates
   - practitioner_analysis
   - video_watch (long-form YouTube; `youtu.be/<id>` identity)
+  - practitioner_posts (practitioners' X posts from the x-watch routine; max 3, one per account, 72h)
   - community_signal
   - research_watch
   - overflow
@@ -292,7 +293,7 @@ gauntlet, and any gate can silently drop it. Use the `add-source` skill
 (`.agents/skills/add-source/`) and its `validate_source.py` to see exactly
 which gate a source dies at.
 
-1. **Collection / health** — the source must be in `config/sources.yaml`, and
+1. **Collection / health** — the source must be in `config/sources/fetched.yaml`, and
    its `source_health` reliability must stay ≥ 0.3 (the circuit breaker can
    disable a flaky source; `prefilter_reasons.health_floor`). A source-scoped
    `exclude_title_regex` (used where only a site-wide feed exists, e.g.
@@ -300,7 +301,7 @@ which gate a source dies at.
    item filtered at this gate never appears in any later diagnostic.
 2. **Slot mapping** — a source not listed in any `slots.*.sources` falls into
    the `overflow` slot (base_bias −0.20, `max_items` 3, `freshness_hours` 72)
-   and almost never surfaces. **Adding a source to `sources.yaml` is not
+   and almost never surfaces. **Adding a source to `config/sources/*.yaml` is not
    enough — map it to a slot.**
 3. **Per-slot freshness window** (`freshness_hours`) — items older than the
    window are dropped (`prefilter_reasons.freshness_window`). Low-volume
@@ -354,7 +355,7 @@ transformer serving architecture floored at `llm_score` 2.0 and would have
 failed `relevance_floor` outright. The Jev gate also needs real article text
 and fetches paragraph excerpts for short teasers before judging.
 
-Setting `fetch_content: true` on a source in `config/sources.yaml` makes the
+Setting `fetch_content: true` on a source in `config/sources/fetched.yaml` makes the
 collector fetch each item's page and store up to 4000 characters of body text
 as `content_excerpt`. Opt-in per source, never global — it is a network fetch
 per item, and a feed that already carries full content gains nothing.
@@ -375,7 +376,7 @@ Page boilerplate can defeat the excerpt in the other direction. Kun Chen's
 Substack prints his bio ("...field notes about frontier agentic engineering")
 on every post, so his Nix and career posts would pass `relevance_floor` on the
 bio alone. A source can list `content_exclude_regex` patterns in
-`config/sources.yaml`; the collector removes matches from the excerpt before
+`config/sources/fetched.yaml`; the collector removes matches from the excerpt before
 storing it.
 
 An item with no `content_excerpt` scores exactly as it did before the feature

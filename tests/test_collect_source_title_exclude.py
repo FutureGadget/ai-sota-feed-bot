@@ -1,6 +1,6 @@
 """Unit tests for per-source title exclusion (collectors/collect.py).
 
-Covers `exclude_title_regex:` in config/sources.yaml, used by databricks_blog:
+Covers `exclude_title_regex:` in config/sources/fetched.yaml, used by databricks_blog:
 Databricks publishes no category-scoped feed, so the site-wide feed is the only
 option and it carries a recurring SEO glossary series alongside the engineering
 posts. Also pins the databricks_blog ranking wiring, since a source that is not
@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "collectors"))
 
 import collect  # noqa: E402
+from pipeline.sources_config import load_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,7 +43,7 @@ def test_invalid_pattern_raises_so_the_source_is_recorded_as_error():
 def _databricks_source():
     import yaml
 
-    sources = yaml.safe_load((ROOT / "config" / "sources.yaml").read_text())["sources"]
+    sources = load_sources()
     return next(s for s in sources if s["name"] == "databricks_blog")
 
 

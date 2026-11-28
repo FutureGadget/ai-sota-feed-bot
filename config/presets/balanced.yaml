@@ -64,7 +64,7 @@ slots:
     blend: {alpha: 0.70, beta: 0.30}
 
   practitioner_analysis:
-    sources: [simon_willison, latent_space, infoq_ai_ml, langchain_blog, vllm_blog, modal_blog, hamel_husain, eugene_yan, addyosmani_blog, github_blog_ai_ml, philschmid, interconnects, sebastian_raschka, lilian_weng, kun_chen, semianalysis, felix_rieseberg]
+    sources: [simon_willison, latent_space, infoq_ai_ml, langchain_blog, vllm_blog, modal_blog, hamel_husain, eugene_yan, addyosmani_blog, armin_ronacher, github_blog_ai_ml, philschmid, interconnects, sebastian_raschka, lilian_weng, kun_chen, semianalysis, felix_rieseberg]
     min_items: 2
     max_items: 8
     max_per_source: 2
@@ -79,6 +79,15 @@ slots:
     pool_reserve: 8
     freshness_hours: 240
     blend: {alpha: 0.80, beta: 0.20}
+
+  practitioner_posts:
+    sources: [x_karpathy, x_bcherny, x_potetotes, x_addyosmani, x_thorstenball, x_mitsuhiko, x_badlogicgames, x_swyx, x_hwchase17, x_hamelhusain]
+    min_items: 0
+    max_items: 3
+    max_per_source: 1
+    pool_reserve: 3
+    freshness_hours: 72
+    blend: {alpha: 0.85, beta: 0.15}
 
   community_signal:
     sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news, search_cn_open_weight_labs]
@@ -137,6 +146,7 @@ dynamic_slot_rerank:
     frontier_corporate: -0.18
     practitioner_analysis: 0.12
     video_watch: 0.00
+    practitioner_posts: -0.05
     community_signal: 0.00
     agent_tooling_releases: 0.05
     open_weight_releases: 0.08
@@ -191,6 +201,7 @@ source_bias:
   hamel_husain: 0.08
   eugene_yan: 0.06
   addyosmani_blog: 0.06
+  armin_ronacher: 0.04  # agentic-coding essays; mixed-topic feed, so a step below addyosmani_blog
   github_blog_ai_ml: -0.05
   philschmid: 0.10
   interconnects: 0.10

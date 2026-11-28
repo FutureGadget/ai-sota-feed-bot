@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-29 (Sources split into fetched and browsed; X accounts arrive through a browsing routine)
+
+- **Decision:** `config/sources.yaml` moves to `config/sources/fetched.yaml` unchanged, and `config/sources/browsed.yaml` holds sources a scheduled browsing routine gathers. Every reader loads both through `pipeline/sources_config.py` `load_sources()`, which rejects a name used in both. The first browsed type is `x_watch`: the `x-watch` routine reads ten practitioner X profiles (Karpathy, Boris Cherny, Lauren Tan, Addy Osmani, Thorsten Ball, Armin Ronacher, Mario Zechner, swyx, Harrison Chase, Hamel Husain) in the owner's logged-in Chrome and commits `data/browsed/x/<UTC date>.json`; the collector reads the last three day files. X posts get their own `practitioner_posts` lane (max 3, one per account, 72h, base bias -0.05) and the `x_` role prefix maps them to `practitioner`. Armin Ronacher's blog joins `practitioner_analysis` as a fetched RSS source.
+- **Context / Problem:** The agent-engineering voices the feed should follow post first, or only, on X. The X API needs a paid tier, and the GitHub Action has no logged-in browser. Mixing browsed sources into the fetched registry would hide which sources depend on the owner's Mac being awake.
+- **Rationale:** The collector stays the only writer of `data/raw/`, so ranking, judge, recaps and the wiki see X posts as ordinary items. Committed day files make each run auditable and let a missed day be picked up from the lookback. A separate lane keeps short posts from taking practitioner-blog seats. `tests/test_browsed_sources.py` fails when an `x_watch` source is not mapped to the lane.
+- **Impact:** Up to three X posts per edition. On days the owner's computer is asleep the routine reports the browser unavailable and the lane is empty; fetched sources are unaffected. X can change its page markup, which breaks the extraction step in `.agents/skills/x-watch/SKILL.md` until it is updated.
+- **Rollback:** Disable the x-watch scheduled task; remove `browsed.yaml` entries or the `practitioner_posts` slot to drop the lane. The registry split itself needs no rollback (one file, one loader).
+
 ## 2026-11-28 (Recap and story page link clicks are tracked as `recap_link_click`)
 
 - **Decision:** `web/posthog-client.js` adds one capture-phase `click`/`auxclick` listener that sends `recap_link_click` for links whose `data-track` is in a fixed allowlist (the tags `render_static_pages.py` already writes on recap, story and storyline pages). The script cache key moves to `20261128-recap-links`.

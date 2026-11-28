@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "collectors"))
 
 import collect  # noqa: E402
+from pipeline.sources_config import load_sources
 
 NOW = datetime(2026, 8, 5, 12, 0, 0, tzinfo=timezone.utc)
 
@@ -115,7 +116,7 @@ def test_cloudflare_source_is_configured_as_tag_scoped_feeds():
     import yaml
 
     root = Path(__file__).resolve().parents[1]
-    sources = yaml.safe_load((root / "config" / "sources.yaml").read_text())["sources"]
+    sources = load_sources()
     cf = next(s for s in sources if s["name"] == "cloudflare_blog")
     urls = collect.rss_source_urls(cf)
     assert len(urls) == 3

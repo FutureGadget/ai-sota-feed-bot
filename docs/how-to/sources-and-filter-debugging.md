@@ -4,7 +4,7 @@ This guide explains how to add new ingestion sources safely and how to debug whe
 
 ## 1) Add a new source
 
-Edit: `config/sources.yaml`
+Edit: `config/sources/fetched.yaml`
 
 Example (RSS):
 ```yaml
@@ -245,7 +245,7 @@ Interpretation:
 python - <<'PY'
 import yaml
 slots=yaml.safe_load(open('config/ranking.yaml'))['slots']
-sources=yaml.safe_load(open('config/sources.yaml'))['sources']
+sources=yaml.safe_load(open('config/sources/fetched.yaml'))['sources']
 mapped={s for k,v in slots.items() for s in v.get('sources',[])}
 all_names=[x['name'] for x in sources]
 print([n for n in all_names if n not in mapped])

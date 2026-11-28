@@ -1,0 +1,44 @@
+# Sources gathered by a scheduled browsing routine, not by the collector.
+#
+# The x-watch routine (.agents/routines/x-watch/) opens each `x_watch` profile
+# in the owner's logged-in Chrome, writes the posts to
+# data/browsed/x/<YYYY-MM-DD>.json, and commits that file. The collector's
+# `x_watch` type then reads the committed files; it never contacts X.
+#
+# Adding an account: add an entry here AND add its name to the
+# `practitioner_posts` slot in config/ranking.yaml and
+# config/presets/balanced.yaml (tests/test_browsed_sources.py fails otherwise).
+#
+# Fields: name (x_<handle>, lowercase), type: x_watch, handle (as on X),
+# optional lookback_days (default 3: how many day files the collector reads).
+sources:
+  - name: x_karpathy
+    type: x_watch
+    handle: karpathy
+  - name: x_bcherny
+    type: x_watch
+    handle: bcherny
+  - name: x_potetotes
+    type: x_watch
+    handle: potetotes
+  - name: x_addyosmani
+    type: x_watch
+    handle: addyosmani
+  - name: x_thorstenball
+    type: x_watch
+    handle: thorstenball
+  - name: x_mitsuhiko
+    type: x_watch
+    handle: mitsuhiko
+  - name: x_badlogicgames
+    type: x_watch
+    handle: badlogicgames
+  - name: x_swyx
+    type: x_watch
+    handle: swyx
+  - name: x_hwchase17
+    type: x_watch
+    handle: hwchase17
+  - name: x_hamelhusain
+    type: x_watch
+    handle: HamelHusain

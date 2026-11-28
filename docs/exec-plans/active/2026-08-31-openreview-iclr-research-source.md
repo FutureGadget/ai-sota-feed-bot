@@ -209,7 +209,7 @@ without displacing the regular research mix by default.
 
 **Files likely touched:**
 
-- `config/sources.yaml`
+- `config/sources/fetched.yaml`
 - `config/ranking.yaml`
 - `config/presets/balanced.yaml`
 - `tests/test_ranking_*.py` as needed

@@ -8,6 +8,12 @@ available to each function.
 
 ## Ingestion
 - `data/raw/<YYYY-MM-DD>/items.json` — collector output for the day
+- `data/browsed/x/<YYYY-MM-DD>.json` — X posts saved by the `x-watch` routine
+  for that UTC day: `{"posts": [{handle, url, text, published, author?, kind
+  (post|quote)?, quoted?: {handle, text, url}}]}`. Validated by
+  `.agents/skills/x-watch/scripts/x_watch.py check`; read by the collector's
+  `x_watch` sources (last 3 files), which emit items with
+  `publisher_domain: x.com`
   (normalized items: url, title, source, published, summary, …). Google News
   RSS entries may also carry optional `publisher_name` and `publisher_domain`
   values copied from the entry's `<source>` element. These are external display

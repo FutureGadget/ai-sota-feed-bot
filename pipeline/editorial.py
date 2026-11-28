@@ -35,9 +35,13 @@ from typing import Any, Iterable
 
 import yaml
 
+try:
+    from sources_config import load_sources
+except ImportError:  # imported as pipeline.<module>
+    from pipeline.sources_config import load_sources
+
 ROOT = Path(__file__).resolve().parents[1]
 CFG_FILE = ROOT / "config" / "editorial.yaml"
-SOURCES_FILE = ROOT / "config" / "sources.yaml"
 PROCESSED_DIR = ROOT / "data" / "processed"
 RUNS_DIR = PROCESSED_DIR / "runs"
 RUNS_INDEX = PROCESSED_DIR / "runs_index.json"
@@ -167,13 +171,11 @@ def load_config() -> dict[str, Any]:
 
 
 def _load_source_names() -> list[str]:
-    if not SOURCES_FILE.exists():
-        return []
     try:
-        raw = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
+        sources = load_sources()
     except Exception:
         return []
-    return [str(s.get("name") or "").strip() for s in (raw.get("sources") or []) if s.get("name")]
+    return [str(s.get("name") or "").strip() for s in sources if s.get("name")]
 
 
 def source_role(source: str, cfg: dict[str, Any] | None = None) -> str:

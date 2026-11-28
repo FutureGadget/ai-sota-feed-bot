@@ -58,6 +58,12 @@ Harness rules:
   against its configured local checkout. Local routines may declare required
   capabilities such as browser and network access; these remain harness
   metadata and are not injected into agent context.
+- `execution.device: owner_computer` (with `environment: cloud`) runs the
+  routine in a cloud session linked to the owner's computer, so it can use the
+  owner's logged-in browser; `capabilities` names what it needs there
+  (`browser`). The scheduler must create the job with the owner's computer
+  required. A run while that computer is asleep or offline reports the browser
+  unavailable and changes nothing.
 - `schedule.delivery: best_effort` records that the local scheduler may run
   near, rather than exactly at, the cron minute.
 - `repository.slug` identifies the repository the scheduler must check out.
