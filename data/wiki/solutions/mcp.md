@@ -6,7 +6,7 @@ status: active
 obstacles: [tool-use]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-28
 themes:
   - key: stateless-spec
     title: The stateless spec and what MCP is actually for
@@ -19,7 +19,7 @@ themes:
     summary: WebMCP lets web pages expose functions and forms as tools; it moved from a Chrome origin trial to a one-click Cloudflare toggle and agent browsers that call it.
   - key: servers-in-production
     title: Vendor servers and hosted deployments
-    summary: Infrastructure and SaaS vendors now ship official MCP servers and managed gateways, but GA does not yet mean every major client can connect.
+    summary: Vendors ship official MCP servers and gateways and report millions of daily calls, Code Mode clients cut context bloat, and Google Workspace now charges agents per MCP call.
   - key: beyond-tools
     title: Beyond tool calls - knowledge, memory, work, and computation
     summary: MCP now carries reference data, agent memory, task queues, symbolic reasoning, and execution primitives, making it a general plug for anything an agent consumes.
@@ -33,31 +33,38 @@ of "speak HTTP" instead of writing a custom client per service.
 
 ## State of the art
 **MCP is production infrastructure now.** Infrastructure and SaaS vendors ship
-official servers, clouds host the tool loop and front MCP servers with managed
-gateways, and the browser is becoming a tool surface through WebMCP. The
-payload has widened past tool calls to reference data, agent memory, task
-queues, and deterministic computation.
+official servers, clouds front MCP servers with managed gateways, and the
+browser is becoming a tool surface through WebMCP. Company-reported volumes
+are large: Atlassian handles over 5M MCP tool calls per workday.
 
 **The protocol itself just changed shape.** The 2026-07-28 spec made MCP
 stateless, added governed extensions, and hardened authorization. Remote
-servers can drop sticky sessions and scale like any stateless service, and
-clients and SDKs are adopting the new version.
+servers can drop sticky sessions and scale like any stateless service.
 
-**Governance is where the work moved.** Connector access is provisioned
-through identity providers rather than per-user consent, managed settings
-decide which servers exist at all, and gateways and server-side controls
-decide what a connection may write. Production security guidance treats this
-as layered defense, not one gateway setting.
+**Code Mode answers the context-bloat complaint.** Instead of loading every
+tool schema and calling one tool per turn, clients expose MCP tools as typed
+functions in a sandbox. A server that declares `outputSchema` lets the model
+chain calls in one script and return only the result.
 
-**The open question is what MCP is for.** Statelessness makes it look like
-"just an API" to some developers. The durable value is the shared
-tool-description and discovery layer and keeping credentials out of the
-agent's context, which matters most where an agent cannot call APIs freely.
-Interop is also unfinished: a server can reach GA while major clients still
-cannot connect because of identity-provider gaps.
+**Governance and supply chain are where the work moved.** Connector access is
+provisioned through identity providers, and gateways decide what a connection
+may write, in some cases checking both the person and the agent on every call.
+The server itself is now a supply-chain risk. Agents install deprecated
+servers, a second server can impersonate a provider's tool names, and tool
+descriptions can change after review. Teams answer with hash-pinned schemas
+and descriptions, or by stripping descriptions entirely.
 
-Tool-definition quality and catalog search, the main levers for making many
-MCP tools usable at once, are tracked on [tool use](/topic/tool-use).
+**Systems of record have started pricing agent access.** Google Workspace
+requires agents to use MCP and charges per call (about $0.20 per 1,000 email
+reads), while REST apps keep a large free allowance. If others follow, MCP
+call volume becomes a line item, not a free integration.
+
+The open question is still what MCP is for. Its durable value is the shared
+discovery layer and keeping credentials out of the agent's context. Interop is
+unfinished: a server can reach GA while major clients still cannot connect.
+
+Tool-definition quality and catalog search are tracked on
+[tool use](/topic/tool-use).
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you

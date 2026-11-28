@@ -6,7 +6,7 @@ status: active
 obstacles: [agent-memory]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-28
 themes:
   - key: curating-the-working-set
     title: Curating what stays in context
@@ -30,30 +30,36 @@ chosen, not just truncated.
 
 ## State of the art
 Compaction is now treated as **curation, not truncation**. The working set is
-managed at three points: at the input boundary (deterministic trimming of
-build and test logs before the agent reads them), inside the window (rolling
-summaries, lazy-loaded skill instructions), and in the persistent store
-(budgeted compression and consolidation that forgets redundant entries).
-Practitioners increasingly pair it with an external store: compress the
-working set, offload the rest to a [vector/graph KB](/topic/vector-kb), and
-rehydrate on demand.
+managed at three points: at the input boundary (trimming logs, page trees, and
+large JSON tool results before the agent reads them, and saying what was cut),
+inside the window (rolling summaries, lazy-loaded skills, subagents), and in
+the persistent store (offload the full history to an archive or
+[vector/graph KB](/topic/vector-kb) and rehydrate on demand).
+
+**Compaction is moving into the KV cache.** Instead of summarizing history,
+serving-layer methods drop or mask cache segments without re-prefilling the
+kept context, or store compact hidden states and decode them back into KV.
+These skip the lossy rewrite step, but reported gains are mostly from
+preprints on single benchmarks.
+
+**Frequent compaction costs less accuracy than feared.** NVIDIA reports 16K
+contexts with frequent compaction lose little accuracy, and learning from
+past sessions in a repo cut coding-agent cost 18-31%. Stale context is the
+bigger hazard: obsolete TODOs and docs pull agents into side-quests.
 
 **The compactor is a safety surface.** Summaries can drop governance
-constraints the agent obeyed while they were visible, and a model can write
-instruction-like text into its own summary. The working practice is to pin
-permissions and hard limits outside the compactible window and treat summary
-output as untrusted.
+constraints, a false approval in a handoff summary can cause unauthorized
+actions, and a history edited to look clean lowers recovery when the world
+still holds the error. Pin permissions and hard limits outside the
+compactible window and treat summary output as untrusted.
 
-**Skipping compaction is now a real option for some runs.** Native 1M-token
-windows and recursive dispatch (sub-agents over context chunks) avoid the
-lossy step, and one practitioner run held accuracy across 80M tokens with no
-compaction. The counterweight: a longer window still resets between sessions,
-so it does not replace durable memory.
+**Skipping compaction is a real option for some runs.** Native 1M-token
+windows and recursive dispatch over context chunks avoid the lossy step, but
+a longer window still resets between sessions and does not replace durable
+memory.
 
 The open problem is fidelity: knowing what a summary lost before a later step
-needs it. Serving-layer work such as asymmetric speculative decoding recovers
-most full-context accuracy, but measuring compaction loss per task is still
-mostly manual.
+needs it. Measuring compaction loss per task is still mostly manual.
 
 ## Trade-offs
 Cheap on infra (no external store) and keeps everything the model needs in

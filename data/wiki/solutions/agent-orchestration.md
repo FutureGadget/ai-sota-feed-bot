@@ -6,7 +6,7 @@ status: active
 obstacles: [multi-agent]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-28
 themes:
   - key: code-driven
     title: Coordination written as code, not tool calls
@@ -30,34 +30,34 @@ graph vs. one generated per task) sets the cost, latency, and reliability
 ceiling of the whole system.
 
 ## State of the art
-Orchestration is converging on **coordination written as code**. Instead of a
-model emitting one tool call per worker, harnesses drive fan-out from a program
-(Deep Agents' dynamic subagents), generate a harness per task (Claude Code
-Dynamic Workflows), or let a plain JavaScript or Python script spawn Claude
-Code, Codex, and other agents side by side. Control flow becomes
-deterministic, testable code around non-deterministic agents, and mixing
-providers becomes a lever for decorrelated errors.
+Orchestration is converging on **coordination written as code**. Harnesses
+drive fan-out from a program (Deep Agents' dynamic subagents), generate a
+harness per task, or let a plain script spawn Claude Code, Codex, and other
+agents side by side. Control flow becomes deterministic, testable code around
+non-deterministic agents.
 
-**Topology is a cost decision.** A central orchestrator is easy to trace but is
-a throughput bottleneck and a single point of failure; removing it cut task
-cost about 50% in one study. The value sits in the interface contracts between
-agents (structured handoffs, explicit roles, what context each sub-agent sees),
-not in how many agents run.
+**The harness can matter more than the model.** Swapping the harness moved
+one open-weight model from 30% to 81% task completion, and on small local
+models the harness decides whether a run produces anything at all. Hugging
+Face now trains RL adapters that tune a model to one harness.
 
-**The runtime substrate is load-bearing.** Where each sub-agent runs, what files
-and state it sees, and how work survives a crash decide reliability. Options
-span a Postgres recipe (`SKIP LOCKED` dispatch, primary-key checkpoints,
-leases), purpose-built queues with leases and dead-letter states, and Google's
-Kubernetes-style AX.
+**Topology is a cost decision.** A central orchestrator is easy to trace but
+is a bottleneck; removing it cut task cost about 50% in one study. The value
+sits in the interface contracts between agents, and schema-valid output still
+does not mean task-correct output.
+
+**The runtime substrate is load-bearing.** Where each sub-agent runs, what
+state it sees, and how work survives a crash decide reliability. Options span
+a Postgres recipe (`SKIP LOCKED` dispatch, checkpoints, leases), queues with
+dead-letter states, and coordinators that compile a workflow into an
+immutable plan. Recovery is getting finer: re-running only a failed node's
+descendants recovered every task in one benchmark versus 55% for
+whole-trajectory replay.
 
 **Harnesses are becoming managed platforms.** Microsoft's Agent Framework and
 Foundry Hosted Agents are GA, LangChain's Managed Deep Agents is in beta, and
-OpenAI's Agents API sells the Codex harness as a service. Enterprises already
-run Strands, LangGraph, and Deep Agents in production (see
-[multi-agent](/topic/multi-agent)). The counterweight is portability: AWS
-argues for patterns that survive a multi-framework, multi-model estate, and a
-practitioner guide reserves graph frameworks for long-running stateful
-workflows.
+OpenAI sells the Codex harness as a service. Large internal platforms such as
+iFood's turn repo chores across 15,000 repositories into API calls.
 
 The open question is which layer to own. Managed runtimes remove the plumbing
 but tie durable state, memory, and evals to one vendor. Code-driven,

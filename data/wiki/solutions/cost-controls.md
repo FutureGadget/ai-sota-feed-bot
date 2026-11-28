@@ -6,11 +6,11 @@ status: active
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-28
 themes:
   - key: vendor-spend-controls
     title: Vendor consoles add analytics, entitlements, and spend caps
-    summary: OpenAI, Anthropic, and Google Cloud now ship usage analytics with enforceable caps; Google adds anomaly root-causing and off-peak discounts, and estimates are getting more accurate.
+    summary: Vendor consoles and multi-provider gateways now enforce caps on estimated spend per user, team, and agent; Google adds anomaly root-causing, and Azure AI Gateway is GA with priced budgets.
   - key: attribution
     title: Attributing spend to the PR, the agent, and the anomaly
     summary: Open-source tools attribute agent tokens to a pull request or across every coding agent a developer runs, and AWS runs anomaly triage as a managed agent.
@@ -33,10 +33,11 @@ the architectural levers that reduce the underlying token count.
 **Agent FinOps is moving from reading the monthly bill to enforcing limits in
 the execution path.**
 
-- **Vendor consoles** from OpenAI, Anthropic, and Google Cloud now pair usage
-  analytics with enforceable caps and model-level entitlements. Google goes
-  furthest, with anomaly detection that names the SKUs behind a spike,
-  project caps that pause API calls, and off-peak discounts of up to 50%.
+- **Vendor consoles and gateways** pair usage analytics with enforceable caps.
+  Google Cloud adds anomaly detection that names the SKUs behind a spike and
+  off-peak discounts of up to 50%. Azure AI Gateway, now GA, tracks estimated
+  cost per user, team, and agent across providers and stops new requests at
+  the budget.
 - **Attribution** is moving to the unit of work: tokens per pull request,
   cost across every coding agent a developer runs, and anomaly triage run by
   a managed agent.
@@ -52,11 +53,11 @@ the execution path.**
 metering is the base that architectural savings build on, and it is how a
 team proves those savings happened.
 
-**The open problems are accuracy and silent failure.** Cost estimates have
-missed regional premiums, prompt caching has broken behind gateways without
-warning, and the strongest savings claims from cap tooling come without
-published methodology. Treat estimates, cache-hit rates, and caps as
-monitored infrastructure, not settings.
+**The open problems are accuracy and silent failure.** Most caps act on an
+*estimated* cost. Estimates have missed regional premiums, prompt caching has
+broken behind gateways without warning, and the strongest savings claims from
+cap tooling come without published methodology. Treat estimates, cache-hit
+rates, and caps as monitored infrastructure, not settings.
 
 ## Trade-offs
 Metering and attribution add plumbing (token accounting, tagging by task and
