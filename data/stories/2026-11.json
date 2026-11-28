@@ -781,7 +781,7 @@
   "published": "2026-11-23T06:04:19+00:00",
   "sid": "05d297a0e8af0fb9",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 4, downloads: 975.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 4, downloads: 1205.",
   "summary_1line": "Tencent has released the WeMM-Ecom-2B-GPTQ model weights on Hugging Face for image-text-to-text tasks, and the listing shows one like and no recorded downloads so far.",
   "title": "tencent/WeMM-Ecom-2B-GPTQ released on Hugging Face",
   "type": "release",
@@ -4575,6 +4575,7 @@
   "published": "2026-11-28T05:30:51+00:00",
   "sid": "1fde8b1a7e7d5599",
   "source": "hackernews_ai",
+  "summary_1line": "A developer's X post claims a 24 KB x86-64 assembly OS running Qwen3-0.6B beats Linux llama.cpp by up to 54% on CPU token generation, with benchmarks on an AMD EPYC 7642 and repo links promised.",
   "title": "54% faster LLM token generation by removing the Linux OS and llama.cpp",
   "type": "news",
   "url": "https://twitter.com/superalesha/status/2125682626056839259"
@@ -14766,6 +14767,18 @@
   "title": "Advancing chip design with OpenAI models",
   "type": "news",
   "url": "https://openai.com/index/advancing-chip-design-with-our-models"
+ },
+ "699839fb3828135a": {
+  "content_excerpt": "A scan of all 3273389 public Hugging Face model repositories found five malicious models downloaded 2428 times. The main campaign, Mir2k, hides a Windows remote access trojan at the end of GGUF files and later arms the chat template to make the model print the command that unpacks it. Local LLMs are usually shared as GGUF files, and every GGUF file carries a chat template that the runtime applies to each prompt. Chat template poisoning abuses that template. The model answers normally, while the template quietly adds instructions the user never sees: make an agent run a PowerShell command, or open every reply with a command for the user to run. In its strongest form, the malicious program travels inside the model file itself, appended after the last tensor where loaders never read, and the template is switched on later. A scan of all 3273389 public Hugging Face model repositories on 26 November 2026 found 5 malicious GGUF models with 2428 downloads as of 27 November. Hugging Face counts downloads, not people, so the number of affected users is lower or equal. The largest campaign, Mir2k , uploaded two uncensored GGUF models with a Windows remote access trojan named ollie hidden at the end of each file, and on 26 November rewrote both templates so the model asks the user to run the line that unpacks it. The open-source tool gguf-radar detects these templates and hidden bytes without running anything, and rebuilds a clean GGUF file with the model weights unchanged. Indicators, Y",
+  "first_seen": "2026-11-28T12:06:33.422881+00:00",
+  "id": "00690947f2eaafe1",
+  "published": "2026-11-28T11:57:04+00:00",
+  "sid": "699839fb3828135a",
+  "source": "hackernews_ai",
+  "summary_1line": "A scan of 3,273,389 public Hugging Face model repositories found five malicious GGUF models downloaded 2,428 times, mainly a Mir2k campaign that hides a Windows remote access trojan in its files.",
+  "title": "GGUF LLM Models with Hidden Malware on Hugging Face Reached 2400 Victims",
+  "type": "news",
+  "url": "https://malspark.com/blog/malicious-gguf-models-hugging-face"
  },
  "69a487d02c92b580": {
   "first_seen": "2026-11-26T09:07:07.952974+00:00",
@@ -32025,6 +32038,22 @@
   "title": "Flare, Nvidia's DGX Spark Inference Engine",
   "type": "news",
   "url": "https://github.com/NVIDIA/spark-local-inference"
+ },
+ "e631f60eaf009314": {
+  "first_seen": "2026-11-28T12:06:33.422881+00:00",
+  "id": "90cfa1e5ad906ce0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-28T11:47:33+00:00",
+  "sid": "e631f60eaf009314",
+  "source": "hackernews_ai",
+  "summary": "I’ve been trying to make more of my daily life AI-driven, and my iPhone was becoming the bottleneck. If an app didn’t have a web version, an MCP, or an API, I still had to pick up the phone and do it myself. After lots of searching I finally found a solution that worked. I put a spare iPhone in developer mode, installed WebDriverAgent, and left it on my home Wi-Fi. WebDriverAgent is built on Apple’s official UI testing framework. It’s literally computer use for iPhone. I tried mirroring the screen with AirPlay and even streaming a camera, but nothing beat WebDriverAgent. Stock WebDriverAgent was still slow in a lot of apps, so I patched it and had an agent keep improving it by trying it across tons of apps. That became Turbotap. Now I can just ask AI to change a setting, stress-test my app on a real iPhone, or do something in an app I used to have to do by hand. Honestly, I built it out of irritation and increasing inflammation in my hands, but it’s unlocked so many things I can automate with LLMs. The AI can use the actual iPhone app the same way I would, even if there’s no web version, MCP, or API. That’s why I’m excited to share it. You need Xcode on a Mac to sign and install WebDriverAgent over USB. Once it’s running, you can drive the phone headlessly from a Mac or Linux machine on the same Wi-Fi. It’s free and open source. https://github.com/Maxteabag/turbotap",
+  "summary_1line": "Turbotap is a free, open-source command-line tool that lets AI agents control an iPhone over Wi-Fi by building on WebDriverAgent, which requires Xcode on a Mac to install over USB.",
+  "title": "Show HN: Turbotap – Open-Source CLI for AI Agents to Drive an iPhone over Wi-Fi",
+  "type": "news",
+  "url": "https://github.com/Maxteabag/turbotap",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e6376f1b5e01206f": {
   "content_excerpt": "/sh/ - Do Not Trust, Continuously Verify (Your AI Agents) - AltChan Skip to content main mod log boards overboard theme faq search api (beta) /sh/ /co/ /rm/ /og/ /ot/ Reload this page Jump to the post form /sh/ - self hosting take back control Max 200.00 MiB per file, 200.00 MiB total, up to 2 files per post ⏳ Site Guidelines [Make a Post] Do Not Trust, Continuously Verify (Your AI Agents) Bender 2026-10-18 17:37:36 No. 41 [Delete] [Edit] [Report] 1790722498418423.jpg 221.58 KiB 1280x853 (dl) 💡 Do Not Trust, Continuously Verify (Your AI Agents) OR ... Your agent uploaded ... what exactly ... to our competitors?? TO-DO: Develop documents for each task an organization should complete with step-by-step directions. \"Trust but Verify\" is the common quote. Of course it will be too late by then. Your agent will have uploaded: • Your SSH keys. • Your wallet. • Your password database. • Your Pictures, Videos and Documents. • Your git repos, including those with private corporate IP data. • That folder nobody should see. ❌ FAIL ... The heart races, the sweat starts, the sphincter tightens. Disk, wallet and password database encryption is not helping you now. Think those football field sized data-centers are just for LLM's? If so I have a lake side property on the dark side of the moon. A bot or agent will do what a bot or agent ⁠ can ⁠ do whether malicious or accidental. One should assume they are giving The Cute And Fuzzy Bunnies ( https://www.youtube.com/watch?v=oL3-rvaAOz8 ) shell a",
