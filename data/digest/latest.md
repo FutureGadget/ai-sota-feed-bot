@@ -2,86 +2,86 @@
 
 Focus: AI Platform Engineering
 
-## 1. Azure AI Gateway Reaches General Availability as a Standalone Service
+## 1. Anthropic Introduces Claude Ship to Review, Fix, and Approve Pull Requests by Policy
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/azure-ai-gateway-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.59 | Reliability: 1.0
-- Why it matters: 
+- URL: https://www.infoq.com/news/2026/11/anthropic-claude-ship/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.558 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 2. DFly2: Turbocharging Long-Context Speculative Decoding by Sharing the Target's Sparsity
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34776v1
-- Score: 2.497 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 3. EGSE: Evidence-Grounded Skill Evolution for Medical Reasoning Agents
+## 2. Agent-as-a-Verifier: From Scores to Evidence for General Verification
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.33909v1
-- Score: 2.448 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- URL: http://arxiv.org/abs/2611.34132v1
+- Score: 2.991 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 4. Sports Agent: A Self-Evolving System for Conversational Data Analytics
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.33700v1
-- Score: 2.402 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
-
-## 5. [AINews] Inside the exploding Coding Data Market
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-inside-the-exploding-coding-data-market/
-- Score: 2.401 | Reliability: 1.0
-- Why it matters: 
-
-## 6. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
+## 3. Models Alone Aren't Enough: Connected Context for Agents | Alan Braun, Atlassian
 - Type: video | Source: ai_native_dev
 - URL: https://youtu.be/pH9CZKTB4yQ
-- Score: 2.366 | Reliability: 0.75
+- Score: 2.352 | Reliability: 0.778
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 7. Evaluating Recent Model Releases on GDPx
+## 4. PersonaFactory: Stylistic User Prompt Augmentation with Synthetic Persona Bank
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.34785v1
+- Score: 2.286 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 5. When Answering Is Administering: Permission Replies That Rewrite Coding-Agent Policy
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.32195v1
+- Score: 2.277 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex, claude code.
+
+## 6. Evaluating Recent Model Releases on GDPx
 - Type: release | Source: semianalysis
 - URL: https://newsletter.semianalysis.com/p/evaluating-recent-model-releases
-- Score: 2.266 | Reliability: 1.0
+- Score: 2.243 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 8. How to choose the next safe step in application modernization
+## 7. How to choose the next safe step in application modernization
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/
-- Score: 1.834 | Reliability: 1.0
+- Score: 1.771 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 8. vLLM Day-0 Support for ERNIE 5.5 Flash Preview: Plugin Deployment and E2E Inference Acceleration
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-24-ernie-5-5-flash-preview
+- Score: 1.768 | Reliability: 1.0
+- Why it matters: 
 
 ## 9. tencent/Hy-Embodied-Apexio-1.0 released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Hy-Embodied-Apexio-1.0
-- Score: 1.605 | Reliability: 1.0
+- Score: 1.589 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. codex 0.174.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.7
-- Score: 1.233 | Reliability: 1.0
+- Score: 1.223 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 11. Failure Broadens, Success Sharpens: Continual Adaptation of Tool-Use Agents Across Diverse Tasks with Dual-Polarity Memory
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.33612v1
-- Score: 2.346 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 11. Maco-RL: Scaling Agent Capabilities with Mixed-Task Reinforcement Learning
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34703v1
+- Score: 2.268 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 12. Solve Vision with Code: Coding Agents Are Stronger Visual Reasoners Than Video Models
+## 12. Attack Policy Selection can Mislead Monitor Evaluators
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.34813v1
-- Score: 2.317 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, codex.
+- URL: http://arxiv.org/abs/2611.34934v1
+- Score: 2.248 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 13. claude-code v2.1.332
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.332
-- Score: 1.108 | Reliability: 1.0
+- Score: 1.1 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 14. claude-agent-sdk-python v0.2.189
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.189
-- Score: 0.854 | Reliability: 1.0
+- Score: 0.848 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
