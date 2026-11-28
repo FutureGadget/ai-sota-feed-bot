@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-28 (Recap and story page link clicks are tracked as `recap_link_click`)
+
+- **Decision:** `web/posthog-client.js` adds one capture-phase `click`/`auxclick` listener that sends `recap_link_click` for links whose `data-track` is in a fixed allowlist (the tags `render_static_pages.py` already writes on recap, story and storyline pages). The script cache key moves to `20261128-recap-links`.
+- **Context / Problem:** Autocapture is off and only `web/index.html` listens for its `item-link`, so every click on `/daily`, `/weekly`, `/story` and `/storyline` pages was invisible. These are the pages email readers and search visitors land on. In PostHog, home-feed `click`s fell from about 45 a week (late October) to 8–13 (from Nov 16), and we could not tell whether readers had moved to recaps.
+- **Rationale:** A new event name instead of `click`, because `auto_tune.py sync-ctr` treats `click` with a `source` as feed CTR and recap clicks would skew source weights. The tags already exist, so no template change is needed.
+- **Impact:** One extra event per tracked link click. Generated pages pick up the new cache key on the next deploy build.
+- **Rollback:** Revert the PR; the event stops and nothing reads it yet.
+
 ## 2026-11-25 (Setwise comparison is measured against the owner grades before it ranks anything)
 
 - **Decision:** Add `pipeline/setwise.py` and `scripts/setwise_eval.py`, an offline evaluator. Claude ranks groups of about eight owner-graded stories, each story appears in about four groups, Bradley-Terry scores are fitted per day, and the script reports AUC (useful against not-for-the-recap) per day and pooled next to Jev's on the same stories. No pipeline, feed or recap reads the result.
