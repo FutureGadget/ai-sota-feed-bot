@@ -2796,6 +2796,18 @@
   "url": "http://arxiv.org/abs/2611.09721v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "13d84a0fbee44558": {
+  "content_excerpt": "Qwen3-0.6B inference (12 KB), bare-metal bootable OS (22 KB), and from-scratch Mini-GPT trainer with live Braille TUI (32 KB) in 100% pure x86-64 NASM assembly. Zero C, zero libc, zero dependencies. Three complete LLM projects written in 100% pure x86-64 NASM assembly. Zero C, zero C++, zero Rust, zero libc, zero libm, zero runtime dependencies. Assembled directly with nasm and linked with ld . Every math kernel ( expf , sincosf , RMSNorm , RoPE , SiLU , Softmax ), AVX2+FMA+F16C GEMM/GEMV engine, BPE tokenizer, clone() / futex() thread pool, bare-metal SMP kernel, analytical backward pass, AdamW optimizer, and live Unicode Braille TUI is hand-written x86-64 assembly ( 17,252 lines total across all three projects). Measured on the same machine ( AMD EPYC 7642 , 47C online, 256 MiB L3, DDR4, CPU-only -ngl 0 ), same model ( Qwen3-0.6B Q8_0 : 613.66 MiB .asmbin v2 FP16-scale vs 604.15 MiB GGUF Q8_0 ), 34 prompt tokens / 64 generated tokens, 3 -run average: (Note: llama.cpp uses batched GEMM for prompt prefill pp34 , whereas llm.asm runs token-by-token GEMV. For autoregressive decode tg64 , llm.asm ( FAST_Q8=1 ) combines INT8xINT8 AVX2 vpmaddubsw / vpmaddwd , .asmbin v2 FP16 block scales ( F16C vcvtph2ps ), monotonic next-row prefetch, contiguous head-major KV-cache, and parallel GQA attention — beating llama.cpp by +18%..+36% across 1..40 threads while producing bit-exact deterministic outputs across all thread counts. The bare-metal OS gains another ~10% from 2 MiB huge-page ide",
+  "first_seen": "2026-11-28T08:09:10.661464+00:00",
+  "id": "ef1ec9a7d378c334",
+  "published": "2026-11-28T03:39:41+00:00",
+  "sid": "13d84a0fbee44558",
+  "source": "hackernews_ai",
+  "summary_1line": "A project of three LLM components written entirely in x86-64 NASM assembly with no C or libc: Qwen3-0.6B inference, a bare-metal bootable OS, and a Mini-GPT trainer with a Braille TUI.",
+  "title": "Llm.asm – Pure x86-64 Assembly for LLM Inference and Training",
+  "type": "news",
+  "url": "https://github.com/alesha-pro/llm.asm"
+ },
  "13ea930d98720064": {
   "content_excerpt": "Lightweight CLI tool for AI agents on Windows to capture windows, map DPI-aware coordinates, and monitor process resources. Eyes and a stopwatch for AI coding agents on Windows. One small exe, command sight . sightline finds windows, screenshots them even when covered, waits for the UI to change and then stop changing, and tells the agent how image pixels map to screen, window and client coordinates. It also measures CPU and memory of a whole process tree. It only observes : it never clicks, types or moves the mouse. The agent acts with its own tools, then uses sightline to check the result. Asked to \"check the dialog looks right\", an agent on Windows usually writes a throwaway PowerShell script: Start-Sleep 3 , CopyFromScreen , a hard-coded PID. sightline replaces that. Images are written to a file and only the path is returned, never base64, so a screenshot costs one file read instead of thousands of tokens. PowerShell one-liner (installs to %LOCALAPPDATA%\\Programs\\sight and adds it to your user PATH ): Open a new terminal afterwards so the PATH change is picked up, then check with sight doctor . Pin a version, change the folder, or uninstall: The script verifies the download against the sight.exe.sha256 published with each release. Manual. Download sight.exe from Releases ( sight-windows-x64.zip also holds the docs and the skill), put it in a folder, and add that folder to PATH : Or via Settings → System → About → Advanced system settings → Environment Variables → Path → N",
   "first_seen": "2026-11-25T09:06:23.620256+00:00",
@@ -4555,6 +4567,17 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "1fde8b1a7e7d5599": {
+  "content_excerpt": "Alexey Fateev on X: \"I deleted Linux completely, baked Qwen3-0.6B into a 24 KB pure x86-64 assembly OS, and it runs up to 54% faster than native Linux llama.cpp. The entire Multiboot OS binary (asm-llm-os.elf) is 24,252 bytes, written from scratch without Linux, Windows, C, Rust, or libc. It boots… / X Post Log in Sign up Post Log in Sign up Alexey Fateev on X: \"I deleted Linux completely, baked Qwen3-0.6B into a 24 KB pure x86-64 assembly OS, and it runs up to 54% faster than native Linux llama.cpp. The entire Multiboot OS binary (asm-llm-os.elf) is 24,252 bytes, written from scratch without Linux, Windows, C, Rust, or libc. It boots in 74 to 94 ms straight into 64-bit Long Mode, wakes every CPU core over APIC, maps the 614 MiB Q8_0 weights directly from physical RAM, and drops you into a live multi-turn KV-cache chat over VGA, PS/2 keyboard, and serial. I ran head-to-head CPU benchmarks against llama.cpp (Q8_0, -ngl 0) on the same AMD EPYC 7642: - 1 thread hits 23.67 tok/s vs 16.63 (+42%) - 4 threads hit 78.89 tok/s vs 51.08 (+54%) - 8 threads hit 118.08 tok/s vs 80.79 (+46%) - 16 threads hit 134.94 tok/s vs 103.03 (+31%, 136.6 peak) On a diskless 0 GB Proxmox VM (2014 12-core Intel Xeon E5-2670 v3, 2 GiB RAM), it boots straight to the prompt in under 5 seconds (95 ms kernel boot) and runs live out of RAM at 78 tok/s decode and up to 111.5 tok/s prefill, with a hybrid BIOS+UEFI ISO builder included too. Output stays bit-exact across thread counts and matches all 64 greedy t",
+  "first_seen": "2026-11-28T08:09:10.661464+00:00",
+  "id": "d0ddd175dfe5e4fd",
+  "published": "2026-11-28T05:30:51+00:00",
+  "sid": "1fde8b1a7e7d5599",
+  "source": "hackernews_ai",
+  "title": "54% faster LLM token generation by removing the Linux OS and llama.cpp",
+  "type": "news",
+  "url": "https://twitter.com/superalesha/status/2125682626056839259"
  },
  "2014efafd28906ec": {
   "first_seen": "2026-11-25T04:07:22.100231+00:00",
@@ -11840,6 +11863,22 @@
   "type": "news",
   "url": "https://openai.com/business/customer-stories/sumitomo-life"
  },
+ "53ff11b3ee1ec5a3": {
+  "content_excerpt": "dependabot · renovate · dependency management · ai agents · cloudflare workers · durable objects · github Felix was built with a lot of help from Claude Code, and I used an LLM to help organize this post. The opinions (and the grudges against Dependabot) are my own. Here are two pull requests for the same Rust upgrade on my Rust template repository. Dependabot’s bumped the rust image in the Dockerfile but not rust-toolchain.toml alongside it. The other one bumped both pins together, explained why it didn’t touch the rust-version MSRV in Cargo.toml , and listed what changed upstream in 1.100 that could affect the repo. That one came from Felix. Dependabot promised to automate away a chore many of us skipped because of the tedious, never-ending onslaught of updates, and when it launched, people loved it. Years later, I have a bad case of what I call dependency burnout. Dependabot bumps something, the build breaks, and now fixing it is my problem. Multiply that across every repo and I just stopped merging them altogether unless I needed a bugfix or a new feature. Meanwhile, the steady stream of new CVEs and zero-days has made keeping dependencies up to date more important than ever. And Dependabot hasn’t really kept up. The alternatives don’t always fare better in practice, either. At my $DAYJOB we use Renovate , but it’s been dialed way back. It only runs once a week and the rebase commands are turned off, so its PRs go stale and start conflicting before anyone gets to them. So",
+  "first_seen": "2026-11-28T08:06:34.138022+00:00",
+  "id": "e5cb93c30abc1061",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-28T06:21:30+00:00",
+  "sid": "53ff11b3ee1ec5a3",
+  "source": "hackernews_ai",
+  "summary_1line": "Introduces Felix, an open-source dependency update bot built on AI agents that looks up new versions in registries, then has an agent update release-related files and code before opening pull requests.",
+  "title": "Building a better Dependabot with AI agents",
+  "type": "news",
+  "url": "https://cdm.dev/blog/better-dependabot",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "540627f8f0a4a36c": {
   "first_seen": "2026-11-18T00:07:17.220601+00:00",
   "id": "f4869b9d4ad56485",
@@ -14842,7 +14881,7 @@
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "6a7691a1ae0d594e": {
-  "content_excerpt": "Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this I'm building a personal, locally hosted multi-agent desktop application using Pi's official SDK, AgentSession, and RPC runtime. I currently use the existing Codex and Kimi subscription integrations. I noticed that the Google AI Ultra integration requires applications built on Pi's packages to register their own OAuth client. I'd really like to support this integration through an officially permitted path. The provider id, the login label ( Sign in with Google (AI Ultra) ), the README and the 402/403 hint (\"does not have an eligible Google AI Ultra plan. Upgrade at one.google.com/ai\") all say Ultra only. But the catalog ships Gemini 4 Hydrogen, Gemini 4 Neon, Gemini 4 Carbon and Gemini 3.5 Flash-Lite, and per Google's plan docs those sit on three different tiers: Hydrogen is on every plan including Free, Neon on Pro and Ultra, Carbon Ultra-only. i have been waiting for this! so excited for pi agent to support a Google plan! 😁 .",
+  "content_excerpt": "Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this Nice! But I think the problem here is not the code rather the terms that Google has and afaik doing this wouldn't be allowed so I doubt they will/can land this The provider id, the login label ( Sign in with Google (AI Ultra) ), the README and the 402/403 hint (\"does not have an eligible Google AI Ultra plan. Upgrade at one.google.com/ai\") all say Ultra only. But the catalog ships Gemini 4 Hydrogen, Gemini 4 Neon, Gemini 4 Carbon and Gemini 3.5 Flash-Lite, and per Google's plan docs those sit on three different tiers: Hydrogen is on every plan including Free, Neon on Pro and Ultra, Carbon Ultra-only. i have been waiting for this! so excited for pi agent to support a Google plan! 😁 . Testing upstream commit 628d2cc with pi auth login google-ai-plan. Google returns “Error 401: disabled_client” before consent. Is the OAuth client expected to be disabled while this PR is in draft?",
   "first_seen": "2026-11-28T06:05:27.019119+00:00",
   "id": "f3f5de99775a7344",
   "matched_topics": [
@@ -17089,6 +17128,22 @@
   "title": "Bring your business context to ChatGPT, Claude, Microsoft Copilot Cowork and Grok Bot",
   "type": "news",
   "url": "https://www.databricks.com/blog/bring-your-business-context-chatgpt-claude-microsoft-copilot-cowork-and-grok-bot"
+ },
+ "7c623e4a108b73f9": {
+  "content_excerpt": "Cowork MCP — Self-Hosted Multi-Agent Task Queue & MCP Control Plane for Claude Code, Codex, Gemini CLI & Hermes. Independent MIT open-source project — not affiliated with Anthropic. Self-hosted MCP server & Web Dashboard with auto-fallback chains, remote fleet execution, and zero-database storage. Disambiguation: Independent MIT open-source project — not affiliated with Anthropic. ⚡ Quick Start • 💡 Why Cowork? • ⚔️ Competitive Comparison • 📖 Documentation • 🌐 Live Architecture • 🤝 Join as a Remote Agent • ⭐ Star on GitHub You are using Claude Code for development. Two hours into a sprint, you hit the dreaded rate limit: Error: You have exceeded your current quota. Please wait 4 hours and 12 minutes. Your workflow stalls. Your terminal hangs. You switch to Gemini CLI or a local Hermes instance, but you lose your entire task state, intermediate patches, and execution context. Cowork solves this in one command. It is an open-source control plane that connects all your coding agents into one unified task inbox: Jump to: 30-Second Quickstart · Quick Start · Connecting agents · Architecture · Dispatcher · Agents · Vocabulary · Thinking level · MCP tools Then open http://localhost:6868 — the dashboard is live: create a task, the dispatcher routes it across your agent fallback chains, and results plus artifacts land back on the task card. Running a hub-only container instead? docker run -d -p 6868:6868 -v cowork-data:/data ghcr.io/slashman413/cowork:1.0.2 . Full walkthrough, manual s",
+  "first_seen": "2026-11-28T08:06:34.138022+00:00",
+  "id": "60e0d7fc266af35c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-28T08:00:47+00:00",
+  "sid": "7c623e4a108b73f9",
+  "source": "hackernews_ai",
+  "summary_1line": "Cowork is an MIT-licensed, self-hosted MCP server and web dashboard that queues tasks and routes them across coding agents such as Claude Code, Codex, Gemini CLI and Hermes, storing data as JSON on disk.",
+  "title": "Cowork – Self-hosted task queue and orchestration server for AI coding agents",
+  "type": "news",
+  "url": "https://github.com/slashman413/cowork",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7c8506fea817bcb6": {
   "content_excerpt": "Workday is the trusted agentic platform for HR, finance, and IT, serving more than half the Fortune 500. The team set out to create the internal developer platform to build, deploy, and run AI agents in production, on Workday's infrastructure. The team leveraged LangGraph for agent orchestration and LangSmith for tracing, observability, and evals. In 2025, Workday’s leadership team saw the market opportunity for building agentic solutions and set an ambitious goal for agents in production by the end of 2026. Product teams needed a platform that could support both rapid prototyping and production deployments—a uniquely challenging mandate given Workday operates under some of the strictest security and data governance requirements in enterprise software. Getting any internal service into production means satisfying demanding audit, compliance, and data retention policies. The surface area was enormous for a team of four, encompassing a durable, scalable agent server; data access controls tied to Workday's audit policies; a collaborative eval platform; and an SDK that abstracted all of it. Workday’s Agent Platform team serves two user bases. 1.) the internal Workday engineering teams building agents, and 2.) the end customers of those agents. It lets teams focus on functional requirements, while handling authentication, security, compliance, and infrastructure. The first major product shipped was Workday's Agent System of Record, a governance layer that controls which APIs the a",
