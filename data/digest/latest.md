@@ -1,87 +1,105 @@
-# Daily AI SOTA Digest - 2026-11-27
+# Daily AI SOTA Digest - 2026-11-28
 
 Focus: AI Platform Engineering
 
-## 1. AWS Challenger: Trainium3 Inference and Microarchitecture Deep Dive
-- Type: news | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/trainium3-inferencex
-- Score: 3.604 | Reliability: 1.0
+## 1. Migrating our Messages API to Rust
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/migrating-api-to-rust
+- Score: 2.493 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Chainguard's Dan Lorenc: Inside the PHP2Shell Disclosure
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/i3xtnRaEXa8
+- Score: 2.851 | Reliability: 0.806
+- Why it matters: Matches feed focus: agent.
+
+## 3. Mixture-of-Loops Transformer
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.34923v1
+- Score: 2.419 | Reliability: 1.0
 - Why it matters: 
 
-## 2. vSFT: Learning to Verbally Tune Agents at Test Time
+## 4. DocSEAM: Bidirectional Cross-Page Encoding for Multi-Page Document Understanding
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34440v1
-- Score: 2.464 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+- URL: http://arxiv.org/abs/2611.34420v1
+- Score: 2.412 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 3. When Every Rollout Fails: Splicing Learner-Conditioned Options into Long-Horizon Agent RL
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.34777v1
-- Score: 2.44 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 4. Put the World Back: Timestamps Matter in Time Series Reasoning
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.34848v1
-- Score: 2.433 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 5. Why I'm Bullish on MCP for 2027
-- Type: news | Source: philschmid
-- URL: https://www.philschmid.de/mcp-2027
-- Score: 2.171 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
+## 5. Skip the DRAM Tier: MoRI UMBP Runs the Agentic KV Cache on NVMe
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-23-skip-the-dram-tier
+- Score: 1.979 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
 ## 6. How to choose the next safe step in application modernization
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/
-- Score: 1.863 | Reliability: 1.0
+- Score: 1.822 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. codex 0.174.0-alpha.9
+## 7. Lessons from 12 Evals: Where They Break and What to Measure Instead
+- Type: news | Source: eugene_yan
+- URL: https://eugeneyan.com/writing/public-evals
+- Score: 1.781 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 8. codex 0.174.0-alpha.8
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.9
-- Score: 1.493 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.174.0-alpha.8
+- Score: 1.402 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 8. tencent/WePocketModel1.0-2B-MLX released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WePocketModel1.0-2B-MLX
-- Score: 1.388 | Reliability: 1.0
+## 9. langgraph-cli==0.4.44
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.44
+- Score: 1.213 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Introducing Search for Agents
+## 10. tencent/WeMM-Ecom-4B-GPTQ released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeMM-Ecom-4B-GPTQ
+- Score: 1.142 | Reliability: 1.0
+- Why it matters: 
+
+## 11. RoboEvo$^2$: Recursive Robot Self-Improvement via Harness-Policy Co-Evolution
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.34675v1
+- Score: 2.365 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
+
+## 12. Put the World Back: Timestamps Matter in Time Series Reasoning
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.34848v1
+- Score: 2.356 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 13. claude-code v2.1.331
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.331
+- Score: 1.035 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 14. Introducing Search for Agents
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/search-for-agents/
-- Score: 1.027 | Reliability: 1.0
+- Score: 1.017 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 10. Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud
+## 15. Built for trust and control: Powering the next wave of AI agents across Google Workspace and Google Cloud
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise/
-- Score: 0.993 | Reliability: 1.0
+- Score: 0.985 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 11. Do We Still Need Reinforcement Learning When We Can Read the World Model?
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.34656v1
-- Score: 2.404 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. Shape-Aware Three-Way Merge for RDF Knowledge Graphs: The schema defines the conflict: an implementation and evaluation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.34870v1
-- Score: 2.4 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 13. vllm v0.34.0
+## 16. vllm v0.34.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 0.857 | Reliability: 1.0
+- Score: 0.855 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
-## 14. claude-agent-sdk-python v0.2.187
+## 17. claude-agent-sdk-python v0.2.188
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.187
-- Score: 0.713 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.188
+- Score: 0.806 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
