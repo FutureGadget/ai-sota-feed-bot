@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate that a source actually reaches the feed end-to-end.
 
-Adding a source to config/sources.yaml only makes the collector *fetch* it.
+Adding a source to config/sources/{fetched,browsed}.yaml only makes the collector *fetch* it.
 Whether its items reach data/processed/latest.json depends on a gauntlet of
 ranking gates (slot mapping -> per-slot freshness window -> global pool cap ->
 slot caps -> global merge -> top band). This script walks the same gauntlet for
@@ -98,7 +98,7 @@ def _classify_prefilter(item, cfg, profile, source_health, slot):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--source", required=True, help="source name as in config/sources.yaml")
+    ap.add_argument("--source", required=True, help="source name as in config/sources/{fetched,browsed}.yaml")
     ap.add_argument("--url-contains", default=None, help="optional substring of a specific item URL to track")
     ap.add_argument(
         "--items",
@@ -130,7 +130,7 @@ def main() -> int:
     print(f"slot mapping     : {slot}" + ("   ⚠️  UNMAPPED -> overflow (add it to a slot in config/ranking.yaml!)" if src not in src_to_slot else ""))
     print(f"collected items  : {len(mine)}")
     if not mine:
-        print("  ⚠️  0 items collected. Check config/sources.yaml (name/url/type) and that the collector has run.")
+        print("  ⚠️  0 items collected. Check config/sources/{fetched,browsed}.yaml (name/url/type) and that the collector has run.")
         return 1
 
     # --- Stage A: prefilter (per-item drop reasons) ---

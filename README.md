@@ -286,7 +286,7 @@ python pipeline/source_alerts.py
 - Doc images (UI audit screenshots, diagrams): `docs/assets/<topic>/`
 
 ## Config
-- `config/sources.yaml`: feed list + source weights
+- `config/sources/fetched.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
 - `config/ranking.yaml`: ranking slots, caps, time decay, top-band, judge weight/headroom
 - `config/editorial.yaml`: source roles, quarantine, story clusters, seen-memory

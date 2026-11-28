@@ -1,0 +1,29 @@
+schema_version: 1
+id: x-watch
+name: "[News Feed Management] X watch"
+description: Read the practitioner X accounts in config/sources/browsed.yaml in the owner's Chrome and commit their posts to data/browsed/x/.
+
+schedule:
+  # 06:40 KST: before the 07:14 KST daily recap and inside the 2-hour feed
+  # ticker's next run. Needs the owner's Mac awake with Chrome open.
+  cron: "40 6 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+  delivery: best_effort
+
+execution:
+  environment: cloud
+  # The checkout and push run in the cloud session; browsing runs in the
+  # owner's logged-in Chrome through the Claude in Chrome extension.
+  device: owner_computer
+  capabilities: [browser]
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

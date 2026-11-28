@@ -131,7 +131,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   optional per-source `exclude_title_regex` title blocklist, optional
   per-source `fetch_content: true` page-body enrichment → `content_excerpt`
   for feeds that publish only a teaser, with optional `content_exclude_regex`
-  to strip per-page boilerplate such as an author bio)
+  to strip per-page boilerplate such as an author bio). The `x_watch` type
+  reads posts the x-watch routine committed under `data/browsed/x/` and never
+  contacts X)
 - `pipeline/` — all processing:
   - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
     → stage C scoring → global merge → top-band constraints)
@@ -370,7 +372,11 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
 - `config/` — runtime knobs:
   - `ranking.yaml` — canonical ranking config; `preset:` key deep-merges
     `config/presets/<name>.yaml` under local overrides
-  - `sources.yaml` (feeds + weights), `profile.yaml` (relevance keywords),
+  - `sources/fetched.yaml` (sources the collector fetches in the GitHub Action)
+    and `sources/browsed.yaml` (sources a browsing routine gathers into
+    `data/browsed/`; today the `x_watch` X accounts). Every reader loads both
+    through `pipeline/sources_config.py` `load_sources()`.
+  - `profile.yaml` (relevance keywords),
     `llm.yaml` (**enabled: false**), `user_preferences.yaml`, `config/prompts/`
   - `wiki_schema.md` — contract for the agent-engineering wiki (obstacle areas,
     page format, ingest/lint/query ops, `build_wiki.py` invariants)
@@ -454,7 +460,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `pipeline/community.py` validates it and renders `/community`, the post
   pages, and the recap-page teaser; the email digests add a block; spec
   `docs/product-specs/community.md`),
-  `writing-style/` (no scripts — the shared prose
+  `x-watch/` (reads the X accounts in `config/sources/browsed.yaml` in the
+  owner's logged-in Chrome and writes `data/browsed/x/<date>.json`; the only
+  routine that runs with the owner's computer, so it depends on that Mac being
+  awake), `writing-style/` (no scripts — the shared prose
   contract referenced by the reader-facing content skills above: BLUF, one
   idea per paragraph, scannability, specifics over generalities)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
@@ -497,6 +506,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
 
 ## Data Artifacts (committed runtime state)
 - `data/raw/<date>/items.json` — collector output
+- `data/browsed/x/<UTC date>.json` - X posts the `x-watch` routine read in the
+  owner's Chrome (`{"posts": [...]}`, written only by
+  `.agents/skills/x-watch/scripts/x_watch.py merge`); the collector's `x_watch`
+  sources read the last 3 days of files
 - `data/brief/<YYYY-MM-DD>.json` - the served Brief admission ledger (UTC
   day): `items` keyed by story id, with display/judge fields, `admitted_at`,
   `first_seen`, `last_seen`, `utility`, and `also_covered`. Append-only within

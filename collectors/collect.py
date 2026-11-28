@@ -9,7 +9,7 @@ import sys
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote
@@ -28,6 +28,8 @@ try:
 except Exception:
     telemetry = None
 
+import sources_config  # noqa: E402  (pipeline/ is on sys.path above)
+
 # Optional page-body enrichment (pipeline/content_fetch.py). Same contract as
 # telemetry above: collection must still run if it cannot be imported.
 try:
@@ -45,8 +47,7 @@ CONTENT_EXCERPT_CHARS = 4000
 
 
 def load_sources():
-    with open(ROOT / "config" / "sources.yaml", "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)["sources"]
+    return sources_config.load_sources()
 
 
 def item_id(url: str, title: str) -> str:
@@ -184,7 +185,7 @@ def extract_image_url(entry, summary_html: str = "") -> str:
 
 
 def compile_title_excludes(source: dict) -> list[re.Pattern]:
-    """Compile a source's `exclude_title_regex:` blocklist (config/sources.yaml).
+    """Compile a source's `exclude_title_regex:` blocklist (config/sources/*.yaml).
 
     Scoped to one source, unlike `profile.selection.exclude_title_regex`, which
     is matched against every source's titles. Use it when a site-wide feed is
@@ -426,6 +427,63 @@ def _load_transcript_map(source: dict) -> dict[str, dict]:
     return out
 
 
+X_TITLE_CHARS = 120
+
+
+def _x_post_title(text: str) -> str:
+    first = next((ln.strip() for ln in text.splitlines() if ln.strip()), "")
+    if len(first) <= X_TITLE_CHARS:
+        return first
+    cut = first[:X_TITLE_CHARS].rsplit(" ", 1)[0]
+    return cut.rstrip(" ,;:-") + "…"
+
+
+def collect_from_x_watch(source: dict, now: datetime) -> list[dict]:
+    """Read posts a browsing routine committed under data/browsed/x/.
+
+    The collector never contacts X. Each day file holds every watched account's
+    posts for that run; this returns the ones for ``source["handle"]`` from the
+    last ``lookback_days`` files, so a missed day is picked up by the next run.
+    """
+    handle = str(source["handle"]).lstrip("@").lower()
+    lookback = int(source.get("lookback_days", 3) or 3)
+    base = sources_config.BROWSED_DATA_DIR / "x"
+    out: list[dict] = []
+    seen: set[str] = set()
+    for back in range(lookback):
+        day = (now - timedelta(days=back)).strftime("%Y-%m-%d")
+        path = base / f"{day}.json"
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        for post in payload.get("posts") or []:
+            if str(post.get("handle") or "").lstrip("@").lower() != handle:
+                continue
+            url = str(post.get("url") or "").strip()
+            text = str(post.get("text") or "").strip()
+            if not url or not text or url in seen:
+                continue
+            seen.add(url)
+            summary = text
+            quoted = post.get("quoted") or {}
+            if quoted.get("text"):
+                summary += f"\n\nQuoting @{str(quoted.get('handle') or '').lstrip('@')}: {quoted['text']}"
+                if quoted.get("url"):
+                    summary += f" ({quoted['url']})"
+            author = str(post.get("author") or "").strip()
+            out.append(
+                {
+                    "title": _x_post_title(text),
+                    "url": url,
+                    "summary": summary,
+                    "published": post.get("published") or now.isoformat(),
+                    "publisher_name": f"{author} (@{handle})" if author else f"@{handle}",
+                    "publisher_domain": "x.com",
+                }
+            )
+    return out
+
+
 def collect_from_youtube_channel(source: dict, now: datetime) -> list[dict]:
     """Collect a channel's long-form videos, optionally with podcast transcripts.
 
@@ -627,7 +685,7 @@ def collect_from_hf_org(source: dict, now: datetime) -> list[dict]:
     """First-party model-drop signal for open-weight labs: the Hugging Face
     Hub org listing. For these labs the weights landing on HF *is* the launch
     (it precedes their blog posts and any press coverage), and none of them
-    exposes a working RSS/sitemap (see config/sources.yaml comments and the
+    exposes a working RSS/sitemap (see config/sources/fetched.yaml comments and the
     2026-07-17 decision-log entries)."""
     org = str(source.get("org") or "").strip()
     if not org:
@@ -1423,6 +1481,7 @@ def run():
         src_type = source.get("type", "rss")
         src_url = (
             source.get("url")
+            or (f"https://x.com/{source.get('handle', '')}" if src_type == "x_watch" else "")
             or (", ".join(rss_source_urls(source)) if src_type == "rss" else "")
             or (
                 f"youtube://{source.get('channel_id') or source.get('playlist_id') or 'unknown'}"
@@ -1487,6 +1546,8 @@ def run():
                 entries = collect_from_hf_org(source, now)
             elif src_type == "youtube_channel":
                 entries = collect_from_youtube_channel(source, now)
+            elif src_type == "x_watch":
+                entries = collect_from_x_watch(source, now)
             else:
                 raise ValueError(f"unsupported_source_type:{src_type}")
 

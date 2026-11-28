@@ -13,6 +13,11 @@ from typing import Any
 
 import yaml
 
+try:
+    from sources_config import registry_fingerprint
+except ImportError:  # imported as pipeline.<module>
+    from pipeline.sources_config import registry_fingerprint
+
 ROOT = Path(__file__).resolve().parents[1]
 CFG_FILE = ROOT / "config" / "llm.yaml"
 PREF_FILE = ROOT / "config" / "user_preferences.yaml"
@@ -20,7 +25,6 @@ PROMPT_FILE = ROOT / "config" / "prompts" / "label_system.txt"
 CACHE_FILE = ROOT / "data" / "llm" / "labels.json"
 # v2 ranking rubric will use a separate cache namespace to avoid schema collisions.
 CACHE_FILE_V2 = ROOT / "data" / "llm" / "labels.json"
-SOURCES_FILE = ROOT / "config" / "sources.yaml"
 
 
 def load_cfg() -> dict[str, Any]:
@@ -59,10 +63,7 @@ def save_cache(cache: dict[str, Any]) -> None:
 
 
 def sources_fingerprint() -> str:
-    if not SOURCES_FILE.exists():
-        return "none"
-    raw = SOURCES_FILE.read_text(encoding="utf-8")
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:10]
+    return registry_fingerprint()
 
 
 def content_fingerprint(item: dict[str, Any]) -> str:

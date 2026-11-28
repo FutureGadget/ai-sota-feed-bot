@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "pipeline"))
 
 import ranking  # noqa: E402
+from pipeline.sources_config import load_sources
 
 
 NOW = datetime(2026, 9, 3, 12, 0, 0, tzinfo=timezone.utc)
@@ -18,7 +19,7 @@ SOURCE = "arxiv_agent_systems_research"
 
 
 def _source_config() -> dict:
-    sources = yaml.safe_load((ROOT / "config" / "sources.yaml").read_text(encoding="utf-8"))["sources"]
+    sources = load_sources()
     return next(source for source in sources if source["name"] == SOURCE)
 
 

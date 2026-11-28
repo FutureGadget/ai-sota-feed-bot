@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "collectors"))
 
 import collect  # noqa: E402
+from pipeline.sources_config import load_sources
 
 
 class FakeResponse:
@@ -37,9 +38,7 @@ def _fixture(name: str) -> dict:
 
 class OpenReviewVenueCollectionTest(unittest.TestCase):
     def test_iclr_source_is_configured_and_mapped_to_research_watch(self) -> None:
-        sources = yaml.safe_load(
-            (ROOT / "config" / "sources.yaml").read_text(encoding="utf-8")
-        )["sources"]
+        sources = load_sources()
         source = next(source for source in sources if source["name"] == "openreview_iclr_accepted")
         self.assertEqual(source["type"], "openreview_venue")
         self.assertEqual(source["venue_id"], "ICLR.cc/2026/Conference")

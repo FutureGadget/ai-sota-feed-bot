@@ -1,10 +1,10 @@
 ---
 name: add-source
-description: Add a new content source to the ai-sota-feed-bot feed end-to-end and prove it actually reaches readers. Use whenever adding/removing/re-tuning a source in config/sources.yaml, because adding a source there alone does NOT expose it — it must clear the ranking gates (slot mapping, freshness window, pool cap, slot caps, merge, top band). Walks the gates, makes the config edits, and validates with scripts/validate_source.py.
+description: Add a new content source to the ai-sota-feed-bot feed end-to-end and prove it actually reaches readers. Use whenever adding/removing/re-tuning a source in config/sources/fetched.yaml, because adding a source there alone does NOT expose it — it must clear the ranking gates (slot mapping, freshness window, pool cap, slot caps, merge, top band). Walks the gates, makes the config edits, and validates with scripts/validate_source.py.
 ---
 
 You are wiring a new source into the feed. The trap this skill exists to
-prevent: **adding a source to `config/sources.yaml` only makes the collector
+prevent: **adding a source to `config/sources/fetched.yaml` only makes the collector
 *fetch* it — it does not put it in the feed.** A source can be collected
 perfectly and still be invisible to readers because it never clears the ranking
 gauntlet. (This is exactly what happened to the Google Cloud blog: its posts
@@ -21,11 +21,11 @@ Every item runs this gauntlet (`pipeline/ranking.py`); any gate drops it
 silently. Full reference: `docs/ranking-v2-flow.md` → "Why a source may not
 reach the feed".
 
-1. **Collection / health** — must be in `config/sources.yaml`; `source_health`
+1. **Collection / health** — must be in `config/sources/fetched.yaml`; `source_health`
    reliability ≥ 0.3 or the circuit breaker drops it (`health_floor`).
 2. **Slot mapping** — a source not listed in any `slots.*.sources` falls into
    the `overflow` slot (base_bias −0.20, max 3) and almost never surfaces.
-   **Mapping to a slot is a required, separate step from `sources.yaml`.**
+   **Mapping to a slot is a required, separate step from `config/sources/*.yaml`.**
 3. **Per-slot freshness window** (`freshness_hours`) — older items dropped
    (`freshness_window`).
 4. **Candidate pool cap** (`candidate_pool_cap`) — global top-N by
@@ -38,9 +38,20 @@ reach the feed".
    headroom by `global_score` (`final_score + slot_priority`).
 7. **Top-band constraints** — reorders (never drops) the visible top N.
 
-## 1. Add the source to `config/sources.yaml`
+## 1. Add the source to the registry
 
-Pick the `type` and required fields:
+The registry is split by who gathers the source:
+
+- `config/sources/fetched.yaml`: the collector fetches it in the GitHub Action
+  (every type in the table below).
+- `config/sources/browsed.yaml`: a scheduled browsing routine gathers it and
+  commits files under `data/browsed/`; the collector reads those files. Today
+  this is only `x_watch` (X accounts, gathered by the `x-watch` routine). Add an
+  entry `{name: x_<handle lowercase>, type: x_watch, handle: <handle>}`, map it
+  to the `practitioner_posts` slot in step 2, and skip steps 3-4: the source has
+  no items until the routine's next run.
+
+For a fetched source, pick the `type` and required fields:
 
 | type | fields | use for |
 |---|---|---|
@@ -101,7 +112,7 @@ feed. It prints `✅ EXPOSED` (exit 0) or `❌ NOT EXPOSED` with the likely fix
 
 It scores against the newest `data/raw/<date>/items.json` by default, so the
 source's items must already be in a collected snapshot. If you just edited
-`sources.yaml` and the source has never been collected, run the collector
+`config/sources/*.yaml` and the source has never been collected, run the collector
 first: `python collectors/collect.py`, or point `--items` at a snapshot that
 contains it.
 
@@ -135,7 +146,7 @@ slot) and re-run until `✅ EXPOSED`.
 | Symptom (from validate_source.py) | Gate | Fix |
 |---|---|---|
 | `slot mapping: overflow ⚠️ UNMAPPED` | 2 | add to a slot's `sources:` |
-| collected 0 | 1 | check `sources.yaml` name/url/type; run collector |
+| collected 0 | 1 | check `config/sources/*.yaml` name/url/type; run collector |
 | DROP `freshness_window` (all items) | 3 | raise slot `freshness_hours`; or low-volume source only shows when fresh |
 | DROP `pool_cap` | 4 | raise `candidate_pool_cap`; or longer-window slot |
 | DROP `health_floor` | 1 | inspect `data/health/source_health.json`; source is flaky |

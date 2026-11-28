@@ -51,7 +51,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
      polling, metadata, or removal through the same approval gate.
 - **Dependencies:** Define the candidate inbox artifact, review states,
   deduplication key, evidence requirements, and approval handoff.
-- **Guardrails:** Discovery and review must never edit `config/sources.yaml`.
+- **Guardrails:** Discovery and review must never edit `config/sources/fetched.yaml`.
   Source admission remains explicitly human-approved. Optimize for engineers
   building and operating AI systems, not general AI-news breadth.
 - **Promotion criteria:** Specify the inbox schema, review rubric, approval
