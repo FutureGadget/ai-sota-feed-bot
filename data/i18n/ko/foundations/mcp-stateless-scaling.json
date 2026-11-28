@@ -1,0 +1,89 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/mcp-stateless-scaling",
+  "source_hash": "4177a1a5b3c97ecd36b24474ff9bde04841d7b4a1b6e2428586f0c6af9b704b1",
+  "translated_at": "2026-11-28T05:00:41.741427+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "mcp-stateless-scaling",
+  "title": "MCP는 왜 스테이트리스로 바뀌었나, 에이전트 툴 게이트웨이 확장에는 어떤 변화가 생기나",
+  "question": "Why did MCP go stateless, and what does that change for scaling agent tool gateways?",
+  "summary": "MCP 2026-07-28 스펙은 클라이언트를 특정 서버 인스턴스에 고정하던 세션 핸드셰이크 헤더를 없앴다. 이제 어떤 게이트웨이 노드든 모든 요청을 처리할 수 있다. HTTP를 수평 확장 가능하게 만든 스테이트리스 방식을 에이전트 툴 호출에 적용한 것이다.",
+  "status": "active",
+  "cluster": "tool-use",
+  "cluster_label": "Tool use and agents",
+  "updated": "2026-10-06",
+  "latest_evidence_added": "2026-08-19",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>어떤 MCP 버전을 대상으로 하느냐에 따라 MCP 게이트웨이 플릿 앞에 일반 로드 밸런서만 둘 수 있는지, 스티키 라우팅과 공유 세션 저장소가 필요한지가 갈린다. <strong>2026-07-28 스펙은 프로토콜 차원에서 어피니티가 필요한 이유를 없앴다</strong>. 게이트웨이나 클라이언트 라이브러리가 여전히 세션 핸드셰이크를 전제한다면, 스펙이 더 이상 요구하지 않는 확장 복잡도를 떠안고 있는 셈이다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>이전 MCP는 핸드셰이크로 시작했다. 서버가 <code>Mcp-Session-Id</code> 헤더를 발급하면 클라이언트가 모든 호출에서 이를 그대로 보냈고, 각 호출은 헤더를 발급한 인스턴스에 도달해야 했다. 2026-07-28 스펙은 이를 제거했다. 프로토콜 버전과 클라이언트 capability는 이제 각 요청의 <code>_meta</code> 파라미터에 담겨 전달되므로 어떤 노드든 모든 호출을 처리할 수 있다. 같은 개정에서 관리형 확장(SEP-2133)이 추가됐고, 인가 방식은 표준 OAuth 2.0/OpenID Connect 쪽으로 옮겨 갔다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>스테이트풀 세션과 스테이트리스 HTTP 중 무엇을 택하느냐의 문제다.</p>\n<ul><li><strong>스테이트풀:</strong> 후속 호출이 세션 상태를 가진 인스턴스에 도달해야 한다. 클라이언트를 고정(스티키 세션)하거나 상태를 공유 저장소에 복제해야 하며, 인스턴스가 장애를 일으키면 그 세션도 사라진다.</li><li><strong>스테이트리스:</strong> 각 요청이 핸들러에 필요한 정보를 모두 담고 있다. 로드 밸런서는 가용 용량을 기준으로 라우팅하고, 정상 인스턴스라면 어디서든 다음 호출을 받을 수 있다.</li></ul>\n<p>MCP가 전자에서 후자로 옮겨 가면서, 게이트웨이 플릿도 일반적인 수평 확장 웹 서비스처럼 동작할 수 있게 됐다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>변경 전에는 세션 식별자가 둘을 묶는 고리였다. 협상된 capability와 프로토콜 버전은 ID를 발급한 인스턴스에만 있었기 때문에, 이후 호출을 올바르게 해석할 수 있는 것도 그 인스턴스뿐이었다.</p>\n<p>이제 각 요청이 <code>_meta</code>에 프로토콜 버전과 capability를 다시 명시한다. 호출을 처리하는 데 이전 호출을 어느 인스턴스가 처리했는지가 영향을 주지 않는다. \"스테이트리스\"는 프로토콜에만 해당한다. 툴 구현은 여전히 데이터베이스 연결이나 캐시 같은 상태를 가질 수 있다. 다만 프로토콜이 요청 간 서버 어피니티를 더는 요구하지 않을 뿐이다.</p>\n<p>같은 개정에는 스테이트리스와 무관한 변경이 두 가지 더 포함됐다.</p>\n<ul><li><strong>관리형 확장(SEP-2133).</strong> 각 capability는 역방향 DNS 형식의 ID, 별도 저장소와 메인테이너, 독자적인 릴리스 주기를 갖는다. 클라이언트와 서버는 코어 버전을 올리는 대신 <code>extensions</code> capability 맵으로 지원 여부를 협상한다.</li><li><strong>인가 강화.</strong> SEP 6건이 스펙을 OAuth 2.0 및 OpenID Connect 패턴에 맞춘다. 개별 게이트웨이가 인바운드 자격 증명을 검증하는 방식은 바뀌지 않는다.</li></ul>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>클라이언트와 서버가 모두 2026-07-28 이상을 지원하면 세션 어피니티 인프라를 걷어낸다.</strong> MCP 외에 스티키 규칙이 필요한 요소가 있을 때만 유지한다.</li><li><strong>먼저 라이브러리 버전을 확인한다.</strong> 어피니티 라우팅을 없애기 전에 클라이언트와 서버 라이브러리가 남아 있는 <code>Mcp-Session-Id</code> 헤더가 아니라 <code>_meta</code>로 협상하는지 확인한다.</li><li><strong>협상된 <code>extensions</code> 맵을 읽는다.</strong> 코어 버전이 같다고 해서 상대가 특정 확장을 지원한다는 뜻은 아니다.</li><li><strong>게이트웨이 인증은 따로 점검한다.</strong> 프로토콜 버전을 올린다고 인바운드 인증이 업그레이드되지는 않는다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>라이브러리가 아직 이전 핸드셰이크를 쓰는데 스티키 라우팅을 제거해, 다중 호출 세션이 조용히 깨지는 경우.</li><li>스테이트리스 프로토콜과 스테이트리스 툴을 혼동하는 경우. 툴 수준의 상태는 여전히 애플리케이션이 결정할 사항이다.</li><li>인가 관련 SEP를 게이트웨이의 자격 증명 업그레이드로 여기는 경우.</li><li>코어 버전이 같다는 이유로 확장 지원을 가정하는 경우.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>프로토콜의 도입 흐름은 <a href=\"/topic/mcp\">MCP</a>, 이번 확장성 변화로 해결되지 않는 툴 호출 실패는 <a href=\"/topic/tool-use\">툴 사용</a> 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "story-4daf9a3fc6b23a4c-azure-api-management-ai-gateway",
+      "kind": "story",
+      "tier": "source story",
+      "title": "Azure API Management Adds Dedicated AI Gateway Tier, Governing Models and MCP Tools",
+      "note": "Within days of the spec change, Azure API Management shipped a dedicated AI Gateway tier fronting multiple model providers and MCP servers behind one MCP-aware control plane. Signals that vendors are building on stateless MCP routing; no performance data.",
+      "added": "2026-08-19",
+      "sid": "4daf9a3fc6b23a4c"
+    },
+    {
+      "id": "aws-agentcore-mcp-2026-07-28-spec",
+      "kind": "story",
+      "tier": "source story",
+      "title": "How AgentCore Gateway supports the MCP 2026-07-28 spec",
+      "note": "AWS describes the spec's three changes: the `Mcp-Session-Id` handshake removed, with protocol version and client capabilities carried in each request's `_meta` parameter; governed extensions (SEP-2133) with reverse-DNS ids and independent release cadence; six SEPs aligning authorization with OAuth 2.0/OIDC. Gateway credential mechanisms (IAM/SigV4, OAuth/JWT) are unaffected. AgentCore operators enable the new version with one `UpdateGateway` call, no redeploy. Vendor write-up.",
+      "added": "2026-08-08",
+      "sid": "b734d716b0d66f96"
+    },
+    {
+      "id": "mcp-statelessness-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "The scaling implication mirrors HTTP: a stateful protocol needs sticky routing or a shared session store, both of which complicate load balancing and turn a lost instance into a dropped session. A stateless protocol lets any instance serve any request. That is plausibly why AWS could ship spec support as a configuration change rather than a re-architecture.",
+      "added": "2026-08-08"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "mcp",
+      "title": "Model Context Protocol: a standard interface for agent tools"
+    },
+    {
+      "slug": "tool-use",
+      "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

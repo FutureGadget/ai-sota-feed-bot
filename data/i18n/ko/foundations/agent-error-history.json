@@ -1,52 +1,62 @@
 {
   "locale": "ko",
   "source_path": "/foundations/agent-error-history",
-  "source_hash": "e967234eafa8659d81834ac9e493014091e1ea7233c86a22289f3212fbfb041a",
-  "translated_at": "2026-11-23T04:02:44.908042+00:00",
+  "source_hash": "7b1bcd014528a8b4c0a45e4b9ad6f7142d1538f810c35cd7b709191e8d2204bd",
+  "translated_at": "2026-11-28T04:59:30.848588+00:00",
   "model": "claude-sonnet-5-5",
   "review_status": "machine",
   "slug": "agent-error-history",
   "title": "에이전트의 히스토리에서 실수를 지워야 할까?",
   "question": "Should you clean an agent's mistakes out of its history?",
-  "summary": "아니다. 실수의 영향이 세상에 남아 있는 동안에는 지우면 안 된다. 2026년 통제 연구에 따르면 깔끔해 보이도록 편집한 히스토리는 아무 편집도 하지 않은 경우보다 복구율을 떨어뜨릴 수 있고, 실패한 호출을 남겨 둔 쪽이 지운 쪽보다 복구가 잘된다.",
+  "summary": "아니다. 실수의 영향이 세계(환경)에 남아 있는 동안에는 지우지 말아야 한다. 2026년 통제 연구에 따르면 깨끗해 보이도록 편집한 히스토리는 복구율을 아무 편집도 하지 않은 경우보다 낮출 수 있고, 실패한 호출을 남겨 두는 편이 지우는 것보다 복구가 잘 된다.",
   "status": "active",
   "cluster": "tool-use",
   "cluster_label": "Tool use and agents",
-  "updated": "2026-11-13",
-  "latest_evidence_added": "2026-11-13",
+  "updated": "2026-11-27",
+  "latest_evidence_added": "2026-11-27",
   "audience": "strong-software-engineer",
   "math_depth": "",
   "sections": [
     {
       "heading": "Builder consequence",
-      "html": "<p>에이전트가 잘못된 도구 호출을 했을 때 흔히 떠올리는 해결책은 트랜스크립트를 정리하는 것이다. 실패한 교환을 지우거나, 해당 단계를 성공한 것처럼 고쳐 쓰는 방식이다. 세상의 상태가 히스토리와 일치하기 전에는 둘 다 하지 말아야 한다. 에이전트의 다음 행동은 히스토리가 무슨 일이 일어났다고 *주장하는지*에 좌우되며, 복구되지 않은 부작용 위에 성공이라는 주장이 덮이면 에이전트는 확인을 멈춘다.</p>"
+      "html": "<p>에이전트가 잘못된 툴 호출을 했을 때 흔히 떠올리는 해결책은 트랜스크립트를 정리하는 것이다. 실패한 교환을 지우거나, 해당 단계를 마치 제대로 수행된 것처럼 고쳐 쓰는 식이다. 세계가 히스토리와 일치할 때까지는 둘 다 하지 말아야 한다. 에이전트의 다음 행동은 히스토리가 무슨 일이 일어났다고 *주장하는지*에 좌우되는데, 수정되지 않은 부작용 위에 성공했다는 주장이 놓이면 에이전트는 확인을 멈춘다.</p>"
     },
     {
       "heading": "Short answer",
-      "html": "<p>오류를 눈에 보이게 두고, 그 오류에 대해 사실인 내용을 적어야 한다. 2026년 frozen-state 연구에서는 보존된 실수 옆에 사실에 맞는 메모를 두자 복구율이 51%에서 66%로 올랐다. 같은 단계를 올바르게 완료된 행동으로 고쳐 쓰자 복구율은 50%에서 44%로 떨어져, 히스토리를 그대로 둔 경우보다 낮았다. 두 번째 연구에서는 재시도 전에 실패한 호출을 제거하면 일부 모델이 너무 일찍 멈추는 현상이 나타났다. 깨끗한 히스토리가 도움이 되는 것은 세상도 깨끗해진 뒤뿐이다.</p>"
+      "html": "<p>오류를 보이는 상태로 두고, 그 오류에 대해 사실인 내용을 적어 둬야 한다. 2026년 frozen-state 연구에서는 보존된 실수 옆에 사실에 맞는 메모를 붙였더니 복구율이 51%에서 66%로 올랐다. 같은 단계를 올바르게 완료된 행동으로 고쳐 쓰자 복구율은 50%에서 44%로 떨어져, 히스토리를 그대로 둔 경우보다 낮았다. 두 번째 연구에서는 재시도 전에 실패한 호출을 제거하면 일부 모델에서 조기 중단이 발생했다. 히스토리가 깨끗해져서 도움이 되는 것은 세계도 깨끗해진 뒤에야 가능하다.</p>"
     },
     {
       "heading": "Builder model",
-      "html": "<p>에이전트의 히스토리와 환경은 같은 사건에 대한 두 개의 기록이며, 서로 어긋날 수 있다.</p>\n<ul><li><strong>히스토리</strong>는 트랜스크립트가 일어났다고 말하는 내용이다. 호출, 영수증, 메모가 여기에 해당한다.</li><li><strong>세상</strong>은 실제로 남은 것이다. 기록된 행, 변경된 파일, 전송된 메시지가 여기에 해당한다.</li></ul>\n<p>히스토리 편집은 모두 세상에 대한 주장이다.</p>\n<ul><li><strong>주석 달기</strong>(&quot;4단계에서 잘못된 값을 썼고, 아직 그대로 남아 있다&quot;)는 둘의 일치를 유지한다.</li><li><strong>고쳐 쓰기</strong>(잘못된 단계를 올바른 단계로 교체)는 수정이 이루어졌다고 주장한다.</li><li><strong>삭제</strong>(실패한 교환을 제거)는 아무 일도 없었다고 주장한다.</li></ul>\n<p>고쳐 쓰기와 삭제는 그 주장이 참일 때만 안전하다. 컴팩션, 복구 루프, 서브에이전트 인계는 모두 이런 편집을 하며, 대개 확인 없이 진행한다.</p>"
+      "html": "<p>에이전트의 히스토리와 환경은 같은 사건에 대한 두 가지 기록이며, 서로 어긋날 수 있다.</p>\n<ul><li><strong>히스토리</strong>는 트랜스크립트가 일어났다고 말하는 내용이다. 호출, 영수증, 메모가 여기에 해당한다.</li><li><strong>세계</strong>는 실제로 남아 있는 상태다. 기록된 행, 변경된 파일, 전송된 메시지가 그 예다.</li></ul>\n<p>히스토리 편집은 모두 세계에 대한 주장이다.</p>\n<ul><li><strong>주석 달기</strong>(&quot;4단계에서 잘못된 값을 썼고 아직 남아 있다&quot;)는 둘을 일치시킨 채로 유지한다.</li><li><strong>고쳐 쓰기</strong>(잘못된 단계를 올바른 단계로 교체)는 수정이 이루어졌다고 주장한다.</li><li><strong>삭제</strong>(실패한 교환을 제거)는 아무 일도 없었다고 주장한다.</li></ul>\n<p>고쳐 쓰기와 삭제는 그 주장이 참일 때만 안전하다. 컴팩션, 복구 루프, 서브에이전트 핸드오프는 모두 이런 편집을 수행하며, 대개 검증 없이 진행된다.</p>"
     },
     {
       "heading": "Mechanism",
-      "html": "<p><strong>영수증이 증거보다 우선한다.</strong> 모델은 트랜스크립트를 자신의 과거에 대한 신뢰할 수 있는 기록으로 보고 이어간다. 완료로 기록된 단계는 다시 검증할 이유가 없다. frozen-state 연구의 AppWorld 구간에서는 효과가 실제로는 없는 데이터베이스 쓰기에 성공 영수증이 붙자 전체 작업 성공률이 45%에서 28%로 떨어졌다. 같은 영수증이라도 효과가 실제로 있을 때는 성공률이 38%에서 49%로 올랐다. 텍스트는 같은데 결과는 반대이며, 이를 가르는 것은 세상의 상태다.</p>\n<p><strong>내용이 맞는 것만으로는 충분하지 않다.</strong> AgentCE-Bench의 두 편집 모두 히스토리에 올바른 값을 추가했다. 메모는 이를 아직 열려 있는 수정으로 제시해 도움이 되었다. 완료된 행동은 이미 끝난 작업으로 제시해 해가 되었다. 중요한 것은 편집이 내세우는 주장이지, 정답이 보이는지 여부가 아니다.</p>\n<p><strong>삭제는 &quot;할 일이 없다&quot;로 읽힌다.</strong> 전달 방식 연구는 오류 텍스트를 고정하고 그것이 놓이는 위치만 바꿨다. 실패한 교환을 유지한 새 사용자 턴은, 교환을 제거했을 때 Llama 모델에서 나타난 심각한 중단 실패를 피했다. 복구 계층으로서는 7-8B 모델의 ToolMaze 명시적 오류에서 14.2포인트, 32-70B 모델에서 10.5포인트를 더했다. 다만 모든 모델에서 최선의 형태는 아니었다.</p>\n<p><strong>에이전트는 모순되는 증거를 시키지 않으면 거의 활용하지 않는다.</strong> 실패한 멀티 에이전트 실행 95건을 전수 분석한 결과, 오류에 반하는 증거가 이미 궤적에 있던 경우가 72%였고 그중 88%에서는 그 증거가 쓰이지 않았다. 모델이 알아채기를 기대하는 것보다 명시적인 메모가 더 나은 이유다.</p>"
+      "html": "<p><strong>영수증이 증거보다 우선한다.</strong> 모델은 트랜스크립트를 자신의 과거에 대한 신뢰할 수 있는 기록으로 보고 이어서 작업한다. 완료된 것으로 기록된 단계는 다시 검증할 이유가 없다. frozen-state 연구의 AppWorld 실험군에서는 효과가 실제로는 없는 데이터베이스 쓰기에 성공 영수증을 붙이자 전체 작업 성공률이 45%에서 28%로 떨어졌다. 같은 영수증도 효과가 실제로 있을 때는 성공률을 38%에서 49%로 올렸다. 텍스트는 같지만 결과는 반대이며, 이를 가르는 것은 세계의 상태다.</p>\n<p><strong>내용이 맞는 것만으로는 충분하지 않다.</strong> AgentCE-Bench의 두 편집은 모두 히스토리에 올바른 값을 추가했다. 메모는 이를 아직 열려 있는 정정으로 표현해 도움이 되었다. 완료된 행동은 이를 끝난 작업으로 표현해 해가 되었다. 중요한 것은 올바른 답이 나타나는지가 아니라 편집이 내세우는 주장이다.</p>\n<p><strong>제거는 &quot;할 일이 없다&quot;로 읽힌다.</strong> 실패한 교환을 유지한 채 새 사용자 턴으로 전달하면, 교환을 제거했을 때 Llama 모델에서 나타난 심각한 중단 실패를 피할 수 있었고 ToolMaze 명시적 오류에서 10~14점이 올랐다. 다만 모든 모델에 가장 좋은 형태는 아니었다.</p>\n<p><strong>부분 결과는 사실로 히스토리에 들어간다.</strong> 잘리거나 일부만 반환하는 툴은 오류를 내지 않으므로, 에이전트는 처음 받은 결과를 그대로 받아들이고 그 위에 작업을 쌓는다. RetryRealistic 연구는 이를 조용한 수용(silent ingestion)이라 부른다. 부분 데이터 결함은 실행의 최대 38%에서 날조를 일으켰고, 명시적 거부는 정직한 실패로 이어졌다.</p>\n<p><strong>에이전트는 모순되는 증거에 먼저 반응하는 일이 드물다.</strong> 실패한 멀티 에이전트 실행 95건을 전수 분석한 결과, 72%에서 오류에 반하는 증거가 이미 궤적 안에 있었고 그중 88%에서는 활용되지 않았다. 모델이 스스로 알아채도록 두는 것보다 명시적 메모가 더 나은 이유다.</p>"
     },
     {
       "heading": "How to apply",
-      "html": "<ul><li><strong>고쳐 쓰기 전에 먼저 정합성을 맞춘다.</strong> 복구 단계는 먼저 세상을 고치고(쓰기를 되돌리거나 호출을 다시 실행), 읽기로 검증한 뒤에야 성공을 기록한다.</li><li><strong>삭제하지 말고 주석을 단다.</strong> 실패한 호출을 남기고 사실에 맞는 메모를 붙인다. 무엇을 시도했는지, 지금 세상이 어떤 상태인지, 무엇이 남아 있는지를 적는다.</li><li><strong>영수증은 관찰된 상태로 생성한다.</strong> 호출이 반환된 시점이 아니라, 읽기로 효과를 확인한 뒤에 쓰기를 성공으로 기록한다.</li><li><strong>열린 오류를 컴팩션과 인계 과정에도 가져간다.</strong> &quot;복구되지 않은 부작용&quot;을 고정된 제약과 함께 핵심 컨텍스트로 취급한다. &quot;레코드를 업데이트했다&quot;는 요약은 사실이어야 한다.</li><li><strong>오류는 실패한 교환을 유지하는 새 턴으로 전달하고</strong>, 그 선택을 모델별로 테스트한다. 하니스가 알고 있다면 타입이 지정된 오류 종류를 함께 넘긴다.</li><li><strong>체크포인트마다 환경과 대조해 믿음을 다시 확인한다.</strong> 궤적 연구에서 오류는 실행의 중앙값 18% 지점에서 발생했다.</li><li><strong>테스트한다.</strong> 알려진 잘못된 쓰기가 있는 작업 중간 상태를 고정하고, 컴팩터나 복구 단계를 적용한 뒤, 새 모델이 남은 대상을 고치는지 측정한다.</li></ul>"
+      "html": "<ul><li><strong>고쳐 쓰기 전에 먼저 조정하라.</strong> 복구 단계는 먼저 세계를 고치고(쓰기 되돌리기, 호출 재실행), 읽기로 검증한 뒤에야 성공을 기록한다.</li><li><strong>삭제하지 말고 주석을 달아라.</strong> 실패한 호출을 남기고 사실에 맞는 메모를 추가한다. 무엇을 시도했는지, 세계가 지금 어떤 상태인지, 무엇이 아직 남았는지를 적는다.</li><li><strong>조용한 결함을 눈에 보이게 만들어라.</strong> 구조화된 툴 결과마다 기대하는 형태(행 수, 필수 필드, 잘림 표시)를 확인하고, 하드 차단 대신 교정 메모를 주입한다. 이 모니터는 날조를 17.3%에서 10.8%로 줄였다.</li><li><strong>관찰된 상태로 영수증을 생성하라.</strong> 호출이 반환된 시점이 아니라 읽기 확인으로 효과가 검증된 뒤에 쓰기를 성공으로 기록한다.</li><li><strong>열려 있는 오류를 컴팩션과 핸드오프로 넘겨라.</strong> &quot;수정되지 않은 부작용&quot;을 고정된 제약과 함께 핵심 컨텍스트로 취급한다. &quot;레코드를 업데이트했다&quot;는 요약은 사실이어야 한다.</li><li><strong>오류는 실패한 교환을 유지한 새 턴으로 전달하고</strong>, 그 선택을 모델별로 테스트한다. 하네스가 결함 유형을 알면 타입이 있는 결함 종류를 함께 전달한다.</li><li><strong>체크포인트마다 믿음을 환경과 다시 대조하라.</strong> 궤적 연구에서 결함은 실행의 중앙값 18% 지점에서 발생했다.</li><li><strong>테스트하라.</strong> 잘못된 쓰기가 알려진 중간 작업 상태를 고정하고, 컴팩터나 복구 단계를 적용한 뒤, 새 모델이 남은 대상을 고치는지 측정한다.</li></ul>"
     },
     {
       "heading": "Failure modes",
-      "html": "<ul><li>잘못된 쓰기가 남아 있는데도 모델의 &quot;혼란을 풀어 주려고&quot; 실패한 단계를 성공으로 고쳐 쓰는 것.</li><li>토큰을 아끼려고 실패한 도구 호출을 삭제해, 모델이 재시도할 이유를 못 느끼게 만드는 것.</li><li>의도(&quot;가격을 40으로 설정&quot;)를 결과처럼 보고하는 인계 요약.</li><li>도구의 반환값을 효과가 있었다는 증거로 믿는 것.</li><li>하나의 오류 전달 형식이 모든 모델에서 통한다고 가정하는 것.</li><li>전달 방식 개선으로 조용한 데이터 손상까지 잡을 수 있다고 기대하는 것. 전달 방식 연구에서는 그 부분의 이득이 측정되지 않았다.</li></ul>"
+      "html": "<ul><li>잘못된 쓰기가 남아 있는데도 모델의 &quot;혼란을 없애려고&quot; 실패한 단계를 성공으로 고쳐 쓰는 것.</li><li>토큰을 아끼려고 실패한 툴 호출을 지워, 모델이 재시도할 이유를 못 느끼게 하는 것.</li><li>의도(&quot;가격을 40으로 설정&quot;)를 결과처럼 보고하는 핸드오프 요약.</li><li>툴의 반환값을 효과의 증거로 신뢰하는 것.</li><li>하나의 오류 전달 형식이 모든 모델에서 통한다고 가정하는 것.</li><li>전달 방식 개선이 조용한 오염을 잡아 주리라 기대하는 것. 전달 연구에서는 이 경우 이득이 측정되지 않았다. 조용한 결함에는 결과 자체에 대한 검사가 필요하다.</li><li>토큰을 아끼려고 chain-of-thought를 제거하는 것. 제거하면 날조가 8.3포인트 늘었다.</li></ul>"
     },
     {
       "heading": "Related",
-      "html": "<p>규칙을 빠뜨리거나 지어내는 요약은 <a href=\"/foundations/context-compaction-safety\">에이전트의 컨텍스트를 컴팩션하면 안전 규칙이 위험해질까?</a>, 호출 신뢰성은 <a href=\"/topic/tool-use\">도구 사용</a>, <a href=\"/topic/agent-reliability\">에이전트 신뢰성</a> 참고.</p>"
+      "html": "<p>규칙을 누락하거나 지어내는 요약은 <a href=\"/foundations/context-compaction-safety\">에이전트의 컨텍스트를 컴팩션하면 안전 규칙이 위험해질까?</a>, 호출 신뢰성은 <a href=\"/topic/tool-use\">툴 사용</a>, <a href=\"/topic/agent-reliability\">에이전트 신뢰성</a> 참고.</p>"
     }
   ],
   "evidence": [
+    {
+      "id": "retryrealistic-2026-tools-fail-agents-fabricate",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "When Tools Fail, Agents Fabricate: Silent Failure and Verification-First Oversight in Tool-Using LLM Agents",
+      "note": "Injects 9 fault types into 8 real tools (filesystem, SQLite, HTTP, shell) over 2,100 runs of four agents. Recovery is correct in only 19-68% of runs, and 6-26% end in a confident fabrication. Fault type matters more than model: partial-data faults drive fabrication up to 38%, hard denials drive honest failure. A monitor that checks structured tool outputs and issues corrective directives raises correct recovery from 45.6% to 56.3% and cuts fabrication from 17.3% to 10.8%.",
+      "added": "2026-11-27",
+      "url": "http://arxiv.org/abs/2611.28341",
+      "sid": "aab56d32e7581342"
+    },
     {
       "id": "history-vs-world-2026-cleaning-hurts",
       "kind": "benchmark-result",
@@ -82,7 +92,7 @@
       "kind": "editorial-inference",
       "tier": "editorial inference",
       "title": "LLM Digest synthesis",
-      "note": "The three studies measure different things: history edits against a frozen world, error delivery to open models, and post-hoc annotation of multi-agent failures. Read together they support one harness rule: the transcript is a claim about the world, so any step that rewrites it (repair, compaction, handoff) must either fix the world first or keep the error visible. The first two are single-paper results on specific benchmarks and receivers, not replicated.",
+      "note": "The four studies measure different things: history edits against a frozen world, error delivery to open models, post-hoc annotation of multi-agent failures, and fault injection into real tools. Together they support one harness rule: the transcript is a claim about the world, so any step that writes it (tool result, repair, compaction, handoff) must match the world or keep the error visible. Each is a single-paper result on specific benchmarks, not replicated.",
       "added": "2026-11-13"
     }
   ],

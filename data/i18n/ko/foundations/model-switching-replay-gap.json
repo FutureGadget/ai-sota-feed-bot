@@ -1,0 +1,95 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/model-switching-replay-gap",
+  "source_hash": "dd03fdcddca417d89c40073089da062be81920f9e6f569f918e1de9064fc4121",
+  "translated_at": "2026-11-28T05:00:57.260767+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "model-switching-replay-gap",
+  "title": "로그에 기록된 궤적을 재생하는 방식으로 에이전트의 모델 라우터를 평가할 수 있을까?",
+  "question": "Can you evaluate an agent's model router by replaying logged trajectories?",
+  "summary": "불가능하다. SWE-bench 에이전트 실행을 모델 교체 시점에서 실제로 분기시켜 보면 이후 행동의 61~94%가 로그와 달라지고, 유효하게 남는 로그 상태는 3%뿐이다. 그래서 재생 평가는 교체에 좌우되는 모든 결과를 잘못 예측했다.",
+  "status": "active",
+  "cluster": "evaluation",
+  "cluster_label": "Evals and reliability",
+  "updated": "2026-10-16",
+  "latest_evidence_added": "2026-10-16",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>로그에 기록된 궤적의 한 단계에 더 저렴한 모델을 끼워 넣고 나머지 로그를 확인하는 방식으로 단계별 모델 라우터를 평가하면, 교체 시점에서 이미 사라진 실행을 채점하는 셈이다. Replay Gap 연구에서는 실제로 모델을 교체하자 <strong>이후 행동의 61~94%가 달라졌고</strong>, 재생 채점은 교체에 좌우되는 모든 결과를 잘못 예측했다. 재생 수치만 보고 배포한 라우터는 사실상 검증되지 않은 것이다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>불가능하다. 재생 대체 방식은 교체된 단계를 어떤 모델이 만들었든 나머지 궤적이 똑같이 전개된다고 가정한다. 교체 지점에서 에이전트 실행을 분기시켜 실제로 이어 가 보면 이 가정은 깨진다. 에이전트는 다른 경로를 택하고, 도달 가능한 로그 상태는 3%만 남으며, 재생 평가기는 결과가 중요한 바로 그 순간에 틀린 판단을 내린다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>모델 교체는 편집이 아니라 분기다.</p>\n<ul><li><strong>재생은 교체를 국소 패치로 취급한다.</strong> 한 단계를 대체하고, 이후 로그 단계를 그대로 두고, 최종 결과를 비교한다. 실행도 환경도 필요 없어 비용이 낮다.</li><li><strong>현실은 갈라진다.</strong> 교체 이후 새 모델은 자신의 행동이 만든 도구 출력과 오류를 읽으므로 이후 모든 단계가 달라진다. 두 실행은 앞부분만 공유하고 그 뒤로는 공유하는 것이 없다.</li></ul>\n<p>해결책은 분기 롤아웃이다. 교체 지점에서 실제 궤적을 분기하고, 샌드박스를 다시 구성하고, 새 모델을 실행하게 한 뒤, 같은 모델을 쓰는 대조 분기와 비교한다. 대조 분기를 두면 발산 중 교체 때문인 부분과 일반적인 샘플링 노이즈 때문인 부분을 분리할 수 있다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>에이전트 궤적은 모델 출력, 환경 응답, 다음 모델 입력이 이어진 체인이다. 각 입력은 직전 행동에 대해 환경이 돌려준 결과에 따라 달라진다. N단계에서 모델을 교체하면 N+1단계의 입력은 다른 도구 호출, 편집, 명령으로 만들어진다. 다음 출력이 달라지면 다음 환경 응답도 달라지고, 그 차이는 단계마다 누적된다. 원본 로그를 계속 사용하는 재생 평가기는 교체로 무효가 된 후속 흐름을 기준으로 교체된 단계를 채점하는 셈이다.</p>\n<p>측정된 발산에서 개발자가 눈여겨볼 특징은 세 가지다.</p>\n<ul><li><strong>발산은 즉시 시작된다.</strong> 이른 시점의 교체 대부분은 분기 직후 첫 행동부터 발산하며, 그 비율은 같은 모델 대조군보다 훨씬 높다.</li><li><strong>실행 후반에 발산이 줄어드는 것은 남은 단계가 적기 때문일 뿐</strong>, 후반 교체를 재생해도 안전하다는 뜻이 아니다.</li><li><strong>결과가 뒤집히는 경우는 드물지만 실제로 존재한다.</strong> 해결에서 미해결로, 또는 미해결에서 해결로 바뀐 사례는 모두 교체 분기에서 나왔고 대조군에서는 한 건도 없었다. 따라서 재생한 로그의 최종 상태 정확도는 실제 배포에서 생길 변화를 놓친다.</li></ul>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>재생으로 측정한 라우터 정확도는 할인해서 본다.</strong> 실제 롤아웃으로 확인하기 전까지는 검증되지 않은 것으로 취급한다.</li><li><strong>분기 롤아웃으로 평가한다.</strong> 의사결정 지점에서 분기하고, 교체된 모델을 실제 환경 또는 충실하게 재구성한 환경에서 실행하며, 로그와의 차이가 아니라 결과를 채점한다.</li><li><strong>같은 모델 대조군을 추가한다.</strong> 대조군이 없으면 샘플링 노이즈와 교체 효과를 구분할 수 없다.</li><li><strong>라우터가 초반에 모델을 바꾼다면 초반 교체 지점을 집중적으로 샘플링한다.</strong> 첫 행동 발산이 가장 높은 구간이기 때문이다.</li><li><strong>교체 시점을 넘겨줄 이력의 범위를 정한다.</strong> 이어받는 모델은 물려받은 원본 이력의 습관을 모방한다. 요약본 인계와 원본 인계를 비교 테스트하고, 특히 약한 모델의 이력을 강한 모델에 넘기는 경우를 확인한다.</li><li><strong>비용과 정확성은 별개의 주장으로 다룬다.</strong> 프런티어 모델 호출이 줄었다는 점은 로그로 정확히 측정할 수 있지만, 성공률이 그대로라는 점은 실제 실행 증거가 필요하다. 비용 측면은 <a href=\"/foundations/agent-model-routing\">모델 라우팅</a> 참고.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>재생 대체 정확도를 실제 프로덕션 측정값처럼 보고하는 것.</li><li>교체가 해당 단계에만 영향을 준다고 가정하는 것.</li><li>발산이 작아 보인다는 이유로 평가에서 후반 교체 지점을 선호하는 것.</li><li>같은 모델 대조군 없이 교체 실험을 실행해 샘플링 노이즈를 교체 효과로, 또는 그 반대로 잘못 해석하는 것.</li><li>라우터의 비용 절감을 배포해도 안전하다는 증거로 간주하는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>라우팅 정책 자체는 <a href=\"/foundations/agent-model-routing\">모델 라우팅</a>, 평가 점수를 신뢰하기 전에 평가의 정확성을 점검하는 방법은 <a href=\"/foundations/agent-eval-design\">에이전트 평가 설계</a> 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "new-model-old-habits-2026",
+      "kind": "theory-paper",
+      "tier": "theory/paper-backed",
+      "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents",
+      "note": "Preprint. Studies multi-session agents that switch LLMs mid-history. The receiving model adopts reasoning and action patterns of the model that wrote the history; transfer is strongest with raw history and substantially reduced by summarization. Proposes DASH (direction- and authorship-aware summarization), which beats raw and naive-summary transfer in repeated swaps. The abstract gives no numbers.",
+      "added": "2026-10-16",
+      "url": "https://arxiv.org/abs/2610.19712",
+      "sid": "5ff62714bccfe1a7"
+    },
+    {
+      "id": "gonuguntla-2026-replay-gap",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "The Replay Gap: Static Evaluation of Model Switching in LLM Agents Scores the Wrong World",
+      "note": "COLM 2026. Forks live SWE-bench trajectories at a model swap, rebuilds the sandbox, and compares against same-model control forks (~900 rollouts). Swaps rewrite 61-94% of post-fork actions; 74-77% of early swaps diverge on the first action versus 6-35% of controls; 3% of logged states stay valid. All five outcome flips occur in swap arms, none in 359 controls. A log-stitching replay evaluator mispredicts every swap-dependent outcome (0.00-0.11 patch similarity).",
+      "added": "2026-09-05",
+      "url": "https://arxiv.org/abs/2608.08239",
+      "sid": "4e6b8920803e5949"
+    },
+    {
+      "id": "model-switching-replay-gap-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "A methodology result about evaluating model routers, not a routing-policy result. It says nothing about which routing policy to use, only that the common way teams check a policy before shipping measures something other than what production will do.",
+      "added": "2026-09-05"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+      "slug": "agent-benchmarks",
+      "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}

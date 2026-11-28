@@ -1,0 +1,133 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/mcp-security-control-layers",
+  "source_hash": "f6b7fc4a8e6865f36fb19ef11358e195d45c3816bbc90418f9149f3243d40d43",
+  "translated_at": "2026-11-28T05:00:27.212998+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "mcp-security-control-layers",
+  "title": "MCP를 프로덕션에서 운영하면 실제로 무엇이 깨지고, 어떻게 방어할까?",
+  "question": "What actually breaks when you run MCP in production, and how do you defend it?",
+  "summary": "문서화된 MCP CVE는 안전하지 않은 툴 실행, 인증 없는 관리 엔드포인트, 제한 없는 아웃바운드 호출, 감지되지 않는 툴 정의 변경(drift)이라는 네 개 계층에 몰려 있다. 게이트웨이는 이 중 어느 것도 직접 막지 못한다. 각각 실패가 일어나는 지점에 더 가까운 곳에서 별도의 통제를 적용해야 한다.",
+  "status": "active",
+  "cluster": "safety",
+  "cluster_label": "Safety and control",
+  "updated": "2026-11-06",
+  "latest_evidence_added": "2026-11-06",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>&quot;MCP 보안&quot;을 &quot;인증된 게이트웨이 뒤에 두는 것&quot;으로 이해한다면, 네 개 계층 중 하나만 다룬 셈이다. 문서화된 MCP CVE는 대부분 게이트웨이가 앞단에서 받아 주는 서버의 내부나 그 뒤에서 발생한다. 툴이 인자를 어떻게 실행하는지, 서버가 아웃바운드로 무엇에 접근할 수 있는지, 툴의 정의나 코드가 승인된 상태와 여전히 일치하는지가 그 대상이다. 게이트웨이의 인바운드 인증 검사는 이 중 어느 것도 점검하지 않으며, 유효한 서명이 있다고 해서 툴이 안전하다는 증거가 되지도 않는다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>MCP 취약점은 네 개 계층에 몰려 있으며, 계층마다 차단하는 지점이 다르다.</p>\n<ul><li><strong>실행</strong> — 인자가 셸이나 <code>eval()</code>까지 전달된다.</li><li><strong>관리</strong> — 인스펙터, 테스트 하네스, 등록 엔드포인트가 인증 없이 방치된다.</li><li><strong>아웃바운드 신뢰</strong> — 서버가 권한 있는 자격 증명으로 임의의 URL을 호출할 수 있다.</li><li><strong>의미적 무결성</strong> — 승인 후에 툴의 정의가 바뀐다.</li></ul>\n<p>게이트웨이는 인바운드 라우팅과 인증을 담당하는 통제 수단이다. 네 가지 실패 중 세 가지는 게이트웨이 뒤에서 일어난다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>각 MCP 서버를 게이트웨이 경계 안의 신뢰할 수 있는 호스트가 아니라, 고유한 공격 표면을 가진 작고 권한 있는 서비스로 모델링해야 한다. 다음 네 가지를 물어본다.</p>\n<ol><li>호출자가 넘긴 인자를 셸 명령이나 평가되는 코드로 바꾸는가?</li><li>에이전트가 아닌 인터페이스(디버그, CI, 등록)에는 인증이 걸려 있는가?</li><li>아웃바운드로 무엇에 접근할 수 있고, 어떤 자격 증명을 쓰는가?</li><li>공개된 동작이 아무도 모르게 바뀔 수 있는가?</li></ol>\n<p>게이트웨이는 &quot;누가 이 서버를 호출할 수 있는가&quot;에 답한다. 이는 실제로 필요하지만 별개의 질문이다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p><strong>실행.</strong> 툴이 호출자가 제어하는 인자를 셸 문자열이나 <code>exec()</code>/<code>eval()</code>에 그대로 넘긴다. 웹 폼 대신 툴 호출을 통해 도달하는 전형적인 명령 인젝션이다. InfoQ 분석은 문서화된 CVE 30건 중 <strong>13건</strong>을 이 유형으로 분류한다. 인자를 배열로 넘기면 인젝션이 끼어들 여지가 없다.</p>\n<p><strong>관리.</strong> MCP 도구는 개발 도구 수준의 가벼운 태도로 만든 운영용 인터페이스를 함께 제공하는데, 이것이 프로덕션 네트워크에서 접근 가능한 채로 남는다. CVE 6건은 애초에 접근할 수 없어야 했던 인증 없는 엔드포인트에 관한 것이다.</p>\n<p><strong>아웃바운드 신뢰.</strong> 제한 없는 egress와 넓은 권한의 자격 증명이 합쳐지면 SSRF 한 번이 자격 증명 탈취로 이어진다. CVE-2026-26118에서는 목적지를 제한하거나 토큰 범위를 좁히지 않아, 악성 URL로 Azure 관리형 ID 토큰을 가져갈 수 있었다.</p>\n<p><strong>의미적 무결성.</strong> 승인은 두 가지 방식으로 낡을 수 있다. 검토 후에 정의가 바뀌거나, 정의는 그대로인데 그 뒤의 코드가 바뀌는 경우다. ETUDE는 모델 컨텍스트 밖에서 실행되는 툴 업데이트를 통해 97.6%의 공격 성공률에 도달했고, 유효한 서명이 있는 툴도 MCPGuard-Dynamic을 상대로 한 모든 시도에서 데이터를 유출했다. &quot;러그 풀&quot;에서는 서버가 공개하는 정의가 바뀌기 때문에, 검토자가 승인한 툴과 이후 실제로 실행되는 툴이 달라진다. 승인된 정의의 정규화된 해시를 고정해 두면 어떤 변경이든 명시적인 검토 이벤트가 된다.</p>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>실행 경로부터 점검한다. CVE 비중이 가장 큰 범주다.</strong> <code>shell=True</code>, <code>exec()</code>, <code>eval()</code>, 문자열로 조립한 명령을 grep으로 찾고, 인자 배열을 필수로 요구하며, 위반 시 CI를 실패 처리한다.</li><li><strong>인스펙터, 테스트 하네스, 등록 엔드포인트를 프로덕션 서비스로 취급한다.</strong> 인증, 네트워크 격리, 최소한의 파일시스템 접근을 적용한다.</li><li><strong>모든 서버에 egress 허용 목록을 두고, 자격 증명은 툴 용도별로 범위를 제한한다.</strong> 토큰 하나가 유출되어도 서버가 접근 가능한 모든 곳에 닿지 못하게 하기 위해서다.</li><li><strong>등록 시점에 툴 매니페스트를 고정한다.</strong> 정규화된 정의의 SHA-256 해시를 사용하고, 실질적인 변경이 있으면 운영자 검토를 요구한다.</li><li><strong>최초 승인뿐 아니라 업데이트할 때마다 툴을 다시 검증한다.</strong> 서명은 누가 게시했는지를 증명할 뿐, 코드가 무엇을 하는지는 증명하지 않는다.</li><li><strong>각 호출이 볼 수 있는 범위를 제한한다.</strong> germline execution처럼, 툴 호출은 해당 목적지에 허용된 데이터만 가지고 실행한다.</li><li><strong>툴 스키마와 출력에 대한 입력·컨텍스트 스캔을 추가한다.</strong> COPEX는 8개 공격 하위 집합에서 공격 성공률이 평균 49.6% 감소했다고 측정했고, 정규식 기반 설명 스캐너는 45개 포이즈닝 시나리오 중 20개를 잡아냈다. 스캔은 부분적인 수단으로 보고, 위의 통제를 대체하는 것으로 취급하지 않는다.</li><li><strong>게이트웨이 너머의 통제에도 예산을 배정한다.</strong> 게이트웨이는 인바운드 라우팅, 인증, 관측성을 제공한다. 실행, 아웃바운드, 무결성 통제는 별도의 작업이다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>&quot;인증된 게이트웨이 뒤에 있다&quot;를 &quot;안전하다&quot;와 같은 것으로 보는 것.</li><li>디버그나 인스펙터 도구가 &quot;실제 API가 아니라서&quot; 접근 가능한 채로 두는 것.</li><li>툴에 하나의 통합에 필요한 범위보다 넓은 아웃바운드 자격 증명을 줘서, SSRF가 전체 자격 증명 유출로 번지게 하는 것.</li><li>최초 승인 이후 서버의 툴 정의나 서명된 코드를 무기한 신뢰하는 것.</li><li>모델이 거부해 주기를 기대하는 것. 프레임워크는 방어를 추가하지 않으므로, 모델에 따라 저항률이 0.4%에서 49.7%까지 달라진다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p><a href=\"/topic/mcp\">MCP</a>, 인자 배열을 보완하는 실행 격리를 다루는 <a href=\"/topic/agent-sandboxing\">에이전트 샌드박싱</a>, 아웃바운드 신뢰 실패의 배후에 있는 공격자 제어 입력을 다루는 <a href=\"/topic/prompt-injection\">프롬프트 인젝션</a>을 참고.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "mcpvenom-2026-tool-poisoning-measurement",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study",
+      "note": "Runs real tool execution across 12 frameworks, 18 models, 45 scenarios (9,720 cells). Overall attack success is 22.9%; of successes, 12.1% verifiably exfiltrate a secret. Resistance is model-level: nine frameworks cluster at 23-26% and none implements intentional defense. A regex description scanner rejects 20 of 45 scenarios at a 7.2% false-positive rate.",
+      "added": "2026-11-06",
+      "url": "http://arxiv.org/abs/2611.03555v1",
+      "sid": "f4762eccd1c3e217"
+    },
+    {
+      "id": "etude-2026-tool-update-gap",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+      "note": "ETUDE embeds malicious code in an update to an initially benign tool. Across seven frameworks including Gemini CLI, Codex CLI, and Claude Code it reaches 97.6% attack success with 95.9% legitimate task completion. The payload runs outside the model's context, so in-context defenses do not see it.",
+      "added": "2026-11-06",
+      "url": "http://arxiv.org/abs/2611.01976v1",
+      "sid": "3b426192f1bc75ae"
+    },
+    {
+      "id": "germline-2026-signed-tool-leak",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains",
+      "note": "A validly signed MCP tool leaks data to a policy-allowed destination and defeats Meta's MCPGuard-Dynamic in every trial. Germline execution forks each call from a data-free process holding only destination-authorised data: no disclosure in 153 attack runs versus 5.9-74.5% under baselines.",
+      "added": "2026-11-06",
+      "url": "http://arxiv.org/abs/2611.06585v1",
+      "sid": "1c990a2a55a59e80"
+    },
+    {
+      "id": "copex-2026-mcp-adversarial-context",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
+      "note": "Holds the agent stack fixed and varies only the tool-selecting model: 25 attack types, 125 scenarios, four entry surfaces (model/agent, client, server/tool, transport), nine models, 3,375 trials. Mean attack success is 64.4%, 58.3% to 71.4% by surface. Some client and transport attacks succeed outside the model's view. Combined input and context scanning cut mean success 49.6% on an eight-attack subset.",
+      "added": "2026-10-07",
+      "url": "http://arxiv.org/abs/2610.04378v1",
+      "sid": "b0a6adb95dddda44"
+    },
+    {
+      "id": "infoq-mcp-defense-in-depth",
+      "kind": "production-field-report",
+      "tier": "production field-report-backed",
+      "title": "Securing MCP in Production: Defense-in-Depth Beyond the Gateway",
+      "note": "Groups 30 documented MCP CVEs into four layers: 13 from unsafe execution (shell interpolation, exec/eval on input), six from unauthenticated inspector, test-harness, or registration endpoints, outbound trust (CVE-2026-26118, an Azure SSRF leaking a managed-identity token), and post-registration definition drift ('rug-pull'). Recommends argument arrays, authenticated and isolated management endpoints, egress allow-lists with per-purpose credentials, and SHA-256 manifest pinning with operator review.",
+      "added": "2026-08-08",
+      "url": "https://www.infoq.com/articles/securing-mcp-production-gateway/"
+    },
+    {
+      "id": "aws-agentcore-mcp-2026-07-28-spec",
+      "kind": "story",
+      "tier": "source story",
+      "title": "How AgentCore Gateway supports the MCP 2026-07-28 spec",
+      "note": "Context: the hardening guidance landed one day after MCP's 2026-07-28 spec revision, which changed authorization but left execution, management, outbound, and integrity risks to deployment-level controls.",
+      "added": "2026-08-08",
+      "sid": "b734d716b0d66f96"
+    },
+    {
+      "id": "mcp-security-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "A routing gateway sits at the network edge, while three of the four failure classes (unsafe execution, outbound exfiltration, definition drift) originate inside or behind the MCP server. A gateway enforces inbound auth and rate limits but cannot see what a tool does once a call reaches it.",
+      "added": "2026-08-08"
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "mcp",
+      "title": "Model Context Protocol: a standard interface for agent tools"
+    },
+    {
+      "slug": "agent-sandboxing",
+      "title": "Sandboxing, scoped credentials, and guardrails"
+    },
+    {
+      "slug": "prompt-injection",
+      "title": "Untrusted input and tools can hijack an agent"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": []
+}
